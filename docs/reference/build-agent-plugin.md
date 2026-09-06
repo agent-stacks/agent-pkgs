@@ -10,14 +10,14 @@ every argument.
 
 | Argument | Default | What it does |
 | -------------------- | ------- | ------------ |
-| `name` | required | Plugin name; also the output directory name. |
+| `name` | required | Plugin name; also the package name and the output directory name. `check-plugin` requires it to match the manifest's `name`. |
 | `version` | `"0"` | Derivation version. |
 | `src` | required | Source tree (fetcher output or local path). |
 | `sourceUrl` | `null` | Upstream URL recorded in `passthru.agentPlugin`. |
 | `manifest` | `null` | Attrset serialized to `plugin.json` when the src ships none. Passing both is a build error. |
 | `skills` | `null` | Skill name → path in src. When null, the builder falls back to `skills-lock.json`, then to a passthrough tree. |
-| `mcpServers` | `null` | Attrset serialized to `mcp.json` when the src ships none; same both-is-an-error rule. |
-| `floxAgent` | `null` | When set, the install check runs `flox-agent check-plugin --strict` on the output. |
+| `mcpServers` | `null` | Attrset serialized to `mcp.json` when the src ships none; same both-is-an-error rule. The generated file declares the same spec version as `manifest`, defaulting to 1.0.0 when there is no manifest. |
+| `floxAgent` | `null` | When set, the install check runs `flox-agent check-plugin --strict` on the output. What that validates is documented in the flox-agent repo, `docs/reference/check-plugin-command.md`. |
 | `runtimes` | `{ }` | Interpreter name → package. Overrides `mappings/runtimes.nix` and pins versions, e.g. `{ python3 = python312; }`. |
 | `allowPathCommands` | `[ ]` | Bare `mcp.json` commands that intentionally resolve from the consumer environment's PATH instead of the closure. |
 | `extraSubstitutions` | `[ ]` | List of `{ file; replace; with; }` applied after the automatic pass, for interpreter mentions in script bodies or SKILL.md text. |

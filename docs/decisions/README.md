@@ -7,6 +7,12 @@ decision, add a new record that supersedes the old one.
 
 Format and process live in [template.md](template.md).
 
+These records cover the Nix side only: the builders, the package set,
+and the contract this repo meets flox-agent at. Decisions about
+`flox-agent import`, `check-plugin` or `launch` are recorded in the
+flox-agent repo, under `docs/decisions/`. A record here that depends
+on one of those links to it rather than restating it.
+
 | # | Decision |
 | ---- | -------- |
 | [0001](0001-flake-only-entry-point.md) | Flake-only entry point |

@@ -83,6 +83,33 @@
               touch $out
             '';
 
+          # A generated mcp.json must target the same spec version as
+          # the manifest; a mismatch makes clients disable MCP for the
+          # plugin (spec §7.2.2).
+          mcp-spec-version =
+            let
+              plugin = (mkLib pkgs).buildAgentPlugin {
+                name = "mcp-versioned";
+                src = ./pkgs/example-runtimes/src;
+                manifest = {
+                  "$schema" = "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json";
+                  name = "mcp-versioned";
+                };
+                skills.greet = "skills/greet";
+                mcpServers.hello = {
+                  type = "stdio";
+                  command = "bash";
+                };
+              };
+            in
+            pkgs.runCommand "check-mcp-spec-version" { } ''
+              got=$(${pkgs.jq}/bin/jq -r '."$schema"' \
+                ${plugin}/share/agent-plugins/mcp-versioned/mcp.json)
+              want=https://agent-plugins.org/schemas/1.1.0/mcp.schema.json
+              [ "$got" = "$want" ] || { echo "mcp.json targets $got, want $want"; exit 1; }
+              touch $out
+            '';
+
           # AI-640 acceptance: interpreters land in the closure, the
           # shebangs and mcp.json point at the plugin-local bin/.
           runtimes-closure =

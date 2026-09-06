@@ -61,10 +61,18 @@ let
     if manifest == null then null
     else builtins.toFile "plugin.json" (builtins.toJSON manifest);
 
+  # An mcp.json targeting a different spec version than plugin.json
+  # makes a client disable MCP for the plugin (spec §7.2.2), so the
+  # generated one follows the manifest's version when there is one.
+  specVersionOf = m:
+    if m != null && m ? "$schema"
+    then lib.head (lib.splitString "/" (lib.last (lib.splitString "/schemas/" m."$schema")))
+    else "1.0.0";
+
   mcpFile =
     if mcpServers == null then null
     else builtins.toFile "mcp.json" (builtins.toJSON {
-      "$schema" = "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json";
+      "$schema" = "https://agent-plugins.org/schemas/${specVersionOf manifest}/mcp.schema.json";
       inherit mcpServers;
     });
 

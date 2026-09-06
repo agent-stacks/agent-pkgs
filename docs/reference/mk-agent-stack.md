@@ -10,10 +10,11 @@ mkAgentStack {
 }
 ```
 
-Building that produces `bin/my-stack`. Running it starts the agent.
-Skills reach the agent once `flox-agent launch` reads the
-`share/agent-plugins` layout; until then a stack launches its harness
-without them.
+Building that produces `bin/my-stack`. Running it starts the agent
+through `flox-agent launch`, which reads the stack's
+`share/agent-plugins` layout and stages the plugins in whatever shape
+the agent expects. That staging is documented in the flox-agent repo,
+`docs/architecture/launch.md`.
 
 ## Arguments
 
@@ -41,10 +42,12 @@ path, such as `harness = "/usr/local/bin/claude"`, is accepted the
 same way but is not reproducible: nothing ties the launcher to a
 particular closure at that location.
 
-The agent is identified by the binary's basename, matched against the
-agents `flox-agent launch` supports: `agent-deck`, `claude`, `codex`,
-`opencode`, `pi`. There is no table mapping package names to agent
-names.
+The agent is identified by the binary's basename, matched against
+`knownAdapters` in `lib/mk-agent-stack.nix`, which mirrors the agents
+`flox-agent launch` registers (`launch.RegisteredNames`, listed in the
+flox-agent repo's `docs/architecture/launch.md`). Adding an agent
+there means adding it here too. There is no table mapping package
+names to agent names.
 
 A package without `meta.mainProgram` is rejected: pass the binary
 path instead. Reading the package's `bin/` during evaluation would

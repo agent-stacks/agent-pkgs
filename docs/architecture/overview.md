@@ -20,7 +20,10 @@ upstream repo ──(flox-agent import, impure)──▶ pkgs/<name>/default.nix
 discovers skills in a source repo, pins everything (commit +
 hashes), and writes one generated `default.nix` per plugin into
 `pkgs/`. The generated file's shape is the
-[import→builder contract](../reference/import-contract.md).
+[import→builder contract](../reference/import-contract.md); how the
+generator reaches it is documented where the generator lives, in the
+flox-agent repo (`docs/reference/import-command.md` and the decision
+records beside it).
 
 `buildAgentPlugin` is pure: no network at build time. It assembles
 the canonical Agent Plugins layout from the pinned src, rewrites
@@ -35,7 +38,8 @@ is available ([ADR 0002](../decisions/0002-optional-check-phase.md)).
 `mkAgentStack` composes plugins and one harness into a stack: the
 neutral plugin layout, a launcher named after the stack, and an audit
 output. It bakes no per-harness trees, because `flox-agent launch`
-adapts plugins to the agent just in time.
+adapts plugins to the agent just in time; how that staging works is
+described in the flox-agent repo, `docs/architecture/launch.md`.
 
 ## Package discovery
 
@@ -46,9 +50,9 @@ and a package in `pkgs/` may take another package in `pkgs/` as an
 argument, which is how a stack names its plugins. `flake.nix` also
 exposes `lib.buildAgentPlugin` and `lib.mkAgentStack` per system, and
 `checks` covering every package plus the `layout`, `override-hook`,
-`runtimes-closure`, `runtimes-two-pythons`, `runtimes-failures`,
-`stack-layout`, `stack-launcher`, `stack-audit`, and
-`stack-assertions` assertions.
+`mcp-spec-version`, `runtimes-closure`, `runtimes-two-pythons`,
+`runtimes-failures`, `stack-layout`, `stack-launcher`, `stack-audit`,
+and `stack-assertions` assertions.
 
 ## CI
 
