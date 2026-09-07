@@ -2,7 +2,13 @@
   description = "Nix package set for Agent Plugins and Agent Stacks";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # The Flox nixpkgs fork, not upstream. Publishing to a Flox catalog
+    # requires a nixpkgs revision the catalog server has a page for, and
+    # those pages track this fork — an upstream revision is rejected
+    # with "specifies a page or catalog that does not exist in this
+    # instance". Building against the nixpkgs we publish against keeps
+    # what we build and what the catalog serves identical.
+    nixpkgs.url = "github:flox/nixpkgs/unstable";
   };
 
   outputs = { self, nixpkgs }:
