@@ -11,6 +11,17 @@
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system:
         f (import nixpkgs { inherit system; }));
 
+      # Systems Hydra builds and the catalog caches. x86_64-darwin is
+      # deliberately absent: it stays in packages and checks so an Intel
+      # Mac can still build from source, it is simply not cached.
+      hydraSystems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
+
+      # example-* packages are fixtures that exercise the builder. The
+      # publish hook fires on every Hydra build, so the subtree a job
+      # sits in is what decides whether it reaches a public catalog:
+      # fixtures build under hydraJobs.checks and stop there.
+      isFixture = name: nixpkgs.lib.hasPrefix "example-" name;
+
       # Every subdirectory of pkgs/ with a default.nix is a package.
       # `flox-agent import --out pkgs/<name>` drops packages here; no
       # central list to edit.
@@ -369,5 +380,19 @@
               '');
         });
       lib = forAllSystems mkLib;
+
+      # What Hydra builds. packages.* is published to the agent-stacks
+      # catalog; checks.* builds as a gate and is never published. The
+      # jobset configuration lives in deltaops doc/hydra-jobsets.md,
+      # because Hydra jobsets are configured in its web UI.
+      hydraJobs = {
+        packages = nixpkgs.lib.genAttrs hydraSystems (system:
+          let all = mkPackages (import nixpkgs { inherit system; });
+          in nixpkgs.lib.filterAttrs (name: _: !isFixture name) all);
+
+        checks = nixpkgs.lib.genAttrs hydraSystems (system:
+          let all = mkPackages (import nixpkgs { inherit system; });
+          in nixpkgs.lib.filterAttrs (name: _: isFixture name) all);
+      };
     };
 }
