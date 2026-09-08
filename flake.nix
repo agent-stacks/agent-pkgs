@@ -14,8 +14,20 @@
   outputs = { self, nixpkgs }:
     let
       systems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
-      forAllSystems = f: nixpkgs.lib.genAttrs systems (system:
-        f (import nixpkgs { inherit system; }));
+
+      # flox-agent is a published binary of a proprietary CLI, so it carries an
+      # unfree license and a default nixpkgs refuses to evaluate it — which
+      # would break the plain `nix run <flake>#flox-agent` this set exists to
+      # offer. The allowance is scoped to that one pname rather than the whole
+      # instance, so an unfree dependency drifting into any other package still
+      # fails loudly. This governs only packages built through this flake; a
+      # consumer's own nixpkgs config is untouched.
+      pkgsFor = system: import nixpkgs {
+        inherit system;
+        config.allowUnfreePredicate = pkg: nixpkgs.lib.getName pkg == "flox-agent-bin";
+      };
+
+      forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f (pkgsFor system));
 
       # Systems Hydra builds and the catalog caches. x86_64-darwin is
       # deliberately absent: it stays in packages and checks so an Intel
@@ -27,6 +39,13 @@
       # sits in is what decides whether it reaches a public catalog:
       # fixtures build under hydraJobs.checks and stop there.
       isFixture = name: nixpkgs.lib.hasPrefix "example-" name;
+
+      # Held out of hydraJobs entirely, so the publish hook never pushes it.
+      # The binary is already downloadable from downloads.agent-stacks.org;
+      # republishing a proprietary CLI to a public catalog is a licensing call
+      # for its owner, not a side effect of adding a file to pkgs/. Drop the
+      # name from this list to start publishing it.
+      isUnpublished = name: name == "flox-agent";
 
       # Every subdirectory of pkgs/ with a default.nix is a package.
       # `flox-agent import --out pkgs/<name>` drops packages here; no
@@ -393,11 +412,11 @@
       # because Hydra jobsets are configured in its web UI.
       hydraJobs = {
         packages = nixpkgs.lib.genAttrs hydraSystems (system:
-          let all = mkPackages (import nixpkgs { inherit system; });
-          in nixpkgs.lib.filterAttrs (name: _: !isFixture name) all);
+          let all = mkPackages (pkgsFor system);
+          in nixpkgs.lib.filterAttrs (name: _: !isFixture name && !isUnpublished name) all);
 
         checks = nixpkgs.lib.genAttrs hydraSystems (system:
-          let all = mkPackages (import nixpkgs { inherit system; });
+          let all = mkPackages (pkgsFor system);
           in nixpkgs.lib.filterAttrs (name: _: isFixture name) all);
       };
     };
