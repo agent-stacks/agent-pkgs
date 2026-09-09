@@ -6,10 +6,10 @@ Status: Accepted
 
 ## Context
 
-A stack has to name the agent it runs. AI-559 and AI-564 specified a
-list of harnesses, so that one stack could serve Claude, Codex and an
-OSS agent at once, and nobody sharing the stack would be pushed onto
-a particular agent.
+A stack has to name the agent it runs. The original design specified
+a list of harnesses, so that one stack could serve Claude, Codex and
+an OSS agent at once, and nobody sharing the stack would be pushed
+onto a particular agent.
 
 Two things pull the other way. The stack's launcher is a single
 binary named after the stack, and with several harnesses it has no
@@ -36,8 +36,7 @@ and needing no new file format.
 - `+` The launcher is unambiguous: `my-stack` runs one thing.
 - `+` No mapping table between package names and agent names, and no
   build forced during evaluation.
-- `+` Pinning the harness pins its runtime with it, satisfying
-  AI-564 per stack.
-- `-` Amends AI-559 and AI-564, which describe a list.
+- `+` Pinning the harness pins its runtime with it, per stack.
+- `-` Amends the original design, which describes a list.
 - `-` Three stacks over the same plugins duplicate the plugin copies
   in three store paths.

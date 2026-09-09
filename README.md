@@ -11,7 +11,7 @@ builds with plain Nix — no Flox required.
 ## Use it
 
 ```sh
-nix build github:agent-stacks/agent-pkgs#example-plugin
+nix build github:agent-stacks/agent-pkgs#agent-plugin-superpowers
 ```
 
 Every package produces the canonical Agent Plugins layout:
@@ -37,15 +37,11 @@ Add a package by dropping a directory into `pkgs/` — typically via
 
 ## Stacks
 
-```sh
-nix build github:agent-stacks/agent-pkgs#example-stack
-./result/bin/example-stack
-```
-
-That launches the harness, but skills aren't wired in yet: every
-adapter in `flox-agent` still reads the old `share/flox/<agent>/`
-layout, so the agent starts with none of the stack's skills until a
-separate launch rework lands.
+`mkAgentStack` composes plugins into a stack with a launcher for the
+harness. The launcher starts the harness, but skills aren't wired in
+yet: every adapter in `flox-agent` still reads the old
+`share/flox/<agent>/` layout, so the agent starts with none of the
+stack's skills until a separate launch rework lands.
 
 See [docs/reference/mk-agent-stack.md](docs/reference/mk-agent-stack.md).
 

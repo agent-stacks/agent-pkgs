@@ -49,10 +49,12 @@ self-referential scope, not plain `callPackage` — no central list,
 and a package in `pkgs/` may take another package in `pkgs/` as an
 argument, which is how a stack names its plugins. `flake.nix` also
 exposes `lib.buildAgentPlugin` and `lib.mkAgentStack` per system, and
-`checks` covering every package plus the `layout`, `override-hook`,
-`mcp-spec-version`, `runtimes-closure`, `runtimes-two-pythons`,
-`runtimes-failures`, `stack-layout`, `stack-launcher`, `stack-audit`,
-and `stack-assertions` assertions.
+`checks` covering every package plus the `runtimes-failures`
+assertion.
+
+Spec conformance is not a separate check. `buildAgentPlugin` runs
+`flox-agent check-plugin` on every plugin it builds, so a tree that
+violates the Agent Plugins or Agent Skills spec fails its own build.
 
 ## CI
 

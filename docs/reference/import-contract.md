@@ -2,8 +2,7 @@
 
 This is the call shape `flox-agent import --out pkgs/` generates into
 `pkgs/agent-plugin-<name>/`, and the passthru schema consumers can
-rely on. `flox-agent
-import` (flox-agent repo, AI-632) codes against this file;
+rely on. `flox-agent import` (flox-agent repo) codes against this file;
 `buildAgentPlugin` (this repo) implements it. Change either side only
 together with this document.
 
@@ -52,7 +51,7 @@ buildAgentPlugin {
   meta = {
     description = "...";
     homepage = "https://github.com/OWNER/REPO";
-    # license recorded when known (AI-607: absent otherwise)
+    # license recorded when known; absent otherwise
   };
 }
 ```
@@ -118,10 +117,11 @@ passthru.agentPlugin = {
 
 ## Validation
 
-When a `floxAgent` package is passed, the install check phase runs
-`flox-agent check-plugin --strict` on the output. Import additionally
-validates trees at generation time with the same command, so both
-ends of the pipeline enforce the same spec (vendored in flox-agent).
+The install check phase runs `flox-agent check-plugin` on the output,
+using the flox-agent from this package set. Import validates trees at
+generation time with the same command, so both ends of the pipeline
+enforce the same spec (vendored in flox-agent). Pass `strict = true`
+to fail on warnings as well.
 
 ## Runtime substitution
 

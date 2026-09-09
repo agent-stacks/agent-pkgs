@@ -1,11 +1,10 @@
-# The flox-agent CLI, fetched as a published binary rather than built from
-# source: the CLI is proprietary and this repo is open, so the binary is the
-# only thing that crosses the line (AI-635).
+# The flox-agent CLI — the Flox implementation of the agent-plugins spec —
+# fetched as a published binary rather than built from source.
 #
 # Named flox-agent, not flox-agent-bin, because package names come from the
-# directory (flake.nix) and the acceptance command is
-# `nix run <flake>#flox-agent`. The pname keeps the -bin suffix, which is what
-# the allowUnfreePredicate in flake.nix matches on.
+# directory (flake.nix) and the entry point is `nix run <flake>#flox-agent`.
+# The pname keeps the -bin suffix, which is what the predicate in flake.nix
+# matches on.
 #
 # Bumping a version: change version, then for each system run
 #   nix store prefetch-file --json <url> | jq -r .hash
@@ -25,7 +24,6 @@ let
   hashes = {
     x86_64-linux = "sha256-1qAt7x9kTsIHyQ5y2ynezm/YdA1hzwuYIcqtvMEJIhg=";
     aarch64-linux = "sha256-C6BSr2NqYplhY5ZmNAcgon+yt33Vjj6E+/1Nh1EQ4vc=";
-    x86_64-darwin = "sha256-P1978i0YAlEFc5xvL5uMSQkYwlkDL2T/0lvwHjt6goQ=";
     aarch64-darwin = "sha256-M+E/4VVzN4/CaV2/Ml61NyJbjv+fOcazYUrx8ErQhZI=";
   };
 

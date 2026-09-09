@@ -21,7 +21,15 @@
 # `manifest` argument is only for sources that ship none. Passing both
 # is a build error. `mcpServers` and an upstream mcp.json follow the
 # same rule.
-{ lib, stdenvNoCC, jq, pkgs }:
+{ lib
+, stdenvNoCC
+, jq
+, pkgs
+  # The flox-agent package providing `check-plugin`. agent-pkgs binds
+  # pkgs/flox-agent here; null skips validation, which is what a
+  # consumer using lib/ without the package gets.
+, defaultFloxAgent ? null
+}:
 
 { name
 , version ? "0"
@@ -36,8 +44,13 @@
   # attrset of server name -> config (type/command/...)
 , mcpServers ? null
   # flox-agent package providing `flox-agent check-plugin`; when null
-  # the check phase is skipped (until the -bin package exists)
-, floxAgent ? null
+  # the check phase is skipped
+, floxAgent ? defaultFloxAgent
+  # treat check-plugin warnings as errors. Off by default: skills in
+  # the wild carry harness frontmatter fields the Agent Skills spec
+  # does not list (argument-hint, disable-model-invocation), and those
+  # are warnings a correct plugin can legitimately have.
+, strict ? false
   # per-plugin runtime pins: interpreter name -> package, overriding
   # mappings/runtimes.nix (e.g. { python3 = python312; })
 , runtimes ? { }
@@ -76,7 +89,7 @@ let
       inherit mcpServers;
     });
 
-  # Runtime resolution (AI-640): the table maps interpreter names to
+  # Runtime resolution: the table maps interpreter names to
   # nixpkgs attributes; the plugin's `runtimes` argument overrides it
   # with concrete packages. The resolved map is handed to the build
   # as JSON — outPath plus the package's main program name, so the
@@ -185,7 +198,7 @@ stdenvNoCC.mkDerivation {
       fi
     fi
 
-    # --- runtime substitution pass (AI-640) ---------------------------
+    # --- runtime substitution pass ------------------------------------
     # Detect interpreter names in shebangs and bare mcp.json commands,
     # resolve them through mappings/runtimes.nix (overridden by the
     # `runtimes` argument), link them into <plugin>/bin/, and rewrite
@@ -287,7 +300,9 @@ stdenvNoCC.mkDerivation {
   installCheckPhase =
     if floxAgent != null then ''
       runHook preInstallCheck
-      ${lib.getExe' floxAgent "flox-agent"} check-plugin --strict "$out/${out}"
+      ${lib.getExe' floxAgent "flox-agent"} check-plugin${
+        lib.optionalString strict " --strict"
+      } "$out/${out}"
       runHook postInstallCheck
     '' else ''
       echo "buildAgentPlugin: flox-agent not provided — skipping check-plugin validation" >&2
@@ -304,7 +319,7 @@ stdenvNoCC.mkDerivation {
     skills = if skills == null then null else builtins.attrNames skills;
   };
 
-  # Per AI-607: plugins make no license assertion by default (the
+  # Plugins make no license assertion by default (the
   # attribute is simply absent); generated packages record the
   # upstream license when known.
   inherit meta;

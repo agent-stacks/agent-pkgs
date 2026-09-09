@@ -25,6 +25,22 @@ the agent expects. That staging is documented in the flox-agent repo,
 | `plugins` | `[ ]` | Packages built by `buildAgentPlugin`. |
 | `audit.tools` | defaults | Packages put on PATH by the audit script. |
 | `audit.threshold` | `null` | Score below which the audit script fails. |
+| `floxAgent` | this set's | The flox-agent the launcher and audit script run. |
+
+## flox-agent
+
+The launcher and the audit script run the `flox-agent` package the
+stack was built against, so a stack carries its own agent in its
+closure instead of requiring one on the consumer's PATH. Stacks built
+from this repo get `pkgs/flox-agent`; pass `floxAgent` to bind a
+different one.
+
+`FLOX_AGENT_BIN` still overrides both scripts at run time, for running
+a stack against a local build:
+
+```sh
+FLOX_AGENT_BIN=./flox-agent ./result/bin/my-stack
+```
 
 ## The harness
 
@@ -93,6 +109,7 @@ passthru.agentStack = {
   name;      # the stack's name
   adapter;   # the agent flox-agent will launch
   harness;   # the harness as given: a name, a binary path, or a package
+  floxAgent; # the flox-agent package the scripts run, or null
   plugins;   # the plugin names in the stack
 };
 ```

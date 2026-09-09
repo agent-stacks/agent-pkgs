@@ -12,6 +12,10 @@
 , runtimeShell
   # From mappings/audit-tools.nix; see that file for why it may be empty.
 , defaultAuditTools ? [ ]
+  # The flox-agent package the launcher and audit script run. agent-pkgs
+  # binds pkgs/flox-agent here; null falls back to PATH resolution, which
+  # is what a consumer without the package gets.
+, defaultFloxAgent ? null
 }:
 
 { name
@@ -19,6 +23,8 @@
 , harness ? null
 , plugins ? [ ]
 , audit ? { }
+  # Override the flox-agent this stack runs.
+, floxAgent ? defaultFloxAgent
 }:
 
 let
@@ -65,10 +71,15 @@ let
       can launch. Known agents: ${lib.concatStringsSep ", " knownAdapters}
     '';
 
-  # Until AI-635 publishes the -bin package, the launcher resolves
-  # flox-agent at run time. When it lands, agent-pkgs binds the store
-  # path here and the override becomes a development escape hatch.
-  floxAgentBin = ''"''${FLOX_AGENT_BIN:-flox-agent}"'';
+  # The launcher runs the flox-agent it was built against, so a stack
+  # carries its own agent in its closure rather than hoping the consumer
+  # has one on PATH. FLOX_AGENT_BIN still wins, as a development escape
+  # hatch for running a stack against a local build. With no package
+  # bound, the name resolves from PATH as before.
+  floxAgentDefault =
+    if floxAgent == null then "flox-agent"
+    else lib.getExe' floxAgent "flox-agent";
+  floxAgentBin = ''"''${FLOX_AGENT_BIN:-${floxAgentDefault}}"'';
 
   # builtins.placeholder gives this output's final store path, so the
   # script can name its own share directory without any substitution.
@@ -136,7 +147,7 @@ let
   ''
   + ''
     if ! command -v ${floxAgentBin} >/dev/null 2>&1; then
-      echo "flox-agent not found; set FLOX_AGENT_BIN or install it" >&2
+      echo "flox-agent not found: ${floxAgentDefault}; set FLOX_AGENT_BIN" >&2
       exit 127
     fi
     status=0
@@ -186,7 +197,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   passthru.agentStack = {
-    inherit name adapter harness;
+    inherit name adapter harness floxAgent;
     plugins = pluginNames;
   };
 
