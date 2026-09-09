@@ -1,0 +1,62 @@
+name: Update flake.lock
+
+on:
+  schedule:
+    # Mondays at 05:00 UTC
+    - cron: "0 5 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    name: Update flake.lock
+    runs-on: ubuntu-latest
+    env:
+      NIX_CONFIG: |
+        experimental-features = nix-command flakes
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - name: Install flox
+        uses: flox/install-flox-action@3b80351ae97bbe063f264dc88fbd505507054963 # v2.5.3
+
+      - name: Configure nix
+        uses: flox/configure-nix-action@28a4eb7f63bf54c91670b4a698f0a9ebfb95384f # main
+
+      - name: Update flake inputs
+        run: nix flake update
+
+      - name: Flake check (builds every package)
+        run: nix flake check -L
+
+      - name: Commit bumped flake.lock
+        id: commit
+        run: |
+          if git diff --quiet -- flake.lock; then
+            echo "flake.lock unchanged, nothing to do"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: update flake.lock" -- flake.lock
+          git push --force origin HEAD:refs/heads/update-flake-lock
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Open pull request
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ -n "$(gh pr list --head update-flake-lock --state open --json number --jq '.[].number')" ]; then
+            echo "pull request already open, force-push updated it"
+            exit 0
+          fi
+          gh pr create \
+            --base "${GITHUB_REF_NAME}" \
+            --head update-flake-lock \
+            --title "chore: update flake.lock" \
+            --body "Automated \`nix flake update\`. \`nix flake check -L\` passed on ubuntu-latest before this pull request was opened."
