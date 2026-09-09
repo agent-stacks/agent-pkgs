@@ -1,6 +1,5 @@
-# The flox-agent CLI, fetched as a published binary rather than built from
-# source: the CLI is proprietary and this repo is open, so the binary is the
-# only thing that crosses the line (AI-635).
+# The flox-agent CLI — the Flox implementation of the agent-plugins spec —
+# fetched as a published binary rather than built from source (AI-635).
 #
 # Named flox-agent, not flox-agent-bin, because package names come from the
 # directory (flake.nix) and the acceptance command is

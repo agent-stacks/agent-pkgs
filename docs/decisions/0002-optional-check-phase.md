@@ -8,8 +8,8 @@ Status: Accepted
 
 `buildAgentPlugin` should validate every built plugin with
 `flox-agent check-plugin --strict` — the single validator both the
-importer and the builder share. But the flox-agent CLI is
-proprietary; its binary distribution (a `-bin` derivation fed from
+importer and the builder share. But the flox-agent binary
+distribution (a `-bin` derivation fed from
 downloads.agent-stacks.org) does not exist yet, and reimplementing
 the validation in pure Nix would create a second validator to keep
 in sync — exactly what check-plugin exists to avoid.
