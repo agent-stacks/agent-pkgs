@@ -17,12 +17,10 @@
       # x86_64-darwin is absent: Intel Macs are not a target.
       systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
 
-      # flox-agent carries an unfree license, which a default nixpkgs refuses
-      # to evaluate — that would break the plain `nix run <flake>#flox-agent`
-      # this set exists to offer. The allowance is scoped to that one pname
-      # rather than the whole instance, so an unfree dependency drifting into
-      # any other package still fails loudly. It governs only packages built
-      # through this flake; a consumer's own nixpkgs config is untouched.
+      # The predicate is scoped to the one pname rather than the whole
+      # instance, so anything drifting into another package still fails
+      # loudly. It governs only packages built through this flake; a
+      # consumer's own nixpkgs config is untouched.
       pkgsFor = system: import nixpkgs {
         inherit system;
         config.allowUnfreePredicate = pkg: nixpkgs.lib.getName pkg == "flox-agent-bin";

@@ -2,9 +2,9 @@
 # fetched as a published binary rather than built from source.
 #
 # Named flox-agent, not flox-agent-bin, because package names come from the
-# directory (flake.nix) and the acceptance command is
-# `nix run <flake>#flox-agent`. The pname keeps the -bin suffix, which is what
-# the allowUnfreePredicate in flake.nix matches on.
+# directory (flake.nix) and the entry point is `nix run <flake>#flox-agent`.
+# The pname keeps the -bin suffix, which is what the predicate in flake.nix
+# matches on.
 #
 # Bumping a version: change version, then for each system run
 #   nix store prefetch-file --json <url> | jq -r .hash
