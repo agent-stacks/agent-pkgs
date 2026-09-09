@@ -5,7 +5,7 @@
 # Whatever is present is used; whatever is missing is skipped, so an
 # empty list still produces a working audit.
 #
-# Entries land here as AI-639 packages these tools into agent-pkgs.
+# Entries land here as these tools are packaged into agent-pkgs.
 # Until then a stack audits with whatever the consumer already has,
 # and `audit.tools` lets a stack pin its own set.
 { pkgs }:

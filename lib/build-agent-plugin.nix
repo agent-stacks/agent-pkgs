@@ -76,7 +76,7 @@ let
       inherit mcpServers;
     });
 
-  # Runtime resolution (AI-640): the table maps interpreter names to
+  # Runtime resolution: the table maps interpreter names to
   # nixpkgs attributes; the plugin's `runtimes` argument overrides it
   # with concrete packages. The resolved map is handed to the build
   # as JSON — outPath plus the package's main program name, so the
@@ -185,7 +185,7 @@ stdenvNoCC.mkDerivation {
       fi
     fi
 
-    # --- runtime substitution pass (AI-640) ---------------------------
+    # --- runtime substitution pass ------------------------------------
     # Detect interpreter names in shebangs and bare mcp.json commands,
     # resolve them through mappings/runtimes.nix (overridden by the
     # `runtimes` argument), link them into <plugin>/bin/, and rewrite
@@ -304,7 +304,7 @@ stdenvNoCC.mkDerivation {
     skills = if skills == null then null else builtins.attrNames skills;
   };
 
-  # Per AI-607: plugins make no license assertion by default (the
+  # Plugins make no license assertion by default (the
   # attribute is simply absent); generated packages record the
   # upstream license when known.
   inherit meta;

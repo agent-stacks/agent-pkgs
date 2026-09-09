@@ -102,8 +102,8 @@
             touch $out
           '';
 
-          # AI-640: an unmapped runtime fails the build with a message
-          # pointing at the table, and the guard catches executables
+          # An unmapped runtime fails the build with a message pointing
+          # at the table, and the guard catches executables
           # whose /usr/bin/env shebang survived.
           runtimes-failures =
             let

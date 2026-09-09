@@ -2,8 +2,7 @@
 
 This is the call shape `flox-agent import --out pkgs/` generates into
 `pkgs/agent-plugin-<name>/`, and the passthru schema consumers can
-rely on. `flox-agent
-import` (flox-agent repo, AI-632) codes against this file;
+rely on. `flox-agent import` (flox-agent repo) codes against this file;
 `buildAgentPlugin` (this repo) implements it. Change either side only
 together with this document.
 
@@ -52,7 +51,7 @@ buildAgentPlugin {
   meta = {
     description = "...";
     homepage = "https://github.com/OWNER/REPO";
-    # license recorded when known (AI-607: absent otherwise)
+    # license recorded when known; absent otherwise
   };
 }
 ```
