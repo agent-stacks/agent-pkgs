@@ -56,6 +56,12 @@
         buildAgentPlugin = pkgs.callPackage ./lib/build-agent-plugin.nix { };
         mkAgentStack = pkgs.callPackage ./lib/mk-agent-stack.nix {
           defaultAuditTools = import ./mappings/audit-tools.nix { inherit pkgs; };
+          # Every stack runs the flox-agent from this set. Taken from
+          # mkPackages rather than callPackage'd a second time, so the
+          # stack and `nix run .#flox-agent` are the same derivation. The
+          # reference is lazy: pkgs/flox-agent does not build a stack, so
+          # forcing it here does not recurse.
+          defaultFloxAgent = (mkPackages pkgs).flox-agent;
         };
         runtimeMappings = import ./mappings/runtimes.nix;
       };
