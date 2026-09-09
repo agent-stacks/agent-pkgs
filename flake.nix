@@ -33,13 +33,6 @@
       # Mac can still build from source, it is simply not cached.
       hydraSystems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
 
-      # Held out of hydraJobs entirely, so the publish hook never pushes it.
-      # The binary is already downloadable from downloads.agent-stacks.org;
-      # whether it is also served from a public catalog is a separate call,
-      # not a side effect of adding a file to pkgs/. Drop the name from this
-      # list to start publishing it.
-      isUnpublished = name: name == "flox-agent";
-
       # Every subdirectory of pkgs/ with a default.nix is a package.
       # `flox-agent import --out pkgs/<name>` drops packages here; no
       # central list to edit.
@@ -74,10 +67,8 @@
             pkgs.newScope scope (./pkgs + "/${name}") { });
         in
         built;
-    in
-    {
-      packages = forAllSystems mkPackages;
-      checks = forAllSystems (pkgs:
+
+      mkChecks = pkgs:
         mkPackages pkgs // {
           # Assert the canonical layout and passthru for every package.
           layout = pkgs.runCommand "check-layout"
@@ -136,17 +127,28 @@
               ];
             };
 
-        });
+        };
+    in
+    {
+      packages = forAllSystems mkPackages;
+      checks = forAllSystems mkChecks;
       lib = forAllSystems mkLib;
 
-      # What Hydra builds: packages.*, published to the agent-stacks
-      # catalog. The jobset configuration lives in deltaops
-      # doc/hydra-jobsets.md, because Hydra jobsets are configured in
-      # its web UI.
+      # What Hydra builds. packages.* is published to the agent-stacks
+      # catalog; checks.* builds as a gate and is never published. The
+      # jobset configuration lives in deltaops doc/hydra-jobsets.md,
+      # because Hydra jobsets are configured in its web UI.
       hydraJobs = {
         packages = nixpkgs.lib.genAttrs hydraSystems (system:
-          let all = mkPackages (pkgsFor system);
-          in nixpkgs.lib.filterAttrs (name: _: !isUnpublished name) all);
+          mkPackages (pkgsFor system));
+
+        # Only the gates. Every package is also a check, and packages.*
+        # already builds those; repeating them here would double the
+        # jobset for no extra coverage.
+        checks = nixpkgs.lib.genAttrs hydraSystems (system:
+          let pkgs = pkgsFor system;
+          in removeAttrs (mkChecks pkgs)
+            (builtins.attrNames (mkPackages pkgs)));
       };
     };
 }
