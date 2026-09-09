@@ -13,7 +13,9 @@
 
   outputs = { self, nixpkgs }:
     let
-      systems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+      # Every system this set is built, cached and published for.
+      # x86_64-darwin is absent: Intel Macs are not a target.
+      systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
 
       # flox-agent carries an unfree license, which a default nixpkgs refuses
       # to evaluate — that would break the plain `nix run <flake>#flox-agent`
@@ -27,11 +29,6 @@
       };
 
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f (pkgsFor system));
-
-      # Systems Hydra builds and the catalog caches. x86_64-darwin is
-      # deliberately absent: it stays in packages and checks so an Intel
-      # Mac can still build from source, it is simply not cached.
-      hydraSystems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
 
       # Every subdirectory of pkgs/ with a default.nix is a package.
       # `flox-agent import --out pkgs/<name>` drops packages here; no
@@ -139,13 +136,13 @@
       # jobset configuration lives in deltaops doc/hydra-jobsets.md,
       # because Hydra jobsets are configured in its web UI.
       hydraJobs = {
-        packages = nixpkgs.lib.genAttrs hydraSystems (system:
+        packages = nixpkgs.lib.genAttrs systems (system:
           mkPackages (pkgsFor system));
 
         # Only the gates. Every package is also a check, and packages.*
         # already builds those; repeating them here would double the
         # jobset for no extra coverage.
-        checks = nixpkgs.lib.genAttrs hydraSystems (system:
+        checks = nixpkgs.lib.genAttrs systems (system:
           let pkgs = pkgsFor system;
           in removeAttrs (mkChecks pkgs)
             (builtins.attrNames (mkPackages pkgs)));
