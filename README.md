@@ -23,6 +23,29 @@ result/share/agent-plugins/<name>/
 └── mcp.json        # optional
 ```
 
+## Binary cache
+
+Hydra builds every package in this repo for `x86_64-linux`,
+`aarch64-linux` and `aarch64-darwin`, and publishes them to
+`cache.agent-stacks.org`. Point Nix at it to skip the builds:
+
+```conf
+# /etc/nix/nix.conf, or ~/.config/nix/nix.conf for a single user
+extra-substituters = https://cache.agent-stacks.org
+extra-trusted-public-keys = agent-stacks-1:RWT4eI3clOY7jhOzIQNTyXL1Z8yQpN3KlNvvPMfFCRk=
+```
+
+Or per invocation, without touching the config:
+
+```sh
+nix build github:agent-stacks/agent-pkgs#agent-plugin-superpowers \
+  --extra-substituters https://cache.agent-stacks.org \
+  --extra-trusted-public-keys agent-stacks-1:RWT4eI3clOY7jhOzIQNTyXL1Z8yQpN3KlNvvPMfFCRk=
+```
+
+The cache advertises priority 41, below `cache.nixos.org` at 40, so
+anything already in the upstream cache still comes from there.
+
 ## Layout
 
 | Path | Contents |
