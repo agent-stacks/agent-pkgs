@@ -21,7 +21,15 @@
 # `manifest` argument is only for sources that ship none. Passing both
 # is a build error. `mcpServers` and an upstream mcp.json follow the
 # same rule.
-{ lib, stdenvNoCC, jq, pkgs }:
+{ lib
+, stdenvNoCC
+, jq
+, pkgs
+  # The flox-agent package providing `check-plugin`. agent-pkgs binds
+  # pkgs/flox-agent here; null skips validation, which is what a
+  # consumer using lib/ without the package gets.
+, defaultFloxAgent ? null
+}:
 
 { name
 , version ? "0"
@@ -36,8 +44,13 @@
   # attrset of server name -> config (type/command/...)
 , mcpServers ? null
   # flox-agent package providing `flox-agent check-plugin`; when null
-  # the check phase is skipped (until the -bin package exists)
-, floxAgent ? null
+  # the check phase is skipped
+, floxAgent ? defaultFloxAgent
+  # treat check-plugin warnings as errors. Off by default: skills in
+  # the wild carry harness frontmatter fields the Agent Skills spec
+  # does not list (argument-hint, disable-model-invocation), and those
+  # are warnings a correct plugin can legitimately have.
+, strict ? false
   # per-plugin runtime pins: interpreter name -> package, overriding
   # mappings/runtimes.nix (e.g. { python3 = python312; })
 , runtimes ? { }
@@ -287,7 +300,9 @@ stdenvNoCC.mkDerivation {
   installCheckPhase =
     if floxAgent != null then ''
       runHook preInstallCheck
-      ${lib.getExe' floxAgent "flox-agent"} check-plugin --strict "$out/${out}"
+      ${lib.getExe' floxAgent "flox-agent"} check-plugin${
+        lib.optionalString strict " --strict"
+      } "$out/${out}"
       runHook postInstallCheck
     '' else ''
       echo "buildAgentPlugin: flox-agent not provided — skipping check-plugin validation" >&2

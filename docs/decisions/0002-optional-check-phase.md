@@ -27,3 +27,13 @@ phase is skipped with a visible build warning.
 - `+` Turning validation on later is a one-line change in CI.
 - `-` Until the -bin package lands, CI builds are not spec-validated;
   the flake `layout` check covers the structural basics meanwhile.
+
+## Update
+
+The binary package now exists and `buildAgentPlugin` binds it by
+default, so the check phase runs on every plugin and the `layout`
+check has been removed as redundant. The `floxAgent ? null` argument
+stays, for consumers using `lib/` without the package. `--strict` is
+opt-in rather than the default: skills in the wild carry harness
+frontmatter fields the Agent Skills spec does not list, and those are
+warnings a correct plugin can legitimately have.

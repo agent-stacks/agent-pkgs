@@ -117,10 +117,11 @@ passthru.agentPlugin = {
 
 ## Validation
 
-When a `floxAgent` package is passed, the install check phase runs
-`flox-agent check-plugin --strict` on the output. Import additionally
-validates trees at generation time with the same command, so both
-ends of the pipeline enforce the same spec (vendored in flox-agent).
+The install check phase runs `flox-agent check-plugin` on the output,
+using the flox-agent from this package set. Import validates trees at
+generation time with the same command, so both ends of the pipeline
+enforce the same spec (vendored in flox-agent). Pass `strict = true`
+to fail on warnings as well.
 
 ## Runtime substitution
 
