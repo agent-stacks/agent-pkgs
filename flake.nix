@@ -104,6 +104,42 @@
               ];
             };
 
+          # A plugin built the way a generated source.json calls the
+          # builder: src as a pin rather than a derivation, an import
+          # record that only reaches passthru, and skills as plain
+          # paths. The formals carry no `...`, so this also proves
+          # every key a generated file writes is declared.
+          source-shape =
+            let lib' = mkLib pkgs; in
+            lib'.buildAgentPlugin {
+              name = "caveman";
+              version = "0-unstable-2026-09-07";
+              src = {
+                owner = "juliusbrussee";
+                repo = "caveman";
+                rev = "15581d14007fd01fb3f132016741962f34936ca2";
+                hash = "sha256-GuCK3oy0DsMOQq7gHjIY/aeaukJcTvelfg+tp7R7Du4=";
+              };
+              sourceUrl = "https://github.com/juliusbrussee/caveman";
+              manifest = {
+                "$schema" = "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json";
+                name = "caveman";
+                description = "Ultra-compressed communication mode";
+              };
+              skills = { cavecrew = "skills/cavecrew"; };
+              meta = {
+                description = "Ultra-compressed communication mode";
+                homepage = "https://github.com/juliusbrussee/caveman";
+              };
+              import = {
+                input = "juliusbrussee/caveman";
+                flags = [ ];
+                warnings = [
+                  { path = "skills/cavecrew/SKILL.md"; message = "example, not a real deviation"; }
+                ];
+              };
+            };
+
         };
     in
     {

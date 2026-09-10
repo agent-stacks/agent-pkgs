@@ -1,0 +1,185 @@
+name: "Update agent plugins"
+
+# Replays the import command recorded in every package's source.json, so an
+# upstream that moved is picked back up without anyone reconstructing the
+# import by hand. Off the hour because runner queues are worst at :00.
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# The workflow ends by moving main. Two runs doing that at once would leave
+# one of them rejected halfway through, so they are queued. Never cancelled:
+# a cancelled run can have already pushed the staging branch.
+concurrency:
+  group: update-agent-plugins
+  cancel-in-progress: false
+
+env:
+  NIX_CONFIG: |
+    experimental-features = nix-command flakes
+  # Where prepare stages the commit for the verify jobs to build. It is not
+  # a pull request branch; land fast-forwards main onto it and deletes it.
+  STAGING_BRANCH: update-agent-plugins
+
+jobs:
+  prepare:
+    name: "Replay every recorded import and stage the commit"
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.stage.outputs.changed }}
+      failed: ${{ steps.import.outputs.failed }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - name: "Install flox"
+        uses: flox/install-flox-action@3b80351ae97bbe063f264dc88fbd505507054963 # v2.5.3
+
+      - name: "Configure nix"
+        uses: flox/configure-nix-action@28a4eb7f63bf54c91670b4a698f0a9ebfb95384f # main
+
+      # A failure is collected, not fatal: one dead upstream must not stop
+      # the other packages from landing. The report job prints the list
+      # after they have.
+      - name: "Replay each package's recorded import"
+        id: import
+        run: |
+          set -uo pipefail
+          failed=()
+          for f in pkgs/agent-plugin-*/source.json; do
+            input="$(jq -r .import.input "$f")"
+            mapfile -t flags < <(jq -r '.import.flags[]' "$f")
+            echo "::group::$input"
+            if ! nix run .#flox-agent -- import "$input" "${flags[@]}" --out pkgs; then
+              failed+=("$input")
+            fi
+            echo "::endgroup::"
+          done
+          if ((${#failed[@]})); then
+            {
+              echo "failed<<EOF"
+              printf '%s\n' "${failed[@]}"
+              echo "EOF"
+            } >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: "Stage the commit"
+        id: stage
+        run: |
+          set -euo pipefail
+          if [ -z "$(git status --porcelain -- pkgs)" ]; then
+            echo "no packages changed"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pkgs
+          git commit -q -m "chore(agent-plugins): replay recorded imports"
+          git push --force origin "HEAD:refs/heads/$STAGING_BRANCH"
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+  # nix flake check builds only the host system's outputs, so all three
+  # runners are needed: the arm runner is the only thing that builds
+  # aarch64-linux before Hydra sees it.
+  verify:
+    name: "Check ${{ matrix.system }}"
+    needs: prepare
+    if: ${{ needs.prepare.outputs.changed == 'true' }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - system: x86_64-linux
+            runner: ubuntu-latest
+          - system: aarch64-linux
+            runner: ubuntu-24.04-arm
+          - system: aarch64-darwin
+            runner: macos-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          ref: ${{ env.STAGING_BRANCH }}
+
+      - name: "Install flox"
+        uses: flox/install-flox-action@3b80351ae97bbe063f264dc88fbd505507054963 # v2.5.3
+
+      - name: "Configure nix"
+        uses: flox/configure-nix-action@28a4eb7f63bf54c91670b4a698f0a9ebfb95384f # main
+
+      - name: "Flake check (builds every package)"
+        run: nix flake check -L
+
+  land:
+    name: "Move main onto the staged commit"
+    needs: [prepare, verify]
+    if: ${{ needs.prepare.outputs.changed == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          ref: ${{ env.STAGING_BRANCH }}
+          fetch-depth: 0
+
+      # A fast-forward, never a force: the staged commit was built on the main
+      # that existed when prepare ran, and a push that is no longer a
+      # fast-forward means main moved underneath it. Rerunning the dispatch
+      # restages on the new main, which is the honest fix — forcing here would
+      # discard whatever landed in between.
+      # Retried, because losing the race is normal rather than
+      # exceptional: several flox-agent commits landing close together
+      # each raise a dispatch, and a run that spent three minutes
+      # building can find main moved underneath it.
+      #
+      # Each attempt re-stages before pushing. Retrying the push alone
+      # would fail identically every time — the commit is built on the
+      # main that prepare checked out, so it is still not a
+      # fast-forward. Rebasing the one staged commit onto the new main
+      # is what makes the next attempt able to succeed.
+      #
+      # Still never a force: a rebase that conflicts, or five failed
+      # attempts, leaves main untouched and the run red.
+      - name: "Fast-forward main"
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4 5; do
+            if git push origin "HEAD:refs/heads/main"; then
+              git push origin --delete "$STAGING_BRANCH"
+              exit 0
+            fi
+            if [ "$attempt" -eq 5 ]; then
+              break
+            fi
+            echo "push rejected, attempt $attempt of 5; re-staging onto main" >&2
+            sleep 30
+            git fetch origin main
+            if ! git rebase origin/main; then
+              git rebase --abort || true
+              echo "the staged commit conflicts with main; nothing was pushed." >&2
+              echo "Run this workflow again." >&2
+              exit 1
+            fi
+            git push --force origin "HEAD:refs/heads/$STAGING_BRANCH"
+          done
+          echo "main moved under every attempt; nothing was pushed." >&2
+          echo "Run this workflow again." >&2
+          exit 1
+
+  report:
+    name: "Report failed imports"
+    needs: prepare
+    if: ${{ always() && needs.prepare.outputs.failed != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: "List the imports that failed"
+        env:
+          FAILED: ${{ needs.prepare.outputs.failed }}
+        run: |
+          echo "The following imports failed to replay:" >&2
+          echo "$FAILED" >&2
+          exit 1
