@@ -193,11 +193,6 @@ jobs:
           ref: ${{ env.STAGING_BRANCH }}
           fetch-depth: 0
 
-      # A fast-forward, never a force: the staged commit was built on the main
-      # that existed when prepare ran, and a push that is no longer a
-      # fast-forward means main moved underneath it. Rerunning the dispatch
-      # restages on the new main, which is the honest fix — forcing here would
-      # discard whatever landed in between.
       # Retried, because losing the race is normal rather than
       # exceptional: several flox-agent commits landing close together
       # each raise a dispatch, and a run that spent three minutes

@@ -1,40 +1,52 @@
-name: Update flake.lock
+name: "Update flake.lock"
 
 on:
   schedule:
-    # Mondays at 05:00 UTC
-    - cron: "0 5 * * 1"
+    # Hourly, at :37. Off the hour because runner queues are worst at
+    # :00, and off :17 so this does not race update-agent-plugins for
+    # main every hour — both end by pushing to it.
+    - cron: "37 * * * *"
   workflow_dispatch:
 
 permissions:
   contents: write
-  pull-requests: write
+
+# The workflow ends by moving main. Two runs doing that at once would leave
+# one of them rejected halfway through, so they are queued. Never cancelled:
+# a cancelled run can have already pushed the staging branch.
+concurrency:
+  group: update-flake-lock
+  cancel-in-progress: false
+
+env:
+  NIX_CONFIG: |
+    experimental-features = nix-command flakes
+  # Where prepare stages the commit for the verify jobs to build. It is not
+  # a pull request branch; land fast-forwards main onto it and deletes it.
+  STAGING_BRANCH: update-flake-lock
 
 jobs:
-  update:
-    name: Update flake.lock
+  prepare:
+    name: "Update the inputs and stage the commit"
     runs-on: ubuntu-latest
-    env:
-      NIX_CONFIG: |
-        experimental-features = nix-command flakes
+    outputs:
+      changed: ${{ steps.stage.outputs.changed }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
-      - name: Install flox
+      - name: "Install flox"
         uses: flox/install-flox-action@3b80351ae97bbe063f264dc88fbd505507054963 # v2.5.3
 
-      - name: Configure nix
+      - name: "Configure nix"
         uses: flox/configure-nix-action@28a4eb7f63bf54c91670b4a698f0a9ebfb95384f # main
 
-      - name: Update flake inputs
+      - name: "Update flake inputs"
         run: nix flake update
 
-      - name: Flake check (builds every package)
-        run: nix flake check -L
-
-      - name: Commit bumped flake.lock
-        id: commit
+      - name: "Stage the commit"
+        id: stage
         run: |
+          set -euo pipefail
           if git diff --quiet -- flake.lock; then
             echo "flake.lock unchanged, nothing to do"
             echo "changed=false" >> "$GITHUB_OUTPUT"
@@ -42,21 +54,92 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "chore: update flake.lock" -- flake.lock
-          git push --force origin HEAD:refs/heads/update-flake-lock
+          git commit -q -m "chore: update flake.lock" -- flake.lock
+          git push --force origin "HEAD:refs/heads/$STAGING_BRANCH"
           echo "changed=true" >> "$GITHUB_OUTPUT"
 
-      - name: Open pull request
-        if: steps.commit.outputs.changed == 'true'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  # Every system is built before main moves. A nixpkgs bump reaches every
+  # package in the set, and the systems do not fail together: a change to a
+  # darwin stdenv or to an aarch64 binary is invisible on x86_64-linux, which
+  # is all the old single-runner check covered.
+  verify:
+    name: "Build ${{ matrix.system }}"
+    needs: prepare
+    if: ${{ needs.prepare.outputs.changed == 'true' }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      # One runner per system, because `nix flake check` builds the host
+      # system's outputs and only evaluates the rest. aarch64-linux runners
+      # are free on public repositories, which this one is, and this is the
+      # only place that system is built before Hydra sees it.
+      matrix:
+        include:
+          - system: x86_64-linux
+            runner: ubuntu-latest
+          - system: aarch64-linux
+            runner: ubuntu-24.04-arm
+          - system: aarch64-darwin
+            runner: macos-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          ref: ${{ env.STAGING_BRANCH }}
+
+      - name: "Install flox"
+        uses: flox/install-flox-action@3b80351ae97bbe063f264dc88fbd505507054963 # v2.5.3
+
+      - name: "Configure nix"
+        uses: flox/configure-nix-action@28a4eb7f63bf54c91670b4a698f0a9ebfb95384f # main
+
+      - name: "Flake check (builds every package)"
+        run: nix flake check -L
+
+  land:
+    name: "Move main onto the staged commit"
+    needs: [prepare, verify]
+    if: ${{ needs.prepare.outputs.changed == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          ref: ${{ env.STAGING_BRANCH }}
+          fetch-depth: 0
+
+      # Retried, because losing the race for main is normal rather than
+      # exceptional: the other refresh workflows push to main too, and a run
+      # that spent minutes building three systems can find main moved
+      # underneath it.
+      #
+      # Each attempt re-stages before pushing. Retrying the push alone would
+      # fail identically every time — the commit is built on the main that
+      # prepare checked out, so it is still not a fast-forward. Rebasing the
+      # one staged commit onto the new main is what makes the next attempt
+      # able to succeed.
+      #
+      # Still never a force onto main: a rebase that conflicts, or five
+      # failed attempts, leaves main untouched and the run red.
+      - name: "Fast-forward main"
         run: |
-          if [ -n "$(gh pr list --head update-flake-lock --state open --json number --jq '.[].number')" ]; then
-            echo "pull request already open, force-push updated it"
-            exit 0
-          fi
-          gh pr create \
-            --base "${GITHUB_REF_NAME}" \
-            --head update-flake-lock \
-            --title "chore: update flake.lock" \
-            --body "Automated \`nix flake update\`. \`nix flake check -L\` passed on ubuntu-latest before this pull request was opened."
+          for attempt in 1 2 3 4 5; do
+            if git push origin "HEAD:refs/heads/main"; then
+              git push origin --delete "$STAGING_BRANCH"
+              exit 0
+            fi
+            if [ "$attempt" -eq 5 ]; then
+              break
+            fi
+            echo "push rejected, attempt $attempt of 5; re-staging onto main" >&2
+            sleep 30
+            git fetch origin main
+            if ! git rebase origin/main; then
+              git rebase --abort || true
+              echo "the staged commit conflicts with main; nothing was pushed." >&2
+              echo "Run this workflow again." >&2
+              exit 1
+            fi
+            git push --force origin "HEAD:refs/heads/$STAGING_BRANCH"
+          done
+          echo "main moved under every attempt; nothing was pushed." >&2
+          echo "Run this workflow again." >&2
+          exit 1
