@@ -6,9 +6,10 @@
 # The pname keeps the -bin suffix, which is what the predicate in flake.nix
 # matches on.
 #
-# Bumping a version: change version, then for each system run
-#   nix store prefetch-file --json <url> | jq -r .hash
-# The objects are immutable per version, so the hashes only change with it.
+# Everything that changes between builds lives in source.json, which the
+# update-flox-agent workflow rewrites when agent-stacks/flox-agent uploads a
+# new commit. Nothing here is edited by hand; to move this package, run that
+# workflow rather than editing either file.
 {
   lib,
   stdenvNoCC,
@@ -16,16 +17,21 @@
 }:
 
 let
-  version = "0.8.0";
+  source = builtins.fromJSON (builtins.readFile ./source.json);
 
-  # Published by the build-and-publish workflow in agent-stacks/flox-agent,
-  # which uploads the nix build output for each system. Static (CGO_ENABLED=0),
-  # so the Linux binaries carry no interpreter pointing into a foreign store.
-  hashes = {
-    x86_64-linux = "sha256-1qAt7x9kTsIHyQ5y2ynezm/YdA1hzwuYIcqtvMEJIhg=";
-    aarch64-linux = "sha256-C6BSr2NqYplhY5ZmNAcgon+yt33Vjj6E+/1Nh1EQ4vc=";
-    aarch64-darwin = "sha256-M+E/4VVzN4/CaV2/Ml61NyJbjv+fOcazYUrx8ErQhZI=";
-  };
+  # What VERSION reads in the flox-agent commit these binaries came from. The
+  # binary reports this string, and the uploaded object's name embeds it, so
+  # it is not the same thing as the version attribute below.
+  inherit (source) baseVersion;
+
+  # The flox-agent commit. The upload directory is named after it in full; the
+  # object inside is named after its first seven characters.
+  inherit (source) rev;
+  shortRev = builtins.substring 0 7 rev;
+
+  # A snapshot between releases, named the way nixpkgs names one. The date is
+  # the day the binaries were uploaded.
+  version = "${baseVersion}-unstable-${source.date}";
 
   system = stdenvNoCC.hostPlatform.system;
 in
@@ -34,10 +40,16 @@ stdenvNoCC.mkDerivation {
   pname = "flox-agent-bin";
   inherit version;
 
+  # Uploaded by the CI workflow in agent-stacks/flox-agent, one object per
+  # system per commit. Static (CGO_ENABLED=0), so the Linux binaries carry no
+  # interpreter pointing into a foreign store. Nothing under by-commit is ever
+  # rewritten, so these hashes stay valid for as long as the object exists.
   src = fetchurl {
-    url = "https://downloads.agent-stacks.org/flox-agent/${version}/flox-agent-${version}-${system}";
+    url =
+      "https://downloads.agent-stacks.org/flox-agent/by-commit/${rev}"
+      + "/flox-agent-${baseVersion}-${shortRev}-${system}";
     hash =
-      hashes.${system}
+      source.hashes.${system}
         or (throw "flox-agent: no binary published for ${system}; see meta.platforms");
   };
 
@@ -50,16 +62,16 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  # Proves the fetched binary runs on the builder and reports the version this
-  # derivation claims — the acceptance criterion that `flox-agent --version`
-  # matches what generated a given generated.nix. Skipped when the binary
-  # cannot run on the build machine.
+  # Proves the fetched binary runs on the builder and reports the version the
+  # commit claims. Checked against baseVersion, not version: the binary prints
+  # what VERSION holds, which carries no -unstable- suffix. Skipped when the
+  # binary cannot run on the build machine.
   doInstallCheck = stdenvNoCC.hostPlatform.canExecute stdenvNoCC.hostPlatform;
   installCheckPhase = ''
     runHook preInstallCheck
     got="$("$out/bin/flox-agent" --version)"
-    if [ "$got" != "${version}" ]; then
-      echo "flox-agent --version reported '$got', expected '${version}'" >&2
+    if [ "$got" != "${baseVersion}" ]; then
+      echo "flox-agent --version reported '$got', expected '${baseVersion}'" >&2
       exit 1
     fi
     runHook postInstallCheck
@@ -70,7 +82,7 @@ stdenvNoCC.mkDerivation {
     homepage = "https://downloads.agent-stacks.org/";
     license = lib.licenses.unfree;
     mainProgram = "flox-agent";
-    platforms = lib.attrNames hashes;
+    platforms = lib.attrNames source.hashes;
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
   };
 }

@@ -1,0 +1,209 @@
+name: "Update flox-agent"
+
+# Raised by the CI workflow in agent-stacks/flox-agent after it uploads the
+# binaries for a commit. Can also be run by hand from the Actions tab against
+# any commit whose binaries are already uploaded.
+on:
+  workflow_dispatch:
+    inputs:
+      rev:
+        description: "flox-agent commit the binaries were built from (full sha)"
+        type: string
+        required: true
+      version:
+        description: "What VERSION reads in that commit, e.g. 0.8.0"
+        type: string
+        required: true
+
+permissions:
+  contents: write
+
+# The workflow ends by moving main. Two runs doing that at once would leave
+# one of them rejected halfway through, so they are queued. Never cancelled:
+# a cancelled run can have already pushed the staging branch.
+concurrency:
+  group: update-flox-agent
+  cancel-in-progress: false
+
+env:
+  NIX_CONFIG: |
+    experimental-features = nix-command flakes
+  # Where prepare stages the commit for the verify jobs to build. It is not
+  # a pull request branch; land fast-forwards main onto it and deletes it.
+  STAGING_BRANCH: update-flox-agent
+
+jobs:
+  prepare:
+    name: "Prefetch the binaries and stage the commit"
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.stage.outputs.changed }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - name: "Install flox"
+        uses: flox/install-flox-action@3b80351ae97bbe063f264dc88fbd505507054963 # v2.5.3
+
+      - name: "Configure nix"
+        uses: flox/configure-nix-action@28a4eb7f63bf54c91670b4a698f0a9ebfb95384f # main
+
+      # A short or malformed rev would build a URL that 404s several steps
+      # later, with nothing to say which input was wrong.
+      - name: "Check the inputs"
+        env:
+          REV: ${{ inputs.rev }}
+          VERSION: ${{ inputs.version }}
+        run: |
+          case "$REV" in
+            *[!0-9a-f]* | "") echo "rev '$REV' is not a lowercase hex sha" >&2; exit 1 ;;
+          esac
+          if [ "${#REV}" -ne 40 ]; then
+            echo "rev '$REV' is ${#REV} characters; the full 40 are required" >&2
+            exit 1
+          fi
+          if [ -z "$VERSION" ]; then
+            echo "version is empty" >&2
+            exit 1
+          fi
+
+      # Nothing to do when source.json already names this commit: a rerun of
+      # the same dispatch, or a dispatch racing one that already landed.
+      - name: "Stop if this commit is already the one packaged"
+        id: current
+        env:
+          REV: ${{ inputs.rev }}
+        run: |
+          have="$(jq -r .rev pkgs/flox-agent/source.json)"
+          if [ "$have" = "$REV" ]; then
+            echo "pkgs/flox-agent already points at $REV"
+            echo "same=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "same=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      # One prefetch per system. Each also proves the object is really there:
+      # the upload that raised this dispatch is the only thing that puts it
+      # in the bucket, and a missing one fails here rather than in a build.
+      - name: "Prefetch the uploaded binaries"
+        if: ${{ steps.current.outputs.same == 'false' }}
+        id: prefetch
+        env:
+          REV: ${{ inputs.rev }}
+          VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          short="${REV:0:7}"
+          hashes="{}"
+          for system in x86_64-linux aarch64-linux aarch64-darwin; do
+            url="https://downloads.agent-stacks.org/flox-agent/by-commit/$REV/flox-agent-$VERSION-$short-$system"
+            echo "prefetching $system"
+            hash="$(nix store prefetch-file --json "$url" | jq -r .hash)"
+            hashes="$(jq --arg s "$system" --arg h "$hash" '.[$s] = $h' <<<"$hashes")"
+          done
+          {
+            echo "hashes<<EOF"
+            echo "$hashes"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      # The date is the day this ran, not the commit's own date: the dispatch
+      # arrives within minutes of the upload, and reading the commit date
+      # would mean handing this workflow a token for a private repository.
+      - name: "Rewrite pkgs/flox-agent/source.json"
+        if: ${{ steps.current.outputs.same == 'false' }}
+        env:
+          REV: ${{ inputs.rev }}
+          VERSION: ${{ inputs.version }}
+          HASHES: ${{ steps.prefetch.outputs.hashes }}
+        run: |
+          set -euo pipefail
+          jq -n \
+            --arg baseVersion "$VERSION" \
+            --arg rev "$REV" \
+            --arg date "$(date -u +%Y-%m-%d)" \
+            --argjson hashes "$HASHES" \
+            '{ $baseVersion, $rev, $date, $hashes }' \
+            > pkgs/flox-agent/source.json
+
+      - name: "Stage the commit"
+        if: ${{ steps.current.outputs.same == 'false' }}
+        id: stage
+        env:
+          REV: ${{ inputs.rev }}
+          VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- pkgs/flox-agent/source.json; then
+            echo "source.json is unchanged"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -q -m "chore(flox-agent): ${VERSION} at ${REV:0:7}" \
+            -m "Binaries uploaded by agent-stacks/flox-agent for commit ${REV}." \
+            -- pkgs/flox-agent/source.json
+          git push --force origin "HEAD:refs/heads/$STAGING_BRANCH"
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+  # Every system is built before main moves. A hash can be right and the
+  # binary still wrong: it is the installCheck, which runs the binary and
+  # compares what it reports to the version being packaged, that this is
+  # really here for.
+  verify:
+    name: "Build ${{ matrix.system }}"
+    needs: prepare
+    if: ${{ needs.prepare.outputs.changed == 'true' }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      # One runner per system, so each binary is checked on the machine that
+      # can actually execute it. aarch64-linux runners are free on public
+      # repositories, which this one is.
+      matrix:
+        include:
+          - system: x86_64-linux
+            runner: ubuntu-latest
+          - system: aarch64-linux
+            runner: ubuntu-24.04-arm
+          - system: aarch64-darwin
+            runner: macos-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          ref: ${{ env.STAGING_BRANCH }}
+
+      - name: "Install flox"
+        uses: flox/install-flox-action@3b80351ae97bbe063f264dc88fbd505507054963 # v2.5.3
+
+      - name: "Configure nix"
+        uses: flox/configure-nix-action@28a4eb7f63bf54c91670b4a698f0a9ebfb95384f # main
+
+      - name: "Build flox-agent"
+        run: nix build -L ".#packages.${{ matrix.system }}.flox-agent"
+
+  land:
+    name: "Move main onto the staged commit"
+    needs: [prepare, verify]
+    if: ${{ needs.prepare.outputs.changed == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          ref: ${{ env.STAGING_BRANCH }}
+          fetch-depth: 0
+
+      # A fast-forward, never a force: the staged commit was built on the main
+      # that existed when prepare ran, and a push that is no longer a
+      # fast-forward means main moved underneath it. Rerunning the dispatch
+      # restages on the new main, which is the honest fix — forcing here would
+      # discard whatever landed in between.
+      - name: "Fast-forward main"
+        run: |
+          if git push origin "HEAD:refs/heads/main"; then
+            git push origin --delete "$STAGING_BRANCH"
+          else
+            echo "main moved while this run was verifying; nothing was pushed." >&2
+            echo "Run this workflow again for the same rev." >&2
+            exit 1
+          fi
