@@ -33,9 +33,21 @@
 
 { name
 , version ? "0"
+  # Either a derivation or path to use as-is, or a fetchFromGitHub
+  # argument set — { owner, repo, rev, hash } — which a generated
+  # source.json records as data because JSON cannot hold a derivation.
 , src
   # provenance: upstream URL recorded in passthru
 , sourceUrl ? null
+  # The import that produced this package, when it was generated:
+  # { input, flags, warnings }. Nothing in the build reads it; it is
+  # declared so a generated source.json can be passed whole, and it
+  # reaches passthru so a reader can see what produced the package.
+  #
+  # The name shadows Nix's own `import` for this whole function,
+  # including the other formals' defaults — every call inside must be
+  # builtins.import.
+, import ? null
   # manifest attrset, serialized to plugin.json when src has none
 , manifest ? null
   # assemble mode: skill name -> path inside src
@@ -70,6 +82,14 @@
 let
   out = "share/agent-plugins/${name}";
 
+  # The type decides, so both call shapes stay valid and neither needs
+  # a precedence rule: a derivation or path is what the caller already
+  # fetched, anything else is a pin this builder fetches.
+  resolvedSrc =
+    if lib.isDerivation src || builtins.isPath src
+    then src
+    else pkgs.fetchFromGitHub src;
+
   manifestFile =
     if manifest == null then null
     else builtins.toFile "plugin.json" (builtins.toJSON manifest);
@@ -95,7 +115,7 @@ let
   # as JSON — outPath plus the package's main program name, so the
   # build can locate the right binary (`sh` lives in bash's bin/sh,
   # `python` may only exist as bin/python3).
-  runtimeTable = import ../mappings/runtimes.nix;
+  runtimeTable = builtins.import ../mappings/runtimes.nix;
   resolvedRuntimes =
     lib.mapAttrs
       (tok: attrName: pkgs.${attrName} or (throw
@@ -126,7 +146,8 @@ let
 in
 stdenvNoCC.mkDerivation {
   pname = "agent-plugin-${name}";
-  inherit version src;
+  inherit version;
+  src = resolvedSrc;
 
   nativeBuildInputs = [ jq ];
 
@@ -309,7 +330,7 @@ stdenvNoCC.mkDerivation {
     '';
 
   passthru.agentPlugin = {
-    inherit name sourceUrl;
+    inherit name sourceUrl import;
     path = out;
     specVersion =
       if manifest != null && manifest ? "$schema"
