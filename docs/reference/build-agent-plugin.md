@@ -12,8 +12,9 @@ every argument.
 | -------------------- | ------- | ------------ |
 | `name` | required | Plugin name; also the package name and the output directory name. `check-plugin` requires it to match the manifest's `name`. |
 | `version` | `"0"` | Derivation version. |
-| `src` | required | Source tree (fetcher output or local path). |
+| `src` | required | Source tree (fetcher output or local path), or a `fetchFromGitHub` argument set — an attrset carrying `owner` and `repo` — which the builder fetches itself. A generated `source.json` always writes the pin form, since JSON cannot hold a derivation. |
 | `sourceUrl` | `null` | Upstream URL recorded in `passthru.agentPlugin`. |
+| `import` | `null` | The import that produced this package, when it was generated: `{ input, flags, warnings }`. Nothing in the build reads it; it exists so a generated `source.json` can be passed whole, and it reaches `passthru` so a reader can see what produced the package. |
 | `manifest` | `null` | Attrset serialized to `plugin.json` when the src ships none. Passing both is a build error. |
 | `skills` | `null` | Skill name → path in src. When null, the builder falls back to `skills-lock.json`, then to a passthrough tree. |
 | `mcpServers` | `null` | Attrset serialized to `mcp.json` when the src ships none; same both-is-an-error rule. The generated file declares the same spec version as `manifest`, defaulting to 1.0.0 when there is no manifest. |
@@ -47,7 +48,7 @@ listed in `allowEnvShebangs`. Design and trade-offs:
 
 ```nix
 passthru.agentPlugin = {
-  name; path; sourceUrl; specVersion; skills;
+  name; path; sourceUrl; specVersion; skills; import;
 };
 ```
 

@@ -64,19 +64,25 @@ so an undeclared key is a build error by design:
 ```
 
 `src` is a pin, not a derivation — JSON cannot hold one, so
-`buildAgentPlugin` fetches it with `fetchFromGitHub` when it is not
-already a derivation or path. `skills` values are plain in-tree path
-strings. `manifest` is present only when the source ships no
+`buildAgentPlugin` fetches it with `fetchFromGitHub` whenever it is an
+attrset carrying `owner` and `repo`. `skills` values are plain in-tree
+path strings. `manifest` is present only when the source ships no
 `plugin.json` (an upstream `plugin.json` always wins; passing both is
 a build error) — the version in `$schema` is the newest the importer
-vendors, not a fixed `1.0.0`. `mcpServers` follows the same rule and
-is present only when the source ships no `mcp.json`.
+vendors, not a fixed `1.0.0`. `mcpServers` is a `buildAgentPlugin`
+argument, not something a generated `source.json` ever carries: the
+importer's `Call` struct (flox-agent repo,
+`internal/importer/importer.go`) has no such field, so a generated
+package never sets it. The argument itself remains available to
+hand-written callers.
 
 `import` is declared but only reaches `passthru` — nothing in the
 build reads it. It carries `input` (owner/repo), `flags` (the import
 invocation's flags), and `warnings` (the `{ path, message }` entries
-`flox-agent check-plugin` raised at import time), so the record of
-what produced the package travels with it.
+`flox-agent check-plugin` raised at import time) — present only when
+check-plugin warned about something, since the Go struct marks it
+`omitempty` — so the record of what produced the package travels with
+it.
 
 ## What the generator decides
 
@@ -111,8 +117,7 @@ Two further consequences bind the builder:
 1. Explicit `skills` argument — what import generates.
 2. `skills-lock.json` at the src root, read at build time. Entries
    whose files are not inside src fail the build (a pure build cannot
-   fetch external sources); import resolves those into explicit
-   `skills` with pinned fetchers.
+   fetch external sources).
 3. Passthrough: src already is a conformant plugin tree.
 
 ## Output layout
@@ -134,6 +139,8 @@ passthru.agentPlugin = {
   specVersion = "1.0.0";    # from manifest $schema; null when the
                             #   manifest came from the src tree
   skills = [ "skill-a" ];   # null when selected at build time
+  import = { input = "OWNER/REPO"; flags = [ ]; };
+                            # null when the package was hand-written
 };
 ```
 
