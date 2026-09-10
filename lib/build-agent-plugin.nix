@@ -82,13 +82,15 @@
 let
   out = "share/agent-plugins/${name}";
 
-  # The type decides, so both call shapes stay valid and neither needs
-  # a precedence rule: a derivation or path is what the caller already
-  # fetched, anything else is a pin this builder fetches.
+  # Test for the shape we mean, not its complement: a pin is an
+  # attrset carrying owner and repo (what a generated source.json
+  # writes). Everything else — a derivation, a path, lib.cleanSource,
+  # lib.sourceByRegex, a flake's self — already is a source tree and
+  # passes through untouched.
   resolvedSrc =
-    if lib.isDerivation src || builtins.isPath src
-    then src
-    else pkgs.fetchFromGitHub src;
+    if builtins.isAttrs src && src ? owner && src ? repo
+    then pkgs.fetchFromGitHub src
+    else src;
 
   manifestFile =
     if manifest == null then null
