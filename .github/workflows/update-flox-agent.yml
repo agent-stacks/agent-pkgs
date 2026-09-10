@@ -213,6 +213,8 @@ jobs:
       # attempts, leaves main untouched and the run red.
       - name: "Fast-forward main"
         run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           for attempt in 1 2 3 4 5; do
             if git push origin "HEAD:refs/heads/main"; then
               git push origin --delete "$STAGING_BRANCH"
