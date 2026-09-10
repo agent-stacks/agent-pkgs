@@ -198,12 +198,40 @@ jobs:
       # fast-forward means main moved underneath it. Rerunning the dispatch
       # restages on the new main, which is the honest fix — forcing here would
       # discard whatever landed in between.
+      # Retried, because losing the race is normal rather than
+      # exceptional: several flox-agent commits landing close together
+      # each raise a dispatch, and a run that spent three minutes
+      # building can find main moved underneath it.
+      #
+      # Each attempt re-stages before pushing. Retrying the push alone
+      # would fail identically every time — the commit is built on the
+      # main that prepare checked out, so it is still not a
+      # fast-forward. Rebasing the one staged commit onto the new main
+      # is what makes the next attempt able to succeed.
+      #
+      # Still never a force: a rebase that conflicts, or five failed
+      # attempts, leaves main untouched and the run red.
       - name: "Fast-forward main"
         run: |
-          if git push origin "HEAD:refs/heads/main"; then
-            git push origin --delete "$STAGING_BRANCH"
-          else
-            echo "main moved while this run was verifying; nothing was pushed." >&2
-            echo "Run this workflow again for the same rev." >&2
-            exit 1
-          fi
+          for attempt in 1 2 3 4 5; do
+            if git push origin "HEAD:refs/heads/main"; then
+              git push origin --delete "$STAGING_BRANCH"
+              exit 0
+            fi
+            if [ "$attempt" -eq 5 ]; then
+              break
+            fi
+            echo "push rejected, attempt $attempt of 5; re-staging onto main" >&2
+            sleep 30
+            git fetch origin main
+            if ! git rebase origin/main; then
+              git rebase --abort || true
+              echo "the staged commit conflicts with main; nothing was pushed." >&2
+              echo "Run this workflow again for the same rev." >&2
+              exit 1
+            fi
+            git push --force origin "HEAD:refs/heads/$STAGING_BRANCH"
+          done
+          echo "main moved under every attempt; nothing was pushed." >&2
+          echo "Run this workflow again for the same rev." >&2
+          exit 1
