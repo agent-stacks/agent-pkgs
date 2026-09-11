@@ -43,7 +43,6 @@ so an undeclared key is a build error by design:
     "license": "..."
   },
 
-  # Only when the plugin declares servers:
   "mcpServers": {
     "server-a": { "type": "streamable-http", "url": "https://..." }
   },
@@ -68,17 +67,21 @@ so an undeclared key is a build error by design:
 }
 ```
 
-`src` is a pin, not a derivation — JSON cannot hold one, so
+`mcpServers` appears only when the plugin declares servers. `src` is
+a pin, not a derivation — JSON cannot hold one, so
 `buildAgentPlugin` fetches it with `fetchFromGitHub` whenever it is an
 attrset carrying `owner` and `repo`. `skills` values are plain in-tree
-path strings. `manifest` is always present, and an assembled
-package is built from it alone: a `plugin.json` the source root ships
-is not read (ADR 0008). The version in `$schema` is the newest the
-importer vendors, not a fixed `1.0.0`. `mcpServers` is present when
-the plugin declares MCP servers, normalized by the importer to the
-transports the schema names, and the builder writes it as `mcp.json`
-with the manifest's `$schema` version; absent, the package has no
-`mcp.json`, whatever the source root ships.
+path strings. A generated file carries `manifest` in every case,
+and the builder writes it as `plugin.json`; a `plugin.json` the
+source root ships is not read (ADR 0008). The version in `$schema`
+is the newest the importer vendors, not a fixed `1.0.0`. `mcpServers`
+is present when the plugin declares MCP servers, normalized by the
+importer to the transports the schema names, and the builder writes
+it as `mcp.json` with the manifest's `$schema` version. A file
+written by an importer before these fields existed is still built:
+without `manifest`, the builder takes a root `plugin.json` that
+declares an `agent-plugins.org` `$schema`, and without `mcpServers`
+a root `mcp.json` that does; any other root file is not read.
 
 `import` is declared but only reaches `passthru` — nothing in the
 build reads it. It carries `input` (owner/repo), `flags` (the import
@@ -113,8 +116,9 @@ Two further consequences bind the builder:
 - **The manifest carries the spec version.** A generated `mcp.json`
   declares the same version the manifest does, because a client must
   disable MCP for a plugin whose `mcp.json` targets a different
-  version than its `plugin.json` (spec §7.2.2). A src shipping its own
-  `plugin.json` keeps whatever version that file declares.
+  version than its `plugin.json` (spec §7.2.2). A passed-through
+  tree's `mcp.json` is brought to the manifest's version when a
+  manifest argument replaces its `plugin.json`.
 
 ## Skill selection precedence (builder side)
 
@@ -140,8 +144,8 @@ passthru.agentPlugin = {
   name = "NAME";
   path = "share/agent-plugins/NAME";
   sourceUrl = "...";        # null for local sources
-  specVersion = "1.0.0";    # from manifest $schema; null when the
-                            #   manifest came from the src tree
+  specVersion = "1.0.0";    # from manifest $schema; null when no
+                            #   manifest argument was given
   skills = [ "skill-a" ];   # null when selected at build time
   import = { input = "OWNER/REPO"; flags = [ ]; };
                             # null when the package was hand-written

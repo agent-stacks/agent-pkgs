@@ -17,14 +17,17 @@
 # 3. Passthrough: src is already a conformant plugin tree (plugin.json
 #    + skills/) and is copied as-is.
 #
-# plugin.json rule (ADR 0008): a package is built from one source.
-# When skills are selected here (the `skills` argument, or the lock),
-# the manifest and the servers are the `manifest` and `mcpServers`
-# arguments alone; a plugin.json or mcp.json in the src root is not
-# read, and `manifest` is required. In passthrough the tree's own
-# files are the source, and an argument, if given, replaces its file.
-# What `flox-agent import` generates always carries `manifest`, and
-# `mcpServers` whenever the plugin has servers.
+# plugin.json rule (ADR 0008): an assembled package, one whose
+# skills are selected here from the `skills` argument or the lock,
+# takes its manifest and servers from the `manifest` and `mcpServers`
+# arguments. Without an argument, a plugin.json or mcp.json in the
+# src root stands in only when it is an Agent Plugins file, one
+# declaring an agent-plugins.org $schema; any other is not read, and
+# a skipped mcp.json is reported. A passed-through tree keeps its own
+# files, and an argument, if given, replaces its file. What
+# `flox-agent import` generates carries `manifest` always and
+# `mcpServers` whenever the plugin declares servers, so for a
+# generated package the stand-in is never consulted.
 { lib
 , stdenvNoCC
 , jq
@@ -52,8 +55,8 @@
   # including the other formals' defaults — every call inside must be
   # builtins.import.
 , import ? null
-  # manifest attrset, serialized to plugin.json; required unless src
-  # is passed through as a plugin tree
+  # manifest attrset, serialized to plugin.json; without it, only an
+  # Agent Plugins plugin.json in src stands in
 , manifest ? null
   # assemble mode: skill name -> path inside src
 , skills ? null
@@ -198,18 +201,41 @@ stdenvNoCC.mkDerivation {
       fi
     ''}
 
-    # plugin.json and mcp.json (ADR 0008): an assembled package is
-    # built from the arguments alone, and the src root's files are
-    # not read; a passed-through tree keeps its own files unless an
-    # argument replaces one.
+    # plugin.json and mcp.json (ADR 0008). An argument is written as
+    # given. Without one, a passed-through tree keeps its own file,
+    # and an assembled package takes a src root file only when it is
+    # an Agent Plugins file: one declaring an agent-plugins.org
+    # $schema, which is what an older generated source.json relied on
+    # the builder to copy. Anything else at the root is another
+    # tool's, and is not read.
+    is_agent_plugins_file() {
+      [ -f "$1" ] && jq -e '."$schema" | strings | startswith("https://agent-plugins.org/")' "$1" >/dev/null 2>&1
+    }
     if [ -n "${toString (manifestFile != null)}" ]; then
       cp ${toString manifestFile} "$dest/plugin.json"
-    elif [ -z "''${passthrough:-}" ]; then
-      echo "buildAgentPlugin: no manifest argument was given; an assembled package needs one" >&2
+    elif [ -n "''${passthrough:-}" ]; then
+      :
+    elif is_agent_plugins_file plugin.json; then
+      cp plugin.json "$dest/plugin.json"
+    else
+      echo "buildAgentPlugin: no manifest argument was given, and src ships no Agent Plugins plugin.json to stand in" >&2
       exit 1
     fi
     if [ -n "${toString (mcpFile != null)}" ]; then
       cp ${toString mcpFile} "$dest/mcp.json"
+    elif [ -n "''${passthrough:-}" ]; then
+      # The tree's own mcp.json, brought to the manifest's version
+      # when a manifest argument replaced the tree's plugin.json, so
+      # the pair a client checks (spec §7.2.2) still agrees.
+      if [ -f "$dest/mcp.json" ] && [ -n "${toString (manifestFile != null)}" ]; then
+        jq --arg s "https://agent-plugins.org/schemas/${specVersionOf manifest}/mcp.schema.json" \
+          '."$schema" = $s' "$dest/mcp.json" > "$dest/mcp.json.tmp"
+        mv "$dest/mcp.json.tmp" "$dest/mcp.json"
+      fi
+    elif is_agent_plugins_file mcp.json; then
+      cp mcp.json "$dest/mcp.json"
+    elif [ -f mcp.json ]; then
+      echo "buildAgentPlugin: src ships an mcp.json that is not an Agent Plugins file; not carried. Regenerate the package with flox-agent import to carry its servers." >&2
     fi
 
     # --- runtime substitution pass ------------------------------------
@@ -271,12 +297,14 @@ stdenvNoCC.mkDerivation {
         resolve_runtime "$cmd" "mcp.json"
       done < <(jq -r '.mcpServers[] | select(.command != null) | .command' "$dest/mcp.json")
       # Only stdio servers have a command; an http or sse server has
-      # a url and is left alone.
+      # a url and is left alone. The command is bound to a name
+      # first: inside `$allow | index(...)` the input is the list.
       jq --arg bin "$plugin_out/bin" --argjson allow "$allow" '
         .mcpServers |= with_entries(
           if .value.command == null then . else
-          .value.command |= (if (contains("/") | not) and (($allow | index(.)) == null)
-                             then "\($bin)/\(.)" else . end) end)
+          .value.command |= (. as $c
+            | if ($c | contains("/") | not) and (($allow | index($c)) == null)
+              then "\($bin)/\($c)" else $c end) end)
       ' "$dest/mcp.json" > "$dest/mcp.json.tmp"
       mv "$dest/mcp.json.tmp" "$dest/mcp.json"
     fi

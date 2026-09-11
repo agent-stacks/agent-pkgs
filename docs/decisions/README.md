@@ -25,3 +25,4 @@ on one of those links to it rather than restating it.
 | [0008](0008-re-export-llm-agents-nix.md) | Re-export llm-agents.nix into the package set |
 | [0008](0008-argument-wins-over-upstream-file.md) | The manifest and mcpServers arguments win; an upstream file fills the gap |
 | [0008](0008-argument-wins-over-upstream-file.md) | An assembled package is built from its arguments alone |
+| [0008](0008-assembled-package-from-arguments.md) | An assembled package is built from its arguments |
