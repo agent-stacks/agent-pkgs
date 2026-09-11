@@ -17,12 +17,14 @@
 # 3. Passthrough: src is already a conformant plugin tree (plugin.json
 #    + skills/) and is copied as-is.
 #
-# plugin.json rule: the `manifest` argument wins when given, and an
-# upstream plugin.json in the src root fills the gap when it is not
-# (ADR 0008). `mcpServers` and an upstream mcp.json follow the same
-# rule. What `flox-agent import` generates always carries `manifest`,
-# and carries `mcpServers` whenever the plugin has servers, so a
-# generated package never depends on what the src root ships.
+# plugin.json rule (ADR 0008): a package is built from one source.
+# When skills are selected here (the `skills` argument, or the lock),
+# the manifest and the servers are the `manifest` and `mcpServers`
+# arguments alone; a plugin.json or mcp.json in the src root is not
+# read, and `manifest` is required. In passthrough the tree's own
+# files are the source, and an argument, if given, replaces its file.
+# What `flox-agent import` generates always carries `manifest`, and
+# `mcpServers` whenever the plugin has servers.
 { lib
 , stdenvNoCC
 , jq
@@ -50,12 +52,13 @@
   # including the other formals' defaults — every call inside must be
   # builtins.import.
 , import ? null
-  # manifest attrset, serialized to plugin.json; wins over one in src
+  # manifest attrset, serialized to plugin.json; required unless src
+  # is passed through as a plugin tree
 , manifest ? null
   # assemble mode: skill name -> path inside src
 , skills ? null
-  # mcp server configs, serialized to mcp.json, winning over one in
-  # src; attrset of server name -> config (type/command/...)
+  # mcp server configs, serialized to mcp.json; attrset of server
+  # name -> config (type/command/...)
 , mcpServers ? null
   # flox-agent package providing `flox-agent check-plugin`; when null
   # the check phase is skipped
@@ -188,31 +191,25 @@ stdenvNoCC.mkDerivation {
         # 3. passthrough: src is already a conformant plugin tree
         cp -R . "$dest"
         chmod -R u+w "$dest"
+        passthrough=1
       else
         echo "buildAgentPlugin: no skills argument, no skills-lock.json, and src is not a plugin tree" >&2
         exit 1
       fi
     ''}
 
-    # plugin.json: the manifest argument wins; an upstream file fills
-    # the gap (ADR 0008). In passthrough mode the upstream file is
-    # already in place and the argument replaces it.
+    # plugin.json and mcp.json (ADR 0008): an assembled package is
+    # built from the arguments alone, and the src root's files are
+    # not read; a passed-through tree keeps its own files unless an
+    # argument replaces one.
     if [ -n "${toString (manifestFile != null)}" ]; then
       cp ${toString manifestFile} "$dest/plugin.json"
-    elif [ ! -f "$dest/plugin.json" ]; then
-      if [ -f plugin.json ]; then
-        cp plugin.json "$dest/plugin.json"
-      else
-        echo "buildAgentPlugin: src ships no plugin.json and no manifest argument was given" >&2
-        exit 1
-      fi
+    elif [ -z "''${passthrough:-}" ]; then
+      echo "buildAgentPlugin: no manifest argument was given; an assembled package needs one" >&2
+      exit 1
     fi
-
-    # mcp.json: same rule
     if [ -n "${toString (mcpFile != null)}" ]; then
       cp ${toString mcpFile} "$dest/mcp.json"
-    elif [ ! -f "$dest/mcp.json" ] && [ -f mcp.json ]; then
-      cp mcp.json "$dest/mcp.json"
     fi
 
     # --- runtime substitution pass ------------------------------------

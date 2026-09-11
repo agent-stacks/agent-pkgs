@@ -43,6 +43,7 @@ so an undeclared key is a build error by design:
     "license": "..."
   },
 
+  # Only when the plugin declares servers:
   "mcpServers": {
     "server-a": { "type": "streamable-http", "url": "https://..." }
   },
@@ -70,14 +71,14 @@ so an undeclared key is a build error by design:
 `src` is a pin, not a derivation — JSON cannot hold one, so
 `buildAgentPlugin` fetches it with `fetchFromGitHub` whenever it is an
 attrset carrying `owner` and `repo`. `skills` values are plain in-tree
-path strings. `manifest` is always present, and the builder writes
-it over any `plugin.json` the source root ships (ADR 0008); the
-version in `$schema` is the newest the importer vendors, not a fixed
-`1.0.0`. `mcpServers` is present when the plugin has MCP servers,
-normalized by the importer to the transports the schema names, and
-the builder writes it as `mcp.json` with the manifest's `$schema`
-version, over any `mcp.json` in the source. Both arguments remain
-available to hand-written callers.
+path strings. `manifest` is always present, and an assembled
+package is built from it alone: a `plugin.json` the source root ships
+is not read (ADR 0008). The version in `$schema` is the newest the
+importer vendors, not a fixed `1.0.0`. `mcpServers` is present when
+the plugin declares MCP servers, normalized by the importer to the
+transports the schema names, and the builder writes it as `mcp.json`
+with the manifest's `$schema` version; absent, the package has no
+`mcp.json`, whatever the source root ships.
 
 `import` is declared but only reaches `passthru` — nothing in the
 build reads it. It carries `input` (owner/repo), `flags` (the import
