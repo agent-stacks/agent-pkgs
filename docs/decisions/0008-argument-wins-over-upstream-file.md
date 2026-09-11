@@ -1,4 +1,4 @@
-# 0008. The manifest and mcpServers arguments win; an upstream file fills the gap
+# 0008. An assembled package is built from its arguments alone
 
 Date: 2026-09-11
 
@@ -26,19 +26,19 @@ skills.sh leaderboard failed to import for exactly this.
 
 ## Decision
 
-We will use the `manifest` argument whenever it is given, and an
-upstream `plugin.json` in the src root only when it is not. Passing
-both is no longer an error: the argument is what the caller checked,
-and it replaces the file. `mcpServers` and an upstream `mcp.json`
-follow the same rule.
-
-A src that ships neither file and gets no argument still fails: a
-plugin needs a manifest.
+We will build a package from one source. When the builder selects the
+skills itself, from the `skills` argument or from a `skills-lock.json`,
+the manifest and the servers are the `manifest` and `mcpServers`
+arguments alone: a `plugin.json` or `mcp.json` in the src root is not
+read, and `manifest` is required. When the src is passed through as
+a plugin tree, its own files are the source, and an argument, if
+given, replaces its file.
 
 `flox-agent import` always passes `manifest`, and passes `mcpServers`
-whenever the plugin has servers (flox-agent ADR 0017), so a generated
-package never depends on what its src root holds. Hand-written callers
-may still omit both and let the upstream files through.
+whenever the plugin declares servers (flox-agent ADR 0017), so a
+generated package never depends on what its src root holds, and the
+tree the importer validated is the tree the builder produces.
+Hand-written callers passing a plugin tree may still omit both.
 
 ## Consequences
 
@@ -46,10 +46,15 @@ may still omit both and let the upstream files through.
   built, and a foreign or non-conformant upstream file cannot displace
   them.
 - `+` A subdirectory plugin's `mcp.json` can be carried, as
-  `mcpServers`, where before it was refused.
+  `mcpServers`, where before it was refused, and a root file that
+  belongs to another plugin or another tool is never picked up.
 - `-` An upstream author's `plugin.json` is no longer authoritative
   for a generated package; a generated manifest that drops a field is
   what ships. The importer reports every dropped field on stderr.
-- `-` A hand-written call that passes `manifest` beside a src with a
-  conformant `plugin.json` silently overrides the file where it used
-  to fail. The override is what the caller asked for.
+- `-` A passed-through tree given a `manifest` has its own file
+  replaced where it used to fail. The replacement is what the caller
+  asked for.
+- `-` A passed-through tree given `mcpServers` but no `manifest`
+  gets an `mcp.json` at spec 1.0.0 whatever its `plugin.json`
+  declares, since the version is read from the argument. Pass both,
+  or neither.

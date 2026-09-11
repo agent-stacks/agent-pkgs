@@ -104,6 +104,55 @@
               ];
             };
 
+          # An assembled package is built from its arguments alone
+          # (ADR 0008): a foreign plugin.json and a Claude mcp.json in
+          # the src root are not read, the argument manifest and the
+          # servers ship with the $schema the source lacked, and a
+          # URL server passes the runtime pass untouched. A conformant
+          # tree passed through keeps its own files.
+          arguments-alone =
+            let
+              lib' = mkLib pkgs;
+              src = pkgs.runCommand "arguments-alone-src" { } ''
+                mkdir -p $out/skills/one
+                printf '{"$schema": "https://cursor.com/x", "name": "foreign", "skills": "./skills"}\n' > $out/plugin.json
+                printf '{"mcpServers": {"web": {"type": "http", "url": "https://example.com/mcp"}}}\n' > $out/mcp.json
+                printf -- '---\nname: one\ndescription: Does things.\n---\nBody.\n' > $out/skills/one/SKILL.md
+              '';
+              assembled = lib'.buildAgentPlugin {
+                name = "assembled";
+                inherit src;
+                skills.one = "skills/one";
+                manifest = {
+                  "$schema" = "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json";
+                  name = "assembled";
+                };
+                mcpServers.web = { type = "streamable-http"; url = "https://example.com/mcp"; };
+              };
+              # A conformant tree passed through keeps its own files.
+              conformant = pkgs.runCommand "arguments-alone-conformant" { } ''
+                mkdir -p $out/skills/one
+                printf '{"$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json", "name": "kept"}\n' > $out/plugin.json
+                printf '{"$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json", "mcpServers": {"web": {"type": "sse", "url": "https://example.com/sse"}}}\n' > $out/mcp.json
+                printf -- '---\nname: one\ndescription: Does things.\n---\nBody.\n' > $out/skills/one/SKILL.md
+              '';
+              passthrough = lib'.buildAgentPlugin {
+                name = "kept";
+                src = conformant;
+              };
+            in
+            pkgs.runCommand "arguments-alone" { nativeBuildInputs = [ pkgs.jq ]; } ''
+              a=${assembled}/share/agent-plugins/assembled
+              [ "$(jq -r .name $a/plugin.json)" = assembled ]
+              [ "$(jq -r '."$schema"' $a/mcp.json)" = https://agent-plugins.org/schemas/1.1.0/mcp.schema.json ]
+              [ "$(jq -r .mcpServers.web.type $a/mcp.json)" = streamable-http ]
+              [ "$(jq -r .mcpServers.web.url $a/mcp.json)" = https://example.com/mcp ]
+              p=${passthrough}/share/agent-plugins/kept
+              [ "$(jq -r .name $p/plugin.json)" = kept ]
+              [ "$(jq -r .mcpServers.web.type $p/mcp.json)" = sse ]
+              touch $out
+            '';
+
           # A plugin built the way a generated source.json calls the
           # builder: src as a pin rather than a derivation, an import
           # record that only reaches passthru, and skills as plain

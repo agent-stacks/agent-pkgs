@@ -22,4 +22,4 @@ on one of those links to it rather than restating it.
 | [0005](0005-canonical-output-layout.md) | Canonical output under share/agent-plugins/ |
 | [0006](0006-runtime-substitution.md) | Runtime substitution: plugin-local bin/, deterministic scope |
 | [0007](0007-one-harness-per-stack.md) | One harness per stack, detected from the binary |
-| [0008](0008-argument-wins-over-upstream-file.md) | The manifest and mcpServers arguments win; an upstream file fills the gap |
+| [0008](0008-argument-wins-over-upstream-file.md) | An assembled package is built from its arguments alone |
