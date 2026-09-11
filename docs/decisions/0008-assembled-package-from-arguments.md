@@ -26,19 +26,29 @@ skills.sh leaderboard failed to import for exactly this.
 
 ## Decision
 
-We will build a package from one source. When the builder selects the
-skills itself, from the `skills` argument or from a `skills-lock.json`,
-the manifest and the servers are the `manifest` and `mcpServers`
-arguments alone: a `plugin.json` or `mcp.json` in the src root is not
-read, and `manifest` is required. When the src is passed through as
-a plugin tree, its own files are the source, and an argument, if
-given, replaces its file.
+We will build an assembled package, one whose skills the builder
+selects from the `skills` argument or from a `skills-lock.json`, from
+its `manifest` and `mcpServers` arguments. When the src is passed
+through as a plugin tree, its own files are the source, and an
+argument, if given, replaces its file; a manifest that replaces the
+tree's `plugin.json` also brings the tree's `mcp.json` to its spec
+version, so the pair a client checks still agrees.
+
+Without an argument, an assembled package takes a src root file only
+when it is an Agent Plugins file, one declaring an
+`agent-plugins.org` `$schema`. Any other file at the root is another
+tool's and is not read; an `mcp.json` skipped this way is reported at
+build time. This is what a `source.json` written before the importer
+carried `manifest` relies on, and what a repository with a checked-in
+lock and its own conformant `plugin.json` relies on (ADR 0004); for
+a package the current importer generates the stand-in is never
+consulted.
 
 `flox-agent import` always passes `manifest`, and passes `mcpServers`
-whenever the plugin declares servers (flox-agent ADR 0017), so a
+whenever the plugin declares servers (the flox-agent record "Import
+hands the builder the manifest and servers it checked"), so a
 generated package never depends on what its src root holds, and the
 tree the importer validated is the tree the builder produces.
-Hand-written callers passing a plugin tree may still omit both.
 
 ## Consequences
 
@@ -58,3 +68,6 @@ Hand-written callers passing a plugin tree may still omit both.
   gets an `mcp.json` at spec 1.0.0 whatever its `plugin.json`
   declares, since the version is read from the argument. Pass both,
   or neither.
+- `-` The stand-in rule keeps one reading of the src root in the
+  builder. It can go once every generated `source.json` carries
+  `manifest`.
