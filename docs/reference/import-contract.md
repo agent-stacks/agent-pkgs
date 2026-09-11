@@ -43,6 +43,10 @@ so an undeclared key is a build error by design:
     "license": "..."
   },
 
+  "mcpServers": {
+    "server-a": { "type": "streamable-http", "url": "https://..." }
+  },
+
   "skills": {
     "skill-a": "path/inside/src/skill-a",
     "skill-b": "other/path/skill-b"
@@ -66,15 +70,14 @@ so an undeclared key is a build error by design:
 `src` is a pin, not a derivation — JSON cannot hold one, so
 `buildAgentPlugin` fetches it with `fetchFromGitHub` whenever it is an
 attrset carrying `owner` and `repo`. `skills` values are plain in-tree
-path strings. `manifest` is present only when the source ships no
-`plugin.json` (an upstream `plugin.json` always wins; passing both is
-a build error) — the version in `$schema` is the newest the importer
-vendors, not a fixed `1.0.0`. `mcpServers` is a `buildAgentPlugin`
-argument, not something a generated `source.json` ever carries: the
-importer's `Call` struct (flox-agent repo,
-`internal/importer/importer.go`) has no such field, so a generated
-package never sets it. The argument itself remains available to
-hand-written callers.
+path strings. `manifest` is always present, and the builder writes
+it over any `plugin.json` the source root ships (ADR 0008); the
+version in `$schema` is the newest the importer vendors, not a fixed
+`1.0.0`. `mcpServers` is present when the plugin has MCP servers,
+normalized by the importer to the transports the schema names, and
+the builder writes it as `mcp.json` with the manifest's `$schema`
+version, over any `mcp.json` in the source. Both arguments remain
+available to hand-written callers.
 
 `import` is declared but only reaches `passthru` — nothing in the
 build reads it. It carries `input` (owner/repo), `flags` (the import
@@ -103,9 +106,9 @@ Two further consequences bind the builder:
 - **`src` is the repository, not the plugin root.** A plugin held in
   a subdirectory still arrives with `skills` paths relative to the
   repository root, because `fetchFromGitHub` pins the whole
-  repository. The builder's "upstream `plugin.json` wins" rule
-  therefore keeps applying to the repository root only, which is why
-  such a plugin always arrives with an explicit `manifest`.
+  repository. Whatever the repository root ships, the package is
+  built from the `manifest` and `mcpServers` the importer checked
+  (ADR 0008).
 - **The manifest carries the spec version.** A generated `mcp.json`
   declares the same version the manifest does, because a client must
   disable MCP for a plugin whose `mcp.json` targets a different
