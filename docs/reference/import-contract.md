@@ -67,21 +67,23 @@ so an undeclared key is a build error by design:
 }
 ```
 
-`mcpServers` appears only when the plugin declares servers. `src` is
-a pin, not a derivation — JSON cannot hold one, so
+`src` is a pin, not a derivation — JSON cannot hold one, so
 `buildAgentPlugin` fetches it with `fetchFromGitHub` whenever it is an
 attrset carrying `owner` and `repo`. `skills` values are plain in-tree
-path strings. A generated file carries `manifest` in every case,
-and the builder writes it as `plugin.json`; a `plugin.json` the
-source root ships is not read (ADR 0008). The version in `$schema`
-is the newest the importer vendors, not a fixed `1.0.0`. `mcpServers`
-is present when the plugin declares MCP servers, normalized by the
+path strings. A file written by an importer carrying flox-agent's
+record "Import hands the builder the manifest and servers it checked"
+carries `manifest` in every case, and the builder writes it as
+`plugin.json`; a `plugin.json` the source root ships is not read
+(ADR 0008). The version in `$schema` is the newest the importer
+vendors, not a fixed `1.0.0`. `mcpServers` is present when the plugin
+declares MCP servers, with `http` and untyped servers mapped by the
 importer to the transports the schema names, and the builder writes
-it as `mcp.json` with the manifest's `$schema` version. A file
-written by an importer before these fields existed is still built:
-without `manifest`, the builder takes a root `plugin.json` that
-declares an `agent-plugins.org` `$schema`, and without `mcpServers`
-a root `mcp.json` that does; any other root file is not read.
+it as `mcp.json` with the manifest's `$schema` version. A file from
+an earlier importer is still built: such a file omits `manifest` when
+the plugin's own `plugin.json` sits at the root and never carries
+`mcpServers`, and the builder then takes a root `plugin.json` that
+declares an `agent-plugins.org` `$schema`, and a root `mcp.json` that
+does the same. Any other root file is not read.
 
 `import` is declared but only reaches `passthru` — nothing in the
 build reads it. It carries `input` (owner/repo), `flags` (the import
@@ -144,8 +146,8 @@ passthru.agentPlugin = {
   name = "NAME";
   path = "share/agent-plugins/NAME";
   sourceUrl = "...";        # null for local sources
-  specVersion = "1.0.0";    # from manifest $schema; null when no
-                            #   manifest argument was given
+  specVersion = "1.0.0";    # from manifest $schema; null without a
+                            #   manifest argument or its $schema
   skills = [ "skill-a" ];   # null when selected at build time
   import = { input = "OWNER/REPO"; flags = [ ]; };
                             # null when the package was hand-written

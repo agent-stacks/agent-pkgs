@@ -24,10 +24,11 @@
 # src root stands in only when it is an Agent Plugins file, one
 # declaring an agent-plugins.org $schema; any other is not read, and
 # a skipped mcp.json is reported. A passed-through tree keeps its own
-# files, and an argument, if given, replaces its file. What
-# `flox-agent import` generates carries `manifest` always and
-# `mcpServers` whenever the plugin declares servers, so for a
-# generated package the stand-in is never consulted.
+# files, and an argument, if given, replaces its file. An importer
+# carrying flox-agent's "Import hands the builder the manifest and
+# servers it checked" always passes `manifest`, and `mcpServers`
+# whenever the plugin declares servers; for such a package the
+# stand-in is never consulted.
 { lib
 , stdenvNoCC
 , jq
@@ -296,8 +297,8 @@ stdenvNoCC.mkDerivation {
         fi
         resolve_runtime "$cmd" "mcp.json"
       done < <(jq -r '.mcpServers[] | select(.command != null) | .command' "$dest/mcp.json")
-      # Only stdio servers have a command; an http or sse server has
-      # a url and is left alone. The command is bound to a name
+      # Only stdio servers have a command; a streamable-http or sse
+      # server has a url and is left alone. The command is bound to a name
       # first: inside `$allow | index(...)` the input is the list.
       jq --arg bin "$plugin_out/bin" --argjson allow "$allow" '
         .mcpServers |= with_entries(
