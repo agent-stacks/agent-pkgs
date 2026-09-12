@@ -17,8 +17,9 @@ on one of those links to it rather than restating it.
 | ---- | -------- |
 | [0001](0001-flake-only-entry-point.md) | Flake-only entry point |
 | [0002](0002-optional-check-phase.md) | Optional check phase until the -bin package exists |
-| [0003](0003-upstream-manifest-wins.md) | Upstream plugin.json wins; manifest argument fills the gap |
+| [0003](0003-upstream-manifest-wins.md) | Upstream plugin.json wins; manifest argument fills the gap (superseded by 0008) |
 | [0004](0004-skill-selection-precedence.md) | Skill selection: explicit args, then lock file, then passthrough |
 | [0005](0005-canonical-output-layout.md) | Canonical output under share/agent-plugins/ |
 | [0006](0006-runtime-substitution.md) | Runtime substitution: plugin-local bin/, deterministic scope |
 | [0007](0007-one-harness-per-stack.md) | One harness per stack, detected from the binary |
+| [0008](0008-assembled-package-from-arguments.md) | An assembled package is built from its arguments |

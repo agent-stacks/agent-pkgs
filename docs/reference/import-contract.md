@@ -43,6 +43,10 @@ so an undeclared key is a build error by design:
     "license": "..."
   },
 
+  "mcpServers": {
+    "server-a": { "type": "streamable-http", "url": "https://..." }
+  },
+
   "skills": {
     "skill-a": "path/inside/src/skill-a",
     "skill-b": "other/path/skill-b"
@@ -66,15 +70,20 @@ so an undeclared key is a build error by design:
 `src` is a pin, not a derivation — JSON cannot hold one, so
 `buildAgentPlugin` fetches it with `fetchFromGitHub` whenever it is an
 attrset carrying `owner` and `repo`. `skills` values are plain in-tree
-path strings. `manifest` is present only when the source ships no
-`plugin.json` (an upstream `plugin.json` always wins; passing both is
-a build error) — the version in `$schema` is the newest the importer
-vendors, not a fixed `1.0.0`. `mcpServers` is a `buildAgentPlugin`
-argument, not something a generated `source.json` ever carries: the
-importer's `Call` struct (flox-agent repo,
-`internal/importer/importer.go`) has no such field, so a generated
-package never sets it. The argument itself remains available to
-hand-written callers.
+path strings. A file written by an importer carrying flox-agent's
+record "Import hands the builder the manifest and servers it checked"
+carries `manifest` in every case, and the builder writes it as
+`plugin.json`; a `plugin.json` the source root ships is not read
+(ADR 0008). The version in `$schema` is the newest the importer
+vendors, not a fixed `1.0.0`. `mcpServers` is present when the plugin
+declares MCP servers, with `http` and untyped servers mapped by the
+importer to the transports the schema names, and the builder writes
+it as `mcp.json` with the manifest's `$schema` version. A file from
+an earlier importer is still built: such a file omits `manifest` when
+the plugin's own `plugin.json` sits at the root and never carries
+`mcpServers`, and the builder then takes a root `plugin.json` that
+declares an `agent-plugins.org` `$schema`, and a root `mcp.json` that
+does the same. Any other root file is not read.
 
 `import` is declared but only reaches `passthru` — nothing in the
 build reads it. It carries `input` (owner/repo), `flags` (the import
@@ -103,14 +112,15 @@ Two further consequences bind the builder:
 - **`src` is the repository, not the plugin root.** A plugin held in
   a subdirectory still arrives with `skills` paths relative to the
   repository root, because `fetchFromGitHub` pins the whole
-  repository. The builder's "upstream `plugin.json` wins" rule
-  therefore keeps applying to the repository root only, which is why
-  such a plugin always arrives with an explicit `manifest`.
+  repository. Whatever the repository root ships, the package is
+  built from the `manifest` and `mcpServers` the importer checked
+  (ADR 0008).
 - **The manifest carries the spec version.** A generated `mcp.json`
   declares the same version the manifest does, because a client must
   disable MCP for a plugin whose `mcp.json` targets a different
-  version than its `plugin.json` (spec §7.2.2). A src shipping its own
-  `plugin.json` keeps whatever version that file declares.
+  version than its `plugin.json` (spec §7.2.2). A passed-through
+  tree's `mcp.json` is brought to the manifest's version when a
+  manifest argument replaces its `plugin.json`.
 
 ## Skill selection precedence (builder side)
 
@@ -136,8 +146,8 @@ passthru.agentPlugin = {
   name = "NAME";
   path = "share/agent-plugins/NAME";
   sourceUrl = "...";        # null for local sources
-  specVersion = "1.0.0";    # from manifest $schema; null when the
-                            #   manifest came from the src tree
+  specVersion = "1.0.0";    # from manifest $schema; null without a
+                            #   manifest argument or its $schema
   skills = [ "skill-a" ];   # null when selected at build time
   import = { input = "OWNER/REPO"; flags = [ ]; };
                             # null when the package was hand-written

@@ -104,6 +104,126 @@
               ];
             };
 
+          # ADR 0008, every path: an assembled package with a foreign
+          # plugin.json and a Claude mcp.json at the src root is built
+          # from its arguments, the http server passes the runtime
+          # pass untouched while the stdio one is resolved and the
+          # allowed one is not; a passed-through tree keeps its files,
+          # and a manifest replacing its plugin.json brings its
+          # mcp.json to the same version; a lock-mode tree with a
+          # conformant root plugin.json and no manifest builds from
+          # that file; a conformant root mcp.json stands in for an
+          # older generated file, and a Claude one is skipped.
+          arguments-alone =
+            let
+              lib' = mkLib pkgs;
+              skillMD = ''
+                printf -- '---\nname: one\ndescription: Does things.\n---\nBody.\n' > $out/skills/one/SKILL.md
+              '';
+              foreign = pkgs.runCommand "foreign-src" { } ''
+                mkdir -p $out/skills/one
+                printf '{"$schema": "https://cursor.com/x", "name": "foreign", "skills": "./skills"}\n' > $out/plugin.json
+                printf '{"mcpServers": {"web": {"type": "http", "url": "https://example.com/mcp"}}}\n' > $out/mcp.json
+                ${skillMD}
+              '';
+              conformant = pkgs.runCommand "conformant-src" { } ''
+                mkdir -p $out/skills/one
+                printf '{"$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json", "name": "kept"}\n' > $out/plugin.json
+                printf '{"$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json", "mcpServers": {"web": {"type": "sse", "url": "https://example.com/sse"}}}\n' > $out/mcp.json
+                ${skillMD}
+              '';
+              locked = pkgs.runCommand "locked-src" { } ''
+                mkdir -p $out/skills/one
+                printf '{"$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json", "name": "locked"}\n' > $out/plugin.json
+                printf '{"version": 1, "skills": {"one": {"source": "local", "sourceType": "local"}}}\n' > $out/skills-lock.json
+                ${skillMD}
+              '';
+              manifest11 = name: {
+                "$schema" = "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json";
+                inherit name;
+              };
+              assembled = lib'.buildAgentPlugin {
+                name = "assembled";
+                src = foreign;
+                skills.one = "skills/one";
+                manifest = manifest11 "assembled";
+                mcpServers = {
+                  web = { type = "streamable-http"; url = "https://example.com/mcp"; };
+                  local = { type = "stdio"; command = "python3"; };
+                  fromPath = { type = "stdio"; command = "node"; };
+                };
+                allowPathCommands = [ "node" ];
+              };
+              passthrough = lib'.buildAgentPlugin { name = "kept"; src = conformant; };
+              replaced = lib'.buildAgentPlugin {
+                name = "kept";
+                src = conformant;
+                manifest = manifest11 "kept";
+              };
+              lockMode = lib'.buildAgentPlugin { name = "locked"; src = locked; };
+              standIn = lib'.buildAgentPlugin {
+                name = "kept";
+                src = conformant;
+                skills.one = "skills/one";
+              };
+              skipped = lib'.buildAgentPlugin {
+                name = "assembled";
+                src = foreign;
+                skills.one = "skills/one";
+                manifest = manifest11 "assembled";
+              };
+              noManifest = lib'.buildAgentPlugin {
+                name = "assembled";
+                src = foreign;
+                skills.one = "skills/one";
+              };
+            in
+            pkgs.runCommand "arguments-alone" { nativeBuildInputs = [ pkgs.jq ]; } ''
+              a=${assembled}/share/agent-plugins/assembled
+              [ "$(jq -r .name $a/plugin.json)" = assembled ]
+              [ "$(jq -r '."$schema"' $a/mcp.json)" = https://agent-plugins.org/schemas/1.1.0/mcp.schema.json ]
+              [ "$(jq -r .mcpServers.web.type $a/mcp.json)" = streamable-http ]
+              [ "$(jq -r .mcpServers.web.url $a/mcp.json)" = https://example.com/mcp ]
+              [ "$(jq -r .mcpServers.local.command $a/mcp.json)" = "$a/bin/python3" ]
+              [ "$(jq -r .mcpServers.fromPath.command $a/mcp.json)" = node ]
+              p=${passthrough}/share/agent-plugins/kept
+              [ "$(jq -r .name $p/plugin.json)" = kept ]
+              [ "$(jq -r '."$schema"' $p/mcp.json)" = https://agent-plugins.org/schemas/1.0.0/mcp.schema.json ]
+              r=${replaced}/share/agent-plugins/kept
+              [ "$(jq -r '."$schema"' $r/plugin.json)" = https://agent-plugins.org/schemas/1.1.0/plugin.schema.json ]
+              [ "$(jq -r '."$schema"' $r/mcp.json)" = https://agent-plugins.org/schemas/1.1.0/mcp.schema.json ]
+              [ "$(jq -r .mcpServers.web.type $r/mcp.json)" = sse ]
+              l=${lockMode}/share/agent-plugins/locked
+              [ "$(jq -r .name $l/plugin.json)" = locked ]
+              [ -d $l/skills/one ]
+              s=${standIn}/share/agent-plugins/kept
+              [ "$(jq -r .name $s/plugin.json)" = kept ]
+              [ "$(jq -r .mcpServers.web.type $s/mcp.json)" = sse ]
+              k=${skipped}/share/agent-plugins/assembled
+              [ ! -e $k/mcp.json ]
+              touch $out
+            '';
+
+          # An assembled package with no manifest and no Agent Plugins
+          # plugin.json in src fails, naming the gap.
+          arguments-alone-no-manifest =
+            let
+              lib' = mkLib pkgs;
+              foreign = pkgs.runCommand "foreign-src" { } ''
+                mkdir -p $out/skills/one
+                printf '{"$schema": "https://cursor.com/x", "name": "foreign"}\n' > $out/plugin.json
+                printf -- '---\nname: one\ndescription: Does things.\n---\nBody.\n' > $out/skills/one/SKILL.md
+              '';
+            in
+            pkgs.testers.testBuildFailure' {
+              drv = lib'.buildAgentPlugin {
+                name = "assembled";
+                src = foreign;
+                skills.one = "skills/one";
+              };
+              expectedBuilderLogEntries = [ "no manifest argument was given" ];
+            };
+
           # A plugin built the way a generated source.json calls the
           # builder: src as a pin rather than a derivation, an import
           # record that only reaches passthru, and skills as plain

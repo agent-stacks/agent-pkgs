@@ -15,16 +15,16 @@ every argument.
 | `src` | required | Source tree (fetcher output or local path), or a `fetchFromGitHub` argument set — an attrset carrying `owner` and `repo` — which the builder fetches itself. A generated `source.json` always writes the pin form, since JSON cannot hold a derivation. |
 | `sourceUrl` | `null` | Upstream URL recorded in `passthru.agentPlugin`. |
 | `import` | `null` | The import that produced this package, when it was generated: `{ input, flags, warnings }`. Nothing in the build reads it; it exists so a generated `source.json` can be passed whole, and it reaches `passthru` so a reader can see what produced the package. |
-| `manifest` | `null` | Attrset serialized to `plugin.json` when the src ships none. Passing both is a build error. |
+| `manifest` | `null` | Attrset serialized to `plugin.json`, replacing a passed-through tree's own. Without it an assembled package takes a root `plugin.json` only when it declares an `agent-plugins.org` `$schema`, else fails (ADR 0008). |
 | `skills` | `null` | Skill name → path in src. When null, the builder falls back to `skills-lock.json`, then to a passthrough tree. |
-| `mcpServers` | `null` | Attrset serialized to `mcp.json` when the src ships none; same both-is-an-error rule. The generated file declares the same spec version as `manifest`, defaulting to 1.0.0 when there is no manifest. |
+| `mcpServers` | `null` | Attrset serialized to `mcp.json` at the `manifest`'s spec version (1.0.0 without one). Without it, a passed-through tree keeps its own `mcp.json`, rewritten to the manifest's version when `manifest` replaced its `plugin.json`; an assembled package takes a root `mcp.json` only when it declares an `agent-plugins.org` `$schema`, and reports one it skips. |
 | `floxAgent` | this set's | The flox-agent whose `check-plugin` validates the output. Packages built from this repo get `pkgs/flox-agent`; `null` skips validation. What it validates is documented in the flox-agent repo, `docs/reference/check-plugin-command.md`. |
 | `strict` | `false` | Pass `--strict`, making warnings fail the build. Off by default: skills in the wild carry harness frontmatter fields the Agent Skills spec does not list, and those are warnings a correct plugin can have. |
 | `runtimes` | `{ }` | Interpreter name → package. Overrides `mappings/runtimes.nix` and pins versions, e.g. `{ python3 = python312; }`. |
 | `allowPathCommands` | `[ ]` | Bare `mcp.json` commands that intentionally resolve from the consumer environment's PATH instead of the closure. |
 | `extraSubstitutions` | `[ ]` | List of `{ file; replace; with; }` applied after the automatic pass, for interpreter mentions in script bodies or SKILL.md text. |
 | `allowEnvShebangs` | `[ ]` | Executables (paths relative to the plugin root) allowed to keep a `/usr/bin/env` shebang. |
-| `meta` | `{ }` | Standard derivation meta. Absent `license` means no assertion (ADR 0003 context). |
+| `meta` | `{ }` | Standard derivation meta. Absent `license` means no assertion. |
 
 ## The runtime substitution pass
 

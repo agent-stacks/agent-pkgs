@@ -17,10 +17,18 @@
 # 3. Passthrough: src is already a conformant plugin tree (plugin.json
 #    + skills/) and is copied as-is.
 #
-# plugin.json rule: an upstream plugin.json in the src root wins; the
-# `manifest` argument is only for sources that ship none. Passing both
-# is a build error. `mcpServers` and an upstream mcp.json follow the
-# same rule.
+# plugin.json rule (ADR 0008): an assembled package, one whose
+# skills are selected here from the `skills` argument or the lock,
+# takes its manifest and servers from the `manifest` and `mcpServers`
+# arguments. Without an argument, a plugin.json or mcp.json in the
+# src root stands in only when it is an Agent Plugins file, one
+# declaring an agent-plugins.org $schema; any other is not read, and
+# a skipped mcp.json is reported. A passed-through tree keeps its own
+# files, and an argument, if given, replaces its file. An importer
+# carrying flox-agent's "Import hands the builder the manifest and
+# servers it checked" always passes `manifest`, and `mcpServers`
+# whenever the plugin declares servers; for such a package the
+# stand-in is never consulted.
 { lib
 , stdenvNoCC
 , jq
@@ -48,12 +56,13 @@
   # including the other formals' defaults — every call inside must be
   # builtins.import.
 , import ? null
-  # manifest attrset, serialized to plugin.json when src has none
+  # manifest attrset, serialized to plugin.json; without it, only an
+  # Agent Plugins plugin.json in src stands in
 , manifest ? null
   # assemble mode: skill name -> path inside src
 , skills ? null
-  # mcp server configs, serialized to mcp.json when src has none;
-  # attrset of server name -> config (type/command/...)
+  # mcp server configs, serialized to mcp.json; attrset of server
+  # name -> config (type/command/...)
 , mcpServers ? null
   # flox-agent package providing `flox-agent check-plugin`; when null
   # the check phase is skipped
@@ -186,39 +195,48 @@ stdenvNoCC.mkDerivation {
         # 3. passthrough: src is already a conformant plugin tree
         cp -R . "$dest"
         chmod -R u+w "$dest"
+        passthrough=1
       else
         echo "buildAgentPlugin: no skills argument, no skills-lock.json, and src is not a plugin tree" >&2
         exit 1
       fi
     ''}
 
-    # plugin.json: upstream file wins; manifest only fills the gap
-    if [ -f plugin.json ] && [ -n "${toString (manifestFile != null)}" ]; then
-      echo "buildAgentPlugin: src ships plugin.json AND a manifest argument was given — drop one" >&2
+    # plugin.json and mcp.json (ADR 0008). An argument is written as
+    # given. Without one, a passed-through tree keeps its own file,
+    # and an assembled package takes a src root file only when it is
+    # an Agent Plugins file: one declaring an agent-plugins.org
+    # $schema, which is what an older generated source.json relied on
+    # the builder to copy. Anything else at the root is another
+    # tool's, and is not read.
+    is_agent_plugins_file() {
+      [ -f "$1" ] && jq -e '."$schema" | strings | startswith("https://agent-plugins.org/")' "$1" >/dev/null 2>&1
+    }
+    if [ -n "${toString (manifestFile != null)}" ]; then
+      cp ${toString manifestFile} "$dest/plugin.json"
+    elif [ -n "''${passthrough:-}" ]; then
+      :
+    elif is_agent_plugins_file plugin.json; then
+      cp plugin.json "$dest/plugin.json"
+    else
+      echo "buildAgentPlugin: no manifest argument was given, and src ships no Agent Plugins plugin.json to stand in" >&2
       exit 1
     fi
-    if [ ! -f "$dest/plugin.json" ]; then
-      if [ -f plugin.json ]; then
-        cp plugin.json "$dest/plugin.json"
-      elif [ -n "${toString (manifestFile != null)}" ]; then
-        cp ${toString manifestFile} "$dest/plugin.json"
-      else
-        echo "buildAgentPlugin: src ships no plugin.json and no manifest argument was given" >&2
-        exit 1
+    if [ -n "${toString (mcpFile != null)}" ]; then
+      cp ${toString mcpFile} "$dest/mcp.json"
+    elif [ -n "''${passthrough:-}" ]; then
+      # The tree's own mcp.json, brought to the manifest's version
+      # when a manifest argument replaced the tree's plugin.json, so
+      # the pair a client checks (spec §7.2.2) still agrees.
+      if [ -f "$dest/mcp.json" ] && [ -n "${toString (manifestFile != null)}" ]; then
+        jq --arg s "https://agent-plugins.org/schemas/${specVersionOf manifest}/mcp.schema.json" \
+          '."$schema" = $s' "$dest/mcp.json" > "$dest/mcp.json.tmp"
+        mv "$dest/mcp.json.tmp" "$dest/mcp.json"
       fi
-    fi
-
-    # mcp.json: same rule
-    if [ -f mcp.json ] && [ -n "${toString (mcpFile != null)}" ]; then
-      echo "buildAgentPlugin: src ships mcp.json AND mcpServers was given — drop one" >&2
-      exit 1
-    fi
-    if [ ! -f "$dest/mcp.json" ]; then
-      if [ -f mcp.json ]; then
-        cp mcp.json "$dest/mcp.json"
-      elif [ -n "${toString (mcpFile != null)}" ]; then
-        cp ${toString mcpFile} "$dest/mcp.json"
-      fi
+    elif is_agent_plugins_file mcp.json; then
+      cp mcp.json "$dest/mcp.json"
+    elif [ -f mcp.json ]; then
+      echo "buildAgentPlugin: src ships an mcp.json that is not an Agent Plugins file; not carried. Regenerate the package with flox-agent import to carry its servers." >&2
     fi
 
     # --- runtime substitution pass ------------------------------------
@@ -278,11 +296,16 @@ stdenvNoCC.mkDerivation {
           continue
         fi
         resolve_runtime "$cmd" "mcp.json"
-      done < <(jq -r '.mcpServers[].command' "$dest/mcp.json")
+      done < <(jq -r '.mcpServers[] | select(.command != null) | .command' "$dest/mcp.json")
+      # Only stdio servers have a command; a streamable-http or sse
+      # server has a url and is left alone. The command is bound to a name
+      # first: inside `$allow | index(...)` the input is the list.
       jq --arg bin "$plugin_out/bin" --argjson allow "$allow" '
         .mcpServers |= with_entries(
-          .value.command |= (if (contains("/") | not) and (($allow | index(.)) == null)
-                             then "\($bin)/\(.)" else . end))
+          if .value.command == null then . else
+          .value.command |= (. as $c
+            | if ($c | contains("/") | not) and (($allow | index($c)) == null)
+              then "\($bin)/\($c)" else $c end) end)
       ' "$dest/mcp.json" > "$dest/mcp.json.tmp"
       mv "$dest/mcp.json.tmp" "$dest/mcp.json"
     fi
