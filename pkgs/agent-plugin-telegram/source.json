@@ -1,0 +1,60 @@
+{
+  "name": "telegram",
+  "version": "0-unstable-2026-09-14",
+  "src": {
+    "owner": "anthropics",
+    "repo": "claude-plugins-official",
+    "rev": "da823e86c8feef13b73b6712af11eadd38c992f6",
+    "hash": "sha256-ZlFDfVxudxGzxwmkrMDun7wUMFBeyGBnnj1mAZPtjTw="
+  },
+  "sourceUrl": "https://github.com/anthropics/claude-plugins-official",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "description": "Telegram messaging bridge with built-in access control. Manage pairing, allowlists, and policy via /telegram:access.",
+    "name": "telegram"
+  },
+  "skills": {
+    "access": "external_plugins/telegram/skills/access",
+    "configure": "external_plugins/telegram/skills/configure"
+  },
+  "mcpServers": {
+    "telegram": {
+      "args": [
+        "run",
+        "--cwd",
+        "${PLUGIN_ROOT}",
+        "--shell=bun",
+        "--silent",
+        "start"
+      ],
+      "command": "bun",
+      "type": "stdio"
+    }
+  },
+  "meta": {
+    "description": "Telegram messaging bridge with built-in access control",
+    "homepage": "https://github.com/anthropics/claude-plugins-official"
+  },
+  "import": {
+    "input": "anthropics/claude-plugins-official",
+    "flags": [],
+    "warnings": [
+      {
+        "path": "external_plugins/telegram/skills/access/SKILL.md",
+        "message": "unknown frontmatter fields: user-invocable"
+      },
+      {
+        "path": "external_plugins/telegram/skills/access/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Read Write Bash(ls *) Bash(mkdir *) Bash(echo *))"
+      },
+      {
+        "path": "external_plugins/telegram/skills/configure/SKILL.md",
+        "message": "unknown frontmatter fields: user-invocable"
+      },
+      {
+        "path": "external_plugins/telegram/skills/configure/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Read Write Bash(ls *) Bash(mkdir *) Bash(echo *) Bash(chmod *))"
+      }
+    ]
+  }
+}

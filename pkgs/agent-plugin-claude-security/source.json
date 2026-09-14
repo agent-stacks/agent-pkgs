@@ -1,0 +1,42 @@
+{
+  "name": "claude-security",
+  "version": "0-unstable-2026-09-14",
+  "src": {
+    "owner": "anthropics",
+    "repo": "claude-plugins-official",
+    "rev": "da823e86c8feef13b73b6712af11eadd38c992f6",
+    "hash": "sha256-ZlFDfVxudxGzxwmkrMDun7wUMFBeyGBnnj1mAZPtjTw="
+  },
+  "sourceUrl": "https://github.com/anthropics/claude-plugins-official",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "email": "support@anthropic.com",
+      "name": "Anthropic"
+    },
+    "description": "Deep vulnerability scanning of your own code, run entirely inside your Claude Code session at a chosen effort tier, with every finding challenged before it is reported and the verification tally computed in code. Turns surviving findings into targeted patches, each verified by a panel of agents, that you apply when you choose.",
+    "homepage": "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/claude-security",
+    "name": "claude-security"
+  },
+  "skills": {
+    "claude-security": "plugins/claude-security/skills/claude-security"
+  },
+  "meta": {
+    "description": "Deep vulnerability scanning of your own code, run entirely inside your Claude Code session at a chosen effort tier, with every finding challenged before it is reported and the verification tally computed in code",
+    "homepage": "https://github.com/anthropics/claude-plugins-official"
+  },
+  "import": {
+    "input": "anthropics/claude-plugins-official",
+    "flags": [],
+    "warnings": [
+      {
+        "path": "plugins/claude-security/skills/claude-security/SKILL.md",
+        "message": "unknown frontmatter fields: disable-model-invocation"
+      },
+      {
+        "path": "plugins/claude-security/skills/claude-security/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list of 22 tools"
+      }
+    ]
+  }
+}
