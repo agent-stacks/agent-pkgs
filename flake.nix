@@ -1,6 +1,20 @@
 {
   description = "Nix package set for Agent Plugins and Agent Stacks";
 
+  # The cache the agent CLIs re-exported from llm-agents.nix are built
+  # into upstream. Whether a path hits depends on it having been built
+  # from inputs identical to ours, which the two nixpkgs revisions
+  # currently agree on for a good part of the set; where they do not,
+  # Nix treats the miss as a miss and builds. Offered rather than
+  # imposed: an untrusted user gets a warning and no substituter, which
+  # costs build time and nothing else.
+  nixConfig = {
+    extra-substituters = [ "https://cache.numtide.com" ];
+    extra-trusted-public-keys = [
+      "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
+    ];
+  };
+
   inputs = {
     # The Flox nixpkgs fork, not upstream. Publishing to a Flox catalog
     # requires a nixpkgs revision the catalog server has a page for, and

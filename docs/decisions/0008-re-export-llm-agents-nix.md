@@ -44,6 +44,16 @@ from, and only that instance. The set gains packages daily, so a list
 of permitted names here would be stale within the week. The narrow
 predicate still governs everything built from `pkgs/`.
 
+Upstream's own cache, `cache.numtide.com`, is offered as a
+substituter from `nixConfig` and configured on the Hydra host and its
+builders (in deltaops). It saves build time only: a path substituted
+there is still copied into the agent-stacks cache, because that is the
+only cache agent-stacks consumers trust. Whether a path hits at all
+depends on the two nixpkgs revisions producing the same output path,
+which they do for part of the set today and need not tomorrow. The
+GitHub workflows are left alone, because `nix flake check` builds
+`checks`, which the re-export is not in.
+
 The re-export reaches `packages.*` and `hydraJobs.packages`, not
 `checks`. `nix flake check` runs on GitHub runners in
 `update-flake-lock`, where building every agent CLI would take hours
@@ -64,5 +74,8 @@ to report what Hydra reports anyway.
   catalog. Accepted deliberately; the licences are upstream's to
   state and ours to respect.
 - `-` The lock file carries a second nixpkgs.
+- `-` Hydra and its builders trust a third-party cache's signing key.
+  Scoped to those machines; the key is not added to `profiles/common.nix`
+  and no agent-stacks consumer is asked to trust it.
 - `-` An upstream package that breaks becomes a red Hydra job here,
   for a package nobody in this repo wrote.
