@@ -97,11 +97,13 @@ it.
 
 How `<name>`, `version`, `manifest` and the `skills` paths are chosen
 is import's side of the contract, and lives with the importer: see
-the flox-agent repo, `docs/decisions/0014-plugin-and-skill-discovery.md`
+the flox-agent repo, `docs/decisions/0021-root-skill-beside-nested-skills.md`
 for the reasoning and `docs/reference/import-command.md` for the
-behavior. (0014 supersedes 0013, which this page used to name: the
-fallback to a directory name is gone, and a name now always comes from
-the manifest that defined the plugin.)
+behavior. (0021 supersedes 0014, which supersedes 0013, which this
+page used to name: the fallback to a directory name is gone, and a
+name now always comes from the manifest that defined the plugin; a
+root `SKILL.md` is one skill among those below it rather than the
+end of the search.)
 
 One naming rule matters on this side: the package directory, and so
 the flake attribute, is the plugin's name behind an `agent-plugin-`
@@ -117,6 +119,20 @@ Two further consequences bind the builder:
   repository. Whatever the repository root ships, the package is
   built from the `manifest` and `mcpServers` the importer checked
   (ADR 0009).
+- **The root skill's copy excludes every skill directory below it.**
+  A repository whose root `SKILL.md` is a router or a parent arrives
+  as `"skills": {"parent": ".", "inner": "skills/inner", ...}`: the
+  root skill at `.` and every nested one at its own path. The
+  importer's search went on below the root, so every directory below
+  it holding a `SKILL.md` was either imported as its own skill or
+  dropped. The builder removes each from the root skill's copy,
+  whether the map lists it or not, so a nested skill is packaged once
+  at its own name and a dropped one is not packaged at all. A wrapper
+  directory left empty goes too. Any other skill is copied whole. The
+  importer stages the same tree for its check phase and records what
+  the copy left out in `import.warnings`. `.` may be spelled `./`. A
+  `source.json` written before this rule with a skill at `.` builds
+  the same way (flox-agent ADR 0021).
 - **The manifest carries the spec version.** A generated `mcp.json`
   declares the same version the manifest does, because a client must
   disable MCP for a plugin whose `mcp.json` targets a different

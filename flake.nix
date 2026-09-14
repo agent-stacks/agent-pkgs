@@ -297,6 +297,44 @@
               expectedBuilderLogEntries = [ "no manifest argument was given" ];
             };
 
+          # A root skill beside nested ones (flox-agent ADR 0021): the
+          # root's copy leaves out every skill directory below it,
+          # whether the map lists it or not, and a wrapper left empty;
+          # the nested skill is packaged at its own name. A skill with
+          # nothing below it is copied as before, and "./" spells the
+          # root as well as ".".
+          root-skill-excludes-nested =
+            let
+              lib' = mkLib pkgs;
+              suite = pkgs.runCommand "suite-src" { } ''
+                mkdir -p $out/skills/inner/scripts $out/skills/dropped $out/references
+                printf -- '---\nname: parent\ndescription: Routes the suite.\n---\nBody.\n' > $out/SKILL.md
+                printf -- '---\nname: inner\ndescription: One route.\n---\nBody.\n' > $out/skills/inner/SKILL.md
+                printf -- '---\nname: dropped\n---\nNo description, so import skipped it.\n' > $out/skills/dropped/SKILL.md
+                printf 'kept\n' > $out/references/guide.md
+                printf 'echo hi\n' > $out/skills/inner/scripts/run.sh
+              '';
+              built = lib'.buildAgentPlugin {
+                name = "suite";
+                src = suite;
+                manifest = {
+                  "$schema" = "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json";
+                  name = "suite";
+                };
+                skills = { parent = "./"; inner = "skills/inner"; };
+              };
+            in
+            pkgs.runCommand "root-skill-excludes-nested" { } ''
+              p=${built}/share/agent-plugins/suite
+              [ -f $p/skills/parent/SKILL.md ]
+              [ -f $p/skills/parent/references/guide.md ]
+              [ ! -e $p/skills/parent/skills ]
+              [ -f $p/skills/inner/SKILL.md ]
+              [ -f $p/skills/inner/scripts/run.sh ]
+              [ ! -e $p/skills/dropped ]
+              touch $out
+            '';
+
           # A plugin built the way a generated source.json calls the
           # builder: src as a pin rather than a derivation, an import
           # record that only reaches passthru, and skills as plain
