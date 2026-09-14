@@ -22,3 +22,4 @@ on one of those links to it rather than restating it.
 | [0005](0005-canonical-output-layout.md) | Canonical output under share/agent-plugins/ |
 | [0006](0006-runtime-substitution.md) | Runtime substitution: plugin-local bin/, deterministic scope |
 | [0007](0007-one-harness-per-stack.md) | One harness per stack, detected from the binary |
+| [0008](0008-re-export-llm-agents-nix.md) | Re-export llm-agents.nix into the package set |
