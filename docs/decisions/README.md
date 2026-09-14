@@ -19,6 +19,7 @@ ones this package set is built on:
 | flox-agent 0019 | A plugin's directory must be named after its manifest, and nothing renames it |
 | flox-agent 0017 | A package directory belongs to one upstream, and `--name` is the way out |
 | flox-agent 0018 | Import hands the builder the manifest and servers it checked |
+| flox-agent 0020 | The CLI is the commercial surface; the ecosystem stays open — why the tool is unfree while this set is not |
 
 These records cover the Nix side only: the builders, the package set,
 and the contract this repo meets flox-agent at. Decisions about
@@ -37,3 +38,4 @@ on one of those links to it rather than restating it.
 | [0007](0007-one-harness-per-stack.md) | One harness per stack, detected from the binary |
 | [0008](0008-re-export-llm-agents-nix.md) | Re-export llm-agents.nix into the package set |
 | [0009](0009-assembled-package-from-arguments.md) | An assembled package is built from its arguments |
+| [0010](0010-stack-launcher-reuses-flox-agent-launch.md) | A stack's launcher execs `flox-agent launch` |
