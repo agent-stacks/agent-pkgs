@@ -74,7 +74,7 @@ path strings. A file written by an importer carrying flox-agent's
 record "Import hands the builder the manifest and servers it checked"
 carries `manifest` in every case, and the builder writes it as
 `plugin.json`; a `plugin.json` the source root ships is not read
-(ADR 0008). The version in `$schema` is the newest the importer
+(ADR 0009). The version in `$schema` is the newest the importer
 vendors, not a fixed `1.0.0`. `mcpServers` is present when the plugin
 declares MCP servers, with `http` and untyped servers mapped by the
 importer to the transports the schema names, and the builder writes
@@ -114,7 +114,7 @@ Two further consequences bind the builder:
   repository root, because `fetchFromGitHub` pins the whole
   repository. Whatever the repository root ships, the package is
   built from the `manifest` and `mcpServers` the importer checked
-  (ADR 0008).
+  (ADR 0009).
 - **The manifest carries the spec version.** A generated `mcp.json`
   declares the same version the manifest does, because a client must
   disable MCP for a plugin whose `mcp.json` targets a different

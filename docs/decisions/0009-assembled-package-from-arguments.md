@@ -1,4 +1,4 @@
-# 0008. An assembled package is built from its arguments
+# 0009. An assembled package is built from its arguments
 
 Date: 2026-09-11
 

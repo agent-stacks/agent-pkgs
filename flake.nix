@@ -177,7 +177,7 @@
               ];
             };
 
-          # ADR 0008, every path: an assembled package with a foreign
+          # ADR 0009, every path: an assembled package with a foreign
           # plugin.json and a Claude mcp.json at the src root is built
           # from its arguments, the http server passes the runtime
           # pass untouched while the stdio one is resolved and the

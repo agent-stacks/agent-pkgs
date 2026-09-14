@@ -17,7 +17,7 @@
 # 3. Passthrough: src is already a conformant plugin tree (plugin.json
 #    + skills/) and is copied as-is.
 #
-# plugin.json rule (ADR 0008): an assembled package, one whose
+# plugin.json rule (ADR 0009): an assembled package, one whose
 # skills are selected here from the `skills` argument or the lock,
 # takes its manifest and servers from the `manifest` and `mcpServers`
 # arguments. Without an argument, a plugin.json or mcp.json in the
@@ -202,7 +202,7 @@ stdenvNoCC.mkDerivation {
       fi
     ''}
 
-    # plugin.json and mcp.json (ADR 0008). An argument is written as
+    # plugin.json and mcp.json (ADR 0009). An argument is written as
     # given. Without one, a passed-through tree keeps its own file,
     # and an assembled package takes a src root file only when it is
     # an Agent Plugins file: one declaring an agent-plugins.org
