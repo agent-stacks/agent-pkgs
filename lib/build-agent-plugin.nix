@@ -146,13 +146,39 @@ let
       --replace-fail ${lib.escapeShellArg s.replace} ${lib.escapeShellArg s."with"}
   '';
 
-  copySkill = skillName: path: ''
+  # A skills map value as import writes it: no leading ./, no
+  # trailing /. A hand-written call may spell it either way.
+  cleanPath = p:
+    let s = lib.removePrefix "./" (lib.removeSuffix "/" p);
+    in if s == "" then "." else s;
+
+  copySkill = skillName: rawPath:
+    let path = cleanPath rawPath; in ''
     if [ ! -f ${lib.escapeShellArg path}/SKILL.md ]; then
       echo "buildAgentPlugin: skill '${skillName}': no SKILL.md at '${path}' in src" >&2
       exit 1
     fi
     mkdir -p "$dest/skills"
     cp -R ${lib.escapeShellArg path} "$dest/skills/${skillName}"
+    ${lib.optionalString (path == ".") ''
+      # The root skill is the whole repository, so every skill
+      # directory below it is removed from its copy: each is packaged
+      # under its own name or was dropped by the importer, and a
+      # dropped one must not ship unchecked inside the root. Found
+      # here rather than read from the map, which names only the
+      # kept ones (flox-agent ADR 0021). A wrapper such as skills/
+      # left empty goes with it.
+      chmod -R u+w "$dest/skills/${skillName}"
+      mapfile -t nested < <(find "$dest/skills/${skillName}" -mindepth 2 -name SKILL.md | sort)
+      for md in "''${nested[@]}"; do
+        d=$(dirname "$md")
+        rm -rf "$d"
+        d=$(dirname "$d")
+        while [ "$d" != "$dest/skills/${skillName}" ] && rmdir "$d" 2>/dev/null; do
+          d=$(dirname "$d")
+        done
+      done
+    ''}
   '';
 in
 stdenvNoCC.mkDerivation {

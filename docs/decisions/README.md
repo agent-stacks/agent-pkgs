@@ -15,7 +15,7 @@ ones this package set is built on:
 
 | # | Decision |
 | ---- | -------- |
-| flox-agent 0014 | How import finds plugins, and how it finds their skills — a name comes from the manifest that defined the plugin, with `<owner>-<repo>` synthesized only when there is no manifest |
+| flox-agent 0021 | How import finds plugins and their skills; a root `SKILL.md` is one skill among those below it, and the builder copies it without them |
 | flox-agent 0019 | A plugin's directory must be named after its manifest, and nothing renames it |
 | flox-agent 0017 | A package directory belongs to one upstream, and `--name` is the way out |
 | flox-agent 0018 | Import hands the builder the manifest and servers it checked |
