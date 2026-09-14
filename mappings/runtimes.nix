@@ -17,4 +17,10 @@
   nodejs = "nodejs";
   python = "python3";
   python3 = "python3";
+
+  # Launchers, not interpreters. Each resolves what it runs from the
+  # network, so mapping the name makes the closure complete for the
+  # launcher and not for what it launches (AI-565).
+  npx = "nodejs";
+  uv = "uv";
 }

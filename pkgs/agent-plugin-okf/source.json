@@ -1,0 +1,65 @@
+{
+  "name": "okf",
+  "version": "0-unstable-2026-09-05",
+  "src": {
+    "owner": "scaccogatto",
+    "repo": "okf-skills",
+    "rev": "d8393f329c97836980566c1cf4e4aa4fe47dc111",
+    "hash": "sha256-cNWHJFu12Ev7DYyMnB0+HM+4tSg28d3fzS7OjUf0utE="
+  },
+  "sourceUrl": "https://github.com/scaccogatto/okf-skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "description": "Author, maintain, validate, and visualize Open Knowledge Format (OKF) bundles.",
+    "keywords": [
+      "okf",
+      "knowledge",
+      "markdown",
+      "agents"
+    ],
+    "license": "MIT",
+    "name": "okf"
+  },
+  "skills": {
+    "backfill": "skills/backfill",
+    "okf": "skills/okf",
+    "validate": "skills/validate",
+    "visualize": "skills/visualize"
+  },
+  "mcpServers": {
+    "bundle": {
+      "args": [
+        "run",
+        "${PLUGIN_ROOT}/servers/okf_mcp.py"
+      ],
+      "command": "uv",
+      "type": "stdio"
+    }
+  },
+  "meta": {
+    "description": "Author, maintain, validate, and visualize Open Knowledge Format (OKF) bundles",
+    "homepage": "https://github.com/scaccogatto/okf-skills"
+  },
+  "import": {
+    "input": "scaccogatto/okf-skills",
+    "flags": [],
+    "warnings": [
+      {
+        "path": "skills/backfill/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, user-invocable"
+      },
+      {
+        "path": "skills/okf/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, user-invocable"
+      },
+      {
+        "path": "skills/validate/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, user-invocable"
+      },
+      {
+        "path": "skills/visualize/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, user-invocable"
+      }
+    ]
+  }
+}
