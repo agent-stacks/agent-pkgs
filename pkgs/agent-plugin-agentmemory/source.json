@@ -1,0 +1,128 @@
+{
+  "name": "agentmemory",
+  "version": "0-unstable-2026-08-23",
+  "src": {
+    "owner": "rohitg00",
+    "repo": "agentmemory",
+    "rev": "e04ba88819c365c9acf9d6661ea802143e728bd6",
+    "hash": "sha256-fJ8I8kj7TGvN4T1WPvimSqOrkrC3Ph+QqBE1b8sfs0k="
+  },
+  "sourceUrl": "https://github.com/rohitg00/agentmemory",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "description": "Persistent memory for AI coding agents -- captures tool usage, compresses via LLM, injects context into future sessions",
+    "name": "agentmemory"
+  },
+  "skills": {
+    "agentmemory-agents": "plugin/skills/agentmemory-agents",
+    "agentmemory-architecture": "plugin/skills/agentmemory-architecture",
+    "agentmemory-config": "plugin/skills/agentmemory-config",
+    "agentmemory-hooks": "plugin/skills/agentmemory-hooks",
+    "agentmemory-mcp-tools": "plugin/skills/agentmemory-mcp-tools",
+    "agentmemory-rest-api": "plugin/skills/agentmemory-rest-api",
+    "commit-context": "plugin/skills/commit-context",
+    "commit-history": "plugin/skills/commit-history",
+    "forget": "plugin/skills/forget",
+    "handoff": "plugin/skills/handoff",
+    "lesson": "plugin/skills/lesson",
+    "memory-discipline": "plugin/skills/memory-discipline",
+    "recall": "plugin/skills/recall",
+    "recap": "plugin/skills/recap",
+    "remember": "plugin/skills/remember",
+    "session-history": "plugin/skills/session-history",
+    "write-agentmemory-skill": "plugin/skills/write-agentmemory-skill"
+  },
+  "mcpServers": {
+    "agentmemory": {
+      "args": [
+        "-y",
+        "@agentmemory/mcp"
+      ],
+      "command": "npx",
+      "env": {
+        "AGENTMEMORY_SECRET": "${AGENTMEMORY_SECRET:-}",
+        "AGENTMEMORY_TOOLS": "${AGENTMEMORY_TOOLS:-all}",
+        "AGENTMEMORY_URL": "${AGENTMEMORY_URL:-http://localhost:3111}"
+      },
+      "type": "stdio"
+    }
+  },
+  "meta": {
+    "description": "Persistent memory for AI coding agents -- captures tool usage, compresses via LLM, injects context into future sessions",
+    "homepage": "https://github.com/rohitg00/agentmemory"
+  },
+  "import": {
+    "input": "rohitg00/agentmemory",
+    "flags": [],
+    "warnings": [
+      {
+        "path": "plugin/skills/agentmemory-agents/SKILL.md",
+        "message": "unknown frontmatter fields: user-invocable"
+      },
+      {
+        "path": "plugin/skills/agentmemory-architecture/SKILL.md",
+        "message": "unknown frontmatter fields: user-invocable"
+      },
+      {
+        "path": "plugin/skills/agentmemory-config/SKILL.md",
+        "message": "unknown frontmatter fields: user-invocable"
+      },
+      {
+        "path": "plugin/skills/agentmemory-hooks/SKILL.md",
+        "message": "unknown frontmatter fields: user-invocable"
+      },
+      {
+        "path": "plugin/skills/agentmemory-mcp-tools/SKILL.md",
+        "message": "unknown frontmatter fields: user-invocable"
+      },
+      {
+        "path": "plugin/skills/agentmemory-rest-api/SKILL.md",
+        "message": "unknown frontmatter fields: user-invocable"
+      },
+      {
+        "path": "plugin/skills/commit-context/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, user-invocable"
+      },
+      {
+        "path": "plugin/skills/commit-history/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, user-invocable"
+      },
+      {
+        "path": "plugin/skills/forget/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, user-invocable"
+      },
+      {
+        "path": "plugin/skills/handoff/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, user-invocable"
+      },
+      {
+        "path": "plugin/skills/lesson/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, user-invocable"
+      },
+      {
+        "path": "plugin/skills/memory-discipline/SKILL.md",
+        "message": "unknown frontmatter fields: user-invocable"
+      },
+      {
+        "path": "plugin/skills/recall/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, user-invocable"
+      },
+      {
+        "path": "plugin/skills/recap/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, user-invocable"
+      },
+      {
+        "path": "plugin/skills/remember/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, user-invocable"
+      },
+      {
+        "path": "plugin/skills/session-history/SKILL.md",
+        "message": "unknown frontmatter fields: user-invocable"
+      },
+      {
+        "path": "plugin/skills/write-agentmemory-skill/SKILL.md",
+        "message": "unknown frontmatter fields: user-invocable"
+      }
+    ]
+  }
+}
