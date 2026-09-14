@@ -19,6 +19,10 @@ jobs:
     env:
       NIX_CONFIG: |
         experimental-features = nix-command flakes
+        # The flake offers cache.numtide.com as a substituter. Without
+        # this, every nix command here opens with two warnings about
+        # ignoring it, because the runner's user is not a trusted user.
+        accept-flake-config = true
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 

@@ -28,6 +28,10 @@ concurrency:
 env:
   NIX_CONFIG: |
     experimental-features = nix-command flakes
+    # The flake offers cache.numtide.com as a substituter. Without this,
+    # every nix command here opens with two warnings about ignoring it,
+    # because the runner's user is not a trusted user.
+    accept-flake-config = true
   # Where prepare stages the commit for the verify jobs to build. It is not
   # a pull request branch; land fast-forwards main onto it and deletes it.
   STAGING_BRANCH: update-flox-agent
