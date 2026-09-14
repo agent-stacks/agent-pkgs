@@ -32,5 +32,8 @@ jobs:
       - name: Configure nix
         uses: flox/configure-nix-action@28a4eb7f63bf54c91670b4a698f0a9ebfb95384f # main
 
+      - name: Trust the runner's user
+        uses: ./.github/actions/trust-nix-user
+
       - name: Flake check (builds every package)
         run: nix flake check -L

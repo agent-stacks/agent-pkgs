@@ -1,0 +1,45 @@
+name: "Trust the runner's user"
+description: >-
+  Adds the runner's user to nix.conf trusted-users and restarts the
+  daemon. The flake offers cache.numtide.com from nixConfig, and the
+  daemon refuses a substituter named by a user it does not trust, so
+  without this every nix command warns twice and substitutes from
+  nothing. The runner is a throwaway VM whose store is discarded with
+  it.
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        set -euo pipefail
+
+        printf 'trusted-users = root %s\n' "$(id -un)" \
+          | sudo tee -a /etc/nix/nix.conf >/dev/null
+
+        # trusted-users is read once, when the daemon starts.
+        case "$RUNNER_OS" in
+          macOS)
+            label="$(sudo launchctl list | awk '/nix-daemon/ { print $3; exit }')"
+            if [ -z "$label" ]; then
+              echo "no nix-daemon found in launchctl list" >&2
+              exit 1
+            fi
+            sudo launchctl kickstart -k "system/$label"
+            ;;
+          *)
+            sudo systemctl restart nix-daemon.service
+            ;;
+        esac
+
+        # A client that connects while the daemon is still coming back
+        # gets a connection error, and every later step would blame the
+        # command it was running rather than this one.
+        for _ in $(seq 1 30); do
+          if nix store ping >/dev/null 2>&1 || nix store info >/dev/null 2>&1; then
+            exit 0
+          fi
+          sleep 1
+        done
+        echo "nix-daemon did not come back after the restart" >&2
+        exit 1
