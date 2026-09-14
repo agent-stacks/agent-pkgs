@@ -1,6 +1,20 @@
 {
   description = "Nix package set for Agent Plugins and Agent Stacks";
 
+  # The cache the agent CLIs re-exported from llm-agents.nix are built
+  # into upstream. Whether a path hits depends on it having been built
+  # from inputs identical to ours, which the two nixpkgs revisions
+  # currently agree on for a good part of the set; where they do not,
+  # Nix treats the miss as a miss and builds. Offered rather than
+  # imposed: an untrusted user gets a warning and no substituter, which
+  # costs build time and nothing else.
+  nixConfig = {
+    extra-substituters = [ "https://cache.numtide.com" ];
+    extra-trusted-public-keys = [
+      "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
+    ];
+  };
+
   inputs = {
     # The Flox nixpkgs fork, not upstream. Publishing to a Flox catalog
     # requires a nixpkgs revision the catalog server has a page for, and
@@ -9,9 +23,16 @@
     # instance". Building against the nixpkgs we publish against keeps
     # what we build and what the catalog serves identical.
     nixpkgs.url = "github:flox/nixpkgs/unstable";
+
+    # The agent CLIs themselves — claude-code, codex, opencode and the
+    # rest — packaged by numtide and updated daily. Its nixpkgs is
+    # deliberately not followed to ours: the set pins its own bun to
+    # keep the bun-built packages substitutable, and following would
+    # take that pin away.
+    llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
-  outputs = { self, nixpkgs }:
+  outputs = { self, nixpkgs, llm-agents }:
     let
       # Every system this set is built, cached and published for.
       # x86_64-darwin is absent: Intel Macs are not a target.
@@ -27,6 +48,38 @@
       };
 
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f (pkgsFor system));
+
+      # llm-agents.nix built against the nixpkgs above rather than the
+      # one it pins. Its own `packages.*` are built against upstream
+      # nixpkgs, which the catalog has no page for; the shared-nixpkgs
+      # overlay is how that flake supports being rebuilt against a
+      # consumer's package set.
+      #
+      # allowUnfree is on for this instance and this instance only.
+      # Roughly a seventh of the set is unfree, upstream adds packages
+      # daily, and a name list here would be stale within the week. The
+      # narrow predicate above still governs everything under pkgs/.
+      llmAgentsPkgsFor = system: import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+        overlays = [ llm-agents.overlays.shared-nixpkgs ];
+      };
+
+      # Upstream's packages/ also holds builders and hooks — wrapBuddy,
+      # buildNpmPackage, the fetchers — which are functions rather than
+      # derivations. Broken and foreign-platform packages are dropped
+      # the same way that flake drops them from its own packages
+      # output: a package that cannot run on aarch64-darwin has no
+      # business being an aarch64-darwin job.
+      llmAgentsFor = system:
+        let
+          pkgs = llmAgentsPkgsFor system;
+          keep = _: p:
+            nixpkgs.lib.isDerivation p
+            && nixpkgs.lib.meta.availableOn pkgs.stdenv.hostPlatform p
+            && !(p.meta.broken or false);
+        in
+        nixpkgs.lib.filterAttrs keep pkgs.llm-agents;
 
       # Every subdirectory of pkgs/ with a default.nix is a package.
       # `flox-agent import --out pkgs/<name>` drops packages here; no
@@ -67,6 +120,26 @@
             pkgs.newScope scope (./pkgs + "/${name}") { });
         in
         built;
+
+      # What the catalog is fed from: the plugins built here, plus every
+      # agent CLI re-exported from llm-agents.nix. Kept separate from
+      # mkPackages so that forcing one plugin does not force the whole
+      # re-exported set — mkLib reaches into mkPackages for flox-agent
+      # on every plugin build.
+      mkAllPackages = pkgs:
+        let
+          built = mkPackages pkgs;
+          llmAgents = llmAgentsFor pkgs.stdenv.hostPlatform.system;
+          # This set owns the name: a package written here is what the
+          # catalog serves, and the re-export is shadowed. Warned about
+          # rather than tolerated silently, because pkgs/ grows by
+          # import and upstream grows daily — a collision is how a
+          # plugin quietly stops matching what upstream publishes.
+          clashes = builtins.attrNames (builtins.intersectAttrs built llmAgents);
+        in
+        nixpkgs.lib.warnIf (clashes != [ ])
+          "agent-pkgs and llm-agents.nix both define ${toString clashes}; the package from pkgs/ wins"
+          (llmAgents // built);
 
       mkChecks = pkgs:
         mkPackages pkgs // {
@@ -143,7 +216,12 @@
         };
     in
     {
-      packages = forAllSystems mkPackages;
+      packages = forAllSystems mkAllPackages;
+
+      # Deliberately the plugin set and the gates, not mkAllPackages:
+      # `nix flake check` runs on GitHub runners in update-flake-lock,
+      # and building every agent CLI there would spend hours saying
+      # what Hydra already says from packages.*.
       checks = forAllSystems mkChecks;
       lib = forAllSystems mkLib;
 
@@ -153,7 +231,7 @@
       # because Hydra jobsets are configured in its web UI.
       hydraJobs = {
         packages = nixpkgs.lib.genAttrs systems (system:
-          mkPackages (pkgsFor system));
+          mkAllPackages (pkgsFor system));
 
         # Only the gates. Every package is also a check, and packages.*
         # already builds those; repeating them here would double the

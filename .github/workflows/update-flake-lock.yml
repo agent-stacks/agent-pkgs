@@ -21,6 +21,10 @@ concurrency:
 env:
   NIX_CONFIG: |
     experimental-features = nix-command flakes
+    # The flake offers cache.numtide.com as a substituter. Without this,
+    # every nix command here opens with two warnings about ignoring it,
+    # because the runner's user is not a trusted user.
+    accept-flake-config = true
   # Where prepare stages the commit for the verify jobs to build. It is not
   # a pull request branch; land fast-forwards main onto it and deletes it.
   STAGING_BRANCH: update-flake-lock
@@ -39,6 +43,9 @@ jobs:
 
       - name: "Configure nix"
         uses: flox/configure-nix-action@28a4eb7f63bf54c91670b4a698f0a9ebfb95384f # main
+
+      - name: "Trust the runner's user"
+        uses: ./.github/actions/trust-nix-user
 
       - name: "Update flake inputs"
         run: nix flake update
@@ -91,6 +98,9 @@ jobs:
 
       - name: "Configure nix"
         uses: flox/configure-nix-action@28a4eb7f63bf54c91670b4a698f0a9ebfb95384f # main
+
+      - name: "Trust the runner's user"
+        uses: ./.github/actions/trust-nix-user
 
       - name: "Flake check (builds every package)"
         run: nix flake check -L

@@ -49,8 +49,17 @@ self-referential scope, not plain `callPackage` — no central list,
 and a package in `pkgs/` may take another package in `pkgs/` as an
 argument, which is how a stack names its plugins. `flake.nix` also
 exposes `lib.buildAgentPlugin` and `lib.mkAgentStack` per system, and
-`checks` covering every package plus the `runtimes-failures`
-assertion.
+`checks` covering every package in `pkgs/` plus the
+`runtimes-failures` assertion.
+
+`packages` is wider than `pkgs/`. Every agent CLI packaged by
+`numtide/llm-agents.nix` is re-exported into it, rebuilt against the
+nixpkgs this set pins via that flake's `overlays.shared-nixpkgs`, and
+filtered to derivations that are available on the platform and not
+broken. A name defined in both places resolves to the one in `pkgs/`
+and warns. They are not in `checks`, only in `packages` and
+`hydraJobs.packages`; the reasoning is in
+[decisions/0008](../decisions/0008-re-export-llm-agents-nix.md).
 
 Spec conformance is not a separate check. `buildAgentPlugin` runs
 `flox-agent check-plugin` on every plugin it builds, so a tree that
@@ -59,6 +68,7 @@ violates the Agent Plugins or Agent Skills spec fails its own build.
 ## CI
 
 GitHub Actions (ubuntu + macos) with `flox/install-flox-action` and
-`flox/configure-nix-action`; `nix flake check` builds every package.
+`flox/configure-nix-action`; `nix flake check` builds every package
+in `pkgs/` and the gates, not the re-exported agent CLIs.
 The binary cache is populated separately by Hydra (Distribution
 project); CI stays plain and forkable.
