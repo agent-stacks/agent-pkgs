@@ -17,7 +17,8 @@
 #
 # No name has yet turned up that could not be mapped at all. A sweep of
 # 44 packages — everything on main plus every repository the pending
-# migrations name — found one unmapped name (`bun`, AI-726) and nothing
+# migrations name — found one unmapped name, `bun`, mapped below with
+# the three Anthropic plugins that call it (AI-726), and nothing
 # unmappable. The overlay mechanism proposed for skills we do not
 # control is therefore unbuilt, deliberately: it answers a problem that
 # has not appeared. Revisit it when a skill names something nixpkgs has
@@ -25,6 +26,7 @@
 {
   bash = "bash";
   sh = "bash";
+  bun = "bun";
   node = "nodejs";
   nodejs = "nodejs";
   python = "python3";
