@@ -97,9 +97,11 @@ it.
 
 How `<name>`, `version`, `manifest` and the `skills` paths are chosen
 is import's side of the contract, and lives with the importer: see
-the flox-agent repo, `docs/decisions/0013-plugin-root-and-identity.md`
+the flox-agent repo, `docs/decisions/0014-plugin-and-skill-discovery.md`
 for the reasoning and `docs/reference/import-command.md` for the
-behavior.
+behavior. (0014 supersedes 0013, which this page used to name: the
+fallback to a directory name is gone, and a name now always comes from
+the manifest that defined the plugin.)
 
 One naming rule matters on this side: the package directory, and so
 the flake attribute, is the plugin's name behind an `agent-plugin-`

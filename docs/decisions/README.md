@@ -7,6 +7,19 @@ decision, add a new record that supersedes the old one.
 
 Format and process live in [template.md](template.md).
 
+## Decisions that live in flox-agent
+
+The tool owns what a plugin is called and what a valid one looks like,
+so those records are in that repository rather than restated here. The
+ones this package set is built on:
+
+| # | Decision |
+| ---- | -------- |
+| flox-agent 0014 | How import finds plugins, and how it finds their skills — a name comes from the manifest that defined the plugin, with `<owner>-<repo>` synthesized only when there is no manifest |
+| flox-agent 0019 | A plugin's directory must be named after its manifest, and nothing renames it |
+| flox-agent 0017 | A package directory belongs to one upstream, and `--name` is the way out |
+| flox-agent 0018 | Import hands the builder the manifest and servers it checked |
+
 These records cover the Nix side only: the builders, the package set,
 and the contract this repo meets flox-agent at. Decisions about
 `flox-agent import`, `check-plugin` or `launch` are recorded in the
