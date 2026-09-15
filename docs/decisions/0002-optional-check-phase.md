@@ -37,3 +37,15 @@ stays, for consumers using `lib/` without the package. `--strict` is
 opt-in rather than the default: skills in the wild carry harness
 frontmatter fields the Agent Skills spec does not list, and those are
 warnings a correct plugin can legitimately have.
+
+## Update
+
+[0013](0013-assembly-lives-in-flox-agent.md) overturns the line above
+about `floxAgent ? null`. Assembly itself moved into
+`flox-agent assemble-plugin`, so `floxAgent` is no longer an optional
+validator layered on a tree the shell already built — it is what
+builds the tree now, and there is nothing left to build without it.
+`buildAgentPlugin` asserts `floxAgent != null`; a consumer using
+`lib/` without the package must pass one. This decision's default
+value and its "consumers using `lib/` without the package" claim no
+longer hold; the rest of the reasoning above is left as written.

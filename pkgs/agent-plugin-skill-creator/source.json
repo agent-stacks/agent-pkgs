@@ -21,12 +21,25 @@
   "skills": {
     "skill-creator": "plugins/skill-creator/skills/skill-creator"
   },
+  "requiredRuntimes": [
+    "python3"
+  ],
   "meta": {
     "description": "Create new skills, improve existing skills, and measure skill performance",
     "homepage": "https://github.com/anthropics/claude-plugins-official"
   },
   "import": {
     "input": "anthropics/claude-plugins-official",
-    "flags": []
+    "flags": [],
+    "warnings": [
+      {
+        "path": "skills/skill-creator/scripts/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/skill-creator/scripts/utils.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      }
+    ]
   }
 }

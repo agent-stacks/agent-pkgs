@@ -45,12 +45,22 @@
     "writing-plans": "skills/writing-plans",
     "writing-skills": "skills/writing-skills"
   },
+  "requiredRuntimes": [
+    "bash",
+    "node"
+  ],
   "meta": {
     "description": "Core skills library for Claude Code: TDD, debugging, collaboration patterns, and proven techniques",
     "homepage": "https://github.com/obra/superpowers"
   },
   "import": {
     "input": "obra/superpowers",
-    "flags": []
+    "flags": [],
+    "warnings": [
+      {
+        "path": "skills/brainstorming/scripts/helper.js",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      }
+    ]
   }
 }

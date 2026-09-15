@@ -1,5 +1,5 @@
 {
-  "name": "core-skills",
+  "name": "hyperframes",
   "version": "0.8.40",
   "src": {
     "owner": "heygen-com",
@@ -15,14 +15,21 @@
       "name": "HeyGen",
       "url": "https://hyperframes.heygen.com"
     },
-    "description": "The HyperFrames core set — install this one: the /hyperframes router, the hyperframes-* domain skills, and media-use. The router installs each creation workflow on demand. The full bundle (all skills at once) is `hyperframes`.",
+    "description": "All HyperFrames skills in one static bundle. Most setups want `core-skills` instead — the router installs creation workflows on demand. HyperFrames by HeyGen. Write HTML, render video. Compositions, GSAP and runtime adapter animations, captions, voiceovers, audio-reactive visuals, and website capture for HyperFrames.",
     "homepage": "https://hyperframes.heygen.com",
     "license": "Apache-2.0",
-    "name": "core-skills",
+    "name": "hyperframes",
     "repository": "https://github.com/heygen-com/hyperframes",
     "version": "0.8.40"
   },
   "skills": {
+    "captions-overlay": ".agents/skills/captions-overlay",
+    "changelog-video": ".agents/skills/changelog-video",
+    "cut-the-curve": ".agents/skills/cut-the-curve",
+    "embedded-captions": "skills/embedded-captions",
+    "faceless-explainer": "skills/faceless-explainer",
+    "figma": "skills/figma",
+    "general-video": "skills/general-video",
     "hyperframes": "skills/hyperframes",
     "hyperframes-animation": "skills/hyperframes-animation",
     "hyperframes-audio": "skills/hyperframes-audio",
@@ -31,20 +38,111 @@
     "hyperframes-creative": "skills/hyperframes-creative",
     "hyperframes-keyframes": "skills/hyperframes-keyframes",
     "hyperframes-registry": "skills/hyperframes-registry",
-    "media-use": "skills/media-use"
+    "media-use": "skills/media-use",
+    "motion-doctrine": ".agents/skills/motion-doctrine",
+    "motion-graphics": "skills/motion-graphics",
+    "music-to-video": "skills/music-to-video",
+    "oversized-cursor": ".agents/skills/oversized-cursor",
+    "pr-to-video": "skills/pr-to-video",
+    "product-launch-video": "skills/product-launch-video",
+    "remotion-to-hyperframes": "skills/remotion-to-hyperframes",
+    "seam-craft": ".agents/skills/seam-craft",
+    "slideshow": "skills/slideshow",
+    "talking-head-recut": "skills/talking-head-recut"
   },
   "requiredRuntimes": [
+    "bash",
     "node",
     "python3"
   ],
   "meta": {
-    "description": "The HyperFrames core set — install this one: the /hyperframes router, the hyperframes-* domain skills, and media-use",
+    "description": "All HyperFrames skills in one static bundle",
     "homepage": "https://github.com/heygen-com/hyperframes"
   },
   "import": {
     "input": "heygen-com/hyperframes",
     "flags": [],
     "warnings": [
+      {
+        "path": ".agents/skills/captions-overlay/SKILL.md/metadata/internal",
+        "message": "must be a string value"
+      },
+      {
+        "path": ".agents/skills/changelog-video/SKILL.md/metadata/internal",
+        "message": "must be a string value"
+      },
+      {
+        "path": ".agents/skills/cut-the-curve/SKILL.md/metadata/internal",
+        "message": "must be a string value"
+      },
+      {
+        "path": ".agents/skills/motion-doctrine/SKILL.md/metadata/internal",
+        "message": "must be a string value"
+      },
+      {
+        "path": ".agents/skills/oversized-cursor/SKILL.md/metadata/internal",
+        "message": "must be a string value"
+      },
+      {
+        "path": ".agents/skills/seam-craft/SKILL.md/metadata/internal",
+        "message": "must be a string value"
+      },
+      {
+        "path": "skills/embedded-captions/scripts/make-theme.test.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/embedded-captions/scripts/preview-frames.test.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/faceless-explainer/scripts/assemble-index.test.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/faceless-explainer/scripts/audio.test.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/faceless-explainer/scripts/captions.test.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/faceless-explainer/scripts/frame-packets.test.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/faceless-explainer/scripts/lib/assets.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/faceless-explainer/scripts/lib/dimensions.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/faceless-explainer/scripts/lib/pad-frame-duration.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/faceless-explainer/scripts/lib/storyboard.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/faceless-explainer/scripts/lib/tokens.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/faceless-explainer/scripts/lib/transition-registry.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/faceless-explainer/scripts/transitions.test.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/general-video/scripts/frame-packets.test.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
       {
         "path": "skills/hyperframes-animation/scripts/animation-map-sampling.mjs",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
@@ -479,6 +577,126 @@
       },
       {
         "path": "skills/media-use/scripts/resolve.test.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/motion-graphics/categories/maps/bake-basemap.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/music-to-video/scripts/lib/storyboard.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/pr-to-video/scripts/assemble-index.test.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/pr-to-video/scripts/captions.test.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/pr-to-video/scripts/frame-contract.test.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/pr-to-video/scripts/lib/assets.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/pr-to-video/scripts/lib/dimensions.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/pr-to-video/scripts/lib/frame-contract.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/pr-to-video/scripts/lib/pad-frame-duration.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/pr-to-video/scripts/lib/storyboard.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/pr-to-video/scripts/lib/tokens.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/pr-to-video/scripts/lib/transition-registry.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/pr-to-video/scripts/workflow-guardrails.test.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/product-launch-video/scripts/assemble-index.test.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/product-launch-video/scripts/audio.test.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/product-launch-video/scripts/captions.test.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/product-launch-video/scripts/capture-skill-guardrails.test.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/product-launch-video/scripts/frame-packets.test.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/product-launch-video/scripts/lib/assets.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/product-launch-video/scripts/lib/dimensions.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/product-launch-video/scripts/lib/pad-frame-duration.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/product-launch-video/scripts/lib/pad-frame-duration.test.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/product-launch-video/scripts/lib/storyboard.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/product-launch-video/scripts/lib/tokens.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/product-launch-video/scripts/lib/tokens.test.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/product-launch-video/scripts/lib/transition-registry.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/product-launch-video/scripts/media-contract.test.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/product-launch-video/scripts/stage-assets.test.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/product-launch-video/scripts/transitions.test.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/talking-head-recut/media-contract.test.mjs",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       }
     ]

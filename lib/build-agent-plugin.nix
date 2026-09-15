@@ -31,11 +31,11 @@
 # stand-in is never consulted.
 { lib
 , stdenvNoCC
-, jq
 , pkgs
-  # The flox-agent package providing `check-plugin`. agent-pkgs binds
-  # pkgs/flox-agent here; null skips validation, which is what a
-  # consumer using lib/ without the package gets.
+  # The flox-agent package that assembles the plugin tree and provides
+  # `check-plugin`. agent-pkgs binds pkgs/flox-agent here; a consumer
+  # using lib/ without the package must pass `floxAgent` per call,
+  # because assembly cannot be skipped.
 , defaultFloxAgent ? null
 }:
 
@@ -64,8 +64,9 @@
   # mcp server configs, serialized to mcp.json; attrset of server
   # name -> config (type/command/...)
 , mcpServers ? null
-  # flox-agent package providing `flox-agent check-plugin`; when null
-  # the check phase is skipped
+  # flox-agent package providing `flox-agent assemble-plugin` and
+  # `flox-agent check-plugin`; required, because the build phase is a
+  # call to it
 , floxAgent ? defaultFloxAgent
   # treat check-plugin warnings as errors. Off by default: skills in
   # the wild carry harness frontmatter fields the Agent Skills spec
@@ -75,6 +76,11 @@
   # per-plugin runtime pins: interpreter name -> package, overriding
   # mappings/runtimes.nix (e.g. { python3 = python312; })
 , runtimes ? { }
+  # Interpreter tokens the package's files name, as recorded by
+  # `flox-agent import`. The builder resolves exactly these, so a
+  # plugin naming none pulls no interpreter into its closure. A
+  # hand-written call omits it and gets the whole table.
+, requiredRuntimes ? null
   # bare mcp.json commands that intentionally resolve from the
   # consumer environment's PATH at launch instead of the closure
 , allowPathCommands ? [ ]
@@ -82,9 +88,6 @@
   # SKILL.md text: list of { file; replace; with; } applied after the
   # automatic pass (the fuzzy cases a generic rewrite cannot guess)
 , extraSubstitutions ? [ ]
-  # executables allowed to keep a /usr/bin/env shebang (relative to
-  # the plugin root)
-, allowEnvShebangs ? [ ]
 , meta ? { }
 }:
 
@@ -101,38 +104,45 @@ let
     then pkgs.fetchFromGitHub src
     else src;
 
-  manifestFile =
-    if manifest == null then null
-    else builtins.toFile "plugin.json" (builtins.toJSON manifest);
-
-  # An mcp.json targeting a different spec version than plugin.json
-  # makes a client disable MCP for the plugin (spec §7.2.2), so the
-  # generated one follows the manifest's version when there is one.
-  specVersionOf = m:
-    if m != null && m ? "$schema"
-    then lib.head (lib.splitString "/" (lib.last (lib.splitString "/schemas/" m."$schema")))
-    else "1.0.0";
-
-  mcpFile =
-    if mcpServers == null then null
-    else builtins.toFile "mcp.json" (builtins.toJSON {
-      "$schema" = "https://agent-plugins.org/schemas/${specVersionOf manifest}/mcp.schema.json";
-      inherit mcpServers;
-    });
-
   # Runtime resolution: the table maps interpreter names to
   # nixpkgs attributes; the plugin's `runtimes` argument overrides it
-  # with concrete packages. The resolved map is handed to the build
-  # as JSON — outPath plus the package's main program name, so the
-  # build can locate the right binary (`sh` lives in bash's bin/sh,
-  # `python` may only exist as bin/python3).
+  # with concrete packages. The resolved map is handed to
+  # assemble-plugin as JSON — outPath plus the package's main program
+  # name, so it can locate the right binary (`sh` lives in bash's
+  # bin/sh, `python` may only exist as bin/python3).
   runtimeTable = builtins.import ../mappings/runtimes.nix;
-  resolvedRuntimes =
-    lib.mapAttrs
-      (tok: attrName: pkgs.${attrName} or (throw
-        "mappings/runtimes.nix maps '${tok}' to unknown nixpkgs attribute '${attrName}'"))
-      runtimeTable
-    // runtimes;
+
+  # Which tokens to resolve. A generated package always records them;
+  # a package generated before requiredRuntimes existed is regenerated
+  # rather than tolerated, because a silent fallback would leave the
+  # 1.6 GiB closure in place indefinitely. A hand-written call — the
+  # flake checks, a consumer of lib/ — has no import record and gets
+  # the whole table, which is what it got before.
+  requiredList =
+    if requiredRuntimes != null then requiredRuntimes
+    else if import != null then throw
+      ("buildAgentPlugin: ${name}: source.json records no requiredRuntimes. "
+        + "Regenerate this package with `flox-agent import`, using a "
+        + "flox-agent at or after rev 8be3bce — the first to emit "
+        + "requiredRuntimes. An older flox-agent reproduces this error "
+        + "instead of fixing it.")
+    else builtins.attrNames runtimeTable;
+
+  # A recorded token that is neither pinned nor in the table is left
+  # out of the map rather than thrown here, so the error a reader sees
+  # is the one assemble-plugin prints, naming the file that wanted it.
+  # One error text for an unmapped runtime, not two.
+  mappedTokens = builtins.filter
+    (tok: runtimes ? ${tok} || runtimeTable ? ${tok})
+    requiredList;
+
+  resolveToken = tok:
+    if runtimes ? ${tok} then runtimes.${tok}
+    else pkgs.${runtimeTable.${tok}} or (throw
+      "mappings/runtimes.nix maps '${tok}' to unknown nixpkgs attribute '${runtimeTable.${tok}}'");
+
+  resolvedRuntimes = lib.genAttrs mappedTokens resolveToken;
+
   runtimeMapFile = pkgs.writeText "runtime-map.json" (builtins.toJSON
     (lib.mapAttrs
       (tok: p: {
@@ -141,222 +151,56 @@ let
       })
       resolvedRuntimes));
 
-  substituteOne = s: ''
-    substituteInPlace "$dest"/${lib.escapeShellArg s.file} \
-      --replace-fail ${lib.escapeShellArg s.replace} ${lib.escapeShellArg s."with"}
-  '';
-
-  # A skills map value as import writes it: no leading ./, no
-  # trailing /. A hand-written call may spell it either way.
-  cleanPath = p:
-    let s = lib.removePrefix "./" (lib.removeSuffix "/" p);
-    in if s == "" then "." else s;
-
-  copySkill = skillName: rawPath:
-    let path = cleanPath rawPath; in ''
-    if [ ! -f ${lib.escapeShellArg path}/SKILL.md ]; then
-      echo "buildAgentPlugin: skill '${skillName}': no SKILL.md at '${path}' in src" >&2
-      exit 1
-    fi
-    mkdir -p "$dest/skills"
-    cp -R ${lib.escapeShellArg path} "$dest/skills/${skillName}"
-    ${lib.optionalString (path == ".") ''
-      # The root skill is the whole repository, so every skill
-      # directory below it is removed from its copy: each is packaged
-      # under its own name or was dropped by the importer, and a
-      # dropped one must not ship unchecked inside the root. Found
-      # here rather than read from the map, which names only the
-      # kept ones (flox-agent ADR 0021). A wrapper such as skills/
-      # left empty goes with it.
-      chmod -R u+w "$dest/skills/${skillName}"
-      mapfile -t nested < <(find "$dest/skills/${skillName}" -mindepth 2 -name SKILL.md | sort)
-      for md in "''${nested[@]}"; do
-        d=$(dirname "$md")
-        rm -rf "$d"
-        d=$(dirname "$d")
-        while [ "$d" != "$dest/skills/${skillName}" ] && rmdir "$d" 2>/dev/null; do
-          d=$(dirname "$d")
-        done
-      done
-    ''}
-  '';
+  # The builder call, handed to assemble-plugin as data. A generated
+  # package's source.json is already exactly this; reconstructing it
+  # here means a hand-written call gets the same treatment without
+  # needing a file on disk.
+  callFile = pkgs.writeText "source.json" (builtins.toJSON
+    (lib.filterAttrs (_: v: v != null) {
+      inherit name skills manifest mcpServers;
+      inherit allowPathCommands extraSubstitutions;
+    }));
 in
+assert floxAgent != null || throw
+  ("buildAgentPlugin: ${name}: a flox-agent package is required — it "
+    + "assembles the plugin tree. Pass floxAgent, or bind defaultFloxAgent "
+    + "when calling lib/build-agent-plugin.nix.");
 stdenvNoCC.mkDerivation {
   pname = "agent-plugin-${name}";
   inherit version;
   src = resolvedSrc;
 
-  nativeBuildInputs = [ jq ];
-
   dontConfigure = true;
+
+  # assemble-plugin's substitution pass is the only thing entitled to
+  # rewrite a shebang in this tree. stdenv's fixup would otherwise run
+  # patchShebangs over $out and disagree with it twice: it rewrites
+  # files under assets/, which the pass and the guard both leave alone
+  # because those are static templates that may be copied out of the
+  # plugin, and it rewrites them to a bare store path rather than to
+  # <plugin>/bin/<tok> — a dangling absolute path on any machine
+  # without that path, which is worse than the /usr/bin/env it
+  # replaced. The pass already writes absolute, non-env shebangs for
+  # every file it does own, so patchShebangs has nothing to add.
+  dontPatchShebangs = true;
 
   buildPhase = ''
     runHook preBuild
 
     dest="$NIX_BUILD_TOP/plugin/${name}"
-    mkdir -p "$dest"
 
-    ${if skills != null then ''
-      # 1. explicit skill mapping from the import contract
-      ${lib.concatStringsSep "\n" (lib.mapAttrsToList copySkill skills)}
-    '' else ''
-      if [ -f skills-lock.json ]; then
-        # 2. project lock written by the upstream skills CLI
-        mkdir -p "$dest/skills"
-        jq -r '.skills | to_entries[] | "\(.key)\t\(.value.skillPath // "")"' \
-            skills-lock.json | while IFS=$'\t' read -r sname spath; do
-          sdir=""
-          if [ -n "$spath" ] && [ -f "$(dirname "$spath")/SKILL.md" ]; then
-            sdir="$(dirname "$spath")"
-          elif [ -f "skills/$sname/SKILL.md" ]; then
-            sdir="skills/$sname"
-          fi
-          if [ -z "$sdir" ]; then
-            echo "buildAgentPlugin: lock entry '$sname' is not inside src — a pure build cannot fetch external sources; generate this package with 'flox-agent import' instead" >&2
-            exit 1
-          fi
-          cp -R "$sdir" "$dest/skills/$sname"
-        done
-      elif [ -f plugin.json ] && [ -d skills ]; then
-        # 3. passthrough: src is already a conformant plugin tree
-        cp -R . "$dest"
-        chmod -R u+w "$dest"
-        passthrough=1
-      else
-        echo "buildAgentPlugin: no skills argument, no skills-lock.json, and src is not a plugin tree" >&2
-        exit 1
-      fi
-    ''}
+    ${lib.getExe' floxAgent "flox-agent"} assemble-plugin \
+      --source-json ${callFile} \
+      --src . \
+      --out "$dest" \
+      --runtime-map ${runtimeMapFile} \
+      --plugin-out "$out/${out}"
 
-    # plugin.json and mcp.json (ADR 0009). An argument is written as
-    # given. Without one, a passed-through tree keeps its own file,
-    # and an assembled package takes a src root file only when it is
-    # an Agent Plugins file: one declaring an agent-plugins.org
-    # $schema, which is what an older generated source.json relied on
-    # the builder to copy. Anything else at the root is another
-    # tool's, and is not read.
-    is_agent_plugins_file() {
-      [ -f "$1" ] && jq -e '."$schema" | strings | startswith("https://agent-plugins.org/")' "$1" >/dev/null 2>&1
-    }
-    if [ -n "${toString (manifestFile != null)}" ]; then
-      cp ${toString manifestFile} "$dest/plugin.json"
-    elif [ -n "''${passthrough:-}" ]; then
-      :
-    elif is_agent_plugins_file plugin.json; then
-      cp plugin.json "$dest/plugin.json"
-    else
-      echo "buildAgentPlugin: no manifest argument was given, and src ships no Agent Plugins plugin.json to stand in" >&2
-      exit 1
-    fi
-    if [ -n "${toString (mcpFile != null)}" ]; then
-      cp ${toString mcpFile} "$dest/mcp.json"
-    elif [ -n "''${passthrough:-}" ]; then
-      # The tree's own mcp.json, brought to the manifest's version
-      # when a manifest argument replaced the tree's plugin.json, so
-      # the pair a client checks (spec §7.2.2) still agrees.
-      if [ -f "$dest/mcp.json" ] && [ -n "${toString (manifestFile != null)}" ]; then
-        jq --arg s "https://agent-plugins.org/schemas/${specVersionOf manifest}/mcp.schema.json" \
-          '."$schema" = $s' "$dest/mcp.json" > "$dest/mcp.json.tmp"
-        mv "$dest/mcp.json.tmp" "$dest/mcp.json"
-      fi
-    elif is_agent_plugins_file mcp.json; then
-      cp mcp.json "$dest/mcp.json"
-    elif [ -f mcp.json ]; then
-      echo "buildAgentPlugin: src ships an mcp.json that is not an Agent Plugins file; not carried. Regenerate the package with flox-agent import to carry its servers." >&2
-    fi
-
-    # --- runtime substitution pass ------------------------------------
-    # Detect interpreter names in shebangs and bare mcp.json commands,
-    # resolve them through mappings/runtimes.nix (overridden by the
-    # `runtimes` argument), link them into <plugin>/bin/, and rewrite
-    # the references. Symlink targets are store paths, so Nix's
-    # reference scanner pulls the interpreters into the closure.
-    plugin_out="$out/${out}"
-    runtime_map=${runtimeMapFile}
-
-    # resolve_runtime <token> <wanted-by>: ensures bin/<token> exists
-    resolve_runtime() {
-      local tok="$1" wanted_by="$2" root main exe
-      [ -e "$dest/bin/$tok" ] && return 0
-      root=$(jq -r --arg t "$tok" '.[$t].root // empty' "$runtime_map")
-      if [ -z "$root" ]; then
-        echo "buildAgentPlugin: runtime '$tok' (wanted by $wanted_by) is not mapped." >&2
-        echo "  Add it to mappings/runtimes.nix, or pass runtimes.$tok = <package>;" >&2
-        exit 1
-      fi
-      main=$(jq -r --arg t "$tok" '.[$t].main' "$runtime_map")
-      if [ -x "$root/bin/$tok" ]; then
-        exe="$root/bin/$tok"
-      elif [ -x "$root/bin/$main" ]; then
-        exe="$root/bin/$main"
-      else
-        echo "buildAgentPlugin: runtime '$tok' resolved to $root but neither bin/$tok nor bin/$main exists there" >&2
-        exit 1
-      fi
-      mkdir -p "$dest/bin"
-      ln -s "$exe" "$dest/bin/$tok"
-    }
-
-    # Shebangs: any regular file outside assets/ opening with
-    # #!/usr/bin/env <tok> or #!/usr/bin/<tok> is repointed at the
-    # plugin-local bin/ and marked executable. assets/ holds static
-    # templates that may leave the plugin, so it is left alone.
-    while IFS= read -r f; do
-      tok=$(head -c 200 "$f" | head -1 \
-        | sed -nE 's|^#!\s*(/usr/bin/env +\|/usr/bin/\|/bin/)([A-Za-z0-9._+-]+).*|\2|p')
-      [ -n "$tok" ] || continue
-      [ "$tok" = env ] && continue
-      resolve_runtime "$tok" "$f"
-      sed -i "1s|^#!.*|#!$plugin_out/bin/$tok|" "$f"
-      chmod +x "$f"
-    done < <(find "$dest" -type f -not -path "*/assets/*" -not -path "$dest/bin/*")
-
-    # mcp.json commands: bare tokens (no slash) must resolve through
-    # the map, except those explicitly allowed to come from the
-    # consumer environment's PATH.
-    if [ -f "$dest/mcp.json" ]; then
-      allow=${lib.escapeShellArg (builtins.toJSON allowPathCommands)}
-      while IFS= read -r cmd; do
-        case "$cmd" in */*) continue ;; esac
-        if jq -e --arg c "$cmd" 'index($c) != null' <<<"$allow" >/dev/null; then
-          continue
-        fi
-        resolve_runtime "$cmd" "mcp.json"
-      done < <(jq -r '.mcpServers[] | select(.command != null) | .command' "$dest/mcp.json")
-      # Only stdio servers have a command; a streamable-http or sse
-      # server has a url and is left alone. The command is bound to a name
-      # first: inside `$allow | index(...)` the input is the list.
-      jq --arg bin "$plugin_out/bin" --argjson allow "$allow" '
-        .mcpServers |= with_entries(
-          if .value.command == null then . else
-          .value.command |= (. as $c
-            | if ($c | contains("/") | not) and (($allow | index($c)) == null)
-              then "\($bin)/\($c)" else $c end) end)
-      ' "$dest/mcp.json" > "$dest/mcp.json.tmp"
-      mv "$dest/mcp.json.tmp" "$dest/mcp.json"
-    fi
-
-    # Per-package substitutions for the fuzzy cases (script bodies,
-    # SKILL.md text) that the automatic pass deliberately skips.
-    ${lib.concatStringsSep "\n" (map substituteOne extraSubstitutions)}
-
-    # Hook point for extensions: runs on the fully substituted tree,
-    # before the guard, install, and checks.
+    # Hook point for extensions: runs on the fully assembled tree,
+    # before install and the checks. It used to run between the
+    # substitution pass and the guard; both are now inside one
+    # process, so this is the nearest equivalent point.
     runHook postAssemble
-
-    # Guard: an executable that still resolves its interpreter from
-    # the environment escaped the pass — fail loudly instead of
-    # shipping a closure hole.
-    allowed_shebangs=${lib.escapeShellArg (builtins.toJSON allowEnvShebangs)}
-    while IFS= read -r f; do
-      head -1 "$f" | grep -q '/usr/bin/env' || continue
-      rel="''${f#"$dest"/}"
-      if jq -e --arg p "$rel" 'index($p) != null' <<<"$allowed_shebangs" >/dev/null; then
-        continue
-      fi
-      echo "buildAgentPlugin: executable '$rel' still has a /usr/bin/env shebang after the substitution pass; fix the mapping or list it in allowEnvShebangs" >&2
-      exit 1
-    done < <(find "$dest" -type f -perm -u+x -not -path "$dest/bin/*")
 
     runHook postBuild
   '';
@@ -369,16 +213,13 @@ stdenvNoCC.mkDerivation {
   '';
 
   doInstallCheck = true;
-  installCheckPhase =
-    if floxAgent != null then ''
-      runHook preInstallCheck
-      ${lib.getExe' floxAgent "flox-agent"} check-plugin${
-        lib.optionalString strict " --strict"
-      } "$out/${out}"
-      runHook postInstallCheck
-    '' else ''
-      echo "buildAgentPlugin: flox-agent not provided — skipping check-plugin validation" >&2
-    '';
+  installCheckPhase = ''
+    runHook preInstallCheck
+    ${lib.getExe' floxAgent "flox-agent"} check-plugin${
+      lib.optionalString strict " --strict"
+    } "$out/${out}"
+    runHook postInstallCheck
+  '';
 
   passthru.agentPlugin = {
     inherit name sourceUrl import;

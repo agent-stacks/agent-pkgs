@@ -1,11 +1,11 @@
 {
   "name": "caveman",
-  "version": "0-unstable-2026-09-07",
+  "version": "2.6.0",
   "src": {
     "owner": "juliusbrussee",
     "repo": "caveman",
-    "rev": "15581d14007fd01fb3f132016741962f34936ca2",
-    "hash": "sha256-GuCK3oy0DsMOQq7gHjIY/aeaukJcTvelfg+tp7R7Du4="
+    "rev": "6b42a31e10ee4c1b8549ccde30b451ddd060023d",
+    "hash": "sha256-88nbRu30Pb4LcyO22bQ1h6S2zsrZG/DEck9uqjnxxkk="
   },
   "sourceUrl": "https://github.com/juliusbrussee/caveman",
   "manifest": {
@@ -14,8 +14,9 @@
       "name": "Julius Brussee",
       "url": "https://github.com/JuliusBrussee"
     },
-    "description": "Talk like caveman. Cut 65% output tokens vs unprompted baseline (measured). Keep all technical accuracy.",
-    "name": "caveman"
+    "description": "Talk like caveman. Cut filler. Keep technical details explicit.",
+    "name": "caveman",
+    "version": "2.6.0"
   },
   "skills": {
     "cavecrew": "plugins/caveman/skills/cavecrew",
@@ -39,6 +40,9 @@
     "surgical-patch": "skills/surgical-patch",
     "verify-and-stop": "skills/verify-and-stop"
   },
+  "requiredRuntimes": [
+    "python3"
+  ],
   "meta": {
     "description": "Talk like caveman",
     "homepage": "https://github.com/juliusbrussee/caveman"
@@ -50,6 +54,22 @@
       {
         "path": "skills/caveman-explore/SKILL.md",
         "message": "unknown frontmatter fields: model, tools"
+      },
+      {
+        "path": "skills/caveman-compress/scripts/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/caveman-compress/scripts/__main__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/caveman-explore/package.json",
+        "message": "dependency manifest; the build does not resolve what it declares"
+      },
+      {
+        "path": "skills/caveman-learn/package.json",
+        "message": "dependency manifest; the build does not resolve what it declares"
       }
     ]
   }

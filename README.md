@@ -1,8 +1,12 @@
 # agent-pkgs
 
 A Nix package set for [Agent Plugins](https://agent-plugins.org):
-skills and MCP server configurations packaged as reproducible,
-closure-complete Nix packages, and composed into Agent Stacks.
+skills and MCP server configurations packaged as reproducible Nix
+packages, composed into Agent Stacks. A package is closure-complete
+for the interpreters its files name — a skill whose scripts are
+invoked from prose, or whose scripts need language-level libraries (a
+Python package, `ffmpeg`), is not, and its `source.json`'s
+`import.warnings` says which.
 
 Packages here are generated and validated by
 [`flox-agent`](https://github.com/flox/flox-agent), but the repo

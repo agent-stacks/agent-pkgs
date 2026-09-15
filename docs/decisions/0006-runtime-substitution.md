@@ -4,6 +4,10 @@ Date: 2026-09-01
 
 Status: Accepted
 
+Note: `allowEnvShebangs`, mentioned below, is removed as of
+[0013](0013-assembly-lives-in-flox-agent.md); the rest of this
+decision stands.
+
 ## Context
 
 Skills ship scripts with `#!/usr/bin/env python3` shebangs and

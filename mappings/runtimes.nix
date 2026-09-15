@@ -7,16 +7,22 @@
 # Per-plugin version pins go through `runtimes`
 # (e.g. `runtimes.python3 = python312;`), never through this table.
 #
-# Keep the table lean. Every mapped runtime a plugin's files mention
-# becomes a build input of that plugin, so map names skills actually
-# use in the wild.
+# Keep the table lean. The builder consults it only for the tokens a
+# package records in `requiredRuntimes` (a hand-written call with no
+# such record gets the whole table instead), so map names skills
+# actually use in the wild rather than every name that might appear.
 #
 # A row arrives with a package that exercises it, in the same pull
 # request, and never on its own. A row nothing uses cannot be shown to
-# work and cannot be shown to be wrong.
+# work and cannot be shown to be wrong. That standing rule is also why
+# this table stays in agent-pkgs rather than moving into flox-agent
+# alongside the scanner: a row and the package that exercises it must
+# land together, in one review, and splitting the table across
+# repositories would turn adding a row into a release plus a version
+# bump instead of one pull request.
 #
 # No name has yet turned up that could not be mapped at all. A sweep of
-# 44 packages — everything on main plus every repository the pending
+# 47 packages — everything on main plus every repository the pending
 # migrations name — found one unmapped name, `bun`, mapped below with
 # the three Anthropic plugins that call it (AI-726), and nothing
 # unmappable. The overlay mechanism proposed for skills we do not
