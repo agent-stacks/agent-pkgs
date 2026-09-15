@@ -169,6 +169,18 @@ stdenvNoCC.mkDerivation {
 
   dontConfigure = true;
 
+  # assemble-plugin's substitution pass is the only thing entitled to
+  # rewrite a shebang in this tree. stdenv's fixup would otherwise run
+  # patchShebangs over $out and disagree with it twice: it rewrites
+  # files under assets/, which the pass and the guard both leave alone
+  # because those are static templates that may be copied out of the
+  # plugin, and it rewrites them to a bare store path rather than to
+  # <plugin>/bin/<tok> — a dangling absolute path on any machine
+  # without that path, which is worse than the /usr/bin/env it
+  # replaced. The pass already writes absolute, non-env shebangs for
+  # every file it does own, so patchShebangs has nothing to add.
+  dontPatchShebangs = true;
+
   buildPhase = ''
     runHook preBuild
 
