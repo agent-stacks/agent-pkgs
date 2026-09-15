@@ -358,6 +358,11 @@
                 description = "Ultra-compressed communication mode";
               };
               skills = { cavecrew = "skills/cavecrew"; };
+              # The skill is Markdown only, so import records no
+              # interpreters and the package pulls none into its
+              # closure. Present because a generated source.json
+              # always writes the key.
+              requiredRuntimes = [ ];
               meta = {
                 description = "Ultra-compressed communication mode";
                 homepage = "https://github.com/juliusbrussee/caveman";
