@@ -1,0 +1,49 @@
+{
+  "name": "weaviate",
+  "version": "0.2.3",
+  "src": {
+    "owner": "weaviate",
+    "repo": "agent-skills",
+    "rev": "2f62f9fb7784ce57cb182ad6e575310f280a6b63",
+    "hash": "sha256-AayzbUEtojOAPFY/RWEhajJQadicaZIMoluCW2JZtJI="
+  },
+  "sourceUrl": "https://github.com/weaviate/agent-skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Weaviate"
+    },
+    "description": "Search, query, and manage Weaviate vector databases. Includes database operations, cookbooks for building full-stack AI applications, and CLI commands.",
+    "keywords": [
+      "weaviate",
+      "vector-database",
+      "agents",
+      "rag",
+      "search",
+      "retrieval"
+    ],
+    "name": "weaviate",
+    "version": "0.2.3"
+  },
+  "skills": {
+    "weaviate": "skills/weaviate",
+    "weaviate-cookbooks": "skills/weaviate-cookbooks"
+  },
+  "requiredRuntimes": [
+    "python3"
+  ],
+  "meta": {
+    "description": "Search, query, and manage Weaviate vector databases",
+    "homepage": "https://github.com/weaviate/agent-skills"
+  },
+  "import": {
+    "input": "weaviate/agent-skills",
+    "flags": [],
+    "warnings": [
+      {
+        "path": "skills/weaviate/scripts/weaviate_conn.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      }
+    ]
+  }
+}
