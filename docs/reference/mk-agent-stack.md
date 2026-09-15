@@ -72,6 +72,37 @@ force it to build, which the repo does not do.
 For several agents over the same plugins, build several stacks and
 install them into one environment.
 
+### The harness's runtime
+
+A pinned harness brings its own runtime. The agent CLIs in this set
+are single binaries — `claude-code` and `agent-deck` are compiled,
+`codex` is Rust, `opencode` and `pi` carry the tools they shell out to
+(`ripgrep`, `fzf`, `fd`) in their own closures — so pinning the
+package pins everything it runs on. Nothing here has to name an
+interpreter, and a stack built on one machine runs the same runtime on
+a machine that has never seen one.
+
+That is a property of the harness package, not of `mkAgentStack`,
+which cannot see a closure at evaluation time. It is checked where it
+can be: the launcher execs `flox-agent launch`, and that command warns
+when the agent it resolved came from outside the Nix store. A pinned
+stack is silent; an unpinned one says so on every run, naming the path
+it found.
+
+Two limits are deliberate:
+
+- **An unpinned harness promises nothing.** `harness = "claude";` adds
+  no PATH entry and puts no agent in the closure. The consumer's own
+  `claude` runs, at whatever version they have. This is the
+  convenient form, not the reproducible one, and is the wrong form
+  for anything that has to run the same way twice.
+- **PATH is prepended, not scrubbed.** The launcher puts the pinned
+  harness first and leaves the rest of the consumer's PATH intact, so
+  an agent that shells out to `git` — or to anything not in its own
+  closure — gets the host's copy. That is the point of an agent: it
+  works on the user's toolchain. It also means a stack's closure
+  bounds the agent, not everything the agent can reach.
+
 ## Outputs
 
 | Output | Contents |
