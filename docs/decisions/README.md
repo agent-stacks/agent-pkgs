@@ -39,3 +39,4 @@ on one of those links to it rather than restating it.
 | [0008](0008-re-export-llm-agents-nix.md) | Re-export llm-agents.nix into the package set |
 | [0009](0009-assembled-package-from-arguments.md) | An assembled package is built from its arguments |
 | [0010](0010-stack-launcher-reuses-flox-agent-launch.md) | A stack's launcher execs `flox-agent launch` |
+| [0011](0011-skill-and-tool-are-separate-packages.md) | A skill and the tool it drives are separate packages |
