@@ -4,8 +4,8 @@
   "src": {
     "owner": "conorbronsdon",
     "repo": "avoid-ai-writing",
-    "rev": "a8e19752a2646b8d988203c68e4227f774b6b8ea",
-    "hash": "sha256-p4uLU9O5Urf9v0JtWbMMMFjB7PGTOdb85jN3blIIgzw="
+    "rev": "14a7087452fbda07f8b4bd262a8b1c38725e4ca6",
+    "hash": "sha256-dbNtoczTBR9EsZHkinuy7rTP8AsSE06q0GgYMLwhVTI="
   },
   "sourceUrl": "https://github.com/conorbronsdon/avoid-ai-writing",
   "manifest": {
@@ -29,6 +29,9 @@
   "skills": {
     "avoid-ai-writing": "plugins/avoid-ai-writing/skills/avoid-ai-writing"
   },
+  "requiredRuntimes": [
+    "node"
+  ],
   "meta": {
     "description": "Audit & rewrite content to remove AI writing patterns (\"AI-isms\")",
     "homepage": "https://github.com/conorbronsdon/avoid-ai-writing"
@@ -44,6 +47,18 @@
       {
         "path": "plugins/avoid-ai-writing/skills/avoid-ai-writing/SKILL.md/metadata/openclaw",
         "message": "must be a string value"
+      },
+      {
+        "path": "skills/avoid-ai-writing/detector/patterns.js",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/avoid-ai-writing/detector/validate.js",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/avoid-ai-writing/scripts/markdown-prose.js",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       }
     ]
   }
