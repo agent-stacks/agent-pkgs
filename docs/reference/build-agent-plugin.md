@@ -18,7 +18,7 @@ every argument.
 | `manifest` | `null` | Attrset serialized to `plugin.json`, replacing a passed-through tree's own. Without it an assembled package takes a root `plugin.json` only when it declares an `agent-plugins.org` `$schema`, else fails (ADR 0009). |
 | `skills` | `null` | Skill name → path in src. When null, the builder falls back to `skills-lock.json`, then to a passthrough tree. |
 | `mcpServers` | `null` | Attrset serialized to `mcp.json` at the `manifest`'s spec version (1.0.0 without one). Without it, a passed-through tree keeps its own `mcp.json`, rewritten to the manifest's version when `manifest` replaced its `plugin.json`; an assembled package takes a root `mcp.json` only when it declares an `agent-plugins.org` `$schema`, and reports one it skips. |
-| `floxAgent` | this set's | The flox-agent whose `check-plugin` validates the output. Packages built from this repo get `pkgs/flox-agent`; `null` skips validation. What it validates is documented in the flox-agent repo, `docs/reference/check-plugin-command.md`. |
+| `floxAgent` | this set's | The flox-agent that assembles the plugin tree (`assemble-plugin`) and whose `check-plugin` validates the output. Packages built from this repo get `pkgs/flox-agent`; required — `null` fails the build, since assembly cannot be skipped (ADR 0013). What it validates is documented in the flox-agent repo, `docs/reference/check-plugin-command.md`. |
 | `strict` | `false` | Pass `--strict`, making warnings fail the build. Off by default: skills in the wild carry harness frontmatter fields the Agent Skills spec does not list, and those are warnings a correct plugin can have. |
 | `runtimes` | `{ }` | Interpreter name → package. Overrides `mappings/runtimes.nix` and pins versions, e.g. `{ python3 = python312; }`. |
 | `requiredRuntimes` | `null` | Interpreter tokens the package's files name, as recorded by `flox-agent import`. Required for a generated package — one whose `source.json` carries `import` — and the build fails, naming the fix, if it is missing there. A hand-written call omits it and gets every name in `mappings/runtimes.nix` resolved, the old behavior. |
@@ -45,7 +45,7 @@ alone on purpose. Design and trade-offs for that:
 
 ## The runtime substitution pass
 
-Before writing the tree, `assemble-plugin`:
+On the copied tree, `assemble-plugin`:
 
 1. Detects interpreter names in shebangs (outside `assets/`) and in
    bare `mcp.json` commands, limited to the tokens the package records
@@ -58,10 +58,12 @@ Before writing the tree, `assemble-plugin`:
    rewrites the references to point there. The symlink targets are
    store paths, so the interpreters land in the plugin's closure.
 
-After the pass, a guard fails the build for any executable that still
-has a `/usr/bin/env` shebang; the fix is to map the runtime, or to
-move the file under `assets/`. Design and trade-offs:
-[ADR 0006](../decisions/0006-runtime-substitution.md) and
+After the pass, a guard fails the build for any executable outside
+`assets/` and the plugin's top-level `bin/` whose shebang does not
+point into that plugin-local `bin/` — not only the `/usr/bin/env`
+form the pass targets, but any shebang the pass left alone. The fix is
+to map the runtime, or to move the file under `assets/`. Design and
+trade-offs: [ADR 0006](../decisions/0006-runtime-substitution.md) and
 [ADR 0013](../decisions/0013-assembly-lives-in-flox-agent.md).
 
 ## Passthru

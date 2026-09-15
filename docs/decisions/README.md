@@ -30,7 +30,7 @@ on one of those links to it rather than restating it.
 | # | Decision |
 | ---- | -------- |
 | [0001](0001-flake-only-entry-point.md) | Flake-only entry point |
-| [0002](0002-optional-check-phase.md) | Optional check phase until the -bin package exists |
+| [0002](0002-optional-check-phase.md) | Optional check phase until the -bin package exists (its `floxAgent ? null` default overturned by 0013) |
 | [0003](0003-upstream-manifest-wins.md) | Upstream plugin.json wins; manifest argument fills the gap (superseded by 0009) |
 | [0004](0004-skill-selection-precedence.md) | Skill selection: explicit args, then lock file, then passthrough |
 | [0005](0005-canonical-output-layout.md) | Canonical output under share/agent-plugins/ |

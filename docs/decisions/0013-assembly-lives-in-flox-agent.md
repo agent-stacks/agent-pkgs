@@ -56,6 +56,14 @@ checks working: they call `buildAgentPlugin` directly, with no
 `source.json` and no recorded runtime list, and still need every
 mapped name available to exercise.
 
+`pkgs/flox-agent` is pinned at rev `8be3bce`, the first to emit
+`requiredRuntimes`. `update-agent-plugins.yml` replays every package's
+recorded import with that pinned binary; rolling `pkgs/flox-agent`
+back below this rev would make a replay strip `requiredRuntimes` from
+every regenerated `source.json`, and every subsequent build would then
+hit the throw above. The throw names this rev so that failure points
+at the fix instead of repeating it.
+
 **`jq` is no longer a build input.** The shell phase used it to read
 `source.json` and assemble `plugin.json`; both are now read and
 written by `assemble-plugin` itself.
@@ -98,5 +106,6 @@ dangling store path `fixupPhase` had been substituting.
 - `-` Reading what a build phase does now means reading Go across two
   flox-agent packages (`internal/plugin/scan`,
   `internal/plugin/assemble`) rather than one Nix expression; the
-  six-line `buildPhase` left in `lib/build-agent-plugin.nix` is a
-  dispatch, not a description.
+  `buildPhase` left in `lib/build-agent-plugin.nix` is six lines
+  invoking `flox-agent assemble-plugin`, a dispatch rather than a
+  description.

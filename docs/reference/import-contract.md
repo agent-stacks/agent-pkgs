@@ -52,6 +52,8 @@ so an undeclared key is a build error by design:
     "skill-b": "other/path/skill-b"
   },
 
+  "requiredRuntimes": ["python3", "node"],
+
   "meta": {
     "description": "...",
     "homepage": "https://github.com/OWNER/REPO"
@@ -88,10 +90,25 @@ does the same. Any other root file is not read.
 `import` is declared but only reaches `passthru` — nothing in the
 build reads it. It carries `input` (owner/repo), `flags` (the import
 invocation's flags), and `warnings` (the `{ path, message }` entries
-`flox-agent check-plugin` raised at import time) — present only when
-check-plugin warned about something, since the Go struct marks it
-`omitempty` — so the record of what produced the package travels with
-it.
+`flox-agent check-plugin` raised at import time, plus two kinds the
+scanner itself raises while staging the tree: a script under
+`skills/` with no shebang, which the build links no interpreter for,
+and a dependency manifest — `pyproject.toml`, `requirements.txt`,
+`package.json` — which the build does not resolve) — present only
+when something was found, since the Go struct marks it `omitempty` —
+so the record of what produced the package travels with it.
+
+`requiredRuntimes` is a flat array of the interpreter tokens the
+scanner found named in the package's files — shebangs and bare
+`mcp.json` commands. It is required for a generated package: a
+`source.json` carrying `import` must also carry `requiredRuntimes`,
+and `buildAgentPlugin` throws, naming the fix, if it does not. A
+hand-written `buildAgentPlugin` call omits both `import` and
+`requiredRuntimes` and falls back to resolving every name in
+`mappings/runtimes.nix`, the behavior every package had before this
+key existed. See [ADR 0013](../decisions/0013-assembly-lives-in-flox-agent.md)
+for why the fallback stays hand-written-only, and the minimum
+flox-agent rev that emits this key.
 
 ## What the generator decides
 
@@ -180,14 +197,20 @@ generation time with the same command, so both ends of the pipeline
 enforce the same spec (vendored in flox-agent). Pass `strict = true`
 to fail on warnings as well.
 
-## Runtime substitution
+## Assembly and runtime substitution
 
-The builder itself rewrites shebangs and bare `mcp.json` commands to
-a plugin-local `bin/` of store-path symlinks, resolved through
-`mappings/runtimes.nix` and the per-plugin `runtimes` argument. See
-[build-agent-plugin.md](build-agent-plugin.md) and ADR 0006. The
-`postAssemble` hook still exists for extensions and runs on the fully
-substituted tree.
+Assembly and substitution are performed by `flox-agent assemble-plugin`,
+not by Nix: it selects and prunes the skills, writes `plugin.json` and
+`mcp.json`, and rewrites shebangs and bare `mcp.json` commands to a
+plugin-local `bin/` of store-path symlinks. `buildAgentPlugin`'s
+`buildPhase` is a single call into it; the Nix side keeps fetching,
+resolving `requiredRuntimes` through `mappings/runtimes.nix` and the
+per-plugin `runtimes` argument, install, and the check phase. See
+[build-agent-plugin.md](build-agent-plugin.md), ADR 0006, and
+[ADR 0013](../decisions/0013-assembly-lives-in-flox-agent.md) for the
+move out of Nix. The `postAssemble` hook still exists for extensions
+and runs on the fully assembled, substituted tree.
 
-Import may later emit `runtimes` hints into the generated call; that
-is not part of the contract yet.
+Import already emits the `requiredRuntimes` hint described above; a
+generated call is scoped to the tokens it found rather than resolving
+every name in `mappings/runtimes.nix`.

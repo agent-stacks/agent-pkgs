@@ -122,7 +122,10 @@ let
     if requiredRuntimes != null then requiredRuntimes
     else if import != null then throw
       ("buildAgentPlugin: ${name}: source.json records no requiredRuntimes. "
-        + "Regenerate this package with `flox-agent import`.")
+        + "Regenerate this package with `flox-agent import`, using a "
+        + "flox-agent at or after rev 8be3bce — the first to emit "
+        + "requiredRuntimes. An older flox-agent reproduces this error "
+        + "instead of fixing it.")
     else builtins.attrNames runtimeTable;
 
   # A recorded token that is neither pinned nor in the table is left

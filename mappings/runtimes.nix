@@ -22,7 +22,7 @@
 # bump instead of one pull request.
 #
 # No name has yet turned up that could not be mapped at all. A sweep of
-# 44 packages — everything on main plus every repository the pending
+# 47 packages — everything on main plus every repository the pending
 # migrations name — found one unmapped name, `bun`, mapped below with
 # the three Anthropic plugins that call it (AI-726), and nothing
 # unmappable. The overlay mechanism proposed for skills we do not
