@@ -60,7 +60,9 @@ anything already in the upstream cache still comes from there.
 | `mappings/runtimes.nix` | Ecosystem runtime names to nixpkgs attributes |
 
 Add a package by dropping a directory into `pkgs/` — typically via
-`agent-stacks import <repo> --out pkgs/<name>`.
+`agent-stacks import <repo> --out pkgs` — `--out` is the output root,
+and the importer appends `agent-plugin-<name>/` to it. See
+[docs/guides/create-agent-plugin.md](docs/guides/create-agent-plugin.md).
 
 ## Stacks
 
