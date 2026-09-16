@@ -44,6 +44,18 @@ own platform list. Restricting `meta.platforms` to the three systems
 this flake happens to build on would describe the flake's CI matrix,
 not a property of the plugin.
 
+`meta.category`, introduced below, is not one of nixpkgs' own meta
+keys — it is a Flox extension, absent from nixpkgs' `metaTypes`. The
+same `config.checkMeta` invoked above to justify `meta.license`
+rejects any attrset carrying it: `checkMeta` defaults to `false`, so
+this flake, its checks and Hydra never enable it and never hit the
+failure, but a consumer who does turn it on gets a hard evaluation
+error on every package this set publishes. That is accepted, not
+overlooked — the catalog needs the field, and no consumer of this set
+enables `checkMeta` — but it means `category` sits outside the
+checkMeta-clean reasoning the rest of this ADR relies on, not inside
+it.
+
 **Category.** The obvious shape for `meta.category` is the plugin's
 subject — "coding", "productivity", "research" — mirrored from
 whatever a marketplace's own taxonomy calls it. Two measurements ruled

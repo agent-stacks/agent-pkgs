@@ -93,3 +93,11 @@ exception has somewhere to go that is not weakening the check itself.
 - `-` A real package that both lacks `mainProgram` and is not yet in
   `notPackagesExempt` fails the flake check until someone classifies
   it, rather than being published immediately with a caveat.
+- `-` `default` is one of the excluded flake-schema names, so this
+  flake has no `packages.<system>.default`: a bare `nix build` or
+  `nix run github:flox/agent-pkgs` errors instead of running
+  something. That is accepted, not an oversight — the old `default`
+  was upstream's fzf launcher, not a choice this set made, and
+  excluding it is correct for the same reason every other piece of
+  upstream plumbing is excluded. A consumer names an attribute
+  explicitly, the way this repository's own workflows already do.
