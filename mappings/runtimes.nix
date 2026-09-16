@@ -43,4 +43,5 @@
   # launcher and not for what it launches (AI-565).
   npx = "nodejs";
   uv = "uv";
+  uvx = "uv";
 }
