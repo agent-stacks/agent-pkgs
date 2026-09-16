@@ -1,0 +1,342 @@
+{
+  "name": "aws-core",
+  "version": "1.1.0",
+  "src": {
+    "owner": "aws",
+    "repo": "agent-toolkit-for-aws",
+    "rev": "7fcb1da17abba610d7becc973c2141b40412e02c",
+    "hash": "sha256-p2rgpc3hah6Esi5nRBFp9RwJQ7ZkVcIdxiv8EU8MEas="
+  },
+  "sourceUrl": "https://github.com/aws/agent-toolkit-for-aws",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Amazon Web Services"
+    },
+    "description": "Build, deploy, and operate applications on AWS. Skills to author infrastructure-as-code (CDK, CloudFormation), use core services (Lambda, API Gateway, Step Functions, ECS/Fargate, ECR, IAM, Amazon Bedrock with Knowledge Bases and Guardrails, AWS Blocks), select and operate databases across relational, key-value, document, wide-column, graph, time-series, and in-memory engines, and complete common tasks across observability, messaging and streaming, AWS SDKs, and cost optimization.",
+    "extensions": {
+      "com.anthropic.claude-code": {
+        "hooks": "./com.anthropic.claude-code/hooks/hooks.json"
+      }
+    },
+    "homepage": "https://aws.amazon.com/products/developer-tools/agent-toolkit-for-aws/",
+    "keywords": [
+      "aws",
+      "amazon",
+      "amazon-web-services",
+      "iam",
+      "bedrock",
+      "amazon-bedrock",
+      "aws-blocks",
+      "billing",
+      "cost-optimization",
+      "cdk",
+      "aws-cdk",
+      "cloudformation",
+      "sam",
+      "serverless",
+      "lambda",
+      "api-gateway",
+      "step-functions",
+      "eventbridge",
+      "containers",
+      "ecs",
+      "fargate",
+      "ecr",
+      "messaging",
+      "streaming",
+      "sqs",
+      "sns",
+      "kinesis",
+      "msk",
+      "observability",
+      "cloudwatch",
+      "x-ray",
+      "cloudtrail",
+      "adot",
+      "opentelemetry",
+      "sdk",
+      "aws-sdk",
+      "boto3",
+      "dynamodb",
+      "database",
+      "aurora",
+      "rds",
+      "documentdb",
+      "elasticache",
+      "memorydb",
+      "keyspaces",
+      "neptune",
+      "timestream"
+    ],
+    "license": "Apache-2.0",
+    "name": "aws-core",
+    "repository": "https://github.com/aws/agent-toolkit-for-aws",
+    "version": "1.1.0"
+  },
+  "skills": {
+    "amazon-bedrock": "plugins/aws-core/skills/amazon-bedrock",
+    "aws-ai-ml": "plugins/aws-core/skills/aws-ai-ml",
+    "aws-auth": "plugins/aws-core/skills/aws-auth",
+    "aws-billing-and-cost-management": "plugins/aws-core/skills/aws-billing-and-cost-management",
+    "aws-blocks": "plugins/aws-core/skills/aws-blocks",
+    "aws-cdk": "plugins/aws-core/skills/aws-cdk",
+    "aws-cloudformation": "plugins/aws-core/skills/aws-cloudformation",
+    "aws-compute": "plugins/aws-core/skills/aws-compute",
+    "aws-containers": "plugins/aws-core/skills/aws-containers",
+    "aws-database": "plugins/aws-core/skills/aws-database",
+    "aws-deployment": "plugins/aws-core/skills/aws-deployment",
+    "aws-iam": "plugins/aws-core/skills/aws-iam",
+    "aws-messaging-and-streaming": "plugins/aws-core/skills/aws-messaging-and-streaming",
+    "aws-networking": "plugins/aws-core/skills/aws-networking",
+    "aws-observability": "plugins/aws-core/skills/aws-observability",
+    "aws-sdk-js-v3-usage": "plugins/aws-core/skills/aws-sdk-js-v3-usage",
+    "aws-sdk-python-usage": "plugins/aws-core/skills/aws-sdk-python-usage",
+    "aws-sdk-swift-usage": "plugins/aws-core/skills/aws-sdk-swift-usage",
+    "aws-secrets-manager": "plugins/aws-core/skills/aws-secrets-manager",
+    "aws-security": "plugins/aws-core/skills/aws-security",
+    "aws-serverless": "plugins/aws-core/skills/aws-serverless",
+    "aws-storage": "plugins/aws-core/skills/aws-storage",
+    "launch-with-aws": "plugins/aws-core/skills/launch-with-aws",
+    "signing-in-to-aws": "plugins/aws-core/skills/signing-in-to-aws"
+  },
+  "requiredRuntimes": [
+    "python3",
+    "uvx"
+  ],
+  "mcpServers": {
+    "aws-mcp": {
+      "args": [
+        "mcp-proxy-for-aws-cli@latest",
+        "https://aws-mcp.us-east-1.api.aws/mcp",
+        "--skip-auth",
+        "--metadata",
+        "INSTALL_SOURCE=agent-toolkit-core"
+      ],
+      "command": "uvx",
+      "type": "stdio"
+    }
+  },
+  "meta": {
+    "description": "Build, deploy, and operate applications on AWS",
+    "homepage": "https://github.com/aws/agent-toolkit-for-aws"
+  },
+  "import": {
+    "input": "aws/agent-toolkit-for-aws",
+    "flags": [],
+    "warnings": [
+      {
+        "path": "skills/aws-ai-ml/references/dataset-evaluation/scripts/format_detector.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-ai-ml/references/dataset-transformation/code_templates/transformation.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-ai-ml/references/endpoint-diagnostics/scripts/collect_diagnostics.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-ai-ml/references/finetuning-technique/scripts/get_recipes.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-ai-ml/references/finetuning/code_templates/dpo.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-ai-ml/references/finetuning/code_templates/rlaif_builtin.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-ai-ml/references/finetuning/code_templates/rlaif_custom_prompt.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-ai-ml/references/finetuning/code_templates/rlvr.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-ai-ml/references/finetuning/code_templates/sft.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-ai-ml/references/finetuning/scripts/mlflow_reference.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-ai-ml/references/finetuning/templates/nova_rlvr_reward_function_source_template.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-ai-ml/references/finetuning/templates/rlvr_reward_function_source_template.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-ai-ml/references/model-deployment/code_templates/deploy-jumpstart-sagemaker.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-ai-ml/references/model-deployment/code_templates/deploy-nova-bedrock.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-ai-ml/references/model-deployment/code_templates/deploy-nova-sagemaker.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-ai-ml/references/model-deployment/code_templates/deploy-oss-bedrock.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-ai-ml/references/model-deployment/code_templates/deploy-oss-sagemaker.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-ai-ml/references/model-deployment/code_templates/optimize-benchmark.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-ai-ml/references/model-deployment/code_templates/optimize-huggingface-to-s3.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-ai-ml/references/model-deployment/code_templates/optimize-recommendation.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-ai-ml/references/model-evaluation/code_templates/custom_scorer_evaluator.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-ai-ml/references/model-evaluation/code_templates/llmaaj_evaluator.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-ai-ml/references/model-evaluation/scripts/nova_reward_function_source_template.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-ai-ml/references/model-evaluation/scripts/reward_function_source_template.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-ai-ml/references/model-evaluation/scripts/validate_custom_metrics.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-ai-ml/references/model-selection/scripts/filter_deployable_models.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-ai-ml/references/model-selection/scripts/get_deployable_models.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-ai-ml/references/model-selection/scripts/get_model_names.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-observability/scripts/di_app_signals_client.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-observability/scripts/di_capture.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-observability/scripts/di_constants.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-observability/scripts/di_crud_rendering.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-observability/scripts/di_crud_tools.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-observability/scripts/di_error_translation.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-observability/scripts/di_formatting.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-observability/scripts/di_gateway.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-observability/scripts/di_location.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-observability/scripts/di_logs_client.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-observability/scripts/di_region.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-observability/scripts/di_result.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-observability/scripts/di_session.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-observability/scripts/di_snapshot_parsing.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-observability/scripts/di_snapshot_queries.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-observability/scripts/di_snapshot_rendering.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-observability/scripts/di_snapshot_tools.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-observability/scripts/di_status_assessment.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-observability/scripts/di_status_rendering.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-observability/scripts/di_status_tools.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/aws-observability/scripts/di_validation.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/launch-with-aws/scripts/archive.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/launch-with-aws/scripts/auth.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/launch-with-aws/scripts/launch_api_client.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/launch-with-aws/scripts/launch_config.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      }
+    ]
+  }
+}

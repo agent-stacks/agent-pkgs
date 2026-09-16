@@ -1,0 +1,118 @@
+{
+  "name": "aws-agents",
+  "version": "1.0.0",
+  "src": {
+    "owner": "aws",
+    "repo": "agent-toolkit-for-aws",
+    "rev": "7fcb1da17abba610d7becc973c2141b40412e02c",
+    "hash": "sha256-p2rgpc3hah6Esi5nRBFp9RwJQ7ZkVcIdxiv8EU8MEas="
+  },
+  "sourceUrl": "https://github.com/aws/agent-toolkit-for-aws",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "email": "aws-agent-plugins@amazon.com",
+      "name": "Amazon Web Services"
+    },
+    "description": "Build, deploy, and operate AI agents on AWS. Skills for scaffolding agents with Amazon Bedrock AgentCore (Strands, LangGraph), connecting tools via Gateway and MCP, multi-agent and A2A orchestration, memory, Cedar policies, evaluation, observability, debugging traces and logs, and production hardening.",
+    "homepage": "https://aws.amazon.com/products/developer-tools/agent-toolkit-for-aws/",
+    "keywords": [
+      "aws",
+      "amazon",
+      "amazon-web-services",
+      "ai",
+      "ai-agents",
+      "agents",
+      "agentcore",
+      "bedrock",
+      "amazon-bedrock",
+      "iam",
+      "memory",
+      "gateway",
+      "cedar",
+      "evaluation",
+      "strands",
+      "langgraph",
+      "mcp",
+      "a2a",
+      "multi-agent",
+      "tool-use",
+      "rag",
+      "observability",
+      "cloudwatch"
+    ],
+    "license": "Apache-2.0",
+    "name": "aws-agents",
+    "repository": "https://github.com/aws/agent-toolkit-for-aws",
+    "version": "1.0.0"
+  },
+  "skills": {
+    "agents-build": "plugins/aws-agents/skills/agents-build",
+    "agents-connect": "plugins/aws-agents/skills/agents-connect",
+    "agents-debug": "plugins/aws-agents/skills/agents-debug",
+    "agents-deploy": "plugins/aws-agents/skills/agents-deploy",
+    "agents-get-started": "plugins/aws-agents/skills/agents-get-started",
+    "agents-harden": "plugins/aws-agents/skills/agents-harden",
+    "agents-optimize": "plugins/aws-agents/skills/agents-optimize",
+    "agents-pay": "plugins/aws-agents/skills/agents-pay"
+  },
+  "requiredRuntimes": [
+    "python3"
+  ],
+  "mcpServers": {
+    "awsknowledge": {
+      "type": "streamable-http",
+      "url": "https://knowledge-mcp.global.api.aws"
+    }
+  },
+  "meta": {
+    "description": "Build, deploy, and operate AI agents on AWS",
+    "homepage": "https://github.com/aws/agent-toolkit-for-aws"
+  },
+  "import": {
+    "input": "aws/agent-toolkit-for-aws",
+    "flags": [],
+    "warnings": [
+      {
+        "path": "skills/agents-build/scripts/process_payment_tool.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/agents-pay/packages/openclaw/scripts/stage-skill.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/agents-pay/packages/openclaw/test/security.test.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/agents-pay/packages/openclaw/test/test_agentcore_bridge.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/agents-pay/packages/openclaw/test/test_setup_openclaw.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/agents-pay/scripts/test_resource_resolution.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/agents-pay/scripts/x402_fetch.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/agents-pay/scripts/x402_policy.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/agents-pay/packages/openclaw/package.json",
+        "message": "dependency manifest; the build does not resolve what it declares"
+      },
+      {
+        "path": "skills/agents-pay/requirements.txt",
+        "message": "dependency manifest; the build does not resolve what it declares"
+      }
+    ]
+  }
+}
