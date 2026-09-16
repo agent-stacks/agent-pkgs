@@ -1,0 +1,86 @@
+{
+  "name": "firebase",
+  "version": "1.1.0",
+  "src": {
+    "owner": "firebase",
+    "repo": "agent-skills",
+    "rev": "28caac2db9633794bf747bb030d7c39e62a951ab",
+    "hash": "sha256-ZInAMZ/1P7hyReEyHV8gO90dFt+G5GDWG2okWJWcJLI="
+  },
+  "sourceUrl": "https://github.com/firebase/agent-skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Firebase",
+      "url": "https://firebase.google.com/"
+    },
+    "description": "Official Claude plugin for Firebase. Manage projects, add backend services, develop AI features, deploy & host apps, and more",
+    "homepage": "https://github.com/firebase/firebase-tools",
+    "keywords": [
+      "firebase",
+      "mcp",
+      "cloud",
+      "firestore",
+      "database",
+      "hosting",
+      "functions",
+      "cli"
+    ],
+    "license": "MIT",
+    "name": "firebase",
+    "repository": "https://github.com/firebase/firebase-tools.git",
+    "version": "1.1.0"
+  },
+  "skills": {
+    "extension-to-functions-codebase": "skills/extension-to-functions-codebase",
+    "firebase-ai-logic-basics": "skills/firebase-ai-logic-basics",
+    "firebase-app-hosting-basics": "skills/firebase-app-hosting-basics",
+    "firebase-auth-basics": "skills/firebase-auth-basics",
+    "firebase-basics": "skills/firebase-basics",
+    "firebase-crashlytics": "skills/firebase-crashlytics",
+    "firebase-data-connect-basics": "skills/firebase-data-connect-basics",
+    "firebase-firestore": "skills/firebase-firestore",
+    "firebase-hosting-basics": "skills/firebase-hosting-basics",
+    "firebase-remote-config-basics": "skills/firebase-remote-config-basics",
+    "firebase-security-rules-auditor": "skills/firebase-security-rules-auditor",
+    "firestore-rules-creation": "skills/firestore-rules-creation",
+    "xcode-project-setup": "skills/xcode-project-setup"
+  },
+  "requiredRuntimes": [
+    "npx"
+  ],
+  "mcpServers": {
+    "firebase": {
+      "args": [
+        "-y",
+        "firebase-tools@latest",
+        "mcp",
+        "--dir",
+        "."
+      ],
+      "command": "npx",
+      "env": {
+        "IS_FIREBASE_MCP": "true"
+      },
+      "type": "stdio"
+    }
+  },
+  "meta": {
+    "description": "Official Claude plugin for Firebase",
+    "homepage": "https://github.com/firebase/agent-skills"
+  },
+  "import": {
+    "input": "firebase/agent-skills",
+    "flags": [],
+    "warnings": [
+      {
+        "path": "skills/firebase-ai-logic-basics/SKILL.md",
+        "message": "unknown frontmatter fields: version"
+      },
+      {
+        "path": "skills/firebase-data-connect-basics/SKILL.md/name",
+        "message": "skill name \"firebase-data-connect\" must match directory name \"firebase-data-connect-basics\""
+      }
+    ]
+  }
+}
