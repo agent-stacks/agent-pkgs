@@ -429,6 +429,66 @@
               touch $out
             '';
 
+          # The reference tells readers to attach postAssemble with
+          # overrideAttrs. This is the check that sentence promises:
+          # the hook runs on the assembled tree, and passthru survives
+          # the override so downstream composition still works.
+          override-hook =
+            let
+              lib' = mkLib pkgs;
+              src = pkgs.runCommand "override-src" { } ''
+                mkdir -p $out/skills/one
+                printf -- '---\nname: one\ndescription: Does things.\n---\nBody.\n' \
+                  > $out/skills/one/SKILL.md
+              '';
+              base = lib'.buildAgentPlugin {
+                name = "overridable";
+                inherit src;
+                sourceUrl = "https://example.test/overridable";
+                manifest = {
+                  "$schema" = "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json";
+                  name = "overridable";
+                };
+                skills.one = "skills/one";
+                requiredRuntimes = [ ];
+              };
+              hooked = base.overrideAttrs (old: {
+                postAssemble = (old.postAssemble or "") + ''
+                  printf 'hooked\n' > "$dest/MARKER"
+                '';
+              });
+              pinned = lib'.buildAgentPlugin {
+                name = "caveman";
+                src = {
+                  owner = "juliusbrussee";
+                  repo = "caveman";
+                  rev = "15581d14007fd01fb3f132016741962f34936ca2";
+                  hash = "sha256-GuCK3oy0DsMOQq7gHjIY/aeaukJcTvelfg+tp7R7Du4=";
+                };
+                sourceUrl = "https://github.com/juliusbrussee/caveman";
+                manifest = {
+                  "$schema" = "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json";
+                  name = "caveman";
+                };
+                skills.cavecrew = "skills/cavecrew";
+                requiredRuntimes = [ ];
+              };
+              yes = b: nixpkgs.lib.boolToString b;
+            in
+            pkgs.runCommand "override-hook" { } ''
+              p=${hooked}/share/agent-plugins/overridable
+              [ "$(cat $p/MARKER)" = hooked ]
+              [ -f $p/plugin.json ]
+              [ "${hooked.passthru.agentPlugin.name}" = overridable ]
+              [ "${yes (hooked.passthru.agentPlugin.skills == [ "one" ])}" = true ]
+              [ "${hooked.meta.category}" = agent-plugin ]
+              [ "${yes (base.passthru.agentPlugin.rev == null)}" = true ]
+              [ "${yes (base.passthru.agentPlugin.hash == null)}" = true ]
+              [ "${pinned.passthru.agentPlugin.rev}" = \
+                15581d14007fd01fb3f132016741962f34936ca2 ]
+              touch $out
+            '';
+
         };
     in
     {

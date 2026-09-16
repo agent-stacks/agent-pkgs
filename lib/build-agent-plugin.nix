@@ -286,6 +286,11 @@ stdenvNoCC.mkDerivation {
   passthru.agentPlugin = {
     inherit name sourceUrl import;
     path = out;
+    # Provenance for the audit story: what was fetched, and what it
+    # hashed to. Null when src is a path or a derivation rather than a
+    # recorded pin, because then there is nothing pinned to report.
+    rev = if isPin then src.rev or null else null;
+    hash = if isPin then src.hash or null else null;
     specVersion =
       if manifest != null && manifest ? "$schema"
       then lib.removeSuffix "/plugin.schema.json"
