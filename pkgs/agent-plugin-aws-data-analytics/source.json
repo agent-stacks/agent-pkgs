@@ -1,0 +1,84 @@
+{
+  "name": "aws-data-analytics",
+  "version": "1.0.0",
+  "src": {
+    "owner": "aws",
+    "repo": "agent-toolkit-for-aws",
+    "rev": "7fcb1da17abba610d7becc973c2141b40412e02c",
+    "hash": "sha256-p2rgpc3hah6Esi5nRBFp9RwJQ7ZkVcIdxiv8EU8MEas="
+  },
+  "sourceUrl": "https://github.com/aws/agent-toolkit-for-aws",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Amazon Web Services"
+    },
+    "description": "Data lake, analytics, and ETL workflows with S3 Tables, AWS Glue, and Athena. Covers managed Iceberg tables on S3 Tables, ingestion from JDBC databases, Amazon Redshift, Snowflake, BigQuery, and DynamoDB, AWS Glue Data Catalog inventory and asset discovery, federated Athena queries, and vector storage and semantic search on Amazon S3 Vectors.",
+    "homepage": "https://aws.amazon.com/products/developer-tools/agent-toolkit-for-aws/",
+    "keywords": [
+      "aws",
+      "amazon",
+      "amazon-web-services",
+      "iam",
+      "analytics",
+      "data-lake",
+      "lakehouse",
+      "athena",
+      "glue",
+      "aws-glue",
+      "data-catalog",
+      "s3",
+      "s3-tables",
+      "s3-vectors",
+      "iceberg",
+      "apache-iceberg",
+      "etl",
+      "redshift",
+      "snowflake",
+      "bigquery",
+      "dynamodb",
+      "jdbc",
+      "vector-search",
+      "rag"
+    ],
+    "license": "Apache-2.0",
+    "name": "aws-data-analytics",
+    "repository": "https://github.com/aws/agent-toolkit-for-aws",
+    "version": "1.0.0"
+  },
+  "skills": {
+    "amazon-opensearch-service": "plugins/aws-data-analytics/skills/amazon-opensearch-service",
+    "connecting-to-data-source": "plugins/aws-data-analytics/skills/connecting-to-data-source",
+    "creating-data-lake-table": "plugins/aws-data-analytics/skills/creating-data-lake-table",
+    "exploring-data-catalog": "plugins/aws-data-analytics/skills/exploring-data-catalog",
+    "finding-data-lake-assets": "plugins/aws-data-analytics/skills/finding-data-lake-assets",
+    "ingesting-into-data-lake": "plugins/aws-data-analytics/skills/ingesting-into-data-lake",
+    "querying-data-lake": "plugins/aws-data-analytics/skills/querying-data-lake",
+    "redshift-guide": "plugins/aws-data-analytics/skills/redshift-guide",
+    "storing-and-querying-vectors": "plugins/aws-data-analytics/skills/storing-and-querying-vectors"
+  },
+  "requiredRuntimes": [
+    "uvx"
+  ],
+  "mcpServers": {
+    "aws-mcp": {
+      "args": [
+        "mcp-proxy-for-aws-cli@latest",
+        "https://aws-mcp.us-east-1.api.aws/mcp",
+        "--skip-auth",
+        "--metadata",
+        "INSTALL_SOURCE=agent-toolkit-data-analytics"
+      ],
+      "command": "uvx",
+      "type": "stdio"
+    }
+  },
+  "meta": {
+    "description": "Data lake, analytics, and ETL workflows with S3 Tables, AWS Glue, and Athena",
+    "homepage": "https://github.com/aws/agent-toolkit-for-aws"
+  },
+  "import": {
+    "input": "aws/agent-toolkit-for-aws",
+    "flags": []
+  }
+}
