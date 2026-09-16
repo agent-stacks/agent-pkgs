@@ -66,13 +66,17 @@ and the importer appends `agent-plugin-<name>/` to it. See
 
 ## Stacks
 
-`mkAgentStack` composes plugins into a stack with a launcher for the
-harness. The launcher starts the harness, but skills aren't wired in
-yet: every adapter in `agent-stacks` still reads the old
-`share/flox/<agent>/` layout, so the agent starts with none of the
-stack's skills until a separate launch rework lands.
+`mkAgentStack` composes plugins and one harness into a stack with a
+launcher. The launcher runs `agent-stacks launch`, which stages the
+stack's plugins into the shape that agent expects — `--plugin-dir` for
+claude, `--skill` for pi, a staged `skills/` tree for codex and
+opencode, a seeded config for agent-deck — so the skills reach the
+agent without the stack carrying anything per-harness.
 
-See [docs/reference/mk-agent-stack.md](docs/reference/mk-agent-stack.md).
+See [docs/guides/create-agent-stack.md](docs/guides/create-agent-stack.md)
+for a worked example, and
+[docs/reference/mk-agent-stack.md](docs/reference/mk-agent-stack.md)
+for the full API.
 
 ## Fork it
 
