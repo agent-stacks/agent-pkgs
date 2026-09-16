@@ -1,0 +1,72 @@
+{
+  "name": "getsentry-xcodebuildmcp",
+  "version": "0-unstable-2026-08-02",
+  "src": {
+    "owner": "getsentry",
+    "repo": "XcodeBuildMCP",
+    "rev": "e6ef59b49b44012c824f0a0de261c96142e37390",
+    "hash": "sha256-ZxkyjWjqE8rySCFPP3LysefgR6cp6uYutrbXfrvWOUs="
+  },
+  "sourceUrl": "https://github.com/getsentry/XcodeBuildMCP",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "name": "getsentry-xcodebuildmcp"
+  },
+  "skills": {
+    "warden": ".agents/skills/warden",
+    "warden-sweep": ".agents/skills/warden-sweep",
+    "xcodebuildmcp": "skills/xcodebuildmcp",
+    "xcodebuildmcp-cli": "skills/xcodebuildmcp-cli",
+    "xcodebuildmcp-docs-command-review": ".agents/skills/xcodebuildmcp-docs-command-review",
+    "xcodebuildmcp-docs-release-review": ".agents/skills/xcodebuildmcp-docs-release-review",
+    "xcodebuildmcp-packaging-resource-review": ".agents/skills/xcodebuildmcp-packaging-resource-review",
+    "xcodebuildmcp-rendering-streaming-review": ".agents/skills/xcodebuildmcp-rendering-streaming-review",
+    "xcodebuildmcp-runtime-boundary-review": ".agents/skills/xcodebuildmcp-runtime-boundary-review",
+    "xcodebuildmcp-snapshot-fixture-review": ".agents/skills/xcodebuildmcp-snapshot-fixture-review",
+    "xcodebuildmcp-structured-output-review": ".agents/skills/xcodebuildmcp-structured-output-review",
+    "xcodebuildmcp-test-boundary-review": ".agents/skills/xcodebuildmcp-test-boundary-review",
+    "xcodebuildmcp-tool-contract-review": ".agents/skills/xcodebuildmcp-tool-contract-review"
+  },
+  "requiredRuntimes": [
+    "node",
+    "python3"
+  ],
+  "mcpServers": {
+    "sentry": {
+      "type": "streamable-http",
+      "url": "https://mcp.sentry.dev/mcp"
+    },
+    "xcodebuildmcp-dev": {
+      "args": [
+        "../../build/cli.js",
+        "mcp"
+      ],
+      "command": "node",
+      "env": {
+        "XCODEBUILDMCP_DEBUG": "true",
+        "XCODEBUILDMCP_IOS_TEMPLATE_PATH": "../../../XcodeBuildMCP-iOS-Template",
+        "XCODEBUILDMCP_MACOS_TEMPLATE_PATH": "../../../XcodeBuildMCP-macOS-Template",
+        "XCODEBUILDMCP_SENTRY_DISABLED": "true"
+      },
+      "type": "stdio"
+    }
+  },
+  "meta": {
+    "description": "Agent plugin imported from https://github.com/getsentry/XcodeBuildMCP",
+    "homepage": "https://github.com/getsentry/XcodeBuildMCP"
+  },
+  "import": {
+    "input": "getsentry/XcodeBuildMCP",
+    "flags": [],
+    "warnings": [
+      {
+        "path": ".agents/skills/warden-sweep/SKILL.md",
+        "message": "unknown frontmatter fields: disable-model-invocation"
+      },
+      {
+        "path": "skills/warden-sweep/scripts/_utils.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      }
+    ]
+  }
+}
