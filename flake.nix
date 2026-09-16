@@ -118,8 +118,21 @@
             && nixpkgs.lib.isDerivation p
             && nixpkgs.lib.meta.availableOn pkgs.stdenv.hostPlatform p
             && !(p.meta.broken or false);
+
+          # Exceptions only; everything else is an agent-tool. meta is
+          # stripped before the derivation is built, so overrideAttrs
+          # here changes no store path and rebuilds nothing.
+          categories = import ./mappings/agent-categories.nix;
+          withCategory = name: p:
+            let category = categories.${name} or "agent-tool"; in
+            if p ? overrideAttrs
+            then p.overrideAttrs (old: {
+              meta = (old.meta or { }) // { inherit category; };
+            })
+            else p;
         in
-        nixpkgs.lib.filterAttrs keep pkgs.llm-agents;
+        nixpkgs.lib.mapAttrs withCategory
+          (nixpkgs.lib.filterAttrs keep pkgs.llm-agents);
 
       # Every subdirectory of pkgs/ with a default.nix is a package.
       # `flox-agent import --out pkgs/<name>` drops packages here; no
@@ -474,6 +487,9 @@
               [ "${stack.meta.category}" = agent-stack ]
               [ "${yes stack (m: m.platforms == nixpkgs.lib.platforms.all)}" = true ]
               [ "${yes stack (m: m.maintainers == [ ])}" = true ]
+              [ "${(mkAllPackages pkgs).claude-code.meta.category}" = agent ]
+              [ "${(mkAllPackages pkgs).ccusage.meta.category}" = agent-tool ]
+              [ "${(mkAllPackages pkgs).flox-agent.meta.category}" = agent-tool ]
               touch $out
             '';
 
