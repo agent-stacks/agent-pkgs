@@ -410,6 +410,11 @@
                 meta.description = "First sentence";
               };
               yes = p: f: nixpkgs.lib.boolToString (f p.meta);
+              stack = lib'.mkAgentStack {
+                name = "conventions-stack";
+                harness = "claude";
+                plugins = [ mit ];
+              };
             in
             pkgs.runCommand "meta-conventions" { } ''
               [ "${mit.meta.license.spdxId}" = MIT ]
@@ -426,6 +431,9 @@
               [ "${longDesc.meta.description}" = "First sentence" ]
               [ "${longDesc.meta.longDescription}" = \
                 "First sentence. Second sentence carries the rest." ]
+              [ "${stack.meta.category}" = agent-stack ]
+              [ "${yes stack (m: m.platforms == nixpkgs.lib.platforms.all)}" = true ]
+              [ "${yes stack (m: m.maintainers == [ ])}" = true ]
               touch $out
             '';
 
