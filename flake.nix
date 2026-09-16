@@ -65,17 +65,57 @@
         overlays = [ llm-agents.overlays.shared-nixpkgs ];
       };
 
-      # Upstream's packages/ also holds builders and hooks — wrapBuddy,
-      # buildNpmPackage, the fetchers — which are functions rather than
-      # derivations. Broken and foreign-platform packages are dropped
-      # the same way that flake drops them from its own packages
-      # output: a package that cannot run on aarch64-darwin has no
-      # business being an aarch64-darwin job.
+      # Attributes llm-agents.nix exposes that are not packages of this
+      # set: the nixpkgs builders and fetchers it patches, its setup
+      # hooks, the toolchains it builds its own packages with, and two
+      # flake output names. Upstream publishes all of these in its own
+      # packages output, so there is no upstream list to defer to —
+      # this one is ours, and the re-export-is-packages check fails
+      # when upstream grows another.
+      #
+      # bun-bin and go-bin do ship runnable binaries. They are excluded
+      # by judgement rather than by rule: they are build inputs for
+      # that flake, and nixpkgs already has bun and go.
+      #
+      # default and formatter are flake output names fixed by the flake
+      # schema rather than package names upstream chose, which is why
+      # excluding them by name cannot rot the way a package denylist
+      # would.
+      notPackages = [
+        "buildNpmPackage"
+        "fetchPnpmDeps"
+        "flake-inputs"
+        "darwinOpenptyHook"
+        "unpinCargoMsrvHook"
+        "unpinGoModVersionHook"
+        "versionCheckHomeHook"
+        "bun-bin"
+        "go-bin"
+        "default"
+        "formatter"
+        "wrapBuddy"
+        "site"
+      ];
+
+      # Real packages whose packager omitted meta.mainProgram. Empty
+      # today. Listing one here keeps it published and silences the
+      # re-export-is-packages check for that name alone.
+      notPackagesExempt = [ ];
+
+      # Upstream's packages/ also holds builders, setup hooks and the
+      # toolchains it builds with. They are derivations, not functions,
+      # so no property distinguishes them from packages — they are
+      # named in notPackages above and ADR 0015 records why. Broken and
+      # foreign-platform packages are dropped the same way that flake
+      # drops them from its own packages output: a package that cannot
+      # run on aarch64-darwin has no business being an aarch64-darwin
+      # job.
       llmAgentsFor = system:
         let
           pkgs = llmAgentsPkgsFor system;
-          keep = _: p:
-            nixpkgs.lib.isDerivation p
+          keep = name: p:
+            !(builtins.elem name notPackages)
+            && nixpkgs.lib.isDerivation p
             && nixpkgs.lib.meta.availableOn pkgs.stdenv.hostPlatform p
             && !(p.meta.broken or false);
         in
@@ -496,6 +536,45 @@
                 15581d14007fd01fb3f132016741962f34936ca2 ]
               touch $out
             '';
+
+          # notPackages is a hand-maintained judgement against a set
+          # that grows daily, so it needs a tripwire rather than a
+          # convention. meta.mainProgram is the signal — every package
+          # worth publishing has one — but it is used to ask a question,
+          # never to filter: a new attribute without one fails this
+          # check by name, and a human decides. Nothing is ever dropped
+          # from the catalog without someone seeing it. ADR 0015.
+          re-export-is-packages =
+            let
+              scope = (llmAgentsPkgsFor pkgs.stdenv.hostPlatform.system).llm-agents;
+              suspect = name:
+                let p = scope.${name}; in
+                !(builtins.elem name notPackages)
+                && !(builtins.elem name notPackagesExempt)
+                && nixpkgs.lib.isDerivation p
+                && nixpkgs.lib.meta.availableOn pkgs.stdenv.hostPlatform p
+                && !(p.meta.broken or false)
+                && !(p.meta ? mainProgram);
+              unclassified = builtins.filter suspect (builtins.attrNames scope);
+            in
+            pkgs.runCommand "re-export-is-packages" { } (
+              if unclassified == [ ] then "touch $out"
+              else ''
+                cat >&2 <<'MSG'
+                These attributes of llm-agents.nix have no meta.mainProgram and
+                are not listed in notPackages in flake.nix:
+
+                  ${builtins.concatStringsSep "\n  " unclassified}
+
+                A missing mainProgram usually means the attribute is a setup
+                hook, a builder or a toolchain rather than a package this set
+                should publish; add it to notPackages. If it is a real package
+                whose packager simply omitted the field, leave it published and
+                add it to notPackagesExempt instead.
+                MSG
+                exit 1
+              ''
+            );
 
         };
     in
