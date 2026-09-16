@@ -73,6 +73,13 @@
       # this one is ours, and the re-export-is-packages check fails
       # when upstream grows another.
       #
+      # Setup hooks are named here regardless of what platforms they
+      # run on. formatelf (auto-formatelf-hook) is Linux-only, so
+      # `lib.meta.availableOn` hides it from every check run on
+      # aarch64-darwin — it still has to be named explicitly, or it
+      # slips back onto packages.x86_64-linux and packages.aarch64-linux
+      # unnoticed.
+      #
       # bun-bin and go-bin do ship runnable binaries. They are excluded
       # by judgement rather than by rule: they are build inputs for
       # that flake, and nixpkgs already has bun and go.
@@ -89,6 +96,7 @@
         "unpinCargoMsrvHook"
         "unpinGoModVersionHook"
         "versionCheckHomeHook"
+        "formatelf"
         "bun-bin"
         "go-bin"
         "default"
