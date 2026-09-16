@@ -65,21 +65,83 @@
         overlays = [ llm-agents.overlays.shared-nixpkgs ];
       };
 
-      # Upstream's packages/ also holds builders and hooks — wrapBuddy,
-      # buildNpmPackage, the fetchers — which are functions rather than
-      # derivations. Broken and foreign-platform packages are dropped
-      # the same way that flake drops them from its own packages
-      # output: a package that cannot run on aarch64-darwin has no
-      # business being an aarch64-darwin job.
+      # Attributes llm-agents.nix exposes that are not packages of this
+      # set: the nixpkgs builders and fetchers it patches, its setup
+      # hooks, the toolchains it builds its own packages with, and two
+      # flake output names. Upstream publishes all of these in its own
+      # packages output, so there is no upstream list to defer to —
+      # this one is ours, and the re-export-is-packages check fails
+      # when upstream grows another.
+      #
+      # Setup hooks are named here regardless of what platforms they
+      # run on. formatelf (auto-formatelf-hook) is Linux-only, so
+      # `lib.meta.availableOn` hides it from every check run on
+      # aarch64-darwin — it still has to be named explicitly, or it
+      # slips back onto packages.x86_64-linux and packages.aarch64-linux
+      # unnoticed.
+      #
+      # bun-bin and go-bin do ship runnable binaries. They are excluded
+      # by judgement rather than by rule: they are build inputs for
+      # that flake, and nixpkgs already has bun and go.
+      #
+      # default and formatter are flake output names fixed by the flake
+      # schema rather than package names upstream chose, which is why
+      # excluding them by name cannot rot the way a package denylist
+      # would.
+      notPackages = [
+        "buildNpmPackage"
+        "fetchPnpmDeps"
+        "flake-inputs"
+        "darwinOpenptyHook"
+        "unpinCargoMsrvHook"
+        "unpinGoModVersionHook"
+        "versionCheckHomeHook"
+        "formatelf"
+        "codesignCheckHook"
+        "bun-bin"
+        "go-bin"
+        "default"
+        "formatter"
+        "wrapBuddy"
+        "site"
+      ];
+
+      # Real packages whose packager omitted meta.mainProgram. Empty
+      # today. Listing one here keeps it published and silences the
+      # re-export-is-packages check for that name alone.
+      notPackagesExempt = [ ];
+
+      # Upstream's packages/ also holds builders, setup hooks and the
+      # toolchains it builds with. They are derivations, not functions,
+      # so no property distinguishes them from packages — they are
+      # named in notPackages above and ADR 0015 records why. Broken and
+      # foreign-platform packages are dropped the same way that flake
+      # drops them from its own packages output: a package that cannot
+      # run on aarch64-darwin has no business being an aarch64-darwin
+      # job.
       llmAgentsFor = system:
         let
           pkgs = llmAgentsPkgsFor system;
-          keep = _: p:
-            nixpkgs.lib.isDerivation p
+          keep = name: p:
+            !(builtins.elem name notPackages)
+            && nixpkgs.lib.isDerivation p
             && nixpkgs.lib.meta.availableOn pkgs.stdenv.hostPlatform p
             && !(p.meta.broken or false);
+
+          # Exceptions only; everything else is an agent-tool. meta is
+          # stripped before the derivation is built, so overrideAttrs
+          # here changes no store path and rebuilds nothing.
+          categories = import ./mappings/agent-categories.nix;
+          withCategory = name: p:
+            let category = categories.${name} or "agent-tool"; in
+            if p ? overrideAttrs
+            then p.overrideAttrs (old: {
+              meta = (old.meta or { }) // { inherit category; };
+            })
+            else p;
         in
-        nixpkgs.lib.filterAttrs keep pkgs.llm-agents;
+        nixpkgs.lib.mapAttrs withCategory
+          (nixpkgs.lib.filterAttrs keep pkgs.llm-agents);
 
       # Every subdirectory of pkgs/ with a default.nix is a package.
       # `flox-agent import --out pkgs/<name>` drops packages here; no
@@ -375,6 +437,169 @@
                 ];
               };
             };
+
+          # Every convention ADR 0014 records, asserted on real builds:
+          # a declared SPDX licence resolves to the lib.licenses value,
+          # an unrecognised licence string yields no assertion at all,
+          # maintainers stay empty, and platforms and category are
+          # always present.
+          meta-conventions =
+            let
+              lib' = mkLib pkgs;
+              src = pkgs.runCommand "meta-src" { } ''
+                mkdir -p $out/skills/one
+                printf -- '---\nname: one\ndescription: Does things.\n---\nBody.\n' \
+                  > $out/skills/one/SKILL.md
+              '';
+              mk = { name, license ? null, description ? "Short summary", meta ? { } }:
+                lib'.buildAgentPlugin {
+                  inherit name src meta;
+                  sourceUrl = "https://example.test/${name}";
+                  manifest = {
+                    "$schema" = "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json";
+                    inherit name description;
+                  } // nixpkgs.lib.optionalAttrs (license != null) { inherit license; };
+                  skills.one = "skills/one";
+                  requiredRuntimes = [ ];
+                };
+              mit = mk { name = "mit-plugin"; license = "MIT"; };
+              apache = mk { name = "apache-plugin"; license = "Apache-2.0"; };
+              unknown = mk { name = "unknown-plugin"; license = "SEE LICENSE IN LICENSE"; };
+              none = mk { name = "none-plugin"; };
+              longDesc = mk {
+                name = "long-plugin";
+                description = "First sentence. Second sentence carries the rest.";
+                meta.description = "First sentence";
+              };
+              yes = p: f: nixpkgs.lib.boolToString (f p.meta);
+              stack = lib'.mkAgentStack {
+                name = "conventions-stack";
+                harness = "claude";
+                plugins = [ mit ];
+              };
+            in
+            pkgs.runCommand "meta-conventions" { } ''
+              [ "${mit.meta.license.spdxId}" = MIT ]
+              [ "${apache.meta.license.spdxId}" = Apache-2.0 ]
+              [ "${yes unknown (m: m ? license)}" = false ]
+              [ "${yes none (m: m ? license)}" = false ]
+              [ "${yes mit (m: m.maintainers == [ ])}" = true ]
+              [ "${yes none (m: m.maintainers == [ ])}" = true ]
+              [ "${mit.meta.category}" = agent-plugin ]
+              [ "${yes mit (m: m.platforms == nixpkgs.lib.platforms.all)}" = true ]
+              [ "${mit.meta.homepage}" = https://example.test/mit-plugin ]
+              [ "${none.meta.description}" = "Short summary" ]
+              [ "${yes none (m: m ? longDescription)}" = false ]
+              [ "${longDesc.meta.description}" = "First sentence" ]
+              [ "${longDesc.meta.longDescription}" = \
+                "First sentence. Second sentence carries the rest." ]
+              [ "${stack.meta.category}" = agent-stack ]
+              [ "${yes stack (m: m.platforms == nixpkgs.lib.platforms.all)}" = true ]
+              [ "${yes stack (m: m.maintainers == [ ])}" = true ]
+              [ "${(mkAllPackages pkgs).claude-code.meta.category}" = agent ]
+              [ "${(mkAllPackages pkgs).ccusage.meta.category}" = agent-tool ]
+              [ "${(mkAllPackages pkgs).flox-agent.meta.category}" = agent-tool ]
+              touch $out
+            '';
+
+          # The reference tells readers to attach postAssemble with
+          # overrideAttrs. This is the check that sentence promises:
+          # the hook runs on the assembled tree, and passthru survives
+          # the override so downstream composition still works.
+          override-hook =
+            let
+              lib' = mkLib pkgs;
+              src = pkgs.runCommand "override-src" { } ''
+                mkdir -p $out/skills/one
+                printf -- '---\nname: one\ndescription: Does things.\n---\nBody.\n' \
+                  > $out/skills/one/SKILL.md
+              '';
+              base = lib'.buildAgentPlugin {
+                name = "overridable";
+                inherit src;
+                sourceUrl = "https://example.test/overridable";
+                manifest = {
+                  "$schema" = "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json";
+                  name = "overridable";
+                };
+                skills.one = "skills/one";
+                requiredRuntimes = [ ];
+              };
+              hooked = base.overrideAttrs (old: {
+                postAssemble = (old.postAssemble or "") + ''
+                  printf 'hooked\n' > "$dest/MARKER"
+                '';
+              });
+              pinned = lib'.buildAgentPlugin {
+                name = "caveman";
+                src = {
+                  owner = "juliusbrussee";
+                  repo = "caveman";
+                  rev = "15581d14007fd01fb3f132016741962f34936ca2";
+                  hash = "sha256-GuCK3oy0DsMOQq7gHjIY/aeaukJcTvelfg+tp7R7Du4=";
+                };
+                sourceUrl = "https://github.com/juliusbrussee/caveman";
+                manifest = {
+                  "$schema" = "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json";
+                  name = "caveman";
+                };
+                skills.cavecrew = "skills/cavecrew";
+                requiredRuntimes = [ ];
+              };
+              yes = b: nixpkgs.lib.boolToString b;
+            in
+            pkgs.runCommand "override-hook" { } ''
+              p=${hooked}/share/agent-plugins/overridable
+              [ "$(cat $p/MARKER)" = hooked ]
+              [ -f $p/plugin.json ]
+              [ "${hooked.passthru.agentPlugin.name}" = overridable ]
+              [ "${yes (hooked.passthru.agentPlugin.skills == [ "one" ])}" = true ]
+              [ "${hooked.meta.category}" = agent-plugin ]
+              [ "${yes (base.passthru.agentPlugin.rev == null)}" = true ]
+              [ "${yes (base.passthru.agentPlugin.hash == null)}" = true ]
+              [ "${pinned.passthru.agentPlugin.rev}" = \
+                15581d14007fd01fb3f132016741962f34936ca2 ]
+              touch $out
+            '';
+
+          # notPackages is a hand-maintained judgement against a set
+          # that grows daily, so it needs a tripwire rather than a
+          # convention. meta.mainProgram is the signal — every package
+          # worth publishing has one — but it is used to ask a question,
+          # never to filter: a new attribute without one fails this
+          # check by name, and a human decides. Nothing is ever dropped
+          # from the catalog without someone seeing it. ADR 0015.
+          re-export-is-packages =
+            let
+              scope = (llmAgentsPkgsFor pkgs.stdenv.hostPlatform.system).llm-agents;
+              suspect = name:
+                let p = scope.${name}; in
+                !(builtins.elem name notPackages)
+                && !(builtins.elem name notPackagesExempt)
+                && nixpkgs.lib.isDerivation p
+                && nixpkgs.lib.meta.availableOn pkgs.stdenv.hostPlatform p
+                && !(p.meta.broken or false)
+                && !(p.meta ? mainProgram);
+              unclassified = builtins.filter suspect (builtins.attrNames scope);
+            in
+            pkgs.runCommand "re-export-is-packages" { } (
+              if unclassified == [ ] then "touch $out"
+              else ''
+                cat >&2 <<'MSG'
+                These attributes of llm-agents.nix have no meta.mainProgram and
+                are not listed in notPackages in flake.nix:
+
+                  ${builtins.concatStringsSep "\n  " unclassified}
+
+                A missing mainProgram usually means the attribute is a setup
+                hook, a builder or a toolchain rather than a package this set
+                should publish; add it to notPackages. If it is a real package
+                whose packager simply omitted the field, leave it published and
+                add it to notPackagesExempt instead.
+                MSG
+                exit 1
+              ''
+            );
 
         };
     in

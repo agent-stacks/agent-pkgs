@@ -204,5 +204,9 @@ stdenvNoCC.mkDerivation {
   meta = {
     description = "Agent stack ${name} (${adapter})";
     mainProgram = name;
+    # A stack is the composed environment, not a plugin and not an
+    # agent — ADR 0014 names the four values.
+    category = "agent-stack";
+    platforms = lib.platforms.all;
   };
 }

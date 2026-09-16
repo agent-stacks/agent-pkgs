@@ -24,7 +24,7 @@ every argument.
 | `requiredRuntimes` | `null` | Interpreter tokens the package's files name, as recorded by `flox-agent import`. Required for a generated package — one whose `source.json` carries `import` — and the build fails, naming the fix, if it is missing there. A hand-written call omits it and gets every name in `mappings/runtimes.nix` resolved, the old behavior. |
 | `allowPathCommands` | `[ ]` | Bare `mcp.json` commands that intentionally resolve from the consumer environment's PATH instead of the closure. |
 | `extraSubstitutions` | `[ ]` | List of `{ file; replace; with; }` applied after the automatic pass, for interpreter mentions in script bodies or SKILL.md text. |
-| `meta` | `{ }` | Standard derivation meta. Absent `license` means no assertion. |
+| `meta` | `{ }` | Standard derivation meta, merged over computed defaults ([ADR 0014](../decisions/0014-generated-package-meta.md)): `category = "agent-plugin"`, `platforms = lib.platforms.all`, `description` and `homepage` from the manifest or `sourceUrl` when present, and `license` when `manifest.license` resolves to a known `lib.licenses` entry by `spdxId`. The manifest's full description is kept as `longDescription` when it says more than the effective `description`. The merge is `defaultMeta // longDescription // meta`, key by key: an explicit key in the caller's `meta` wins over the computed default. The merge can only add or override a key, not remove one — a caller whose manifest declares a licence cannot suppress `meta.license` from the call site by passing an empty `meta`; the manifest is the thing making the claim, so that is where to change it. |
 
 ## The build phase
 
@@ -70,12 +70,18 @@ trade-offs: [ADR 0006](../decisions/0006-runtime-substitution.md) and
 
 ```nix
 passthru.agentPlugin = {
-  name; path; sourceUrl; specVersion; skills; import;
+  name; path; sourceUrl; specVersion; skills; import; rev; hash;
 };
 ```
 
+`rev` and `hash` are the fetched pin's, when `src` is a recorded
+`fetchFromGitHub` pin; both are `null` when `src` is a path or a
+derivation instead, since then there is nothing pinned to report.
+
 ## Extension point
 
-`postAssemble` runs on the fully substituted tree before the guard,
-install, and checks. Attach with `overrideAttrs`; the
-`override-hook` flake check keeps this working.
+`postAssemble` runs on the fully assembled tree, after the guard,
+before install and checks — the guard now runs inside
+`flox-agent assemble-plugin` itself, not as a separate Nix-side step
+after it. Attach with `overrideAttrs`; the `override-hook` flake check
+keeps this working.

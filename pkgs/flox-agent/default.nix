@@ -83,6 +83,8 @@ stdenvNoCC.mkDerivation {
     license = lib.licenses.unfree;
     mainProgram = "flox-agent";
     platforms = lib.attrNames source.hashes;
+    # The CLI itself: not an agent, and not a plugin. ADR 0014.
+    category = "agent-tool";
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
   };
 }
