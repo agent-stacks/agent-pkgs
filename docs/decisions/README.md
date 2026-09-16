@@ -42,3 +42,5 @@ on one of those links to it rather than restating it.
 | [0011](0011-skill-and-tool-are-separate-packages.md) | A skill and the tool it drives are separate packages |
 | [0012](0012-skill-content-is-pruned.md) | Skill content is pruned by a fixed list |
 | [0013](0013-assembly-lives-in-flox-agent.md) | Assembly lives in flox-agent |
+| [0014](0014-generated-package-meta.md) | A generated package's meta asserts only what is known |
+| [0015](0015-the-re-export-is-a-named-list.md) | What the re-export publishes is a named list, not a rule |

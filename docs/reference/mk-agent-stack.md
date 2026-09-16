@@ -145,6 +145,27 @@ passthru.agentStack = {
 };
 ```
 
+## Meta
+
+```nix
+meta = {
+  description = "Agent stack ${name} (${adapter})";
+  mainProgram = name;
+  category = "agent-stack";
+  platforms = lib.platforms.all;
+};
+```
+
+`description` and `mainProgram` are derived from the stack's own
+`name` and its resolved `adapter`, so they need no argument.
+`category = "agent-stack"` marks the composed environment as its own
+kind, distinct from `agent-plugin`, `agent` and `agent-tool` — a
+stack is neither a plugin nor an agent, it is the two of them wired
+together ([ADR 0014](../decisions/0014-generated-package-meta.md)).
+`platforms = lib.platforms.all` for the same reason a plugin's does:
+the stack's own files carry no architecture, and the harness and
+plugins it composes bring their own platform lists.
+
 ## Stability
 
 This is a public API. Nix users write it into their own repositories.
