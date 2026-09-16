@@ -97,6 +97,7 @@
         "unpinGoModVersionHook"
         "versionCheckHomeHook"
         "formatelf"
+        "codesignCheckHook"
         "bun-bin"
         "go-bin"
         "default"
