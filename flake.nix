@@ -376,6 +376,59 @@
               };
             };
 
+          # Every convention ADR 0014 records, asserted on real builds:
+          # a declared SPDX licence resolves to the lib.licenses value,
+          # an unrecognised licence string yields no assertion at all,
+          # maintainers stay empty, and platforms and category are
+          # always present.
+          meta-conventions =
+            let
+              lib' = mkLib pkgs;
+              src = pkgs.runCommand "meta-src" { } ''
+                mkdir -p $out/skills/one
+                printf -- '---\nname: one\ndescription: Does things.\n---\nBody.\n' \
+                  > $out/skills/one/SKILL.md
+              '';
+              mk = { name, license ? null, description ? "Short summary", meta ? { } }:
+                lib'.buildAgentPlugin {
+                  inherit name src meta;
+                  sourceUrl = "https://example.test/${name}";
+                  manifest = {
+                    "$schema" = "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json";
+                    inherit name description;
+                  } // nixpkgs.lib.optionalAttrs (license != null) { inherit license; };
+                  skills.one = "skills/one";
+                  requiredRuntimes = [ ];
+                };
+              mit = mk { name = "mit-plugin"; license = "MIT"; };
+              apache = mk { name = "apache-plugin"; license = "Apache-2.0"; };
+              unknown = mk { name = "unknown-plugin"; license = "SEE LICENSE IN LICENSE"; };
+              none = mk { name = "none-plugin"; };
+              longDesc = mk {
+                name = "long-plugin";
+                description = "First sentence. Second sentence carries the rest.";
+                meta.description = "First sentence";
+              };
+              yes = p: f: nixpkgs.lib.boolToString (f p.meta);
+            in
+            pkgs.runCommand "meta-conventions" { } ''
+              [ "${mit.meta.license.spdxId}" = MIT ]
+              [ "${apache.meta.license.spdxId}" = Apache-2.0 ]
+              [ "${yes unknown (m: m ? license)}" = false ]
+              [ "${yes none (m: m ? license)}" = false ]
+              [ "${yes mit (m: m.maintainers == [ ])}" = true ]
+              [ "${yes none (m: m.maintainers == [ ])}" = true ]
+              [ "${mit.meta.category}" = agent-plugin ]
+              [ "${yes mit (m: m.platforms == nixpkgs.lib.platforms.all)}" = true ]
+              [ "${mit.meta.homepage}" = https://example.test/mit-plugin ]
+              [ "${none.meta.description}" = "Short summary" ]
+              [ "${yes none (m: m ? longDescription)}" = false ]
+              [ "${longDesc.meta.description}" = "First sentence" ]
+              [ "${longDesc.meta.longDescription}" = \
+                "First sentence. Second sentence carries the rest." ]
+              touch $out
+            '';
+
         };
     in
     {

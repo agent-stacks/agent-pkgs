@@ -99,10 +99,72 @@ let
   # writes). Everything else — a derivation, a path, lib.cleanSource,
   # lib.sourceByRegex, a flake's self — already is a source tree and
   # passes through untouched.
-  resolvedSrc =
-    if builtins.isAttrs src && src ? owner && src ? repo
-    then pkgs.fetchFromGitHub src
-    else src;
+  isPin = builtins.isAttrs src && src ? owner && src ? repo;
+
+  resolvedSrc = if isPin then pkgs.fetchFromGitHub src else src;
+
+  # A manifest field, when the manifest declares it as a string.
+  # Anything else — absent, null, a number, an object — is no value.
+  manifestString = key:
+    if manifest != null && manifest ? ${key} && builtins.isString manifest.${key}
+    then manifest.${key}
+    else null;
+
+  # lib.licenses keyed by SPDX identifier. Built by folding over sorted
+  # attribute names with first-wins, rather than with mapAttrs', so two
+  # licence attributes sharing an spdxId resolve to the same one on
+  # every evaluation instead of to whichever mapAttrs' happened to
+  # visit last.
+  licensesBySpdx = lib.foldl'
+    (acc: attr:
+      let l = lib.licenses.${attr}; in
+      if l ? spdxId && builtins.isString l.spdxId && !(acc ? ${l.spdxId})
+      then acc // { ${l.spdxId} = l; }
+      else acc)
+    { }
+    (builtins.attrNames lib.licenses);
+
+  declaredLicense = manifestString "license";
+  manifestDescription = manifestString "description";
+
+  # meta the builder derives from arguments it already has. A caller's
+  # own meta overrides these key by key (see the merge at the bottom of
+  # this file), so a generated package's recorded description wins over
+  # the manifest's.
+  #
+  # license is present only for a manifest licence that is a known SPDX
+  # identifier. A plugin whose upstream declares nothing, or declares
+  # something unparseable like "SEE LICENSE IN LICENSE", gets no
+  # assertion rather than a guess — ADR 0014.
+  defaultMeta = {
+    category = "agent-plugin";
+    platforms = lib.platforms.all;
+  }
+  // lib.optionalAttrs (manifestDescription != null) {
+    description = manifestDescription;
+  }
+  // lib.optionalAttrs (sourceUrl != null || manifestString "homepage" != null) {
+    homepage = if sourceUrl != null then sourceUrl else manifestString "homepage";
+  }
+  // lib.optionalAttrs (declaredLicense != null && licensesBySpdx ? ${declaredLicense}) {
+    license = licensesBySpdx.${declaredLicense};
+  };
+
+  # The description that actually applies, once the caller's meta has
+  # had its say. Needed to decide whether the manifest's full text is
+  # worth keeping as longDescription.
+  effectiveDescription = (defaultMeta // meta).description or null;
+
+  # An importer records a one-line summary in meta.description and
+  # leaves the full text in the manifest. Keep that text rather than
+  # discard it, but only when it says more than the summary does.
+  longDescription = lib.optionalAttrs
+    (manifestDescription != null
+      && effectiveDescription != null
+      && manifestDescription != effectiveDescription)
+    { longDescription = manifestDescription; };
+
+  finalMeta = defaultMeta // longDescription // meta;
 
   # Runtime resolution: the table maps interpreter names to
   # nixpkgs attributes; the plugin's `runtimes` argument overrides it
@@ -232,8 +294,10 @@ stdenvNoCC.mkDerivation {
     skills = if skills == null then null else builtins.attrNames skills;
   };
 
-  # Plugins make no license assertion by default (the
-  # attribute is simply absent); generated packages record the
-  # upstream license when known.
-  inherit meta;
+  # A plugin makes no licence assertion unless its manifest declares a
+  # recognisable SPDX identifier: licenses.unfree would be wrong,
+  # licenses.free would be a lie, and nixpkgs has no "unknown" to name.
+  # maintainers is never set here; nixpkgs injects an empty list, which
+  # is what unmaintained means. ADR 0014 records both.
+  meta = finalMeta;
 }
