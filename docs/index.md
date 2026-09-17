@@ -15,9 +15,10 @@ is not, and its `source.json`'s `import.warnings` says which.
 
 ## What lives elsewhere
 
-`flox-agent import`, `flox-agent check-plugin` and `flox-agent launch`
-are documented in the flox-agent repo, under `docs/reference/` and
-`docs/decisions/`. This repo documents the Nix side: what
+`agent-stacks import`, `agent-stacks check-plugin` and
+`agent-stacks launch` are documented in the agent-stacks repo, under
+`docs/reference/` and `docs/decisions/`. This repo documents the Nix
+side: what
 `buildAgentPlugin` and `mkAgentStack` accept, what they produce, and
 the contract the two repos meet at. Where a decision belongs to the
 tool, these pages link to it rather than restate it, so the two do not

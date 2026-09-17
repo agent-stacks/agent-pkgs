@@ -15,14 +15,14 @@ was that upstream authorship is respected and the ambiguous case
 fails loudly.
 
 The rule assumes the upstream file is an Agent Plugins file. In the
-sources `flox-agent import` meets it usually is not: `mcp.json` files
+sources `agent-stacks import` meets it usually is not: `mcp.json` files
 are Claude's, with no `$schema` and a transport the schema spells
 differently, and a root `plugin.json` is often a Cursor or VS Code
 manifest. The importer validates the plugin tree before it writes a
 package and knows which fields conform, but the builder copied the
 upstream file and treated a `manifest` beside it as an error, so
 import could not hand over what it had checked. Several leaderboard
-repositories failed to import for exactly this; flox-agent's record
+repositories failed to import for exactly this; agent-stacks's record
 "Import hands the builder the manifest and servers it checked" names
 them.
 
@@ -40,7 +40,7 @@ when it is an Agent Plugins file, one declaring an `agent-plugins.org`
 `$schema`. Any other file at the root is another tool's and is not
 read; an `mcp.json` skipped this way is reported at build time. This
 stand-in is what a `source.json` from an importer that predates the
-flox-agent record relies on: such a file omits `manifest` when the
+agent-stacks record relies on: such a file omits `manifest` when the
 plugin's own `plugin.json` sits at the root, and never carries
 `mcpServers`. It is also what a repository building from a checked-in
 `skills-lock.json` (the second case of ADR 0004) with its own
@@ -49,7 +49,7 @@ conformant `plugin.json` relies on.
 An importer carrying that record always passes `manifest`, and passes
 `mcpServers` whenever the plugin declares servers, so a package it
 generates never depends on what its src root holds and the stand-in
-is never consulted. Until the flox-agent pinned here carries it, a
+is never consulted. Until the agent-stacks pinned here carries it, a
 regenerated package can still omit `manifest` and rely on the
 stand-in.
 

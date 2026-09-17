@@ -1,14 +1,14 @@
 # The import → builder contract
 
-This is the call shape `flox-agent import --out pkgs/` generates into
+This is the call shape `agent-stacks import --out pkgs/` generates into
 `pkgs/agent-plugin-<name>/`, and the passthru schema consumers can
-rely on. `flox-agent import` (flox-agent repo) codes against this file;
+rely on. `agent-stacks import` (agent-stacks repo) codes against this file;
 `buildAgentPlugin` (this repo) implements it. Change either side only
 together with this document.
 
 ## Generated files
 
-`flox-agent import` writes two files into `pkgs/agent-plugin-<name>/`:
+`agent-stacks import` writes two files into `pkgs/agent-plugin-<name>/`:
 
 `default.nix` is a three-line template, byte-identical across every
 generated package — it reads `source.json` and hands it to
@@ -72,7 +72,7 @@ so an undeclared key is a build error by design:
 `src` is a pin, not a derivation — JSON cannot hold one, so
 `buildAgentPlugin` fetches it with `fetchFromGitHub` whenever it is an
 attrset carrying `owner` and `repo`. `skills` values are plain in-tree
-path strings. A file written by an importer carrying flox-agent's
+path strings. A file written by an importer carrying agent-stacks's
 record "Import hands the builder the manifest and servers it checked"
 carries `manifest` in every case, and the builder writes it as
 `plugin.json`; a `plugin.json` the source root ships is not read
@@ -90,7 +90,7 @@ does the same. Any other root file is not read.
 `import` is declared but only reaches `passthru` — nothing in the
 build reads it. It carries `input` (owner/repo), `flags` (the import
 invocation's flags), and `warnings` (the `{ path, message }` entries
-`flox-agent check-plugin` raised at import time, plus two kinds the
+`agent-stacks check-plugin` raised at import time, plus two kinds the
 scanner itself raises while staging the tree: a script under
 `skills/` with no shebang, which the build links no interpreter for,
 and a dependency manifest — `pyproject.toml`, `requirements.txt`,
@@ -108,13 +108,13 @@ hand-written `buildAgentPlugin` call omits both `import` and
 `mappings/runtimes.nix`, the behavior every package had before this
 key existed. See [ADR 0013](../decisions/0013-assembly-lives-in-flox-agent.md)
 for why the fallback stays hand-written-only, and the minimum
-flox-agent rev that emits this key.
+agent-stacks rev that emits this key.
 
 ## What the generator decides
 
 How `<name>`, `version`, `manifest` and the `skills` paths are chosen
 is import's side of the contract, and lives with the importer: see
-the flox-agent repo, `docs/decisions/0021-root-skill-beside-nested-skills.md`
+the agent-stacks repo, `docs/decisions/0021-root-skill-beside-nested-skills.md`
 for the reasoning and `docs/reference/import-command.md` for the
 behavior. (0021 supersedes 0014, which supersedes 0013, which this
 page used to name: the fallback to a directory name is gone, and a
@@ -149,7 +149,7 @@ Two further consequences bind the builder:
   importer stages the same tree for its check phase and records what
   the copy left out in `import.warnings`. `.` may be spelled `./`. A
   `source.json` written before this rule with a skill at `.` builds
-  the same way (flox-agent ADR 0021).
+  the same way (agent-stacks ADR 0021).
 - **The manifest carries the spec version.** A generated `mcp.json`
   declares the same version the manifest does, because a client must
   disable MCP for a plugin whose `mcp.json` targets a different
@@ -191,15 +191,15 @@ passthru.agentPlugin = {
 
 ## Validation
 
-The install check phase runs `flox-agent check-plugin` on the output,
-using the flox-agent from this package set. Import validates trees at
+The install check phase runs `agent-stacks check-plugin` on the output,
+using the agent-stacks from this package set. Import validates trees at
 generation time with the same command, so both ends of the pipeline
-enforce the same spec (vendored in flox-agent). Pass `strict = true`
+enforce the same spec (vendored in agent-stacks). Pass `strict = true`
 to fail on warnings as well.
 
 ## Assembly and runtime substitution
 
-Assembly and substitution are performed by `flox-agent assemble-plugin`,
+Assembly and substitution are performed by `agent-stacks assemble-plugin`,
 not by Nix: it selects and prunes the skills, writes `plugin.json` and
 `mcp.json`, and rewrites shebangs and bare `mcp.json` commands to a
 plugin-local `bin/` of store-path symlinks. `buildAgentPlugin`'s

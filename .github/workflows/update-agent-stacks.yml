@@ -1,13 +1,13 @@
-name: "Update flox-agent"
+name: "Update agent-stacks"
 
-# Raised by the CI workflow in agent-stacks/flox-agent after it uploads the
-# binaries for a commit. Can also be run by hand from the Actions tab against
-# any commit whose binaries are already uploaded.
+# Raised by the CI workflow in agent-stacks/agent-stacks-cli after it
+# uploads the binaries for a commit. Can also be run by hand from the
+# Actions tab against any commit whose binaries are already uploaded.
 on:
   workflow_dispatch:
     inputs:
       rev:
-        description: "flox-agent commit the binaries were built from (full sha)"
+        description: "agent-stacks commit the binaries were built from (full sha)"
         type: string
         required: true
       version:
@@ -22,7 +22,7 @@ permissions:
 # one of them rejected halfway through, so they are queued. Never cancelled:
 # a cancelled run can have already pushed the staging branch.
 concurrency:
-  group: update-flox-agent
+  group: update-agent-stacks
   cancel-in-progress: false
 
 env:
@@ -34,7 +34,7 @@ env:
     accept-flake-config = true
   # Where prepare stages the commit for the verify jobs to build. It is not
   # a pull request branch; land fast-forwards main onto it and deletes it.
-  STAGING_BRANCH: update-flox-agent
+  STAGING_BRANCH: update-agent-stacks
 
 jobs:
   prepare:
@@ -80,9 +80,9 @@ jobs:
         env:
           REV: ${{ inputs.rev }}
         run: |
-          have="$(jq -r .rev pkgs/flox-agent/source.json)"
+          have="$(jq -r .rev pkgs/agent-stacks/source.json)"
           if [ "$have" = "$REV" ]; then
-            echo "pkgs/flox-agent already points at $REV"
+            echo "pkgs/agent-stacks already points at $REV"
             echo "same=true" >> "$GITHUB_OUTPUT"
           else
             echo "same=false" >> "$GITHUB_OUTPUT"
@@ -102,7 +102,7 @@ jobs:
           short="${REV:0:7}"
           hashes="{}"
           for system in x86_64-linux aarch64-linux aarch64-darwin; do
-            url="https://downloads.agent-stacks.org/flox-agent/by-commit/$REV/flox-agent-$VERSION-$short-$system"
+            url="https://downloads.agent-stacks.org/agent-stacks/by-commit/$REV/agent-stacks-$VERSION-$short-$system"
             echo "prefetching $system"
             hash="$(nix store prefetch-file --json "$url" | jq -r .hash)"
             hashes="$(jq --arg s "$system" --arg h "$hash" '.[$s] = $h' <<<"$hashes")"
@@ -116,7 +116,7 @@ jobs:
       # The date is the day this ran, not the commit's own date: the dispatch
       # arrives within minutes of the upload, and reading the commit date
       # would mean handing this workflow a token for a private repository.
-      - name: "Rewrite pkgs/flox-agent/source.json"
+      - name: "Rewrite pkgs/agent-stacks/source.json"
         if: ${{ steps.current.outputs.same == 'false' }}
         env:
           REV: ${{ inputs.rev }}
@@ -130,7 +130,7 @@ jobs:
             --arg date "$(date -u +%Y-%m-%d)" \
             --argjson hashes "$HASHES" \
             '{ $baseVersion, $rev, $date, $hashes }' \
-            > pkgs/flox-agent/source.json
+            > pkgs/agent-stacks/source.json
 
       - name: "Stage the commit"
         if: ${{ steps.current.outputs.same == 'false' }}
@@ -140,16 +140,16 @@ jobs:
           VERSION: ${{ inputs.version }}
         run: |
           set -euo pipefail
-          if git diff --quiet -- pkgs/flox-agent/source.json; then
+          if git diff --quiet -- pkgs/agent-stacks/source.json; then
             echo "source.json is unchanged"
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -q -m "chore(flox-agent): ${VERSION} at ${REV:0:7}" \
-            -m "Binaries uploaded by agent-stacks/flox-agent for commit ${REV}." \
-            -- pkgs/flox-agent/source.json
+          git commit -q -m "chore(agent-stacks): ${VERSION} at ${REV:0:7}" \
+            -m "Binaries uploaded by agent-stacks/agent-stacks-cli for commit ${REV}." \
+            -- pkgs/agent-stacks/source.json
           git push --force origin "HEAD:refs/heads/$STAGING_BRANCH"
           echo "changed=true" >> "$GITHUB_OUTPUT"
 
@@ -189,8 +189,8 @@ jobs:
       - name: "Trust the runner's user"
         uses: ./.github/actions/trust-nix-user
 
-      - name: "Build flox-agent"
-        run: nix build -L ".#packages.${{ matrix.system }}.flox-agent"
+      - name: "Build agent-stacks"
+        run: nix build -L ".#packages.${{ matrix.system }}.agent-stacks"
 
   land:
     name: "Move main onto the staged commit"
@@ -204,7 +204,7 @@ jobs:
           fetch-depth: 0
 
       # Retried, because losing the race is normal rather than
-      # exceptional: several flox-agent commits landing close together
+      # exceptional: several agent-stacks commits landing close together
       # each raise a dispatch, and a run that spent three minutes
       # building can find main moved underneath it.
       #

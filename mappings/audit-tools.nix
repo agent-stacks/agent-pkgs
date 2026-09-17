@@ -1,6 +1,6 @@
 # Default audit tools a stack's audit script puts on PATH.
 #
-# `flox-agent audit` probes PATH for the tools it knows: skill-tools,
+# `agent-stacks audit` probes PATH for the tools it knows: skill-tools,
 # skill-validator, claudelint, agnix, cclint, skillcheck, skillspector.
 # Whatever is present is used; whatever is missing is skipped, so an
 # empty list still produces a working audit.

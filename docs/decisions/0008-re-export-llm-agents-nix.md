@@ -16,7 +16,7 @@ builds against `NixOS/nixpkgs-unstable`, and the Flox catalog rejects
 a revision it has no page for, so its `packages.*` outputs cannot be
 published from here. And about a seventh of the set is unfree, while
 `allowUnfreePredicate` here is deliberately narrowed to the single
-`flox-agent-bin` name.
+`agent-stacks-bin` name.
 
 Upstream anticipates the first problem: `overlays.shared-nixpkgs`
 calls its `mkPackagesFor` against the consumer's `final`, which is how

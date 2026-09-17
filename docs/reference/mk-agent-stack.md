@@ -11,10 +11,10 @@ mkAgentStack {
 ```
 
 Building that produces `bin/my-stack`. Running it starts the agent
-through `flox-agent launch`, which reads the stack's
+through `agent-stacks launch`, which reads the stack's
 `share/agent-plugins` layout and stages the plugins in whatever shape
-the agent expects. That staging is documented in the flox-agent repo,
-`docs/architecture/launch.md`.
+the agent expects. That staging is documented in the agent-stacks
+repo, `docs/architecture/launch.md`.
 
 ## Arguments
 
@@ -25,21 +25,24 @@ the agent expects. That staging is documented in the flox-agent repo,
 | `plugins` | `[ ]` | Packages built by `buildAgentPlugin`. |
 | `audit.tools` | defaults | Packages put on PATH by the audit script. |
 | `audit.threshold` | `null` | Score below which the audit script fails. |
-| `floxAgent` | this set's | The flox-agent the launcher and audit script run. |
+| `agentStacks` | this set's | The agent-stacks package the launcher and audit script run. |
 
-## flox-agent
+## agent-stacks
 
-The launcher and the audit script run the `flox-agent` package the
+The launcher and the audit script run the `agent-stacks` package the
 stack was built against, so a stack carries its own agent in its
 closure instead of requiring one on the consumer's PATH. Stacks built
-from this repo get `pkgs/flox-agent`; pass `floxAgent` to bind a
+from this repo get `pkgs/agent-stacks`; pass `agentStacks` to bind a
 different one.
 
-`FLOX_AGENT_BIN` still overrides both scripts at run time, for running
-a stack against a local build:
+At run time, `AGENT_STACKS_BIN` overrides both scripts, for running a
+stack against a local build. The deprecated `FLOX_AGENT_BIN` is still
+read as a fallback when `AGENT_STACKS_BIN` is unset, so an existing
+stack override does not break; `AGENT_STACKS_BIN` always wins when
+both are set:
 
 ```sh
-FLOX_AGENT_BIN=./flox-agent ./result/bin/my-stack
+AGENT_STACKS_BIN=./agent-stacks ./result/bin/my-stack
 ```
 
 ## The harness
@@ -60,8 +63,8 @@ particular closure at that location.
 
 The agent is identified by the binary's basename, matched against
 `knownAdapters` in `lib/mk-agent-stack.nix`, which mirrors the agents
-`flox-agent launch` registers (`launch.RegisteredNames`, listed in the
-flox-agent repo's `docs/architecture/launch.md`). Adding an agent
+`agent-stacks launch` registers (`launch.RegisteredNames`, listed in
+the agent-stacks repo's `docs/architecture/launch.md`). Adding an agent
 there means adding it here too. There is no table mapping package
 names to agent names.
 
@@ -84,7 +87,7 @@ a machine that has never seen one.
 
 That is a property of the harness package, not of `mkAgentStack`,
 which cannot see a closure at evaluation time. It is checked where it
-can be: the launcher execs `flox-agent launch`, and that command warns
+can be: the launcher execs `agent-stacks launch`, and that command warns
 when the agent it resolved came from outside the Nix store. A pinned
 stack is silent; an unpinned one says so on every run, naming the path
 it found.
@@ -111,7 +114,7 @@ Two limits are deliberate:
 | `audit` | `bin/<name>-audit`. |
 
 The stack carries no per-harness directories. Adapting plugins to
-whatever the agent expects happens at launch, in `flox-agent launch`,
+whatever the agent expects happens at launch, in `agent-stacks launch`,
 so a stack does not need rebuilding when that wiring changes.
 
 The `audit` output is not built by default. Ask for it explicitly:
@@ -126,7 +129,7 @@ nix build .#my-stack^audit
 An invalid stack never builds:
 
 - no `harness`
-- a harness whose binary is not an agent flox-agent can launch
+- a harness whose binary is not an agent agent-stacks can launch
 - a `plugins` entry that did not come from `buildAgentPlugin`
 - two plugins with the same name
 - a harness package without `meta.mainProgram`
@@ -137,11 +140,11 @@ An invalid stack never builds:
 
 ```nix
 passthru.agentStack = {
-  name;      # the stack's name
-  adapter;   # the agent flox-agent will launch
-  harness;   # the harness as given: a name, a binary path, or a package
-  floxAgent; # the flox-agent package the scripts run, or null
-  plugins;   # the plugin names in the stack
+  name;        # the stack's name
+  adapter;     # the agent agent-stacks will launch
+  harness;     # the harness as given: a name, a binary path, or a package
+  agentStacks; # the agent-stacks package the scripts run, or null
+  plugins;     # the plugin names in the stack
 };
 ```
 

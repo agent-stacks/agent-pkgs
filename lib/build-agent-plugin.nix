@@ -8,12 +8,12 @@
 # Skill selection, in precedence order:
 #
 # 1. Explicit `skills` argument (skill name -> path inside src) — what
-#    `flox-agent import` generates; see docs/reference/import-contract.md.
+#    `agent-stacks import` generates; see docs/reference/import-contract.md.
 # 2. A `skills-lock.json` at the src root (the project lock written by
 #    the upstream skills CLI): entries are read at build time and each
 #    skill is copied from its in-tree skillPath. Entries whose files
 #    are not inside src (external sources) fail the build — a pure
-#    build cannot fetch them; resolve those with `flox-agent import`.
+#    build cannot fetch them; resolve those with `agent-stacks import`.
 # 3. Passthrough: src is already a conformant plugin tree (plugin.json
 #    + skills/) and is copied as-is.
 #
@@ -25,18 +25,18 @@
 # declaring an agent-plugins.org $schema; any other is not read, and
 # a skipped mcp.json is reported. A passed-through tree keeps its own
 # files, and an argument, if given, replaces its file. An importer
-# carrying flox-agent's "Import hands the builder the manifest and
+# carrying agent-stacks's "Import hands the builder the manifest and
 # servers it checked" always passes `manifest`, and `mcpServers`
 # whenever the plugin declares servers; for such a package the
 # stand-in is never consulted.
 { lib
 , stdenvNoCC
 , pkgs
-  # The flox-agent package that assembles the plugin tree and provides
-  # `check-plugin`. agent-pkgs binds pkgs/flox-agent here; a consumer
-  # using lib/ without the package must pass `floxAgent` per call,
+  # The agent-stacks package that assembles the plugin tree and provides
+  # `check-plugin`. agent-pkgs binds pkgs/agent-stacks here; a consumer
+  # using lib/ without the package must pass `agentStacks` per call,
   # because assembly cannot be skipped.
-, defaultFloxAgent ? null
+, defaultAgentStacks ? null
 }:
 
 { name
@@ -64,10 +64,10 @@
   # mcp server configs, serialized to mcp.json; attrset of server
   # name -> config (type/command/...)
 , mcpServers ? null
-  # flox-agent package providing `flox-agent assemble-plugin` and
-  # `flox-agent check-plugin`; required, because the build phase is a
+  # agent-stacks package providing `agent-stacks assemble-plugin` and
+  # `agent-stacks check-plugin`; required, because the build phase is a
   # call to it
-, floxAgent ? defaultFloxAgent
+, agentStacks ? defaultAgentStacks
   # treat check-plugin warnings as errors. Off by default: skills in
   # the wild carry harness frontmatter fields the Agent Skills spec
   # does not list (argument-hint, disable-model-invocation), and those
@@ -77,7 +77,7 @@
   # mappings/runtimes.nix (e.g. { python3 = python312; })
 , runtimes ? { }
   # Interpreter tokens the package's files name, as recorded by
-  # `flox-agent import`. The builder resolves exactly these, so a
+  # `agent-stacks import`. The builder resolves exactly these, so a
   # plugin naming none pulls no interpreter into its closure. A
   # hand-written call omits it and gets the whole table.
 , requiredRuntimes ? null
@@ -184,9 +184,9 @@ let
     if requiredRuntimes != null then requiredRuntimes
     else if import != null then throw
       ("buildAgentPlugin: ${name}: source.json records no requiredRuntimes. "
-        + "Regenerate this package with `flox-agent import`, using a "
-        + "flox-agent at or after rev 8be3bce — the first to emit "
-        + "requiredRuntimes. An older flox-agent reproduces this error "
+        + "Regenerate this package with `agent-stacks import`, using a "
+        + "an agent-stacks at or after rev 8be3bce — the first to emit "
+        + "requiredRuntimes. An older agent-stacks reproduces this error "
         + "instead of fixing it.")
     else builtins.attrNames runtimeTable;
 
@@ -223,9 +223,9 @@ let
       inherit allowPathCommands extraSubstitutions;
     }));
 in
-assert floxAgent != null || throw
-  ("buildAgentPlugin: ${name}: a flox-agent package is required — it "
-    + "assembles the plugin tree. Pass floxAgent, or bind defaultFloxAgent "
+assert agentStacks != null || throw
+  ("buildAgentPlugin: ${name}: an agent-stacks package is required — it "
+    + "assembles the plugin tree. Pass agentStacks, or bind defaultAgentStacks "
     + "when calling lib/build-agent-plugin.nix.");
 stdenvNoCC.mkDerivation {
   pname = "agent-plugin-${name}";
@@ -251,7 +251,7 @@ stdenvNoCC.mkDerivation {
 
     dest="$NIX_BUILD_TOP/plugin/${name}"
 
-    ${lib.getExe' floxAgent "flox-agent"} assemble-plugin \
+    ${lib.getExe' agentStacks "agent-stacks"} assemble-plugin \
       --source-json ${callFile} \
       --src . \
       --out "$dest" \
@@ -277,7 +277,7 @@ stdenvNoCC.mkDerivation {
   doInstallCheck = true;
   installCheckPhase = ''
     runHook preInstallCheck
-    ${lib.getExe' floxAgent "flox-agent"} check-plugin${
+    ${lib.getExe' agentStacks "agent-stacks"} check-plugin${
       lib.optionalString strict " --strict"
     } "$out/${out}"
     runHook postInstallCheck

@@ -6,16 +6,16 @@
 #
 # A stack runs exactly one agent. Several agents means several stacks
 # installed into one environment. All harness adaptation happens at
-# launch time in `flox-agent launch`, so nothing here is per-harness.
+# launch time in `agent-stacks launch`, so nothing here is per-harness.
 { lib
 , stdenvNoCC
 , runtimeShell
   # From mappings/audit-tools.nix; see that file for why it may be empty.
 , defaultAuditTools ? [ ]
-  # The flox-agent package the launcher and audit script run. agent-pkgs
-  # binds pkgs/flox-agent here; null falls back to PATH resolution, which
-  # is what a consumer without the package gets.
-, defaultFloxAgent ? null
+  # The agent-stacks package the launcher and audit script run.
+  # agent-pkgs binds pkgs/agent-stacks here; null falls back to PATH
+  # resolution, which is what a consumer without the package gets.
+, defaultAgentStacks ? null
 }:
 
 { name
@@ -23,12 +23,12 @@
 , harness ? null
 , plugins ? [ ]
 , audit ? { }
-  # Override the flox-agent this stack runs.
-, floxAgent ? defaultFloxAgent
+  # Override the agent-stacks CLI this stack runs.
+, agentStacks ? defaultAgentStacks
 }:
 
 let
-  # Mirrors the adapter registry in flox-agent internal/launch.
+  # Mirrors the adapter registry in agent-stacks internal/launch.
   knownAdapters = [ "agent-deck" "claude" "codex" "opencode" "pi" ];
 
   # Resolve the harness to an adapter name plus, when the harness was
@@ -67,19 +67,21 @@ let
   adapter =
     if lib.elem harnessInfo.adapter knownAdapters then harnessInfo.adapter
     else throw ''
-      mkAgentStack: '${harnessInfo.adapter}' is not an agent flox-agent
+      mkAgentStack: '${harnessInfo.adapter}' is not an agent agent-stacks
       can launch. Known agents: ${lib.concatStringsSep ", " knownAdapters}
     '';
 
-  # The launcher runs the flox-agent it was built against, so a stack
-  # carries its own agent in its closure rather than hoping the consumer
-  # has one on PATH. FLOX_AGENT_BIN still wins, as a development escape
-  # hatch for running a stack against a local build. With no package
-  # bound, the name resolves from PATH as before.
-  floxAgentDefault =
-    if floxAgent == null then "flox-agent"
-    else lib.getExe' floxAgent "flox-agent";
-  floxAgentBin = ''"''${FLOX_AGENT_BIN:-${floxAgentDefault}}"'';
+  # The launcher runs the agent-stacks CLI it was built against, so a
+  # stack carries its own agent in its closure rather than hoping the
+  # consumer has one on PATH. Precedence at runtime, highest first:
+  # AGENT_STACKS_BIN, then the deprecated FLOX_AGENT_BIN (kept so an
+  # existing stack override does not break), then this baked-in default.
+  # With no package bound, the default name resolves from PATH as before.
+  agentStacksDefault =
+    if agentStacks == null then "agent-stacks"
+    else lib.getExe' agentStacks "agent-stacks";
+  agentStacksBin =
+    ''"''${AGENT_STACKS_BIN:-''${FLOX_AGENT_BIN:-${agentStacksDefault}}}"'';
 
   # builtins.placeholder gives this output's final store path, so the
   # script can name its own share directory without any substitution.
@@ -91,7 +93,7 @@ let
     export PATH="${harnessInfo.pinDir}:$PATH"
   ''
   + ''
-    exec ${floxAgentBin} \
+    exec ${agentStacksBin} \
       --dir "${builtins.placeholder "out"}/share" \
       launch ${adapter} -- "$@"
   '';
@@ -146,8 +148,8 @@ let
     export PATH="${auditToolPath}:$PATH"
   ''
   + ''
-    if ! command -v ${floxAgentBin} >/dev/null 2>&1; then
-      echo "flox-agent not found: ${floxAgentDefault}; set FLOX_AGENT_BIN" >&2
+    if ! command -v ${agentStacksBin} >/dev/null 2>&1; then
+      echo "agent-stacks not found: ${agentStacksDefault}; set AGENT_STACKS_BIN" >&2
       exit 127
     fi
     status=0
@@ -155,7 +157,7 @@ let
     for skill in "$stack_dir"/*/skills/*/; do
       [ -f "$skill/SKILL.md" ] || continue
       echo "==> $skill"
-      ${floxAgentBin} audit "$skill" --kind skill${
+      ${agentStacksBin} audit "$skill" --kind skill${
         lib.optionalString (auditThreshold != null)
           " --threshold ${toString auditThreshold}"
       } || status=1
@@ -197,7 +199,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   passthru.agentStack = {
-    inherit name adapter harness floxAgent;
+    inherit name adapter harness agentStacks;
     plugins = pluginNames;
   };
 

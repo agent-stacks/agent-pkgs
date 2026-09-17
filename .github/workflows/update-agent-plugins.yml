@@ -60,7 +60,7 @@ jobs:
             input="$(jq -r .import.input "$f")"
             mapfile -t flags < <(jq -r '.import.flags[]' "$f")
             echo "::group::$input"
-            if ! nix run .#flox-agent -- import "$input" "${flags[@]}" --out pkgs; then
+            if ! nix run .#agent-stacks -- import "$input" "${flags[@]}" --out pkgs; then
               failed+=("$input")
             fi
             echo "::endgroup::"
@@ -141,8 +141,8 @@ jobs:
       # restages on the new main, which is the honest fix — forcing here would
       # discard whatever landed in between.
       # Retried, because losing the race is normal rather than
-      # exceptional: several flox-agent commits landing close together
-      # each raise a dispatch, and a run that spent three minutes
+      # exceptional: several agent-plugin import commits landing close
+      # together each raise a dispatch, and a run that spent three minutes
       # building can find main moved underneath it.
       #
       # Each attempt re-stages before pushing. Retrying the push alone

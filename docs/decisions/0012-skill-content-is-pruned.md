@@ -42,9 +42,9 @@ un-prune `.github` for a repository that wants to ship it as skill
 content. The fixed list is the floor, not a default a maintainer can
 opt out of.
 
-This rule is implemented once, in flox-agent
+This rule is implemented once, in agent-stacks
 (`internal/plugin/assemble`), and shared between `import`'s runtime
-scan and `assemble-plugin`'s copy — see flox-agent ADR 0025. Nothing
+scan and `assemble-plugin`'s copy — see agent-stacks ADR 0025. Nothing
 in this repository re-implements or overrides it; a package here
 either accepts what the pruner keeps or is not packaged.
 
