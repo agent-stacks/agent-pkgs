@@ -7,8 +7,8 @@ Status: Accepted
 ## Context
 
 `buildAgentPlugin` should validate every built plugin with
-`flox-agent check-plugin --strict` — the single validator both the
-importer and the builder share. But the flox-agent binary
+`agent-stacks check-plugin --strict` — the single validator both the
+importer and the builder share. But the agent-stacks binary
 distribution (a `-bin` derivation fed from
 downloads.agent-stacks.org) does not exist yet, and reimplementing
 the validation in pure Nix would create a second validator to keep
@@ -18,7 +18,7 @@ in sync — exactly what check-plugin exists to avoid.
 
 We will make the check phase conditional on a `floxAgent ? null`
 argument. When a package is passed, the install check phase runs
-`flox-agent check-plugin --strict` on the output; when null, the
+`agent-stacks check-plugin --strict` on the output; when null, the
 phase is skipped with a visible build warning.
 
 ## Consequences
@@ -42,10 +42,11 @@ warnings a correct plugin can legitimately have.
 
 [0013](0013-assembly-lives-in-flox-agent.md) overturns the line above
 about `floxAgent ? null`. Assembly itself moved into
-`flox-agent assemble-plugin`, so `floxAgent` is no longer an optional
-validator layered on a tree the shell already built — it is what
-builds the tree now, and there is nothing left to build without it.
-`buildAgentPlugin` asserts `floxAgent != null`; a consumer using
-`lib/` without the package must pass one. This decision's default
-value and its "consumers using `lib/` without the package" claim no
-longer hold; the rest of the reasoning above is left as written.
+`agent-stacks assemble-plugin`, so `floxAgent` (since renamed to
+`agentStacks`) is no longer an optional validator layered on a tree
+the shell already built — it is what builds the tree now, and there
+is nothing left to build without it. `buildAgentPlugin` asserts
+`agentStacks != null`; a consumer using `lib/` without the package
+must pass one. This decision's default value and its "consumers using
+`lib/` without the package" claim no longer hold; the rest of the
+reasoning above is left as written.

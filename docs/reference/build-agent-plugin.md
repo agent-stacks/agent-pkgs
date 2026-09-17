@@ -18,10 +18,10 @@ every argument.
 | `manifest` | `null` | Attrset serialized to `plugin.json`, replacing a passed-through tree's own. Without it an assembled package takes a root `plugin.json` only when it declares an `agent-plugins.org` `$schema`, else fails (ADR 0009). |
 | `skills` | `null` | Skill name → path in src. When null, the builder falls back to `skills-lock.json`, then to a passthrough tree. |
 | `mcpServers` | `null` | Attrset serialized to `mcp.json` at the `manifest`'s spec version (1.0.0 without one). Without it, a passed-through tree keeps its own `mcp.json`, rewritten to the manifest's version when `manifest` replaced its `plugin.json`; an assembled package takes a root `mcp.json` only when it declares an `agent-plugins.org` `$schema`, and reports one it skips. |
-| `floxAgent` | this set's | The flox-agent that assembles the plugin tree (`assemble-plugin`) and whose `check-plugin` validates the output. Packages built from this repo get `pkgs/flox-agent`; required — `null` fails the build, since assembly cannot be skipped (ADR 0013). What it validates is documented in the flox-agent repo, `docs/reference/check-plugin-command.md`. |
+| `agentStacks` | this set's | The agent-stacks package that assembles the plugin tree (`assemble-plugin`) and whose `check-plugin` validates the output. Packages built from this repo get `pkgs/agent-stacks`; required — `null` fails the build, since assembly cannot be skipped (ADR 0013). What it validates is documented in the agent-stacks repo, `docs/reference/check-plugin-command.md`. |
 | `strict` | `false` | Pass `--strict`, making warnings fail the build. Off by default: skills in the wild carry harness frontmatter fields the Agent Skills spec does not list, and those are warnings a correct plugin can have. |
 | `runtimes` | `{ }` | Interpreter name → package. Overrides `mappings/runtimes.nix` and pins versions, e.g. `{ python3 = python312; }`. |
-| `requiredRuntimes` | `null` | Interpreter tokens the package's files name, as recorded by `flox-agent import`. Required for a generated package — one whose `source.json` carries `import` — and the build fails, naming the fix, if it is missing there. A hand-written call omits it and gets every name in `mappings/runtimes.nix` resolved, the old behavior. |
+| `requiredRuntimes` | `null` | Interpreter tokens the package's files name, as recorded by `agent-stacks import`. Required for a generated package — one whose `source.json` carries `import` — and the build fails, naming the fix, if it is missing there. A hand-written call omits it and gets every name in `mappings/runtimes.nix` resolved, the old behavior. |
 | `allowPathCommands` | `[ ]` | Bare `mcp.json` commands that intentionally resolve from the consumer environment's PATH instead of the closure. |
 | `extraSubstitutions` | `[ ]` | List of `{ file; replace; with; }` applied after the automatic pass, for interpreter mentions in script bodies or SKILL.md text. |
 | `meta` | `{ }` | Standard derivation meta, merged over computed defaults ([ADR 0014](../decisions/0014-generated-package-meta.md)): `category = "agent-plugin"`, `platforms = lib.platforms.all`, `description` and `homepage` from the manifest or `sourceUrl` when present, and `license` when `manifest.license` resolves to a known `lib.licenses` entry by `spdxId`. The manifest's full description is kept as `longDescription` when it says more than the effective `description`. The merge is `defaultMeta // longDescription // meta`, key by key: an explicit key in the caller's `meta` wins over the computed default. The merge can only add or override a key, not remove one — a caller whose manifest declares a licence cannot suppress `meta.license` from the call site by passing an empty `meta`; the manifest is the thing making the claim, so that is where to change it. |
@@ -30,9 +30,9 @@ every argument.
 
 Assembly, substitution and the guard no longer run as Nix-generated
 shell; the `buildPhase` is a fixed call, whatever the skill count:
-`flox-agent assemble-plugin` reads `source.json`, selects and prunes
+`agent-stacks assemble-plugin` reads `source.json`, selects and prunes
 the skills, writes `plugin.json` and `mcp.json`, rewrites shebangs and
-`mcp.json` commands, and guards the result — see flox-agent ADR 0025
+`mcp.json` commands, and guards the result — see agent-stacks ADR 0025
 and, on the agent-pkgs side, [ADR 0013](../decisions/0013-assembly-lives-in-flox-agent.md).
 The `postAssemble` hook runs after, on the fully assembled tree,
 before install and the check phase.
@@ -82,6 +82,6 @@ derivation instead, since then there is nothing pinned to report.
 
 `postAssemble` runs on the fully assembled tree, after the guard,
 before install and checks — the guard now runs inside
-`flox-agent assemble-plugin` itself, not as a separate Nix-side step
+`agent-stacks assemble-plugin` itself, not as a separate Nix-side step
 after it. Attach with `overrideAttrs`; the `override-hook` flake check
 keeps this working.

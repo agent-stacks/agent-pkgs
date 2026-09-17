@@ -44,7 +44,7 @@
       # consumer's own nixpkgs config is untouched.
       pkgsFor = system: import nixpkgs {
         inherit system;
-        config.allowUnfreePredicate = pkg: nixpkgs.lib.getName pkg == "flox-agent-bin";
+        config.allowUnfreePredicate = pkg: nixpkgs.lib.getName pkg == "agent-stacks-bin";
       };
 
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f (pkgsFor system));
@@ -144,7 +144,7 @@
           (nixpkgs.lib.filterAttrs keep pkgs.llm-agents);
 
       # Every subdirectory of pkgs/ with a default.nix is a package.
-      # `flox-agent import --out pkgs/<name>` drops packages here; no
+      # `agent-stacks import --out pkgs/<name>` drops packages here; no
       # central list to edit.
       pluginDirs = pkgs:
         let
@@ -156,20 +156,20 @@
         builtins.filter hasPackage (builtins.attrNames entries);
 
       mkLib = pkgs: {
-        # Every plugin is validated by the flox-agent from this set. The
-        # reference is lazy: pkgs/flox-agent is not built by
+        # Every plugin is validated by the agent-stacks CLI from this set.
+        # The reference is lazy: pkgs/agent-stacks is not built by
         # buildAgentPlugin, so naming it here does not recurse.
         buildAgentPlugin = pkgs.callPackage ./lib/build-agent-plugin.nix {
-          defaultFloxAgent = (mkPackages pkgs).flox-agent;
+          defaultAgentStacks = (mkPackages pkgs).agent-stacks;
         };
         mkAgentStack = pkgs.callPackage ./lib/mk-agent-stack.nix {
           defaultAuditTools = import ./mappings/audit-tools.nix { inherit pkgs; };
-          # Every stack runs the flox-agent from this set. Taken from
+          # Every stack runs the agent-stacks CLI from this set. Taken from
           # mkPackages rather than callPackage'd a second time, so the
-          # stack and `nix run .#flox-agent` are the same derivation. The
-          # reference is lazy: pkgs/flox-agent does not build a stack, so
+          # stack and `nix run .#agent-stacks` are the same derivation. The
+          # reference is lazy: pkgs/agent-stacks does not build a stack, so
           # forcing it here does not recurse.
-          defaultFloxAgent = (mkPackages pkgs).flox-agent;
+          defaultAgentStacks = (mkPackages pkgs).agent-stacks;
         };
         runtimeMappings = import ./mappings/runtimes.nix;
       };
@@ -186,7 +186,7 @@
       # What the catalog is fed from: the plugins built here, plus every
       # agent CLI re-exported from llm-agents.nix. Kept separate from
       # mkPackages so that forcing one plugin does not force the whole
-      # re-exported set — mkLib reaches into mkPackages for flox-agent
+      # re-exported set — mkLib reaches into mkPackages for agent-stacks
       # on every plugin build.
       mkAllPackages = pkgs:
         let
@@ -359,7 +359,7 @@
               expectedBuilderLogEntries = [ "no manifest argument was given" ];
             };
 
-          # A root skill beside nested ones (flox-agent ADR 0021): the
+          # A root skill beside nested ones (agent-stacks ADR 0021): the
           # root's copy leaves out every skill directory below it,
           # whether the map lists it or not, and a wrapper left empty;
           # the nested skill is packaged at its own name. A skill with
@@ -498,7 +498,7 @@
               [ "${yes stack (m: m.maintainers == [ ])}" = true ]
               [ "${(mkAllPackages pkgs).claude-code.meta.category}" = agent ]
               [ "${(mkAllPackages pkgs).ccusage.meta.category}" = agent-tool ]
-              [ "${(mkAllPackages pkgs).flox-agent.meta.category}" = agent-tool ]
+              [ "${(mkAllPackages pkgs).agent-stacks.meta.category}" = agent-tool ]
               touch $out
             '';
 

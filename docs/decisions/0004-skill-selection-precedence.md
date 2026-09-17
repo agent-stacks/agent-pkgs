@@ -7,7 +7,7 @@ Status: Accepted
 ## Context
 
 Skills can be named three ways: the generated `skills` mapping that
-`flox-agent import` emits, a `skills-lock.json` project lock (written
+`agent-stacks import` emits, a `skills-lock.json` project lock (written
 by the upstream skills CLI) checked into the source repo, and a src
 tree that already is a conformant plugin. A lock file may reference
 skills that live in other repos — but `buildAgentPlugin` is pure and
@@ -23,7 +23,7 @@ We will select skills in this precedence order:
 3. Passthrough of an already-conformant tree.
 
 A lock entry whose files are not inside src fails the build with a
-pointer to `flox-agent import`, which resolves external sources into
+pointer to `agent-stacks import`, which resolves external sources into
 pinned fetchers and an explicit `skills` mapping.
 
 ## Consequences

@@ -9,8 +9,8 @@ Python package, `ffmpeg`), is not, and its `source.json`'s
 `import.warnings` says which.
 
 Packages here are generated and validated by
-[`flox-agent`](https://github.com/flox/flox-agent), but the repo
-builds with plain Nix — no Flox required.
+[`agent-stacks`](https://github.com/agent-stacks/agent-stacks-cli), but
+the repo builds with plain Nix — no Flox required.
 
 ## Use it
 
@@ -60,13 +60,13 @@ anything already in the upstream cache still comes from there.
 | `mappings/runtimes.nix` | Ecosystem runtime names to nixpkgs attributes |
 
 Add a package by dropping a directory into `pkgs/` — typically via
-`flox-agent import <repo> --out pkgs/<name>`.
+`agent-stacks import <repo> --out pkgs/<name>`.
 
 ## Stacks
 
 `mkAgentStack` composes plugins into a stack with a launcher for the
 harness. The launcher starts the harness, but skills aren't wired in
-yet: every adapter in `flox-agent` still reads the old
+yet: every adapter in `agent-stacks` still reads the old
 `share/flox/<agent>/` layout, so the agent starts with none of the
 stack's skills until a separate launch rework lands.
 

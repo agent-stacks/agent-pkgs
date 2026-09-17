@@ -22,7 +22,7 @@ the binary.
 A stack takes exactly one `harness`, given as a string resolved from
 PATH, or as a path or package that pins it along with its own
 runtime. The agent is identified by the binary's basename, matched
-against the agents `flox-agent launch` supports. Package harnesses
+against the agents `agent-stacks launch` supports. Package harnesses
 resolve through `meta.mainProgram`; a package without one is an
 evaluation error asking for the binary path, because listing a
 package's `bin/` during evaluation is import from derivation.

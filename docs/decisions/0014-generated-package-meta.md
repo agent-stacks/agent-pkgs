@@ -8,7 +8,7 @@ Status: Proposed
 
 `buildAgentPlugin` computes a `meta` for every plugin it builds,
 merged with whatever `meta` the caller passes. Most callers are
-generated: `flox-agent import` records a `source.json`, and
+generated: `agent-stacks import` records a `source.json`, and
 `update-agent-plugins.yml` replays it later with no person watching
 the result. Whatever the builder puts in `meta` is what the catalog
 sees, so each field has to be something the builder actually knows,

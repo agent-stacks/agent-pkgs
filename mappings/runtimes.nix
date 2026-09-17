@@ -15,7 +15,7 @@
 # A row arrives with a package that exercises it, in the same pull
 # request, and never on its own. A row nothing uses cannot be shown to
 # work and cannot be shown to be wrong. That standing rule is also why
-# this table stays in agent-pkgs rather than moving into flox-agent
+# this table stays in agent-pkgs rather than moving into agent-stacks
 # alongside the scanner: a row and the package that exercises it must
 # land together, in one review, and splitting the table across
 # repositories would turn adding a row into a release plus a version

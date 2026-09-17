@@ -1,4 +1,4 @@
-# 0010. A stack's launcher execs `flox-agent launch`
+# 0010. A stack's launcher execs `agent-stacks launch`
 
 Date: 2026-09-14
 
@@ -11,7 +11,7 @@ agent expects a different shape, and none of them expects
 `share/agent-plugins/`, which is the layout this set builds
 (ADR 0005).
 
-That translation already exists. `flox-agent launch` reads the
+That translation already exists. `agent-stacks launch` reads the
 canonical layout and stages it into whatever the agent wants, just in
 time, and it is the path a user on the Flox side already takes.
 
@@ -22,7 +22,7 @@ was rejected.
 
 ## Decision
 
-**`mkAgentStack` writes a launcher that execs `flox-agent launch`.**
+**`mkAgentStack` writes a launcher that execs `agent-stacks launch`.**
 The stack bakes no per-harness trees; it ships the canonical layout
 and defers the shape to launch time.
 
@@ -44,7 +44,7 @@ other.
 - `+` A stack is a thin package: a launcher, the canonical layout, and
   the plugins. Nothing per-harness is baked, so adding an agent does
   not rebuild every stack.
-- `+` `flox-agent launch` is where agent support is declared, so the
+- `+` `agent-stacks launch` is where agent support is declared, so the
   set of agents a stack can name is exactly the set launch registers
   (ADR 0007).
 - `-` Staging happens on every launch rather than once at build time.

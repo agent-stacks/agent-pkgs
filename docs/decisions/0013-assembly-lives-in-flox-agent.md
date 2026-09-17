@@ -1,4 +1,4 @@
-# 0013. Assembly lives in flox-agent
+# 0013. Assembly lives in agent-stacks
 
 Date: 2026-09-15
 
@@ -9,9 +9,9 @@ Status: Accepted
 Plugin assembly, substitution, and the shebang guard used to be a
 shell `buildPhase` generated per skill inside
 `lib/build-agent-plugin.nix`. The reasoning for moving that work into
-`flox-agent assemble-plugin` — a shared, tested scanner used by both
+`agent-stacks assemble-plugin` — a shared, tested scanner used by both
 `import` and the build, instead of a Go answer and an untested shell
-answer that could silently disagree — is recorded in flox-agent
+answer that could silently disagree — is recorded in agent-stacks
 ADR 0025, `docs/decisions/0025-the-scanner-is-shared-and-recorded.md`
 in that repository. This record does not restate it; it covers what
 changes on the agent-pkgs side, the same division the two
@@ -21,7 +21,7 @@ repositories already keep with each other (see
 ## Decision
 
 **`lib/build-agent-plugin.nix` no longer assembles a plugin tree
-itself.** Its build phase calls `flox-agent assemble-plugin`, which
+itself.** Its build phase calls `agent-stacks assemble-plugin`, which
 performs skill selection in all three modes, the prune rule (ADR
 0012), the ADR 0009 manifest precedence, runtime substitution, and the
 guard, in one process. The Nix side keeps fetching, runtime
@@ -29,12 +29,13 @@ resolution, install, the check phase, and passthru.
 
 Consequences that follow from that move:
 
-**`lib/` now requires a flox-agent package.** `defaultFloxAgent ?
-null` used to mean "skip validation" — a `check-plugin` run over a
-tree the shell had already built. Assembly cannot be skipped the same
-way, because assembly is now where the tree gets built in the first
-place, not an optional check layered on top of one the shell already
-produced. `buildAgentPlugin` asserts `floxAgent != null`.
+**`lib/` now requires an agent-stacks package.** `defaultFloxAgent ?
+null` (since renamed to `defaultAgentStacks ? null`) used to mean
+"skip validation" — a `check-plugin` run over a tree the shell had
+already built. Assembly cannot be skipped the same way, because
+assembly is now where the tree gets built in the first place, not an
+optional check layered on top of one the shell already produced.
+`buildAgentPlugin` asserts `agentStacks != null`.
 
 **`allowEnvShebangs` is gone, formal and all.** It was declared as a
 `buildAgentPlugin` argument but never reachable from a generated
@@ -46,7 +47,7 @@ file under `assets/` — are what the new guard names instead.
 
 **`requiredRuntimes` is mandatory for a generated package and absent
 for a hand-written one.** A `source.json` that carries `import` (the
-mark of a package `flox-agent import` produced) must also carry
+mark of a package `agent-stacks import` produced) must also carry
 `requiredRuntimes`; a package built from a hand-written
 `buildAgentPlugin` call — the flake checks, a downstream consumer of
 `lib/` — carries no `import` and falls back to resolving the whole
@@ -56,9 +57,9 @@ checks working: they call `buildAgentPlugin` directly, with no
 `source.json` and no recorded runtime list, and still need every
 mapped name available to exercise.
 
-`pkgs/flox-agent` is pinned at rev `8be3bce`, the first to emit
+`pkgs/agent-stacks` is pinned at rev `8be3bce`, the first to emit
 `requiredRuntimes`. `update-agent-plugins.yml` replays every package's
-recorded import with that pinned binary; rolling `pkgs/flox-agent`
+recorded import with that pinned binary; rolling `pkgs/agent-stacks`
 back below this rev would make a replay strip `requiredRuntimes` from
 every regenerated `source.json`, and every subsequent build would then
 hit the throw above. The throw names this rev so that failure points
@@ -97,15 +98,15 @@ dangling store path `fixupPhase` had been substituting.
   build does; there is no shell-side logic left to diverge from it.
 - `+` The `assets/` exemption is enforced consistently: neither the
   substitution pass nor `fixupPhase` touches those files now.
-- `-` `lib/` cannot build a plugin without a flox-agent binary
+- `-` `lib/` cannot build a plugin without an agent-stacks binary
   present, even for the simplest hand-written call. There is no
   reduced-dependency path left.
 - `-` `allowEnvShebangs`'s removal forecloses the escape hatch for
   anyone who was relying on hand-editing a `source.json` to set it,
   unreachable as it already was from `import`.
 - `-` Reading what a build phase does now means reading Go across two
-  flox-agent packages (`internal/plugin/scan`,
+  agent-stacks packages (`internal/plugin/scan`,
   `internal/plugin/assemble`) rather than one Nix expression; the
   `buildPhase` left in `lib/build-agent-plugin.nix` is six lines
-  invoking `flox-agent assemble-plugin`, a dispatch rather than a
+  invoking `agent-stacks assemble-plugin`, a dispatch rather than a
   description.
