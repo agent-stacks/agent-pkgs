@@ -1,0 +1,61 @@
+{
+  "name": "mongodb",
+  "version": "1.2.1",
+  "src": {
+    "owner": "mongodb",
+    "repo": "agent-skills",
+    "rev": "1e72df255e54e81eff078054c2cfb2b5d8c13503",
+    "hash": "sha256-pzZxEw7JCf79z34trijH4sIgpNybpI38v/ZTuyXf7Ds="
+  },
+  "sourceUrl": "https://github.com/mongodb/agent-skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "email": "agent-plugins@mongodb.com",
+      "name": "MongoDB",
+      "url": "https://www.mongodb.com"
+    },
+    "description": "Connect to any MongoDB deployment (Community, Enterprise Advanced, local dev container via Atlas CLI or Atlas clusters) through a self-managed MongoDB MCP Server using your connection string. Explore data, manage collections, optimize queries, and generate reliable code with MongoDB best practices.",
+    "homepage": "https://www.mongodb.com/docs/mcp-server/get-started/",
+    "keywords": [
+      "mongodb",
+      "database",
+      "mcp",
+      "vector-search"
+    ],
+    "license": "Apache-2.0",
+    "name": "mongodb",
+    "repository": "https://github.com/mongodb/agent-skills",
+    "version": "1.2.1"
+  },
+  "skills": {
+    "mongodb-atlas-stream-processing": "plugins/mongodb/.agy-plugin/skills/mongodb-atlas-stream-processing",
+    "mongodb-connection": "plugins/mongodb/.agy-plugin/skills/mongodb-connection",
+    "mongodb-mcp-setup": "plugins/mongodb/.agy-plugin/skills/mongodb-mcp-setup",
+    "mongodb-natural-language-querying": "plugins/mongodb/.agy-plugin/skills/mongodb-natural-language-querying",
+    "mongodb-query-optimizer": "plugins/mongodb/.agy-plugin/skills/mongodb-query-optimizer",
+    "mongodb-schema-design": "plugins/mongodb/.agy-plugin/skills/mongodb-schema-design",
+    "mongodb-search-and-ai": "plugins/mongodb/.agy-plugin/skills/mongodb-search-and-ai"
+  },
+  "requiredRuntimes": [
+    "npx"
+  ],
+  "mcpServers": {
+    "mongodb": {
+      "args": [
+        "-y",
+        "mongodb-mcp-server@<3"
+      ],
+      "command": "npx",
+      "type": "stdio"
+    }
+  },
+  "meta": {
+    "description": "Connect to any MongoDB deployment (Community, Enterprise Advanced, local dev container via Atlas CLI or Atlas clusters) through a self-managed MongoDB MCP Server using your connection string",
+    "homepage": "https://github.com/mongodb/agent-skills"
+  },
+  "import": {
+    "input": "mongodb/agent-skills",
+    "flags": []
+  }
+}
