@@ -8,7 +8,7 @@ harness.
 A stack is three things in one package: the plugins in the Agent
 Plugins spec layout, one harness, and a launcher that configures the plugins to the
 harness. Nothing in the agent stack itself is per-harness. The
-adaptation happens at run time in `flox-agent launch`. A stack
+adaptation happens at run time in `agent-stacks launch`. A stack
 does not need to be rebuilt when that wiring changes. The full argument list is
 [reference/mk-agent-stack.md](../reference/mk-agent-stack.md).
 
@@ -64,7 +64,7 @@ machine, see [Using a pre-installed harness](#using-a-pre-installed-harness).
 `pkgs/` in this repo, a plugin package in your own repository, or a
 mix of the two. Passing something else fails to
 evaluate rather than building a broken stack, as does a missing
-`harness`, a duplicate plugin name, or an agent `flox-agent` cannot
+`harness`, a duplicate plugin name, or an agent `agent-stacks` cannot
 launch.
 
 ## 2. Build it
@@ -94,7 +94,7 @@ Run it:
 
 The agent starts with the stack's plugins already wired in. Nothing to
 install, activate, configure or copy into a dotfile, and no
-`flox-agent` on your PATH. The binary in `result/bin` is the launcher.
+`agent-stacks` on your PATH. The binary in `result/bin` is the launcher.
 
 Arguments reach the agent verbatim, so the quickest check that a stack
 runs what it claims is:
@@ -117,26 +117,26 @@ explains the design:
 
 ```sh
 export PATH="/nix/store/…-claude-code-2.1.273/bin:$PATH"
-exec "${FLOX_AGENT_BIN:-/nix/store/…-flox-agent-bin-…/bin/flox-agent}" \
+exec "${AGENT_STACKS_BIN:-/nix/store/…-agent-stacks-bin-…/bin/agent-stacks}" \
   --dir "/nix/store/…-agent-stack-flox-stack-0/share" \
   launch claude -- "$@"
 ```
 
 The pinned harness goes on PATH first, so `launch claude` finds the
 stack's Claude Code rather than the machine's. The stack also carries
-its own `flox-agent` in its closure rather than hoping the consumer
+its own `agent-stacks` in its closure rather than hoping the consumer
 has one on PATH, points it at its own `share`, and names the agent.
 Arguments you pass reach the agent verbatim — `./result/bin/flox-stack
 --version` prints the pinned agent's version, which is the quickest
-check that a stack runs what it says. `FLOX_AGENT_BIN` overrides the
-pinned flox-agent, which is how you run a stack against a local build.
+check that a stack runs what it says. `AGENT_STACKS_BIN` overrides the
+pinned agent-stacks, which is how you run a stack against a local build.
 
 Without a pinned harness that first line is absent, and the script is
 four lines.
 
 ### What reaches the agent
 
-`flox-agent launch` stages the stack's plugins into whatever shape the
+`agent-stacks launch` stages the stack's plugins into whatever shape the
 agent expects, into a per-run directory under `--config-dir`, and then
 execs the agent pointed at it. Each adapter does that differently:
 
@@ -146,12 +146,12 @@ execs the agent pointed at it. Each adapter does that differently:
 | `pi` | `--skill <staged>/skills/flox` |
 | `codex` | staged to `<staged>/skills/flox`, reached through the environment rather than a flag |
 | `opencode` | staged to `<staged>/skills/flox`, same shape as codex |
-| `agent-deck` | a seeded `config.toml` whose tool command is `flox-agent launch claude --`, so it inherits claude's staging |
+| `agent-deck` | a seeded `config.toml` whose tool command is `agent-stacks launch claude --`, so it inherits claude's staging |
 
 To see what a stack holds without launching anything:
 
 ```sh
-flox-agent --dir ./result/share doctor
+agent-stacks --dir ./result/share doctor
 ```
 
 ```text
@@ -258,12 +258,12 @@ git commit -m "flox-stack"
 ```
 
 `flake.lock` is what makes this reproducible. It pins `agent-pkgs`,
-and through it the plugins, the harness and the flox-agent the
+and through it the plugins, the harness and the agent-stacks the
 launcher runs. Without it a consumer resolves those inputs afresh and
 can build a different stack than you did.
 
 On the other machine, Nix with flakes and git are the only
-prerequisites — not Flox, not `flox-agent`, not the agent itself when
+prerequisites — not Flox, not `agent-stacks`, not the agent itself when
 the harness is pinned:
 
 ```sh
@@ -314,4 +314,4 @@ plugins, build multiple stacks.
 | Every `mkAgentStack` argument, and what fails to evaluate | [reference/mk-agent-stack.md](../reference/mk-agent-stack.md) |
 | Creating the plugins a stack carries | [create-agent-plugin.md](create-agent-plugin.md) |
 | What the builder produces | [reference/build-agent-plugin.md](../reference/build-agent-plugin.md) |
-| How staging works per agent | [flox-agent `docs/architecture/launch.md`](https://github.com/flox/flox-agent/blob/main/docs/architecture/launch.md) |
+| How staging works per agent | [agent-stacks `docs/architecture/launch.md`](https://github.com/agent-stacks/agent-stacks-cli/blob/main/docs/architecture/launch.md) |
