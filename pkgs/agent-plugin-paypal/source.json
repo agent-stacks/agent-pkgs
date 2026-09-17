@@ -1,0 +1,65 @@
+{
+  "name": "paypal",
+  "version": "1.0.0",
+  "src": {
+    "owner": "paypal",
+    "repo": "AI-Toolkit",
+    "rev": "310b4962f0e5b3d09ff1c909d96ad5e226703ecb",
+    "hash": "sha256-o1zoPOtmjFrYqruawAkQP+9SAT8E930wp+YDhxoGqtY="
+  },
+  "sourceUrl": "https://github.com/paypal/AI-Toolkit",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "PayPal"
+    },
+    "description": "A Claude Code plugin that integrates PayPal's APIs and MCP server into your development workflow. Get AI-assisted help with PayPal payments, subscriptions, invoices, disputes, and more — directly in your editor.",
+    "homepage": "https://developer.paypal.com/docs/",
+    "keywords": [
+      "paypal",
+      "payments",
+      "checkout",
+      "subscriptions",
+      "invoices",
+      "disputes",
+      "mcp",
+      "commerce"
+    ],
+    "license": "Apache-2.0",
+    "name": "paypal",
+    "repository": "https://github.com/paypal/AI-Toolkit",
+    "version": "1.0.0"
+  },
+  "skills": {
+    "paypal-best-practices": "skills/paypal-best-practices",
+    "paypal-routing": "skills/paypal-routing"
+  },
+  "requiredRuntimes": [],
+  "mcpServers": {
+    "paypal-sandbox": {
+      "headers": {
+        "Authorization": "Bearer ${PAYPAL_SANDBOX_ACCESS_TOKEN}"
+      },
+      "type": "sse",
+      "url": "https://mcp.sandbox.paypal.com/sse"
+    }
+  },
+  "meta": {
+    "description": "A Claude Code plugin that integrates PayPal's APIs and MCP server into your development workflow",
+    "homepage": "https://github.com/paypal/AI-Toolkit"
+  },
+  "import": {
+    "input": "paypal/AI-Toolkit",
+    "flags": [],
+    "warnings": [
+      {
+        "path": "skills/paypal-best-practices/SKILL.md",
+        "message": "unknown frontmatter fields: when_to_use"
+      },
+      {
+        "path": "skills/paypal-routing/SKILL.md",
+        "message": "unknown frontmatter fields: user-invocable, when_to_use"
+      }
+    ]
+  }
+}
