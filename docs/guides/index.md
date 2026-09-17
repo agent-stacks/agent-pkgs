@@ -2,7 +2,7 @@
 
 Task-oriented walkthroughs. Where a guide needs a precise rule it
 links to [reference/](../reference/index.md) rather than paraphrasing
-it, and where a step belongs to `flox-agent` it links to that repo.
+it, and where a step belongs to `agent-stacks` it links to that repo.
 
 | Guide | What it walks through |
 | ------------------------------------ | --------------------- |
