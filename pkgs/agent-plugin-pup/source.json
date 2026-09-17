@@ -1,0 +1,76 @@
+{
+  "name": "pup",
+  "version": "0.25.0",
+  "src": {
+    "owner": "DataDog",
+    "repo": "pup",
+    "rev": "48166609bd601e6b93b6d843c9261ae800c3ff66",
+    "hash": "sha256-tuDCp5dL1VI3eZok4Wv8GHXbK059wLmf8JOztZlV0ns="
+  },
+  "sourceUrl": "https://github.com/DataDog/pup",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "email": "support@datadoghq.com",
+      "name": "Datadog"
+    },
+    "description": "Datadog API CLI with 49 command groups, 300+ subcommands. Skills and domain agents for monitoring, logs, APM, security, and infrastructure.",
+    "keywords": [
+      "datadog",
+      "monitoring",
+      "logs",
+      "apm",
+      "metrics",
+      "security",
+      "infrastructure"
+    ],
+    "license": "Apache-2.0",
+    "name": "pup",
+    "repository": "https://github.com/DataDog/pup",
+    "version": "0.25.0"
+  },
+  "skills": {
+    "dd-apm": "skills/dd-apm",
+    "dd-debugger": "skills/dd-debugger",
+    "dd-docs": "skills/dd-docs",
+    "dd-file-issue": "skills/dd-file-issue",
+    "dd-idp": "skills/dd-idp",
+    "dd-logs": "skills/dd-logs",
+    "dd-monitors": "skills/dd-monitors",
+    "dd-pup": "skills/dd-pup",
+    "dd-symdb": "skills/dd-symdb",
+    "dd-triage-flaky-test": "skills/dd-triage-flaky-test",
+    "dd-unblock-pr": "skills/dd-unblock-pr",
+    "pup": "."
+  },
+  "requiredRuntimes": [
+    "bash",
+    "python3"
+  ],
+  "meta": {
+    "description": "Datadog API CLI with 49 command groups, 300+ subcommands",
+    "homepage": "https://github.com/DataDog/pup"
+  },
+  "import": {
+    "input": "DataDog/pup",
+    "flags": [],
+    "warnings": [
+      {
+        "path": "SKILL.md/metadata/author",
+        "message": "must be a string value"
+      },
+      {
+        "path": "skills/dd-code-generation/SKILL.md/name",
+        "message": "required field missing, skill skipped"
+      },
+      {
+        "path": "skills/dd-file-issue/SKILL.md",
+        "message": "unknown frontmatter fields: examples, trigger"
+      },
+      {
+        "path": "skills/pup/skills/extensions/dd-pup-pi/package.json",
+        "message": "dependency manifest; the build does not resolve what it declares"
+      }
+    ]
+  }
+}
