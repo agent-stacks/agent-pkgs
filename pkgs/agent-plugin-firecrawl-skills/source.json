@@ -1,0 +1,218 @@
+{
+  "name": "firecrawl-skills",
+  "version": "0.1.0",
+  "src": {
+    "owner": "firecrawl",
+    "repo": "skills",
+    "rev": "c7493371d5e166078fbe685b6097f5901254ed88",
+    "hash": "sha256-52FmEKs+DLlGNArwVvNPeq5Oq0JnSukA7kwGI3Kn44o="
+  },
+  "sourceUrl": "https://github.com/firecrawl/skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Firecrawl",
+      "url": "https://www.firecrawl.dev"
+    },
+    "description": "Skills and MCP configuration for using the Firecrawl CLI and integrating Firecrawl scrape, search, and interact into apps and agents.",
+    "homepage": "https://www.firecrawl.dev",
+    "keywords": [
+      "firecrawl",
+      "web-scraping",
+      "search",
+      "interact",
+      "mcp"
+    ],
+    "license": "ISC",
+    "name": "firecrawl-skills",
+    "repository": "https://github.com/firecrawl/skills",
+    "version": "0.1.0"
+  },
+  "skills": {
+    "firecrawl": "skills/core/firecrawl",
+    "firecrawl-agent": "skills/core/firecrawl-agent",
+    "firecrawl-build": "skills/build/firecrawl-build",
+    "firecrawl-build-interact": "skills/build/firecrawl-build-interact",
+    "firecrawl-build-onboarding": "skills/build/firecrawl-build-onboarding",
+    "firecrawl-build-scrape": "skills/build/firecrawl-build-scrape",
+    "firecrawl-build-search": "skills/build/firecrawl-build-search",
+    "firecrawl-company-directories": "skills/workflows/firecrawl-company-directories",
+    "firecrawl-competitive-intel": "skills/workflows/firecrawl-competitive-intel",
+    "firecrawl-crawl": "skills/core/firecrawl-crawl",
+    "firecrawl-dashboard-reporting": "skills/workflows/firecrawl-dashboard-reporting",
+    "firecrawl-deep-research": "skills/workflows/firecrawl-deep-research",
+    "firecrawl-demo-walkthrough": "skills/workflows/firecrawl-demo-walkthrough",
+    "firecrawl-developer-index": "skills/core/firecrawl-developer-index",
+    "firecrawl-download": "skills/core/firecrawl-download",
+    "firecrawl-interact": "skills/core/firecrawl-interact",
+    "firecrawl-knowledge-base": "skills/workflows/firecrawl-knowledge-base",
+    "firecrawl-knowledge-ingest": "skills/workflows/firecrawl-knowledge-ingest",
+    "firecrawl-lead-gen": "skills/workflows/firecrawl-lead-gen",
+    "firecrawl-lead-research": "skills/workflows/firecrawl-lead-research",
+    "firecrawl-map": "skills/core/firecrawl-map",
+    "firecrawl-market-research": "skills/workflows/firecrawl-market-research",
+    "firecrawl-monitor": "skills/core/firecrawl-monitor",
+    "firecrawl-parse": "skills/core/firecrawl-parse",
+    "firecrawl-qa": "skills/workflows/firecrawl-qa",
+    "firecrawl-research-index": "skills/core/firecrawl-research-index",
+    "firecrawl-research-papers": "skills/workflows/firecrawl-research-papers",
+    "firecrawl-scrape": "skills/core/firecrawl-scrape",
+    "firecrawl-search": "skills/core/firecrawl-search",
+    "firecrawl-seo-audit": "skills/workflows/firecrawl-seo-audit",
+    "firecrawl-shop": "skills/workflows/firecrawl-shop",
+    "firecrawl-website-design-clone": "skills/workflows/firecrawl-website-design-clone",
+    "firecrawl-workflows": "skills/workflows/firecrawl-workflows"
+  },
+  "requiredRuntimes": [
+    "npx"
+  ],
+  "mcpServers": {
+    "firecrawl": {
+      "args": [
+        "-y",
+        "firecrawl-mcp"
+      ],
+      "command": "npx",
+      "env": {
+        "FIRECRAWL_API_KEY": "${FIRECRAWL_API_KEY}"
+      },
+      "type": "stdio"
+    }
+  },
+  "meta": {
+    "description": "Skills and MCP configuration for using the Firecrawl CLI and integrating Firecrawl scrape, search, and interact into apps and agents",
+    "homepage": "https://github.com/firecrawl/skills"
+  },
+  "import": {
+    "input": "firecrawl/skills",
+    "flags": [
+      "--name=firecrawl-skills"
+    ],
+    "warnings": [
+      {
+        "path": "skills/build/firecrawl-build-interact/SKILL.md",
+        "message": "unknown frontmatter fields: inputs"
+      },
+      {
+        "path": "skills/build/firecrawl-build-onboarding/SKILL.md",
+        "message": "unknown frontmatter fields: inputs, references"
+      },
+      {
+        "path": "skills/build/firecrawl-build-scrape/SKILL.md",
+        "message": "unknown frontmatter fields: inputs, references"
+      },
+      {
+        "path": "skills/build/firecrawl-build-search/SKILL.md",
+        "message": "unknown frontmatter fields: inputs"
+      },
+      {
+        "path": "skills/build/firecrawl-build/SKILL.md",
+        "message": "unknown frontmatter fields: inputs, references"
+      },
+      {
+        "path": "skills/core/firecrawl-agent/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash(firecrawl *) Bash(npx firecrawl-cli *))"
+      },
+      {
+        "path": "skills/core/firecrawl-crawl/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash(firecrawl *) Bash(npx firecrawl-cli *))"
+      },
+      {
+        "path": "skills/core/firecrawl-download/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash(firecrawl *) Bash(npx firecrawl-cli *))"
+      },
+      {
+        "path": "skills/core/firecrawl-interact/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash(firecrawl *) Bash(npx firecrawl-cli *))"
+      },
+      {
+        "path": "skills/core/firecrawl-map/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash(firecrawl *) Bash(npx firecrawl-cli *))"
+      },
+      {
+        "path": "skills/core/firecrawl-monitor/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash(firecrawl *) Bash(npx firecrawl-cli *))"
+      },
+      {
+        "path": "skills/core/firecrawl-parse/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash(firecrawl *) Bash(npx firecrawl-cli *))"
+      },
+      {
+        "path": "skills/core/firecrawl-scrape/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash(firecrawl *) Bash(npx firecrawl-cli *))"
+      },
+      {
+        "path": "skills/core/firecrawl-search/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash(firecrawl *) Bash(npx firecrawl-cli *))"
+      },
+      {
+        "path": "skills/core/firecrawl/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash(firecrawl *) Bash(npx firecrawl-cli *))"
+      },
+      {
+        "path": "skills/workflows/firecrawl-company-directories/SKILL.md",
+        "message": "unknown frontmatter fields: inputs"
+      },
+      {
+        "path": "skills/workflows/firecrawl-competitive-intel/SKILL.md",
+        "message": "unknown frontmatter fields: inputs"
+      },
+      {
+        "path": "skills/workflows/firecrawl-dashboard-reporting/SKILL.md",
+        "message": "unknown frontmatter fields: inputs"
+      },
+      {
+        "path": "skills/workflows/firecrawl-deep-research/SKILL.md",
+        "message": "unknown frontmatter fields: inputs"
+      },
+      {
+        "path": "skills/workflows/firecrawl-demo-walkthrough/SKILL.md",
+        "message": "unknown frontmatter fields: inputs"
+      },
+      {
+        "path": "skills/workflows/firecrawl-knowledge-base/SKILL.md",
+        "message": "unknown frontmatter fields: inputs"
+      },
+      {
+        "path": "skills/workflows/firecrawl-knowledge-ingest/SKILL.md",
+        "message": "unknown frontmatter fields: inputs"
+      },
+      {
+        "path": "skills/workflows/firecrawl-lead-gen/SKILL.md",
+        "message": "unknown frontmatter fields: inputs"
+      },
+      {
+        "path": "skills/workflows/firecrawl-lead-research/SKILL.md",
+        "message": "unknown frontmatter fields: inputs"
+      },
+      {
+        "path": "skills/workflows/firecrawl-market-research/SKILL.md",
+        "message": "unknown frontmatter fields: inputs"
+      },
+      {
+        "path": "skills/workflows/firecrawl-qa/SKILL.md",
+        "message": "unknown frontmatter fields: inputs"
+      },
+      {
+        "path": "skills/workflows/firecrawl-research-papers/SKILL.md",
+        "message": "unknown frontmatter fields: inputs"
+      },
+      {
+        "path": "skills/workflows/firecrawl-seo-audit/SKILL.md",
+        "message": "unknown frontmatter fields: inputs"
+      },
+      {
+        "path": "skills/workflows/firecrawl-shop/SKILL.md",
+        "message": "unknown frontmatter fields: inputs"
+      },
+      {
+        "path": "skills/workflows/firecrawl-website-design-clone/SKILL.md",
+        "message": "unknown frontmatter fields: inputs"
+      },
+      {
+        "path": "skills/workflows/firecrawl-workflows/SKILL.md",
+        "message": "unknown frontmatter fields: inputs, references"
+      }
+    ]
+  }
+}
