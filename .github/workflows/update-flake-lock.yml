@@ -129,8 +129,14 @@ jobs:
       #
       # Still never a force onto main: a rebase that conflicts, or five
       # failed attempts, leaves main untouched and the run red.
+      # The rebase below writes a commit, so this job needs an identity
+      # of its own: prepare's runs on a different runner and does not
+      # reach here. Without it the first lost race ends in "empty ident
+      # name", which the handler then reports as a conflict.
       - name: "Fast-forward main"
         run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           for attempt in 1 2 3 4 5; do
             if git push origin "HEAD:refs/heads/main"; then
               git push origin --delete "$STAGING_BRANCH"
