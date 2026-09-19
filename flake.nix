@@ -319,7 +319,10 @@
               [ "$(jq -r '."$schema"' $a/mcp.json)" = https://agent-plugins.org/schemas/1.1.0/mcp.schema.json ]
               [ "$(jq -r .mcpServers.web.type $a/mcp.json)" = streamable-http ]
               [ "$(jq -r .mcpServers.web.url $a/mcp.json)" = https://example.com/mcp ]
-              [ "$(jq -r .mcpServers.local.command $a/mcp.json)" = "$a/bin/python3" ]
+              # Plugin-relative, not the absolute store path: Agent
+              # Plugins 7.2.1 admits a bare executable name or a path
+              # beginning with ./, and agent-stacks writes the latter.
+              [ "$(jq -r .mcpServers.local.command $a/mcp.json)" = ./bin/python3 ]
               [ "$(jq -r .mcpServers.fromPath.command $a/mcp.json)" = node ]
               p=${passthrough}/share/agent-plugins/kept
               [ "$(jq -r .name $p/plugin.json)" = kept ]
