@@ -54,6 +54,8 @@ so an undeclared key is a build error by design:
 
   "requiredRuntimes": ["python3", "node"],
 
+  "pluginRootPaths": { "scripts": "scripts" },
+
   "meta": {
     "description": "...",
     "homepage": "https://github.com/OWNER/REPO"
@@ -97,6 +99,19 @@ and a dependency manifest — `pyproject.toml`, `requirements.txt`,
 `package.json` — which the build does not resolve) — present only
 when something was found, since the Go struct marks it `omitempty` —
 so the record of what produced the package travels with it.
+
+`pluginRootPaths` maps a plugin-root entry's destination inside the
+plugin tree to its path inside `src`. It is what the selected skills
+reach through `${PLUGIN_ROOT}`, which Claude spells
+`${CLAUDE_PLUGIN_ROOT}`: a plugin whose executable code sits beside
+`skills/` rather than inside a skill ships it this way. The builder
+copies exactly these entries, before the runtime pass, so their
+contents are rewritten, pinned and guarded like a skill's own files;
+a directory is copied whole. Destinations are one path segment, and
+never `skills` or `bin`, which assembly writes itself. The field is
+absent when the skills reference nothing outside themselves, so a
+package that predates it is unchanged. See
+[ADR 0016](../decisions/0016-plugin-root-code-ships-when-skills-reference-it.md).
 
 `requiredRuntimes` is a flat array of the interpreter tokens the
 scanner found named in the package's files — shebangs and bare

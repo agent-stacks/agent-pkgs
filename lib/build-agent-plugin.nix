@@ -61,6 +61,13 @@
 , manifest ? null
   # assemble mode: skill name -> path inside src
 , skills ? null
+  # plugin-root entries the skills reach through ${PLUGIN_ROOT}:
+  # destination inside the plugin tree -> path inside src. A plugin
+  # keeping its executable code beside skills/ rather than inside a
+  # skill ships it this way; a plugin referencing nothing outside its
+  # skills records none, and its package is what it always was
+  # (ADR 0014 in this repository, AI-759).
+, pluginRootPaths ? null
   # mcp server configs, serialized to mcp.json; attrset of server
   # name -> config (type/command/...)
 , mcpServers ? null
@@ -219,7 +226,7 @@ let
   # needing a file on disk.
   callFile = pkgs.writeText "source.json" (builtins.toJSON
     (lib.filterAttrs (_: v: v != null) {
-      inherit name skills manifest mcpServers;
+      inherit name skills manifest mcpServers pluginRootPaths;
       inherit allowPathCommands extraSubstitutions;
     }));
 in
@@ -297,6 +304,10 @@ stdenvNoCC.mkDerivation {
         (lib.last (lib.splitString "/schemas/" manifest."$schema"))
       else null;
     skills = if skills == null then null else builtins.attrNames skills;
+    # What the package ships from beside its skills, so a reader can
+    # see it without unpacking the output (AI-759).
+    pluginRootPaths =
+      if pluginRootPaths == null then null else builtins.attrNames pluginRootPaths;
   };
 
   # A plugin makes no licence assertion unless its manifest declares a
