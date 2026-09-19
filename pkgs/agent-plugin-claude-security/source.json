@@ -33,7 +33,13 @@
   "skills": {
     "claude-security": "plugins/claude-security/skills/claude-security"
   },
-  "requiredRuntimes": [],
+  "requiredRuntimes": [
+    "bash",
+    "python3"
+  ],
+  "pluginRootPaths": {
+    "scripts": "plugins/claude-security/scripts"
+  },
   "meta": {
     "description": "Deep vulnerability scanning of your own code, run entirely inside your Claude Code session at a chosen effort tier, with every finding challenged before it is reported and the verification tally computed in code",
     "homepage": "https://github.com/anthropics/claude-plugins-official"
@@ -49,6 +55,50 @@
       {
         "path": "plugins/claude-security/skills/claude-security/SKILL.md/allowed-tools",
         "message": "must be a space-separated string, not a list of 22 tools"
+      },
+      {
+        "path": "scripts/lib/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/absolute.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/chain.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/console.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/cwe.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/finding.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/plugin.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/sarif.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/secret.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/source.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/strictjson.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       }
     ]
   }
