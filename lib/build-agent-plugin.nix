@@ -287,6 +287,37 @@ stdenvNoCC.mkDerivation {
     ${lib.getExe' agentStacks "agent-stacks"} check-plugin${
       lib.optionalString strict " --strict"
     } "$out/${out}"
+
+    # A reference to the build directory, which is deleted when the
+    # build ends: the package would work on the machine that built it
+    # and be broken everywhere else.
+    #
+    # nixpkgs' auditTmpdir looks for this already, but it can fail
+    # open. Its file classifier runs as an unwaited background
+    # subshell, so if that subshell dies part way through the walk its
+    # FIFOs close, both handlers see EOF and succeed on the subset
+    # they received, and the hook returns cleanly having audited only
+    # part of the tree. That was seen on darwin, where the classifier
+    # segfaulted while the build still exited 0 (AI-765).
+    #
+    # This is the same question asked in a way that cannot fail
+    # open. It is not a replacement for the hook: it reads file
+    # contents rather than RPATHs, which is what an agent plugin has,
+    # and a planted reference in a plain text file is a case the hook
+    # would never have looked at — it only reads ELF binaries and
+    # wrapped scripts.
+    #
+    # Symlinks are not checked here. nixpkgs' noBrokenSymlinks hook
+    # already fails a build for a link pointing into the build
+    # directory, whether or not it still resolves, and it does not
+    # fail open.
+    echo "asserting no references to $NIX_BUILD_TOP/ in $out/${out}..."
+    tmpdirRefs="$(grep -rIlF "$NIX_BUILD_TOP/" "$out/${out}" || true)"
+    if [ -n "$tmpdirRefs" ]; then
+      echo "these files refer to the build directory, which will not exist:" >&2
+      echo "$tmpdirRefs" >&2
+      exit 1
+    fi
     runHook postInstallCheck
   '';
 
