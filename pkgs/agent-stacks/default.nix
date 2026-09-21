@@ -29,9 +29,16 @@ let
   inherit (source) rev;
   shortRev = builtins.substring 0 7 rev;
 
-  # A snapshot between releases, named the way nixpkgs names one. The date is
-  # the day the binaries were uploaded.
-  version = "${baseVersion}-unstable-${source.date}";
+  # What the package is published as: `git describe --tags --always` in the
+  # agent-stacks commit, so it names the release it descends from, the
+  # distance, and the commit itself.
+  #
+  # The fallback is what this used to be unconditionally, and why it changed:
+  # `<baseVersion>-unstable-<date>` cannot tell two commits on one day apart,
+  # and on 2026-09-19 three different revisions were published as
+  # 1.0.0-unstable-2026-09-19. A source.json written before the describe field
+  # existed still evaluates, and still collides.
+  version = source.version or "${baseVersion}-unstable-${source.date}";
 
   system = stdenvNoCC.hostPlatform.system;
 in

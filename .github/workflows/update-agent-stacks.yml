@@ -14,6 +14,14 @@ on:
         description: "What VERSION reads in that commit, e.g. 0.8.0"
         type: string
         required: true
+      describe:
+        description: >-
+          git describe --tags --always in that commit, e.g. 0.9.0-3-gabc1234.
+          Becomes the package version. Optional: without it the version falls
+          back to <version>-unstable-<today>, which cannot tell two commits
+          from the same day apart.
+        type: string
+        required: false
 
 permissions:
   contents: write
@@ -121,15 +129,22 @@ jobs:
         env:
           REV: ${{ inputs.rev }}
           VERSION: ${{ inputs.version }}
+          DESCRIBE: ${{ inputs.describe }}
           HASHES: ${{ steps.prefetch.outputs.hashes }}
         run: |
           set -euo pipefail
+          # version is what the package is published as; baseVersion
+          # stays what the binary reports and what the uploaded object's
+          # name embeds, which are not the same thing. An empty describe
+          # writes no version field, and the expression falls back.
           jq -n \
             --arg baseVersion "$VERSION" \
+            --arg version "$DESCRIBE" \
             --arg rev "$REV" \
             --arg date "$(date -u +%Y-%m-%d)" \
             --argjson hashes "$HASHES" \
-            '{ $baseVersion, $rev, $date, $hashes }' \
+            '{ $baseVersion, $rev, $date, $hashes }
+             + (if $version == "" then {} else { $version } end)' \
             > pkgs/agent-stacks/source.json
 
       - name: "Stage the commit"
