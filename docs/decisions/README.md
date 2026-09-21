@@ -45,3 +45,4 @@ on one of those links to it rather than restating it.
 | [0014](0014-generated-package-meta.md) | A generated package's meta asserts only what is known |
 | [0015](0015-the-re-export-is-a-named-list.md) | What the re-export publishes is a named list, not a rule |
 | [0016](0016-plugin-root-code-ships-when-skills-reference-it.md) | Plugin-root code ships when a plugin's skills reference it |
+| [0017](0017-checks-live-where-the-behaviour-lives.md) | Checks live where the behaviour lives; this flake does not assert what the binary writes |

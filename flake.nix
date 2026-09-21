@@ -205,200 +205,30 @@
 
       mkChecks = pkgs:
         mkPackages pkgs // {
-          # An unmapped runtime fails the build with a message pointing
-          # at the table, and the guard catches executables
-          # whose /usr/bin/env shebang survived.
-          runtimes-failures =
+          # mappings/runtimes.nix is this repository's table, so this
+          # is this repository's check: every row must name a nixpkgs
+          # attribute that exists, and one that ships a runnable
+          # program. A row pointing at nothing fails only when a
+          # package happens to record that token, which can be months
+          # after the row lands.
+          #
+          # What the table is *for* — an unmapped token failing the
+          # build with a message naming the file — is asserted in
+          # agent-stacks, which produces that message. ADR 0017.
+          runtime-table-resolves =
             let
-              lib' = mkLib pkgs;
-              unmappedSrc = pkgs.writeTextDir "skills/x/SKILL.md" ''
-                ---
-                name: x
-                description: Uses an unmapped runtime.
-                ---
-              '';
-              unmapped = lib'.buildAgentPlugin {
-                name = "unmapped";
-                src = pkgs.runCommand "unmapped-src" { } ''
-                  mkdir -p $out/skills/x/scripts
-                  cp ${unmappedSrc}/skills/x/SKILL.md $out/skills/x/SKILL.md
-                  printf '#!/usr/bin/env lua\nprint(1)\n' > $out/skills/x/scripts/r.lua
-                '';
-                manifest = {
-                  "$schema" = "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json";
-                  name = "unmapped";
-                };
-                skills.x = "skills/x";
-              };
+              table = builtins.import ./mappings/runtimes.nix;
+              missing = builtins.filter (tok: !(pkgs ? ${table.${tok}}))
+                (builtins.attrNames table);
             in
-            pkgs.testers.testBuildFailure' {
-              drv = unmapped;
-              expectedBuilderLogEntries = [
-                "runtime 'lua'"
-                "mappings/runtimes.nix"
-              ];
-            };
-
-          # ADR 0009, every path: an assembled package with a foreign
-          # plugin.json and a Claude mcp.json at the src root is built
-          # from its arguments, the http server passes the runtime
-          # pass untouched while the stdio one is resolved and the
-          # allowed one is not; a passed-through tree keeps its files,
-          # and a manifest replacing its plugin.json brings its
-          # mcp.json to the same version; a lock-mode tree with a
-          # conformant root plugin.json and no manifest builds from
-          # that file; a conformant root mcp.json stands in for an
-          # older generated file, and a Claude one is skipped.
-          arguments-alone =
-            let
-              lib' = mkLib pkgs;
-              skillMD = ''
-                printf -- '---\nname: one\ndescription: Does things.\n---\nBody.\n' > $out/skills/one/SKILL.md
+            if missing != [ ] then
+              throw ("mappings/runtimes.nix maps to nixpkgs attributes that do not exist: "
+                + builtins.concatStringsSep ", "
+                (map (tok: "${tok} -> ${table.${tok}}") missing))
+            else
+              pkgs.runCommand "runtime-table-resolves" { } ''
+                touch $out
               '';
-              foreign = pkgs.runCommand "foreign-src" { } ''
-                mkdir -p $out/skills/one
-                printf '{"$schema": "https://cursor.com/x", "name": "foreign", "skills": "./skills"}\n' > $out/plugin.json
-                printf '{"mcpServers": {"web": {"type": "http", "url": "https://example.com/mcp"}}}\n' > $out/mcp.json
-                ${skillMD}
-              '';
-              conformant = pkgs.runCommand "conformant-src" { } ''
-                mkdir -p $out/skills/one
-                printf '{"$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json", "name": "kept"}\n' > $out/plugin.json
-                printf '{"$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json", "mcpServers": {"web": {"type": "sse", "url": "https://example.com/sse"}}}\n' > $out/mcp.json
-                ${skillMD}
-              '';
-              locked = pkgs.runCommand "locked-src" { } ''
-                mkdir -p $out/skills/one
-                printf '{"$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json", "name": "locked"}\n' > $out/plugin.json
-                printf '{"version": 1, "skills": {"one": {"source": "local", "sourceType": "local"}}}\n' > $out/skills-lock.json
-                ${skillMD}
-              '';
-              manifest11 = name: {
-                "$schema" = "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json";
-                inherit name;
-              };
-              assembled = lib'.buildAgentPlugin {
-                name = "assembled";
-                src = foreign;
-                skills.one = "skills/one";
-                manifest = manifest11 "assembled";
-                mcpServers = {
-                  web = { type = "streamable-http"; url = "https://example.com/mcp"; };
-                  local = { type = "stdio"; command = "python3"; };
-                  fromPath = { type = "stdio"; command = "node"; };
-                };
-                allowPathCommands = [ "node" ];
-              };
-              passthrough = lib'.buildAgentPlugin { name = "kept"; src = conformant; };
-              replaced = lib'.buildAgentPlugin {
-                name = "kept";
-                src = conformant;
-                manifest = manifest11 "kept";
-              };
-              lockMode = lib'.buildAgentPlugin { name = "locked"; src = locked; };
-              standIn = lib'.buildAgentPlugin {
-                name = "kept";
-                src = conformant;
-                skills.one = "skills/one";
-              };
-              skipped = lib'.buildAgentPlugin {
-                name = "assembled";
-                src = foreign;
-                skills.one = "skills/one";
-                manifest = manifest11 "assembled";
-              };
-              noManifest = lib'.buildAgentPlugin {
-                name = "assembled";
-                src = foreign;
-                skills.one = "skills/one";
-              };
-            in
-            pkgs.runCommand "arguments-alone" { nativeBuildInputs = [ pkgs.jq ]; } ''
-              a=${assembled}/share/agent-plugins/assembled
-              [ "$(jq -r .name $a/plugin.json)" = assembled ]
-              [ "$(jq -r '."$schema"' $a/mcp.json)" = https://agent-plugins.org/schemas/1.1.0/mcp.schema.json ]
-              [ "$(jq -r .mcpServers.web.type $a/mcp.json)" = streamable-http ]
-              [ "$(jq -r .mcpServers.web.url $a/mcp.json)" = https://example.com/mcp ]
-              # Plugin-relative, not the absolute store path: Agent
-              # Plugins 7.2.1 admits a bare executable name or a path
-              # beginning with ./, and agent-stacks writes the latter.
-              [ "$(jq -r .mcpServers.local.command $a/mcp.json)" = ./bin/python3 ]
-              [ "$(jq -r .mcpServers.fromPath.command $a/mcp.json)" = node ]
-              p=${passthrough}/share/agent-plugins/kept
-              [ "$(jq -r .name $p/plugin.json)" = kept ]
-              [ "$(jq -r '."$schema"' $p/mcp.json)" = https://agent-plugins.org/schemas/1.0.0/mcp.schema.json ]
-              r=${replaced}/share/agent-plugins/kept
-              [ "$(jq -r '."$schema"' $r/plugin.json)" = https://agent-plugins.org/schemas/1.1.0/plugin.schema.json ]
-              [ "$(jq -r '."$schema"' $r/mcp.json)" = https://agent-plugins.org/schemas/1.1.0/mcp.schema.json ]
-              [ "$(jq -r .mcpServers.web.type $r/mcp.json)" = sse ]
-              l=${lockMode}/share/agent-plugins/locked
-              [ "$(jq -r .name $l/plugin.json)" = locked ]
-              [ -d $l/skills/one ]
-              s=${standIn}/share/agent-plugins/kept
-              [ "$(jq -r .name $s/plugin.json)" = kept ]
-              [ "$(jq -r .mcpServers.web.type $s/mcp.json)" = sse ]
-              k=${skipped}/share/agent-plugins/assembled
-              [ ! -e $k/mcp.json ]
-              touch $out
-            '';
-
-          # An assembled package with no manifest and no Agent Plugins
-          # plugin.json in src fails, naming the gap.
-          arguments-alone-no-manifest =
-            let
-              lib' = mkLib pkgs;
-              foreign = pkgs.runCommand "foreign-src" { } ''
-                mkdir -p $out/skills/one
-                printf '{"$schema": "https://cursor.com/x", "name": "foreign"}\n' > $out/plugin.json
-                printf -- '---\nname: one\ndescription: Does things.\n---\nBody.\n' > $out/skills/one/SKILL.md
-              '';
-            in
-            pkgs.testers.testBuildFailure' {
-              drv = lib'.buildAgentPlugin {
-                name = "assembled";
-                src = foreign;
-                skills.one = "skills/one";
-              };
-              expectedBuilderLogEntries = [ "no manifest argument was given" ];
-            };
-
-          # A root skill beside nested ones (agent-stacks ADR 0021): the
-          # root's copy leaves out every skill directory below it,
-          # whether the map lists it or not, and a wrapper left empty;
-          # the nested skill is packaged at its own name. A skill with
-          # nothing below it is copied as before, and "./" spells the
-          # root as well as ".".
-          root-skill-excludes-nested =
-            let
-              lib' = mkLib pkgs;
-              suite = pkgs.runCommand "suite-src" { } ''
-                mkdir -p $out/skills/inner/scripts $out/skills/dropped $out/references
-                printf -- '---\nname: parent\ndescription: Routes the suite.\n---\nBody.\n' > $out/SKILL.md
-                printf -- '---\nname: inner\ndescription: One route.\n---\nBody.\n' > $out/skills/inner/SKILL.md
-                printf -- '---\nname: dropped\n---\nNo description, so import skipped it.\n' > $out/skills/dropped/SKILL.md
-                printf 'kept\n' > $out/references/guide.md
-                printf 'echo hi\n' > $out/skills/inner/scripts/run.sh
-              '';
-              built = lib'.buildAgentPlugin {
-                name = "suite";
-                src = suite;
-                manifest = {
-                  "$schema" = "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json";
-                  name = "suite";
-                };
-                skills = { parent = "./"; inner = "skills/inner"; };
-              };
-            in
-            pkgs.runCommand "root-skill-excludes-nested" { } ''
-              p=${built}/share/agent-plugins/suite
-              [ -f $p/skills/parent/SKILL.md ]
-              [ -f $p/skills/parent/references/guide.md ]
-              [ ! -e $p/skills/parent/skills ]
-              [ -f $p/skills/inner/SKILL.md ]
-              [ -f $p/skills/inner/scripts/run.sh ]
-              [ ! -e $p/skills/dropped ]
-              touch $out
-            '';
 
           # A plugin built the way a generated source.json calls the
           # builder: src as a pin rather than a derivation, an import
