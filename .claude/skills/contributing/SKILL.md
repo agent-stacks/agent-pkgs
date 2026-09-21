@@ -47,6 +47,14 @@ when a plugin is installed, and a relative path would not resolve there.
    Compare the skill count in `source.json` against what you expected from the
    upstream repository before you open the pull request.
 
+   An upstream that declares several plugins writes several packages in one
+   run. **They land together or not at all.** The replay job reads
+   `.import.input` from every `pkgs/agent-plugin-*/source.json` and re-imports
+   that whole upstream, so a sibling left behind is regenerated within the
+   hour by any one of the packages you did commit. If it does not build, the
+   scheduled run goes red against a repository nobody touched. When one plugin
+   of a set is blocked, hold the whole set back and report it.
+
 3. Request review, and do not merge it yourself.
 
    CI builds every package on `ubuntu-latest` and `macos-latest`. The Linux job
