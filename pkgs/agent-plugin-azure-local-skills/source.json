@@ -1,0 +1,60 @@
+{
+  "name": "azure-local-skills",
+  "version": "1.0.0",
+  "src": {
+    "owner": "microsoft",
+    "repo": "skills",
+    "rev": "14655200e871a89c013803b3aa4d88202cb03fc1",
+    "hash": "sha256-CNztFQcpeB2NZpK5k8JQ9otnM1yjF2a9Arl80i28GWY="
+  },
+  "sourceUrl": "https://github.com/microsoft/skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Microsoft",
+      "url": "https://www.microsoft.com"
+    },
+    "description": "Azure Local skills covering standard deployments (Azure Stack HCI, 1-16 node hyperconverged, rack-aware clusters) and multi-rack (rack scale) deployments built on Network Fabric Controller, Cluster Manager, and managed network fabric.",
+    "homepage": "https://github.com/microsoft/github-copilot-for-azure",
+    "keywords": [
+      "azure",
+      "azure-local",
+      "azure-stack-hci",
+      "hybrid",
+      "arc",
+      "multi-rack",
+      "network-fabric"
+    ],
+    "license": "MIT",
+    "name": "azure-local-skills",
+    "repository": "https://github.com/microsoft/github-copilot-for-azure",
+    "version": "1.0.0"
+  },
+  "skills": {
+    "azure-local": ".github/plugins/azure-local-skills/skills/azure-local",
+    "azure-local-multi-rack": ".github/plugins/azure-local-skills/skills/azure-local-multi-rack"
+  },
+  "requiredRuntimes": [
+    "npx"
+  ],
+  "mcpServers": {
+    "azure": {
+      "args": [
+        "-y",
+        "@azure/mcp@latest",
+        "server",
+        "start"
+      ],
+      "command": "npx",
+      "type": "stdio"
+    }
+  },
+  "meta": {
+    "description": "Azure Local skills covering standard deployments (Azure Stack HCI, 1-16 node hyperconverged, rack-aware clusters) and multi-rack (rack scale) deployments built on Network Fabric Controller, Cluster Manager, and managed network fabric",
+    "homepage": "https://github.com/microsoft/skills"
+  },
+  "import": {
+    "input": "microsoft/skills",
+    "flags": []
+  }
+}
