@@ -311,8 +311,17 @@ stdenvNoCC.mkDerivation {
     # already fails a build for a link pointing into the build
     # directory, whether or not it still resolves, and it does not
     # fail open.
-    echo "asserting no references to $NIX_BUILD_TOP/ in $out/${out}..."
-    tmpdirRefs="$(grep -rIlF "$NIX_BUILD_TOP/" "$out/${out}" || true)"
+    # Matched on the staging directory, not on $NIX_BUILD_TOP alone.
+    # On Linux that variable is "/build", and a skill's prose
+    # mentioning a path like /build/output is then indistinguishable
+    # from a real leftover — which is exactly what happened the first
+    # time this ran there. "$NIX_BUILD_TOP/plugin/<name>" is the path
+    # assembly actually writes into and the only one a dangling
+    # reference can carry, so it is both precise and specific enough
+    # not to collide with documentation.
+    staging="$NIX_BUILD_TOP/plugin/${name}"
+    echo "asserting no references to $staging in $out/${out}..."
+    tmpdirRefs="$(grep -rIlF "$staging" "$out/${out}" || true)"
     if [ -n "$tmpdirRefs" ]; then
       echo "these files refer to the build directory, which will not exist:" >&2
       echo "$tmpdirRefs" >&2
