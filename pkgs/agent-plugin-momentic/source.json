@@ -1,0 +1,73 @@
+{
+  "name": "momentic",
+  "version": "1.0.0",
+  "src": {
+    "owner": "momentic-ai",
+    "repo": "skills",
+    "rev": "3ca4364ba86619878995c5e58b70eb4b450c7673",
+    "hash": "sha256-oCHusRbSphykyZf/aiZ7xH/qyNaTW4dF/aJEFyR6Qm8="
+  },
+  "sourceUrl": "https://github.com/momentic-ai/skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "email": "support@momentic.ai",
+      "name": "Momentic",
+      "url": "https://momentic.ai"
+    },
+    "description": "Author, run, triage, and repair Momentic end-to-end tests for web, Android, and iOS. Use these skills when an agent must write a new test from a diff, run a suite, explain why a run failed, classify a result, or heal a broken locator.",
+    "homepage": "https://momentic.ai/developers",
+    "keywords": [
+      "momentic",
+      "testing",
+      "e2e",
+      "browser",
+      "android",
+      "ios",
+      "automation",
+      "triage"
+    ],
+    "name": "momentic",
+    "repository": "https://github.com/momentic-ai/skills",
+    "version": "1.0.0"
+  },
+  "skills": {
+    "mo-qa": "skills/mo-qa",
+    "momentic-maintain": "skills/momentic-maintain",
+    "momentic-mobile-test": "skills/momentic-mobile-test",
+    "momentic-result-classification": "skills/momentic-result-classification",
+    "momentic-spec": "skills/momentic-spec",
+    "momentic-test": "skills/momentic-test"
+  },
+  "requiredRuntimes": [
+    "npx"
+  ],
+  "mcpServers": {
+    "momentic": {
+      "args": [
+        "-y",
+        "momentic",
+        "mcp"
+      ],
+      "command": "npx",
+      "type": "stdio"
+    },
+    "momentic-mobile": {
+      "args": [
+        "-y",
+        "momentic-mobile",
+        "mcp"
+      ],
+      "command": "npx",
+      "type": "stdio"
+    }
+  },
+  "meta": {
+    "description": "Author, run, triage, and repair Momentic end-to-end tests for web, Android, and iOS",
+    "homepage": "https://github.com/momentic-ai/skills"
+  },
+  "import": {
+    "input": "momentic-ai/skills",
+    "flags": []
+  }
+}
