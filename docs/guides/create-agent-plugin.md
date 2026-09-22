@@ -171,6 +171,41 @@ git commit -m "import: flox/flox-skills"
 CI builds every package on every PR. Commit only the two generated
 files; `result` is a build artifact and should be ignored.
 
+## Per-repository workarounds
+
+Most repositories import with no flags. When one needs help, there
+are two places to put it, and which one depends on what it changes:
+if it decides what gets imported, it is a flag; if it changes the
+built package, it is the block in `default.nix`.
+
+A flag is recorded in `source.json` under `import.flags` and replayed
+by CI, so it is written once at import:
+
+```sh
+agent-stacks import garrytan/gstack --path-ignore 'test/**'
+```
+
+The block is the text between the two markers in a package's
+`default.nix`. Everything outside the markers is rewritten on every
+import; the block is carried across untouched:
+
+```nix
+  # BEGIN custom — kept as it is when this file is regenerated
+  # why: 22 skills call ${CLAUDE_PLUGIN_ROOT}/scripts/*, which the
+  # contract doesn't ship
+  args = { };
+  hooks = old: { postAssemble = ''cp -R scripts "$dest/"''; };
+  # END custom — anything outside these markers is overwritten
+```
+
+Every block needs a `why:` line. Unexplained workarounds are what
+rot.
+
+A block may never set `doInstallCheck = false`, and may never narrow
+`installCheckPhase`. That would switch off `check-plugin` for a
+package people install. A block is a workaround for a packaging gap,
+never an escape from validation.
+
 ## Why not import into a Flox environment
 
 The generated `default.nix` takes exactly one argument,
