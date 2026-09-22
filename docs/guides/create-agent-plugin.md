@@ -171,41 +171,6 @@ git commit -m "import: flox/flox-skills"
 CI builds every package on every PR. Commit only the two generated
 files; `result` is a build artifact and should be ignored.
 
-## Per-repository workarounds
-
-Most repositories import with no flags. When one needs help, there
-are two places to put it, and which one depends on what it changes:
-if it decides what gets imported, it is a flag; if it changes the
-built package, it is the block in `default.nix`.
-
-A flag is recorded in `source.json` under `import.flags` and replayed
-by CI, so it is written once at import:
-
-```sh
-agent-stacks import garrytan/gstack --path-ignore 'test/**'
-```
-
-The block is the text between the two markers in a package's
-`default.nix`. Everything outside the markers is rewritten on every
-import; the block is carried across untouched:
-
-```nix
-  # BEGIN custom — kept as it is when this file is regenerated
-  # why: 22 skills call ${CLAUDE_PLUGIN_ROOT}/scripts/*, which the
-  # contract doesn't ship
-  args = { };
-  hooks = old: { postAssemble = ''cp -R scripts "$dest/"''; };
-  # END custom — anything outside these markers is overwritten
-```
-
-Every block needs a `why:` line. Unexplained workarounds are what
-rot.
-
-A block may never set `doInstallCheck = false`, and may never narrow
-`installCheckPhase`. That would switch off `check-plugin` for a
-package people install. A block is a workaround for a packaging gap,
-never an escape from validation.
-
 ## Why not import into a Flox environment
 
 The generated `default.nix` takes exactly one argument,
@@ -262,6 +227,50 @@ staging before building, the install check. The result is the same
 derivation it would be here — importing `flox/flox-skills` into a
 standalone repository and building it produces the same store path as
 `nix build .#agent-plugin-flox` does in this one.
+
+## Per-repository workarounds
+
+Most repositories import with no flags. When one needs help, there
+are two places to put it, and which one depends on what it changes:
+if it decides what gets imported, it is a flag; if it changes the
+built package, it is the block in `default.nix`.
+
+A flag is recorded in `source.json` under `import.flags` and replayed
+by CI, so it is written once at import:
+
+```sh
+agent-stacks import garrytan/gstack --path-ignore 'test/**'
+```
+
+The block is the text between the two markers in a package's
+`default.nix`. Everything outside the markers is rewritten on every
+import; the block is carried across untouched:
+
+```nix
+  # BEGIN custom — kept as it is when this file is regenerated
+  # why: 22 skills call ${CLAUDE_PLUGIN_ROOT}/scripts/*, which the
+  # contract doesn't ship
+  args = { };
+  hooks = old: { postAssemble = ''cp -R scripts "$dest/"''; };
+  # END custom — anything outside these markers is overwritten
+```
+
+Every block needs a `why:` line. Unexplained workarounds are what
+rot.
+
+A block may never set `doInstallCheck = false`, and may never narrow
+`installCheckPhase`. That would switch off `check-plugin` for a
+package people install. A block is a workaround for a packaging gap,
+never an escape from validation.
+
+The markers only exist in packages a newer importer has generated.
+Every package in this repository today still carries the older
+`default.nix`, four lines taking only `buildAgentPlugin`, headed "do
+not edit by hand" — no `args`, no `hooks`, no markers. If the package
+in front of you has no `BEGIN custom` / `END custom` pair, there is
+nothing to edit yet, and a block added by hand would be erased the
+next time the package is re-imported. The markers themselves are the
+test: look for them before following the steps above.
 
 ## Where the details live
 
