@@ -29,11 +29,16 @@ when a plugin is installed, and a relative path would not resolve there.
 
 ## 1. Add a package
 
-1. `git fetch origin && git switch -c <branch> origin/main`
+1. `git fetch origin && git switch -c import/<upstream> origin/main`
 
    Start from `origin/main`, never a local `main`. The replay job re-imports
    every recorded package hourly and pushes, so a local `main` is stale within
    the hour and you will branch off something that no longer exists upstream.
+
+   The guide creates the branch at its step 6, after importing. Do it here
+   instead. Branching afterwards branches off whatever your local `main` was
+   when you started, which is the staleness this step exists to avoid. The
+   `import/<upstream>` name is the guide's.
 
 2. Follow [the guide](https://github.com/agent-stacks/agent-pkgs/blob/main/docs/guides/create-agent-plugin.md) for the
    rest: import, read the generated files, stage in git before building, build,
@@ -54,6 +59,10 @@ when a plugin is installed, and a relative path would not resolve there.
    hour by any one of the packages you did commit. If it does not build, the
    scheduled run goes red against a repository nobody touched. When one plugin
    of a set is blocked, hold the whole set back and report it.
+
+   Commit as `feat(pkgs): add <upstream> plugin`, which is what all but a
+   handful of the packages on main were merged as. The guide's step 6 shows
+   `import: <upstream>`; nothing on main uses it.
 
 3. Request review, and do not merge it yourself.
 
