@@ -1,0 +1,60 @@
+{
+  "name": "azure-kusto-graph-skills",
+  "version": "1.0.0",
+  "src": {
+    "owner": "microsoft",
+    "repo": "skills",
+    "rev": "14655200e871a89c013803b3aa4d88202cb03fc1",
+    "hash": "sha256-CNztFQcpeB2NZpK5k8JQ9otnM1yjF2a9Arl80i28GWY="
+  },
+  "sourceUrl": "https://github.com/microsoft/skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Microsoft",
+      "url": "https://www.microsoft.com"
+    },
+    "description": "Kusto graph analysis, IRQL security hunting pipelines, and graph visualization skills for Azure Data Explorer.",
+    "homepage": "https://github.com/microsoft/github-copilot-for-azure",
+    "keywords": [
+      "azure",
+      "kusto",
+      "graph",
+      "irql",
+      "security",
+      "kql"
+    ],
+    "license": "MIT",
+    "name": "azure-kusto-graph-skills",
+    "repository": "https://github.com/microsoft/github-copilot-for-azure",
+    "version": "1.0.0"
+  },
+  "skills": {
+    "azure-kusto-graph": ".github/plugins/azure-kusto-graph-skills/skills/azure-kusto-graph",
+    "azure-kusto-irql": ".github/plugins/azure-kusto-graph-skills/skills/azure-kusto-irql",
+    "azure-kusto-irql-graph": ".github/plugins/azure-kusto-graph-skills/skills/azure-kusto-irql-graph"
+  },
+  "requiredRuntimes": [
+    "npx"
+  ],
+  "mcpServers": {
+    "azure": {
+      "args": [
+        "-y",
+        "@azure/mcp@latest",
+        "server",
+        "start"
+      ],
+      "command": "npx",
+      "type": "stdio"
+    }
+  },
+  "meta": {
+    "description": "Kusto graph analysis, IRQL security hunting pipelines, and graph visualization skills for Azure Data Explorer",
+    "homepage": "https://github.com/microsoft/skills"
+  },
+  "import": {
+    "input": "microsoft/skills",
+    "flags": []
+  }
+}
