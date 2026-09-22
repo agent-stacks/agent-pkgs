@@ -1,0 +1,76 @@
+{
+  "name": "stripe",
+  "version": "0.4.2",
+  "src": {
+    "owner": "stripe",
+    "repo": "ai",
+    "rev": "ea6997c4551d1bfa010b70d875d1aa738a379b25",
+    "hash": "sha256-lpzBoXV2KWYQJcwlLORdLMmjYBqUTysg1ZfBlDkYF0w="
+  },
+  "sourceUrl": "https://github.com/stripe/ai",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Stripe",
+      "url": "https://stripe.com"
+    },
+    "description": "Stripe agent plugin with skills for Stripe integrations including best practices, API and SDK upgrade guidance, and a remote MCP server configuration.",
+    "homepage": "https://docs.stripe.com",
+    "keywords": [
+      "stripe",
+      "payments",
+      "webhooks",
+      "api",
+      "security"
+    ],
+    "license": "MIT",
+    "name": "stripe",
+    "repository": "https://github.com/stripe/ai",
+    "version": "0.4.2"
+  },
+  "skills": {
+    "connect-recommend": "providers/agent-plugins/plugin/skills/connect-recommend",
+    "connect-required-verification-information": "providers/agent-plugins/plugin/skills/connect-required-verification-information",
+    "metronome": "providers/agent-plugins/plugin/skills/metronome",
+    "stripe-apps": "providers/agent-plugins/plugin/skills/stripe-apps",
+    "stripe-best-practices": "providers/agent-plugins/plugin/skills/stripe-best-practices",
+    "stripe-directory": "providers/agent-plugins/plugin/skills/stripe-directory",
+    "stripe-docs": "providers/agent-plugins/plugin/skills/stripe-docs",
+    "stripe-pay": "providers/agent-plugins/plugin/skills/stripe-pay",
+    "stripe-projects": "providers/agent-plugins/plugin/skills/stripe-projects",
+    "upgrade-stripe": "providers/agent-plugins/plugin/skills/upgrade-stripe"
+  },
+  "requiredRuntimes": [],
+  "mcpServers": {
+    "stripe": {
+      "type": "streamable-http",
+      "url": "https://mcp.stripe.com"
+    }
+  },
+  "meta": {
+    "description": "Stripe agent plugin with skills for Stripe integrations including best practices, API and SDK upgrade guidance, and a remote MCP server configuration",
+    "homepage": "https://github.com/stripe/ai"
+  },
+  "import": {
+    "input": "stripe/ai",
+    "flags": [],
+    "warnings": [
+      {
+        "path": "providers/agent-plugins/plugin/skills/stripe-directory/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list of 7 tools"
+      },
+      {
+        "path": "providers/agent-plugins/plugin/skills/stripe-docs/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash(stripe docs *) Bash(stripe login) Bash(stripe version))"
+      },
+      {
+        "path": "providers/agent-plugins/plugin/skills/stripe-pay/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash(stripe directory *) Bash(stripe pay *) Bash(stripe whoami *))"
+      },
+      {
+        "path": "providers/agent-plugins/plugin/skills/stripe-projects/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list of 6 tools"
+      }
+    ]
+  }
+}
