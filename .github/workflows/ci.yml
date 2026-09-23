@@ -35,5 +35,30 @@ jobs:
       - name: Trust the runner's user
         uses: ./.github/actions/trust-nix-user
 
+      # `builtins.fetchTarball` does not consult substituters. It computes
+      # its store path, checks whether that path is already valid, and if
+      # not it downloads from the URL — so `accept-flake-config` and a
+      # trusted user do not help, and the cache this repository already
+      # trusts is simply never asked.
+      #
+      # numtide/llm-agents.nix resolves a bun lockfile at evaluation time,
+      # and one entry points at cdn.sheetjs.com because SheetJS is not on
+      # the npm registry. macOS runners fail that host's TLS often enough
+      # to take down `nix flake check` most of the day, which also stops
+      # the hourly replay landing anything (AI-787).
+      #
+      # Pulling the path from cache.numtide.com first makes it valid
+      # locally, so evaluation finds it and never reaches the CDN. The
+      # path is pinned by flake.lock's llm-agents rev: bumping that input
+      # may change it, in which case this becomes a no-op and the original
+      # failure returns, visibly. It is deliberately not fatal, so a stale
+      # path cannot turn a working build red on its own.
+      - name: "Pre-warm the eval-time tarball fetch"
+        continue-on-error: true
+        run: |
+          nix copy --from https://cache.numtide.com \
+            /nix/store/mzx7n8ay30q7phfqs85vjy5j5cyk99cj-source \
+            || echo "pre-warm missed; see AI-787 if the flake check now fails on cdn.sheetjs.com"
+
       - name: Flake check (builds every package)
         run: nix flake check -L
