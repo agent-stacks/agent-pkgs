@@ -1,0 +1,58 @@
+{
+  "name": "azure-cost",
+  "version": "1.0.2",
+  "src": {
+    "owner": "microsoft",
+    "repo": "skills",
+    "rev": "0c6debe98769a2a78f3ae3d3239f943118e4f0ad",
+    "hash": "sha256-GpSmOX2OQcTuJpJ6emCNLG801N7/kuVqmj0itqxufRs="
+  },
+  "sourceUrl": "https://github.com/microsoft/skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Microsoft",
+      "url": "https://www.microsoft.com"
+    },
+    "description": "Azure cost analysis, estimation, optimization, and governance workflows backed by Azure Resource Manager MCP.",
+    "homepage": "https://github.com/microsoft/github-copilot-for-azure",
+    "keywords": [
+      "azure",
+      "cost-management",
+      "analysis",
+      "estimation",
+      "optimization",
+      "budgets",
+      "governance",
+      "commitments"
+    ],
+    "license": "MIT",
+    "name": "azure-cost",
+    "repository": "https://github.com/microsoft/github-copilot-for-azure",
+    "version": "1.0.2"
+  },
+  "skills": {
+    "cost-analysis": ".github/plugins/azure-cost/skills/cost-analysis",
+    "cost-estimation": ".github/plugins/azure-cost/skills/cost-estimation",
+    "cost-governance": ".github/plugins/azure-cost/skills/cost-governance",
+    "cost-optimization": ".github/plugins/azure-cost/skills/cost-optimization"
+  },
+  "requiredRuntimes": [],
+  "mcpServers": {
+    "azure-resource-manager-mcp": {
+      "headers": {
+        "x-mcp-toolset": "CostManagement"
+      },
+      "type": "streamable-http",
+      "url": "https://mcp.management.azure.com"
+    }
+  },
+  "meta": {
+    "description": "Azure cost analysis, estimation, optimization, and governance workflows backed by Azure Resource Manager MCP",
+    "homepage": "https://github.com/microsoft/skills"
+  },
+  "import": {
+    "input": "microsoft/skills",
+    "flags": []
+  }
+}
