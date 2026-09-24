@@ -1,11 +1,11 @@
 {
   "name": "getsentry-xcodebuildmcp",
-  "version": "0-unstable-2026-08-02",
+  "version": "0-unstable-2026-09-23",
   "src": {
     "owner": "getsentry",
     "repo": "XcodeBuildMCP",
-    "rev": "e6ef59b49b44012c824f0a0de261c96142e37390",
-    "hash": "sha256-ZxkyjWjqE8rySCFPP3LysefgR6cp6uYutrbXfrvWOUs="
+    "rev": "d13ff0c707b0681769cf31da0eb42c4f94ceafff",
+    "hash": "sha256-ILc1y6LXN6F8JBoRVhR+GCEiFR0MNucqx3DEd9F9ogU="
   },
   "sourceUrl": "https://github.com/getsentry/XcodeBuildMCP",
   "manifest": {
@@ -13,42 +13,42 @@
     "name": "getsentry-xcodebuildmcp"
   },
   "skills": {
+    "mobilebuildmcp": "skills/mobilebuildmcp",
+    "mobilebuildmcp-cli": "skills/mobilebuildmcp-cli",
+    "mobilebuildmcp-docs-command-review": ".agents/skills/mobilebuildmcp-docs-command-review",
+    "mobilebuildmcp-docs-release-review": ".agents/skills/mobilebuildmcp-docs-release-review",
+    "mobilebuildmcp-packaging-resource-review": ".agents/skills/mobilebuildmcp-packaging-resource-review",
+    "mobilebuildmcp-rendering-streaming-review": ".agents/skills/mobilebuildmcp-rendering-streaming-review",
+    "mobilebuildmcp-runtime-boundary-review": ".agents/skills/mobilebuildmcp-runtime-boundary-review",
+    "mobilebuildmcp-snapshot-fixture-review": ".agents/skills/mobilebuildmcp-snapshot-fixture-review",
+    "mobilebuildmcp-structured-output-review": ".agents/skills/mobilebuildmcp-structured-output-review",
+    "mobilebuildmcp-test-boundary-review": ".agents/skills/mobilebuildmcp-test-boundary-review",
+    "mobilebuildmcp-tool-contract-review": ".agents/skills/mobilebuildmcp-tool-contract-review",
     "warden": ".agents/skills/warden",
-    "warden-sweep": ".agents/skills/warden-sweep",
-    "xcodebuildmcp": "skills/xcodebuildmcp",
-    "xcodebuildmcp-cli": "skills/xcodebuildmcp-cli",
-    "xcodebuildmcp-docs-command-review": ".agents/skills/xcodebuildmcp-docs-command-review",
-    "xcodebuildmcp-docs-release-review": ".agents/skills/xcodebuildmcp-docs-release-review",
-    "xcodebuildmcp-packaging-resource-review": ".agents/skills/xcodebuildmcp-packaging-resource-review",
-    "xcodebuildmcp-rendering-streaming-review": ".agents/skills/xcodebuildmcp-rendering-streaming-review",
-    "xcodebuildmcp-runtime-boundary-review": ".agents/skills/xcodebuildmcp-runtime-boundary-review",
-    "xcodebuildmcp-snapshot-fixture-review": ".agents/skills/xcodebuildmcp-snapshot-fixture-review",
-    "xcodebuildmcp-structured-output-review": ".agents/skills/xcodebuildmcp-structured-output-review",
-    "xcodebuildmcp-test-boundary-review": ".agents/skills/xcodebuildmcp-test-boundary-review",
-    "xcodebuildmcp-tool-contract-review": ".agents/skills/xcodebuildmcp-tool-contract-review"
+    "warden-sweep": ".agents/skills/warden-sweep"
   },
   "requiredRuntimes": [
     "node",
     "python3"
   ],
   "mcpServers": {
-    "sentry": {
-      "type": "streamable-http",
-      "url": "https://mcp.sentry.dev/mcp"
-    },
-    "xcodebuildmcp-dev": {
+    "mobilebuildmcp-dev": {
       "args": [
         "../../build/cli.js",
         "mcp"
       ],
       "command": "node",
       "env": {
-        "XCODEBUILDMCP_DEBUG": "true",
-        "XCODEBUILDMCP_IOS_TEMPLATE_PATH": "../../../XcodeBuildMCP-iOS-Template",
-        "XCODEBUILDMCP_MACOS_TEMPLATE_PATH": "../../../XcodeBuildMCP-macOS-Template",
-        "XCODEBUILDMCP_SENTRY_DISABLED": "true"
+        "MOBILEBUILDMCP_DEBUG": "true",
+        "MOBILEBUILDMCP_IOS_TEMPLATE_PATH": "../../../XcodeBuildMCP-iOS-Template",
+        "MOBILEBUILDMCP_MACOS_TEMPLATE_PATH": "../../../XcodeBuildMCP-macOS-Template",
+        "MOBILEBUILDMCP_SENTRY_DISABLED": "true"
       },
       "type": "stdio"
+    },
+    "sentry": {
+      "type": "streamable-http",
+      "url": "https://mcp.sentry.dev/mcp"
     }
   },
   "meta": {
