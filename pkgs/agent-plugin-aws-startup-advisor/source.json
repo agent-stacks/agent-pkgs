@@ -1,0 +1,297 @@
+{
+  "name": "aws-startup-advisor",
+  "version": "2.0.1",
+  "src": {
+    "owner": "aws",
+    "repo": "agent-toolkit-for-aws",
+    "rev": "5bcc9580235709f56e929c7c1fb57fb99bff20af",
+    "hash": "sha256-EkVJhFnYnakdIwrWc+vKZREbAS0y8I5uH0TSk4I2z6w="
+  },
+  "sourceUrl": "https://github.com/aws/agent-toolkit-for-aws",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Amazon Web Services"
+    },
+    "description": "Personalized AWS guidance built on patterns from 350,000+ startups—architecture, cost, security, and migration, from day-one account setup to production-ready infrastructure. Migrate to AWS from GCP or Heroku—including your entire AI stack: OpenAI/Gemini/Anthropic SDK rewrites to Amazon Bedrock, agentic systems (LangChain, CrewAI, AutoGen) to AWS-native runtimes, and Temporal workers. Includes AWS Activate credits eligibility and 60+ exclusive startup offers. Built by AWS Startup Solutions Architects, with multi-account, multi-region support.",
+    "extensions": {
+      "com.anthropic.claude-code": {
+        "agents": "./agents/"
+      }
+    },
+    "homepage": "https://aws.amazon.com/products/developer-tools/agent-toolkit-for-aws/",
+    "keywords": [
+      "aws",
+      "startups",
+      "activate",
+      "knowledge-base",
+      "prompt-library",
+      "gcp",
+      "google-cloud",
+      "migration",
+      "cloud-migration",
+      "terraform",
+      "fargate",
+      "rds",
+      "aurora",
+      "eks",
+      "bedrock",
+      "ai-migration",
+      "openai",
+      "openai-to-bedrock",
+      "langchain",
+      "langgraph",
+      "crewai",
+      "autogen",
+      "agentic",
+      "agents",
+      "llm-migration",
+      "cost-estimation",
+      "heroku",
+      "heroku-to-aws",
+      "move-to-aws",
+      "gemini",
+      "agentcore",
+      "agent-runtime",
+      "llm-to-bedrock",
+      "temporal",
+      "durable-execution",
+      "anthropic",
+      "claude",
+      "gcp-to-aws",
+      "cloud-run",
+      "cloud-sql",
+      "gke",
+      "vertex-ai",
+      "ecs",
+      "lambda",
+      "lambda-microvms",
+      "elastic-beanstalk",
+      "postgres",
+      "redis",
+      "kafka",
+      "elasticache",
+      "msk",
+      "switch-to-aws",
+      "cost-comparison",
+      "pricing-comparison",
+      "cost-optimization",
+      "credits",
+      "architecture",
+      "well-architected",
+      "mvp",
+      "rag",
+      "bedrock-migration",
+      "rewrite-sdk-calls",
+      "deploy-ai-agent",
+      "choose-agent-runtime",
+      "azure",
+      "azure-to-aws",
+      "aks",
+      "app-service",
+      "azure-sql",
+      "cosmos-db",
+      "azure-openai",
+      "entra-id",
+      "blob-storage",
+      "bicep",
+      "arm-template"
+    ],
+    "license": "Apache-2.0",
+    "name": "aws-startup-advisor",
+    "repository": "https://github.com/aws/agent-toolkit-for-aws",
+    "version": "2.0.1"
+  },
+  "skills": {
+    "agent-advisor": "plugins/aws-startup-advisor/skills/agent-advisor",
+    "architect-for-startups": "plugins/aws-startup-advisor/skills/architect-for-startups",
+    "azure-to-aws": "plugins/aws-startup-advisor/skills/azure-to-aws",
+    "contextual-offers-for-startups": "plugins/aws-startup-advisor/skills/contextual-offers-for-startups",
+    "gcp-to-aws": "plugins/aws-startup-advisor/skills/gcp-to-aws",
+    "heroku-to-aws": "plugins/aws-startup-advisor/skills/heroku-to-aws",
+    "knowledge-base-for-startups": "plugins/aws-startup-advisor/skills/knowledge-base-for-startups",
+    "llm-to-bedrock": "plugins/aws-startup-advisor/skills/llm-to-bedrock",
+    "prompt-library-for-startups": "plugins/aws-startup-advisor/skills/prompt-library-for-startups",
+    "start-building-for-startups": "plugins/aws-startup-advisor/skills/start-building-for-startups",
+    "tf-best-practices": "plugins/aws-startup-advisor/skills/tf-best-practices"
+  },
+  "requiredRuntimes": [
+    "python3",
+    "uvx"
+  ],
+  "mcpServers": {
+    "aws-mcp": {
+      "args": [
+        "mcp-proxy-for-aws-cli@latest",
+        "https://aws-mcp.us-east-1.api.aws/mcp",
+        "--skip-auth",
+        "--metadata",
+        "INSTALL_SOURCE=agent-toolkit-startup-advisor"
+      ],
+      "command": "uvx",
+      "type": "stdio"
+    }
+  },
+  "meta": {
+    "description": "Personalized AWS guidance built on patterns from 350,000+ startups—architecture, cost, security, and migration, from day-one account setup to production-ready infrastructure",
+    "homepage": "https://github.com/aws/agent-toolkit-for-aws"
+  },
+  "import": {
+    "input": "aws/agent-toolkit-for-aws",
+    "flags": [],
+    "warnings": [
+      {
+        "path": "skills/agent-advisor/scripts/anthropic_model_recommendation.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/agent-advisor/scripts/build_diagram.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/agent-advisor/scripts/model_recommendation.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/agent-advisor/scripts/openai_model_recommendation.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/agent-advisor/scripts/scoring.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/agent-advisor/scripts/test_build_diagram.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/agent-advisor/scripts/test_collapse_invariant.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/agent-advisor/scripts/test_cost_levers.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/agent-advisor/scripts/test_model_recommendation.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/agent-advisor/scripts/test_openai_model_recommendation.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/agent-advisor/scripts/test_poc_shapes.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/agent-advisor/scripts/test_scoring.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/agent-advisor/scripts/test_temporal_decision_refs.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/agent-advisor/scripts/test_unit_grouping.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/agent-advisor/scripts/test_verify_model_path.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/agent-advisor/scripts/test_workload_classes.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/agent-advisor/scripts/verify_model_path.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/heroku-to-aws/scripts/test_validate_heroku_migration_report.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/heroku-to-aws/scripts/test_validate_heroku_migration_report_cost.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/heroku-to-aws/scripts/test_validate_heroku_migration_report_currency.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/llm-to-bedrock/scripts/bedrock_pricing.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/llm-to-bedrock/scripts/iam_policy.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/llm-to-bedrock/scripts/image_input.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/llm-to-bedrock/scripts/preflight_bedrock.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/llm-to-bedrock/scripts/render_report.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/llm-to-bedrock/scripts/test_bedrock_pricing.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/llm-to-bedrock/scripts/test_delta_reference_schema.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/llm-to-bedrock/scripts/test_iam_policy.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/llm-to-bedrock/scripts/test_image_input.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/llm-to-bedrock/scripts/test_preflight_bedrock.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/llm-to-bedrock/scripts/test_render_report.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/llm-to-bedrock/scripts/test_resolve_source_model.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/llm-to-bedrock/scripts/test_source_baseline.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/llm-to-bedrock/scripts/test_validate_result.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/llm-to-bedrock/scripts/validate_result.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tf-best-practices/scripts/test_validate_terraform_policy.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/agent-advisor/scripts/pyproject.toml",
+        "message": "dependency manifest; the build does not resolve what it declares"
+      },
+      {
+        "path": "skills/llm-to-bedrock/scripts/pyproject.toml",
+        "message": "dependency manifest; the build does not resolve what it declares"
+      }
+    ]
+  }
+}
