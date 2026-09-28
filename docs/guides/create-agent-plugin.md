@@ -1,11 +1,11 @@
 # Create an agent-plugin package
 
-How to create an agent-plugin package from an existing skills
+How to create an agent-plugin Nix package from an existing skills
 repository, worked through with
 [juliusbrussee/caveman](https://github.com/juliusbrussee/caveman) as
 the example.
 
-Packages are generated rather than hand-written. `agent-stacks
+Packages are generated rather than hand-written. The CLI `agent-stacks
 import` pins an upstream repository and writes the two files that
 make a package; `buildAgentPlugin` turns those into the canonical
 file layout at build time. The contract the two halves meet at is
@@ -24,8 +24,7 @@ repository that should be depends on who the skills are for:
 | public and broadly applicable | this repo, under `pkgs/` | CI builds it on every PR and Hydra publishes it to `cache.agent-stacks.org`, so everyone gets it prebuilt |
 | private, or specific to one organization | a repository of your own | a public package set is the wrong home for skills that should not be published; see [Building outside agent-pkgs](#building-outside-agent-pkgs) |
 
-This guide walks the public case. The steps are the same either way —
-only the last one, opening a pull request, differs.
+This guide walks the public case, which would involve a pull request.
 
 ## Requirements
 
