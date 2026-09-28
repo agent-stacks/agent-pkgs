@@ -104,7 +104,7 @@ runs what it claims is:
 ```
 
 ```text
-2.1.273 (Claude Code)
+2.1.283 (Claude Code)
 ```
 
 With a pinned harness that is the version the stack was built against,
@@ -112,11 +112,11 @@ on any machine, whatever the machine has installed.
 
 ### The launcher
 
-`bin/caveman-stack` is a five-line script, worth reading because it
+`bin/caveman-stack` is a very small script, worth reading because it
 explains the design:
 
 ```sh
-export PATH="/nix/store/…-claude-code-2.1.273/bin:$PATH"
+export PATH="/nix/store/…-claude-code-2.1.283/bin:$PATH"
 exec "${AGENT_STACKS_BIN:-/nix/store/…-agent-stacks-bin-…/bin/agent-stacks}" \
   --dir "/nix/store/…-agent-stack-caveman-stack-0/share" \
   launch claude -- "$@"
@@ -131,8 +131,7 @@ Arguments you pass reach the agent verbatim — `./result/bin/caveman-stack
 check that a stack runs what it says. `AGENT_STACKS_BIN` overrides the
 pinned agent-stacks, which is how you run a stack against a local build.
 
-Without a pinned harness that first line is absent, and the script is
-four lines.
+Without a pinned harness that first line is absent.
 
 ### What reaches the agent
 
@@ -180,7 +179,7 @@ so the same stack can behave differently on another machine
 
 The drift risk is real: a machine with Claude Code 2.1.257 installed
 runs 2.1.257 under this form, while the pinned stack above runs the
-2.1.273 it was built against, on the same machine and from the same
+2.1.283 it was built against, on the same machine and from the same
 flake.
 
 Use it when you want the stack to follow an agent you update yourself,
@@ -207,7 +206,7 @@ nix eval --raw .#caveman-stack.passthru.agentStack.harness.name
 ```
 
 ```text
-claude-code-2.1.273
+claude-code-2.1.283
 ```
 
 Adopt a newer one by updating that input and rebuilding:
