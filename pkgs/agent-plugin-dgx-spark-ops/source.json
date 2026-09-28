@@ -1,0 +1,39 @@
+{
+  "name": "dgx-spark-ops",
+  "version": "1.0.0",
+  "src": {
+    "owner": "wshobson",
+    "repo": "agents",
+    "rev": "9b15b34b0bfc13a815cbfc2366e14ea549e09422",
+    "hash": "sha256-8h5zbwUAujgruqYZLErWewRX2bmJ5MvkhDqe3J4viNI="
+  },
+  "sourceUrl": "https://github.com/wshobson/agents",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "email": "seth@major7apps.com",
+      "name": "Seth Hobson"
+    },
+    "description": "NVIDIA DGX Spark (GB10) environment operations. Use when setting up, preflighting, or debugging ML workloads on DGX Spark or aarch64 Blackwell hardware — CUDA-13 wheel/ABI checks, unified-memory OOM ladders, thermal monitoring.",
+    "homepage": "https://github.com/wshobson/agents",
+    "license": "MIT",
+    "name": "dgx-spark-ops",
+    "version": "1.0.0"
+  },
+  "skills": {
+    "spark-environment-setup": "plugins/dgx-spark-ops/skills/spark-environment-setup",
+    "spark-memory-thermal-ops": "plugins/dgx-spark-ops/skills/spark-memory-thermal-ops",
+    "spark-training-gotchas": "plugins/dgx-spark-ops/skills/spark-training-gotchas"
+  },
+  "requiredRuntimes": [],
+  "meta": {
+    "description": "NVIDIA DGX Spark (GB10) environment operations",
+    "homepage": "https://github.com/wshobson/agents"
+  },
+  "import": {
+    "input": "wshobson/agents",
+    "flags": [
+      "--path-ignore=plugins/avoid-ai-writing"
+    ]
+  }
+}
