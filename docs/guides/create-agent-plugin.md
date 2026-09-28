@@ -2,8 +2,8 @@
 
 How to create an agent-plugin package from an existing skills
 repository, worked through with
-[flox/flox-skills](https://github.com/flox/flox-skills) as the
-example.
+[juliusbrussee/caveman](https://github.com/juliusbrussee/caveman) as
+the example.
 
 Packages are generated rather than hand-written. `agent-stacks
 import` pins an upstream repository and writes the two files that
@@ -37,12 +37,12 @@ The flake builds the importer on demand, which is what the
 
 ```sh
 # in the top-level directory of agent-pkgs
-nix run .#agent-stacks -- import flox/flox-skills -out pkgs
+nix run .#agent-stacks -- import juliusbrussee/caveman -out pkgs
 ```
 
 `-out` is the output root, not the package directory. The importer
 appends `agent-plugin-<name>/` to it, so `-out pkgs` writes
-`pkgs/agent-plugin-flox/`.
+`pkgs/agent-plugin-caveman/`.
 
 The flag is not optional here. It defaults to `.flox/pkgs`, which
 targets a Flox environment rather than this repo — see [Why not
@@ -52,14 +52,21 @@ for what goes wrong if you take the default.
 Import prints what it did and what it noticed:
 
 ```text
-warning flox-plugin/skills/floxify/SKILL.md: unknown frontmatter fields: argument-hint
-flox: unchanged at c3ad25f26d9b
+warning: skills/cavecrew: skill "cavecrew" already found at plugins/caveman/skills/cavecrew, not imported
+warning: skills/caveman: skill "caveman" already found at plugins/caveman/skills/caveman, not imported
+warning: skills/caveman-compress: skill "caveman-compress" already found at plugins/caveman/skills/caveman-compress, not imported
+warning: skills/caveman-stats: skill "caveman-stats" already found at plugins/caveman/skills/caveman-stats, not imported
+warning skills/caveman-explore/SKILL.md: unknown frontmatter fields: model, tools
+caveman: unchanged at 2fd153c67988
 ```
 
-The warning is not a failure. Spec deviations outside a plugin's own
-`SKILL.md` errors are recorded rather than fatal, and they land in the
-generated `source.json` under `import.warnings`, so a reviewer sees
-them without re-running the command.
+The warnings are not failures. The first four say the upstream tree
+carries the same skill twice; import kept the copy under
+`plugins/caveman/` and skipped the one under `skills/`. Spec
+deviations outside a plugin's own `SKILL.md` errors are recorded
+rather than fatal, and the ones import attributes to a file land in
+the generated `source.json` under `import.warnings`, so a reviewer
+sees them without re-running the command.
 
 The summary line explains the outcome:
 
@@ -70,7 +77,7 @@ The summary line explains the outcome:
 | `regenerated at <rev>` | Same upstream commit, different bytes — an older importer wrote it, or it was edited |
 | `<old> -> <new>` | Upstream moved; skills added and removed are listed |
 
-flox-skills is already packaged in this repo, so the command above
+caveman is already packaged in this repo, so the command above
 reports `unchanged`. A repository not yet packaged reports `new
 plugin` and creates a new directory. Re-import is also the
 update path: there is no `upgrade` verb.
@@ -78,7 +85,7 @@ update path: there is no `upgrade` verb.
 ## 2. Read the files from the import
 
 ```sh
-ls pkgs/agent-plugin-flox/
+ls pkgs/agent-plugin-caveman/
 ```
 
 Two files. `default.nix` is identical in every package in `pkgs/`:
@@ -101,7 +108,7 @@ Neither file is edited by hand. To move a package, re-import it.
 ## 3. Stage a new package in git before building
 
 ```sh
-git add pkgs/agent-plugin-flox
+git add pkgs/agent-plugin-caveman
 ```
 
 Nix flakes only see git-tracked files, so a brand-new package
@@ -121,7 +128,7 @@ an already-committed package.
 ## 4. Nix build
 
 ```sh
-nix build .#agent-plugin-flox && readlink -f result
+nix build .#agent-plugin-caveman && readlink -f result
 ```
 
 `nix build` prints nothing about its output on success; it leaves a
@@ -131,13 +138,13 @@ and print the path in one step use `--print-out-paths`, and add
 
 The result is the canonical layout — `plugin.json` and `skills/`
 always, `mcp.json` when the plugin declares servers, and whatever
-else the upstream tree carries (flox-skills brings a `bin/`):
+else the upstream tree carries (caveman's scripts bring a `bin/`):
 
 ```text
-result/share/agent-plugins/flox/
+result/share/agent-plugins/caveman/
 ├── plugin.json
-├── skills/          # flox, flox-debug, floxify
-└── bin/
+├── skills/          # 20 skills: caveman, cavecrew, lean-build, …
+└── bin/             # python3
 ```
 
 A green build has already validated the tree. `buildAgentPlugin` runs
@@ -150,12 +157,12 @@ The install check above is not strict by default, so warnings do not
 fail the build. To read them:
 
 ```sh
-nix run .#agent-stacks -- check-plugin ./result/share/agent-plugins/flox
+nix run .#agent-stacks -- check-plugin ./result/share/agent-plugins/caveman
 ```
 
 ```text
-warning skills/floxify/SKILL.md: unknown frontmatter fields: argument-hint
-OK ./result/share/agent-plugins/flox (Agent Plugins 1.1.0)
+warning skills/caveman-explore/SKILL.md: unknown frontmatter fields: model, tools
+OK ./result/share/agent-plugins/caveman (Agent Plugins 1.1.0)
 ```
 
 This is also how to validate a plugin tree that is not the output of
@@ -164,8 +171,8 @@ a build.
 ## 6. Open the pull request
 
 ```sh
-git checkout -b import/flox-skills
-git commit -m "import: flox/flox-skills"
+git checkout -b import/caveman
+git commit -m "import: juliusbrussee/caveman"
 ```
 
 CI builds every package on every PR. Commit only the two generated
@@ -224,9 +231,9 @@ nix build .#agent-plugin-internal
 
 Every other step on this page applies unchanged: the generated files,
 staging before building, the install check. The result is the same
-derivation it would be here — importing `flox/flox-skills` into a
+derivation it would be here — importing `juliusbrussee/caveman` into a
 standalone repository and building it produces the same store path as
-`nix build .#agent-plugin-flox` does in this one.
+`nix build .#agent-plugin-caveman` does in this one.
 
 ## Per-repository workarounds
 

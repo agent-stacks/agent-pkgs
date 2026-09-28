@@ -141,7 +141,8 @@ One naming rule matters on this side: the package directory, and so
 the flake attribute, is the plugin's name behind an `agent-plugin-`
 prefix, while `name` in the call is the unprefixed plugin name that
 `share/agent-plugins/<name>/` and the manifest both use. The plugin
-`flox` is `pkgs/agent-plugin-flox/`, built as `agent-plugin-flox`.
+`caveman` is `pkgs/agent-plugin-caveman/`, built as
+`agent-plugin-caveman`.
 
 Two further consequences bind the builder:
 
