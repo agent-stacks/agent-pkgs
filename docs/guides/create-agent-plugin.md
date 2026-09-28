@@ -284,14 +284,11 @@ A block may never set `doInstallCheck = false`, and may never narrow
 package people install. A block is a workaround for a packaging gap,
 never an escape from validation.
 
-The markers only exist in packages a newer importer has generated.
-Every package in this repository today still carries the older
-`default.nix`, four lines taking only `buildAgentPlugin`, headed "do
-not edit by hand" — no `args`, no `hooks`, no markers. If the package
-in front of you has no `BEGIN custom` / `END custom` pair, there is
-nothing to edit yet, and a block added by hand would be erased the
-next time the package is re-imported. The markers themselves are the
-test: look for them before following the steps above.
+The markers are how a current importer writes `default.nix`, so the
+package in front of you will have them. A package generated before
+they existed will not, and a block added by hand to one of those is
+erased the next time it is re-imported. Re-import it first, then write
+the block into the regenerated file.
 
 ## Where the details live
 
