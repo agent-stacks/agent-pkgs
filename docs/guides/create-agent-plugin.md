@@ -29,7 +29,7 @@ only the last one, opening a pull request, differs.
 
 ## Requirements
 
-Nix with flakes, and git. You do not need `agent-stacks` or `flox` installed.
+Nix with flakes, and git. You do not need `agent-stacks` installed.
 The flake builds the importer on demand, which is what the
 `nix run .#agent-stacks` below does.
 
@@ -44,10 +44,9 @@ nix run .#agent-stacks -- import juliusbrussee/caveman -out pkgs
 appends `agent-plugin-<name>/` to it, so `-out pkgs` writes
 `pkgs/agent-plugin-caveman/`.
 
-The flag is not optional here. It defaults to `.flox/pkgs`, which
-targets a Flox environment rather than this repo — see [Why not
-import into a Flox environment](#why-not-import-into-a-flox-environment)
-for what goes wrong if you take the default.
+The flag is not optional here. Its default writes outside this
+repository's `pkgs/`, where nothing supplies `buildAgentPlugin` and the
+package cannot be built.
 
 Import prints what it did and what it noticed:
 
@@ -192,49 +191,35 @@ git commit -m "import: juliusbrussee/caveman"
 CI builds every package on every PR. Commit only the two generated
 files; `result` is a build artifact and should be ignored.
 
-## Why not import into a Flox environment
-
-The generated `default.nix` takes exactly one argument,
-`buildAgentPlugin`. That function comes from this repo:
-`lib/build-agent-plugin.nix`, bound into the package scope in
-`flake.nix`. A Flox environment's expression-build scope is nixpkgs
-plus the sibling directories in `.flox/pkgs/`, and `buildAgentPlugin`
-is in neither, so a package imported there fails to evaluate:
-
-```text
-error: lib.customisation.callPackageWith: Function called without
-required argument "buildAgentPlugin"
-```
-
-Because `-out` defaults to `.flox/pkgs`, taking the default points
-the importer at exactly the environment that cannot build what it
-writes. Resolving `buildAgentPlugin` without a Nix scope to supply it
-is a known open question, recorded in agent-stacks's
-[ADR 0016](https://github.com/agent-stacks/agent-stacks-cli/blob/main/docs/decisions/0016-source-json-is-the-builder-call.md).
-
-What blocks it is the scope, not the repository. A Flox environment
-cannot supply `buildAgentPlugin`, because an expression build has no
-way to pull one in. A flake of your own can, through an input.
-
 ## Building outside agent-pkgs
 
 For skills that should not be published, run the same import in your
-own repository and supply the builder from this repo's `lib` output:
+own repository. The generated `default.nix` is a callPackage-style
+function taking two arguments: `buildAgentPlugin`, which this repo
+exposes as a `lib` output, and `pkgs`, which `callPackage` fills in
+from your nixpkgs.
 
 ```nix
 {
   inputs.agent-pkgs.url = "github:agent-stacks/agent-pkgs";
+  inputs.nixpkgs.follows = "agent-pkgs/nixpkgs";
 
-  outputs = { self, agent-pkgs }:
-    let system = "aarch64-darwin";
+  outputs = { self, nixpkgs, agent-pkgs }:
+    let
+      system = "aarch64-darwin";
+      pkgs = nixpkgs.legacyPackages.${system};
     in {
       packages.${system}.agent-plugin-internal =
-        import ./pkgs/agent-plugin-internal {
+        pkgs.callPackage ./pkgs/agent-plugin-internal {
           inherit (agent-pkgs.lib.${system}) buildAgentPlugin;
         };
     };
 }
 ```
+
+Following `agent-pkgs`'s nixpkgs rather than pinning your own keeps one
+revision under the build. A second revision is how two repositories
+produce two store paths for the same plugin.
 
 ```sh
 nix run github:agent-stacks/agent-pkgs#agent-stacks -- \
@@ -246,8 +231,9 @@ nix build .#agent-plugin-internal
 Every other step on this page applies unchanged: the generated files,
 staging before building, the install check. The result is the same
 derivation it would be here — importing `juliusbrussee/caveman` into a
-standalone repository and building it produces the same store path as
-`nix build .#agent-plugin-caveman` does in this one.
+standalone repository and building it that way evaluates to the same
+`.drv`, and so the same store path, as `nix build
+.#agent-plugin-caveman` does in this one.
 
 ## Per-repository workarounds
 
