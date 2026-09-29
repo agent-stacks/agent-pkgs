@@ -1,16 +1,16 @@
 # Create an agent-plugin package
 
 How to create an agent-plugin Nix package from an existing skills
-repository, worked through with
+repository, using
 [juliusbrussee/caveman](https://github.com/juliusbrussee/caveman) as
 the example.
 
 Packages are generated rather than hand-written. The CLI command
 `agent-stacks import` pins an upstream repository and writes the two
 files that make a package; `buildAgentPlugin` turns those into the
-canonical file layout at build time. The contract the two halves meet
-at is [reference/import-contract.md](../reference/import-contract.md),
-and the flags belong to the tool, so this page links to
+canonical file layout at build time. See
+[reference/import-contract.md](../reference/import-contract.md).
+The flags belong to the tool, so this page links to
 [agent-stacks's import reference](https://github.com/agent-stacks/agent-stacks-cli/blob/main/docs/reference/import-command.md).
 
 ## Where the package should be defined
@@ -24,15 +24,18 @@ Which repository that should be depends on who the skills are for:
 | public and broadly applicable | this repo, under `pkgs/` | CI builds it on every PR and Hydra publishes it to `cache.agent-stacks.org`, so everyone gets it prebuilt |
 | private, or specific to one organization | a repository of your own | a public package set is the wrong home for skills that should not be published; see [Building outside agent-pkgs](#building-outside-agent-pkgs) |
 
-This guide walks the public case, which would involve a pull request.
+This guide walks the public case, which would involve a pull request
+to contribute the package upstream.
 
 ## Requirements
 
 Nix with flakes, and git. You do not need `agent-stacks` installed.
-The flake builds the importer on demand, which is what the
-`nix run .#agent-stacks` below does.
 
 ## 1. Import the upstream skills repository
+
+The example skills you import are at
+`github.com/juliusbrussee/caveman`. Change the repository as
+appropriate for your scenario.
 
 ```sh
 # in the top-level directory of agent-pkgs
@@ -58,7 +61,7 @@ warning skills/caveman-explore/SKILL.md: unknown frontmatter fields: model, tool
 caveman: unchanged at 2fd153c67988
 ```
 
-The warnings are not failures. The first four say the upstream tree
+Warnings are not failures. The first four say the upstream tree
 carries the same skill twice; import kept the copy under
 `plugins/caveman/` and skipped the one under `skills/`. Spec
 deviations outside a plugin's own `SKILL.md` errors are recorded
@@ -66,7 +69,7 @@ rather than fatal, and the ones import attributes to a file land in
 the generated `source.json` under `import.warnings`, so a reviewer
 sees them without re-running the command.
 
-The summary line explains the outcome:
+The final summary line explains the outcome:
 
 | Line | Meaning |
 | ------------------------ | ------- |
@@ -90,12 +93,12 @@ Two files, and `source.json` is the one to read first. It is the
 `buildAgentPlugin` call, serialized: its top level is exactly the
 builder's argument set, key for key. The formals carry no `...`, so a
 key the builder does not declare fails the build rather than being
-ignored. If you have seen nvfetcher's `_sources/generated.json`, or any
-nixpkgs package that keeps its pin in a JSON file beside a thin
+ignored. If you have seen nvfetcher's `_sources/generated.json`, or
+any nixpkgs package that keeps its pin in a JSON file beside a thin
 `default.nix`, this uses that familiar pattern.
 
-The caveman `source.json` is long, and twenty of its entries are
-skills. A flat object, with these keys:
+Twenty of caveman's entries are skills. A flat object, with these
+keys:
 
 | Key | What it holds | What it becomes |
 | --- | --- | --- |
@@ -178,10 +181,8 @@ an already-committed package.
 nix build .#agent-plugin-caveman && readlink -f result
 ```
 
-`nix build` prints nothing about its output on success; it leaves a
-`result` symlink into the store. `readlink -f` resolves it. To build
-and print the path in one step use `--print-out-paths`, and add
-`--no-link` when you would rather not leave the symlink behind.
+`nix build` does not print the output path on success; it leaves a
+`result` symlink into the store, and `readlink -f` shows the path.
 
 The result is the canonical layout — `plugin.json` and `skills/`
 always, `mcp.json` when the plugin declares servers, and whatever
@@ -194,9 +195,8 @@ result/share/agent-plugins/caveman/
 └── bin/             # python3
 ```
 
-A green build has already validated the tree. `buildAgentPlugin` runs
-`agent-stacks check-plugin` on its output as an install check, so
-validation is not a separate step.
+A build includes plugin validation as `buildAgentPlugin` runs
+`agent-stacks check-plugin` on the output.
 
 ## 5. Inspect the warnings yourself (optional)
 
@@ -212,10 +212,10 @@ warning skills/caveman-explore/SKILL.md: unknown frontmatter fields: model, tool
 OK ./result/share/agent-plugins/caveman (Agent Plugins 1.1.0)
 ```
 
-This is also how to validate a plugin tree that is not the output of
-a build.
-
 ## 6. Open the pull request
+
+This step is only required if you are contributing plugin updates to
+this repository.
 
 ```sh
 git checkout -b import/caveman
@@ -309,8 +309,7 @@ import; the block is carried across untouched:
   # END custom — anything outside these markers is overwritten
 ```
 
-Every block needs a `why:` line. Unexplained workarounds are what
-rot.
+Every block needs a `why:` line.
 
 A block may never set `doInstallCheck = false`, and may never narrow
 `installCheckPhase`. That would switch off `check-plugin` for a
@@ -318,7 +317,7 @@ package people install. A block is a workaround for a packaging gap,
 never an escape from validation.
 
 The markers are how a current importer writes `default.nix`, so the
-package in front of you will have them. A package generated before
+package should have them. A package generated before
 they existed will not, and a block added by hand to one of those is
 erased the next time it is re-imported. Re-import it first, then write
 the block into the regenerated file.
