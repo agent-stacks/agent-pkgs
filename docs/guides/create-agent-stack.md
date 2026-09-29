@@ -147,10 +147,14 @@ execs the agent pointed at it. Each adapter does that differently:
 | `opencode` | staged to `<staged>/skills/caveman`, same shape as codex |
 | `agent-deck` | a seeded `config.toml` whose tool command is `agent-stacks launch claude --`, so it inherits claude's staging |
 
-To see what a stack holds without launching anything:
+To see what a stack holds without launching anything, run the
+`agent-stacks` from this repo against the stack's `share`. The stack
+carries its own copy for the launcher but does not put it on your PATH,
+so reach for it through `nix run`:
 
 ```sh
-agent-stacks --dir ./result/share doctor
+nix run github:agent-stacks/agent-pkgs#agent-stacks -- \
+  --dir ./result/share doctor
 ```
 
 ```text
