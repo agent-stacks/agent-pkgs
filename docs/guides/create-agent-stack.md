@@ -1,7 +1,7 @@
 # Create an agent-stack package
 
 How to create a reproducible agent-stack package. This guide uses the
-`flox` plugin with 3 skills from
+`caveman` plugin with 20 skills from
 [create-agent-plugin.md](create-agent-plugin.md) and Claude Code as the
 harness.
 
@@ -32,20 +32,23 @@ is written in *your* flake, against `agent-pkgs` as an input.
 
 ## 1. Write the stack
 
-`mkAgentStack` is exposed per system under the flake's `lib` output:
+A stack is a flake of your own with `agent-pkgs` as an input.
+`mkAgentStack` comes from that input's `lib` output, exposed per
+system:
 
 ```nix
+# flake.nix, in a directory of your own
 {
   inputs.agent-pkgs.url = "github:agent-stacks/agent-pkgs";
 
   outputs = { self, agent-pkgs }:
     let system = "aarch64-darwin";
     in {
-      packages.${system}.flox-stack =
+      packages.${system}.caveman-stack =
         agent-pkgs.lib.${system}.mkAgentStack {
-          name = "flox-stack";
+          name = "caveman-stack";
           harness = agent-pkgs.packages.${system}.claude-code;
-          plugins = [ agent-pkgs.packages.${system}.agent-plugin-flox ];
+          plugins = [ agent-pkgs.packages.${system}.agent-plugin-caveman ];
         };
     };
 }
@@ -70,18 +73,18 @@ launch.
 ## 2. Build it
 
 ```sh
-nix build .#flox-stack && readlink -f result
+nix build .#caveman-stack && readlink -f result
 ```
 
 Two things in the output, and no per-harness directories:
 
 ```text
 result/
-├── bin/flox-stack                      # the launcher
-└── share/agent-plugins/flox/           # the plugin, spec layout
+├── bin/caveman-stack                   # the launcher
+└── share/agent-plugins/caveman/        # the plugin, spec layout
     ├── plugin.json
-    ├── skills/                         # flox, flox-debug, floxify
-    └── bin/
+    ├── skills/                         # 20 skills: caveman, cavecrew, …
+    └── bin/                            # python3
 ```
 
 ## 3. Use the stack
@@ -89,7 +92,7 @@ result/
 Run it:
 
 ```sh
-./result/bin/flox-stack
+./result/bin/caveman-stack
 ```
 
 The agent starts with the stack's plugins already wired in. Nothing to
@@ -100,11 +103,11 @@ Arguments reach the agent verbatim, so the quickest check that a stack
 runs what it claims is:
 
 ```sh
-./result/bin/flox-stack --version
+./result/bin/caveman-stack --version
 ```
 
 ```text
-2.1.273 (Claude Code)
+2.1.283 (Claude Code)
 ```
 
 With a pinned harness that is the version the stack was built against,
@@ -112,13 +115,13 @@ on any machine, whatever the machine has installed.
 
 ### The launcher
 
-`bin/flox-stack` is a five-line script, worth reading because it
+`bin/caveman-stack` is a very small script, worth reading because it
 explains the design:
 
 ```sh
-export PATH="/nix/store/…-claude-code-2.1.273/bin:$PATH"
+export PATH="/nix/store/…-claude-code-2.1.283/bin:$PATH"
 exec "${AGENT_STACKS_BIN:-/nix/store/…-agent-stacks-bin-…/bin/agent-stacks}" \
-  --dir "/nix/store/…-agent-stack-flox-stack-0/share" \
+  --dir "/nix/store/…-agent-stack-caveman-stack-0/share" \
   launch claude -- "$@"
 ```
 
@@ -126,13 +129,12 @@ The pinned harness goes on PATH first, so `launch claude` finds the
 stack's Claude Code rather than the machine's. The stack also carries
 its own `agent-stacks` in its closure rather than hoping the consumer
 has one on PATH, points it at its own `share`, and names the agent.
-Arguments you pass reach the agent verbatim — `./result/bin/flox-stack
+Arguments you pass reach the agent verbatim — `./result/bin/caveman-stack
 --version` prints the pinned agent's version, which is the quickest
 check that a stack runs what it says. `AGENT_STACKS_BIN` overrides the
 pinned agent-stacks, which is how you run a stack against a local build.
 
-Without a pinned harness that first line is absent, and the script is
-four lines.
+Without a pinned harness that first line is absent.
 
 ### What reaches the agent
 
@@ -142,21 +144,25 @@ execs the agent pointed at it. Each adapter does that differently:
 
 | Agent | How the skills arrive |
 | ------------ | --------------------- |
-| `claude` | `--plugin-dir <staged>/plugins/flox`, a tree with `.claude-plugin/plugin.json` and `skills/` |
-| `pi` | `--skill <staged>/skills/flox` |
-| `codex` | staged to `<staged>/skills/flox`, reached through the environment rather than a flag |
-| `opencode` | staged to `<staged>/skills/flox`, same shape as codex |
+| `claude` | `--plugin-dir <staged>/plugins/caveman`, a tree with `.claude-plugin/plugin.json` and `skills/` |
+| `pi` | `--skill <staged>/skills/caveman` |
+| `codex` | staged to `<staged>/skills/caveman`, reached through the environment rather than a flag |
+| `opencode` | staged to `<staged>/skills/caveman`, same shape as codex |
 | `agent-deck` | a seeded `config.toml` whose tool command is `agent-stacks launch claude --`, so it inherits claude's staging |
 
-To see what a stack holds without launching anything:
+To see what a stack holds without launching anything, run the
+`agent-stacks` from this repo against the stack's `share`. The stack
+carries its own copy for the launcher but does not put it on your PATH,
+so reach for it through `nix run`:
 
 ```sh
-agent-stacks --dir ./result/share doctor
+nix run github:agent-stacks/agent-pkgs#agent-stacks -- \
+  --dir ./result/share doctor
 ```
 
 ```text
   Installed plugins: 1
-  Skills: 3
+  Skills: 20
 ```
 
 ## Using a pre-installed harness
@@ -180,7 +186,7 @@ so the same stack can behave differently on another machine
 
 The drift risk is real: a machine with Claude Code 2.1.257 installed
 runs 2.1.257 under this form, while the pinned stack above runs the
-2.1.273 it was built against, on the same machine and from the same
+2.1.283 it was built against, on the same machine and from the same
 flake.
 
 Use it when you want the stack to follow an agent you update yourself,
@@ -203,19 +209,19 @@ harness package.
 Read what you have now, without building:
 
 ```sh
-nix eval --raw .#flox-stack.passthru.agentStack.harness.name
+nix eval --raw .#caveman-stack.passthru.agentStack.harness.name
 ```
 
 ```text
-claude-code-2.1.273
+claude-code-2.1.283
 ```
 
 Adopt a newer one by updating that input and rebuilding:
 
 ```sh
 nix flake update agent-pkgs
-nix build .#flox-stack
-./result/bin/flox-stack --version
+nix build .#caveman-stack
+./result/bin/caveman-stack --version
 ```
 
 Then commit the changed `flake.lock`. That is the whole upgrade, and
@@ -254,7 +260,7 @@ both files:
 
 ```sh
 git add flake.nix flake.lock
-git commit -m "flox-stack"
+git commit -m "caveman-stack"
 ```
 
 `flake.lock` is what makes this reproducible. It pins `agent-pkgs`,
@@ -269,8 +275,8 @@ the harness is pinned:
 ```sh
 git clone <repo-url>
 cd <repo>
-nix build .#flox-stack
-./result/bin/flox-stack
+nix build .#caveman-stack
+./result/bin/caveman-stack
 ```
 
 Those three commands are the entire setup, and they produce the same
@@ -281,7 +287,7 @@ Building the harness from source is the slow part. agent-pkgs
 publishes prebuilt packages, so point Nix at its cache to skip that:
 
 ```sh
-nix build .#flox-stack \
+nix build .#caveman-stack \
   --extra-substituters https://cache.agent-stacks.org \
   --extra-trusted-public-keys agent-stacks-1:RWT4eI3clOY7jhOzIQNTyXL1Z8yQpN3KlNvvPMfFCRk=
 ```
@@ -295,8 +301,8 @@ settings in `nix.conf` instead; the
 Not built by default. Ask for it explicitly:
 
 ```sh
-nix build .#flox-stack^audit
-./result-audit/bin/flox-stack-audit
+nix build .#caveman-stack^audit
+./result-audit/bin/caveman-stack-audit
 ```
 
 The audit script needs its tools on PATH; `doctor` lists which are

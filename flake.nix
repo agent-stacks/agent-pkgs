@@ -395,6 +395,17 @@
               touch $out
             '';
 
+          # A preserved default.nix block appends to the hooks rather
+          # than replacing them, so both have to exist even when no
+          # package has set them. Without the empty defaults in
+          # build-agent-plugin.nix this fails to evaluate.
+          old-hooks-exist = ((mkPackages pkgs).agent-plugin-avoid-ai-writing.overrideAttrs (old: {
+            nativeBuildInputs = old.nativeBuildInputs ++ [ pkgs.jq ];
+            postAssemble = old.postAssemble + ''
+              jq --version > /dev/null
+            '';
+          })).overrideAttrs (_: { pname = "old-hooks-exist"; });
+
           # notPackages is a hand-maintained judgement against a set
           # that grows daily, so it needs a tripwire rather than a
           # convention. meta.mainProgram is the signal — every package

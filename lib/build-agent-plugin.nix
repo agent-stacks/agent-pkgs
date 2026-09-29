@@ -239,6 +239,14 @@ stdenvNoCC.mkDerivation {
   inherit version;
   src = resolvedSrc;
 
+  # Empty so a package's preserved default.nix block can append to
+  # these rather than replace them: `old.nativeBuildInputs ++ [ ... ]`
+  # is an eval error on an attribute that is not set. stdenvNoCC is
+  # deliberately bare, so a hook that does more than copy a file has
+  # to bring its own tool (AI-773).
+  nativeBuildInputs = [ ];
+  postAssemble = "";
+
   dontConfigure = true;
 
   # assemble-plugin's substitution pass is the only thing entitled to

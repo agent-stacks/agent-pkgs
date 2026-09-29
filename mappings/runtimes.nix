@@ -38,6 +38,12 @@
   python = "python3";
   python3 = "python3";
 
+  # PowerShell. nixpkgs names the package `powershell` and its
+  # mainProgram is `pwsh`, which is the token skills actually write
+  # in a shebang. Arrives with agent-plugin-azure, the first package
+  # to record it in requiredRuntimes (AI-757).
+  pwsh = "powershell";
+
   # Launchers, not interpreters. Each resolves what it runs from the
   # network, so mapping the name makes the closure complete for the
   # launcher and not for what it launches (AI-565).

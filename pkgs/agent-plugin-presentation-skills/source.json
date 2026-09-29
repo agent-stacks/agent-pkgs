@@ -1,0 +1,40 @@
+{
+  "name": "presentation-skills",
+  "version": "0-unstable-2026-07-12",
+  "src": {
+    "owner": "ConardLi",
+    "repo": "garden-skills",
+    "rev": "aaf9a82f5efd73e87cc0998edc398e75bfc35901",
+    "hash": "sha256-9vhTCc9jMzuPGbEQeVLUTSk2N+rGCBE7o898PrHSoB0="
+  },
+  "sourceUrl": "https://github.com/ConardLi/garden-skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "description": "Skills for click-driven web video presentations and screen-recorded explainers.",
+    "name": "presentation-skills"
+  },
+  "skills": {
+    "web-video-presentation": "skills/web-video-presentation"
+  },
+  "requiredRuntimes": [
+    "bash"
+  ],
+  "meta": {
+    "description": "Skills for click-driven web video presentations and screen-recorded explainers",
+    "homepage": "https://github.com/ConardLi/garden-skills"
+  },
+  "import": {
+    "input": "ConardLi/garden-skills",
+    "flags": [],
+    "warnings": [
+      {
+        "path": "skills/web-video-presentation/templates/scripts/tts-providers/minimax.sh",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/web-video-presentation/templates/scripts/tts-providers/openai.sh",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      }
+    ]
+  }
+}
