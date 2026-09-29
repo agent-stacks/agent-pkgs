@@ -5,18 +5,18 @@ repository, worked through with
 [juliusbrussee/caveman](https://github.com/juliusbrussee/caveman) as
 the example.
 
-Packages are generated rather than hand-written. The CLI command 
-`agent-stacks import` pins an upstream repository and writes the two 
-files that make a package; `buildAgentPlugin` turns those into the 
-canonical file layout at build time. The contract the two halves meet 
-at is [reference/import-contract.md](../reference/import-contract.md), 
-and the flags belong to the tool, so this page links to 
+Packages are generated rather than hand-written. The CLI command
+`agent-stacks import` pins an upstream repository and writes the two
+files that make a package; `buildAgentPlugin` turns those into the
+canonical file layout at build time. The contract the two halves meet
+at is [reference/import-contract.md](../reference/import-contract.md),
+and the flags belong to the tool, so this page links to
 [agent-stacks's import reference](https://github.com/agent-stacks/agent-stacks-cli/blob/main/docs/reference/import-command.md).
 
 ## Where the package should be defined
 
-A plugin package is defined by two small generated files, and it can 
-live in any repository whose Nix scope can supply `buildAgentPlugin`. 
+A plugin package is defined by two small generated files, and it can
+live in any repository whose Nix scope can supply `buildAgentPlugin`.
 Which repository that should be depends on who the skills are for:
 
 | The skills are | Put the package in | Why |
@@ -43,7 +43,7 @@ nix run .#agent-stacks -- import juliusbrussee/caveman -out pkgs
 appends `agent-plugin-<name>/` to it, so `-out pkgs` writes
 `pkgs/agent-plugin-caveman/`.
 
-The out flag is not optional here. Its default writes outside this
+The `-out` flag is not optional here. Its default writes outside this
 repository's `pkgs/`, where nothing supplies `buildAgentPlugin` and the
 package cannot be built.
 
@@ -90,12 +90,12 @@ Two files, and `source.json` is the one to read first. It is the
 `buildAgentPlugin` call, serialized: its top level is exactly the
 builder's argument set, key for key. The formals carry no `...`, so a
 key the builder does not declare fails the build rather than being
-ignored. If seen nvfetcher's `_sources/generated.json`, or any
+ignored. If you have seen nvfetcher's `_sources/generated.json`, or any
 nixpkgs package that keeps its pin in a JSON file beside a thin
 `default.nix`, this uses that familiar pattern.
 
-The Caveman `source.json` is long, and twenty of its entries are 
-skills. A flat object, with these keys: 
+The caveman `source.json` is long, and twenty of its entries are
+skills. A flat object, with these keys:
 
 | Key | What it holds | What it becomes |
 | --- | --- | --- |
@@ -117,7 +117,7 @@ build produces no `mcp.json`.
 The values are paths relative to the root of `src`, not paths in the
 output. Upstream decides where a skill's directory sits; `skills` is
 how the build finds it, and the key is the name it will have under
-`share/agent-plugins/caveman/skills/`. Caveman shows both shapes in
+`share/agent-plugins/caveman/skills/`. caveman shows both shapes in
 one package: `"lean-build": "skills/lean-build"` for a skill upstream
 keeps at the top level, and `"caveman": "plugins/caveman/skills/caveman"`
 for one it keeps under a plugin directory.
