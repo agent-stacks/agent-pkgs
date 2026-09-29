@@ -246,6 +246,7 @@ exposes as a `lib` output, and `pkgs`, which `callPackage` fills in
 from your nixpkgs.
 
 ```nix
+# flake.nix, in your own repository
 {
   inputs.agent-pkgs.url = "github:agent-stacks/agent-pkgs";
   inputs.nixpkgs.follows = "agent-pkgs/nixpkgs";

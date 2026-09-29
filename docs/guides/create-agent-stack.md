@@ -32,9 +32,12 @@ is written in *your* flake, against `agent-pkgs` as an input.
 
 ## 1. Write the stack
 
-`mkAgentStack` is exposed per system under the flake's `lib` output:
+A stack is a flake of your own with `agent-pkgs` as an input.
+`mkAgentStack` comes from that input's `lib` output, exposed per
+system:
 
 ```nix
+# flake.nix, in a directory of your own
 {
   inputs.agent-pkgs.url = "github:agent-stacks/agent-pkgs";
 
