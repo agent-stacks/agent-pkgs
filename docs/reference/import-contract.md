@@ -125,20 +125,26 @@ so the record of what produced the package travels with it.
 
 `pluginRootPaths` maps a plugin-root entry's destination inside the
 plugin tree to its path inside `src`. It is what the selected skills
-reach through `${PLUGIN_ROOT}`, which Claude spells
-`${CLAUDE_PLUGIN_ROOT}`: a plugin whose executable code sits beside
-`skills/` rather than inside a skill ships it this way. The builder
-copies exactly these entries, before the runtime pass, so their
-contents are rewritten, pinned and guarded like a skill's own files;
-a directory is copied whole. Destinations are one path segment, and
-never `skills` or `bin`, which assembly writes itself. The field is
-absent when the skills reference nothing outside themselves, so a
-package that predates it is unchanged. See
-[ADR 0016](../decisions/0016-plugin-root-code-ships-when-skills-reference-it.md).
+and the plugin's MCP servers reach through `${PLUGIN_ROOT}`, which
+Claude spells `${CLAUDE_PLUGIN_ROOT}`: a plugin whose executable code
+sits beside `skills/` rather than inside a skill ships it this way.
+For a Claude plugin it also carries the components Claude Code loads
+from the plugin root that the spec does not define — `agents/`,
+`commands/` and `hooks/` — and whatever they reference in turn
+(agent-stacks ADR 0037). The builder copies exactly these entries,
+before the runtime pass, so their contents are rewritten, pinned and
+guarded like a skill's own files; a directory is copied whole. Among
+them, `hooks/hooks.json` has each hook that runs a plugin file with a
+bare interpreter pointed at the package's own `bin/`, as a shebang
+is. Destinations are one path segment, and never `skills` or `bin`,
+which assembly writes itself. The field is absent when nothing
+outside the skills ships, so a package that predates it is unchanged.
+See [ADR 0016](../decisions/0016-plugin-root-code-ships-when-skills-reference-it.md).
 
 `requiredRuntimes` is a flat array of the interpreter tokens the
-scanner found named in the package's files — shebangs and bare
-`mcp.json` commands. It is required for a generated package: a
+scanner found named in the package's files — shebangs, bare
+`mcp.json` commands, and the interpreters `hooks/hooks.json` runs
+plugin files with. It is required for a generated package: a
 `source.json` carrying `import` must also carry `requiredRuntimes`,
 and `buildAgentPlugin` throws, naming the fix, if it does not. A
 hand-written `buildAgentPlugin` call omits both `import` and
