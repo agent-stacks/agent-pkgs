@@ -3,7 +3,9 @@
 #   $out/share/agent-plugins/<name>/
 #   ├── plugin.json
 #   ├── skills/
-#   └── mcp.json        # optional
+#   ├── mcp.json        # optional
+#   ├── bin/            # pinned interpreters, when any are needed
+#   └── ...             # pluginRootPaths entries, e.g. hooks/, scripts/
 #
 # Skill selection, in precedence order:
 #
@@ -61,14 +63,9 @@
 , manifest ? null
   # assemble mode: skill name -> path inside src
 , skills ? null
-  # plugin-root entries the skills and servers reach through
-  # ${PLUGIN_ROOT}, and a Claude plugin's agents/, commands/ and hooks/
-  # with what they reach: destination inside the plugin tree -> path
-  # inside src. A plugin keeping its executable code beside skills/
-  # rather than inside a skill ships it this way; a plugin shipping
-  # nothing outside its skills records none, and its package is what
-  # it always was (ADR 0016 in this repository, AI-759; agent-stacks
-  # ADR 0037, AI-761).
+  # plugin-root entries to ship, destination -> path inside src: what
+  # the skills and servers reference, and a Claude plugin's agents/,
+  # commands/ and hooks/ (ADR 0016; agent-stacks ADRs 0035, 0037).
 , pluginRootPaths ? null
   # mcp server configs, serialized to mcp.json; attrset of server
   # name -> config (type/command/...)

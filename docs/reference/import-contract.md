@@ -115,36 +115,37 @@ does the same. Any other root file is not read.
 `import` is declared but only reaches `passthru` — nothing in the
 build reads it. It carries `input` (owner/repo), `flags` (the import
 invocation's flags), and `warnings` (the `{ path, message }` entries
-`agent-stacks check-plugin` raised at import time, plus two kinds the
-scanner itself raises while staging the tree: a script under
-`skills/` with no shebang, which the build links no interpreter for,
-and a dependency manifest — `pyproject.toml`, `requirements.txt`,
-`package.json` — which the build does not resolve) — present only
-when something was found, since the Go struct marks it `omitempty` —
-so the record of what produced the package travels with it.
+`agent-stacks check-plugin` raised at import time, plus what import
+found itself: scripts with no shebang, dependency manifests the build
+does not resolve, plugin-root references that are missing or withheld,
+and Claude components that are not packaged). `warnings` is omitted
+when empty.
 
 `pluginRootPaths` maps a plugin-root entry's destination inside the
-plugin tree to its path inside `src`. It is what the selected skills
-and the plugin's MCP servers reach through `${PLUGIN_ROOT}`, which
-Claude spells `${CLAUDE_PLUGIN_ROOT}`: a plugin whose executable code
-sits beside `skills/` rather than inside a skill ships it this way.
-For a Claude plugin it also carries the components Claude Code loads
-from the plugin root that the spec does not define — `agents/`,
-`commands/` and `hooks/` — and whatever they reference in turn
-(agent-stacks ADR 0037). The builder copies exactly these entries,
-before the runtime pass, so their contents are rewritten, pinned and
-guarded like a skill's own files; a directory is copied whole. Among
-them, `hooks/hooks.json` has each hook that runs a plugin file with a
-bare interpreter pointed at the package's own `bin/`, as a shebang
-is. Destinations are one path segment, and never `skills` or `bin`,
-which assembly writes itself. The field is absent when nothing
-outside the skills ships, so a package that predates it is unchanged.
-See [ADR 0016](../decisions/0016-plugin-root-code-ships-when-skills-reference-it.md).
+plugin tree to its path inside `src`. It holds three kinds of entry:
+
+- what the skills reference through `${PLUGIN_ROOT}` (Claude spells it
+  `${CLAUDE_PLUGIN_ROOT}`), such as a launcher kept beside `skills/`
+  ([ADR 0016](../decisions/0016-plugin-root-code-ships-when-skills-reference-it.md));
+- what the plugin's MCP servers reference (agent-stacks ADR 0035);
+- for a plugin Claude Code installs, meaning a marketplace listing
+  names it or its directory has `.claude-plugin/plugin.json`, its
+  `agents/`, `commands/` and `hooks/`, plus what their own files
+  reference (agent-stacks ADR 0037, proposed).
+
+References are followed one level: an entry that ships is not read
+for further references. The builder copies these entries before the
+runtime pass, so their contents are rewritten, pinned and guarded like
+a skill's. A directory is pruned as a skill copy is, and login files
+(`.npmrc`, `*.pem`, …) are dropped. In `hooks/hooks.json`, a hook that
+runs a plugin file with a bare interpreter is pointed at the package's
+`bin/`; one the runtime table doesn't map is left for `PATH` and
+reported. Destinations are one path segment, never `skills` or `bin`.
+The field is absent when nothing outside the skills ships.
 
 `requiredRuntimes` is a flat array of the interpreter tokens the
-scanner found named in the package's files — shebangs, bare
-`mcp.json` commands, and the interpreters `hooks/hooks.json` runs
-plugin files with. It is required for a generated package: a
+scanner found in the package's files: shebangs, bare `mcp.json`
+commands, and hook interpreters. It is required for a generated package: a
 `source.json` carrying `import` must also carry `requiredRuntimes`,
 and `buildAgentPlugin` throws, naming the fix, if it does not. A
 hand-written `buildAgentPlugin` call omits both `import` and
