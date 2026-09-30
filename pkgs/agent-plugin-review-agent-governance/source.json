@@ -1,0 +1,47 @@
+{
+  "name": "review-agent-governance",
+  "version": "0.1.4",
+  "src": {
+    "owner": "wshobson",
+    "repo": "agents",
+    "rev": "9b15b34b0bfc13a815cbfc2366e14ea549e09422",
+    "hash": "sha256-8h5zbwUAujgruqYZLErWewRX2bmJ5MvkhDqe3J4viNI="
+  },
+  "sourceUrl": "https://github.com/wshobson/agents",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "email": "tommy@scopeblind.com",
+      "name": "Tom Farley",
+      "url": "https://github.com/tomjwxf"
+    },
+    "description": "Require a human approval signal before an AI agent can post PR reviews, comments, merges, or writes to CI configuration. Joins protect-mcp and signed-audit-trails in the governance category; composes with protect-mcp for runtime enforcement.",
+    "homepage": "https://veritasacta.com",
+    "keywords": [
+      "review",
+      "governance",
+      "cedar",
+      "receipts",
+      "human-approval",
+      "pr-review",
+      "ci-guard"
+    ],
+    "license": "MIT",
+    "name": "review-agent-governance",
+    "version": "0.1.4"
+  },
+  "skills": {
+    "review-agent-setup": "plugins/review-agent-governance/skills/review-agent-setup"
+  },
+  "requiredRuntimes": [],
+  "meta": {
+    "description": "Require a human approval signal before an AI agent can post PR reviews, comments, merges, or writes to CI configuration",
+    "homepage": "https://github.com/wshobson/agents"
+  },
+  "import": {
+    "input": "wshobson/agents",
+    "flags": [
+      "--path-ignore=plugins/avoid-ai-writing"
+    ]
+  }
+}

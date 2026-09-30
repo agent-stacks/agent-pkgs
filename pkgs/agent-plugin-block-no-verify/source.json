@@ -1,0 +1,36 @@
+{
+  "name": "block-no-verify",
+  "version": "1.0.2",
+  "src": {
+    "owner": "wshobson",
+    "repo": "agents",
+    "rev": "9b15b34b0bfc13a815cbfc2366e14ea549e09422",
+    "hash": "sha256-8h5zbwUAujgruqYZLErWewRX2bmJ5MvkhDqe3J4viNI="
+  },
+  "sourceUrl": "https://github.com/wshobson/agents",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "cskwork"
+    },
+    "description": "PreToolUse hook that prevents AI agents from using --no-verify, --no-gpg-sign, and other bypass flags that skip git hooks",
+    "homepage": "https://github.com/cskwork",
+    "license": "MIT",
+    "name": "block-no-verify",
+    "version": "1.0.2"
+  },
+  "skills": {
+    "block-no-verify-hook": "plugins/block-no-verify/skills/block-no-verify-hook"
+  },
+  "requiredRuntimes": [],
+  "meta": {
+    "description": "PreToolUse hook that prevents AI agents from using --no-verify, --no-gpg-sign, and other bypass flags that skip git hooks",
+    "homepage": "https://github.com/wshobson/agents"
+  },
+  "import": {
+    "input": "wshobson/agents",
+    "flags": [
+      "--path-ignore=plugins/avoid-ai-writing"
+    ]
+  }
+}

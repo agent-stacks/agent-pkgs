@@ -1,0 +1,57 @@
+{
+  "name": "pptx-deck-creation",
+  "version": "1.0.1",
+  "src": {
+    "owner": "wshobson",
+    "repo": "agents",
+    "rev": "9b15b34b0bfc13a815cbfc2366e14ea549e09422",
+    "hash": "sha256-8h5zbwUAujgruqYZLErWewRX2bmJ5MvkhDqe3J4viNI="
+  },
+  "sourceUrl": "https://github.com/wshobson/agents",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "kimtth"
+    },
+    "description": "Create production-ready, editable PowerPoint decks through a spec-first, coordinate-explicit workflow with read-only reference analysis and quality gates.",
+    "homepage": "https://github.com/kimtth/agent-pptify-kit",
+    "keywords": [
+      "powerpoint",
+      "pptx",
+      "presentations",
+      "slide-decks",
+      "deck-generation",
+      "slide-design"
+    ],
+    "license": "MIT",
+    "name": "pptx-deck-creation",
+    "repository": "https://github.com/kimtth/agent-pptify-kit",
+    "version": "1.0.1"
+  },
+  "skills": {
+    "pptx-deck-context": "plugins/pptx-deck-creation/skills/pptx-deck-context",
+    "pptx-quality-gates": "plugins/pptx-deck-creation/skills/pptx-quality-gates",
+    "pptx-reference-deck-analysis": "plugins/pptx-deck-creation/skills/pptx-reference-deck-analysis",
+    "pptx-slide-specification": "plugins/pptx-deck-creation/skills/pptx-slide-specification",
+    "pptx-visual-assets": "plugins/pptx-deck-creation/skills/pptx-visual-assets"
+  },
+  "requiredRuntimes": [
+    "python3"
+  ],
+  "meta": {
+    "description": "Create production-ready, editable PowerPoint decks through a spec-first, coordinate-explicit workflow with read-only reference analysis and quality gates",
+    "homepage": "https://github.com/wshobson/agents"
+  },
+  "import": {
+    "input": "wshobson/agents",
+    "flags": [
+      "--path-ignore=plugins/avoid-ai-writing"
+    ],
+    "warnings": [
+      {
+        "path": "skills/pptx-reference-deck-analysis/requirements.txt",
+        "message": "dependency manifest; the build does not resolve what it declares"
+      }
+    ]
+  }
+}
