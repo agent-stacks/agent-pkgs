@@ -2,10 +2,7 @@
 
 `agent-pkgs` is the Nix package set for Agent Plugins and Agent
 Stacks: skills and MCP server configurations packaged as reproducible
-Nix packages. A package is closure-complete for the interpreters its
-files name — a skill whose scripts are invoked from prose, or whose
-scripts need language-level libraries (a Python package, `ffmpeg`),
-is not, and its `source.json`'s `import.warnings` says which.
+Nix packages.
 
 | Tree | Start here | What it answers |
 | ------------ | ---------------------------------------------- | --------------- |
