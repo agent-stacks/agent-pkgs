@@ -1,11 +1,11 @@
 {
   "name": "scientific-agent-skills",
-  "version": "2.69.0",
+  "version": "2.72.0",
   "src": {
     "owner": "K-Dense-AI",
     "repo": "scientific-agent-skills",
-    "rev": "065b734670d7d990627dbc06a05b5a99be33f1f1",
-    "hash": "sha256-ko4b++gG8X5vwdYEayOFc6qS3BdlNZUtrek2f82fSKo="
+    "rev": "154988403bb5a18e9d3c0ce4e6d5e2e4b184a298",
+    "hash": "sha256-kjIjFPOMmiC8O1sEijCsR4omgrrkK8huC5f8EHwkkTo="
   },
   "sourceUrl": "https://github.com/K-Dense-AI/scientific-agent-skills",
   "manifest": {
@@ -29,9 +29,10 @@
     "license": "MIT",
     "name": "scientific-agent-skills",
     "repository": "https://github.com/K-Dense-AI/scientific-agent-skills",
-    "version": "2.69.0"
+    "version": "2.72.0"
   },
   "skills": {
+    "13c-metabolic-flux": "skills/13c-metabolic-flux",
     "adaptyv": "skills/adaptyv",
     "aeon": "skills/aeon",
     "alphagenome": "skills/alphagenome",
@@ -47,6 +48,8 @@
     "biopython": "skills/biopython",
     "bioservices": "skills/bioservices",
     "bulk-rnaseq": "skills/bulk-rnaseq",
+    "cantera": "skills/cantera",
+    "cellprofiler": "skills/cellprofiler",
     "cellxgene-census": "skills/cellxgene-census",
     "cirq": "skills/cirq",
     "citation-management": "skills/citation-management",
@@ -65,13 +68,14 @@
     "dhdna-profiler": "skills/dhdna-profiler",
     "diffdock": "skills/diffdock",
     "dnanexus-integration": "skills/dnanexus-integration",
-    "docx": "skills/docx",
     "esm": "skills/esm",
     "etetoolkit": "skills/etetoolkit",
     "exa-search": "skills/exa-search",
     "experimental-design": "skills/experimental-design",
     "exploratory-data-analysis": "skills/exploratory-data-analysis",
+    "fictiv": "skills/fictiv",
     "flowio": "skills/flowio",
+    "flowkit": "skills/flowkit",
     "fluidsim": "skills/fluidsim",
     "folklore-variant-evidence": "skills/folklore-variant-evidence",
     "generate-image": "skills/generate-image",
@@ -99,6 +103,8 @@
     "latex-posters": "skills/latex-posters",
     "liteparse": "skills/liteparse",
     "literature-review": "skills/literature-review",
+    "mageck": "skills/mageck",
+    "marine-carbonate-chemistry": "skills/marine-carbonate-chemistry",
     "markdown-mermaid-writing": "skills/markdown-mermaid-writing",
     "market-research-reports": "skills/market-research-reports",
     "markitdown": "skills/markitdown",
@@ -114,6 +120,8 @@
     "neurokit2": "skills/neurokit2",
     "neuropixels-analysis": "skills/neuropixels-analysis",
     "nextflow": "skills/nextflow",
+    "nmrglue": "skills/nmrglue",
+    "nwb-conversion": "skills/nwb-conversion",
     "omero-integration": "skills/omero-integration",
     "onekgpd": "skills/onekgpd",
     "ontology-term-resolution": "skills/ontology-term-resolution",
@@ -129,7 +137,6 @@
     "pathml": "skills/pathml",
     "pathogen-variant-surveillance": "skills/pathogen-variant-surveillance",
     "pathway-enrichment": "skills/pathway-enrichment",
-    "pdf": "skills/pdf",
     "peer-review": "skills/peer-review",
     "pennylane": "skills/pennylane",
     "phylogenetics": "skills/phylogenetics",
@@ -137,11 +144,13 @@
     "pkpd-modeling": "skills/pkpd-modeling",
     "polars": "skills/polars",
     "polars-bio": "skills/polars-bio",
-    "pptx": "skills/pptx",
     "pptx-posters": "skills/pptx-posters",
     "primekg": "skills/primekg",
+    "primer-design": "skills/primer-design",
     "protocolsio-integration": "skills/protocolsio-integration",
     "pufferlib": "skills/pufferlib",
+    "pybamm": "skills/pybamm",
+    "pycalphad": "skills/pycalphad",
     "pydeseq2": "skills/pydeseq2",
     "pydicom": "skills/pydicom",
     "pyhealth": "skills/pyhealth",
@@ -154,9 +163,11 @@
     "pytdc": "skills/pytdc",
     "pytorch-lightning": "skills/pytorch-lightning",
     "pyzotero": "skills/pyzotero",
+    "qiime2-amplicon": "skills/qiime2-amplicon",
     "qiskit": "skills/qiskit",
     "qutip": "skills/qutip",
     "rdkit": "skills/rdkit",
+    "relion": "skills/relion",
     "relsa-severity-assessment": "skills/relsa-severity-assessment",
     "research-grants": "skills/research-grants",
     "research-lookup": "skills/research-lookup",
@@ -183,6 +194,7 @@
     "statsmodels": "skills/statsmodels",
     "sympy": "skills/sympy",
     "tamarind": "skills/tamarind",
+    "tellurium": "skills/tellurium",
     "tiledbvcf": "skills/tiledbvcf",
     "timesfm-forecasting": "skills/timesfm-forecasting",
     "torch-geometric": "skills/torch-geometric",
@@ -196,7 +208,6 @@
     "venue-templates": "skills/venue-templates",
     "waypoint-bio": "skills/waypoint-bio",
     "what-if-oracle": "skills/what-if-oracle",
-    "xlsx": "skills/xlsx",
     "zarr-python": "skills/zarr-python"
   },
   "requiredRuntimes": [
@@ -317,6 +328,14 @@
         "message": "must be a string value"
       },
       {
+        "path": "skills/13c-metabolic-flux/scripts/_mfa_fit.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/13c-metabolic-flux/scripts/_mfa_model.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
         "path": "skills/alphagenome/scripts/_common.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
@@ -361,63 +380,19 @@
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
-        "path": "skills/docx/scripts/__init__.py",
+        "path": "skills/bulk-rnaseq/scripts/_tabular.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
-        "path": "skills/docx/scripts/accept_changes.py",
+        "path": "skills/deepchem/scripts/_common.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
-        "path": "skills/docx/scripts/comment.py",
+        "path": "skills/depmap/scripts/depmap_data.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
-        "path": "skills/docx/scripts/merge_runs.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/docx/scripts/office/helpers/__init__.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/docx/scripts/office/helpers/pptx_chart.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/docx/scripts/office/helpers/pptx_slide.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/docx/scripts/office/helpers/pptx_theme.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/docx/scripts/office/soffice.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/docx/scripts/office/validate.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/docx/scripts/office/validators/__init__.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/docx/scripts/office/validators/base.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/docx/scripts/office/validators/docx.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/docx/scripts/office/validators/pptx.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/docx/scripts/office/validators/redlining.py",
+        "path": "skills/esm/scripts/esm_embeddings.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
@@ -433,7 +408,19 @@
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
+        "path": "skills/fictiv/scripts/list_dropdown_options.js",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/fictiv/scripts/quote_state.js",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
         "path": "skills/fluidsim/scripts/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/fluidsim/scripts/_profiles.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
@@ -445,7 +432,19 @@
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
+        "path": "skills/geomaster/scripts/raster_workflows.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
         "path": "skills/geopandas/scripts/_common.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/glycoengineering/scripts/glycoengineering_tools.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/glycoengineering/scripts/glytoucan_lookup.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
@@ -465,11 +464,27 @@
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
+        "path": "skills/mageck/scripts/screen_analysis.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/neuropixels-analysis/scripts/_common.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nwb-conversion/scripts/convert_session.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
         "path": "skills/onekgpd/scripts/onekgpd_api.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
         "path": "skills/onekgpd/scripts/onekgpd_meta.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/open-notebook/scripts/_common.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
@@ -529,38 +544,6 @@
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
-        "path": "skills/pdf/scripts/check_bounding_boxes.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/pdf/scripts/check_fillable_fields.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/pdf/scripts/convert_pdf_to_images.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/pdf/scripts/create_validation_image.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/pdf/scripts/extract_form_field_info.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/pdf/scripts/extract_form_structure.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/pdf/scripts/fill_fillable_fields.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/pdf/scripts/fill_pdf_form_with_annotations.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
         "path": "skills/phylogenetics/scripts/phylogenetic_analysis.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
@@ -573,67 +556,15 @@
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
-        "path": "skills/pptx/scripts/__init__.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/pptx/scripts/add_slide.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/pptx/scripts/clean.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/pptx/scripts/office/helpers/__init__.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/pptx/scripts/office/helpers/pptx_chart.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/pptx/scripts/office/helpers/pptx_slide.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/pptx/scripts/office/helpers/pptx_theme.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/pptx/scripts/office/soffice.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/pptx/scripts/office/validate.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/pptx/scripts/office/validators/__init__.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/pptx/scripts/office/validators/base.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/pptx/scripts/office/validators/docx.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/pptx/scripts/office/validators/pptx.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/pptx/scripts/office/validators/redlining.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/pptx/scripts/thumbnail.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
         "path": "skills/primekg/scripts/query_primekg.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/primer-design/scripts/_common.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/primer-design/scripts/_specificity.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
@@ -646,6 +577,10 @@
       },
       {
         "path": "skills/pufferlib/scripts/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/pybamm/scripts/simulate_battery.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
@@ -693,6 +628,10 @@
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
+        "path": "skills/pyopenms/scripts/_common.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
         "path": "skills/pytorch-lightning/scripts/quick_trainer_setup.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
@@ -702,6 +641,10 @@
       },
       {
         "path": "skills/pytorch-lightning/scripts/template_lightning_module.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/rdkit/scripts/_common.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
@@ -801,51 +744,7 @@
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
-        "path": "skills/xlsx/scripts/office/helpers/__init__.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/xlsx/scripts/office/helpers/pptx_chart.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/xlsx/scripts/office/helpers/pptx_slide.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/xlsx/scripts/office/helpers/pptx_theme.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/xlsx/scripts/office/soffice.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/xlsx/scripts/office/validate.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/xlsx/scripts/office/validators/__init__.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/xlsx/scripts/office/validators/base.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/xlsx/scripts/office/validators/docx.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/xlsx/scripts/office/validators/pptx.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/xlsx/scripts/office/validators/redlining.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/xlsx/scripts/recalc.py",
+        "path": "skills/tellurium/scripts/kinetic_experiment.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       }
     ]

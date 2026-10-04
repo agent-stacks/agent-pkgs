@@ -1,11 +1,11 @@
 {
   "name": "aws-startup-advisor",
-  "version": "2.0.1",
+  "version": "2.0.3",
   "src": {
     "owner": "aws",
     "repo": "agent-toolkit-for-aws",
-    "rev": "c126e4444ddc460736b5cb0574255b614275e7a7",
-    "hash": "sha256-Ul6VqPEj5XNuk3Phqlg3NbsZJ2M6qikO/91r3vIrutM="
+    "rev": "d00d03ae6e4872b9f35a2b2ca86d0cbdbaa81684",
+    "hash": "sha256-5ZUC4VdG/97/GJvgDl9ALg0n1ZEh8LY2jQL59TAfIHY="
   },
   "sourceUrl": "https://github.com/aws/agent-toolkit-for-aws",
   "manifest": {
@@ -13,10 +13,11 @@
     "author": {
       "name": "Amazon Web Services"
     },
-    "description": "Personalized AWS guidance built on patterns from 350,000+ startups—architecture, cost, security, and migration, from day-one account setup to production-ready infrastructure. Migrate to AWS from GCP or Heroku—including your entire AI stack: OpenAI/Gemini/Anthropic SDK rewrites to Amazon Bedrock, agentic systems (LangChain, CrewAI, AutoGen) to AWS-native runtimes, and Temporal workers. Includes AWS Activate credits eligibility and 60+ exclusive startup offers. Built by AWS Startup Solutions Architects, with multi-account, multi-region support.",
+    "description": "Personalized AWS guidance built on patterns from 350,000+ startups—architecture, cost, security, and migration, from day-one account setup to production-ready infrastructure. Migrate to AWS from GCP or Heroku—including your entire AI stack: OpenAI/Gemini/Anthropic SDK rewrites to Amazon Bedrock, agentic systems (LangChain, CrewAI, AutoGen) to AWS-native runtimes, and Temporal workers. Operate what you run with AWS DevOps Agent—incident investigation and release-readiness review, with the cost shown before anything is enabled. Includes AWS Activate credits eligibility and 60+ exclusive startup offers. Built by AWS Startup Solutions Architects, with multi-account, multi-region support.",
     "extensions": {
       "com.anthropic.claude-code": {
-        "agents": "./agents/"
+        "agents": "./agents/",
+        "hooks": "./com.anthropic.claude-code/hooks/hooks.json"
       }
     },
     "homepage": "https://aws.amazon.com/products/developer-tools/agent-toolkit-for-aws/",
@@ -95,12 +96,17 @@
       "entra-id",
       "blob-storage",
       "bicep",
-      "arm-template"
+      "arm-template",
+      "devops-agent",
+      "incident-response",
+      "root-cause-analysis",
+      "release-readiness",
+      "on-call"
     ],
     "license": "Apache-2.0",
     "name": "aws-startup-advisor",
     "repository": "https://github.com/aws/agent-toolkit-for-aws",
-    "version": "2.0.1"
+    "version": "2.0.3"
   },
   "skills": {
     "agent-advisor": "plugins/aws-startup-advisor/skills/agent-advisor",
@@ -111,6 +117,7 @@
     "heroku-to-aws": "plugins/aws-startup-advisor/skills/heroku-to-aws",
     "knowledge-base-for-startups": "plugins/aws-startup-advisor/skills/knowledge-base-for-startups",
     "llm-to-bedrock": "plugins/aws-startup-advisor/skills/llm-to-bedrock",
+    "operate-on-aws": "plugins/aws-startup-advisor/skills/operate-on-aws",
     "prompt-library-for-startups": "plugins/aws-startup-advisor/skills/prompt-library-for-startups",
     "start-building-for-startups": "plugins/aws-startup-advisor/skills/start-building-for-startups",
     "tf-best-practices": "plugins/aws-startup-advisor/skills/tf-best-practices"
@@ -122,7 +129,7 @@
   "mcpServers": {
     "aws-mcp": {
       "args": [
-        "mcp-proxy-for-aws-cli@latest",
+        "mcp-proxy-for-aws-cli==1.7.0",
         "https://aws-mcp.us-east-1.api.aws/mcp",
         "--skip-auth",
         "--metadata",
