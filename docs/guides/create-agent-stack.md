@@ -1,35 +1,326 @@
 # Create an agent-stack package
 
-How to create a reproducible agent-stack package. This guide uses the
-`caveman` plugin with 20 skills from
-[create-agent-plugin.md](create-agent-plugin.md) and Claude Code as the
-harness.
+Agents configured by hand tend to drift over time. One machine has a
+newer Claude Code, another is missing the `python3` that a skill's
+script needs, and a third has an older version of a plugin. The 
+solution is to define all of these dependencies as an agent stack.
+An agent stack is the harness, plugins, and runtimes, built as a
+single package that runs the same on every machine.
+
+This guide builds the following agent stack from scratch:
+
+- Claude Code as the harness
+- The `caveman` plugin and its 20 skills
+
+By the end, you'll have a launcher that starts Claude Code with those
+skills wired in. To share this stack with someone else on your team,
+just push it to a Git repository.
+
+## Prerequisites
+
+You need Nix (with flakes enabled) and git. The
+[README](../../README.md#prerequisites) shows how to enable flakes.
+You do _not_ need to clone this repository or have Claude Code
+pre-installed.
+
+## 1. Create a directory
+
+Let's create a new directory and initialize it with `git`:
+
+```sh
+mkdir caveman-stack && cd caveman-stack
+git init
+printf 'result\n.agent-stacks/\n' > .gitignore
+```
+
+NOTE: The `.gitignore` prevents the build's `result` link and the
+launcher's staging directory from being committed.
+
+## 2. Write the stack
+
+Save the following code as `flake.nix` in that directory:
+
+```nix
+{
+  inputs.agent-pkgs.url = "github:agent-stacks/agent-pkgs";
+
+  outputs = { self, agent-pkgs }:
+    let system = "aarch64-darwin"; # or "x86_64-linux", "aarch64-linux"
+    in {
+      packages.${system}.caveman-stack =
+        agent-pkgs.lib.${system}.mkAgentStack {
+          name = "caveman-stack";
+          harness = agent-pkgs.packages.${system}.claude-code;
+          plugins = [ agent-pkgs.packages.${system}.agent-plugin-caveman ];
+        };
+    };
+}
+```
+
+NOTE: Set `system` to match your machine. To see your current system,
+run `nix eval --raw --impure --expr builtins.currentSystem`.
+
+This flake names one harness and one plugin, both packages from
+`agent-pkgs`. If you already have Claude Code installed and want the
+stack to run that one, write `harness = "claude";` instead; the rest
+of this guide is the same, see [Using a pre-installed harness](#using-a-pre-installed-harness) for more details.
+
+Next, stage the file with `git` (Nix won't build an untracked flake
+in a git repository):
+
+```sh
+git add flake.nix
+```
+
+## 3. Build it
+
+```sh
+nix build .#caveman-stack
+```
+
+The first build takes a couple of minutes, because Nix fetches the
+harness, the plugin and all of their dependencies. Later builds are
+much faster because they reuse what is already in the Nix store. If 
+enabled, the [binary cache](../../README.md#binary-cache) can speed
+up the first build by downloading pre-built packages of the harness
+and plugins.
+
+The build writes `flake.lock`, which records the exact versions of
+packages it used, and leaves a `result` link to the stack:
+
+```text
+result/
+├── bin/caveman-stack                   # the launcher
+└── share/agent-plugins/caveman/        # the plugin, spec layout
+    ├── plugin.json
+    ├── skills/                         # 20 skills: caveman, cavecrew, …
+    └── bin/                            # python3
+```
+
+Commit the stack and its lock file:
+
+```sh
+git add .gitignore flake.nix flake.lock
+git commit -m "caveman-stack"
+```
+
+## 4. Run it
+
+```sh
+./result/bin/caveman-stack
+```
+
+The agent starts with the stack's plugins already wired in. You don't
+need to install, activate, configure or copy anything into a dotfile,
+and you don't need `agent-stacks` on your PATH. The binary in
+`result/bin` is the launcher.
+
+Type `/caveman:` at the prompt to see the skills from your stack.
+There should be 20 skills in the plugin, including `/caveman:caveman`.
+
+Alternatively, you can pass arguments to the launcher from the command
+line directly:
+
+```sh
+./result/bin/caveman-stack plugin list
+```
+
+```text
+  ❯ caveman@inline
+    Version: unknown
+    Path: …/.agent-stacks/launch/claude/…/plugins/caveman
+    Status: ✔ loaded
+```
+
+Passing arguments to the launcher is also a good way to confirm that
+the harness version is correct.
+
+```sh
+./result/bin/caveman-stack --version
+```
+
+```text
+2.1.284 (Claude Code)
+```
+
+NOTE: `agent-pkgs` follows upstream daily, so the version depends on
+whatever `flake.lock` contains from when it was locked. The benefit
+is that with a pinned harness you can have confidence that every machine
+will have the same experience, regardless of what's installed locally.
+
+## 5. Update the stack
+
+A pinned stack stays on the versions it was locked to until you move
+it. That is what makes it reproducible, but it also means that stacks 
+need to be periodically updated to prevent them from falling behind
+upstream.
+
+`mkAgentStack` is evaluated during `nix build`, so the version your
+stack runs is decided by `flake.lock`, which pins `agent-pkgs` and
+through it the harness package.
+
+To see the version of the harness in your stack:
+
+```sh
+nix eval --raw .#caveman-stack.passthru.agentStack.harness.name
+```
+
+```text
+claude-code-2.1.284
+```
+
+Update to a newer harness by updating that input and rebuilding:
+
+```sh
+nix flake update agent-pkgs
+nix build .#caveman-stack
+./result/bin/caveman-stack --version
+```
+
+Then commit the changed `flake.lock`:
+
+```sh
+git commit -m "update agent-pkgs" flake.lock
+```
+
+That's the whole upgrade! It moves the plugins as well as the
+harness, since both come from `agent-pkgs`: a newer pin picks up every
+package re-imported since, which is what makes this the stack's update
+rather than the agent's alone. `nix flake update` with no argument
+updates every input instead, which also moves nixpkgs underneath the
+plugins.
+
+The versions you get are the ones `agent-pkgs` pins, because the
+agent CLIs are re-exported from
+[llm-agents.nix](https://github.com/numtide/llm-agents.nix). When a
+harness update has not reached `agent-pkgs` yet, you can get it
+from upstream directly:
+
+```nix
+inputs.llm-agents.url = "github:numtide/llm-agents.nix";
+inputs.agent-pkgs.inputs.llm-agents.follows = "llm-agents";
+```
+
+`nix flake update llm-agents` then moves the harness on its own
+schedule. The cost is that you build it yourself: agent-stacks' binary
+cache only contains the versions that `agent-pkgs` pinned.
+
+In contrast, a stack using a [pre-installed
+harness](#using-a-pre-installed-harness) uses whatever harness
+is already installed on the machine; `flake.lock` doesn't determine
+the harness version in this case.
+
+## 6. Share it with others
+
+A stack is a flake, so sharing one means sharing its repository. Push
+the repository somewhere the people you are sharing with can clone it.
+
+`flake.lock` is what makes this reproducible. It pins `agent-pkgs`,
+and through it the plugins, the harness and the agent-stacks the
+launcher runs. Without it a consumer resolves those inputs afresh and
+can build a different stack than you did.
+
+After someone clones the repository, Nix with flakes and git are the
+only prerequisites. Neither `agent-stacks` nor the agent itself has
+to be installed when the harness is pinned:
+
+```sh
+git clone <repo-url>
+cd <repo>
+nix build .#caveman-stack
+./result/bin/caveman-stack
+```
+
+This produces the same store path you built from, because the lock
+and the pinned harness leave nothing to resolve.
+
+Building the harness is the slow part. agent-pkgs publishes prebuilt
+packages, and anyone who will build the stack more than once should
+point Nix at its cache: see the
+[README](../../README.md#binary-cache) for more details.
+
+## Clean up
+
+When you're done with the stack, delete the directory:
+
+```sh
+cd .. && rm -rf caveman-stack
+```
+
+That removes the repository, the `result` link and the launcher's
+staging directory. The stack's packages stay in the Nix store with
+nothing referring to them, and `nix store gc` reclaims those along
+with everything else in the store that is unreferenced.
+
+## Variations
+
+### Using a pre-installed harness
+
+Name the agent as a string instead of adding the harness to the stack
+itself. When you launch the stack, it will use PATH to find your
+existing harness:
+
+```nix
+harness = "claude";
+```
+
+Note that this approach is not as reproducible. Without a harness in
+the closure, you're reliant on whatever `claude` is pre-installed. You'll 
+see the following warning every time you launch the stack:
+
+```text
+warning: claude resolved to /Users/you/.local/bin/claude, outside
+/nix/store: this agent and the runtime it runs on come from the host,
+so the same stack can behave differently on another machine
+```
+
+This approach can make sense when you want the stack to use an agent you
+update yourself. Prefer a pinned package for anything that has to run the
+same way every time on any machine.
+
+Either way, PATH is prepended, not scrubbed. An agent that shells out
+to `git` still gets the host's copy. A stack's closure bounds the
+agent, not every binary the agent can reach.
+
+### Several agents
+
+A stack runs exactly one agent. For several agents over the same
+plugins, build multiple stacks. We may change this limitation in
+the future, please reach out if this is something you need!
+
+### The audit output
+
+Not built by default. Ask for it explicitly:
+
+```sh
+nix build .#caveman-stack^audit
+./result-audit/bin/caveman-stack-audit
+```
+
+The audit script needs its tools on PATH; `doctor` lists which are
+missing and which audits they gate.
+
+## How it works
 
 A stack is three things in one package: the plugins in the Agent
-Plugins spec layout, one harness, and a launcher that configures the
-plugins to the harness. The adaptation happens at run time in
+Plugins spec layout, one harness, and a launcher that wires the
+plugins into the harness. The adaptation happens at run time in
 `agent-stacks launch`. A stack does not need to be rebuilt when that
-wiring changes. The full argument list is
-[reference/mk-agent-stack.md](../reference/mk-agent-stack.md).
+wiring changes. See [mkAgentStack](../reference/mk-agent-stack.md)
+for the full argument list.
 
-## Where the stack lives
+### Where the stack lives
 
 Stacks are typically defined in a repository of your own. No
 directory under `pkgs/` calls `mkAgentStack`. A stack is a reusable
 composition: your harness, at the version you want, with the plugins
-you happen to use for your team or organization. It could be relevant
-for wider distribution as a reproducible way to use an agent.
+you happen to use for your team or organization.
 
 The plugins are reusable, and they belong wherever
-[create-agent-plugin.md](create-agent-plugin.md) says: this repo when
+[Create an agent-plugin package](create-agent-plugin.md) says: this repo when
 public, your own repo when not.
 
-## Requirements
-
-Nix with flakes. You do not need this repository checked out: a stack
-is written in *your* flake, against `agent-pkgs` as an input.
-
-## Where the harness and the plugins come from
+### Where the harness and the plugins come from
 
 A stack composes two kinds of package, and both are attributes of
 `agent-pkgs.packages.<system>`, so an input is all you need to reach
@@ -58,8 +349,7 @@ currently means one of the following:
 
 The adapter is the basename of the package's `meta.mainProgram`, which
 is why `claude-code` resolves to `claude`. Any other agent fails to
-evaluate rather than building a stack that cannot start, so naming, say,
-`gemini-cli` gets you this instead of a broken launcher:
+evaluate. For example, naming `gemini-cli` gives this error:
 
 ```text
 error: mkAgentStack: 'gemini' is not an agent agent-stacks
@@ -67,16 +357,16 @@ can launch. Known agents: agent-deck, claude, codex, opencode, pi
 ```
 
 **The plugins are packaged here**, under `pkgs/`, one directory per
-plugin named `agent-plugin-<name>` — a couple of hundred of them,
+plugin named `agent-plugin-<name>` — a couple hundred of them,
 generated by `agent-stacks import` from upstream skills repositories.
 They are attributes of the same set, which is where
-`agent-pkgs.packages.<system>.agent-plugin-caveman` below comes from.
-If the skills you want are not packaged yet,
-[create-agent-plugin.md](create-agent-plugin.md) is how to add one, and
-a plugin package in a repository of your own composes exactly the same
-way.
+`agent-pkgs.packages.<system>.agent-plugin-caveman` in the flake comes
+from. If the skills you want are not packaged yet,
+see [Create an agent-plugin package](create-agent-plugin.md) for more
+details on how to add one. A plugin package in your repository is
+composed in exactly the same way.
 
-To find either kind, search the flake:
+To find either kind of package, search the flake:
 
 ```sh
 nix search github:agent-stacks/agent-pkgs claude-code
@@ -86,29 +376,10 @@ That prints matching attribute paths with their versions and
 descriptions. It evaluates the whole set, so give it a moment. In a
 checkout, `ls pkgs/` is the quicker way to see which plugins exist.
 
-## 1. Write the stack
+### What the flake says
 
-A stack is a `flake.nix` of your own with `agent-pkgs` as an input.
-`mkAgentStack` comes from that input's `lib` output, exposed per
-system:
-
-```nix
-# flake.nix, in a directory of your own
-{
-  inputs.agent-pkgs.url = "github:agent-stacks/agent-pkgs";
-
-  outputs = { self, agent-pkgs }:
-    let system = "aarch64-darwin";
-    in {
-      packages.${system}.caveman-stack =
-        agent-pkgs.lib.${system}.mkAgentStack {
-          name = "caveman-stack";
-          harness = agent-pkgs.packages.${system}.claude-code;
-          plugins = [ agent-pkgs.packages.${system}.agent-plugin-caveman ];
-        };
-    };
-}
-```
+`mkAgentStack` comes from the `agent-pkgs` input's `lib` output,
+exposed per system.
 
 `harness` is a package here, so the agent is pinned: the stack carries
 that exact Claude Code in its closure and runs it regardless of what
@@ -116,8 +387,7 @@ the machine has installed. The agent CLIs re-exported into this set
 are single binaries carrying their own runtimes, so pinning the
 package pins everything it runs on. A package is resolved through
 `meta.mainProgram`; one without it is rejected, and you pass
-`"${claude-code}/bin/claude"` instead. To use an agent already on the
-machine, see [Using a pre-installed harness](#using-a-pre-installed-harness).
+`"${claude-code}/bin/claude"` instead.
 
 `plugins` takes packages built by `buildAgentPlugin`: anything under
 `pkgs/` in this repo, a plugin package in your own repository, or a
@@ -126,57 +396,10 @@ evaluate rather than building a broken stack, as does a missing
 `harness`, a duplicate plugin name, or an agent `agent-stacks` cannot
 launch.
 
-## 2. Build it
-
-```sh
-nix build .#caveman-stack && readlink -f result
-```
-
-Two things in the output, and no per-harness directories:
-
-```text
-result/
-├── bin/caveman-stack                   # the launcher
-└── share/agent-plugins/caveman/        # the plugin, spec layout
-    ├── plugin.json
-    ├── skills/                         # 20 skills: caveman, cavecrew, …
-    └── bin/                            # python3
-```
-
-## 3. Use the stack
-
-Run it:
-
-```sh
-./result/bin/caveman-stack
-```
-
-The agent starts with the stack's plugins already wired in. Nothing to
-install, activate, configure or copy into a dotfile, and no
-`agent-stacks` on your PATH. The binary in `result/bin` is the launcher.
-
-Arguments reach the agent verbatim, so the quickest check that a stack
-runs what it claims is:
-
-```sh
-./result/bin/caveman-stack --version
-```
-
-```text
-2.1.284 (Claude Code)
-```
-
-Your number will be a different one. `agent-pkgs` follows upstream
-daily, so the version a stack pins is whatever its `flake.lock` names
-on the day it was locked, and every version printed on this page is
-only the one that happened to be current when it was written. The
-number is not the point: with a pinned harness it is the same number on
-every machine, whatever those machines have installed.
-
 ### The launcher
 
 `bin/caveman-stack` is a very small script, worth reading because it
-explains the design:
+explains how the launcher works:
 
 ```sh
 export PATH="/nix/store/…-claude-code-…/bin:$PATH"
@@ -190,8 +413,7 @@ stack's Claude Code rather than the machine's. The stack also carries
 its own `agent-stacks` in its closure rather than hoping the consumer
 has one on PATH, points it at its own `share`, and names the agent.
 Arguments you pass reach the agent verbatim — `./result/bin/caveman-stack
---version` prints the pinned agent's version, which is the quickest
-check that a stack runs what it says. `AGENT_STACKS_BIN` overrides the
+--version` prints the pinned agent's version. `AGENT_STACKS_BIN` overrides the
 pinned agent-stacks, which is how you run a stack against a local build.
 
 Without a pinned harness that first line is absent.
@@ -224,154 +446,6 @@ nix run github:agent-stacks/agent-pkgs#agent-stacks -- \
   Installed plugins: 1
   Skills: 20
 ```
-
-## Using a pre-installed harness
-
-Name the agent as a string instead of passing a package, and the
-stack resolves it from PATH at run time:
-
-```nix
-harness = "claude";
-```
-
-This is the convenient form, not the reproducible one. It adds no
-PATH entry and puts no agent in the closure, so whatever `claude` the
-machine has is what runs. The launcher says so on every run:
-
-```text
-warning: claude resolved to /Users/you/.local/bin/claude, outside
-/nix/store: this agent and the runtime it runs on come from the host,
-so the same stack can behave differently on another machine
-```
-
-The drift risk is real: a machine with an older Claude Code installed —
-say 2.1.257 — runs that one under this form, while the pinned stack
-above runs the newer version its `flake.lock` names, on the same
-machine and from the same flake.
-
-Use it when you want the stack to follow an agent you update yourself,
-or when the agent is not packaged here. Prefer a pinned package for
-anything that has to run the same way twice, or on someone else's
-machine.
-
-Either way, PATH is prepended, not scrubbed. An agent that shells out
-to `git` still gets the host's copy. A stack's closure bounds the
-agent, not every binary the agent can reach.
-
-## Update the stack
-
-There is nothing to re-run. `mkAgentStack` is evaluated during `nix
-build` rather than being a generator whose output you regenerate, so
-the version your stack runs is not written into any file you edit — it
-is decided by `flake.lock`, which pins `agent-pkgs` and through it the
-harness package.
-
-Read what you have now, without building:
-
-```sh
-nix eval --raw .#caveman-stack.passthru.agentStack.harness.name
-```
-
-```text
-claude-code-2.1.284
-```
-
-Adopt a newer one by updating that input and rebuilding:
-
-```sh
-nix flake update agent-pkgs
-nix build .#caveman-stack
-./result/bin/caveman-stack --version
-```
-
-Then commit the changed `flake.lock`. That is the whole upgrade, and
-for everyone who consumes the stack it is the only thing that moved.
-It moves the plugins as well as the harness, since both come from
-`agent-pkgs`: a newer pin picks up every package re-imported since,
-which is what makes this the stack's update rather than the agent's
-alone.
-`nix flake update` with no argument updates every input instead, which
-also moves nixpkgs underneath the plugins.
-
-The version you get this way is the one `agent-pkgs` pins, because the
-agent CLIs are re-exported from
-[llm-agents.nix](https://github.com/numtide/llm-agents.nix) through
-it. When a harness release has not reached `agent-pkgs` yet, take it
-from upstream directly:
-
-```nix
-inputs.llm-agents.url = "github:numtide/llm-agents.nix";
-inputs.agent-pkgs.inputs.llm-agents.follows = "llm-agents";
-```
-
-`nix flake update llm-agents` then moves the harness on its own
-schedule. The cost is that you build it yourself: agent-stacks' binary
-cache holds what `agent-pkgs` pinned, not what you overrode it with.
-
-A stack using a [pre-installed
-harness](#using-a-pre-installed-harness) needs none of this. It
-follows whatever the machine has, and `flake.lock` has no say in the
-agent's version.
-
-## Share a stack with others
-
-A stack is a flake, so sharing one is sharing its repository. Commit
-both files:
-
-```sh
-git add flake.nix flake.lock
-git commit -m "caveman-stack"
-```
-
-`flake.lock` is what makes this reproducible. It pins `agent-pkgs`,
-and through it the plugins, the harness and the agent-stacks the
-launcher runs. Without it a consumer resolves those inputs afresh and
-can build a different stack than you did.
-
-On the other machine, Nix with flakes and git are the only
-prerequisites — not Flox, not `agent-stacks`, not the agent itself when
-the harness is pinned:
-
-```sh
-git clone <repo-url>
-cd <repo>
-nix build .#caveman-stack
-./result/bin/caveman-stack
-```
-
-Those three commands are the entire setup, and they produce the same
-store path you built from, because the lock and the pinned harness
-leave nothing to resolve.
-
-Building the harness from source is the slow part. agent-pkgs
-publishes prebuilt packages, so point Nix at its cache to skip that:
-
-```sh
-nix build .#caveman-stack \
-  --extra-substituters https://cache.agent-stacks.org \
-  --extra-trusted-public-keys agent-stacks-1:RWT4eI3clOY7jhOzIQNTyXL1Z8yQpN3KlNvvPMfFCRk=
-```
-
-Consumers who will run this more than once should put those two
-settings in `nix.conf` instead; the
-[README](../../README.md#binary-cache) has both forms.
-
-## The audit output
-
-Not built by default. Ask for it explicitly:
-
-```sh
-nix build .#caveman-stack^audit
-./result-audit/bin/caveman-stack-audit
-```
-
-The audit script needs its tools on PATH; `doctor` lists which are
-missing and which audits they gate.
-
-## Several agents
-
-A stack runs exactly one agent. For several agents over the same
-plugins, build multiple stacks.
 
 ## Where the details live
 

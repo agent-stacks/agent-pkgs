@@ -2,6 +2,11 @@
 
 Task-oriented walkthroughs to create agent-plugins and agent stacks.
 
+New here? Start with
+[create-agent-stack.md](create-agent-stack.md). It builds and runs a
+stack from plugins already packaged in this repo, so there is nothing
+to import first.
+
 ## The workflow
 
 A stack is built in three steps:
@@ -19,7 +24,7 @@ A stack is built in three steps:
    this repo, from yours, or from both.
 3. **Use the agent stack.** Run its launcher, which stages the
    plugins into the shape that harness expects —
-   [create-agent-stack.md](create-agent-stack.md#3-use-the-stack).
+   [create-agent-stack.md](create-agent-stack.md#4-run-it).
 
 | Guide | What it walks through |
 | ----- | --------------------- |
