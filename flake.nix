@@ -231,13 +231,15 @@
               '';
 
           # A source.json records a licence the manifest spells
-          # unusually as a lib.licenses attribute name, and the
-          # builder treats a name this nixpkgs lacks as no licence.
-          # That is right for a consumer's nixpkgs and wrong here: in
-          # this set a name that does not resolve is a mistyped row in
-          # the importer's table, or an attribute a flake.lock update
-          # renamed, and the package would ship with no licence and
-          # no complaint. Which names exist is a fact about the
+          # unusually as a string, an SPDX identifier or a
+          # lib.licenses attribute name, and the builder treats one
+          # this nixpkgs has no licence for as no licence. That is
+          # right for a consumer's nixpkgs and wrong here: in this
+          # set a string that does not resolve is a mistyped row in
+          # the importer's table, an identifier nixpkgs has no
+          # licence for, or an attribute a flake.lock update renamed,
+          # and the package would ship with no licence and no
+          # complaint. Which names exist is a fact about the
           # nixpkgs this flake pins, so the check is this
           # repository's. ADR 0017.
           license-names-resolve =
@@ -247,7 +249,7 @@
                 (builtins.mapAttrs (_: p: p.passthru.agentPlugin.unresolvedLicense or null) built);
             in
             if unresolved != { } then
-              throw ("these packages record a meta.license that is not a lib.licenses licence: "
+              throw ("these packages record a meta.license that names no lib.licenses licence: "
                 + builtins.concatStringsSep ", "
                 (nixpkgs.lib.mapAttrsToList (pkg: name: "${pkg} -> ${name}") unresolved))
             else
@@ -297,8 +299,7 @@
             };
 
           # Every convention ADR 0014 records, asserted on real builds:
-          # a declared SPDX licence resolves to the lib.licenses value
-          # whatever case it is written in,
+          # a declared SPDX licence resolves to the lib.licenses value,
           # an unrecognised licence string yields no assertion at all,
           # a licence the call names is that lib.licenses value and a
           # name nixpkgs lacks is no assertion either,
@@ -325,14 +326,17 @@
                 };
               mit = mk { name = "mit-plugin"; license = "MIT"; };
               apache = mk { name = "apache-plugin"; license = "Apache-2.0"; };
-              # SPDX identifiers match without regard to case.
-              lowerCase = mk { name = "lower-case-plugin"; license = "apache-2.0"; };
               unknown = mk { name = "unknown-plugin"; license = "SEE LICENSE IN LICENSE"; };
               # What `agent-stacks import` writes for a manifest saying
-              # "Apache 2.0" or "Public Domain": the manifest as
-              # upstream spelled it, and the licence by name in meta.
-              named = mk { name = "named-plugin"; license = "Apache 2.0"; meta.license = "asl20"; };
+              # "Apache 2.0", "mit" or "Public Domain": the manifest
+              # as upstream spelled it, and in meta the SPDX
+              # identifier, or the lib.licenses name where SPDX has
+              # no identifier.
+              named = mk { name = "named-plugin"; license = "Apache 2.0"; meta.license = "Apache-2.0"; };
+              recased = mk { name = "recased-plugin"; license = "mit"; meta.license = "MIT"; };
               namedNoSpdx = mk { name = "named-pd-plugin"; license = "Public Domain"; meta.license = "publicDomain"; };
+              # The lookup is exact. Import is what knows "mit" is MIT.
+              wrongCase = mk { name = "wrong-case-plugin"; license = "mit"; };
               # A name that is not a licence is dropped, and the
               # manifest's own licence then stands.
               badName = mk { name = "bad-name-plugin"; license = "MIT"; meta.license = "no-such-licence"; };
@@ -355,10 +359,11 @@
             pkgs.runCommand "meta-conventions" { } ''
               [ "${mit.meta.license.spdxId}" = MIT ]
               [ "${apache.meta.license.spdxId}" = Apache-2.0 ]
-              [ "${lowerCase.meta.license.spdxId}" = Apache-2.0 ]
               [ "${yes unknown (m: m ? license)}" = false ]
               [ "${named.meta.license.spdxId}" = Apache-2.0 ]
               [ "${yes named (_: named.passthru.agentPlugin.unresolvedLicense == null)}" = true ]
+              [ "${recased.meta.license.spdxId}" = MIT ]
+              [ "${yes wrongCase (m: m ? license)}" = false ]
               [ "${yes namedNoSpdx (m: m.license == nixpkgs.lib.licenses.publicDomain)}" = true ]
               [ "${badName.meta.license.spdxId}" = MIT ]
               [ "${badName.passthru.agentPlugin.unresolvedLicense}" = no-such-licence ]

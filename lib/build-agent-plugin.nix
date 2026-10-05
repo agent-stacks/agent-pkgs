@@ -116,27 +116,21 @@ let
     then manifest.${key}
     else null;
 
-  # lib.licenses keyed by SPDX identifier, in lower case: SPDX matches
-  # identifiers without regard to case, so a manifest saying "mit" or
-  # "apache-2.0" names the licence as surely as one saying "MIT"
-  # (ADR 0018). Built by folding over sorted attribute names with
-  # first-wins, rather than with mapAttrs', so two licence attributes
-  # sharing an spdxId resolve to the same one on every evaluation
-  # instead of to whichever mapAttrs' happened to visit last.
+  # lib.licenses keyed by SPDX identifier. Built by folding over sorted
+  # attribute names with first-wins, rather than with mapAttrs', so two
+  # licence attributes sharing an spdxId resolve to the same one on
+  # every evaluation instead of to whichever mapAttrs' happened to
+  # visit last.
   licensesBySpdx = lib.foldl'
     (acc: attr:
-      let
-        l = lib.licenses.${attr};
-        id = lib.toLower l.spdxId;
-      in
-      if l ? spdxId && builtins.isString l.spdxId && !(acc ? ${id})
-      then acc // { ${id} = l; }
+      let l = lib.licenses.${attr}; in
+      if l ? spdxId && builtins.isString l.spdxId && !(acc ? ${l.spdxId})
+      then acc // { ${l.spdxId} = l; }
       else acc)
     { }
     (builtins.attrNames lib.licenses);
 
   declaredLicense = manifestString "license";
-  declaredSpdx = if declaredLicense == null then null else lib.toLower declaredLicense;
   manifestDescription = manifestString "description";
 
   # meta the builder derives from arguments it already has. A caller's
@@ -158,8 +152,8 @@ let
   // lib.optionalAttrs (sourceUrl != null || manifestString "homepage" != null) {
     homepage = if sourceUrl != null then sourceUrl else manifestString "homepage";
   }
-  // lib.optionalAttrs (declaredSpdx != null && licensesBySpdx ? ${declaredSpdx}) {
-    license = licensesBySpdx.${declaredSpdx};
+  // lib.optionalAttrs (declaredLicense != null && licensesBySpdx ? ${declaredLicense}) {
+    license = licensesBySpdx.${declaredLicense};
   };
 
   # The description that actually applies, once the caller's meta has
@@ -177,23 +171,30 @@ let
     { longDescription = manifestDescription; };
 
   # A generated source.json cannot hold a lib.licenses value, so
-  # `agent-stacks import` records the licence by its attribute name
-  # ("asl20") when the manifest spells it in a way the lookup above
-  # cannot resolve. A meta.license given as a string is that name.
+  # `agent-stacks import` records the licence as a string when the
+  # manifest spells it in a way the lookup above cannot resolve: the
+  # SPDX identifier ("Apache-2.0" for a manifest saying "Apache 2.0",
+  # "MIT" for one saying "mit"), or the lib.licenses attribute name
+  # for a licence SPDX has no identifier for ("publicDomain"). A
+  # meta.license given as a string is one of those. Which string
+  # means which licence is import's decision; this only looks up what
+  # it is handed, an identifier first. No lib.licenses attribute is
+  # named like another licence's identifier, so the order decides
+  # nothing today.
   #
-  # `lib` is the caller's nixpkgs. A name it lacks is no licence, like
-  # any other the builder cannot vouch for, and not an evaluation
-  # error: the string is dropped, so the manifest's own licence still
-  # applies when it resolved. The isAttrs test is there because
-  # lib.licenses also holds the AND, OR and WITH operators, which are
-  # functions. ADR 0018.
+  # `lib` is the caller's nixpkgs. A string it has no licence for is
+  # no licence, like any other the builder cannot vouch for, and not
+  # an evaluation error: the string is dropped, so the manifest's own
+  # licence still applies when it resolved. The isAttrs test is there
+  # because lib.licenses also holds the AND, OR and WITH operators,
+  # which are functions. ADR 0018.
   licenseName =
     if builtins.isString (meta.license or null) then meta.license else null;
 
   namedLicense =
-    if licenseName != null
-      && lib.licenses ? ${licenseName}
-      && builtins.isAttrs lib.licenses.${licenseName}
+    if licenseName == null then null
+    else if licensesBySpdx ? ${licenseName} then licensesBySpdx.${licenseName}
+    else if lib.licenses ? ${licenseName} && builtins.isAttrs lib.licenses.${licenseName}
     then lib.licenses.${licenseName}
     else null;
 
@@ -372,9 +373,9 @@ stdenvNoCC.mkDerivation {
   passthru.agentPlugin = {
     inherit name sourceUrl import;
     path = out;
-    # A licence name the call recorded that this nixpkgs has no
-    # licence for, so a check can say so; null when there was no name
-    # or it resolved.
+    # A licence the call recorded as a string that this nixpkgs has
+    # no licence for, so a check can say so; null when there was no
+    # string or it resolved.
     unresolvedLicense =
       if licenseName != null && namedLicense == null then licenseName else null;
     # Provenance for the audit story: what was fetched, and what it
