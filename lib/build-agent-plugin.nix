@@ -116,21 +116,27 @@ let
     then manifest.${key}
     else null;
 
-  # lib.licenses keyed by SPDX identifier. Built by folding over sorted
-  # attribute names with first-wins, rather than with mapAttrs', so two
-  # licence attributes sharing an spdxId resolve to the same one on
-  # every evaluation instead of to whichever mapAttrs' happened to
-  # visit last.
+  # lib.licenses keyed by SPDX identifier, in lower case: SPDX matches
+  # identifiers without regard to case, so a manifest saying "mit" or
+  # "apache-2.0" names the licence as surely as one saying "MIT"
+  # (ADR 0018). Built by folding over sorted attribute names with
+  # first-wins, rather than with mapAttrs', so two licence attributes
+  # sharing an spdxId resolve to the same one on every evaluation
+  # instead of to whichever mapAttrs' happened to visit last.
   licensesBySpdx = lib.foldl'
     (acc: attr:
-      let l = lib.licenses.${attr}; in
-      if l ? spdxId && builtins.isString l.spdxId && !(acc ? ${l.spdxId})
-      then acc // { ${l.spdxId} = l; }
+      let
+        l = lib.licenses.${attr};
+        id = lib.toLower l.spdxId;
+      in
+      if l ? spdxId && builtins.isString l.spdxId && !(acc ? ${id})
+      then acc // { ${id} = l; }
       else acc)
     { }
     (builtins.attrNames lib.licenses);
 
   declaredLicense = manifestString "license";
+  declaredSpdx = if declaredLicense == null then null else lib.toLower declaredLicense;
   manifestDescription = manifestString "description";
 
   # meta the builder derives from arguments it already has. A caller's
@@ -152,8 +158,8 @@ let
   // lib.optionalAttrs (sourceUrl != null || manifestString "homepage" != null) {
     homepage = if sourceUrl != null then sourceUrl else manifestString "homepage";
   }
-  // lib.optionalAttrs (declaredLicense != null && licensesBySpdx ? ${declaredLicense}) {
-    license = licensesBySpdx.${declaredLicense};
+  // lib.optionalAttrs (declaredSpdx != null && licensesBySpdx ? ${declaredSpdx}) {
+    license = licensesBySpdx.${declaredSpdx};
   };
 
   # The description that actually applies, once the caller's meta has

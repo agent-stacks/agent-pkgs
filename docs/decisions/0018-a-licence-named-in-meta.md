@@ -49,6 +49,13 @@ that has one. Here a name that does not resolve is a mistyped row in
 the importer's table or an attribute a `flake.lock` update renamed,
 and both should stop a merge.
 
+**An SPDX identifier is matched without regard to case.** SPDX
+defines identifiers that way, and a manifest saying `mit` or
+`apache-2.0` is not in doubt. The importer cannot tell such a string
+from a correctly cased identifier without a list of them, so it does
+not warn, and a case-sensitive lookup here would drop the licence
+with nobody told. This amends ADR 0014's exact-match lookup.
+
 **The builder keeps no table of spellings.** It resolves SPDX
 identifiers from the manifest, as before, and names from `meta`.
 Which spelling means which licence is decided in agent-stacks.

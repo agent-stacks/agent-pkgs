@@ -297,7 +297,8 @@
             };
 
           # Every convention ADR 0014 records, asserted on real builds:
-          # a declared SPDX licence resolves to the lib.licenses value,
+          # a declared SPDX licence resolves to the lib.licenses value
+          # whatever case it is written in,
           # an unrecognised licence string yields no assertion at all,
           # a licence the call names is that lib.licenses value and a
           # name nixpkgs lacks is no assertion either,
@@ -324,6 +325,8 @@
                 };
               mit = mk { name = "mit-plugin"; license = "MIT"; };
               apache = mk { name = "apache-plugin"; license = "Apache-2.0"; };
+              # SPDX identifiers match without regard to case.
+              lowerCase = mk { name = "lower-case-plugin"; license = "apache-2.0"; };
               unknown = mk { name = "unknown-plugin"; license = "SEE LICENSE IN LICENSE"; };
               # What `agent-stacks import` writes for a manifest saying
               # "Apache 2.0" or "Public Domain": the manifest as
@@ -352,6 +355,7 @@
             pkgs.runCommand "meta-conventions" { } ''
               [ "${mit.meta.license.spdxId}" = MIT ]
               [ "${apache.meta.license.spdxId}" = Apache-2.0 ]
+              [ "${lowerCase.meta.license.spdxId}" = Apache-2.0 ]
               [ "${yes unknown (m: m ? license)}" = false ]
               [ "${named.meta.license.spdxId}" = Apache-2.0 ]
               [ "${yes named (_: named.passthru.agentPlugin.unresolvedLicense == null)}" = true ]
