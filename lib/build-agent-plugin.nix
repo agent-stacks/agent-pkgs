@@ -170,7 +170,33 @@ let
       && manifestDescription != effectiveDescription)
     { longDescription = manifestDescription; };
 
-  finalMeta = defaultMeta // longDescription // meta;
+  # A generated source.json cannot hold a lib.licenses value, so
+  # `agent-stacks import` records the licence by its attribute name
+  # ("asl20") when the manifest spells it in a way the lookup above
+  # cannot resolve. A meta.license given as a string is that name.
+  #
+  # `lib` is the caller's nixpkgs. A name it lacks is no licence, like
+  # any other the builder cannot vouch for, and not an evaluation
+  # error: the string is dropped, so the manifest's own licence still
+  # applies when it resolved. The isAttrs test is there because
+  # lib.licenses also holds the AND, OR and WITH operators, which are
+  # functions. ADR 0018.
+  licenseName =
+    if builtins.isString (meta.license or null) then meta.license else null;
+
+  namedLicense =
+    if licenseName != null
+      && lib.licenses ? ${licenseName}
+      && builtins.isAttrs lib.licenses.${licenseName}
+    then lib.licenses.${licenseName}
+    else null;
+
+  callerMeta =
+    if licenseName == null then meta
+    else builtins.removeAttrs meta [ "license" ]
+      // lib.optionalAttrs (namedLicense != null) { license = namedLicense; };
+
+  finalMeta = defaultMeta // longDescription // callerMeta;
 
   # Runtime resolution: the table maps interpreter names to
   # nixpkgs attributes; the plugin's `runtimes` argument overrides it
@@ -340,6 +366,11 @@ stdenvNoCC.mkDerivation {
   passthru.agentPlugin = {
     inherit name sourceUrl import;
     path = out;
+    # A licence name the call recorded that this nixpkgs has no
+    # licence for, so a check can say so; null when there was no name
+    # or it resolved.
+    unresolvedLicense =
+      if licenseName != null && namedLicense == null then licenseName else null;
     # Provenance for the audit story: what was fetched, and what it
     # hashed to. Null when src is a path or a derivation rather than a
     # recorded pin, because then there is nothing pinned to report.
@@ -358,7 +389,8 @@ stdenvNoCC.mkDerivation {
   };
 
   # A plugin makes no licence assertion unless its manifest declares a
-  # recognisable SPDX identifier: licenses.unfree would be wrong,
+  # recognisable SPDX identifier or the call names a licence:
+  # licenses.unfree would be wrong,
   # licenses.free would be a lie, and nixpkgs has no "unknown" to name.
   # maintainers is never set here; nixpkgs injects an empty list, which
   # is what unmaintained means. ADR 0014 records both.

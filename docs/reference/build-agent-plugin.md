@@ -25,7 +25,7 @@ every argument.
 | `requiredRuntimes` | `null` | Interpreter tokens the package's files name, as recorded by `agent-stacks import`. Required for a generated package — one whose `source.json` carries `import` — and the build fails, naming the fix, if it is missing there. A hand-written call omits it and gets every name in `mappings/runtimes.nix` resolved, the old behavior. |
 | `allowPathCommands` | `[ ]` | Bare `mcp.json` commands that intentionally resolve from the consumer environment's PATH instead of the closure. |
 | `extraSubstitutions` | `[ ]` | List of `{ file; replace; with; }` applied after the automatic pass, for interpreter mentions in script bodies or SKILL.md text. |
-| `meta` | `{ }` | Standard derivation meta, merged over computed defaults ([ADR 0014](../decisions/0014-generated-package-meta.md)): `category = "agent-plugin"`, `platforms = lib.platforms.all`, `description` and `homepage` from the manifest or `sourceUrl` when present, and `license` when `manifest.license` resolves to a known `lib.licenses` entry by `spdxId`. The manifest's full description is kept as `longDescription` when it says more than the effective `description`. The merge is `defaultMeta // longDescription // meta`, key by key: an explicit key in the caller's `meta` wins over the computed default. The merge can only add or override a key, not remove one — a caller whose manifest declares a licence cannot suppress `meta.license` from the call site by passing an empty `meta`; the manifest is the thing making the claim, so that is where to change it. |
+| `meta` | `{ }` | Standard derivation meta, merged over computed defaults ([ADR 0014](../decisions/0014-generated-package-meta.md)): `category = "agent-plugin"`, `platforms = lib.platforms.all`, `description` and `homepage` from the manifest or `sourceUrl` when present, and `license` when `manifest.license` resolves to a known `lib.licenses` entry by `spdxId`. A `meta.license` given as a string is the name of a `lib.licenses` attribute, which is how a generated `source.json` records a licence the manifest does not spell as an SPDX identifier (`"asl20"` for `Apache 2.0`), and is replaced by that licence; a name nixpkgs has no licence for is dropped ([ADR 0018](../decisions/0018-a-licence-named-in-meta.md)). The manifest's full description is kept as `longDescription` when it says more than the effective `description`. The merge is `defaultMeta // longDescription // meta`, key by key: an explicit key in the caller's `meta` wins over the computed default. The merge can only add or override a key, not remove one — a caller whose manifest declares a licence cannot suppress `meta.license` from the call site by passing an empty `meta`; the manifest is the thing making the claim, so that is where to change it. |
 
 ## The build phase
 
@@ -72,8 +72,13 @@ trade-offs: [ADR 0006](../decisions/0006-runtime-substitution.md) and
 ```nix
 passthru.agentPlugin = {
   name; path; sourceUrl; specVersion; skills; import; rev; hash;
+  unresolvedLicense;
 };
 ```
+
+`unresolvedLicense` is a licence name passed in `meta.license` that
+nixpkgs has no licence for, and `null` when there was no name or it
+resolved.
 
 `rev` and `hash` are the fetched pin's, when `src` is a recorded
 `fetchFromGitHub` pin; both are `null` when `src` is a path or a

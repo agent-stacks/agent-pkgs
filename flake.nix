@@ -230,6 +230,31 @@
                 touch $out
               '';
 
+          # A source.json records a licence the manifest spells
+          # unusually as a lib.licenses attribute name, and the
+          # builder treats a name this nixpkgs lacks as no licence.
+          # That is right for a consumer's nixpkgs and wrong here: in
+          # this set a name that does not resolve is a mistyped row in
+          # the importer's table, or an attribute a flake.lock update
+          # renamed, and the package would ship with no licence and
+          # no complaint. Which names exist is a fact about the
+          # nixpkgs this flake pins, so the check is this
+          # repository's. ADR 0017.
+          license-names-resolve =
+            let
+              built = mkPackages pkgs;
+              unresolved = nixpkgs.lib.filterAttrs (_: name: name != null)
+                (builtins.mapAttrs (_: p: p.passthru.agentPlugin.unresolvedLicense or null) built);
+            in
+            if unresolved != { } then
+              throw ("these packages record a meta.license that is not a lib.licenses licence: "
+                + builtins.concatStringsSep ", "
+                (nixpkgs.lib.mapAttrsToList (pkg: name: "${pkg} -> ${name}") unresolved))
+            else
+              pkgs.runCommand "license-names-resolve" { } ''
+                touch $out
+              '';
+
           # A plugin built the way a generated source.json calls the
           # builder: src as a pin rather than a derivation, an import
           # record that only reaches passthru, and skills as plain
@@ -274,6 +299,8 @@
           # Every convention ADR 0014 records, asserted on real builds:
           # a declared SPDX licence resolves to the lib.licenses value,
           # an unrecognised licence string yields no assertion at all,
+          # a licence the call names is that lib.licenses value and a
+          # name nixpkgs lacks is no assertion either,
           # maintainers stay empty, and platforms and category are
           # always present.
           meta-conventions =
@@ -298,6 +325,17 @@
               mit = mk { name = "mit-plugin"; license = "MIT"; };
               apache = mk { name = "apache-plugin"; license = "Apache-2.0"; };
               unknown = mk { name = "unknown-plugin"; license = "SEE LICENSE IN LICENSE"; };
+              # What `agent-stacks import` writes for a manifest saying
+              # "Apache 2.0" or "Public Domain": the manifest as
+              # upstream spelled it, and the licence by name in meta.
+              named = mk { name = "named-plugin"; license = "Apache 2.0"; meta.license = "asl20"; };
+              namedNoSpdx = mk { name = "named-pd-plugin"; license = "Public Domain"; meta.license = "publicDomain"; };
+              # A name that is not a licence is dropped, and the
+              # manifest's own licence then stands.
+              badName = mk { name = "bad-name-plugin"; license = "MIT"; meta.license = "no-such-licence"; };
+              operatorName = mk { name = "operator-plugin"; meta.license = "AND"; };
+              # A caller handing over the licence itself is untouched.
+              given = mk { name = "given-plugin"; license = "MIT"; meta.license = nixpkgs.lib.licenses.isc; };
               none = mk { name = "none-plugin"; };
               longDesc = mk {
                 name = "long-plugin";
@@ -315,6 +353,14 @@
               [ "${mit.meta.license.spdxId}" = MIT ]
               [ "${apache.meta.license.spdxId}" = Apache-2.0 ]
               [ "${yes unknown (m: m ? license)}" = false ]
+              [ "${named.meta.license.spdxId}" = Apache-2.0 ]
+              [ "${yes named (_: named.passthru.agentPlugin.unresolvedLicense == null)}" = true ]
+              [ "${yes namedNoSpdx (m: m.license == nixpkgs.lib.licenses.publicDomain)}" = true ]
+              [ "${badName.meta.license.spdxId}" = MIT ]
+              [ "${badName.passthru.agentPlugin.unresolvedLicense}" = no-such-licence ]
+              [ "${yes operatorName (m: m ? license)}" = false ]
+              [ "${operatorName.passthru.agentPlugin.unresolvedLicense}" = AND ]
+              [ "${given.meta.license.spdxId}" = ISC ]
               [ "${yes none (m: m ? license)}" = false ]
               [ "${yes mit (m: m.maintainers == [ ])}" = true ]
               [ "${yes none (m: m.maintainers == [ ])}" = true ]
