@@ -5,7 +5,8 @@ description: >-
   daemon refuses a substituter named by a user it does not trust, so
   without this every nix command warns twice and substitutes from
   nothing. The runner is a throwaway VM whose store is discarded with
-  it.
+  it. On macOS it also points the nix client at the flox CA bundle,
+  until a flox release does that itself (AI-787).
 
 runs:
   using: composite
@@ -16,6 +17,27 @@ runs:
 
         printf 'trusted-users = root %s\n' "$(id -un)" \
           | sudo tee -a /etc/nix/nix.conf >/dev/null
+
+        # Workaround for AI-787. The flox macOS package gives the nix
+        # daemon a CA bundle but not the nix client, so client-side
+        # fetches (eval-time fetchTarball, `nix copy --from https://...`)
+        # fail with "unable to get local issuer certificate". Point the
+        # client at the bundle the package already installs. Only when
+        # nothing is set, so this goes quiet once a flox release ships
+        # the fix in flox-installers; then delete it.
+        if [ "$RUNNER_OS" = macOS ]; then
+          current="$(nix --extra-experimental-features nix-command \
+            config show ssl-cert-file 2>/dev/null || true)"
+          if [ -z "$current" ]; then
+            bundle=/etc/ssl/certs/flox-ca-bundle.crt
+            if [ ! -e "$bundle" ]; then
+              echo "no CA bundle for nix: $bundle is missing" >&2
+              exit 1
+            fi
+            echo "ssl-cert-file = $bundle" \
+              | sudo tee -a /etc/nix/nix.conf >/dev/null
+          fi
+        fi
 
         # trusted-users is read once, when the daemon starts.
         case "$RUNNER_OS" in
