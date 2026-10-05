@@ -1,0 +1,46 @@
+{
+  "name": "llm-finetuning",
+  "version": "1.0.0",
+  "src": {
+    "owner": "wshobson",
+    "repo": "agents",
+    "rev": "9b15b34b0bfc13a815cbfc2366e14ea549e09422",
+    "hash": "sha256-8h5zbwUAujgruqYZLErWewRX2bmJ5MvkhDqe3J4viNI="
+  },
+  "sourceUrl": "https://github.com/wshobson/agents",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "email": "seth@major7apps.com",
+      "name": "Seth Hobson"
+    },
+    "description": "Eval-gated LLM fine-tuning lifecycle (LoRA/QLoRA, DPO, GRPO/RLVR, vision SFT, quantized export). Use when fine-tuning an open-weights model end-to-end: building the eval harness first, selecting method and model, preparing data, training with Unsloth or TRL, gating checkpoints, and exporting GGUF/FP8.",
+    "homepage": "https://github.com/wshobson/agents",
+    "license": "MIT",
+    "name": "llm-finetuning",
+    "version": "1.0.0"
+  },
+  "skills": {
+    "checkpoint-promotion": "plugins/llm-finetuning/skills/checkpoint-promotion",
+    "dataset-curation": "plugins/llm-finetuning/skills/dataset-curation",
+    "eval-harness-first": "plugins/llm-finetuning/skills/eval-harness-first",
+    "finetuning-method-selection": "plugins/llm-finetuning/skills/finetuning-method-selection",
+    "grpo-rlvr-training": "plugins/llm-finetuning/skills/grpo-rlvr-training",
+    "lora-qlora-recipes": "plugins/llm-finetuning/skills/lora-qlora-recipes",
+    "preference-optimization": "plugins/llm-finetuning/skills/preference-optimization",
+    "quantized-export": "plugins/llm-finetuning/skills/quantized-export",
+    "trace-to-training-data": "plugins/llm-finetuning/skills/trace-to-training-data",
+    "vision-sft": "plugins/llm-finetuning/skills/vision-sft"
+  },
+  "requiredRuntimes": [],
+  "meta": {
+    "description": "Eval-gated LLM fine-tuning lifecycle (LoRA/QLoRA, DPO, GRPO/RLVR, vision SFT, quantized export)",
+    "homepage": "https://github.com/wshobson/agents"
+  },
+  "import": {
+    "input": "wshobson/agents",
+    "flags": [
+      "--path-ignore=plugins/avoid-ai-writing"
+    ]
+  }
+}
