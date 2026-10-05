@@ -1,0 +1,56 @@
+name: "Point nix at a CA bundle"
+description: >-
+  Exports SSL_CERT_FILE and NIX_SSL_CERT_FILE and writes ssl-cert-file
+  to nix.conf, so that nix's curl can verify TLS on every runner.
+
+  install-flox-action appends the nix profile script to the login
+  shell's profile, and a workflow `run:` step is a non-login shell that
+  never sources it, so NIX_SSL_CERT_FILE arrives unset. On ubuntu that
+  is harmless: nix falls back to /etc/ssl/certs/ca-certificates.crt,
+  which the image ships. On macos-latest there is no file at that path,
+  so nix has no trust store at all and every HTTPS fetch fails with
+  "unable to get local issuer certificate (20)".
+
+  Eval-time fetches run in the client, so the environment is what
+  matters there; fixed-output derivations are fetched by the daemon,
+  which reads nix.conf. Both are set, which is why this has to run
+  before trust-nix-user — that is what restarts the daemon.
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        set -euo pipefail
+
+        # First match wins: the profile's own bundle if the environment
+        # happens to carry it, then the one the nix install puts in the
+        # default profile, then each platform's system bundle.
+        candidates=(
+          "${NIX_SSL_CERT_FILE:-}"
+          "${SSL_CERT_FILE:-}"
+          /nix/var/nix/profiles/default/etc/ssl/certs/ca-bundle.crt
+          /etc/ssl/certs/ca-certificates.crt
+          /etc/ssl/cert.pem
+        )
+
+        bundle=""
+        for candidate in "${candidates[@]}"; do
+          if [ -n "$candidate" ] && [ -r "$candidate" ]; then
+            bundle="$candidate"
+            break
+          fi
+        done
+
+        if [ -z "$bundle" ]; then
+          echo "no readable CA bundle found; tried: ${candidates[*]}" >&2
+          exit 1
+        fi
+
+        echo "using CA bundle $bundle"
+
+        printf 'SSL_CERT_FILE=%s\n' "$bundle" >>"$GITHUB_ENV"
+        printf 'NIX_SSL_CERT_FILE=%s\n' "$bundle" >>"$GITHUB_ENV"
+
+        printf 'ssl-cert-file = %s\n' "$bundle" \
+          | sudo tee -a /etc/nix/nix.conf >/dev/null
