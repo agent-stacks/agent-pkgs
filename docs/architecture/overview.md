@@ -68,7 +68,15 @@ violates the Agent Plugins or Agent Skills spec fails its own build.
 ## CI
 
 GitHub Actions (ubuntu + macos) with `flox/install-flox-action` and
-`flox/configure-nix-action`; `nix flake check` builds every package
-in `pkgs/` and the gates, not the re-exported agent CLIs.
+`flox/configure-nix-action`, bundled into the `nix-setup` composite
+action. A pull request evaluates every output without building it
+(`nix flake check --no-build --all-systems`), builds the gates —
+`hydraJobs.checks`, the non-package checks — and builds only the
+`pkgs/` directories it touches; a change outside `pkgs/` builds
+everything instead. A push to `main` runs the full `nix flake check`,
+which builds every package in `pkgs/` and the gates, not the
+re-exported agent CLIs. `summary` is the one check branch protection
+requires. AI-915 and the workflow's own header comment carry the
+reasoning.
 The binary cache is populated separately by Hydra (Distribution
 project); CI stays plain and forkable.

@@ -1,0 +1,26 @@
+name: "Set up nix on a runner"
+description: >-
+  Installs flox, configures nix, points it at a CA bundle and trusts the
+  runner's user. Every job in CI needs all four, in this order, and the
+  order is load-bearing: nix-ssl-cert-file writes ssl-cert-file to
+  nix.conf and trust-nix-user restarts the daemon that reads it, so the
+  certificate step has to come first.
+
+  Bundled into one action so that adding a job does not mean copying
+  four steps and their pinned SHAs, which is how two jobs end up on
+  different versions of the same setup.
+
+runs:
+  using: composite
+  steps:
+    - name: Install flox
+      uses: flox/install-flox-action@3b80351ae97bbe063f264dc88fbd505507054963 # v2.5.3
+
+    - name: Configure nix
+      uses: flox/configure-nix-action@28a4eb7f63bf54c91670b4a698f0a9ebfb95384f # main
+
+    - name: Point nix at a CA bundle
+      uses: ./.github/actions/nix-ssl-cert-file
+
+    - name: Trust the runner's user
+      uses: ./.github/actions/trust-nix-user

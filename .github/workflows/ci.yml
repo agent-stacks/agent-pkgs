@@ -1,5 +1,41 @@
 name: CI
 
+# What a pull request checks, and what it costs (AI-915).
+#
+# This workflow used to be one job: `nix flake check -L` on two runners.
+# `checks` is every package plus the gates, so that built all 252
+# packages twice on every push to every branch — the most expensive
+# thing in the repository, on the cheapest justification.
+#
+# It was also largely redundant. `hydraJobs` builds `packages.*` across
+# all systems continuously, so the full build is covered outside pull
+# requests whatever CI does.
+#
+# So a pull request now lints rather than builds:
+#
+# - `eval` instantiates every output for every system without building
+#   any of it. Most breakage here is an evaluation error — a bad
+#   `default.nix`, a missing attribute, a package that does not
+#   instantiate — and this catches that class in seconds with no
+#   builder. It is the cheapest signal per second in the file.
+# - `gates` builds the non-package checks alone, the ones that encode
+#   this repository's own rules. `hydraJobs.checks` already names
+#   exactly those, so the list is read from the flake rather than
+#   repeated here, and a new gate is picked up without touching this
+#   workflow. On both runners, because a gate is small and this is the
+#   only darwin signal a pull request gets.
+# - `changed` builds the `pkgs/*` directories the pull request actually
+#   touches, on x86_64-linux. A change to the builder or the tables is
+#   not local to any package, so that falls back to the full build.
+#
+# What a pull request therefore does not prove: that every package
+# still builds, and that any package builds on darwin. Three other
+# things do. Hydra builds `packages.*` for every system; a push to
+# `main` runs the full check here; and `update-agent-plugins` and
+# `update-flake-lock` each run `nix flake check -L` on their own
+# schedules, hourly. A package that stops building is caught within the
+# hour whether or not a pull request built it.
+
 on:
   push:
     branches: [main]
@@ -8,35 +44,172 @@ on:
 permissions:
   contents: read
 
+env:
+  NIX_CONFIG: |
+    experimental-features = nix-command flakes
+    # The flake offers cache.numtide.com as a substituter. Without
+    # this, every nix command here opens with two warnings about
+    # ignoring it, because the runner's user is not a trusted user.
+    accept-flake-config = true
+
 jobs:
-  build:
-    name: Build (${{ matrix.os }})
+  eval:
+    name: Evaluate every output
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - uses: ./.github/actions/nix-setup
+
+      # `--no-build` instantiates and stops: every check and package is
+      # evaluated to a .drv and nothing is realised. `--all-systems`
+      # covers the systems this runner is not, which costs evaluation
+      # only — a darwin derivation instantiates fine on linux.
+      - name: Evaluate the flake without building it
+        run: nix flake check --no-build --all-systems
+
+  gates:
+    name: Gates (${{ matrix.os }})
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
-    env:
-      NIX_CONFIG: |
-        experimental-features = nix-command flakes
-        # The flake offers cache.numtide.com as a substituter. Without
-        # this, every nix command here opens with two warnings about
-        # ignoring it, because the runner's user is not a trusted user.
-        accept-flake-config = true
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
-      - name: Install flox
-        uses: flox/install-flox-action@3b80351ae97bbe063f264dc88fbd505507054963 # v2.5.3
+      - uses: ./.github/actions/nix-setup
 
-      - name: Configure nix
-        uses: flox/configure-nix-action@28a4eb7f63bf54c91670b4a698f0a9ebfb95384f # main
+      # `hydraJobs.checks` is `mkChecks` with the packages removed, so
+      # it is the gates and nothing else — the same set Hydra builds as
+      # gates, by construction rather than by a list kept in step with
+      # one. Reading the names from the flake is what keeps a new gate
+      # from needing an edit here.
+      #
+      # Written for bash 3.2: macos-latest has no `mapfile`.
+      - name: Build the non-package checks
+        run: |
+          set -euo pipefail
+          system="$(nix eval --raw --impure --expr builtins.currentSystem)"
+          gates="$(nix eval --json ".#hydraJobs.checks.$system" \
+            --apply builtins.attrNames | jq -r '.[]')"
+          if [ -z "$gates" ]; then
+            echo "no gates found in hydraJobs.checks.$system" >&2
+            exit 1
+          fi
+          echo "gates:"
+          printf '%s\n' "$gates" | sed 's/^/  /'
+          set --
+          while IFS= read -r gate; do
+            [ -n "$gate" ] || continue
+            set -- "$@" ".#hydraJobs.checks.$system.$gate"
+          done <<<"$gates"
+          nix build -L --no-link "$@"
 
-      - name: Point nix at a CA bundle
-        uses: ./.github/actions/nix-ssl-cert-file
+  changed:
+    name: Build what this pull request touches
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    steps:
+      # Full history: the diff is taken against the base commit, which a
+      # shallow clone does not have.
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          fetch-depth: 0
 
-      - name: Trust the runner's user
-        uses: ./.github/actions/trust-nix-user
+      - uses: ./.github/actions/nix-setup
 
+      # A package directory is also its attribute name — `mkPackages` is
+      # `genAttrs` over the directories under pkgs/ — so the diff names
+      # the things to build with no mapping in between. A deleted
+      # directory is dropped: it is in the diff and has no attribute
+      # left to build.
+      #
+      # The widening list is the set of paths no single package owns. A
+      # change to `lib/`, the tables, the flake or this workflow can
+      # break any package, and building only the touched ones would
+      # prove nothing, so those take the full build instead.
+      - name: Build the changed packages
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set -euo pipefail
+
+          changed="$(git diff --name-only "$BASE_SHA...HEAD")"
+          echo "changed files:"
+          printf '%s\n' "$changed" | sed 's/^/  /'
+
+          if printf '%s\n' "$changed" \
+            | grep -qE '^(flake\.nix|flake\.lock|lib/|mappings/|\.github/)'; then
+            echo "a change outside pkgs/ can affect any package; building everything"
+            exec nix flake check -L
+          fi
+
+          system=x86_64-linux
+          set --
+          for dir in $(printf '%s\n' "$changed" \
+            | sed -n 's|^pkgs/\([^/]*\)/.*|\1|p' | sort -u); do
+            if [ -f "pkgs/$dir/default.nix" ]; then
+              set -- "$@" ".#packages.$system.$dir"
+            else
+              echo "pkgs/$dir is gone; nothing to build for it"
+            fi
+          done
+
+          if [ "$#" -eq 0 ]; then
+            echo "no package directories changed; nothing to build"
+            exit 0
+          fi
+
+          echo "building:" "$@"
+          nix build -L --no-link "$@"
+
+  full:
+    name: Build every package (${{ matrix.os }})
+    if: ${{ github.event_name == 'push' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - uses: ./.github/actions/nix-setup
+
+      # The thing a pull request deliberately does not do. On `main`
+      # only, so a merge is still checked against every package even
+      # though no single pull request was.
       - name: Flake check (builds every package)
         run: nix flake check -L
+
+  # The one check branch protection requires. Every other job's name
+  # either carries a matrix value or belongs to one trigger, so
+  # requiring them by name ties protection to the shape of this file:
+  # change the matrix or split a job and the required list goes stale
+  # silently, either blocking forever on a check nobody runs or passing
+  # because the new check was never required. This job's name never
+  # changes.
+  #
+  # `if: always()` so it runs even when a dependency failed, was
+  # cancelled, or was skipped. Without it the summary is skipped too,
+  # and a skipped required check reads as success.
+  summary:
+    name: Summary
+    needs: [eval, gates, changed, full]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      # `failure` and `cancelled` fail; `success` and `skipped` pass.
+      # Skipped has to pass: `changed` runs only on a pull request and
+      # `full` only on a push, so one of the two is always skipped.
+      - name: Check every job succeeded or was skipped
+        env:
+          RESULTS: ${{ toJSON(needs) }}
+        run: |
+          echo "$RESULTS"
+          if printf '%s' "$RESULTS" \
+            | grep -q '"result": *"\(failure\|cancelled\)"'; then
+            echo "at least one job did not succeed" >&2
+            exit 1
+          fi
