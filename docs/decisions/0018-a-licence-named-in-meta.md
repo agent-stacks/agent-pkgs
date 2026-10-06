@@ -22,7 +22,7 @@ package whose `meta.license` is not free unless the consumer allows
 it. A package with no `meta.license` passes that unexamined.
 
 Recognising what upstream wrote is `agent-stacks import`'s job.
-agent-stacks ADR 0041 puts the table of spellings there, with the
+agent-stacks ADR 0043 puts the table of spellings there, with the
 SPDX identifier list that tells `mit` from a word that is no licence.
 Import cannot finish the job alone: `source.json` is JSON and cannot
 hold a `lib.licenses` value. It can hold a string.
