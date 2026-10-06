@@ -112,6 +112,17 @@ the plugin's own `plugin.json` sits at the root and never carries
 declares an `agent-plugins.org` `$schema`, and a root `mcp.json` that
 does the same. Any other root file is not read.
 
+`meta` carries `description` and `homepage`, and `license` only
+when the manifest spells its licence in a way the builder cannot
+resolve and the importer recognises: the SPDX identifier, such as
+`"Apache-2.0"` for a manifest saying `Apache 2.0` or `"MIT"` for one
+saying `mit`, or the `lib.licenses` attribute name for a licence SPDX
+has no identifier for, `"publicDomain"`. JSON cannot hold the licence
+itself, so the builder looks the string up
+([ADR 0018](../decisions/0018-a-licence-named-in-meta.md)). The
+manifest keeps upstream's spelling. A file from an importer that
+predates this never carries the key.
+
 `import` is declared but only reaches `passthru` — nothing in the
 build reads it. It carries `input` (owner/repo), `flags` (the import
 invocation's flags), and `warnings` (the `{ path, message }` entries
@@ -232,6 +243,8 @@ passthru.agentPlugin = {
   skills = [ "skill-a" ];   # null when selected at build time
   import = { input = "OWNER/REPO"; flags = [ ]; };
                             # null when the package was hand-written
+  unresolvedLicense = null; # a meta.license string nixpkgs has no
+                            #   licence for; null when it resolved
 };
 ```
 

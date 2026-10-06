@@ -42,7 +42,8 @@ on one of those links to it rather than restating it.
 | [0011](0011-skill-and-tool-are-separate-packages.md) | A skill and the tool it drives are separate packages |
 | [0012](0012-skill-content-is-pruned.md) | Skill content is pruned by a fixed list |
 | [0013](0013-assembly-lives-in-flox-agent.md) | Assembly lives in agent-stacks |
-| [0014](0014-generated-package-meta.md) | A generated package's meta asserts only what is known |
+| [0014](0014-generated-package-meta.md) | A generated package's meta asserts only what is known (a licence may also be named in `meta`, 0018) |
 | [0015](0015-the-re-export-is-a-named-list.md) | What the re-export publishes is a named list, not a rule |
 | [0016](0016-plugin-root-code-ships-when-skills-reference-it.md) | Plugin-root code ships when a plugin's skills reference it |
 | [0017](0017-checks-live-where-the-behaviour-lives.md) | Checks live where the behaviour lives; this flake does not assert what the binary writes |
+| [0018](0018-a-licence-named-in-meta.md) | A `meta.license` given as a string names a licence |
