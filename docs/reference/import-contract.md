@@ -124,13 +124,24 @@ manifest keeps upstream's spelling. A file from an importer that
 predates this never carries the key.
 
 `import` is declared but only reaches `passthru` — nothing in the
-build reads it. It carries `input` (owner/repo), `flags` (the import
-invocation's flags), and `warnings` (the `{ path, message }` entries
+build reads it. It carries `input` (the upstream as it was given to
+import), `flags` (the import invocation's flags, one `--flag=value`
+element each), and `warnings` (the `{ path, message }` entries
 `agent-stacks check-plugin` raised at import time, plus what import
 found itself: scripts with no shebang, dependency manifests the build
 does not resolve, plugin-root references that are missing or withheld,
 and Claude components that are not packaged). `warnings` is omitted
 when empty.
+
+`input` and `flags` are replayed by `agent-stacks import <input>
+--replay --out pkgs`: the importer finds every package under `pkgs/`
+whose `input` names that upstream and applies the `flags` they
+record, refusing any other flag beside `--out` and any disagreement
+between those packages. That is the whole of the hourly workflow's
+invocation. Nothing in this repository reads `flags` itself, and the
+`--flag=value` shape is the importer's own: it is what Go's flag
+package re-parses, not a contract for a shell reader. Without
+`--replay`, import never applies recorded flags.
 
 `pluginRootPaths` maps a plugin-root entry's destination inside the
 plugin tree to its path inside `src`. It holds three kinds of entry:

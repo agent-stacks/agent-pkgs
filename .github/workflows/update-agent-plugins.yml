@@ -1,8 +1,11 @@
 name: "Update agent plugins"
 
-# Replays the import command recorded in every package's source.json, so an
+# Replays the import recorded in every package's source.json, so an
 # upstream that moved is picked back up without anyone reconstructing the
-# import by hand. Off the hour because runner queues are worst at :00.
+# import by hand. `--replay` applies the flags the package records and
+# refuses any other (agent-stacks ADR 0048), so the invocation here is the
+# same one a hand replay types. Off the hour because runner queues are
+# worst at :00.
 on:
   schedule:
     - cron: "17 * * * *"
@@ -61,9 +64,8 @@ jobs:
           failed=()
           for f in pkgs/agent-plugin-*/source.json; do
             input="$(jq -r .import.input "$f")"
-            mapfile -t flags < <(jq -r '.import.flags[]' "$f")
             echo "::group::$input"
-            if ! nix run .#agent-stacks -- import "$input" "${flags[@]}" --out pkgs; then
+            if ! nix run .#agent-stacks -- import "$input" --replay --out pkgs; then
               failed+=("$input")
             fi
             echo "::endgroup::"
