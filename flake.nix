@@ -172,6 +172,10 @@
           defaultAgentStacks = (mkPackages pkgs).agent-stacks;
         };
         runtimeMappings = import ./mappings/runtimes.nix;
+        # A harness package whose own program runs through `agent-stacks
+        # launch` (ADR 0019). mkAllPackages applies it to the agents
+        # mappings/harnesses.nix names.
+        wrapHarness = pkgs.callPackage ./lib/wrap-harness.nix { };
       };
 
       mkPackages = pkgs:
@@ -191,7 +195,19 @@
       mkAllPackages = pkgs:
         let
           built = mkPackages pkgs;
-          llmAgents = llmAgentsFor pkgs.stdenv.hostPlatform.system;
+          # The agents launch hands plugins to run through it, so a plain
+          # `claude` in an environment gets the environment's plugins.
+          # ADR 0019.
+          harnesses = import ./mappings/harnesses.nix;
+          wrap = name: p:
+            if harnesses ? ${name}
+            then (mkLib pkgs).wrapHarness {
+              harness = p;
+              adapter = harnesses.${name};
+              agentStacks = built.agent-stacks;
+            }
+            else p;
+          llmAgents = builtins.mapAttrs wrap (llmAgentsFor pkgs.stdenv.hostPlatform.system);
           # This set owns the name: a package written here is what the
           # catalog serves, and the re-export is shadowed. Warned about
           # rather than tolerated silently, because pkgs/ grows by
@@ -256,6 +272,52 @@
               pkgs.runCommand "license-names-resolve" { } ''
                 touch $out
               '';
+
+          # The wrapper a harness package ships (ADR 0019), run against a
+          # fake harness and a fake agent-stacks that record what they
+          # were given: a plain run goes through launch with the user's
+          # arguments untouched and the real program first on PATH; a
+          # run launch itself started, or one switched off, goes straight
+          # to the real program.
+          harness-wrapper =
+            let
+              fakeHarness = pkgs.runCommand "fake-harness-1.0" { meta.mainProgram = "fake"; } ''
+                mkdir -p $out/bin $out/share/fake
+                printf '#!${pkgs.runtimeShell}\necho "real $*"\n' > $out/bin/fake
+                printf '#!${pkgs.runtimeShell}\necho helper\n' > $out/bin/fake-helper
+                chmod +x $out/bin/*
+                touch $out/share/fake/data
+              '';
+              fakeAgentStacks = pkgs.runCommand "fake-agent-stacks" { } ''
+                mkdir -p $out/bin
+                cat > $out/bin/agent-stacks <<'EOF'
+                #!${pkgs.runtimeShell}
+                echo "launch-args $*"
+                echo "wrapped=$AGENT_STACKS_WRAPPED"
+                echo "first-on-path=$(command -v fake)"
+                EOF
+                chmod +x $out/bin/agent-stacks
+              '';
+              wrapped = (mkLib pkgs).wrapHarness {
+                harness = fakeHarness;
+                adapter = "fakeagent";
+                agentStacks = fakeAgentStacks;
+              };
+            in
+            pkgs.runCommand "harness-wrapper" { } ''
+              set -eu
+              w=${wrapped}/bin/fake
+              out1=$(env -u AGENT_STACKS -u AGENT_STACKS_OFF $w plugin list)
+              echo "$out1" | grep -qx 'launch-args launch fakeagent -- plugin list'
+              echo "$out1" | grep -qx 'wrapped=1'
+              echo "$out1" | grep -qx "first-on-path=${wrapped}/libexec/agent-stacks/fakeagent/bin/fake"
+              [ "$(AGENT_STACKS=1 $w a b)" = "real a b" ]
+              [ "$(AGENT_STACKS_OFF=1 $w a b)" = "real a b" ]
+              [ "$(${wrapped}/bin/fake-helper)" = helper ]
+              [ -e ${wrapped}/share/fake/data ]
+              [ "${wrapped.meta.mainProgram}" = fake ]
+              touch $out
+            '';
 
           # A plugin built the way a generated source.json calls the
           # builder: src as a pin rather than a derivation, an import
