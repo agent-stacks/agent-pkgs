@@ -47,3 +47,4 @@ on one of those links to it rather than restating it.
 | [0016](0016-plugin-root-code-ships-when-skills-reference-it.md) | Plugin-root code ships when a plugin's skills reference it |
 | [0017](0017-checks-live-where-the-behaviour-lives.md) | Checks live where the behaviour lives; this flake does not assert what the binary writes |
 | [0018](0018-a-licence-named-in-meta.md) | A `meta.license` given as a string names a licence |
+| [0019](0019-harness-packages-run-through-agent-stacks-launch.md) | Harness packages run through `agent-stacks launch`, so a plain `claude` gets the environment's plugins |
