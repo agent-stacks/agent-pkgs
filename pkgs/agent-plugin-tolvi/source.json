@@ -1,11 +1,11 @@
 {
   "name": "tolvi",
-  "version": "0.1.2",
+  "version": "0.3.1",
   "src": {
     "owner": "tolvi-labs",
     "repo": "tolvi",
-    "rev": "06be56263f0e909bc9bc761c83176bce740702e6",
-    "hash": "sha256-6aEzsN81johN8B0FGJRL6airwFAhASpk0L7EGgq49C8="
+    "rev": "6ed4ee9ac2b6df789e746436926f01f80690baca",
+    "hash": "sha256-CCs8NVYN6UFZnGQ7ojQ5Ji+qcfpcgbyioYhSJjKQxFc="
   },
   "sourceUrl": "https://github.com/tolvi-labs/tolvi",
   "manifest": {
@@ -24,9 +24,10 @@
     "license": "Apache-2.0",
     "name": "tolvi",
     "repository": "https://github.com/tolvi-labs/tolvi",
-    "version": "0.1.2"
+    "version": "0.3.1"
   },
   "skills": {
+    "files": "cli/internal/integrations/files",
     "tolvi": "skills/tolvi"
   },
   "requiredRuntimes": [
@@ -38,6 +39,16 @@
   },
   "import": {
     "input": "tolvi-labs/tolvi",
-    "flags": []
+    "flags": [],
+    "warnings": [
+      {
+        "path": "cli/internal/integrations/files/SKILL.md/name",
+        "message": "skill name \"tolvi\" must match directory name \"files\""
+      },
+      {
+        "path": "skills/tolvi/SKILL.md/name",
+        "message": "skill name \"tolvi\" is also declared by the skill in directory \"files\""
+      }
+    ]
   }
 }
