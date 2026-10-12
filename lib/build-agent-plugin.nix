@@ -4,7 +4,7 @@
 #   ├── plugin.json
 #   ├── skills/
 #   ├── mcp.json        # optional
-#   ├── bin/            # pinned interpreters, when any are needed
+#   ├── bin/            # pinned interpreters, beside upstream's own bin/ when it has one
 #   ├── com.anthropic.claude-code/  # Claude's components; hooks.json from `hooks`
 #   └── ...             # pluginRootPaths entries, e.g. scripts/
 #

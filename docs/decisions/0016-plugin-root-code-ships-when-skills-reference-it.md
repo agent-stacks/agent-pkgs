@@ -4,6 +4,10 @@ Date: 2026-09-19
 
 Status: Accepted
 
+Note: the clause that a package never ships `bin/` is superseded by
+[0019](0019-an-upstream-bin-ships-beside-the-interpreter-links.md);
+`skills/` remains the entry assembly writes itself.
+
 ## Context
 
 `buildAgentPlugin` assembles a plugin from its skill directories.

@@ -170,8 +170,9 @@ plugin tree to its path inside `src`. It holds three kinds of entry:
 - what the plugin's MCP servers reference (agent-stacks ADR 0035);
 - for a plugin Claude Code installs, meaning a marketplace listing
   names it or its directory has `.claude-plugin/plugin.json`, its
-  `agents/`, `commands/` and `hooks/`, plus what their own files
-  reference (agent-stacks ADR 0037, proposed); `hooks/` also ships for
+  `agents/`, `commands/` and `hooks/` in the namespace, and its
+  `bin/` at the root, plus what their own files reference
+  (agent-stacks ADR 0037 and 0052, proposed); `hooks/` also ships for
   hooks declared outside `hooks.json`, with what they run (agent-stacks
   ADR 0051).
 
@@ -182,9 +183,14 @@ a skill's. A directory is pruned as a skill copy is, and login files
 (`.npmrc`, `*.pem`, …) are dropped. In the hooks file, a hook that
 runs a plugin file with a bare interpreter is pointed at the package's
 `bin/`; one the runtime table doesn't map is left for `PATH` and
-reported. Destinations are one path
-segment, never `skills` or `bin`. The field is absent when nothing
-outside the skills ships.
+reported. Destinations are one path segment, never `skills`, or two
+inside the client-extension namespace. `bin` is allowed from the
+agent-stacks release carrying its ADR 0052; the binary pinned before it
+refuses the entry. An upstream `bin/` ships beside the interpreter
+links, and an entry in it with a linked interpreter's name fails the
+build naming both
+([ADR 0019](../decisions/0019-an-upstream-bin-ships-beside-the-interpreter-links.md)).
+The field is absent when nothing outside the skills ships.
 
 `requiredRuntimes` is a flat array of the interpreter tokens the
 scanner found in the package's files: shebangs, bare `mcp.json`

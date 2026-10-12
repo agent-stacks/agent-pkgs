@@ -8,6 +8,11 @@ Note: `allowEnvShebangs`, mentioned below, is removed as of
 [0013](0013-assembly-lives-in-flox-agent.md); the rest of this
 decision stands.
 
+Note: `bin/` is no longer assembly's alone. An upstream `bin/` ships
+beside the interpreter links, and a name both want fails the build
+([0019](0019-an-upstream-bin-ships-beside-the-interpreter-links.md));
+the rest of this decision stands.
+
 ## Context
 
 Skills ship scripts with `#!/usr/bin/env python3` shebangs and

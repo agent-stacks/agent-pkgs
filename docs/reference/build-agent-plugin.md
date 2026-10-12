@@ -61,10 +61,13 @@ On the copied tree, `assemble-plugin`:
    store paths, so the interpreters land in the plugin's closure.
 
 After the pass, a guard fails the build for any executable outside
-`assets/` and the plugin's top-level `bin/` whose shebang does not
-point into that plugin-local `bin/` — not only the `/usr/bin/env`
-form the pass targets, but any shebang the pass left alone. The fix is
-to map the runtime, or to move the file under `assets/`. Design and
+`assets/` whose shebang does not point into that plugin-local `bin/` —
+not only the `/usr/bin/env` form the pass targets, but any shebang the
+pass left alone. An upstream `bin/` is read like the rest; the
+interpreter links beside its files are symlinks, which the guard skips
+([ADR 0019](../decisions/0019-an-upstream-bin-ships-beside-the-interpreter-links.md)).
+The fix is to map the runtime, or to move the file under `assets/`.
+Design and
 trade-offs: [ADR 0006](../decisions/0006-runtime-substitution.md) and
 [ADR 0013](../decisions/0013-assembly-lives-in-flox-agent.md).
 
