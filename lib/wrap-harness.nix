@@ -31,6 +31,9 @@ in
 runCommand harness.name
 {
   inherit runtimeShell;
+  # The catalog reads these; runCommand would otherwise leave them unset.
+  pname = harness.pname or (lib.getName harness);
+  version = harness.version or (lib.getVersion harness);
   passthru = (harness.passthru or { }) // { unwrapped = harness; };
   meta = harness.meta // { mainProgram = program; };
 } ''
