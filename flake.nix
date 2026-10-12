@@ -265,6 +265,31 @@
                 touch $out
               '';
 
+          # The no-op sandbox is the contract's test (agent-stacks-cli ADR
+          # 0051): it says it is not sandboxing, or prints its `msg`
+          # option, and execs what follows `--` unchanged. Options that
+          # are not an object, or that name a key it does not take, stop
+          # it before the command runs, with a reason on stderr.
+          agent-sandbox-noop-contract =
+            let noop = "${(mkPackages pkgs).agent-sandbox-noop}/bin/agent-sandbox-noop"; in
+            pkgs.runCommand "agent-sandbox-noop-contract" { } ''
+              set -u
+              got=$(${noop} -- echo "a b" c 2>err); [ "$got" = "a b c" ]
+              grep -q 'no sandbox' err
+              got=$(${noop} --options '{"msg":"hello"}' -- echo ran 2>err); [ "$got" = ran ]
+              [ "$(cat err)" = hello ]
+              for bad in '[1]' '"x"' '{"msg":1}' '{"other":true}' '{nope'; do
+                if ${noop} --options "$bad" -- touch ran-anyway 2>err; then
+                  echo "accepted $bad"; exit 1
+                fi
+                [ ! -e ran-anyway ] && [ -s err ] || { echo "no reason for $bad"; exit 1; }
+              done
+              if ${noop} --options; then exit 1; fi
+              if ${noop} echo no-separator; then exit 1; fi
+              rc=0; ${noop} -- sh -c 'exit 7' 2>/dev/null || rc=$?; [ "$rc" -eq 7 ]
+              touch $out
+            '';
+
           # A plugin built the way a generated source.json calls the
           # builder: src as a pin rather than a derivation, an import
           # record that only reaches passthru, and skills as plain
