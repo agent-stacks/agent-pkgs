@@ -276,6 +276,9 @@
               set -u
               got=$(${noop} -- echo "a b" c 2>err); [ "$got" = "a b c" ]
               grep -q 'no sandbox' err
+              # a command given by its full path is named by its basename
+              ${noop} -- ${pkgs.coreutils}/bin/true 2>err
+              grep -qx 'agent-sandbox-noop: no sandbox; running true unsandboxed' err
               got=$(${noop} --options '{"msg":"hello"}' -- echo ran 2>err); [ "$got" = ran ]
               [ "$(cat err)" = hello ]
               for bad in '[1]' '"x"' '{"msg":1}' '{"other":true}' '{nope'; do

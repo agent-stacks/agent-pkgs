@@ -47,7 +47,7 @@
     done
     [ $# -gt 0 ] || die "no command after --"
 
-    msg="agent-sandbox-noop: no sandbox; running $1 unsandboxed"
+    msg="agent-sandbox-noop: no sandbox; running ''${1##*/} unsandboxed"
     if [ -n "$opts" ]; then
       jq -e 'type == "object"' >/dev/null 2>&1 <<<"$opts" ||
         die "options must be a JSON object, got: $opts"
