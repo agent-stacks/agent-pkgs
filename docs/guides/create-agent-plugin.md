@@ -108,6 +108,7 @@ keys:
 | `skills` | skill name → path in the upstream tree, described below | the `skills/` directory |
 | `requiredRuntimes` | interpreter tokens the tree's scripts name, such as `python3` | symlinks in the plugin's `bin/`, with shebangs rewritten to them |
 | `mcpServers` | server definitions, when the plugin declares any | `mcp.json` |
+| `hooks` | Claude Code's hooks, when the plugin declares any: an event map | `com.anthropic.claude-code/hooks/hooks.json` |
 | `sourceUrl`, `meta` | the upstream URL, and derivation meta | `passthru.agentPlugin`, and the package's `meta` |
 | `import` | the input, the flags, and the warnings from the run that wrote the file | nothing: it is provenance a reviewer reads |
 
