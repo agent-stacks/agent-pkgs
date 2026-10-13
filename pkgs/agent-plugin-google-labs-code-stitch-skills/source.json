@@ -13,17 +13,27 @@
     "name": "google-labs-code-stitch-skills"
   },
   "skills": {
+    "code-to-design": "plugins/stitch-design/skills/code-to-design",
     "design-md": "plugins/stitch-utilities/skills/design-md",
     "enhance-prompt": "plugins/stitch-utilities/skills/enhance-prompt",
+    "extract-design-md": "plugins/stitch-design/skills/extract-design-md",
+    "extract-static-html": "plugins/stitch-design/skills/extract-static-html",
+    "generate-design": "plugins/stitch-design/skills/generate-design",
+    "manage-design-system": "plugins/stitch-design/skills/manage-design-system",
+    "react-components": "plugins/stitch-build/skills/react-components",
+    "react-native": "plugins/stitch-build/skills/react-native",
     "react-vite-dashboard": "plugins/stitch-build/skills/react-vite-dashboard",
     "remotion": "plugins/stitch-build/skills/remotion",
     "shadcn-ui": "plugins/stitch-build/skills/shadcn-ui",
     "site-md": "plugins/stitch-utilities/skills/site-md",
     "stitch-loop": "plugins/stitch-utilities/skills/stitch-loop",
-    "taste-design": "plugins/stitch-utilities/skills/taste-design"
+    "taste-design": "plugins/stitch-utilities/skills/taste-design",
+    "upload-to-stitch": "plugins/stitch-design/skills/upload-to-stitch"
   },
   "requiredRuntimes": [
-    "bash"
+    "bash",
+    "npx",
+    "python3"
   ],
   "meta": {
     "description": "Agent plugin imported from https://github.com/google-labs-code/stitch-skills",
@@ -34,12 +44,28 @@
     "flags": [],
     "warnings": [
       {
+        "path": "plugins/stitch-build/skills/react-components/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (stitch*:* Bash Read Write web_fetch)"
+      },
+      {
         "path": "plugins/stitch-build/skills/react-components/SKILL.md/name",
-        "message": "\"stitch::react-components\" contains invalid character ':'; only letters, digits, and hyphens are allowed, skill skipped"
+        "message": "\"stitch::react-components\" contains invalid character ':'; only letters, digits, and hyphens are allowed"
+      },
+      {
+        "path": "plugins/stitch-build/skills/react-components/SKILL.md/name",
+        "message": "skill name \"stitch::react-components\" must match directory name \"react-components\""
+      },
+      {
+        "path": "plugins/stitch-build/skills/react-native/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (stitch*:* Bash Read Write web_fetch)"
       },
       {
         "path": "plugins/stitch-build/skills/react-native/SKILL.md/name",
-        "message": "\"stitch::react-native\" contains invalid character ':'; only letters, digits, and hyphens are allowed, skill skipped"
+        "message": "\"stitch::react-native\" contains invalid character ':'; only letters, digits, and hyphens are allowed"
+      },
+      {
+        "path": "plugins/stitch-build/skills/react-native/SKILL.md/name",
+        "message": "skill name \"stitch::react-native\" must match directory name \"react-native\""
       },
       {
         "path": "plugins/stitch-build/skills/react-vite-dashboard/SKILL.md/allowed-tools",
@@ -54,28 +80,76 @@
         "message": "must be a space-separated string, not a list (shadcn*:* mcp_shadcn* Read Write Bash web_fetch)"
       },
       {
+        "path": "plugins/stitch-design/skills/code-to-design/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (stitch*:* Bash Read Write web_fetch)"
+      },
+      {
         "path": "plugins/stitch-design/skills/code-to-design/SKILL.md/name",
-        "message": "\"stitch::code-to-design\" contains invalid character ':'; only letters, digits, and hyphens are allowed, skill skipped"
+        "message": "\"stitch::code-to-design\" contains invalid character ':'; only letters, digits, and hyphens are allowed"
+      },
+      {
+        "path": "plugins/stitch-design/skills/code-to-design/SKILL.md/name",
+        "message": "skill name \"stitch::code-to-design\" must match directory name \"code-to-design\""
+      },
+      {
+        "path": "plugins/stitch-design/skills/extract-design-md/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (stitch*:* Bash Read Write web_fetch)"
       },
       {
         "path": "plugins/stitch-design/skills/extract-design-md/SKILL.md/name",
-        "message": "\"stitch::extract-design-md\" contains invalid character ':'; only letters, digits, and hyphens are allowed, skill skipped"
+        "message": "\"stitch::extract-design-md\" contains invalid character ':'; only letters, digits, and hyphens are allowed"
+      },
+      {
+        "path": "plugins/stitch-design/skills/extract-design-md/SKILL.md/name",
+        "message": "skill name \"stitch::extract-design-md\" must match directory name \"extract-design-md\""
+      },
+      {
+        "path": "plugins/stitch-design/skills/extract-static-html/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (stitch*:* Bash Read Write web_fetch)"
       },
       {
         "path": "plugins/stitch-design/skills/extract-static-html/SKILL.md/name",
-        "message": "\"stitch::extract-static-html\" contains invalid character ':'; only letters, digits, and hyphens are allowed, skill skipped"
+        "message": "\"stitch::extract-static-html\" contains invalid character ':'; only letters, digits, and hyphens are allowed"
+      },
+      {
+        "path": "plugins/stitch-design/skills/extract-static-html/SKILL.md/name",
+        "message": "skill name \"stitch::extract-static-html\" must match directory name \"extract-static-html\""
+      },
+      {
+        "path": "plugins/stitch-design/skills/generate-design/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (stitch*:* Bash Read Write web_fetch)"
       },
       {
         "path": "plugins/stitch-design/skills/generate-design/SKILL.md/name",
-        "message": "\"stitch::generate-design\" contains invalid character ':'; only letters, digits, and hyphens are allowed, skill skipped"
+        "message": "\"stitch::generate-design\" contains invalid character ':'; only letters, digits, and hyphens are allowed"
+      },
+      {
+        "path": "plugins/stitch-design/skills/generate-design/SKILL.md/name",
+        "message": "skill name \"stitch::generate-design\" must match directory name \"generate-design\""
+      },
+      {
+        "path": "plugins/stitch-design/skills/manage-design-system/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (stitch*:* Bash Read Write web_fetch)"
       },
       {
         "path": "plugins/stitch-design/skills/manage-design-system/SKILL.md/name",
-        "message": "\"stitch::manage-design-system\" contains invalid character ':'; only letters, digits, and hyphens are allowed, skill skipped"
+        "message": "\"stitch::manage-design-system\" contains invalid character ':'; only letters, digits, and hyphens are allowed"
+      },
+      {
+        "path": "plugins/stitch-design/skills/manage-design-system/SKILL.md/name",
+        "message": "skill name \"stitch::manage-design-system\" must match directory name \"manage-design-system\""
+      },
+      {
+        "path": "plugins/stitch-design/skills/upload-to-stitch/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (stitch*:* Bash Read Write web_fetch)"
       },
       {
         "path": "plugins/stitch-design/skills/upload-to-stitch/SKILL.md/name",
-        "message": "\"stitch::upload-to-stitch\" contains invalid character ':'; only letters, digits, and hyphens are allowed, skill skipped"
+        "message": "\"stitch::upload-to-stitch\" contains invalid character ':'; only letters, digits, and hyphens are allowed"
+      },
+      {
+        "path": "plugins/stitch-design/skills/upload-to-stitch/SKILL.md/name",
+        "message": "skill name \"stitch::upload-to-stitch\" must match directory name \"upload-to-stitch\""
       },
       {
         "path": "plugins/stitch-utilities/skills/design-md/SKILL.md/allowed-tools",
@@ -96,6 +170,22 @@
       {
         "path": "plugins/stitch-utilities/skills/taste-design/SKILL.md/allowed-tools",
         "message": "must be a space-separated string, not a list (StitchMCP Read Write)"
+      },
+      {
+        "path": "skills/react-components/scripts/validate.js",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/react-native/scripts/validate.js",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/react-components/package.json",
+        "message": "dependency manifest; the build does not resolve what it declares"
+      },
+      {
+        "path": "skills/react-native/package.json",
+        "message": "dependency manifest; the build does not resolve what it declares"
       }
     ]
   }
