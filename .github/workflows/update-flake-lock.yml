@@ -151,10 +151,15 @@ jobs:
           app-id: ${{ secrets.MANAGED_AGENT_STACKS_UPDATER_APP_ID }}
           private-key: ${{ secrets.MANAGED_AGENT_STACKS_UPDATER_PRIVATE_KEY }}
 
+      # The commit verify checked, named by SHA rather than through
+      # the staging branch, which can have moved since. If main has
+      # moved too, the loop below rebases it, and what lands is the
+      # verified change replayed onto the newer main rather than the
+      # exact tree verify saw: a conflict stops it, nothing re-checks it.
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           token: ${{ steps.app-token.outputs.token }}
-          ref: ${{ env.STAGING_BRANCH }}
+          ref: ${{ needs.prepare.outputs.sha }}
           fetch-depth: 0
 
       # Retried, because losing the race for main is normal rather than
