@@ -68,74 +68,24 @@ jobs:
           git push --force origin "HEAD:refs/heads/$STAGING_BRANCH"
           echo "changed=true" >> "$GITHUB_OUTPUT"
 
-  # Every system is built before main moves. A nixpkgs bump reaches every
-  # package in the set, and the systems do not fail together: a change to a
-  # darwin stdenv or to an aarch64 binary is invisible on x86_64-linux, which
-  # is all the old single-runner check covered.
+  # The same verification a pull request gets, on the staged commit:
+  # the gates built on every runner, and every output evaluated for
+  # every system. Called rather than copied so that a change to what a
+  # check means is made in ci.yml alone.
+  #
+  # It built every plugin package for three systems until 2026-10-13.
+  # That is Hydra's job: it builds `packages.*` for every system, and
+  # repeating it here spent an hour of runner time per cycle to learn
+  # the same thing later than Hydra does.
   verify:
-    name: "Build ${{ matrix.system }}"
     needs: prepare
     if: ${{ needs.prepare.outputs.changed == 'true' }}
-    runs-on: ${{ matrix.runner }}
-    strategy:
-      fail-fast: false
-      # One runner per system, because `nix flake check` builds the host
-      # system's outputs and only evaluates the rest. aarch64-linux runners
-      # are free on public repositories, which this one is, and this is the
-      # only place that system is built before Hydra sees it.
-      matrix:
-        include:
-          - system: x86_64-linux
-            runner: ubuntu-latest
-          - system: aarch64-linux
-            runner: ubuntu-24.04-arm
-          - system: aarch64-darwin
-            runner: macos-latest
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-        with:
-          ref: ${{ env.STAGING_BRANCH }}
-
-      - name: "Install flox"
-        uses: flox/install-flox-action@3b80351ae97bbe063f264dc88fbd505507054963 # v2.5.3
-
-      - name: "Configure nix"
-        uses: flox/configure-nix-action@28a4eb7f63bf54c91670b4a698f0a9ebfb95384f # main
-
-      - name: "Point nix at a CA bundle"
-        uses: ./.github/actions/nix-ssl-cert-file
-
-      - name: "Trust the runner's user"
-        uses: ./.github/actions/trust-nix-user
-
-      # The gates, then every plugin package for this system.
-      # `nix flake check` builds only `checks`, which is the gates
-      # since 2026-10-13, so a package has to be named to be built —
-      # and a replay that breaks one must not reach main. A plugin's
-      # directory under pkgs/ is also its attribute name, which is the
-      # same identity the import writes.
-      #
-      # The agent CLIs re-exported into `packages` are deliberately not
-      # built: they are nixpkgs builds this repository only forwards,
-      # and ADR 0015 records why they stay out of what CI builds.
-      - name: "Flake check (builds the gates)"
-        run: nix flake check -L
-
-      - name: "Build every plugin package"
-        run: |
-          set -euo pipefail
-          system="$(nix eval --raw --impure --expr builtins.currentSystem)"
-          set --
-          for d in pkgs/agent-plugin-*; do
-            [ -f "$d/default.nix" ] || continue
-            set -- "$@" ".#packages.$system.$(basename "$d")"
-          done
-          if [ "$#" -eq 0 ]; then
-            echo "no plugin packages found under pkgs/" >&2
-            exit 1
-          fi
-          echo "building $# plugin package(s) for $system"
-          nix build -L --no-link "$@"
+    # The branch prepare pushed the staged commit to. A literal,
+    # because a reusable workflow's `with` cannot read `env`; it has to
+    # stay the same string as STAGING_BRANCH above.
+    uses: ./.github/workflows/ci.yml
+    with:
+      ref: update-flake-lock
 
   land:
     name: "Move main onto the staged commit"
@@ -143,8 +93,36 @@ jobs:
     if: ${{ needs.prepare.outputs.changed == 'true' }}
     runs-on: ubuntu-latest
     steps:
+      # The push below authenticates as a GitHub App, not as the
+      # workflow's own GITHUB_TOKEN.
+      #
+      # main carries two rulesets. main-block refuses a deletion or a
+      # non-fast-forward, which none of this does. main-require wants a
+      # pull request and a passing Summary check, and a ruleset's bypass
+      # list can name only roles, teams, deploy keys and installed apps
+      # — the built-in GitHub Actions app is not one of them, so
+      # GITHUB_TOKEN cannot be exempted and its push is refused. The
+      # app is in that bypass list, so the token minted here lands.
+      #
+      # This workflow had no app token until 2026-10-13, while the
+      # other two did, so its land job could not succeed at all: every
+      # push to main was refused. It had not been noticed because the
+      # scheduled runs were failing earlier, in verify.
+      #
+      # The app is agent-stacks-updater, installed on the repositories
+      # whose packages it updates, and its credentials are organization
+      # secrets rather than this repository's, so one app and one key
+      # serve all of them.
+      - name: "Mint a token for the app that may push main"
+        id: app-token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          app-id: ${{ secrets.MANAGED_AGENT_STACKS_UPDATER_APP_ID }}
+          private-key: ${{ secrets.MANAGED_AGENT_STACKS_UPDATER_PRIVATE_KEY }}
+
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
+          token: ${{ steps.app-token.outputs.token }}
           ref: ${{ env.STAGING_BRANCH }}
           fetch-depth: 0
 
@@ -166,9 +144,20 @@ jobs:
       # reach here. Without it the first lost race ends in "empty ident
       # name", which the handler then reports as a conflict.
       - name: "Fast-forward main"
+        env:
+          # gh looks up the bot user id for the commit identity below.
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # The app's bot user, so a landed commit names what pushed
+          # it. The step above fails the job when no token was minted,
+          # so the slug is always set here.
+          slug="${{ steps.app-token.outputs.app-slug }}"
+          git config user.name "${slug}[bot]"
+          # The numeric form links the commit to the bot account. A
+          # lookup that is refused leaves the plain form, which is
+          # still a valid noreply address.
+          id="$(gh api "/users/${slug}%5Bbot%5D" --jq .id 2>/dev/null || true)"
+          git config user.email "${id:+$id+}${slug}[bot]@users.noreply.github.com"
           for attempt in 1 2 3 4 5; do
             if git push origin "HEAD:refs/heads/main"; then
               git push origin --delete "$STAGING_BRANCH"

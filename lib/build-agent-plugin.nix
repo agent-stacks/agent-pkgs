@@ -5,7 +5,8 @@
 #   ├── skills/
 #   ├── mcp.json        # optional
 #   ├── bin/            # pinned interpreters, when any are needed
-#   └── ...             # pluginRootPaths entries, e.g. hooks/, scripts/
+#   ├── com.anthropic.claude-code/  # Claude's components; hooks.json from `hooks`
+#   └── ...             # pluginRootPaths entries, e.g. scripts/
 #
 # Skill selection, in precedence order:
 #
@@ -70,6 +71,10 @@
   # mcp server configs, serialized to mcp.json; attrset of server
   # name -> config (type/command/...)
 , mcpServers ? null
+  # Claude Code's hooks, written as hooks/hooks.json in the namespace
+  # (agent-stacks ADR 0051). Not the overrideAttrs function a generated
+  # default.nix binds under the same name.
+, hooks ? null
   # agent-stacks package providing `agent-stacks assemble-plugin` and
   # `agent-stacks check-plugin`; required, because the build phase is a
   # call to it
@@ -258,7 +263,7 @@ let
   # needing a file on disk.
   callFile = pkgs.writeText "source.json" (builtins.toJSON
     (lib.filterAttrs (_: v: v != null) {
-      inherit name skills manifest mcpServers pluginRootPaths;
+      inherit name skills manifest mcpServers hooks pluginRootPaths;
       inherit allowPathCommands extraSubstitutions;
     }));
 in
@@ -304,6 +309,14 @@ stdenvNoCC.mkDerivation {
       --out "$dest" \
       --runtime-map ${runtimeMapFile} \
       --plugin-out "$out/${out}"
+
+    ${lib.optionalString (hooks != null) ''
+      # An agent-stacks older than the hooks argument ignores it.
+      if [ ! -f "$dest/com.anthropic.claude-code/hooks/hooks.json" ] && [ ! -f "$dest/hooks/hooks.json" ]; then
+        echo "buildAgentPlugin: ${name}: hooks were given but assemble-plugin wrote no hooks file; this agent-stacks predates the hooks argument (ADR 0051)" >&2
+        exit 1
+      fi
+    ''}
 
     # Hook point for extensions: runs on the fully assembled tree,
     # before install and the checks. It used to run between the

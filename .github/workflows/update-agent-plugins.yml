@@ -59,13 +59,17 @@ jobs:
       # minted in; reaching another one would need owner/repositories
       # passed here as well.
       #
-      # Missing secrets are not fatal: the step may fail and the
-      # checkout falls back to GITHUB_TOKEN, which is what ran before
-      # the app existed. The staging-branch push still works on that
-      # path; only the fast-forward of main is refused.
+      # No fallback to GITHUB_TOKEN. There was one until 2026-10-13,
+      # with continue-on-error here, so that the workflows kept
+      # working before the app existed. What it did once the app was
+      # the only way main moves: a private key stored with its
+      # newlines collapsed failed this step, every job reported
+      # success, and three runs built for an hour each before land was
+      # refused with GH013 — the one symptom that does not name the
+      # cause. The token is a precondition now, and a run without it
+      # stops here saying so.
       - name: "Mint a token for the app that may push main"
         id: app-token
-        continue-on-error: true
         uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
         with:
           app-id: ${{ secrets.MANAGED_AGENT_STACKS_UPDATER_APP_ID }}
@@ -73,7 +77,7 @@ jobs:
 
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
-          token: ${{ steps.app-token.outputs.token || github.token }}
+          token: ${{ steps.app-token.outputs.token }}
 
       - name: "Install flox"
         uses: flox/install-flox-action@3b80351ae97bbe063f264dc88fbd505507054963 # v2.5.3
@@ -114,9 +118,8 @@ jobs:
       - name: "Stage the commit"
         id: stage
         env:
-          # gh needs the app's token to look up the bot user id for
-          # the commit identity below.
-          GH_TOKEN: ${{ steps.app-token.outputs.token || github.token }}
+          # gh looks up the bot user id for the commit identity below.
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           set -euo pipefail
           if [ -z "$(git status --porcelain -- pkgs)" ]; then
@@ -125,88 +128,38 @@ jobs:
             exit 0
           fi
           # The app's bot user, so a landed commit names what pushed
-          # it. Falls back to the Actions bot when no app token was
-          # minted, which is the pre-app behaviour.
+          # it. The step above fails the job when no token was minted,
+          # so the slug is always set here.
           slug="${{ steps.app-token.outputs.app-slug }}"
-          if [ -n "$slug" ]; then
-            git config user.name "${slug}[bot]"
-            # The numeric form links the commit to the bot account. A
-            # lookup that is refused leaves the plain form, which is
-            # still a valid noreply address.
-            id="$(gh api "/users/${slug}%5Bbot%5D" --jq .id 2>/dev/null || true)"
-            git config user.email "${id:+$id+}${slug}[bot]@users.noreply.github.com"
-          else
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          fi
+          git config user.name "${slug}[bot]"
+          # The numeric form links the commit to the bot account. A
+          # lookup that is refused leaves the plain form, which is
+          # still a valid noreply address.
+          id="$(gh api "/users/${slug}%5Bbot%5D" --jq .id 2>/dev/null || true)"
+          git config user.email "${id:+$id+}${slug}[bot]@users.noreply.github.com"
           git add pkgs
           git commit -q -m "chore(agent-plugins): replay recorded imports"
           git push --force origin "HEAD:refs/heads/$STAGING_BRANCH"
           echo "changed=true" >> "$GITHUB_OUTPUT"
 
-  # nix flake check builds only the host system's outputs, so all three
-  # runners are needed: the arm runner is the only thing that builds
-  # aarch64-linux before Hydra sees it.
+  # The same verification a pull request gets, on the staged commit:
+  # the gates built on every runner, and every output evaluated for
+  # every system. Called rather than copied so that a change to what a
+  # check means is made in ci.yml alone.
+  #
+  # It built every plugin package for three systems until 2026-10-13.
+  # That is Hydra's job: it builds `packages.*` for every system, and
+  # repeating it here spent an hour of runner time per cycle to learn
+  # the same thing later than Hydra does.
   verify:
-    name: "Check ${{ matrix.system }}"
     needs: prepare
     if: ${{ needs.prepare.outputs.changed == 'true' }}
-    runs-on: ${{ matrix.runner }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - system: x86_64-linux
-            runner: ubuntu-latest
-          - system: aarch64-linux
-            runner: ubuntu-24.04-arm
-          - system: aarch64-darwin
-            runner: macos-latest
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-        with:
-          ref: ${{ env.STAGING_BRANCH }}
-
-      - name: "Install flox"
-        uses: flox/install-flox-action@3b80351ae97bbe063f264dc88fbd505507054963 # v2.5.3
-
-      - name: "Configure nix"
-        uses: flox/configure-nix-action@28a4eb7f63bf54c91670b4a698f0a9ebfb95384f # main
-
-      - name: "Point nix at a CA bundle"
-        uses: ./.github/actions/nix-ssl-cert-file
-
-      - name: "Trust the runner's user"
-        uses: ./.github/actions/trust-nix-user
-
-      # The gates, then every plugin package for this system.
-      # `nix flake check` builds only `checks`, which is the gates
-      # since 2026-10-13, so a package has to be named to be built —
-      # and a replay that breaks one must not reach main. A plugin's
-      # directory under pkgs/ is also its attribute name, which is the
-      # same identity the import writes.
-      #
-      # The agent CLIs re-exported into `packages` are deliberately not
-      # built: they are nixpkgs builds this repository only forwards,
-      # and ADR 0015 records why they stay out of what CI builds.
-      - name: "Flake check (builds the gates)"
-        run: nix flake check -L
-
-      - name: "Build every plugin package"
-        run: |
-          set -euo pipefail
-          system="$(nix eval --raw --impure --expr builtins.currentSystem)"
-          set --
-          for d in pkgs/agent-plugin-*; do
-            [ -f "$d/default.nix" ] || continue
-            set -- "$@" ".#packages.$system.$(basename "$d")"
-          done
-          if [ "$#" -eq 0 ]; then
-            echo "no plugin packages found under pkgs/" >&2
-            exit 1
-          fi
-          echo "building $# plugin package(s) for $system"
-          nix build -L --no-link "$@"
+    # The branch prepare pushed the staged commit to. A literal,
+    # because a reusable workflow's `with` cannot read `env`; it has to
+    # stay the same string as STAGING_BRANCH above.
+    uses: ./.github/workflows/ci.yml
+    with:
+      ref: update-agent-plugins
 
   land:
     name: "Move main onto the staged commit"
@@ -233,13 +186,17 @@ jobs:
       # minted in; reaching another one would need owner/repositories
       # passed here as well.
       #
-      # Missing secrets are not fatal: the step may fail and the
-      # checkout falls back to GITHUB_TOKEN, which is what ran before
-      # the app existed. The staging-branch push still works on that
-      # path; only the fast-forward of main is refused.
+      # No fallback to GITHUB_TOKEN. There was one until 2026-10-13,
+      # with continue-on-error here, so that the workflows kept
+      # working before the app existed. What it did once the app was
+      # the only way main moves: a private key stored with its
+      # newlines collapsed failed this step, every job reported
+      # success, and three runs built for an hour each before land was
+      # refused with GH013 — the one symptom that does not name the
+      # cause. The token is a precondition now, and a run without it
+      # stops here saying so.
       - name: "Mint a token for the app that may push main"
         id: app-token
-        continue-on-error: true
         uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
         with:
           app-id: ${{ secrets.MANAGED_AGENT_STACKS_UPDATER_APP_ID }}
@@ -247,7 +204,7 @@ jobs:
 
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
-          token: ${{ steps.app-token.outputs.token || github.token }}
+          token: ${{ steps.app-token.outputs.token }}
           ref: ${{ env.STAGING_BRANCH }}
           fetch-depth: 0
 
@@ -271,25 +228,19 @@ jobs:
       # attempts, leaves main untouched and the run red.
       - name: "Fast-forward main"
         env:
-          # gh needs the app's token to look up the bot user id for
-          # the commit identity below.
-          GH_TOKEN: ${{ steps.app-token.outputs.token || github.token }}
+          # gh looks up the bot user id for the commit identity below.
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           # The app's bot user, so a landed commit names what pushed
-          # it. Falls back to the Actions bot when no app token was
-          # minted, which is the pre-app behaviour.
+          # it. The step above fails the job when no token was minted,
+          # so the slug is always set here.
           slug="${{ steps.app-token.outputs.app-slug }}"
-          if [ -n "$slug" ]; then
-            git config user.name "${slug}[bot]"
-            # The numeric form links the commit to the bot account. A
-            # lookup that is refused leaves the plain form, which is
-            # still a valid noreply address.
-            id="$(gh api "/users/${slug}%5Bbot%5D" --jq .id 2>/dev/null || true)"
-            git config user.email "${id:+$id+}${slug}[bot]@users.noreply.github.com"
-          else
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          fi
+          git config user.name "${slug}[bot]"
+          # The numeric form links the commit to the bot account. A
+          # lookup that is refused leaves the plain form, which is
+          # still a valid noreply address.
+          id="$(gh api "/users/${slug}%5Bbot%5D" --jq .id 2>/dev/null || true)"
+          git config user.email "${id:+$id+}${slug}[bot]@users.noreply.github.com"
           for attempt in 1 2 3 4 5; do
             if git push origin "HEAD:refs/heads/main"; then
               git push origin --delete "$STAGING_BRANCH"

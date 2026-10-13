@@ -44,6 +44,17 @@
   # to record it in requiredRuntimes (AI-757).
   pwsh = "powershell";
 
+  # TypeScript, run without a build step. nixpkgs names the package
+  # `tsx` and its mainProgram `tsx`, which is the token the shebang
+  # writes. Arrives with agent-plugin-huggingface-skills, whose
+  # skills/huggingface-tool-builder/references/baseline_hf_api.tsx
+  # begins `#!/usr/bin/env tsx` — the first package to record it.
+  #
+  # It bundles its own esbuild and typescript, so the closure is
+  # complete for the file: unlike npx below, nothing further is
+  # resolved from the network to run it.
+  tsx = "tsx";
+
   # Launchers, not interpreters. Each resolves what it runs from the
   # network, so mapping the name makes the closure complete for the
   # launcher and not for what it launches (AI-565).

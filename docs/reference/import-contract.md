@@ -70,6 +70,12 @@ so an undeclared key is a build error by design:
     "server-a": { "type": "streamable-http", "url": "https://..." }
   },
 
+  "hooks": {
+    "SessionStart": [
+      { "hooks": [ { "type": "command", "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/start.js\"" } ] }
+    ]
+  },
+
   "skills": {
     "skill-a": "path/inside/src/skill-a",
     "skill-b": "other/path/skill-b"
@@ -112,6 +118,18 @@ the plugin's own `plugin.json` sits at the root and never carries
 declares an `agent-plugins.org` `$schema`, and a root `mcp.json` that
 does the same. Any other root file is not read.
 
+`hooks` is present when the plugin has Claude Code hooks: the event
+map Claude reads, merged by the importer from `hooks/hooks.json` and
+the manifest's `hooks` field (agent-stacks ADR 0051). The builder
+writes it under Claude's `hooks` key as
+`com.anthropic.claude-code/hooks/hooks.json`, or as `hooks/hooks.json`
+at the root when `pluginRootPaths` ships `hooks/` there, replacing any
+hooks file that directory brought. An agent-stacks older than the key
+ignores it, and the build fails rather than ship a plugin without its
+hooks. A `source.json` from an earlier importer has no key and keeps
+the copied file. The `hooks` a generated `default.nix` binds is the
+`overrideAttrs` function, not this argument.
+
 `meta` carries `description` and `homepage`, and `license` only
 when the manifest spells its licence in a way the builder cannot
 resolve and the importer recognises: the SPDX identifier, such as
@@ -153,17 +171,20 @@ plugin tree to its path inside `src`. It holds three kinds of entry:
 - for a plugin Claude Code installs, meaning a marketplace listing
   names it or its directory has `.claude-plugin/plugin.json`, its
   `agents/`, `commands/` and `hooks/`, plus what their own files
-  reference (agent-stacks ADR 0037, proposed).
+  reference (agent-stacks ADR 0037, proposed); `hooks/` also ships for
+  hooks declared outside `hooks.json`, with what they run (agent-stacks
+  ADR 0051).
 
 References are followed one level: an entry that ships is not read
 for further references. The builder copies these entries before the
 runtime pass, so their contents are rewritten, pinned and guarded like
 a skill's. A directory is pruned as a skill copy is, and login files
-(`.npmrc`, `*.pem`, …) are dropped. In `hooks/hooks.json`, a hook that
+(`.npmrc`, `*.pem`, …) are dropped. In the hooks file, a hook that
 runs a plugin file with a bare interpreter is pointed at the package's
 `bin/`; one the runtime table doesn't map is left for `PATH` and
-reported. Destinations are one path segment, never `skills` or `bin`.
-The field is absent when nothing outside the skills ships.
+reported. Destinations are one path
+segment, never `skills` or `bin`. The field is absent when nothing
+outside the skills ships.
 
 `requiredRuntimes` is a flat array of the interpreter tokens the
 scanner found in the package's files: shebangs, bare `mcp.json`

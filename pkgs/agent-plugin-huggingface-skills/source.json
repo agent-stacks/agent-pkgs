@@ -1,0 +1,119 @@
+{
+  "name": "huggingface-skills",
+  "version": "1.0.35",
+  "src": {
+    "owner": "huggingface",
+    "repo": "skills",
+    "rev": "c3ff942be3e07116b475253f0a8fc4f54682c1a8",
+    "hash": "sha256-E9KIiVyTOo0F2xJj/ksmkX8ikr+qQo7wmGnqsSAyzj4="
+  },
+  "sourceUrl": "https://github.com/huggingface/skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Hugging Face"
+    },
+    "description": "Core Hugging Face Hub operations through the hf CLI, including skill installation, repo management, jobs, datasets, models, Spaces, and discovery.",
+    "homepage": "https://github.com/huggingface/skills",
+    "keywords": [
+      "huggingface",
+      "machine-learning",
+      "hub",
+      "cli",
+      "skills",
+      "jobs",
+      "llm"
+    ],
+    "license": "Apache-2.0",
+    "name": "huggingface-skills",
+    "repository": "https://github.com/huggingface/skills",
+    "version": "1.0.35"
+  },
+  "skills": {
+    "hf-cli": "skills/hf-cli",
+    "hf-cloud-aws-context-discovery": "skills/hf-cloud-aws-context-discovery",
+    "hf-cloud-python-env-setup": "skills/hf-cloud-python-env-setup",
+    "hf-cloud-sagemaker-deployment-planner": "skills/hf-cloud-sagemaker-deployment-planner",
+    "hf-cloud-sagemaker-iam-preflight": "skills/hf-cloud-sagemaker-iam-preflight",
+    "hf-cloud-sagemaker-production-defaults": "skills/hf-cloud-sagemaker-production-defaults",
+    "hf-cloud-serving-image-selection": "skills/hf-cloud-serving-image-selection",
+    "hf-mcp": "hf-mcp/skills/hf-mcp",
+    "hf-mem": "skills/hf-mem",
+    "huggingface-best": "skills/huggingface-best",
+    "huggingface-community-evals": "skills/huggingface-community-evals",
+    "huggingface-datasets": "skills/huggingface-datasets",
+    "huggingface-gradio": "skills/huggingface-gradio",
+    "huggingface-llm-trainer": "skills/huggingface-llm-trainer",
+    "huggingface-local-models": "skills/huggingface-local-models",
+    "huggingface-lora-space-builder": "skills/huggingface-lora-space-builder",
+    "huggingface-paper-publisher": "skills/huggingface-paper-publisher",
+    "huggingface-papers": "skills/huggingface-papers",
+    "huggingface-spaces": "skills/huggingface-spaces",
+    "huggingface-tool-builder": "skills/huggingface-tool-builder",
+    "huggingface-trackio": "skills/huggingface-trackio",
+    "huggingface-vision-trainer": "skills/huggingface-vision-trainer",
+    "huggingface-zerogpu": "skills/huggingface-zerogpu",
+    "train-sentence-transformers": "skills/train-sentence-transformers",
+    "transformers-js": "skills/transformers-js",
+    "trl-training": "skills/trl-training"
+  },
+  "requiredRuntimes": [
+    "bash",
+    "python",
+    "python3",
+    "tsx",
+    "uv"
+  ],
+  "mcpServers": {
+    "huggingface-skills": {
+      "type": "streamable-http",
+      "url": "https://huggingface.co/mcp?login"
+    }
+  },
+  "meta": {
+    "description": "Core Hugging Face Hub operations through the hf CLI",
+    "homepage": "https://github.com/huggingface/skills"
+  },
+  "import": {
+    "input": "https://github.com/huggingface/skills",
+    "flags": [],
+    "warnings": [
+      {
+        "path": "skills/hf-cloud-sagemaker-production-defaults/scripts/_common.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/huggingface-community-evals/scripts/inspect_eval_uv.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/huggingface-community-evals/scripts/inspect_vllm_uv.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/huggingface-community-evals/scripts/lighteval_vllm_uv.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/huggingface-llm-trainer/scripts/unsloth_sft_example.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/huggingface-vision-trainer/scripts/image_classification_training.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/huggingface-vision-trainer/scripts/object_detection_training.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/huggingface-vision-trainer/scripts/sam_segmentation_training.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/hf-cloud-python-env-setup/requirements.txt",
+        "message": "dependency manifest; the build does not resolve what it declares"
+      }
+    ]
+  }
+}

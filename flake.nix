@@ -469,6 +469,30 @@
             '';
           })).overrideAttrs (_: { pname = "old-hooks-exist"; });
 
+          # Every key agent-stacks import writes is a builder formal (ADR
+          # 0016), or the first replay carrying it fails on main.
+          call-keys-declared =
+            let
+              # The file, not the callPackage'd value, which is not a function.
+              formals = builtins.functionArgs (import ./lib/build-agent-plugin.nix {
+                inherit (pkgs) lib stdenvNoCC;
+                inherit pkgs;
+              });
+              written = [
+                "name" "version" "src" "sourceUrl" "manifest" "skills" "requiredRuntimes"
+                "pluginRootPaths" "mcpServers" "hooks" "meta" "import"
+              ];
+              missing = builtins.filter (k: !(formals ? ${k})) written;
+            in
+            if missing != [ ] then
+              throw ("buildAgentPlugin declares no formal for: "
+                + builtins.concatStringsSep ", " missing
+                + "; agent-stacks import writes these keys into source.json")
+            else
+              pkgs.runCommand "call-keys-declared" { } ''
+                touch $out
+              '';
+
           # notPackages is a hand-maintained judgement against a set
           # that grows daily, so it needs a tripwire rather than a
           # convention. meta.mainProgram is the signal — every package
