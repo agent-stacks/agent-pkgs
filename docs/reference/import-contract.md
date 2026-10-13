@@ -120,7 +120,7 @@ does the same. Any other root file is not read.
 
 `hooks` is present when the plugin has Claude Code hooks: the event
 map Claude reads, as the importer merged it from `hooks/hooks.json`
-and the manifest's `hooks` field (agent-stacks ADR 0050). The builder
+and the manifest's `hooks` field (agent-stacks ADR 0051). The builder
 writes it, wrapped in Claude's `hooks` key, as
 `com.anthropic.claude-code/hooks/hooks.json`, or as `hooks/hooks.json`
 at the plugin root when `pluginRootPaths` ships a bare `hooks` entry;
@@ -173,7 +173,7 @@ plugin tree to its path inside `src`. It holds three kinds of entry:
   `agents/`, `commands/` and `hooks/`, plus what their own files
   reference (agent-stacks ADR 0037, proposed); `hooks/` also ships for
   hooks declared outside `hooks.json`, with what they run (agent-stacks
-  ADR 0050).
+  ADR 0051).
 
 References are followed one level: an entry that ships is not read
 for further references. The builder copies these entries before the

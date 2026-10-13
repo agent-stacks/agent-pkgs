@@ -74,7 +74,7 @@
 , mcpServers ? null
   # Claude Code's hooks, the event map Claude reads, serialized to
   # hooks/hooks.json in the client-extension namespace (agent-stacks
-  # ADR 0050). Not the overrideAttrs function a generated default.nix
+  # ADR 0051). Not the overrideAttrs function a generated default.nix
   # binds under the same name.
 , hooks ? null
   # agent-stacks package providing `agent-stacks assemble-plugin` and
