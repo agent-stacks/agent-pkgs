@@ -179,8 +179,34 @@ jobs:
       - name: "Trust the runner's user"
         uses: ./.github/actions/trust-nix-user
 
-      - name: "Flake check (builds every package)"
+      # The gates, then every plugin package for this system.
+      # `nix flake check` builds only `checks`, which is the gates
+      # since 2026-10-13, so a package has to be named to be built —
+      # and a replay that breaks one must not reach main. A plugin's
+      # directory under pkgs/ is also its attribute name, which is the
+      # same identity the import writes.
+      #
+      # The agent CLIs re-exported into `packages` are deliberately not
+      # built: they are nixpkgs builds this repository only forwards,
+      # and ADR 0015 records why they stay out of what CI builds.
+      - name: "Flake check (builds the gates)"
         run: nix flake check -L
+
+      - name: "Build every plugin package"
+        run: |
+          set -euo pipefail
+          system="$(nix eval --raw --impure --expr builtins.currentSystem)"
+          set --
+          for d in pkgs/agent-plugin-*; do
+            [ -f "$d/default.nix" ] || continue
+            set -- "$@" ".#packages.$system.$(basename "$d")"
+          done
+          if [ "$#" -eq 0 ]; then
+            echo "no plugin packages found under pkgs/" >&2
+            exit 1
+          fi
+          echo "building $# plugin package(s) for $system"
+          nix build -L --no-link "$@"
 
   land:
     name: "Move main onto the staged commit"
