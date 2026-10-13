@@ -47,7 +47,7 @@ env:
 jobs:
   prepare:
     name: "Prefetch the binaries and stage the commit"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       changed: ${{ steps.stage.outputs.changed }}
     steps:
@@ -235,7 +235,7 @@ jobs:
       matrix:
         include:
           - system: x86_64-linux
-            runner: ubuntu-latest
+            runner: ubuntu-24.04
           - system: aarch64-linux
             runner: ubuntu-24.04-arm
           - system: aarch64-darwin
@@ -264,7 +264,7 @@ jobs:
     name: "Move main onto the staged commit"
     needs: [prepare, verify]
     if: ${{ needs.prepare.outputs.changed == 'true' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       # The pushes below authenticate as a GitHub App, not as the
       # workflow's own GITHUB_TOKEN.

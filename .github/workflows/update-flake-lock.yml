@@ -32,7 +32,7 @@ env:
 jobs:
   prepare:
     name: "Update the inputs and stage the commit"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       changed: ${{ steps.stage.outputs.changed }}
       # The commit verify checks and land pushes, named exactly
@@ -122,7 +122,7 @@ jobs:
     name: "Move main onto the staged commit"
     needs: [prepare, verify]
     if: ${{ needs.prepare.outputs.changed == 'true' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       # The push below authenticates as a GitHub App, not as the
       # workflow's own GITHUB_TOKEN.

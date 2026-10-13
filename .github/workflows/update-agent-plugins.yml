@@ -46,7 +46,7 @@ jobs:
   # Needs no nix: it reads the recorded files and nothing else.
   gather:
     name: "Gather the upstreams to replay"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       matrix: ${{ steps.plan.outputs.matrix }}
     steps:
@@ -111,7 +111,7 @@ jobs:
   replay:
     name: "Replay shard ${{ matrix.shard }}"
     needs: gather
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix: ${{ fromJSON(needs.gather.outputs.matrix) }}
@@ -156,7 +156,7 @@ jobs:
   prepare:
     name: "Collect the shards and stage one commit"
     needs: replay
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       changed: ${{ steps.stage.outputs.changed }}
       # The commit verify checks and land pushes, named exactly
@@ -286,7 +286,7 @@ jobs:
     name: "Move main onto the staged commit"
     needs: [prepare, verify]
     if: ${{ needs.prepare.outputs.changed == 'true' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       # The pushes below authenticate as a GitHub App, not as the
       # workflow's own GITHUB_TOKEN.
@@ -389,7 +389,7 @@ jobs:
     name: "Report failed imports"
     needs: prepare
     if: ${{ always() && needs.prepare.outputs.failed != '' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: "List the imports that failed"
         env:

@@ -69,8 +69,16 @@ jobs:
       # only in the update workflows, and they call this workflow now.
       # Linux arm runners are free on a public repository, which this
       # one is.
+      #
+      # ubuntu-24.04 rather than ubuntu-latest: that label moves to
+      # Ubuntu 26 on 2026-10-19 (actions/runner-images#14748), and a
+      # label that changes the image underneath a run changes it for
+      # every workflow at once, on a day nobody chose. The arm runner
+      # was already named by version, so the pair now says the same
+      # thing. Moving to 26 is then a commit someone writes, with the
+      # runs that prove it attached.
       matrix:
-        os: [ubuntu-latest, ubuntu-24.04-arm, macos-latest]
+        os: [ubuntu-24.04, ubuntu-24.04-arm, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
@@ -92,7 +100,7 @@ jobs:
       # depend on the host, so one runner answers for all of them —
       # running it on each would be the same work three times.
       - name: Evaluate every system
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.os == 'ubuntu-24.04'
         run: nix flake check -L --all-systems
 
   # The one check branch protection requires. Every other job's name
@@ -109,7 +117,7 @@ jobs:
     name: Summary
     needs: [check]
     if: always()
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       # `failure` and `cancelled` fail; `success` and `skipped` pass.
       - name: Check every job succeeded or was skipped
