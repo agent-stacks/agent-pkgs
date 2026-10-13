@@ -1,11 +1,11 @@
 {
   "name": "okf",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "src": {
     "owner": "scaccogatto",
     "repo": "okf-skills",
-    "rev": "8e3187875e66051bb52f91a5ed27342e2c3208da",
-    "hash": "sha256-oko+b+0TC4MQ22jLW/mlRCooRAwkbdLOEc0XPSQGYkk="
+    "rev": "4cf2e23d6cd33cbddf8c02c0a4d9cb4513d9c546",
+    "hash": "sha256-dtvsFjngVbWzpN55mEJ31GlsjjN93CHzxhTHgsCH2tA="
   },
   "sourceUrl": "https://github.com/scaccogatto/okf-skills",
   "manifest": {
@@ -26,7 +26,7 @@
     "license": "MIT",
     "name": "okf",
     "repository": "https://github.com/scaccogatto/okf-skills",
-    "version": "0.10.0"
+    "version": "0.10.1"
   },
   "skills": {
     "backfill": "skills/backfill",
@@ -35,9 +35,15 @@
     "visualize": "skills/visualize"
   },
   "requiredRuntimes": [
+    "bash",
     "python3",
     "uv"
   ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/agents": "agents",
+    "com.anthropic.claude-code/hooks": "hooks",
+    "servers": "servers"
+  },
   "mcpServers": {
     "bundle": {
       "args": [
@@ -47,6 +53,20 @@
       "command": "uv",
       "type": "stdio"
     }
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/okf-stop-check.sh\"",
+            "statusMessage": "Checking OKF bundle...",
+            "timeout": 15,
+            "type": "command"
+          }
+        ]
+      }
+    ]
   },
   "meta": {
     "description": "Author, maintain, backfill, validate, visualize and serve (MCP) Open Knowledge Format (OKF) bundles",
@@ -71,6 +91,10 @@
       {
         "path": "skills/visualize/SKILL.md",
         "message": "unknown frontmatter fields: argument-hint, user-invocable"
+      },
+      {
+        "path": "hooks/hooks.json",
+        "message": "Claude Code runs this on Stop: bash \"${CLAUDE_PLUGIN_ROOT}/hooks/okf-stop-check.sh\""
       }
     ]
   }

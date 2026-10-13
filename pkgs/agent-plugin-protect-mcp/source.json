@@ -4,8 +4,8 @@
   "src": {
     "owner": "wshobson",
     "repo": "agents",
-    "rev": "9b15b34b0bfc13a815cbfc2366e14ea549e09422",
-    "hash": "sha256-8h5zbwUAujgruqYZLErWewRX2bmJ5MvkhDqe3J4viNI="
+    "rev": "46891e7e60da0e52baf1050b7b6391b64e84c6d9",
+    "hash": "sha256-vKawxqxGv0QygVztpMai7h4SXtK2JmmLEqCZ8hFr+qE="
   },
   "sourceUrl": "https://github.com/wshobson/agents",
   "manifest": {
@@ -33,7 +33,38 @@
   "skills": {
     "protect-mcp-setup": "plugins/protect-mcp/skills/protect-mcp-setup"
   },
-  "requiredRuntimes": [],
+  "requiredRuntimes": [
+    "bash"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/agents": "plugins/protect-mcp/agents",
+    "com.anthropic.claude-code/commands": "plugins/protect-mcp/commands",
+    "com.anthropic.claude-code/hooks": "plugins/protect-mcp/hooks"
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "\"${CLAUDE_PLUGIN_ROOT}\"/hooks/sign.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": ".*"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "\"${CLAUDE_PLUGIN_ROOT}\"/hooks/evaluate.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": ".*"
+      }
+    ]
+  },
   "meta": {
     "description": "Cedar policy enforcement + Ed25519 signed receipts for every Claude Code tool call",
     "homepage": "https://github.com/wshobson/agents"
@@ -42,6 +73,16 @@
     "input": "wshobson/agents",
     "flags": [
       "--path-ignore=plugins/avoid-ai-writing"
+    ],
+    "warnings": [
+      {
+        "path": "plugins/protect-mcp/hooks/hooks.json",
+        "message": "Claude Code runs this on PostToolUse: \"${CLAUDE_PLUGIN_ROOT}\"/hooks/sign.sh"
+      },
+      {
+        "path": "plugins/protect-mcp/hooks/hooks.json",
+        "message": "Claude Code runs this on PreToolUse: \"${CLAUDE_PLUGIN_ROOT}\"/hooks/evaluate.sh"
+      }
     ]
   }
 }

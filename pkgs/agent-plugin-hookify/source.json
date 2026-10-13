@@ -1,11 +1,11 @@
 {
   "name": "hookify",
-  "version": "0-unstable-2026-09-28",
+  "version": "0.0.0-unstable.2026-10-10.gf359d43",
   "src": {
     "owner": "anthropics",
     "repo": "claude-plugins-official",
-    "rev": "fbe07fb6ce7d51d8e86ca6efdf050059894cdb80",
-    "hash": "sha256-i2EhIqcQeI14woehjudzQQF3ue3ViZd6MwggRA4C5j0="
+    "rev": "f359d43b406057f1a8cdbc4ea93b827642c162e6",
+    "hash": "sha256-f5mnVFXVkaMoahQv5pu5fS0gGV1uaowi/mpJM0gm/I8="
   },
   "sourceUrl": "https://github.com/anthropics/claude-plugins-official",
   "manifest": {
@@ -21,9 +21,60 @@
   "skills": {
     "writing-rules": "plugins/hookify/skills/writing-rules"
   },
-  "requiredRuntimes": [],
+  "requiredRuntimes": [
+    "python3"
+  ],
   "pluginRootPaths": {
+    "com.anthropic.claude-code/agents": "plugins/hookify/agents",
+    "com.anthropic.claude-code/commands": "plugins/hookify/commands",
+    "com.anthropic.claude-code/hooks": "plugins/hookify/hooks",
     "examples": "plugins/hookify/examples"
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/posttooluse.py\"",
+            "timeout": 10,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/pretooluse.py\"",
+            "timeout": 10,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/stop.py\"",
+            "timeout": 10,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/userpromptsubmit.py\"",
+            "timeout": 10,
+            "type": "command"
+          }
+        ]
+      }
+    ]
   },
   "meta": {
     "description": "Easily create custom hooks to prevent unwanted behaviors by analyzing conversation patterns or from explicit instructions",
@@ -40,6 +91,26 @@
       {
         "path": "plugins/hookify/skills/writing-rules/SKILL.md/name",
         "message": "skill name \"writing-hookify-rules\" must match directory name \"writing-rules\""
+      },
+      {
+        "path": "plugins/hookify/hooks/hooks.json",
+        "message": "Claude Code runs this on PostToolUse: python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/posttooluse.py\""
+      },
+      {
+        "path": "plugins/hookify/hooks/hooks.json",
+        "message": "Claude Code runs this on PreToolUse: python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/pretooluse.py\""
+      },
+      {
+        "path": "plugins/hookify/hooks/hooks.json",
+        "message": "Claude Code runs this on Stop: python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/stop.py\""
+      },
+      {
+        "path": "plugins/hookify/hooks/hooks.json",
+        "message": "Claude Code runs this on UserPromptSubmit: python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/userpromptsubmit.py\""
+      },
+      {
+        "path": "com.anthropic.claude-code/hooks/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       }
     ]
   }

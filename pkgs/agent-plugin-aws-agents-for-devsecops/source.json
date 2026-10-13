@@ -4,8 +4,8 @@
   "src": {
     "owner": "aws",
     "repo": "agent-toolkit-for-aws",
-    "rev": "c126e4444ddc460736b5cb0574255b614275e7a7",
-    "hash": "sha256-Ul6VqPEj5XNuk3Phqlg3NbsZJ2M6qikO/91r3vIrutM="
+    "rev": "a8e8edb1f80075238a77f7521554aecdb7c7c29b",
+    "hash": "sha256-cL8cxwK4ZXO4U10gHewvaECIFxJ8MLIq21MzVaZjEF8="
   },
   "sourceUrl": "https://github.com/aws/agent-toolkit-for-aws",
   "manifest": {
@@ -58,8 +58,8 @@
   },
   "requiredRuntimes": [],
   "pluginRootPaths": {
-    ".mcp.json": "plugins/aws-agents-for-devsecops/.mcp.json",
-    "README.md": "plugins/aws-agents-for-devsecops/README.md"
+    "README.md": "plugins/aws-agents-for-devsecops/README.md",
+    "com.anthropic.claude-code/commands": "plugins/aws-agents-for-devsecops/commands"
   },
   "mcpServers": {
     "aws-devops-agent": {
@@ -76,6 +76,16 @@
   },
   "import": {
     "input": "aws/agent-toolkit-for-aws",
-    "flags": []
+    "flags": [],
+    "warnings": [
+      {
+        "path": "plugins/aws-agents-for-devsecops/.mcp.json/mcpServers/aws-devops-agent",
+        "message": "url or headers carry ${DEVOPS_AGENT_REGION:-us-east-1}, ${DEVOPS_AGENT_TOKEN}; a conforming client does not expand them and sends the text as written"
+      },
+      {
+        "path": ".mcp.json",
+        "message": "Claude's own server file, which launch generates from mcp.json; not carried"
+      }
+    ]
   }
 }

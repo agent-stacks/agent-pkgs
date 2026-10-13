@@ -1,11 +1,11 @@
 {
   "name": "impeccable",
-  "version": "4.4.0",
+  "version": "4.5.2",
   "src": {
     "owner": "pbakaus",
     "repo": "impeccable",
-    "rev": "114ea1d3838fca73b253af45f873b9c4f5f213c8",
-    "hash": "sha256-CGIBrg4dvbY592/BdgsjbNpNBTxvMRrjBAW4JumI5HM="
+    "rev": "245ad82def45831dc56a21b683c7a1ff530b06cc",
+    "hash": "sha256-NLPc+C3h91t2XeSaw6IsD/vYzQGmuJBvFdwuxSzRs+A="
   },
   "sourceUrl": "https://github.com/pbakaus/impeccable",
   "manifest": {
@@ -18,7 +18,7 @@
     "homepage": "https://impeccable.style",
     "name": "impeccable",
     "repository": "https://github.com/pbakaus/impeccable",
-    "version": "4.4.0"
+    "version": "4.5.2"
   },
   "skills": {
     "impeccable": "plugin/skills/impeccable"
@@ -26,6 +26,49 @@
   "requiredRuntimes": [
     "sh"
   ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/agents": "plugin/agents",
+    "com.anthropic.claude-code/hooks": "plugin/hooks"
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "[ ! -f \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" ] || \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" hook",
+            "statusMessage": "Checking UI changes",
+            "timeout": 5,
+            "type": "command"
+          }
+        ],
+        "matcher": "Edit|Write"
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "[ ! -f \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" ] || \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" hook",
+            "statusMessage": "Preparing build session",
+            "timeout": 5,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "command": "[ ! -f \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" ] || \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" hook",
+            "statusMessage": "Design deep pass",
+            "timeout": 30,
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
   "meta": {
     "description": "Design fluency for frontend development",
     "homepage": "https://github.com/pbakaus/impeccable"
@@ -39,24 +82,24 @@
         "message": "unknown frontmatter fields: argument-hint, user-invocable, version"
       },
       {
-        "path": "skills/impeccable/scripts/live-browser-dom.js",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+        "path": "plugin/hooks/hooks.json",
+        "message": "Claude Code runs this on PostToolUse: [ ! -f \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" ] || \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" hook"
       },
       {
-        "path": "skills/impeccable/scripts/live-browser-ignores.js",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+        "path": "plugin/hooks/hooks.json",
+        "message": "Claude Code runs this on SessionStart: [ ! -f \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" ] || \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" hook"
       },
       {
-        "path": "skills/impeccable/scripts/live-browser-session.js",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+        "path": "plugin/hooks/hooks.json",
+        "message": "Claude Code runs this on Stop: [ ! -f \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" ] || \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" hook"
       },
       {
-        "path": "skills/impeccable/scripts/live-browser.js",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+        "path": "skills/impeccable/scripts/impeccable",
+        "message": "under skills/, which assembly writes itself (agent-pkgs ADR 0006); an upstream executable there is not carried"
       },
       {
-        "path": "skills/impeccable/scripts/modern-screenshot.umd.js",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+        "path": "plugin/skills/impeccable/scripts/data/font-index.json",
+        "message": "larger than 1MiB, so it was not read; a ${PLUGIN_ROOT} reference inside it ships nothing, and a script only it runs is not reported"
       }
     ]
   }

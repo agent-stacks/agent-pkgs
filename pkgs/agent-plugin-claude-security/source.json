@@ -4,8 +4,8 @@
   "src": {
     "owner": "anthropics",
     "repo": "claude-plugins-official",
-    "rev": "fbe07fb6ce7d51d8e86ca6efdf050059894cdb80",
-    "hash": "sha256-i2EhIqcQeI14woehjudzQQF3ue3ViZd6MwggRA4C5j0="
+    "rev": "f359d43b406057f1a8cdbc4ea93b827642c162e6",
+    "hash": "sha256-f5mnVFXVkaMoahQv5pu5fS0gGV1uaowi/mpJM0gm/I8="
   },
   "sourceUrl": "https://github.com/anthropics/claude-plugins-official",
   "manifest": {
@@ -35,13 +35,83 @@
   },
   "requiredRuntimes": [
     "bash",
-    "python3"
+    "python3",
+    "sh"
   ],
   "pluginRootPaths": {
+    "com.anthropic.claude-code/agents": "plugins/claude-security/agents",
+    "com.anthropic.claude-code/hooks": "plugins/claude-security/hooks",
     "scripts": "plugins/claude-security/scripts"
   },
+  "hooks": {
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/hooks.sh\" unanswered || true",
+            "timeout": 90,
+            "type": "command"
+          }
+        ],
+        "matcher": "AskUserQuestion"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "async": true,
+            "asyncRewake": true,
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/hooks.sh\" metrics || true",
+            "if": "Bash(py* *claude-security*scripts/*.py *)",
+            "timeout": 10,
+            "type": "command"
+          },
+          {
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/hooks.sh\" tip push || true",
+            "if": "Bash(git push *)",
+            "timeout": 5,
+            "type": "command"
+          },
+          {
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/hooks.sh\" tip pr || true",
+            "if": "Bash(gh pr create *)",
+            "timeout": 5,
+            "type": "command"
+          }
+        ],
+        "matcher": "Bash"
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "hooks": [
+          {
+            "async": true,
+            "asyncRewake": true,
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/hooks.sh\" metrics || true",
+            "if": "Bash(py* *claude-security*scripts/*.py *)",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "Bash"
+      }
+    ],
+    "UserPromptExpansion": [
+      {
+        "hooks": [
+          {
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/hooks.sh\" banner",
+            "type": "command"
+          }
+        ],
+        "matcher": "^claude-security:claude-security$"
+      }
+    ]
+  },
   "meta": {
-    "description": "Deep vulnerability scanning of your own code, run entirely inside your Claude Code session at a chosen effort tier, with every finding challenged before it is reported and the verification tally computed in code",
+    "description": "Deep vulnerability scanning of your own code, run entirely inside your Claude Code session at a chosen effort tier",
     "homepage": "https://github.com/anthropics/claude-plugins-official"
   },
   "import": {
@@ -51,6 +121,38 @@
       {
         "path": "plugins/claude-security/skills/claude-security/SKILL.md/allowed-tools",
         "message": "must be a space-separated string, not a list of 23 tools"
+      },
+      {
+        "path": "plugins/claude-security/workflows",
+        "message": "Claude Code loads the plugin's workflows from here (1 file(s)); import does not package them"
+      },
+      {
+        "path": "plugins/claude-security/hooks/hooks.json",
+        "message": "Claude Code runs this on PermissionRequest: sh \"${CLAUDE_PLUGIN_ROOT}/hooks/hooks.sh\" unanswered || true"
+      },
+      {
+        "path": "plugins/claude-security/hooks/hooks.json",
+        "message": "Claude Code runs this on PostToolUse: sh \"${CLAUDE_PLUGIN_ROOT}/hooks/hooks.sh\" metrics || true"
+      },
+      {
+        "path": "plugins/claude-security/hooks/hooks.json",
+        "message": "Claude Code runs this on PostToolUse: sh \"${CLAUDE_PLUGIN_ROOT}/hooks/hooks.sh\" tip push || true"
+      },
+      {
+        "path": "plugins/claude-security/hooks/hooks.json",
+        "message": "Claude Code runs this on PostToolUse: sh \"${CLAUDE_PLUGIN_ROOT}/hooks/hooks.sh\" tip pr || true"
+      },
+      {
+        "path": "plugins/claude-security/hooks/hooks.json",
+        "message": "Claude Code runs this on PostToolUseFailure: sh \"${CLAUDE_PLUGIN_ROOT}/hooks/hooks.sh\" metrics || true"
+      },
+      {
+        "path": "plugins/claude-security/hooks/hooks.json",
+        "message": "Claude Code runs this on UserPromptExpansion: sh \"${CLAUDE_PLUGIN_ROOT}/hooks/hooks.sh\" banner"
+      },
+      {
+        "path": ".claude-plugin/marketplace.json",
+        "message": "license \"SEE LICENSE IN LICENSE\" is not one SPDX identifier or a spelling import recognises, so the package carries no meta.license"
       },
       {
         "path": "scripts/lib/__init__.py",

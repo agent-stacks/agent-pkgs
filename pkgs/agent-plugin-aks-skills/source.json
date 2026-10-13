@@ -1,0 +1,95 @@
+{
+  "name": "aks-skills",
+  "version": "1.0.2",
+  "src": {
+    "owner": "microsoft",
+    "repo": "skills",
+    "rev": "91ec09549ca16bd6c44e6ccdef26d61eb2082f07",
+    "hash": "sha256-9jslsUZDBKluzY2BVmvgSkUq8SJmdOIWuLmBS9bJ4zw="
+  },
+  "sourceUrl": "https://github.com/microsoft/skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Microsoft",
+      "url": "https://www.microsoft.com"
+    },
+    "description": "AKS operational skills for troubleshooting, known issues, GPU inference, and packet capture.",
+    "homepage": "https://github.com/microsoft/github-copilot-for-azure",
+    "keywords": [
+      "azure",
+      "aks",
+      "kubernetes",
+      "troubleshooting",
+      "known-issues",
+      "gpu-inference",
+      "packet-capture"
+    ],
+    "license": "MIT",
+    "name": "aks-skills",
+    "repository": "https://github.com/microsoft/github-copilot-for-azure",
+    "version": "1.0.2"
+  },
+  "skills": {
+    "aks-gpu-inference": ".github/plugins/aks-skills/skills/aks-gpu-inference",
+    "aks-known-issues": ".github/plugins/aks-skills/skills/aks-known-issues",
+    "aks-network-capture": ".github/plugins/aks-skills/skills/aks-network-capture",
+    "aks-troubleshooting": ".github/plugins/aks-skills/skills/aks-troubleshooting",
+    "azure-search-nav": ".github/plugins/aks-skills/skills/azure-search-nav"
+  },
+  "requiredRuntimes": [
+    "bash",
+    "sh"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/hooks": ".github/plugins/aks-skills/hooks"
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\"",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\"",
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "description": "AKS operational skills for troubleshooting, known issues, GPU inference, and packet capture",
+    "homepage": "https://github.com/microsoft/skills"
+  },
+  "import": {
+    "input": "microsoft/skills",
+    "flags": [],
+    "warnings": [
+      {
+        "path": ".github/plugins/aks-skills/hooks/claude-hooks.json",
+        "message": "Claude Code runs this on PostToolUse: bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\""
+      },
+      {
+        "path": ".github/plugins/aks-skills/hooks/claude-hooks.json",
+        "message": "Claude Code runs this on SessionStart: bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\""
+      },
+      {
+        "path": "com.anthropic.claude-code/hooks/scripts/pluginPathAllowPattern.sh",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "com.anthropic.claude-code/hooks/scripts/track-telemetry.js",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      }
+    ]
+  }
+}

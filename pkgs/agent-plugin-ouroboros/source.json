@@ -1,11 +1,11 @@
 {
   "name": "ouroboros",
-  "version": "0.55.0",
+  "version": "0.55.7",
   "src": {
     "owner": "Q00",
     "repo": "ouroboros",
-    "rev": "93b6e219a59ddab5c7022cf2f0340a891df46943",
-    "hash": "sha256-l1FHk0Jrf+VlMaH2huTIMO1idVWiuqXjKZVO+IxNQUg="
+    "rev": "0e23d10403c0e7b11f5d29fa192474aaf1eccb43",
+    "hash": "sha256-AySiqsV/9sNi32JwLDDEONmc3ndTZzEOj4rNPqrZymI="
   },
   "sourceUrl": "https://github.com/Q00/ouroboros",
   "manifest": {
@@ -29,7 +29,7 @@
     "license": "MIT",
     "name": "ouroboros",
     "repository": "https://github.com/Q00/ouroboros",
-    "version": "0.55.0"
+    "version": "0.55.7"
   },
   "skills": {
     "auto": "skills/auto",
@@ -57,8 +57,14 @@
     "welcome": "skills/welcome"
   },
   "requiredRuntimes": [
+    "bash",
+    "python3",
     "uvx"
   ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/hooks": "hooks",
+    "scripts": "scripts"
+  },
   "mcpServers": {
     "ouroboros": {
       "args": [
@@ -78,6 +84,47 @@
       "command": "uvx",
       "type": "stdio"
     }
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "ROOT=\"${PLUGIN_ROOT:-${CLAUDE_PLUGIN_ROOT:-}}\"; if [ -z \"$ROOT\" ]; then printf '%s\\n' 'Ouroboros hook skipped: plugin root is unavailable.' >&2; exit 0; fi; SCRIPT=\"$ROOT/scripts/drift-monitor.py\"; if [ ! -r \"$SCRIPT\" ]; then printf '%s\\n' \"Ouroboros hook skipped: $SCRIPT is unavailable.\" >&2; exit 0; fi; if command -v python3 >/dev/null 2>&1; then PYTHON=python3; elif command -v python >/dev/null 2>&1; then PYTHON=python; else printf '%s\\n' 'Ouroboros hook skipped: Python is unavailable.' >&2; exit 0; fi; \"$PYTHON\" \"$SCRIPT\" || { STATUS=$?; printf '%s\\n' \"Ouroboros hook failed open: $SCRIPT exited with code $STATUS.\" >&2; exit 0; }",
+            "commandWindows": "try { $OutputEncoding=[Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new($false); $root=$env:PLUGIN_ROOT; if (!$root) { $root=$env:CLAUDE_PLUGIN_ROOT }; if (!$root) { [Console]::Error.WriteLine('Ouroboros hook skipped: plugin root is unavailable.'); exit 0 }; $script=Join-Path -Path $root -ChildPath 'scripts/drift-monitor.py' -ErrorAction Stop; if (!(Test-Path -LiteralPath $script -PathType Leaf)) { [Console]::Error.WriteLine('Ouroboros hook skipped: '+$script+' is unavailable.'); exit 0 }; foreach ($name in @('python','python3')) { $python=Get-Command $name -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1; if (!$python) { continue }; try { $executable=& $python.Source -X utf8 -c 'import sys; sys.exit(1) if sys.version_info.major != 3 else print(sys.executable)' 2>$null } catch { continue }; if ($LASTEXITCODE -ne 0 -or $executable -isnot [string]) { continue }; if (![System.IO.Path]::IsPathRooted($executable) -or [System.IO.Path]::GetExtension($executable) -ne '.exe' -or !(Test-Path -LiteralPath $executable -PathType Leaf)) { continue }; & $executable -X utf8 $script; if ($LASTEXITCODE -ne 0) { [Console]::Error.WriteLine('Ouroboros hook failed open: '+$script+' exited with code '+$LASTEXITCODE+'.') }; exit 0 }; [Console]::Error.WriteLine('Ouroboros hook skipped: Python 3 is unavailable.') } catch { [Console]::Error.WriteLine('Ouroboros hook failed open: '+$_.Exception.Message) }; exit 0",
+            "timeout": 3,
+            "type": "command"
+          }
+        ],
+        "matcher": "Write|Edit"
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "ROOT=\"${PLUGIN_ROOT:-${CLAUDE_PLUGIN_ROOT:-}}\"; if [ -z \"$ROOT\" ]; then printf '%s\\n' 'Ouroboros hook skipped: plugin root is unavailable.' >&2; exit 0; fi; SCRIPT=\"$ROOT/scripts/session-start.py\"; if [ ! -r \"$SCRIPT\" ]; then printf '%s\\n' \"Ouroboros hook skipped: $SCRIPT is unavailable.\" >&2; exit 0; fi; if command -v python3 >/dev/null 2>&1; then PYTHON=python3; elif command -v python >/dev/null 2>&1; then PYTHON=python; else printf '%s\\n' 'Ouroboros hook skipped: Python is unavailable.' >&2; exit 0; fi; \"$PYTHON\" \"$SCRIPT\" || { STATUS=$?; printf '%s\\n' \"Ouroboros hook failed open: $SCRIPT exited with code $STATUS.\" >&2; exit 0; }",
+            "commandWindows": "try { $OutputEncoding=[Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new($false); $root=$env:PLUGIN_ROOT; if (!$root) { $root=$env:CLAUDE_PLUGIN_ROOT }; if (!$root) { [Console]::Error.WriteLine('Ouroboros hook skipped: plugin root is unavailable.'); exit 0 }; $script=Join-Path -Path $root -ChildPath 'scripts/session-start.py' -ErrorAction Stop; if (!(Test-Path -LiteralPath $script -PathType Leaf)) { [Console]::Error.WriteLine('Ouroboros hook skipped: '+$script+' is unavailable.'); exit 0 }; foreach ($name in @('python','python3')) { $python=Get-Command $name -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1; if (!$python) { continue }; try { $executable=& $python.Source -X utf8 -c 'import sys; sys.exit(1) if sys.version_info.major != 3 else print(sys.executable)' 2>$null } catch { continue }; if ($LASTEXITCODE -ne 0 -or $executable -isnot [string]) { continue }; if (![System.IO.Path]::IsPathRooted($executable) -or [System.IO.Path]::GetExtension($executable) -ne '.exe' -or !(Test-Path -LiteralPath $executable -PathType Leaf)) { continue }; & $executable -X utf8 $script; if ($LASTEXITCODE -ne 0) { [Console]::Error.WriteLine('Ouroboros hook failed open: '+$script+' exited with code '+$LASTEXITCODE+'.') }; exit 0 }; [Console]::Error.WriteLine('Ouroboros hook skipped: Python 3 is unavailable.') } catch { [Console]::Error.WriteLine('Ouroboros hook failed open: '+$_.Exception.Message) }; exit 0",
+            "timeout": 5,
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "command": "ROOT=\"${PLUGIN_ROOT:-${CLAUDE_PLUGIN_ROOT:-}}\"; if [ -z \"$ROOT\" ]; then printf '%s\\n' 'Ouroboros hook skipped: plugin root is unavailable.' >&2; exit 0; fi; SCRIPT=\"$ROOT/scripts/keyword-detector.py\"; if [ ! -r \"$SCRIPT\" ]; then printf '%s\\n' \"Ouroboros hook skipped: $SCRIPT is unavailable.\" >&2; exit 0; fi; if command -v python3 >/dev/null 2>&1; then PYTHON=python3; elif command -v python >/dev/null 2>&1; then PYTHON=python; else printf '%s\\n' 'Ouroboros hook skipped: Python is unavailable.' >&2; exit 0; fi; \"$PYTHON\" \"$SCRIPT\" || { STATUS=$?; printf '%s\\n' \"Ouroboros hook failed open: $SCRIPT exited with code $STATUS.\" >&2; exit 0; }",
+            "commandWindows": "try { $OutputEncoding=[Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new($false); $root=$env:PLUGIN_ROOT; if (!$root) { $root=$env:CLAUDE_PLUGIN_ROOT }; if (!$root) { [Console]::Error.WriteLine('Ouroboros hook skipped: plugin root is unavailable.'); exit 0 }; $script=Join-Path -Path $root -ChildPath 'scripts/keyword-detector.py' -ErrorAction Stop; if (!(Test-Path -LiteralPath $script -PathType Leaf)) { [Console]::Error.WriteLine('Ouroboros hook skipped: '+$script+' is unavailable.'); exit 0 }; foreach ($name in @('python','python3')) { $python=Get-Command $name -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1; if (!$python) { continue }; try { $executable=& $python.Source -X utf8 -c 'import sys; sys.exit(1) if sys.version_info.major != 3 else print(sys.executable)' 2>$null } catch { continue }; if ($LASTEXITCODE -ne 0 -or $executable -isnot [string]) { continue }; if (![System.IO.Path]::IsPathRooted($executable) -or [System.IO.Path]::GetExtension($executable) -ne '.exe' -or !(Test-Path -LiteralPath $executable -PathType Leaf)) { continue }; & $executable -X utf8 $script; if ($LASTEXITCODE -ne 0) { [Console]::Error.WriteLine('Ouroboros hook failed open: '+$script+' exited with code '+$LASTEXITCODE+'.') }; exit 0 }; [Console]::Error.WriteLine('Ouroboros hook skipped: Python 3 is unavailable.') } catch { [Console]::Error.WriteLine('Ouroboros hook failed open: '+$_.Exception.Message) }; exit 0",
+            "timeout": 5,
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ]
   },
   "meta": {
     "description": "Sits in front of Claude Code and fixes the brief before the code",
@@ -138,6 +185,22 @@
       {
         "path": "skills/unstuck/SKILL.md",
         "message": "unknown frontmatter fields: aliases"
+      },
+      {
+        "path": "hooks/hooks.json",
+        "message": "Claude Code runs this on PostToolUse: ROOT=\"${PLUGIN_ROOT:-${CLAUDE_PLUGIN_ROOT:-}}\"; if [ -z \"$ROOT\" ]; then printf '%s\\n' 'Ouroboros hook skipped: plugin root is unavailable.' >&2; exit 0; fi; SCRIPT=\"$ROOT/scripts/drift-monitor.py\"; if [ ! -r \"$SCRIPT\" ]; then printf '%s\\n' \"Ouroboros hook skipped: $SCRIPT is unavailable.\" >&2; exit 0; fi; if command -v python3 >/dev/null 2>&1; then PYTHON=python3; elif command -v python >/dev/null 2>&1; then PYTHON=python; else printf '%s\\n' 'Ouroboros hook skipped: Python is unavailable.' >&2; exit 0; fi; \"$PYTHON\" \"$SCRIPT\" || { STATUS=$?; printf '%s\\n' \"Ouroboros hook failed open: $SCRIPT exited with code $STATUS.\" >&2; exit 0; }"
+      },
+      {
+        "path": "hooks/hooks.json",
+        "message": "Claude Code runs this on SessionStart: ROOT=\"${PLUGIN_ROOT:-${CLAUDE_PLUGIN_ROOT:-}}\"; if [ -z \"$ROOT\" ]; then printf '%s\\n' 'Ouroboros hook skipped: plugin root is unavailable.' >&2; exit 0; fi; SCRIPT=\"$ROOT/scripts/session-start.py\"; if [ ! -r \"$SCRIPT\" ]; then printf '%s\\n' \"Ouroboros hook skipped: $SCRIPT is unavailable.\" >&2; exit 0; fi; if command -v python3 >/dev/null 2>&1; then PYTHON=python3; elif command -v python >/dev/null 2>&1; then PYTHON=python; else printf '%s\\n' 'Ouroboros hook skipped: Python is unavailable.' >&2; exit 0; fi; \"$PYTHON\" \"$SCRIPT\" || { STATUS=$?; printf '%s\\n' \"Ouroboros hook failed open: $SCRIPT exited with code $STATUS.\" >&2; exit 0; }"
+      },
+      {
+        "path": "hooks/hooks.json",
+        "message": "Claude Code runs this on UserPromptSubmit: ROOT=\"${PLUGIN_ROOT:-${CLAUDE_PLUGIN_ROOT:-}}\"; if [ -z \"$ROOT\" ]; then printf '%s\\n' 'Ouroboros hook skipped: plugin root is unavailable.' >&2; exit 0; fi; SCRIPT=\"$ROOT/scripts/keyword-detector.py\"; if [ ! -r \"$SCRIPT\" ]; then printf '%s\\n' \"Ouroboros hook skipped: $SCRIPT is unavailable.\" >&2; exit 0; fi; if command -v python3 >/dev/null 2>&1; then PYTHON=python3; elif command -v python >/dev/null 2>&1; then PYTHON=python; else printf '%s\\n' 'Ouroboros hook skipped: Python is unavailable.' >&2; exit 0; fi; \"$PYTHON\" \"$SCRIPT\" || { STATUS=$?; printf '%s\\n' \"Ouroboros hook failed open: $SCRIPT exited with code $STATUS.\" >&2; exit 0; }"
+      },
+      {
+        "path": "pyproject.toml",
+        "message": "dependency manifest; the build does not resolve what it declares"
       }
     ]
   }

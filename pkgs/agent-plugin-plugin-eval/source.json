@@ -4,8 +4,8 @@
   "src": {
     "owner": "wshobson",
     "repo": "agents",
-    "rev": "9b15b34b0bfc13a815cbfc2366e14ea549e09422",
-    "hash": "sha256-8h5zbwUAujgruqYZLErWewRX2bmJ5MvkhDqe3J4viNI="
+    "rev": "46891e7e60da0e52baf1050b7b6391b64e84c6d9",
+    "hash": "sha256-vKawxqxGv0QygVztpMai7h4SXtK2JmmLEqCZ8hFr+qE="
   },
   "sourceUrl": "https://github.com/wshobson/agents",
   "manifest": {
@@ -22,14 +22,24 @@
     "evaluation-methodology": "plugins/plugin-eval/skills/evaluation-methodology"
   },
   "requiredRuntimes": [],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/agents": "plugins/plugin-eval/agents",
+    "com.anthropic.claude-code/commands": "plugins/plugin-eval/commands"
+  },
   "meta": {
-    "description": "Static lint for Claude Code plugins and skills, with experimental LLM scoring for skills",
+    "description": "Static lint for Claude Code plugins and skills",
     "homepage": "https://github.com/wshobson/agents"
   },
   "import": {
     "input": "wshobson/agents",
     "flags": [
       "--path-ignore=plugins/avoid-ai-writing"
+    ],
+    "warnings": [
+      {
+        "path": "pyproject.toml",
+        "message": "dependency manifest; the build does not resolve what it declares"
+      }
     ]
   }
 }

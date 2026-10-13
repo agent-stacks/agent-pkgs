@@ -1,11 +1,11 @@
 {
   "name": "planning-with-files",
-  "version": "3.21.0",
+  "version": "3.24.0",
   "src": {
     "owner": "othmanadi",
     "repo": "planning-with-files",
-    "rev": "51c1caa27f9fefe259e45a7cc92fa79ee8787cd7",
-    "hash": "sha256-7GIT3yxUie3u6mlG4udDtCUHq+F3wThFxQRbf5DmHJk="
+    "rev": "ff349ebe322b4f86c3416a6fbcde515f1de32e8b",
+    "hash": "sha256-CneRmG1dhmH3/FnuzsLFzT/6qrI7kL+WolTaI2AUiFw="
   },
   "sourceUrl": "https://github.com/othmanadi/planning-with-files",
   "manifest": {
@@ -54,7 +54,7 @@
     "license": "MIT",
     "name": "planning-with-files",
     "repository": "https://github.com/OthmanAdi/planning-with-files",
-    "version": "3.21.0"
+    "version": "3.24.0"
   },
   "skills": {
     "planning-with-files": ".agents/skills/planning-with-files",
@@ -70,8 +70,109 @@
     "sh"
   ],
   "pluginRootPaths": {
+    ".codex": ".codex",
+    "com.anthropic.claude-code/commands": "commands",
+    "com.anthropic.claude-code/hooks": "hooks",
     "scripts": "scripts",
     "templates": "templates"
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/hooks/claude-hook.sh",
+              "post-tool-use"
+            ],
+            "command": "sh",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "Write|Edit"
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/hooks/claude-hook.sh",
+              "pre-compact"
+            ],
+            "command": "sh",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/hooks/claude-hook.sh",
+              "pre-tool-use"
+            ],
+            "command": "sh",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "Write|Edit|Bash|Read|Glob|Grep"
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/hooks/claude-hook.sh",
+              "session-start"
+            ],
+            "command": "sh",
+            "statusMessage": "Restoring planning context",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "startup|resume|clear|compact"
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/hooks/claude-hook.sh",
+              "stop"
+            ],
+            "command": "sh",
+            "statusMessage": "Checking planning completion",
+            "timeout": 10,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/hooks/claude-hook.sh",
+              "user-prompt-submit"
+            ],
+            "command": "sh",
+            "timeout": 10,
+            "type": "command"
+          }
+        ]
+      }
+    ]
   },
   "meta": {
     "description": "Persistent project planning files with lifecycle hooks that inject selected plan context",
@@ -104,6 +205,50 @@
       {
         "path": "skills/i18n/planning-with-files-zht/SKILL.md",
         "message": "unknown frontmatter fields: hooks, user-invocable"
+      },
+      {
+        "path": "hooks/hooks.json",
+        "message": "Claude Code runs this on PostToolUse: sh ${CLAUDE_PLUGIN_ROOT}/hooks/claude-hook.sh post-tool-use"
+      },
+      {
+        "path": "hooks/hooks.json",
+        "message": "Claude Code runs this on PreCompact: sh ${CLAUDE_PLUGIN_ROOT}/hooks/claude-hook.sh pre-compact"
+      },
+      {
+        "path": "hooks/hooks.json",
+        "message": "Claude Code runs this on PreToolUse: sh ${CLAUDE_PLUGIN_ROOT}/hooks/claude-hook.sh pre-tool-use"
+      },
+      {
+        "path": "hooks/hooks.json",
+        "message": "Claude Code runs this on SessionStart: sh ${CLAUDE_PLUGIN_ROOT}/hooks/claude-hook.sh session-start"
+      },
+      {
+        "path": "hooks/hooks.json",
+        "message": "Claude Code runs this on Stop: sh ${CLAUDE_PLUGIN_ROOT}/hooks/claude-hook.sh stop"
+      },
+      {
+        "path": "hooks/hooks.json",
+        "message": "Claude Code runs this on UserPromptSubmit: sh ${CLAUDE_PLUGIN_ROOT}/hooks/claude-hook.sh user-prompt-submit"
+      },
+      {
+        "path": "skills/i18n/planning-with-files-ar/SKILL.md",
+        "message": "under skills/, which assembly writes itself (agent-pkgs ADR 0006); an upstream executable there is not carried"
+      },
+      {
+        "path": "skills/i18n/planning-with-files-de/SKILL.md",
+        "message": "under skills/, which assembly writes itself (agent-pkgs ADR 0006); an upstream executable there is not carried"
+      },
+      {
+        "path": "skills/i18n/planning-with-files-es/SKILL.md",
+        "message": "under skills/, which assembly writes itself (agent-pkgs ADR 0006); an upstream executable there is not carried"
+      },
+      {
+        "path": "skills/i18n/planning-with-files-zh/SKILL.md",
+        "message": "under skills/, which assembly writes itself (agent-pkgs ADR 0006); an upstream executable there is not carried"
+      },
+      {
+        "path": "skills/i18n/planning-with-files-zht/SKILL.md",
+        "message": "under skills/, which assembly writes itself (agent-pkgs ADR 0006); an upstream executable there is not carried"
       },
       {
         "path": "scripts/_v240_update_hook_bodies.py",

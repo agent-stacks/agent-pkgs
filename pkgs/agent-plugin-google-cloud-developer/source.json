@@ -1,11 +1,11 @@
 {
   "name": "google-cloud-developer",
-  "version": "1.1.5",
+  "version": "1.1.10",
   "src": {
     "owner": "google",
     "repo": "skills",
-    "rev": "1f9c1054f99e9a19b85ff7478cec58f92374b137",
-    "hash": "sha256-dqLr0Ug6GMdDSV18S4KZl6wXS52AuDnEqVHomChFXec="
+    "rev": "2a04065b8041c49ac5fece31cb0186adf5ff9602",
+    "hash": "sha256-WnIrAAYq2T/4iEgD0J92P8CYw8fCaQuI7+5uDN9t9R4="
   },
   "sourceUrl": "https://github.com/google/skills",
   "manifest": {
@@ -25,7 +25,7 @@
     "license": "Apache-2.0",
     "name": "google-cloud-developer",
     "repository": "https://github.com/google/skills",
-    "version": "1.1.5"
+    "version": "1.1.10"
   },
   "skills": {
     "finding-google-skills": "plugins/cloud/google-cloud-developer/skills/finding-google-skills",
@@ -45,11 +45,17 @@
     }
   },
   "meta": {
-    "description": "Google Cloud guidance for coding agents: first-project onboarding, authentication and credential selection, and safety-critical validation for gcloud CLI commands",
+    "description": "Google Cloud guidance for coding agents",
     "homepage": "https://github.com/google/skills"
   },
   "import": {
     "input": "https://github.com/google/skills",
-    "flags": []
+    "flags": [],
+    "warnings": [
+      {
+        "path": "plugins/cloud/google-cloud-developer/mcp.json/mcpServers/developer-knowledge",
+        "message": "url or headers carry ${DEVELOPERKNOWLEDGE_API_KEY}; a conforming client does not expand them and sends the text as written"
+      }
+    ]
   }
 }

@@ -1,11 +1,11 @@
 {
   "name": "shopify-plugin",
-  "version": "2.0.0",
+  "version": "2.1.1",
   "src": {
     "owner": "Shopify",
     "repo": "Shopify-AI-Toolkit",
-    "rev": "3e8a074fba02d9b95086ad505f8cbe0020ffeb9a",
-    "hash": "sha256-3+WgVYQQ0Agk3ts2tGNgZx9NZEUkKHcYDLvUNnDGhyc="
+    "rev": "26d0623f98a5f27c1e8449d0e230259879cd9257",
+    "hash": "sha256-pevS3dYfhXitxS4liijpPvA9CKqvsI9RFI5kFKCVmJQ="
   },
   "sourceUrl": "https://github.com/Shopify/Shopify-AI-Toolkit",
   "manifest": {
@@ -25,7 +25,7 @@
     ],
     "license": "MIT",
     "name": "shopify-plugin",
-    "version": "2.0.0"
+    "version": "2.1.1"
   },
   "skills": {
     "shopify": "skills/shopify",
@@ -56,6 +56,32 @@
     "bash",
     "node"
   ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/hooks": "hooks"
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\" --hook-source plugin",
+            "type": "command"
+          }
+        ],
+        "matcher": "Skill|Read"
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\" --hook-source plugin",
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
   "meta": {
     "description": "Search Shopify docs, generate and validate GraphQL, Liquid, and UI extension code",
     "homepage": "https://github.com/Shopify/Shopify-AI-Toolkit"
@@ -71,6 +97,26 @@
       {
         "path": "skills/ucp/SKILL.md",
         "message": "unknown frontmatter fields: command, hooks, requires_bin"
+      },
+      {
+        "path": "hooks/hooks.json",
+        "message": "Claude Code runs this on PostToolUse: bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\" --hook-source plugin"
+      },
+      {
+        "path": "hooks/hooks.json",
+        "message": "Claude Code runs this on UserPromptSubmit: bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\" --hook-source plugin"
+      },
+      {
+        "path": "hooks/...",
+        "message": "this is named through ${PLUGIN_ROOT}, or sits at a plugin root a server runs from, and is not in the source; it resolves to nothing wherever the plugin is installed"
+      },
+      {
+        "path": "scripts/track-telemetry.sh",
+        "message": "this is named through ${PLUGIN_ROOT}, or sits at a plugin root a server runs from, and is not in the source; it resolves to nothing wherever the plugin is installed"
+      },
+      {
+        "path": "package.json",
+        "message": "dependency manifest; the build does not resolve what it declares"
       },
       {
         "path": "skills/shopify/package.json",

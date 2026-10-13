@@ -1,11 +1,11 @@
 {
   "name": "agentmemory",
-  "version": "0.9.29",
+  "version": "0.9.30",
   "src": {
     "owner": "rohitg00",
     "repo": "agentmemory",
-    "rev": "ab3e4efd282659b87d31b36c8514c6bc6b871f0b",
-    "hash": "sha256-D1H99PRKnLUCfXOhsx4YhASlQVOGgI7GlTfH77vt5+c="
+    "rev": "36eb328e12970c84e6031fd75b8ab77b977cd281",
+    "hash": "sha256-47BodFktT+0U1KeA18XreYYxdpEi7cIk/x/xXCNr/wA="
   },
   "sourceUrl": "https://github.com/rohitg00/agentmemory",
   "manifest": {
@@ -19,7 +19,7 @@
     "license": "Apache-2.0",
     "name": "agentmemory",
     "repository": "https://github.com/rohitg00/agentmemory",
-    "version": "0.9.29"
+    "version": "0.9.30"
   },
   "skills": {
     "agentmemory-agents": "plugin/skills/agentmemory-agents",
@@ -41,25 +41,146 @@
     "write-agentmemory-skill": "plugin/skills/write-agentmemory-skill"
   },
   "requiredRuntimes": [
-    "npx"
+    "node"
   ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/hooks": "plugin/hooks",
+    "scripts": "plugin/scripts"
+  },
   "mcpServers": {
     "agentmemory": {
       "args": [
-        "-y",
-        "@agentmemory/mcp"
+        "${PLUGIN_ROOT}/scripts/plugin-bridge.mjs"
       ],
-      "command": "npx",
-      "env": {
-        "AGENTMEMORY_SECRET": "${AGENTMEMORY_SECRET:-}",
-        "AGENTMEMORY_TOOLS": "${AGENTMEMORY_TOOLS:-all}",
-        "AGENTMEMORY_URL": "${AGENTMEMORY_URL:-http://localhost:3111}"
-      },
+      "command": "node",
       "type": "stdio"
     }
   },
+  "hooks": {
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/notification.mjs\"",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/post-tool-use.mjs\"",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "hooks": [
+          {
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/post-tool-failure.mjs\"",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/pre-compact.mjs\"",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/pre-tool-use.mjs\"",
+            "type": "command"
+          }
+        ],
+        "matcher": "Edit|Write|Read|Glob|Grep"
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/session-end.mjs\"",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/session-start.mjs\"",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/stop.mjs\"",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/subagent-start.mjs\"",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/subagent-stop.mjs\"",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "TaskCompleted": [
+      {
+        "hooks": [
+          {
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/task-completed.mjs\"",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/prompt-submit.mjs\"",
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
   "meta": {
-    "description": "Persistent memory for AI coding agents -- captures tool usage, compresses via LLM, injects context into future sessions",
+    "description": "Persistent memory for AI coding agents",
     "homepage": "https://github.com/rohitg00/agentmemory"
   },
   "import": {
@@ -133,6 +254,54 @@
       {
         "path": "plugin/skills/write-agentmemory-skill/SKILL.md",
         "message": "unknown frontmatter fields: user-invocable"
+      },
+      {
+        "path": "plugin/hooks/hooks.json",
+        "message": "Claude Code runs this on Notification: node \"${CLAUDE_PLUGIN_ROOT}/scripts/notification.mjs\""
+      },
+      {
+        "path": "plugin/hooks/hooks.json",
+        "message": "Claude Code runs this on PostToolUse: node \"${CLAUDE_PLUGIN_ROOT}/scripts/post-tool-use.mjs\""
+      },
+      {
+        "path": "plugin/hooks/hooks.json",
+        "message": "Claude Code runs this on PostToolUseFailure: node \"${CLAUDE_PLUGIN_ROOT}/scripts/post-tool-failure.mjs\""
+      },
+      {
+        "path": "plugin/hooks/hooks.json",
+        "message": "Claude Code runs this on PreCompact: node \"${CLAUDE_PLUGIN_ROOT}/scripts/pre-compact.mjs\""
+      },
+      {
+        "path": "plugin/hooks/hooks.json",
+        "message": "Claude Code runs this on PreToolUse: node \"${CLAUDE_PLUGIN_ROOT}/scripts/pre-tool-use.mjs\""
+      },
+      {
+        "path": "plugin/hooks/hooks.json",
+        "message": "Claude Code runs this on SessionEnd: node \"${CLAUDE_PLUGIN_ROOT}/scripts/session-end.mjs\""
+      },
+      {
+        "path": "plugin/hooks/hooks.json",
+        "message": "Claude Code runs this on SessionStart: node \"${CLAUDE_PLUGIN_ROOT}/scripts/session-start.mjs\""
+      },
+      {
+        "path": "plugin/hooks/hooks.json",
+        "message": "Claude Code runs this on Stop: node \"${CLAUDE_PLUGIN_ROOT}/scripts/stop.mjs\""
+      },
+      {
+        "path": "plugin/hooks/hooks.json",
+        "message": "Claude Code runs this on SubagentStart: node \"${CLAUDE_PLUGIN_ROOT}/scripts/subagent-start.mjs\""
+      },
+      {
+        "path": "plugin/hooks/hooks.json",
+        "message": "Claude Code runs this on SubagentStop: node \"${CLAUDE_PLUGIN_ROOT}/scripts/subagent-stop.mjs\""
+      },
+      {
+        "path": "plugin/hooks/hooks.json",
+        "message": "Claude Code runs this on TaskCompleted: node \"${CLAUDE_PLUGIN_ROOT}/scripts/task-completed.mjs\""
+      },
+      {
+        "path": "plugin/hooks/hooks.json",
+        "message": "Claude Code runs this on UserPromptSubmit: node \"${CLAUDE_PLUGIN_ROOT}/scripts/prompt-submit.mjs\""
       }
     ]
   }

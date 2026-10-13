@@ -54,13 +54,66 @@
     "wiki-query": "skills/wiki-query",
     "wiki-retrieve": "skills/wiki-retrieve"
   },
-  "requiredRuntimes": [],
+  "requiredRuntimes": [
+    "bash",
+    "python3"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/agents": "agents",
+    "com.anthropic.claude-code/hooks": "hooks",
+    "scripts": "scripts"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/scripts/claude-obsidian.py",
+              "hook",
+              "session-start"
+            ],
+            "command": "python3",
+            "timeout": 5,
+            "type": "command"
+          }
+        ],
+        "matcher": "startup|resume|clear|compact"
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/scripts/claude-obsidian.py",
+              "hook",
+              "stop"
+            ],
+            "command": "python3",
+            "timeout": 5,
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
   "meta": {
     "description": "Local-first Agent Skills package and Claude Code plugin for source-cited Obsidian knowledge bases",
     "homepage": "https://github.com/AgriciDaniel/claude-obsidian"
   },
   "import": {
     "input": "AgriciDaniel/claude-obsidian",
-    "flags": []
+    "flags": [],
+    "warnings": [
+      {
+        "path": "hooks/hooks.json",
+        "message": "Claude Code runs this on SessionStart: python3 ${CLAUDE_PLUGIN_ROOT}/scripts/claude-obsidian.py hook session-start"
+      },
+      {
+        "path": "hooks/hooks.json",
+        "message": "Claude Code runs this on Stop: python3 ${CLAUDE_PLUGIN_ROOT}/scripts/claude-obsidian.py hook stop"
+      }
+    ]
   }
 }

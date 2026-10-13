@@ -4,8 +4,8 @@
   "src": {
     "owner": "anthropics",
     "repo": "claude-plugins-official",
-    "rev": "fbe07fb6ce7d51d8e86ca6efdf050059894cdb80",
-    "hash": "sha256-i2EhIqcQeI14woehjudzQQF3ue3ViZd6MwggRA4C5j0="
+    "rev": "f359d43b406057f1a8cdbc4ea93b827642c162e6",
+    "hash": "sha256-f5mnVFXVkaMoahQv5pu5fS0gGV1uaowi/mpJM0gm/I8="
   },
   "sourceUrl": "https://github.com/anthropics/claude-plugins-official",
   "manifest": {
@@ -27,6 +27,14 @@
   "requiredRuntimes": [
     "bun"
   ],
+  "pluginRootPaths": {
+    "ACCESS.md": "external_plugins/discord/ACCESS.md",
+    "LICENSE": "external_plugins/discord/LICENSE",
+    "README.md": "external_plugins/discord/README.md",
+    "bun.lock": "external_plugins/discord/bun.lock",
+    "package.json": "external_plugins/discord/package.json",
+    "server.ts": "external_plugins/discord/server.ts"
+  },
   "mcpServers": {
     "discord": {
       "args": [
@@ -64,6 +72,14 @@
       {
         "path": "external_plugins/discord/skills/configure/SKILL.md/allowed-tools",
         "message": "must be a space-separated string, not a list (Read Write Bash(ls *) Bash(mkdir *))"
+      },
+      {
+        "path": "external_plugins/discord",
+        "message": "a server declared in external_plugins/discord/.mcp.json runs from the plugin root, so the root's files ship: ACCESS.md, LICENSE, README.md, bun.lock, package.json, server.ts"
+      },
+      {
+        "path": "package.json",
+        "message": "dependency manifest; the build does not resolve what it declares"
       }
     ]
   }

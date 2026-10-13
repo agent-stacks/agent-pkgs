@@ -1,11 +1,11 @@
 {
   "name": "foundry-iq-skills",
-  "version": "0.1.5",
+  "version": "0.1.14",
   "src": {
     "owner": "microsoft",
     "repo": "skills",
-    "rev": "23d0dac5f83f268166a17f0bc7dc6c73dc348a33",
-    "hash": "sha256-bELfWe8XWQdF4AnqWXMWGsXfMAjow52VQ9kMREf72Tg="
+    "rev": "91ec09549ca16bd6c44e6ccdef26d61eb2082f07",
+    "hash": "sha256-9jslsUZDBKluzY2BVmvgSkUq8SJmdOIWuLmBS9bJ4zw="
   },
   "sourceUrl": "https://github.com/microsoft/skills",
   "manifest": {
@@ -34,12 +34,39 @@
     "license": "MIT",
     "name": "foundry-iq-skills",
     "repository": "https://github.com/microsoft/github-copilot-for-azure",
-    "version": "0.1.5"
+    "version": "0.1.14"
   },
   "skills": {
     "foundry-iq": ".github/plugins/foundry-iq-skills/skills/foundry-iq"
   },
-  "requiredRuntimes": [],
+  "requiredRuntimes": [
+    "bash"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/hooks": ".github/plugins/foundry-iq-skills/hooks"
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\"",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\"",
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
   "meta": {
     "description": "Create and retrieve from a Foundry IQ knowledge base using File, Azure Blob, or ADLS Gen2, then connect an existing Prompt or Hosted Agent",
     "homepage": "https://github.com/microsoft/skills"
@@ -48,6 +75,22 @@
     "input": "microsoft/skills",
     "flags": [],
     "warnings": [
+      {
+        "path": ".github/plugins/foundry-iq-skills/hooks/claude-hooks.json",
+        "message": "Claude Code runs this on PostToolUse: bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\""
+      },
+      {
+        "path": ".github/plugins/foundry-iq-skills/hooks/claude-hooks.json",
+        "message": "Claude Code runs this on SessionStart: bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\""
+      },
+      {
+        "path": "com.anthropic.claude-code/hooks/scripts/pluginPathAllowPattern.sh",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "com.anthropic.claude-code/hooks/scripts/track-telemetry.js",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
       {
         "path": "skills/foundry-iq/helpers/_blob_observation.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"

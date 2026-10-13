@@ -1,11 +1,11 @@
 {
   "name": "ponytail",
-  "version": "4.10.0",
+  "version": "5.2.0",
   "src": {
     "owner": "DietrichGebert",
     "repo": "ponytail",
-    "rev": "e3ba2aa6f1e6f0bc4d69eb09c9f0d0a93af56156",
-    "hash": "sha256-PES5XrSYx0VBXWVHEDRykGy0SAmJfV/luzy8Gfg0aAQ="
+    "rev": "2961b52fc1fe6a5a87c7a959a79512e5c2f3ffe5",
+    "hash": "sha256-3GopEvTySUvo0ghGz4CF6xbN7x3kbB/IHEY7Dwr4dls="
   },
   "sourceUrl": "https://github.com/DietrichGebert/ponytail",
   "manifest": {
@@ -16,7 +16,7 @@
     },
     "description": "Forces the laziest solution that works. YAGNI, stdlib first, one line over fifty.",
     "name": "ponytail",
-    "version": "4.10.0"
+    "version": "5.2.0"
   },
   "skills": {
     "ponytail": ".openclaw/skills/ponytail",
@@ -26,7 +26,52 @@
     "ponytail-help": ".openclaw/skills/ponytail-help",
     "ponytail-review": ".openclaw/skills/ponytail-review"
   },
-  "requiredRuntimes": [],
+  "requiredRuntimes": [
+    "bash",
+    "node"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/hooks": "hooks"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "node -e \"require(require('path').join(process.env.CLAUDE_PLUGIN_ROOT.split(String.fromCharCode(92)).join('/'), 'hooks/ponytail-activate.js'))\"",
+            "statusMessage": "Loading ponytail mode...",
+            "timeout": 5,
+            "type": "command"
+          }
+        ],
+        "matcher": "startup|resume|clear|compact"
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "command": "node -e \"require(require('path').join(process.env.CLAUDE_PLUGIN_ROOT.split(String.fromCharCode(92)).join('/'), 'hooks/ponytail-subagent.js'))\"",
+            "statusMessage": "Loading ponytail mode...",
+            "timeout": 5,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "command": "node -e \"require(require('path').join(process.env.CLAUDE_PLUGIN_ROOT.split(String.fromCharCode(92)).join('/'), 'hooks/ponytail-mode-tracker.js'))\"",
+            "statusMessage": "Tracking ponytail mode...",
+            "timeout": 5,
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
   "meta": {
     "description": "Forces the laziest solution that works",
     "homepage": "https://github.com/DietrichGebert/ponytail"
@@ -58,6 +103,22 @@
       {
         "path": ".openclaw/skills/ponytail/SKILL.md",
         "message": "unknown frontmatter fields: homepage"
+      },
+      {
+        "path": "hooks/claude-codex-hooks.json",
+        "message": "Claude Code runs this on SessionStart: node -e \"require(require('path').join(process.env.CLAUDE_PLUGIN_ROOT.split(String.fromCharCode(92)).join('/'), 'hooks/ponytail-activate.js'))\""
+      },
+      {
+        "path": "hooks/claude-codex-hooks.json",
+        "message": "Claude Code runs this on SubagentStart: node -e \"require(require('path').join(process.env.CLAUDE_PLUGIN_ROOT.split(String.fromCharCode(92)).join('/'), 'hooks/ponytail-subagent.js'))\""
+      },
+      {
+        "path": "hooks/claude-codex-hooks.json",
+        "message": "Claude Code runs this on UserPromptSubmit: node -e \"require(require('path').join(process.env.CLAUDE_PLUGIN_ROOT.split(String.fromCharCode(92)).join('/'), 'hooks/ponytail-mode-tracker.js'))\""
+      },
+      {
+        "path": "package.json",
+        "message": "dependency manifest; the build does not resolve what it declares"
       }
     ]
   }

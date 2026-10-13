@@ -4,8 +4,8 @@
   "src": {
     "owner": "microsoft",
     "repo": "skills",
-    "rev": "23d0dac5f83f268166a17f0bc7dc6c73dc348a33",
-    "hash": "sha256-bELfWe8XWQdF4AnqWXMWGsXfMAjow52VQ9kMREf72Tg="
+    "rev": "91ec09549ca16bd6c44e6ccdef26d61eb2082f07",
+    "hash": "sha256-9jslsUZDBKluzY2BVmvgSkUq8SJmdOIWuLmBS9bJ4zw="
   },
   "sourceUrl": "https://github.com/microsoft/skills",
   "manifest": {
@@ -65,6 +65,9 @@
     "pwsh",
     "python3"
   ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/hooks": ".github/plugins/azure-skills/hooks"
+  },
   "mcpServers": {
     "azure": {
       "args": [
@@ -77,6 +80,28 @@
       "type": "stdio"
     }
   },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\"",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\"",
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
   "meta": {
     "description": "Microsoft Azure MCP and Skills integration for cloud resource management, deployments, and Azure services",
     "homepage": "https://github.com/microsoft/skills"
@@ -88,6 +113,22 @@
       {
         "path": ".github/plugins/azure-skills/skills/airunway-aks-setup/SKILL.md",
         "message": "unknown frontmatter fields: argument-hint"
+      },
+      {
+        "path": ".github/plugins/azure-skills/hooks/claude-hooks.json",
+        "message": "Claude Code runs this on PostToolUse: bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\""
+      },
+      {
+        "path": ".github/plugins/azure-skills/hooks/claude-hooks.json",
+        "message": "Claude Code runs this on SessionStart: bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\""
+      },
+      {
+        "path": "com.anthropic.claude-code/hooks/scripts/pluginPathAllowPattern.sh",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "com.anthropic.claude-code/hooks/scripts/track-telemetry.js",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
         "path": "skills/microsoft-foundry/finetuning/scripts/calibrate_grader.py",

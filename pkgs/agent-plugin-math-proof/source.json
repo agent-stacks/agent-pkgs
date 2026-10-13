@@ -1,0 +1,53 @@
+{
+  "name": "math-proof",
+  "version": "0.0.0-unstable.2026-10-10.gf359d43",
+  "src": {
+    "owner": "anthropics",
+    "repo": "claude-plugins-official",
+    "rev": "f359d43b406057f1a8cdbc4ea93b827642c162e6",
+    "hash": "sha256-f5mnVFXVkaMoahQv5pu5fS0gGV1uaowi/mpJM0gm/I8="
+  },
+  "sourceUrl": "https://github.com/anthropics/claude-plugins-official",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "email": "support@anthropic.com",
+      "name": "Anthropic"
+    },
+    "description": "Two skills for hard mathematics problems, each ending in a self-contained proof.md: /math-proof:solo has the session work the problem itself in stages with a notes file; /math-proof:siege works on it for hours in rounds of judge and worker sub-agents and says plainly what is and is not proved.",
+    "homepage": "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/math-proof",
+    "name": "math-proof"
+  },
+  "skills": {
+    "siege": "plugins/math-proof/skills/siege",
+    "solo": "plugins/math-proof/skills/solo"
+  },
+  "requiredRuntimes": [
+    "python3"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/agents": "plugins/math-proof/agents"
+  },
+  "meta": {
+    "description": "Two skills for hard mathematics problems, each ending in a self-contained proof.md",
+    "homepage": "https://github.com/anthropics/claude-plugins-official"
+  },
+  "import": {
+    "input": "anthropics/claude-plugins-official",
+    "flags": [],
+    "warnings": [
+      {
+        "path": "plugins/math-proof/skills/siege/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, disable-model-invocation, disallowed-tools"
+      },
+      {
+        "path": "plugins/math-proof/skills/solo/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, disable-model-invocation, disallowed-tools"
+      },
+      {
+        "path": "skills/siege/scripts/ledger.py",
+        "message": "under skills/, which assembly writes itself (agent-pkgs ADR 0006); an upstream executable there is not carried"
+      }
+    ]
+  }
+}

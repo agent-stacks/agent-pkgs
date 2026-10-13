@@ -1,0 +1,50 @@
+{
+  "name": "example-plugin",
+  "version": "0.0.0-unstable.2026-10-10.gf359d43",
+  "src": {
+    "owner": "anthropics",
+    "repo": "claude-plugins-official",
+    "rev": "f359d43b406057f1a8cdbc4ea93b827642c162e6",
+    "hash": "sha256-f5mnVFXVkaMoahQv5pu5fS0gGV1uaowi/mpJM0gm/I8="
+  },
+  "sourceUrl": "https://github.com/anthropics/claude-plugins-official",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "email": "support@anthropic.com",
+      "name": "Anthropic"
+    },
+    "description": "A comprehensive example plugin demonstrating all Claude Code extension options including commands, agents, skills, hooks, and MCP servers",
+    "name": "example-plugin"
+  },
+  "skills": {
+    "example-command": "plugins/example-plugin/skills/example-command",
+    "example-skill": "plugins/example-plugin/skills/example-skill"
+  },
+  "requiredRuntimes": [],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/commands": "plugins/example-plugin/commands"
+  },
+  "meta": {
+    "description": "A comprehensive example plugin demonstrating all Claude Code extension options including commands, agents, skills, hooks, and MCP servers",
+    "homepage": "https://github.com/anthropics/claude-plugins-official"
+  },
+  "import": {
+    "input": "anthropics/claude-plugins-official",
+    "flags": [],
+    "warnings": [
+      {
+        "path": "plugins/example-plugin/skills/example-command/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint"
+      },
+      {
+        "path": "plugins/example-plugin/skills/example-command/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Read Glob Grep Bash)"
+      },
+      {
+        "path": "plugins/example-plugin/skills/example-skill/SKILL.md",
+        "message": "unknown frontmatter fields: version"
+      }
+    ]
+  }
+}
