@@ -67,10 +67,11 @@ violates the Agent Plugins or Agent Skills spec fails its own build.
 
 ## CI
 
-GitHub Actions (ubuntu + macos) with `flox/install-flox-action` and
-`flox/configure-nix-action`, bundled into the `nix-setup` composite
-action. CI runs `nix flake check -L` on both runners, and
-`--all-systems` once more for the systems no runner covers.
+GitHub Actions (ubuntu, ubuntu arm and macos) with
+`flox/install-flox-action` and `flox/configure-nix-action`, bundled
+into the `nix-setup` composite action. CI runs `nix flake check -L` on
+every runner, and `--all-systems` once more for the systems no runner
+covers.
 
 `checks` is the gates — the non-package checks — so that builds the
 gates and evaluates every output, and builds no package. A package is
@@ -79,10 +80,15 @@ mkChecks` until 2026-10-13, which meant every push built all 315
 packages twice; AI-915 records the reasoning.
 
 So a pull request proves that everything evaluates and that the gates
-pass, and not that a package builds. The two update workflows build
-every plugin for their runner's system before they land anything, and
-Hydra builds them all continuously. `summary` is the one check branch
-protection requires.
+pass, and not that a package builds. Hydra proves that, continuously.
+`summary` is the one check branch protection requires.
+
+The update workflows verify a staged commit by calling `ci.yml` on
+their staging branch, so what a check means is decided in one place
+and a staged commit gets exactly what a pull request gets. They built
+every plugin package for three systems until 2026-10-13, which spent
+about an hour of runner time a cycle to reach Hydra's conclusion later
+than Hydra does.
 
 The binary cache is populated separately by Hydra (Distribution
 project); CI stays plain and forkable.

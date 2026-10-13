@@ -14,14 +14,32 @@ name: CI
 # or a package that does not instantiate still fails here — which is
 # most of what breaks in this repository.
 #
-# What a pull request therefore does not prove: that a package still
-# builds. Hydra proves it from `packages.*`, and the two update
-# workflows build every plugin on their own schedules.
+# What this therefore does not prove: that a package still builds.
+# Hydra proves that from `packages.*`.
+#
+# This is also the verification the update workflows run before they
+# move main: each one calls this workflow on its staging branch rather
+# than keeping its own copy of the steps, so what a check means is
+# decided here once. Until 2026-10-13 they also built every plugin
+# package for three systems; that gate is Hydra's now.
 
 on:
   push:
     branches: [main]
   pull_request:
+  workflow_call:
+    inputs:
+      ref:
+        description: >-
+          The commit, branch or tag to check. Empty — which is what a
+          push or a pull request passes, since neither sets an input —
+          checks out what the event points at, as it did before this
+          workflow was callable. A caller passes its staging branch, so
+          that what is checked is the commit about to land rather than
+          the main the caller started from.
+        type: string
+        required: false
+        default: ""
 
 permissions:
   contents: read
@@ -39,25 +57,31 @@ jobs:
     name: Check (${{ matrix.os }})
     strategy:
       fail-fast: false
+      # One runner per system nix can build natively. The arm Linux
+      # runner is here because it is the only thing that builds an
+      # aarch64-linux derivation before Hydra sees it; it used to run
+      # only in the update workflows, and they call this workflow now.
+      # Linux arm runners are free on a public repository, which this
+      # one is.
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest, ubuntu-24.04-arm, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          ref: ${{ inputs.ref }}
 
       - uses: ./.github/actions/nix-setup
 
       # Builds this runner's gates and evaluates this system's outputs.
-      # Both runners, because a gate is built for the system it runs on
-      # and the arm runner is the only thing covering aarch64-linux
-      # before Hydra sees it.
+      # Every runner, because a gate is built for the system it runs on.
       - name: Flake check (builds the gates)
         run: nix flake check -L
 
       # The systems no runner covers: with --all-systems nix evaluates
       # every output for every system and builds none of them, so this
-      # catches an evaluation error in an x86_64-darwin or aarch64-linux
-      # derivation that the check above skips as incompatible.
+      # catches an evaluation error in an x86_64-darwin derivation that
+      # the check above skips as incompatible.
       - name: Evaluate every system
         run: nix flake check -L --all-systems
 

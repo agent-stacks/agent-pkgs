@@ -68,74 +68,24 @@ jobs:
           git push --force origin "HEAD:refs/heads/$STAGING_BRANCH"
           echo "changed=true" >> "$GITHUB_OUTPUT"
 
-  # Every system is built before main moves. A nixpkgs bump reaches every
-  # package in the set, and the systems do not fail together: a change to a
-  # darwin stdenv or to an aarch64 binary is invisible on x86_64-linux, which
-  # is all the old single-runner check covered.
+  # The same verification a pull request gets, on the staged commit:
+  # the gates built on every runner, and every output evaluated for
+  # every system. Called rather than copied so that a change to what a
+  # check means is made in ci.yml alone.
+  #
+  # It built every plugin package for three systems until 2026-10-13.
+  # That is Hydra's job: it builds `packages.*` for every system, and
+  # repeating it here spent an hour of runner time per cycle to learn
+  # the same thing later than Hydra does.
   verify:
-    name: "Build ${{ matrix.system }}"
     needs: prepare
     if: ${{ needs.prepare.outputs.changed == 'true' }}
-    runs-on: ${{ matrix.runner }}
-    strategy:
-      fail-fast: false
-      # One runner per system, because `nix flake check` builds the host
-      # system's outputs and only evaluates the rest. aarch64-linux runners
-      # are free on public repositories, which this one is, and this is the
-      # only place that system is built before Hydra sees it.
-      matrix:
-        include:
-          - system: x86_64-linux
-            runner: ubuntu-latest
-          - system: aarch64-linux
-            runner: ubuntu-24.04-arm
-          - system: aarch64-darwin
-            runner: macos-latest
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-        with:
-          ref: ${{ env.STAGING_BRANCH }}
-
-      - name: "Install flox"
-        uses: flox/install-flox-action@3b80351ae97bbe063f264dc88fbd505507054963 # v2.5.3
-
-      - name: "Configure nix"
-        uses: flox/configure-nix-action@28a4eb7f63bf54c91670b4a698f0a9ebfb95384f # main
-
-      - name: "Point nix at a CA bundle"
-        uses: ./.github/actions/nix-ssl-cert-file
-
-      - name: "Trust the runner's user"
-        uses: ./.github/actions/trust-nix-user
-
-      # The gates, then every plugin package for this system.
-      # `nix flake check` builds only `checks`, which is the gates
-      # since 2026-10-13, so a package has to be named to be built —
-      # and a replay that breaks one must not reach main. A plugin's
-      # directory under pkgs/ is also its attribute name, which is the
-      # same identity the import writes.
-      #
-      # The agent CLIs re-exported into `packages` are deliberately not
-      # built: they are nixpkgs builds this repository only forwards,
-      # and ADR 0015 records why they stay out of what CI builds.
-      - name: "Flake check (builds the gates)"
-        run: nix flake check -L
-
-      - name: "Build every plugin package"
-        run: |
-          set -euo pipefail
-          system="$(nix eval --raw --impure --expr builtins.currentSystem)"
-          set --
-          for d in pkgs/agent-plugin-*; do
-            [ -f "$d/default.nix" ] || continue
-            set -- "$@" ".#packages.$system.$(basename "$d")"
-          done
-          if [ "$#" -eq 0 ]; then
-            echo "no plugin packages found under pkgs/" >&2
-            exit 1
-          fi
-          echo "building $# plugin package(s) for $system"
-          nix build -L --no-link "$@"
+    # The branch prepare pushed the staged commit to. A literal,
+    # because a reusable workflow's `with` cannot read `env`; it has to
+    # stay the same string as STAGING_BRANCH above.
+    uses: ./.github/workflows/ci.yml
+    with:
+      ref: update-flake-lock
 
   land:
     name: "Move main onto the staged commit"
