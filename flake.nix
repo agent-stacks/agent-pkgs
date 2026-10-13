@@ -203,6 +203,14 @@
           "agent-pkgs and llm-agents.nix both define ${toString clashes}; the package from pkgs/ wins"
           (llmAgents // built);
 
+      # The gates alone: mkChecks without the packages. `nix flake
+      # check` builds everything `checks` names, and a package built
+      # there repeats what Hydra does from `packages.*` — on a GitHub
+      # runner, for every package, on every push. Evaluation is not
+      # given up with it: flake check evaluates every output, packages
+      # included, and builds only what `checks` names.
+      mkGates = pkgs: removeAttrs (mkChecks pkgs) (builtins.attrNames (mkPackages pkgs));
+
       mkChecks = pkgs:
         mkPackages pkgs // {
           # mappings/runtimes.nix is this repository's table, so this
@@ -505,11 +513,13 @@
     {
       packages = forAllSystems mkAllPackages;
 
-      # Deliberately the plugin set and the gates, not mkAllPackages:
-      # `nix flake check` runs on GitHub runners in update-flake-lock,
-      # and building every agent CLI there would spend hours saying
-      # what Hydra already says from packages.*.
-      checks = forAllSystems mkChecks;
+      # The gates, not the packages: CI runs `nix flake check` on every
+      # pull request and both update workflows run it hourly, and a
+      # package belongs to Hydra, which builds packages.* for every
+      # system. A package that stops building is Hydra's to report, and
+      # an evaluation error is still caught here, because flake check
+      # evaluates packages.* whether or not it builds them.
+      checks = forAllSystems mkGates;
       lib = forAllSystems mkLib;
 
       # What Hydra builds. packages.* is published to the agent-stacks
@@ -520,13 +530,10 @@
         packages = nixpkgs.lib.genAttrs systems (system:
           mkAllPackages (pkgsFor system));
 
-        # Only the gates. Every package is also a check, and packages.*
-        # already builds those; repeating them here would double the
-        # jobset for no extra coverage.
-        checks = nixpkgs.lib.genAttrs systems (system:
-          let pkgs = pkgsFor system;
-          in removeAttrs (mkChecks pkgs)
-            (builtins.attrNames (mkPackages pkgs)));
+        # The same gates `checks` exposes. packages.* above already
+        # builds every package, so naming them here too would double
+        # the jobset for no extra coverage.
+        checks = nixpkgs.lib.genAttrs systems (system: mkGates (pkgsFor system));
       };
     };
 }
