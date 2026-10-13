@@ -93,8 +93,36 @@ jobs:
     if: ${{ needs.prepare.outputs.changed == 'true' }}
     runs-on: ubuntu-latest
     steps:
+      # The push below authenticates as a GitHub App, not as the
+      # workflow's own GITHUB_TOKEN.
+      #
+      # main carries two rulesets. main-block refuses a deletion or a
+      # non-fast-forward, which none of this does. main-require wants a
+      # pull request and a passing Summary check, and a ruleset's bypass
+      # list can name only roles, teams, deploy keys and installed apps
+      # — the built-in GitHub Actions app is not one of them, so
+      # GITHUB_TOKEN cannot be exempted and its push is refused. The
+      # app is in that bypass list, so the token minted here lands.
+      #
+      # This workflow had no app token until 2026-10-13, while the
+      # other two did, so its land job could not succeed at all: every
+      # push to main was refused. It had not been noticed because the
+      # scheduled runs were failing earlier, in verify.
+      #
+      # The app is agent-stacks-updater, installed on the repositories
+      # whose packages it updates, and its credentials are organization
+      # secrets rather than this repository's, so one app and one key
+      # serve all of them.
+      - name: "Mint a token for the app that may push main"
+        id: app-token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          app-id: ${{ secrets.MANAGED_AGENT_STACKS_UPDATER_APP_ID }}
+          private-key: ${{ secrets.MANAGED_AGENT_STACKS_UPDATER_PRIVATE_KEY }}
+
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
+          token: ${{ steps.app-token.outputs.token }}
           ref: ${{ env.STAGING_BRANCH }}
           fetch-depth: 0
 
@@ -116,9 +144,20 @@ jobs:
       # reach here. Without it the first lost race ends in "empty ident
       # name", which the handler then reports as a conflict.
       - name: "Fast-forward main"
+        env:
+          # gh looks up the bot user id for the commit identity below.
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # The app's bot user, so a landed commit names what pushed
+          # it. The step above fails the job when no token was minted,
+          # so the slug is always set here.
+          slug="${{ steps.app-token.outputs.app-slug }}"
+          git config user.name "${slug}[bot]"
+          # The numeric form links the commit to the bot account. A
+          # lookup that is refused leaves the plain form, which is
+          # still a valid noreply address.
+          id="$(gh api "/users/${slug}%5Bbot%5D" --jq .id 2>/dev/null || true)"
+          git config user.email "${id:+$id+}${slug}[bot]@users.noreply.github.com"
           for attempt in 1 2 3 4 5; do
             if git push origin "HEAD:refs/heads/main"; then
               git push origin --delete "$STAGING_BRANCH"
