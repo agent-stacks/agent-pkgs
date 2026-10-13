@@ -13,8 +13,9 @@ on:
     inputs:
       dry-run:
         description: >-
-          Replay, stage and verify, but leave main where it is. For
-          trying a change to this workflow from its branch.
+          Replay, stage and verify, but leave main where it is. A
+          dispatch from any other branch never moves main, ticked or
+          not.
         type: boolean
         default: false
 
@@ -310,9 +311,15 @@ jobs:
   land:
     name: "Move main onto the staged commit"
     needs: [prepare, verify]
-    # inputs.dry-run is unset on a schedule, so only a dispatch that
-    # asks for it stops here.
-    if: ${{ needs.prepare.outputs.changed == 'true' && !inputs.dry-run }}
+    # Only from main. prepare stages on whatever ref was dispatched,
+    # and the token below bypasses the pull request main requires, so
+    # landing a dispatch from another branch would put that branch's
+    # unreviewed commits on main. inputs.dry-run is unset on a
+    # schedule, so only a dispatch that asks for it stops here.
+    if: >-
+      ${{ needs.prepare.outputs.changed == 'true'
+      && github.ref == 'refs/heads/main'
+      && !inputs.dry-run }}
     runs-on: ubuntu-24.04
     steps:
       # The pushes below authenticate as a GitHub App, not as the

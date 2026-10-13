@@ -121,7 +121,13 @@ jobs:
   land:
     name: "Move main onto the staged commit"
     needs: [prepare, verify]
-    if: ${{ needs.prepare.outputs.changed == 'true' }}
+    # Only from main. prepare stages on whatever ref was dispatched,
+    # and the token below bypasses the pull request main requires, so
+    # landing a dispatch from another branch would put that branch's
+    # unreviewed commits on main.
+    if: >-
+      ${{ needs.prepare.outputs.changed == 'true'
+      && github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-24.04
     steps:
       # The push below authenticates as a GitHub App, not as the
