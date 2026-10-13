@@ -38,6 +38,9 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       changed: ${{ steps.stage.outputs.changed }}
+      # The commit verify checks and land pushes, named exactly
+      # rather than through the branch it also sits on.
+      sha: ${{ steps.stage.outputs.sha }}
       failed: ${{ steps.import.outputs.failed }}
     steps:
       # The pushes below authenticate as a GitHub App, not as the
@@ -141,6 +144,7 @@ jobs:
           git commit -q -m "chore(agent-plugins): replay recorded imports"
           git push --force origin "HEAD:refs/heads/$STAGING_BRANCH"
           echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
   # The same verification a pull request gets, on the staged commit:
   # the gates built on every runner, and every output evaluated for
@@ -154,12 +158,13 @@ jobs:
   verify:
     needs: prepare
     if: ${{ needs.prepare.outputs.changed == 'true' }}
-    # The branch prepare pushed the staged commit to. A literal,
-    # because a reusable workflow's `with` cannot read `env`; it has to
-    # stay the same string as STAGING_BRANCH above.
+    # The staged commit itself. `with` cannot read `env`, so the
+    # branch name could only be repeated here as a literal to be kept
+    # in sync by hand; `needs` it can read, and a commit cannot be
+    # moved underneath the job the way a branch can.
     uses: ./.github/workflows/ci.yml
     with:
-      ref: update-agent-plugins
+      ref: ${{ needs.prepare.outputs.sha }}
 
   land:
     name: "Move main onto the staged commit"

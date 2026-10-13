@@ -17,11 +17,17 @@ name: CI
 # What this therefore does not prove: that a package still builds.
 # Hydra proves that from `packages.*`.
 #
-# This is also the verification the update workflows run before they
-# move main: each one calls this workflow on its staging branch rather
-# than keeping its own copy of the steps, so what a check means is
-# decided here once. Until 2026-10-13 they also built every plugin
-# package for three systems; that gate is Hydra's now.
+# This is also the verification the replay and lock workflows run
+# before they move main: each calls this workflow on its staging
+# commit rather than keeping its own copy of the steps, so what a
+# check means is decided here once. Until 2026-10-13 those two also
+# built every plugin package for three systems; that gate is Hydra's
+# now.
+#
+# update-agent-stacks is the exception and keeps its own matrix. It
+# builds one package, `agent-stacks`, and runs the binary in an
+# installCheck — a thing this workflow deliberately no longer does,
+# since it builds no package at all.
 
 on:
   push:
@@ -78,11 +84,15 @@ jobs:
       - name: Flake check (builds the gates)
         run: nix flake check -L
 
-      # The systems no runner covers: with --all-systems nix evaluates
-      # every output for every system and builds none of them, so this
-      # catches an evaluation error in an x86_64-darwin derivation that
-      # the check above skips as incompatible.
+      # The systems no runner covers. `systems` in flake.nix is the
+      # three above, so today every declared system is evaluated by
+      # the step above on its own runner and this one finds nothing;
+      # it is here so that declaring a fourth system does not silently
+      # go unevaluated until Hydra. Evaluation is pure and does not
+      # depend on the host, so one runner answers for all of them —
+      # running it on each would be the same work three times.
       - name: Evaluate every system
+        if: matrix.os == 'ubuntu-latest'
         run: nix flake check -L --all-systems
 
   # The one check branch protection requires. Every other job's name
