@@ -469,14 +469,11 @@
             '';
           })).overrideAttrs (_: { pname = "old-hooks-exist"; });
 
-          # Every key a generated source.json writes is a builder formal
-          # (ADR 0016; the formals carry no `...`). A key the importer
-          # starts writing before the builder declares it fails here,
-          # not on the first hourly replay that carries it.
+          # Every key agent-stacks import writes is a builder formal (ADR
+          # 0016), or the first replay carrying it fails on main.
           call-keys-declared =
             let
-              # The file itself, not the callPackage'd value, which wraps
-              # a function result in an overridable attrset.
+              # The file, not the callPackage'd value, which is not a function.
               formals = builtins.functionArgs (import ./lib/build-agent-plugin.nix {
                 inherit (pkgs) lib stdenvNoCC;
                 inherit pkgs;

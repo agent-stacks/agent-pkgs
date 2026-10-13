@@ -119,19 +119,16 @@ declares an `agent-plugins.org` `$schema`, and a root `mcp.json` that
 does the same. Any other root file is not read.
 
 `hooks` is present when the plugin has Claude Code hooks: the event
-map Claude reads, as the importer merged it from `hooks/hooks.json`
-and the manifest's `hooks` field (agent-stacks ADR 0051, "Hooks are
-read from the manifest and written by the build"). The builder writes
-it, wrapped in Claude's `hooks` key, as
+map Claude reads, merged by the importer from `hooks/hooks.json` and
+the manifest's `hooks` field (agent-stacks ADR 0051). The builder
+writes it under Claude's `hooks` key as
 `com.anthropic.claude-code/hooks/hooks.json`, or as `hooks/hooks.json`
-at the plugin root when `pluginRootPaths` ships a bare `hooks` entry;
-it replaces any hooks file a shipped `hooks/` brought, and its
-interpreters are pinned like any hook's. The agent-stacks the package
-pins has to know the key: an older one ignores it, and the build fails
-saying so rather than ship the plugin without its hooks. A file from an
-earlier importer never carries the key and keeps the copied file. This
-`hooks` is a builder argument; the `hooks` a generated `default.nix`
-binds in its custom block is the `overrideAttrs` function.
+at the root when `pluginRootPaths` ships `hooks/` there, replacing any
+hooks file that directory brought. An agent-stacks older than the key
+ignores it, and the build fails rather than ship a plugin without its
+hooks. A `source.json` from an earlier importer has no key and keeps
+the copied file. The `hooks` a generated `default.nix` binds is the
+`overrideAttrs` function, not this argument.
 
 `meta` carries `description` and `homepage`, and `license` only
 when the manifest spells its licence in a way the builder cannot
@@ -182,10 +179,10 @@ References are followed one level: an entry that ships is not read
 for further references. The builder copies these entries before the
 runtime pass, so their contents are rewritten, pinned and guarded like
 a skill's. A directory is pruned as a skill copy is, and login files
-(`.npmrc`, `*.pem`, …) are dropped. In the hooks file the build
-writes from `hooks`, a hook that runs a plugin file with a bare
-interpreter is pointed at the package's `bin/`; one the runtime table
-doesn't map is left for `PATH` and reported. Destinations are one path
+(`.npmrc`, `*.pem`, …) are dropped. In the hooks file, a hook that
+runs a plugin file with a bare interpreter is pointed at the package's
+`bin/`; one the runtime table doesn't map is left for `PATH` and
+reported. Destinations are one path
 segment, never `skills` or `bin`. The field is absent when nothing
 outside the skills ships.
 

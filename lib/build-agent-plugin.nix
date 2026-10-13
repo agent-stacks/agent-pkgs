@@ -5,9 +5,7 @@
 #   ├── skills/
 #   ├── mcp.json        # optional
 #   ├── bin/            # pinned interpreters, when any are needed
-#   ├── com.anthropic.claude-code/  # Claude's components; its hooks/hooks.json
-#   │                               # is written from `hooks` (or at the root,
-#   │                               # when pluginRootPaths ships hooks/ there)
+#   ├── com.anthropic.claude-code/  # Claude's components; hooks.json from `hooks`
 #   └── ...             # pluginRootPaths entries, e.g. scripts/
 #
 # Skill selection, in precedence order:
@@ -73,11 +71,9 @@
   # mcp server configs, serialized to mcp.json; attrset of server
   # name -> config (type/command/...)
 , mcpServers ? null
-  # Claude Code's hooks, the event map Claude reads, serialized to
-  # hooks/hooks.json in the client-extension namespace (agent-stacks
-  # ADR 0051, "Hooks are read from the manifest and written by the
-  # build"). Not the overrideAttrs function a generated default.nix
-  # binds under the same name.
+  # Claude Code's hooks, written as hooks/hooks.json in the namespace
+  # (agent-stacks ADR 0051). Not the overrideAttrs function a generated
+  # default.nix binds under the same name.
 , hooks ? null
   # agent-stacks package providing `agent-stacks assemble-plugin` and
   # `agent-stacks check-plugin`; required, because the build phase is a
@@ -315,11 +311,9 @@ stdenvNoCC.mkDerivation {
       --plugin-out "$out/${out}"
 
     ${lib.optionalString (hooks != null) ''
-      # An agent-stacks from before the hooks argument ignores the key
-      # and the plugin would ship without its hooks; fail instead.
+      # An agent-stacks older than the hooks argument ignores it.
       if [ ! -f "$dest/com.anthropic.claude-code/hooks/hooks.json" ] && [ ! -f "$dest/hooks/hooks.json" ]; then
-        echo "buildAgentPlugin: ${name}: hooks were given, but assemble-plugin wrote no hooks file." >&2
-        echo "This agent-stacks predates the hooks argument (agent-stacks ADR 0051); move the pin forward." >&2
+        echo "buildAgentPlugin: ${name}: hooks were given but assemble-plugin wrote no hooks file; this agent-stacks predates the hooks argument (ADR 0051)" >&2
         exit 1
       fi
     ''}
