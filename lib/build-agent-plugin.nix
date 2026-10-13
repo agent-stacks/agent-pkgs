@@ -5,8 +5,9 @@
 #   ├── skills/
 #   ├── mcp.json        # optional
 #   ├── bin/            # pinned interpreters, when any are needed
-#   ├── com.anthropic.claude-code/  # Claude's components; hooks/hooks.json
-#   │                               # is written from `hooks`
+#   ├── com.anthropic.claude-code/  # Claude's components; its hooks/hooks.json
+#   │                               # is written from `hooks` (or at the root,
+#   │                               # when pluginRootPaths ships hooks/ there)
 #   └── ...             # pluginRootPaths entries, e.g. scripts/
 #
 # Skill selection, in precedence order:
@@ -74,7 +75,8 @@
 , mcpServers ? null
   # Claude Code's hooks, the event map Claude reads, serialized to
   # hooks/hooks.json in the client-extension namespace (agent-stacks
-  # ADR 0051). Not the overrideAttrs function a generated default.nix
+  # ADR 0051, "Hooks are read from the manifest and written by the
+  # build"). Not the overrideAttrs function a generated default.nix
   # binds under the same name.
 , hooks ? null
   # agent-stacks package providing `agent-stacks assemble-plugin` and
@@ -311,6 +313,16 @@ stdenvNoCC.mkDerivation {
       --out "$dest" \
       --runtime-map ${runtimeMapFile} \
       --plugin-out "$out/${out}"
+
+    ${lib.optionalString (hooks != null) ''
+      # An agent-stacks from before the hooks argument ignores the key
+      # and the plugin would ship without its hooks; fail instead.
+      if [ ! -f "$dest/com.anthropic.claude-code/hooks/hooks.json" ] && [ ! -f "$dest/hooks/hooks.json" ]; then
+        echo "buildAgentPlugin: ${name}: hooks were given, but assemble-plugin wrote no hooks file." >&2
+        echo "This agent-stacks predates the hooks argument (agent-stacks ADR 0051); move the pin forward." >&2
+        exit 1
+      fi
+    ''}
 
     # Hook point for extensions: runs on the fully assembled tree,
     # before install and the checks. It used to run between the

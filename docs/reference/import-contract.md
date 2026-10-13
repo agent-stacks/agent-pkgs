@@ -120,15 +120,18 @@ does the same. Any other root file is not read.
 
 `hooks` is present when the plugin has Claude Code hooks: the event
 map Claude reads, as the importer merged it from `hooks/hooks.json`
-and the manifest's `hooks` field (agent-stacks ADR 0051). The builder
-writes it, wrapped in Claude's `hooks` key, as
+and the manifest's `hooks` field (agent-stacks ADR 0051, "Hooks are
+read from the manifest and written by the build"). The builder writes
+it, wrapped in Claude's `hooks` key, as
 `com.anthropic.claude-code/hooks/hooks.json`, or as `hooks/hooks.json`
 at the plugin root when `pluginRootPaths` ships a bare `hooks` entry;
 it replaces any hooks file a shipped `hooks/` brought, and its
-interpreters are pinned as before. A file from an earlier importer
-never carries the key and keeps the copied file. This `hooks` is a
-builder argument; the `hooks` a generated `default.nix` binds in its
-custom block is the `overrideAttrs` function.
+interpreters are pinned like any hook's. The agent-stacks the package
+pins has to know the key: an older one ignores it, and the build fails
+saying so rather than ship the plugin without its hooks. A file from an
+earlier importer never carries the key and keeps the copied file. This
+`hooks` is a builder argument; the `hooks` a generated `default.nix`
+binds in its custom block is the `overrideAttrs` function.
 
 `meta` carries `description` and `homepage`, and `license` only
 when the manifest spells its licence in a way the builder cannot
