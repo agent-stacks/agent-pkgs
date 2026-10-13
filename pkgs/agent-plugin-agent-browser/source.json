@@ -16,7 +16,12 @@
   "skills": {
     "agent-browser": "skills/agent-browser"
   },
-  "requiredRuntimes": [],
+  "requiredRuntimes": [
+    "node"
+  ],
+  "pluginRootPaths": {
+    "bin": "bin"
+  },
   "meta": {
     "description": "Automates browser interactions for web testing, form filling, screenshots, and data extraction",
     "homepage": "https://github.com/vercel-labs/agent-browser"
@@ -31,7 +36,11 @@
       },
       {
         "path": "bin",
-        "message": "Claude Code loads the plugin's executables for the Bash tool's PATH from here (1 file(s)); import does not package them"
+        "message": "Claude Code puts these on the Bash tool's PATH: agent-browser.js"
+      },
+      {
+        "path": "package.json",
+        "message": "dependency manifest; the build does not resolve what it declares"
       }
     ]
   }

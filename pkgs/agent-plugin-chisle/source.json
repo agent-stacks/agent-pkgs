@@ -25,6 +25,7 @@
     "node"
   ],
   "pluginRootPaths": {
+    "bin": "bin",
     "com.anthropic.claude-code/hooks": "hooks"
   },
   "hooks": {
@@ -79,10 +80,6 @@
     "flags": [],
     "warnings": [
       {
-        "path": "bin",
-        "message": "Claude Code loads the plugin's executables for the Bash tool's PATH from here (2 file(s)); import does not package them"
-      },
-      {
         "path": ".claude-plugin/plugin.json",
         "message": "Claude Code runs this on PostToolUse: node \"${CLAUDE_PLUGIN_ROOT}/hooks/chisle-compress-output.js\"; exit 0"
       },
@@ -93,6 +90,10 @@
       {
         "path": ".claude-plugin/plugin.json",
         "message": "Claude Code runs this on UserPromptSubmit: node \"${CLAUDE_PLUGIN_ROOT}/hooks/chisle-mode-tracker.js\"; exit 0"
+      },
+      {
+        "path": "bin",
+        "message": "Claude Code puts these on the Bash tool's PATH: install.js"
       },
       {
         "path": "com.anthropic.claude-code/hooks/package.json",
