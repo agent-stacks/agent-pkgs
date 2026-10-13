@@ -10,6 +10,14 @@ on:
   schedule:
     - cron: "17 * * * *"
   workflow_dispatch:
+    inputs:
+      dry-run:
+        description: >-
+          Replay, stage and verify, but leave main where it is. A
+          dispatch from any other branch never moves main, ticked or
+          not.
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -33,11 +41,142 @@ env:
   STAGING_BRANCH: update-agent-plugins
 
 jobs:
+  # The distinct upstreams, and how they are divided between runners.
+  #
+  # A package is not the unit of a replay: one import writes every
+  # package its upstream holds, so replaying per package imports a
+  # marketplace once per package it produces and each run rewrites the
+  # files the one before it wrote. 309 packages are 172 upstreams, so
+  # 137 of the runs were redundant — `wshobson/agents` alone was
+  # imported 50 times an hour, `intellectronica/agent-skills` 22
+  # (AI-913).
+  #
+  # Needs no nix: it reads the recorded files and nothing else.
+  gather:
+    name: "Gather the upstreams to replay"
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - name: "Reduce the packages to their upstreams"
+        id: plan
+        run: |
+          set -euo pipefail
+
+          # One line per package, "<input>\t<flags, sorted>", so that
+          # two packages naming one upstream with different recorded
+          # flags show up as two lines for the same input. Nothing does
+          # that today. If something starts to, --replay is what says
+          # so, at the upstream it happens on, in the words it already
+          # uses for it — this only names them here so the run summary
+          # does not make it look like an unexplained import failure.
+          jq -r '[.import.input, (.import.flags // [] | sort | join(" "))] | @tsv' \
+            pkgs/agent-plugin-*/source.json | sort -u > all.tsv
+
+          cut -f1 all.tsv | uniq -d > disagree.txt
+          if [ -s disagree.txt ]; then
+            {
+              echo "### Upstreams recorded with more than one set of flags"
+              echo
+              sed 's/^/- /' disagree.txt
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+          cut -f1 all.tsv | sort -u > inputs.txt
+          count=$(wc -l < inputs.txt)
+          echo "$count distinct upstreams"
+
+          # Round-robin across at most SHARDS runners rather than one
+          # job per upstream: 172 jobs would spend more time starting
+          # runners and installing nix than importing, and the queue
+          # is shared with every other workflow in the org. Empty
+          # shards are dropped, so fewer upstreams than SHARDS does not
+          # schedule empty jobs.
+          #
+          # Not weighted: one replay of every upstream on 2026-10-13
+          # took a median 1.2s an import and 26s at the slowest, which
+          # is no marketplace, so a shard's runtime is its runner and
+          # nix setup whichever upstreams it is dealt.
+          SHARDS=12
+          jq -R . < inputs.txt | jq -sc --argjson n "$SHARDS" '
+            [ range(0; $n) as $i
+              | { shard: ($i + 1),
+                  inputs: ( to_entries
+                            | map(select(.key % $n == $i) | .value)
+                            | join(" ") ) } ]
+            | map(select(.inputs != ""))
+            | { include: . }' > matrix.json
+
+          echo "matrix=$(cat matrix.json)" >> "$GITHUB_OUTPUT"
+          jq -r '.include[] | "shard \(.shard): \(.inputs | split(" ") | length) upstream(s)"' matrix.json
+
+  # One import per upstream, in parallel. Each shard writes only the
+  # packages its own upstreams produce, so the shards should touch
+  # disjoint paths and a patch per shard recombine without conflict.
+  #
+  # fail-fast is off and an import that fails does not fail the job: a
+  # dead upstream must not stop every other package from landing. The
+  # failures travel in the artifact and the report job prints them
+  # after the rest has landed. A job that does fail here failed at
+  # something other than an import, and then stage does not run.
+  replay:
+    name: "Replay shard ${{ matrix.shard }}"
+    needs: gather
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.gather.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - uses: ./.github/actions/nix-setup
+
+      - name: "Replay this shard's upstreams"
+        env:
+          INPUTS: ${{ matrix.inputs }}
+        run: |
+          set -uo pipefail
+          mkdir -p out
+          : > out/failed.txt
+          read -ra inputs <<< "$INPUTS"
+          # So prepare can name them if this shard's patch is refused.
+          printf '%s\n' "${inputs[@]}" > out/inputs.txt
+          for input in "${inputs[@]}"; do
+            echo "::group::$input"
+            if ! nix run .#agent-stacks -- import "$input" --replay --out pkgs; then
+              echo "$input" >> out/failed.txt
+            fi
+            echo "::endgroup::"
+          done
+
+      # A patch rather than the files, so that a package this shard
+      # deleted is carried over too, and so that two shards writing
+      # the same path is refused in prepare instead of one silently
+      # winning.
+      - name: "Record what this shard wrote"
+        run: |
+          set -euo pipefail
+          git add -A pkgs
+          git diff --cached --binary HEAD -- pkgs > out/pkgs.patch
+          wc -c < out/pkgs.patch | xargs echo "patch bytes:"
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: replay-${{ matrix.shard }}
+          path: out
+          retention-days: 1
+
   prepare:
-    name: "Replay every recorded import and stage the commit"
-    runs-on: ubuntu-latest
+    name: "Collect the shards and stage one commit"
+    needs: replay
+    runs-on: ubuntu-24.04
     outputs:
       changed: ${{ steps.stage.outputs.changed }}
+      # The commit verify checks and land pushes, named exactly
+      # rather than through the branch it also sits on.
+      sha: ${{ steps.stage.outputs.sha }}
       failed: ${{ steps.import.outputs.failed }}
     steps:
       # The pushes below authenticate as a GitHub App, not as the
@@ -79,38 +218,45 @@ jobs:
         with:
           token: ${{ steps.app-token.outputs.token }}
 
-      - name: "Install flox"
-        uses: flox/install-flox-action@3b80351ae97bbe063f264dc88fbd505507054963 # v2.5.3
+      # No nix here any more: this job applies patches and writes a
+      # commit, and the shards are what run the importer.
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: replay-*
+          path: shards
 
-      - name: "Configure nix"
-        uses: flox/configure-nix-action@28a4eb7f63bf54c91670b4a698f0a9ebfb95384f # main
-
-      - name: "Point nix at a CA bundle"
-        uses: ./.github/actions/nix-ssl-cert-file
-
-      - name: "Trust the runner's user"
-        uses: ./.github/actions/trust-nix-user
-
-      # A failure is collected, not fatal: one dead upstream must not stop
-      # the other packages from landing. The report job prints the list
-      # after they have.
-      - name: "Replay each package's recorded import"
+      # One commit, not one per upstream: the staged commit is what
+      # the verify jobs check and what land fast-forwards onto main.
+      #
+      # The shards should write disjoint paths, so the patches apply in
+      # any order. Two can still collide: two upstreams claiming one
+      # package name, as azure did before AI-757 settled it. --3way is
+      # not passed, so that is never merged quietly, and git apply is
+      # all or nothing, so a refused patch leaves the index as it was.
+      # The shard whose patch is refused is left out, every upstream
+      # in it reported as failed, and the rest still lands — a clash
+      # between two upstreams is collected like a failed import, not
+      # allowed to hold back the other 170.
+      - name: "Apply what the shards wrote"
         id: import
         run: |
-          set -uo pipefail
-          failed=()
-          for f in pkgs/agent-plugin-*/source.json; do
-            input="$(jq -r .import.input "$f")"
-            echo "::group::$input"
-            if ! nix run .#agent-stacks -- import "$input" --replay --out pkgs; then
-              failed+=("$input")
+          set -euo pipefail
+          failed="$(cat shards/replay-*/failed.txt 2>/dev/null | grep . || true)"
+          for shard in shards/replay-*; do
+            patch="$shard/pkgs.patch"
+            [ -s "$patch" ] || continue
+            if git apply --index "$patch"; then
+              echo "applied $shard"
+              continue
             fi
-            echo "::endgroup::"
+            echo "::error::$shard writes a path another shard already wrote; none of its upstreams are staged"
+            refused="$(sed 's/$/ (not staged: its shard collided with another)/' "$shard/inputs.txt")"
+            failed="$(printf '%s\n%s' "$failed" "$refused" | grep . || true)"
           done
-          if ((${#failed[@]})); then
+          if [ -n "$failed" ]; then
             {
               echo "failed<<EOF"
-              printf '%s\n' "${failed[@]}"
+              echo "$failed"
               echo "EOF"
             } >> "$GITHUB_OUTPUT"
           fi
@@ -122,7 +268,7 @@ jobs:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           set -euo pipefail
-          if [ -z "$(git status --porcelain -- pkgs)" ]; then
+          if git diff --cached --quiet -- pkgs; then
             echo "no packages changed"
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
@@ -137,10 +283,10 @@ jobs:
           # still a valid noreply address.
           id="$(gh api "/users/${slug}%5Bbot%5D" --jq .id 2>/dev/null || true)"
           git config user.email "${id:+$id+}${slug}[bot]@users.noreply.github.com"
-          git add pkgs
           git commit -q -m "chore(agent-plugins): replay recorded imports"
           git push --force origin "HEAD:refs/heads/$STAGING_BRANCH"
           echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
   # The same verification a pull request gets, on the staged commit:
   # the gates built on every runner, and every output evaluated for
@@ -154,18 +300,27 @@ jobs:
   verify:
     needs: prepare
     if: ${{ needs.prepare.outputs.changed == 'true' }}
-    # The branch prepare pushed the staged commit to. A literal,
-    # because a reusable workflow's `with` cannot read `env`; it has to
-    # stay the same string as STAGING_BRANCH above.
+    # The staged commit itself. `with` cannot read `env`, so the
+    # branch name could only be repeated here as a literal to be kept
+    # in sync by hand; `needs` it can read, and a commit cannot be
+    # moved underneath the job the way a branch can.
     uses: ./.github/workflows/ci.yml
     with:
-      ref: update-agent-plugins
+      ref: ${{ needs.prepare.outputs.sha }}
 
   land:
     name: "Move main onto the staged commit"
     needs: [prepare, verify]
-    if: ${{ needs.prepare.outputs.changed == 'true' }}
-    runs-on: ubuntu-latest
+    # Only from main. prepare stages on whatever ref was dispatched,
+    # and the token below bypasses the pull request main requires, so
+    # landing a dispatch from another branch would put that branch's
+    # unreviewed commits on main. inputs.dry-run is unset on a
+    # schedule, so only a dispatch that asks for it stops here.
+    if: >-
+      ${{ needs.prepare.outputs.changed == 'true'
+      && github.ref == 'refs/heads/main'
+      && !inputs.dry-run }}
+    runs-on: ubuntu-24.04
     steps:
       # The pushes below authenticate as a GitHub App, not as the
       # workflow's own GITHUB_TOKEN.
@@ -202,10 +357,15 @@ jobs:
           app-id: ${{ secrets.MANAGED_AGENT_STACKS_UPDATER_APP_ID }}
           private-key: ${{ secrets.MANAGED_AGENT_STACKS_UPDATER_PRIVATE_KEY }}
 
+      # The commit verify checked, named by SHA rather than through
+      # the staging branch, which can have moved since. If main has
+      # moved too, the loop below rebases it, and what lands is the
+      # verified change replayed onto the newer main rather than the
+      # exact tree verify saw: a conflict stops it, nothing re-checks it.
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           token: ${{ steps.app-token.outputs.token }}
-          ref: ${{ env.STAGING_BRANCH }}
+          ref: ${{ needs.prepare.outputs.sha }}
           fetch-depth: 0
 
       # A fast-forward, never a force: the staged commit was built on the main
@@ -268,7 +428,7 @@ jobs:
     name: "Report failed imports"
     needs: prepare
     if: ${{ always() && needs.prepare.outputs.failed != '' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: "List the imports that failed"
         env:

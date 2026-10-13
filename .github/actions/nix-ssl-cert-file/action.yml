@@ -7,7 +7,7 @@ description: >-
   shell's profile, and a workflow `run:` step is a non-login shell that
   never sources it, so NIX_SSL_CERT_FILE arrives unset. On ubuntu that
   is harmless: nix falls back to /etc/ssl/certs/ca-certificates.crt,
-  which the image ships. On macos-latest there is no file at that path,
+  which the image ships. On the macOS runners there is no file at that path,
   so nix has no trust store at all and every HTTPS fetch fails with
   "unable to get local issuer certificate (20)".
 

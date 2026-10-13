@@ -47,9 +47,12 @@ env:
 jobs:
   prepare:
     name: "Prefetch the binaries and stage the commit"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       changed: ${{ steps.stage.outputs.changed }}
+      # The commit verify builds and land pushes, named exactly
+      # rather than through the branch it also sits on.
+      sha: ${{ steps.stage.outputs.sha }}
     steps:
       # The pushes below authenticate as a GitHub App, not as the
       # workflow's own GITHUB_TOKEN.
@@ -217,6 +220,7 @@ jobs:
             -- pkgs/agent-stacks/source.json
           git push --force origin "HEAD:refs/heads/$STAGING_BRANCH"
           echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
   # Every system is built before main moves. A hash can be right and the
   # binary still wrong: it is the installCheck, which runs the binary and
@@ -235,15 +239,15 @@ jobs:
       matrix:
         include:
           - system: x86_64-linux
-            runner: ubuntu-latest
+            runner: ubuntu-24.04
           - system: aarch64-linux
             runner: ubuntu-24.04-arm
           - system: aarch64-darwin
-            runner: macos-latest
+            runner: macos-26
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
-          ref: ${{ env.STAGING_BRANCH }}
+          ref: ${{ needs.prepare.outputs.sha }}
 
       - name: "Install flox"
         uses: flox/install-flox-action@3b80351ae97bbe063f264dc88fbd505507054963 # v2.5.3
@@ -263,8 +267,14 @@ jobs:
   land:
     name: "Move main onto the staged commit"
     needs: [prepare, verify]
-    if: ${{ needs.prepare.outputs.changed == 'true' }}
-    runs-on: ubuntu-latest
+    # Only from main. prepare stages on whatever ref was dispatched,
+    # and the token below bypasses the pull request main requires, so
+    # landing a dispatch from another branch would put that branch's
+    # unreviewed commits on main.
+    if: >-
+      ${{ needs.prepare.outputs.changed == 'true'
+      && github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-24.04
     steps:
       # The pushes below authenticate as a GitHub App, not as the
       # workflow's own GITHUB_TOKEN.
@@ -301,10 +311,15 @@ jobs:
           app-id: ${{ secrets.MANAGED_AGENT_STACKS_UPDATER_APP_ID }}
           private-key: ${{ secrets.MANAGED_AGENT_STACKS_UPDATER_PRIVATE_KEY }}
 
+      # The commit verify checked, named by SHA rather than through
+      # the staging branch, which can have moved since. If main has
+      # moved too, the loop below rebases it, and what lands is the
+      # verified change replayed onto the newer main rather than the
+      # exact tree verify saw: a conflict stops it, nothing re-checks it.
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           token: ${{ steps.app-token.outputs.token }}
-          ref: ${{ env.STAGING_BRANCH }}
+          ref: ${{ needs.prepare.outputs.sha }}
           fetch-depth: 0
 
       # Retried, because losing the race is normal rather than

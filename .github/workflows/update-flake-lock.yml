@@ -32,11 +32,29 @@ env:
 jobs:
   prepare:
     name: "Update the inputs and stage the commit"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       changed: ${{ steps.stage.outputs.changed }}
+      # The commit verify checks and land pushes, named exactly
+      # rather than through the branch it also sits on.
+      sha: ${{ steps.stage.outputs.sha }}
     steps:
+      # The same app land pushes main as, so the commit it writes
+      # names the same author the commit that lands does. The other
+      # two update workflows already mint it in prepare; this one
+      # committed as github-actions[bot] until 2026-10-13, which left
+      # flake.lock commits on main attributed to a different bot than
+      # every other automated commit beside them.
+      - name: "Mint a token for the app that writes the commit"
+        id: app-token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          app-id: ${{ secrets.MANAGED_AGENT_STACKS_UPDATER_APP_ID }}
+          private-key: ${{ secrets.MANAGED_AGENT_STACKS_UPDATER_PRIVATE_KEY }}
+
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          token: ${{ steps.app-token.outputs.token }}
 
       - name: "Install flox"
         uses: flox/install-flox-action@3b80351ae97bbe063f264dc88fbd505507054963 # v2.5.3
@@ -55,6 +73,9 @@ jobs:
 
       - name: "Stage the commit"
         id: stage
+        env:
+          # gh looks up the bot user id for the commit identity below.
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           set -euo pipefail
           if git diff --quiet -- flake.lock; then
@@ -62,11 +83,20 @@ jobs:
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # The app's bot user, so the commit names what wrote it. The
+          # token step fails the job when none was minted, so the slug
+          # is always set here.
+          slug="${{ steps.app-token.outputs.app-slug }}"
+          git config user.name "${slug}[bot]"
+          # The numeric form links the commit to the bot account. A
+          # lookup that is refused leaves the plain form, which is
+          # still a valid noreply address.
+          id="$(gh api "/users/${slug}%5Bbot%5D" --jq .id 2>/dev/null || true)"
+          git config user.email "${id:+$id+}${slug}[bot]@users.noreply.github.com"
           git commit -q -m "chore: update flake.lock" -- flake.lock
           git push --force origin "HEAD:refs/heads/$STAGING_BRANCH"
           echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
   # The same verification a pull request gets, on the staged commit:
   # the gates built on every runner, and every output evaluated for
@@ -80,18 +110,25 @@ jobs:
   verify:
     needs: prepare
     if: ${{ needs.prepare.outputs.changed == 'true' }}
-    # The branch prepare pushed the staged commit to. A literal,
-    # because a reusable workflow's `with` cannot read `env`; it has to
-    # stay the same string as STAGING_BRANCH above.
+    # The staged commit itself. `with` cannot read `env`, so the
+    # branch name could only be repeated here as a literal to be kept
+    # in sync by hand; `needs` it can read, and a commit cannot be
+    # moved underneath the job the way a branch can.
     uses: ./.github/workflows/ci.yml
     with:
-      ref: update-flake-lock
+      ref: ${{ needs.prepare.outputs.sha }}
 
   land:
     name: "Move main onto the staged commit"
     needs: [prepare, verify]
-    if: ${{ needs.prepare.outputs.changed == 'true' }}
-    runs-on: ubuntu-latest
+    # Only from main. prepare stages on whatever ref was dispatched,
+    # and the token below bypasses the pull request main requires, so
+    # landing a dispatch from another branch would put that branch's
+    # unreviewed commits on main.
+    if: >-
+      ${{ needs.prepare.outputs.changed == 'true'
+      && github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-24.04
     steps:
       # The push below authenticates as a GitHub App, not as the
       # workflow's own GITHUB_TOKEN.
@@ -120,10 +157,15 @@ jobs:
           app-id: ${{ secrets.MANAGED_AGENT_STACKS_UPDATER_APP_ID }}
           private-key: ${{ secrets.MANAGED_AGENT_STACKS_UPDATER_PRIVATE_KEY }}
 
+      # The commit verify checked, named by SHA rather than through
+      # the staging branch, which can have moved since. If main has
+      # moved too, the loop below rebases it, and what lands is the
+      # verified change replayed onto the newer main rather than the
+      # exact tree verify saw: a conflict stops it, nothing re-checks it.
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           token: ${{ steps.app-token.outputs.token }}
-          ref: ${{ env.STAGING_BRANCH }}
+          ref: ${{ needs.prepare.outputs.sha }}
           fetch-depth: 0
 
       # Retried, because losing the race for main is normal rather than

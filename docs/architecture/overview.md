@@ -70,8 +70,10 @@ violates the Agent Plugins or Agent Skills spec fails its own build.
 GitHub Actions (ubuntu, ubuntu arm and macos) with
 `flox/install-flox-action` and `flox/configure-nix-action`, bundled
 into the `nix-setup` composite action. CI runs `nix flake check -L` on
-every runner, and `--all-systems` once more for the systems no runner
-covers.
+every runner, and `--all-systems` once on one of them, for any
+declared system no runner covers. `systems` is the three the runners
+cover, so that step finds nothing today; it is there so that declaring
+a fourth does not go unevaluated until Hydra.
 
 `checks` is the gates — the non-package checks — so that builds the
 gates and evaluates every output, and builds no package. A package is
@@ -83,12 +85,16 @@ So a pull request proves that everything evaluates and that the gates
 pass, and not that a package builds. Hydra proves that, continuously.
 `summary` is the one check branch protection requires.
 
-The update workflows verify a staged commit by calling `ci.yml` on
-their staging branch, so what a check means is decided in one place
+The replay and lock workflows verify a staged commit by calling
+`ci.yml` on that commit, so what a check means is decided in one place
 and a staged commit gets exactly what a pull request gets. They built
 every plugin package for three systems until 2026-10-13, which spent
 about an hour of runner time a cycle to reach Hydra's conclusion later
 than Hydra does.
+
+`update-agent-stacks` keeps a matrix of its own instead. It builds one
+package and runs the binary in an installCheck, which is the thing
+`ci.yml` no longer does for any package.
 
 The binary cache is populated separately by Hydra (Distribution
 project); CI stays plain and forkable.
