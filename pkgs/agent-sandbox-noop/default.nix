@@ -1,7 +1,7 @@
 # agent-sandbox-noop — the sandbox that does nothing.
 #
 # The first sandbox package, and the test of the contract agent-stacks
-# launch hands an agent to (agent-stacks-cli ADR 0051):
+# launch hands an agent to (agent-stacks-cli ADR 0055):
 #
 #   agent-sandbox-<name> [--options '<json>'] -- <command> [args]
 #

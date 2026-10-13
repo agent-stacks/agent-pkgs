@@ -266,7 +266,7 @@
               '';
 
           # The no-op sandbox is the contract's test (agent-stacks-cli ADR
-          # 0051): it says it is not sandboxing, or prints its `msg`
+          # 0055): it says it is not sandboxing, or prints its `msg`
           # option, and execs what follows `--` unchanged. Options that
           # are not an object, or that name a key it does not take, stop
           # it before the command runs, with a reason on stderr.
