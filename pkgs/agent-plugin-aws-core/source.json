@@ -110,6 +110,9 @@
     "python3",
     "uvx"
   ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/hooks": "plugins/aws-core/com.anthropic.claude-code/hooks"
+  },
   "mcpServers": {
     "aws-mcp": {
       "args": [
@@ -123,6 +126,30 @@
       "type": "stdio"
     }
   },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "sh -c 'python3 \"$0\" 2>/dev/null || python \"$0\" 2>/dev/null || py -3 \"$0\"' \"${CLAUDE_PLUGIN_ROOT}/com.anthropic.claude-code/hooks/secret-safety.py\"",
+            "timeout": 5,
+            "type": "command"
+          }
+        ],
+        "matcher": "Bash"
+      },
+      {
+        "hooks": [
+          {
+            "command": "sh -c 'python3 \"$0\" 2>/dev/null || python \"$0\" 2>/dev/null || py -3 \"$0\"' \"${CLAUDE_PLUGIN_ROOT}/com.anthropic.claude-code/hooks/secret-safety.py\"",
+            "timeout": 5,
+            "type": "command"
+          }
+        ],
+        "matcher": "use_aws|mcp__aws.*|mcp__plugin_.*aws-mcp.*"
+      }
+    ]
+  },
   "meta": {
     "description": "Build, deploy, and operate applications on AWS",
     "homepage": "https://github.com/aws/agent-toolkit-for-aws"
@@ -131,6 +158,14 @@
     "input": "aws/agent-toolkit-for-aws",
     "flags": [],
     "warnings": [
+      {
+        "path": "plugins/aws-core/com.anthropic.claude-code/hooks/hooks.json",
+        "message": "Claude Code runs this on PreToolUse: sh -c 'python3 \"$0\" 2>/dev/null || python \"$0\" 2>/dev/null || py -3 \"$0\"' \"${CLAUDE_PLUGIN_ROOT}/com.anthropic.claude-code/hooks/secret-safety.py\""
+      },
+      {
+        "path": "plugins/aws-core/com.anthropic.claude-code/hooks/hooks.json",
+        "message": "Claude Code runs this on PreToolUse: sh -c 'python3 \"$0\" 2>/dev/null || python \"$0\" 2>/dev/null || py -3 \"$0\"' \"${CLAUDE_PLUGIN_ROOT}/com.anthropic.claude-code/hooks/secret-safety.py\""
+      },
       {
         "path": "skills/aws-ai-ml/references/dataset-evaluation/scripts/format_detector.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"

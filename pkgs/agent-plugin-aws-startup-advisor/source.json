@@ -129,6 +129,7 @@
   "pluginRootPaths": {
     "com.anthropic.claude-code/agents": "plugins/aws-startup-advisor/agents",
     "com.anthropic.claude-code/commands": "plugins/aws-startup-advisor/commands",
+    "com.anthropic.claude-code/hooks": "plugins/aws-startup-advisor/com.anthropic.claude-code/hooks",
     "scripts": "plugins/aws-startup-advisor/scripts"
   },
   "mcpServers": {
@@ -144,6 +145,71 @@
       "type": "stdio"
     }
   },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "sh -c 'python3 \"$0\" 2>/dev/null || python \"$0\" 2>/dev/null || py -3 \"$0\" 2>/dev/null || true' \"${CLAUDE_PLUGIN_ROOT}/scripts/telemetry/metric_emission/skill_invoked.py\"",
+            "timeout": 5,
+            "type": "command"
+          }
+        ],
+        "matcher": "Skill"
+      },
+      {
+        "hooks": [
+          {
+            "async": true,
+            "command": "sh -c 'python3 \"$0\" \"$@\" 2>/dev/null || python \"$0\" \"$@\" 2>/dev/null || py -3 \"$0\" \"$@\" 2>/dev/null || true' \"${CLAUDE_PLUGIN_ROOT}/scripts/telemetry/metric_emission/migration.py\"",
+            "type": "command"
+          }
+        ],
+        "matcher": "Write|Edit|Bash"
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "command": "sh -c 'python3 \"$0\" \"$@\" 2>/dev/null || python \"$0\" \"$@\" 2>/dev/null || py -3 \"$0\" \"$@\" 2>/dev/null || true' \"${CLAUDE_PLUGIN_ROOT}/scripts/telemetry/metric_emission/migration.py\" --session-end",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "cat \"${CLAUDE_PLUGIN_ROOT}/com.anthropic.claude-code/hooks/offer-context.txt\" 2>/dev/null || true",
+            "timeout": 5,
+            "type": "command"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "command": "sh -c 'python3 \"$0\" 2>/dev/null || python \"$0\" 2>/dev/null || py -3 \"$0\" 2>/dev/null || true' \"${CLAUDE_PLUGIN_ROOT}/scripts/telemetry/consent/session_start.py\"",
+            "timeout": 5,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "command": "sh -c 'python3 \"$0\" \"$@\" 2>/dev/null || python \"$0\" \"$@\" 2>/dev/null || py -3 \"$0\" \"$@\" 2>/dev/null || true' \"${CLAUDE_PLUGIN_ROOT}/scripts/telemetry/metric_emission/migration.py\" --reconcile",
+            "timeout": 30,
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
   "meta": {
     "description": "Personalized AWS guidance built on patterns from 350,000+ startups",
     "homepage": "https://github.com/aws/agent-toolkit-for-aws"
@@ -152,6 +218,30 @@
     "input": "aws/agent-toolkit-for-aws",
     "flags": [],
     "warnings": [
+      {
+        "path": "plugins/aws-startup-advisor/com.anthropic.claude-code/hooks/hooks.json",
+        "message": "Claude Code runs this on PostToolUse: sh -c 'python3 \"$0\" 2>/dev/null || python \"$0\" 2>/dev/null || py -3 \"$0\" 2>/dev/null || true' \"${CLAUDE_PLUGIN_ROOT}/scripts/telemetry/metric_emission/skill_invoked.py\""
+      },
+      {
+        "path": "plugins/aws-startup-advisor/com.anthropic.claude-code/hooks/hooks.json",
+        "message": "Claude Code runs this on PostToolUse: sh -c 'python3 \"$0\" \"$@\" 2>/dev/null || python \"$0\" \"$@\" 2>/dev/null || py -3 \"$0\" \"$@\" 2>/dev/null || true' \"${CLAUDE_PLUGIN_ROOT}/scripts/telemetry/metric_emission/migration.py\""
+      },
+      {
+        "path": "plugins/aws-startup-advisor/com.anthropic.claude-code/hooks/hooks.json",
+        "message": "Claude Code runs this on SessionEnd: sh -c 'python3 \"$0\" \"$@\" 2>/dev/null || python \"$0\" \"$@\" 2>/dev/null || py -3 \"$0\" \"$@\" 2>/dev/null || true' \"${CLAUDE_PLUGIN_ROOT}/scripts/telemetry/metric_emission/migration.py\" --session-end"
+      },
+      {
+        "path": "plugins/aws-startup-advisor/com.anthropic.claude-code/hooks/hooks.json",
+        "message": "Claude Code runs this on SessionStart: cat \"${CLAUDE_PLUGIN_ROOT}/com.anthropic.claude-code/hooks/offer-context.txt\" 2>/dev/null || true"
+      },
+      {
+        "path": "plugins/aws-startup-advisor/com.anthropic.claude-code/hooks/hooks.json",
+        "message": "Claude Code runs this on SessionStart: sh -c 'python3 \"$0\" 2>/dev/null || python \"$0\" 2>/dev/null || py -3 \"$0\" 2>/dev/null || true' \"${CLAUDE_PLUGIN_ROOT}/scripts/telemetry/consent/session_start.py\""
+      },
+      {
+        "path": "plugins/aws-startup-advisor/com.anthropic.claude-code/hooks/hooks.json",
+        "message": "Claude Code runs this on Stop: sh -c 'python3 \"$0\" \"$@\" 2>/dev/null || python \"$0\" \"$@\" 2>/dev/null || py -3 \"$0\" \"$@\" 2>/dev/null || true' \"${CLAUDE_PLUGIN_ROOT}/scripts/telemetry/metric_emission/migration.py\" --reconcile"
+      },
       {
         "path": "skills/agent-advisor/references/decision-refs/agentcore.md",
         "message": "under skills/, which assembly writes itself (agent-pkgs ADR 0006); an upstream executable there is not carried"
