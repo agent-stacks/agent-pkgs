@@ -1,0 +1,57 @@
+{
+  "name": "shorts",
+  "version": "1.1.0",
+  "src": {
+    "owner": "AgriciDaniel",
+    "repo": "claude-shorts",
+    "rev": "a369fad9d84287edbb8fa3ab515f268e770f683b",
+    "hash": "sha256-FI2nOPXAbw0mo/r/7p249DhwAK+tLZ5qyCLpIt9QrqU="
+  },
+  "sourceUrl": "https://github.com/AgriciDaniel/claude-shorts",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "AgriciDaniel"
+    },
+    "description": "Interactive longform-to-shortform video creator. Extracts viral-ready short clips from long videos with Remotion-rendered animated captions, AI segment scoring, and platform-optimized exports for YouTube Shorts, TikTok, and Instagram Reels.",
+    "homepage": "https://github.com/AgriciDaniel/claude-shorts",
+    "license": "MIT",
+    "name": "shorts",
+    "version": "1.1.0"
+  },
+  "skills": {
+    "shorts": "."
+  },
+  "requiredRuntimes": [
+    "bash",
+    "node",
+    "pwsh",
+    "python3"
+  ],
+  "meta": {
+    "description": "Interactive longform-to-shortform video creator",
+    "homepage": "https://github.com/AgriciDaniel/claude-shorts"
+  },
+  "import": {
+    "input": "AgriciDaniel/claude-shorts",
+    "flags": [],
+    "warnings": [
+      {
+        "path": "SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write Edit AskUserQuestion Task)"
+      },
+      {
+        "path": ".claude-plugin/plugin.json/author",
+        "message": "got string, want object, read as author.name"
+      },
+      {
+        "path": "skills/shorts/remotion/package.json",
+        "message": "dependency manifest; the build does not resolve what it declares"
+      },
+      {
+        "path": "skills/shorts/requirements.txt",
+        "message": "dependency manifest; the build does not resolve what it declares"
+      }
+    ]
+  }
+}
