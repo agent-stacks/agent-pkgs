@@ -277,6 +277,8 @@
             pkgs.runCommand "agent-sandbox-srt-contract" { nativeBuildInputs = [ pkgs.jq ]; } ''
               set -u
               export HOME=$PWD/home TMPDIR=$PWD/tmp AGENT_SANDBOX_SRT_DRY_RUN=1
+              # Its own, or a macOS build would make /tmp/claude for the build user.
+              export CLAUDE_CODE_TMPDIR=$PWD/agent-tmp
               mkdir -p $HOME $TMPDIR plugins/remote plugins/local
               printf '{"mcpServers":{"seo":{"type":"http","url":"https://app.openseo.so/mcp"}}}' > plugins/remote/.mcp.json
               printf '{"mcpServers":{"cli":{"type":"stdio","command":"x"}}}' > plugins/local/.mcp.json
@@ -290,6 +292,14 @@
               jq -e '.network.deniedDomains == [] and .filesystem.denyWrite == []' s.json
               # srt does not follow macOS's /tmp -> /private/tmp link.
               if [ "$(uname -s)" = Darwin ]; then jq -e '.filesystem.allowWrite | index("/private/tmp")' s.json; fi
+              # srt points TMPDIR here but does not create it on macOS.
+              ${srt} -- true >/dev/null 2>&1
+              [ -d agent-tmp ] || { echo "agent TMPDIR not created"; exit 1; }
+              # "." is writable, so starting at / or ~ would open the whole disk or home.
+              for top in / "$HOME"; do
+                if (cd "$top" && ${srt} -- true) >/dev/null 2>err; then echo "started from $top"; exit 1; fi
+                grep -q 'project folder' err || { echo "no reason for $top"; cat err; exit 1; }
+              done
               grep -q -- '--settings .* -- claude --version' cmd
 
               ${srt} --options '{"allowedDomains":["example.com"],"allowWrite":["/data"],"denyRead":["~/.aws"]}' -- true > o.json 2>/dev/null

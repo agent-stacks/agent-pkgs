@@ -12,7 +12,9 @@
 #     plugins names (read from CLAUDE_CODE_PLUGIN_DIRS, which launch
 #     sets for the agent);
 #   - ~/.ssh denied; the project, /tmp and Claude's state writable;
-#   - on macOS, allowPty and /private/tmp (see below);
+#   - on macOS, allowPty and /private/tmp (srt does not follow /tmp);
+#   - the agent's temp folder made, which srt names but does not create;
+#   - and it refuses to start at / or ~, where "." would open everything;
 #   - the caller's options, each a list added to the above.
 #
 # Found by James Bayer's tests (agent-stacks-sandbox-lab) and recorded in
@@ -60,6 +62,13 @@
     done
     [ $# -gt 0 ] || die "no command after --"
 
+    # The project folder (".") is writable, so starting at / or ~ would
+    # make the whole disk or home folder writable.
+    here=$(pwd -P)
+    if [ "$here" = / ] || [ "$here" = "$(cd "$HOME" 2>/dev/null && pwd -P)" ]; then
+      die "refusing to start in $here: the project folder is writable inside the sandbox, so start from a project folder instead"
+    fi
+
     jq -e 'type == "object"' >/dev/null 2>&1 <<<"$opts" ||
       die "options must be a JSON object, got: $opts"
     unknown=$(jq -r --argjson k "$keys" 'keys - $k | join(", ")' <<<"$opts")
@@ -84,6 +93,10 @@
     # leaves Claude's Bash tool unable to make its working folder.
     darwin=false
     [ "$(uname -s)" = Darwin ] && darwin=true
+
+    # srt points the agent's TMPDIR here and allows writing it, but on
+    # macOS does not create it, so mktemp inside the sandbox fails.
+    mkdir -p "''${CLAUDE_CODE_TMPDIR:-''${CLAUDE_TMPDIR:-/tmp/claude}}"
 
     settings=$(mktemp "''${TMPDIR:-/tmp}/agent-sandbox-srt.XXXXXX")
     jq -n --argjson o "$opts" --argjson mcp "$mcp_hosts" --argjson darwin "$darwin" '{
