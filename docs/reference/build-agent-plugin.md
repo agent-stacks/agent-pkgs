@@ -56,7 +56,9 @@ On the copied tree, `assemble-plugin`:
    builder handed it, in order: the `dependencies` the package
    declared, then three defaults — `bash`, `python3`, `nodejs` — and
    then the nixpkgs package of the name's own spelling, when there is
-   one for a token the package records. Two declared packages both
+   one for a token the package records. That package's main
+   program stands in when its binary is not spelled like its name
+   (`nodejs` ships `bin/node`). Two declared packages both
    shipping a name is an error. A name none of them ships fails the
    build, naming the file that wanted it and the `--dependency` flag
    that declares a package. There is no table of names to packages.

@@ -245,7 +245,14 @@ let
     ("buildAgentPlugin: ${name}: dependency '${attr}' is not a nixpkgs "
       + "attribute; re-import with --dependency naming one that exists"));
 
-  candidate = tier: attr: p: { inherit tier attr; root = "${p}"; };
+  # main is the package's main program: assemble-plugin falls back to
+  # it for a named package whose binary is not spelled like its
+  # attribute (`nodejs` ships bin/node).
+  candidate = tier: attr: p: {
+    inherit tier attr;
+    root = "${p}";
+    main = p.meta.mainProgram or (lib.getName p);
+  };
 
   # A token's own name as an attribute, when that is a package. tryEval
   # because an alias nixpkgs has retired (`python`, at this pin) is an
