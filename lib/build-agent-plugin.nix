@@ -92,10 +92,8 @@
   # naming none pulls no interpreter into its closure. A hand-written
   # call omits it, and gets the defaults and what it declares.
 , requiredRuntimes ? null
-  # nixpkgs attributes the build may link the plugin's runtimes from,
-  # as `agent-stacks import --dependency` recorded them. Searched
-  # before the defaults and before a package named like the token, so
-  # this is also where a version is pinned: [ "python312" ].
+  # nixpkgs attributes from `agent-stacks import --dependency`,
+  # searched first; also the version pin: [ "python312" ].
 , dependencies ? [ ]
   # bare mcp.json commands that intentionally resolve from the
   # consumer environment's PATH at launch instead of the closure
@@ -215,12 +213,10 @@ let
 
   finalMeta = defaultMeta // longDescription // callerMeta;
 
-  # Which tokens the build links. A generated package always records
-  # them; a package generated before requiredRuntimes existed is
-  # regenerated rather than tolerated, because a silent fallback would
-  # leave the 1.6 GiB closure in place indefinitely. A hand-written
-  # call — the flake checks, a consumer of lib/ — has no import record
-  # and names nothing; it still gets the defaults and what it declares.
+  # Which tokens the build links. A generated package records them; one
+  # generated before the key existed is regenerated, not tolerated, or
+  # the 1.6 GiB closure stays. A hand-written call records nothing and
+  # gets the defaults and what it declares.
   requiredList =
     if requiredRuntimes != null then requiredRuntimes
     else if import != null then throw
@@ -231,45 +227,34 @@ let
         + "instead of fixing it.")
     else [ ];
 
-  # The packages assemble-plugin may link a runtime from, in the order
-  # it searches them for bin/<token>: what the package declared, then
-  # three defaults that cover the interpreters nearly every skill
-  # names, then a package named like the token when nixpkgs has one.
-  # There is no table: the attribute is the declaration, and the
-  # binary is found where it is (ADR 0020). A token none of them
-  # ships fails in assemble-plugin, naming the file that wanted it and
-  # the flag that declares a package.
+  # The candidates assemble-plugin searches for bin/<token>, in order:
+  # declared, the three defaults, a package named like the token. No
+  # table (ADR 0020).
   defaultRuntimeAttrs = [ "bash" "python3" "nodejs" ];
 
   declaredPackage = attr: pkgs.${attr} or (throw
     ("buildAgentPlugin: ${name}: dependency '${attr}' is not a nixpkgs "
       + "attribute; re-import with --dependency naming one that exists"));
 
-  # main is the package's main program: assemble-plugin falls back to
-  # it for a named package whose binary is not spelled like its
-  # attribute (`nodejs` ships bin/node).
+  # main: a named package's fallback when its binary is not its
+  # attribute (nodejs, bin/node).
   candidate = tier: attr: p: {
     inherit tier attr;
     root = "${p}";
     main = p.meta.mainProgram or (lib.getName p);
   };
 
-  # A token's own name as an attribute, when that is a package. tryEval
-  # because an alias nixpkgs has retired (`python`, at this pin) is an
-  # attribute that throws on access, and that is "no such package"
-  # rather than a failed evaluation.
+  # The package named like the token, if any. tryEval: a retired alias
+  # (`python`) throws on access and an unfree package throws when its
+  # path is forced; both are no package.
   namedPackage = tok:
     let
       r = builtins.tryEval (pkgs.${tok} or null);
-      # The store path is forced inside tryEval too: an unfree package
-      # throws there, and that is "no such package" as well.
       c = builtins.tryEval (let v = candidate "named" tok r.value; in builtins.deepSeq v v);
     in lib.optional (r.success && lib.isDerivation r.value && c.success) c.value;
 
-  # The defaults are handed over when there is something to link, or
-  # when nothing says: a Markdown-only generated plugin records no
-  # runtime and must not pull three interpreters into its build
-  # (AI-710); a hand-written call has no record and gets them.
+  # A generated package recording no runtime gets no defaults (AI-710);
+  # a hand-written call has no record and gets them.
   runtimeMapFile = pkgs.writeText "runtime-map.json" (builtins.toJSON {
     packages =
       map (a: candidate "declared" a (declaredPackage a)) dependencies

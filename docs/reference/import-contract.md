@@ -221,15 +221,13 @@ hand-written `buildAgentPlugin` call omits both `import` and
 declares. See [ADR 0013](../decisions/0013-assembly-lives-in-flox-agent.md)
 for the minimum agent-stacks rev that emits this key.
 
-`dependencies` is the list of nixpkgs attribute names
-`agent-stacks import --dependency` recorded, in the order given, and
-is omitted when there were none. The build searches those packages
-first for every token in `requiredRuntimes`, then its three defaults
-(`bash`, `python3`, `nodejs`), then the package of the token's own
-name; see [build-agent-plugin.md](build-agent-plugin.md) and
-[ADR 0020](../decisions/0020-the-plugin-declares-packages-and-the-build-finds-binaries-in-them.md).
-Omission is load-bearing on the import side: a package imported
-without the flag reads exactly as it did before the key existed.
+`dependencies` is the nixpkgs attribute names `agent-stacks import
+--dependency` recorded, in order, omitted when none. The build
+searches them first, then `bash`, `python3` and `nodejs`, then the
+package of the token's own name
+([build-agent-plugin.md](build-agent-plugin.md),
+[ADR 0020](../decisions/0020-the-plugin-declares-packages-and-the-build-finds-binaries-in-them.md)).
+A package imported without the flag reads exactly as before.
 
 ## What the generator decides
 

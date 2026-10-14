@@ -7,76 +7,47 @@ Status: Proposed
 ## Context
 
 ADR 0006 resolved an interpreter name through `mappings/runtimes.nix`,
-a table from the name a script writes to a nixpkgs attribute, with a
-per-plugin `runtimes` argument to override it. A row could land only
-with a package that used it, in one pull request, so the table stayed
-small and every row was proven.
+name to nixpkgs attribute, with a per-plugin `runtimes` override; a
+row landed with the package that used it.
 
-Adding `ruby`, `Rscript`, `dotnet` and `dnx` for a batch of vendor
-plugins (AI-772) showed where that stops working. The table grows by
-one reviewed row per new name, and half its rows map a name to
-itself. A version choice has nowhere to go but the table: `dnx` ships
-only in `dotnet-sdk_10`, so the `dotnet` row had to say so, in a
-shared file whose header says versions do not belong there. The
-`runtimes` argument meant for that had no users, and the
-specification put it on the stack where the builder put it on the
-plugin.
-
-What a build actually needs is not a map. It needs, for each name, a
-package whose `bin/` holds that name. The package can be looked in.
+Adding `ruby`, `Rscript`, `dotnet` and `dnx` (AI-772) showed the shape
+wrong: every new name is a shared-file change, half the rows map a
+name to itself, a version choice (`dnx` only in `dotnet-sdk_10`) had
+nowhere else to go, and `runtimes` had no users. What a build needs is
+a package whose `bin/` holds the name, and a package can be looked in.
 
 ## Decision
 
-**A plugin's import declares the packages its runtimes come from, and
-the build finds each binary by name inside them.**
-
 `source.json` carries `dependencies`, the nixpkgs attributes
-`agent-stacks import --dependency` recorded, omitted when none was
-given. `buildAgentPlugin` hands `assemble-plugin` an ordered list of
-candidate packages, and the binary searches them for an executable
-`bin/<name>`:
+`agent-stacks import --dependency` recorded, omitted when none.
+`buildAgentPlugin` hands `assemble-plugin` an ordered candidate list,
+searched for an executable `bin/<name>`: the declared packages (two
+shipping one name is an error), then `bash`, `python3` and `nodejs`,
+then the package named like the name when nixpkgs has one, with its
+main program as a fallback.
 
-1. the declared packages — two of them shipping one name is an error;
-2. three defaults, `bash`, `python3` and `nodejs`, handed over only
-   when the package records a runtime at all;
-3. the package of the name's own spelling, when nixpkgs has one, for
-   each name the package records.
-
-`mappings/runtimes.nix` is deleted and the `runtimes` argument
-removed. A version pin is a declaration: `--dependency python312`.
-
-The defaults are a list of packages, not a map of names, and do not
-grow. Anything they do not ship is a flag on the import that needs it.
+`mappings/runtimes.nix` and `runtimes` go. A version pin is
+`--dependency python312`. The defaults are a list, not a map, and do
+not grow. A generated package recording no runtime gets no defaults
+(AI-710); a hand-written call, which records nothing, gets them.
 
 ## Consequences
 
-- `+` A new runtime is one flag on one import, recorded with that
-  package and replayed by CI; this repository changes for none of
-  them.
-- `+` A version pin and a new runtime are the same declaration.
-- `+` Nothing in this repository has to know what a package ships.
-  The binary looks, and the search is tested in agent-stacks
-  (ADR 0017); this flake asserts only the order it hands over
-  (`runtime-candidates`) and that the defaults exist
-  (`runtime-defaults-resolve`).
-- `+` Every package recorded here resolved by a default or its own
-  name except six, which declare `uv` or `powershell`.
-- `-` Every package that records a runtime now has all three defaults
-  as build inputs, whether it uses them or not. A Markdown-only
-  package has none, which is what AI-710 fixed, and that holds.
-- `-` A wrong attribute fails at build time with the flag named, not
-  at import.
-- `-` `assemble-plugin` reads the candidate list; a binary older
-  than this record reads the old map and cannot build against this
-  builder. The pin is already past it.
-- `-` The named tier lets upstream content pick a package nobody
-  chose: a new shebang, or a bare `mcp.json` `command`, resolves to
-  `pkgs.<name>` on the next replay, and a server that runs `docker`
-  links nixpkgs' docker where it used to fail the build — a pin ADR
-  0011 declined to make for a tool a skill drives. A declared package
-  that ships a default's binary (`busybox` ships `sh`) takes it. The
-  binary prints every link with its target, and `dependencies` or
-  `allowPathCommands` overrides the pick.
-- `-` A hand-written call records no runtimes, so it gets the three
-  defaults unconditionally; only a generated package that records
-  none skips them.
+- `+` A new runtime is one flag on one import; this repository changes
+  for none.
+- `+` Nothing here knows what a package ships. The search is tested in
+  agent-stacks (ADR 0017); `runtime-candidates` asserts the order
+  handed over and `runtime-defaults-resolve` that the defaults exist.
+- `+` Every package here resolved by a default or its own name except
+  six, which declare `uv` or `powershell`.
+- `-` Every package recording a runtime has the three defaults as
+  build inputs.
+- `-` A wrong attribute fails at build time, naming the flag.
+- `-` A binary older than this record cannot build against this
+  builder; the pin is past it.
+- `-` The named tier lets upstream content pick a package: a bare
+  `mcp.json` `command` resolves to `pkgs.<name>` on the next replay,
+  and a server running `docker` links nixpkgs' docker where it used to
+  fail — a pin ADR 0011 declined for the tools a skill drives. A
+  declared package shipping a default's binary takes it. The binary
+  prints every link; `dependencies` or `allowPathCommands` overrides.

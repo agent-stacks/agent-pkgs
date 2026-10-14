@@ -257,13 +257,9 @@
 
       mkChecks = pkgs:
         mkPackages pkgs // {
-          # The three default runtime packages are this repository's
-          # choice (lib/build-agent-plugin.nix), so this is this
-          # repository's check: each must be a nixpkgs attribute, or a
-          # rename in nixpkgs fails every package that records a
-          # runtime. What the search does with them — the tiers, the
-          # error for a token nothing ships — is asserted in
-          # agent-stacks, which does the searching. ADR 0017.
+          # The default runtime packages are this repository's choice,
+          # so this repository checks they exist; what the search does
+          # with them is asserted in agent-stacks (ADR 0017).
           runtime-defaults-resolve =
             let
               missing = builtins.filter
@@ -278,10 +274,9 @@
                 touch $out
               '';
 
-          # What this flake hands assemble-plugin: a declared
-          # dependency ahead of the defaults, so it is how a package
-          # pins a version, and the package of a token's own name
-          # when nothing was declared.
+          # The list handed to assemble-plugin: a declared dependency
+          # ahead of the defaults, and a token's own package when
+          # nothing was declared.
           runtime-candidates =
             let
               lib' = mkLib pkgs;
