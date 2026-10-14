@@ -69,3 +69,14 @@ grow. Anything they do not ship is a flag on the import that needs it.
 - `-` `assemble-plugin` reads the candidate list; a binary older
   than this record reads the old map and cannot build against this
   builder. The pin is already past it.
+- `-` The named tier lets upstream content pick a package nobody
+  chose: a new shebang, or a bare `mcp.json` `command`, resolves to
+  `pkgs.<name>` on the next replay, and a server that runs `docker`
+  links nixpkgs' docker where it used to fail the build — a pin ADR
+  0011 declined to make for a tool a skill drives. A declared package
+  that ships a default's binary (`busybox` ships `sh`) takes it. The
+  binary prints every link with its target, and `dependencies` or
+  `allowPathCommands` overrides the pick.
+- `-` A hand-written call records no runtimes, so it gets the three
+  defaults unconditionally; only a generated package that records
+  none skips them.

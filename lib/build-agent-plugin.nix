@@ -259,16 +259,21 @@ let
   # attribute that throws on access, and that is "no such package"
   # rather than a failed evaluation.
   namedPackage = tok:
-    let r = builtins.tryEval (pkgs.${tok} or null);
-    in lib.optional (r.success && lib.isDerivation r.value) (candidate "named" tok r.value);
+    let
+      r = builtins.tryEval (pkgs.${tok} or null);
+      # The store path is forced inside tryEval too: an unfree package
+      # throws there, and that is "no such package" as well.
+      c = builtins.tryEval (let v = candidate "named" tok r.value; in builtins.deepSeq v v);
+    in lib.optional (r.success && lib.isDerivation r.value && c.success) c.value;
 
-  # The defaults are handed over only when there is something to
-  # link: a Markdown-only plugin names no runtime and must not pull
-  # three interpreters into its build (AI-710).
+  # The defaults are handed over when there is something to link, or
+  # when nothing says: a Markdown-only generated plugin records no
+  # runtime and must not pull three interpreters into its build
+  # (AI-710); a hand-written call has no record and gets them.
   runtimeMapFile = pkgs.writeText "runtime-map.json" (builtins.toJSON {
     packages =
       map (a: candidate "declared" a (declaredPackage a)) dependencies
-      ++ lib.optionals (requiredList != [ ])
+      ++ lib.optionals (requiredRuntimes == null || requiredList != [ ])
         (map (a: candidate "default" a pkgs.${a}) defaultRuntimeAttrs)
       ++ lib.concatMap namedPackage requiredList;
   });
