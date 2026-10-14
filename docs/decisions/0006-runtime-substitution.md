@@ -5,8 +5,10 @@ Date: 2026-09-01
 Status: Accepted
 
 Note: `allowEnvShebangs`, mentioned below, is removed as of
-[0013](0013-assembly-lives-in-flox-agent.md); the rest of this
-decision stands.
+[0013](0013-assembly-lives-in-flox-agent.md), and the name-mapping
+table and the `runtimes` argument are replaced by declared packages
+as of [0020](0020-the-plugin-declares-packages-and-the-build-finds-binaries-in-them.md);
+the plugin-local `bin/` and the deterministic scope stand.
 
 Note: `bin/` is no longer assembly's alone. An upstream `bin/` ships
 beside the interpreter links, and a name both want fails the build

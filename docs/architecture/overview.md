@@ -55,8 +55,8 @@ self-referential scope, not plain `callPackage` — no central list,
 and a package in `pkgs/` may take another package in `pkgs/` as an
 argument, which is how a stack names its plugins. `flake.nix` also
 exposes `lib.buildAgentPlugin` and `lib.mkAgentStack` per system, and
-`checks` covering every package in `pkgs/` plus the
-`runtimes-failures` assertion.
+`checks` covering every package in `pkgs/` plus assertions on the
+builder itself, such as `runtime-candidates`.
 
 Not everything in `pkgs/` is a plugin. `agent-stacks`, the
 `agent-sandbox-*` launchers and `skillspector`, the scanner

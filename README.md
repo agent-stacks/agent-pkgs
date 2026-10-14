@@ -149,7 +149,6 @@ substituter`.
 | `lib/build-agent-plugin.nix` | `buildAgentPlugin` — one plugin per upstream repo |
 | `lib/mk-agent-stack.nix` | `mkAgentStack` — compose plugins into a stack |
 | `pkgs/<name>/` | One package per plugin; auto-discovered, no central list |
-| `mappings/runtimes.nix` | Ecosystem runtime names to nixpkgs attributes |
 
 Add a package by dropping a directory into `pkgs/`. You can accomplish
 this by running `agent-stacks import <repo> --out pkgs`. In this

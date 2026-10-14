@@ -23,8 +23,8 @@ every argument.
 | `mcpServers` | `null` | Attrset serialized to `mcp.json` at the `manifest`'s spec version (1.0.0 without one). Without it, a passed-through tree keeps its own `mcp.json`, rewritten to the manifest's version when `manifest` replaced its `plugin.json`; an assembled package takes a root `mcp.json` only when it declares an `agent-plugins.org` `$schema`, and reports one it skips. |
 | `agentStacks` | this set's | The agent-stacks package that assembles the plugin tree (`assemble-plugin`) and whose `check-plugin` validates the output. Packages built from this repo get `pkgs/agent-stacks`; required — `null` fails the build, since assembly cannot be skipped (ADR 0013). What it validates is documented in the agent-stacks repo, `docs/reference/check-plugin-command.md`. |
 | `strict` | `false` | Pass `--strict`, making warnings fail the build. Off by default: skills in the wild carry harness frontmatter fields the Agent Skills spec does not list, and those are warnings a correct plugin can have. |
-| `runtimes` | `{ }` | Interpreter name → package. Overrides `mappings/runtimes.nix` and pins versions, e.g. `{ python3 = python312; }`. |
-| `requiredRuntimes` | `null` | Interpreter tokens the package's files name, as recorded by `agent-stacks import`. Required for a generated package — one whose `source.json` carries `import` — and the build fails, naming the fix, if it is missing there. A hand-written call omits it and gets every name in `mappings/runtimes.nix` resolved, the old behavior. |
+| `requiredRuntimes` | `null` | Interpreter tokens the package's files name, as recorded by `agent-stacks import`. Required for a generated package — one whose `source.json` carries `import` — and the build fails, naming the fix, if it is missing there. A hand-written call omits it and gets only the default packages and what it declares. |
+| `dependencies` | `[ ]` | nixpkgs attribute names the build may link the plugin's runtimes from, as `agent-stacks import --dependency` recorded them. Searched before the defaults and before a package named like the token, so this is also where a version is pinned: `[ "python312" ]`. An attribute nixpkgs lacks fails evaluation naming it ([ADR 0020](../decisions/0020-the-plugin-declares-packages-and-the-build-finds-binaries-in-them.md)). |
 | `allowPathCommands` | `[ ]` | Bare `mcp.json` commands that intentionally resolve from the consumer environment's PATH instead of the closure. |
 | `extraSubstitutions` | `[ ]` | List of `{ file; replace; with; }` applied after the automatic pass, for interpreter mentions in script bodies or SKILL.md text. |
 | `meta` | `{ }` | Standard derivation meta, merged over computed defaults ([ADR 0014](../decisions/0014-generated-package-meta.md)): `category = "agent-plugin"`, `platforms = lib.platforms.all`, `description` and `homepage` from the manifest or `sourceUrl` when present, and `license` when `manifest.license` resolves to a known `lib.licenses` entry by `spdxId`. A `meta.license` given as a string names a licence, which is how a generated `source.json` records one the manifest does not spell as SPDX does: an SPDX identifier (`"Apache-2.0"` for a manifest saying `Apache 2.0`), or a `lib.licenses` attribute name where SPDX has none (`"publicDomain"`). It is replaced by that licence; a string nixpkgs has no licence for is dropped ([ADR 0018](../decisions/0018-a-licence-named-in-meta.md)). The manifest's full description is kept as `longDescription` when it says more than the effective `description`. The merge is `defaultMeta // longDescription // meta`, key by key: an explicit key in the caller's `meta` wins over the computed default. The merge can only add or override a key, not remove one — a caller whose manifest declares a licence cannot suppress `meta.license` from the call site by passing an empty `meta`; the manifest is the thing making the claim, so that is where to change it. |
@@ -51,15 +51,21 @@ alone on purpose. Design and trade-offs for that:
 On the copied tree, `assemble-plugin`:
 
 1. Detects interpreter names in shebangs (outside `assets/`) and in
-   bare `mcp.json` commands, limited to the tokens the package records
-   in `requiredRuntimes` (or, for a hand-written call, every name in
-   `mappings/runtimes.nix`).
-2. Resolves each through the `runtimes` argument, then
-   `mappings/runtimes.nix`. An unmapped name fails the build and
-   names the file that wanted it.
+   bare `mcp.json` commands.
+2. Finds each name as an executable `bin/<name>` in the packages the
+   builder handed it, in order: the `dependencies` the package
+   declared, then three defaults — `bash`, `python3`, `nodejs` — and
+   then the nixpkgs package of the name's own spelling, when there is
+   one for a token the package records. Two declared packages both
+   shipping a name is an error. A name none of them ships fails the
+   build, naming the file that wanted it and the `--dependency` flag
+   that declares a package. There is no table of names to packages.
 3. Symlinks each resolved interpreter into the plugin's `bin/` and
    rewrites the references to point there. The symlink targets are
    store paths, so the interpreters land in the plugin's closure.
+
+The defaults are handed over only when the package records a runtime,
+so a Markdown-only plugin's build pulls no interpreter at all.
 
 After the pass, a guard fails the build for any executable outside
 `assets/` whose shebang does not point into that plugin-local `bin/` —
@@ -67,10 +73,11 @@ not only the `/usr/bin/env` form the pass targets, but any shebang the
 pass left alone. An upstream `bin/` is read like the rest; the
 interpreter links beside its files are symlinks, which the guard skips
 ([ADR 0019](../decisions/0019-an-upstream-bin-ships-beside-the-interpreter-links.md)).
-The fix is to map the runtime, or to move the file under `assets/`.
-Design and
-trade-offs: [ADR 0006](../decisions/0006-runtime-substitution.md) and
-[ADR 0013](../decisions/0013-assembly-lives-in-flox-agent.md).
+The fix is to declare the package that ships the runtime, or to move
+the file under `assets/`. Design and trade-offs:
+[ADR 0006](../decisions/0006-runtime-substitution.md),
+[ADR 0013](../decisions/0013-assembly-lives-in-flox-agent.md) and
+[ADR 0020](../decisions/0020-the-plugin-declares-packages-and-the-build-finds-binaries-in-them.md).
 
 ## Passthru
 

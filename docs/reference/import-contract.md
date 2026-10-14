@@ -85,6 +85,8 @@ so an undeclared key is a build error by design:
 
   "requiredRuntimes": ["python3", "node"],
 
+  "dependencies": ["python312"],
+
   "pluginRootPaths": { "scripts": "scripts" },
 
   "meta": {
@@ -190,8 +192,8 @@ runtime pass, so their contents are rewritten, pinned and guarded like
 a skill's. A directory is pruned as a skill copy is, and login files
 (`.npmrc`, `*.pem`, …) are dropped. In the hooks file, a hook that
 runs a plugin file with a bare interpreter is pointed at the package's
-`bin/`; one the runtime table doesn't map is left for `PATH` and
-reported. Destinations are one path segment, never `skills`, or two
+`bin/`; one no package the build searches ships is left for `PATH`
+and reported. Destinations are one path segment, never `skills`, or two
 inside the client-extension namespace. `bin` is allowed from the
 agent-stacks release carrying its ADR 0052; the binary pinned before it
 refuses the entry. An upstream `bin/` ships beside the interpreter
@@ -215,11 +217,19 @@ commands, and hook interpreters. It is required for a generated package: a
 `source.json` carrying `import` must also carry `requiredRuntimes`,
 and `buildAgentPlugin` throws, naming the fix, if it does not. A
 hand-written `buildAgentPlugin` call omits both `import` and
-`requiredRuntimes` and falls back to resolving every name in
-`mappings/runtimes.nix`, the behavior every package had before this
-key existed. See [ADR 0013](../decisions/0013-assembly-lives-in-flox-agent.md)
-for why the fallback stays hand-written-only, and the minimum
-agent-stacks rev that emits this key.
+`requiredRuntimes`, and gets only the default packages and what it
+declares. See [ADR 0013](../decisions/0013-assembly-lives-in-flox-agent.md)
+for the minimum agent-stacks rev that emits this key.
+
+`dependencies` is the list of nixpkgs attribute names
+`agent-stacks import --dependency` recorded, in the order given, and
+is omitted when there were none. The build searches those packages
+first for every token in `requiredRuntimes`, then its three defaults
+(`bash`, `python3`, `nodejs`), then the package of the token's own
+name; see [build-agent-plugin.md](build-agent-plugin.md) and
+[ADR 0020](../decisions/0020-the-plugin-declares-packages-and-the-build-finds-binaries-in-them.md).
+Omission is load-bearing on the import side: a package imported
+without the flag reads exactly as it did before the key existed.
 
 ## What the generator decides
 
@@ -318,13 +328,10 @@ not by Nix: it selects and prunes the skills, writes `plugin.json` and
 `mcp.json`, and rewrites shebangs and bare `mcp.json` commands to a
 plugin-local `bin/` of store-path symlinks. `buildAgentPlugin`'s
 `buildPhase` is a single call into it; the Nix side keeps fetching,
-resolving `requiredRuntimes` through `mappings/runtimes.nix` and the
-per-plugin `runtimes` argument, install, and the check phase. See
-[build-agent-plugin.md](build-agent-plugin.md), ADR 0006, and
+listing the packages a runtime may come from (`dependencies`, the
+defaults, and a package named like each token in `requiredRuntimes`),
+install, and the check phase. See
+[build-agent-plugin.md](build-agent-plugin.md), ADR 0006, ADR 0020, and
 [ADR 0013](../decisions/0013-assembly-lives-in-flox-agent.md) for the
 move out of Nix. The `postAssemble` hook still exists for extensions
 and runs on the fully assembled, substituted tree.
-
-Import already emits the `requiredRuntimes` hint described above; a
-generated call is scoped to the tokens it found rather than resolving
-every name in `mappings/runtimes.nix`.
