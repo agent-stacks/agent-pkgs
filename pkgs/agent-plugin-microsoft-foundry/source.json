@@ -1,0 +1,156 @@
+{
+  "name": "microsoft-foundry",
+  "version": "2.0.0",
+  "src": {
+    "owner": "microsoft",
+    "repo": "skills",
+    "rev": "d2f769fd9d7ee81b4d768301bcd2eae14ddcfd0a",
+    "hash": "sha256-gi1U+ZWqDepNCKFcod8XUCiQjA5iAH7MpCtWW9olH1E="
+  },
+  "sourceUrl": "https://github.com/microsoft/skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Microsoft",
+      "url": "https://www.microsoft.com"
+    },
+    "description": "Foundry-platform fluency for any language. One orchestrator + 10 sub-skills covering hosted agents, intent-based toolboxes, multi-agent workflows, Foundry IQ knowledge bases, managed skills, long-term memory, observability and evaluations, and governance via the Foundry Control Plane. Bundles Azure MCP, Foundry MCP (mcp.ai.azure.com), and Microsoft Docs MCP for live operations and always-current docs.",
+    "homepage": "https://github.com/microsoft/skills/tree/main/.github/plugins/microsoft-foundry",
+    "keywords": [
+      "foundry",
+      "azure-ai",
+      "agents",
+      "hosted-agents",
+      "toolbox",
+      "foundry-iq",
+      "knowledge-base",
+      "memory",
+      "workflows",
+      "governance",
+      "observability",
+      "evaluations",
+      "rag",
+      "ai-projects",
+      "azd",
+      "mcp"
+    ],
+    "license": "MIT",
+    "name": "microsoft-foundry",
+    "repository": "https://github.com/microsoft/skills",
+    "version": "2.0.0"
+  },
+  "skills": {
+    "microsoft-foundry": ".github/plugins/azure-skills/skills/microsoft-foundry"
+  },
+  "requiredRuntimes": [
+    "bash",
+    "npx",
+    "python3"
+  ],
+  "mcpServers": {
+    "azure": {
+      "args": [
+        "-y",
+        "@azure/mcp@latest",
+        "server",
+        "start"
+      ],
+      "command": "npx",
+      "type": "stdio"
+    },
+    "foundry-mcp": {
+      "type": "streamable-http",
+      "url": "https://mcp.ai.azure.com"
+    },
+    "microsoft-docs": {
+      "type": "streamable-http",
+      "url": "https://learn.microsoft.com/api/mcp"
+    }
+  },
+  "meta": {
+    "description": "Foundry-platform fluency for any language",
+    "homepage": "https://github.com/microsoft/skills"
+  },
+  "import": {
+    "input": "microsoft/skills",
+    "flags": [],
+    "warnings": [
+      {
+        "path": ".github/plugins/azure-skills/skills/microsoft-foundry/finetuning/SKILL.md",
+        "message": "inside skill \"microsoft-foundry\" (.github/plugins/azure-skills/skills/microsoft-foundry/SKILL.md), packaged with it; Claude Code loads that skill, not this file"
+      },
+      {
+        "path": ".github/plugins/azure-skills/skills/microsoft-foundry/models/deploy-model/SKILL.md",
+        "message": "inside skill \"microsoft-foundry\" (.github/plugins/azure-skills/skills/microsoft-foundry/SKILL.md), packaged with it; Claude Code loads that skill, not this file"
+      },
+      {
+        "path": ".github/plugins/azure-skills/skills/microsoft-foundry/models/deploy-model/capacity/SKILL.md",
+        "message": "inside skill \"microsoft-foundry\" (.github/plugins/azure-skills/skills/microsoft-foundry/SKILL.md), packaged with it; Claude Code loads that skill, not this file"
+      },
+      {
+        "path": ".github/plugins/azure-skills/skills/microsoft-foundry/models/deploy-model/customize/SKILL.md",
+        "message": "inside skill \"microsoft-foundry\" (.github/plugins/azure-skills/skills/microsoft-foundry/SKILL.md), packaged with it; Claude Code loads that skill, not this file"
+      },
+      {
+        "path": ".github/plugins/azure-skills/skills/microsoft-foundry/models/deploy-model/preset/SKILL.md",
+        "message": "inside skill \"microsoft-foundry\" (.github/plugins/azure-skills/skills/microsoft-foundry/SKILL.md), packaged with it; Claude Code loads that skill, not this file"
+      },
+      {
+        "path": ".github/plugins/microsoft-foundry/skills/microsoft-foundry",
+        "message": "symlink to .github/plugins/azure-skills/skills/microsoft-foundry, followed"
+      },
+      {
+        "path": ".github/skills",
+        "message": "13 SKILL.md outside every imported plugin, not imported"
+      },
+      {
+        "path": "skills/microsoft-foundry/finetuning/scripts/calibrate_grader.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/microsoft-foundry/finetuning/scripts/check_training.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/microsoft-foundry/finetuning/scripts/cleanup.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/microsoft-foundry/finetuning/scripts/common.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/microsoft-foundry/finetuning/scripts/convert_dataset.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/microsoft-foundry/finetuning/scripts/deploy_model.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/microsoft-foundry/finetuning/scripts/evaluate_model.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/microsoft-foundry/finetuning/scripts/generate_distillation_data.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/microsoft-foundry/finetuning/scripts/monitor_training.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/microsoft-foundry/finetuning/scripts/score_dataset.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/microsoft-foundry/finetuning/scripts/submit_training.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/microsoft-foundry/finetuning/scripts/validate/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      }
+    ]
+  }
+}
