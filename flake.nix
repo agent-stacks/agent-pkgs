@@ -265,6 +265,45 @@
                 touch $out
               '';
 
+          # agent-sandbox-srt (AI-1015) writes srt's whole settings file on
+          # each launch: Claude's hosts and every MCP host the staged
+          # plugins name, ~/.ssh denied, Claude's state writable, and the
+          # caller's options added on top. The dry run prints the file
+          # instead of running srt, so the settings are checked here on
+          # every system; the sandbox itself is checked by hand (macOS)
+          # until a runner can host it.
+          agent-sandbox-srt-contract =
+            let srt = "${(mkPackages pkgs).agent-sandbox-srt}/bin/agent-sandbox-srt"; in
+            pkgs.runCommand "agent-sandbox-srt-contract" { nativeBuildInputs = [ pkgs.jq ]; } ''
+              set -u
+              export HOME=$PWD/home TMPDIR=$PWD/tmp AGENT_SANDBOX_SRT_DRY_RUN=1
+              mkdir -p $HOME $TMPDIR plugins/remote plugins/local
+              printf '{"mcpServers":{"seo":{"type":"http","url":"https://app.openseo.so/mcp"}}}' > plugins/remote/.mcp.json
+              printf '{"mcpServers":{"cli":{"type":"stdio","command":"x"}}}' > plugins/local/.mcp.json
+              export CLAUDE_CODE_PLUGIN_DIRS=$PWD/plugins/remote:$PWD/plugins/local:$PWD/plugins/missing
+
+              ${srt} -- claude --version > s.json 2>cmd
+              jq -e '.network.allowedDomains | index("api.anthropic.com") and index("platform.claude.com") and index("app.openseo.so")' s.json
+              jq -e '.network.allowedDomains | length == 3' s.json
+              jq -e '.filesystem.denyRead | index("~/.ssh")' s.json
+              jq -e '.filesystem.allowWrite | index("~/.claude") and index("~/.claude.json")' s.json
+              jq -e '.network.deniedDomains == [] and .filesystem.denyWrite == []' s.json
+              # srt does not follow macOS's /tmp -> /private/tmp link.
+              if [ "$(uname -s)" = Darwin ]; then jq -e '.filesystem.allowWrite | index("/private/tmp")' s.json; fi
+              grep -q -- '--settings .* -- claude --version' cmd
+
+              ${srt} --options '{"allowedDomains":["example.com"],"allowWrite":["/data"],"denyRead":["~/.aws"]}' -- true > o.json 2>/dev/null
+              jq -e '.network.allowedDomains | index("example.com") and index("api.anthropic.com")' o.json
+              jq -e '(.filesystem.allowWrite | index("/data")) and (.filesystem.denyRead | index("~/.aws"))' o.json
+
+              for bad in '[1]' '{"allowedDomains":"x"}' '{"allowedDomains":[1]}' '{"other":[]}' '{nope'; do
+                if ${srt} --options "$bad" -- true >/dev/null 2>err; then echo "accepted $bad"; exit 1; fi
+                [ -s err ] || { echo "no reason for $bad"; exit 1; }
+              done
+              if ${srt} echo no-separator 2>/dev/null; then exit 1; fi
+              touch $out
+            '';
+
           # A plugin built the way a generated source.json calls the
           # builder: src as a pin rather than a derivation, an import
           # record that only reaches passthru, and skills as plain
