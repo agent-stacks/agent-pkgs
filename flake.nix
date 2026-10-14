@@ -210,7 +210,6 @@
           # does not build a stack, so forcing it here does not recurse.
           defaultAgentStacks = (mkPackages pkgs).agent-stacks.unwrapped;
         };
-        runtimeMappings = import ./mappings/runtimes.nix;
       };
 
       mkPackages = pkgs:
@@ -258,30 +257,69 @@
 
       mkChecks = pkgs:
         mkPackages pkgs // {
-          # mappings/runtimes.nix is this repository's table, so this
-          # is this repository's check: every row must name a nixpkgs
-          # attribute that exists, and one that ships a runnable
-          # program. A row pointing at nothing fails only when a
-          # package happens to record that token, which can be months
-          # after the row lands.
-          #
-          # What the table is *for* — an unmapped token failing the
-          # build with a message naming the file — is asserted in
-          # agent-stacks, which produces that message. ADR 0017.
-          runtime-table-resolves =
+          # The three default runtime packages are this repository's
+          # choice (lib/build-agent-plugin.nix), so this is this
+          # repository's check: each must be a nixpkgs attribute, or a
+          # rename in nixpkgs fails every package that records a
+          # runtime. What the search does with them — the tiers, the
+          # error for a token nothing ships — is asserted in
+          # agent-stacks, which does the searching. ADR 0017.
+          runtime-defaults-resolve =
             let
-              table = builtins.import ./mappings/runtimes.nix;
-              missing = builtins.filter (tok: !(pkgs ? ${table.${tok}}))
-                (builtins.attrNames table);
+              missing = builtins.filter
+                (a: !(pkgs ? ${a}) || !(nixpkgs.lib.isDerivation pkgs.${a}))
+                [ "bash" "python3" "nodejs" ];
             in
             if missing != [ ] then
-              throw ("mappings/runtimes.nix maps to nixpkgs attributes that do not exist: "
-                + builtins.concatStringsSep ", "
-                (map (tok: "${tok} -> ${table.${tok}}") missing))
+              throw ("the default runtime packages are not nixpkgs attributes: "
+                + builtins.concatStringsSep ", " missing)
             else
-              pkgs.runCommand "runtime-table-resolves" { } ''
+              pkgs.runCommand "runtime-defaults-resolve" { } ''
                 touch $out
               '';
+
+          # What this flake hands assemble-plugin: a declared
+          # dependency ahead of the defaults, so it is how a package
+          # pins a version, and the package of a token's own name
+          # when nothing was declared.
+          runtime-candidates =
+            let
+              lib' = mkLib pkgs;
+              src = pkgs.runCommand "runtime-candidates-src" { } ''
+                mkdir -p $out/skills/one/scripts
+                printf -- '---\nname: one\ndescription: Does things.\n---\nBody.\n' \
+                  > $out/skills/one/SKILL.md
+                printf '#!/usr/bin/env python3\nprint(1)\n' > $out/skills/one/scripts/a.py
+                printf '#!/usr/bin/env ruby\nputs 1\n' > $out/skills/one/scripts/b.rb
+                chmod +x $out/skills/one/scripts/*
+              '';
+              mk = dependencies: lib'.buildAgentPlugin {
+                name = "runtime-candidates";
+                inherit src dependencies;
+                sourceUrl = "https://example.test/runtime-candidates";
+                manifest = {
+                  "$schema" = "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json";
+                  name = "runtime-candidates";
+                };
+                skills.one = "skills/one";
+                requiredRuntimes = [ "python3" "ruby" ];
+              };
+              pinned = mk [ "python312" ];
+              named = mk [ ];
+              linksInto = plugin: tok: pkg: ''
+                target="$(readlink ${plugin}/share/agent-plugins/runtime-candidates/bin/${tok})"
+                case "$target" in
+                  ${pkg}/*) ;;
+                  *) echo "${tok} -> $target, want ${pkg}" >&2; exit 1 ;;
+                esac
+              '';
+            in
+            pkgs.runCommand "runtime-candidates" { } ''
+              ${linksInto pinned "python3" pkgs.python312}
+              ${linksInto named "python3" pkgs.python3}
+              ${linksInto named "ruby" pkgs.ruby}
+              touch $out
+            '';
 
           # A source.json records a licence the manifest spells
           # unusually as a string, an SPDX identifier or a
@@ -687,7 +725,7 @@
               });
               written = [
                 "name" "version" "src" "sourceUrl" "manifest" "skills" "requiredRuntimes"
-                "pluginRootPaths" "ignoredPaths" "mcpServers" "hooks" "meta" "import"
+                "dependencies" "pluginRootPaths" "ignoredPaths" "mcpServers" "hooks" "meta" "import"
               ];
               missing = builtins.filter (k: !(formals ? ${k})) written;
             in
