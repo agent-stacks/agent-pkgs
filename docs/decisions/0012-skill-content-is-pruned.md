@@ -69,12 +69,8 @@ either accepts what the pruner keeps or is not packaged.
 
 ## Amended, 2026-10-15
 
-The floor stands, and a package can now add to it without a block in
-`default.nix`. `agent-stacks import --path-ignore` reaches inside a
-skill, and what it matched there is recorded in `source.json` as
-`ignoredPaths`, skill name to paths relative to the skill, which
-`buildAgentPlugin` hands to `assemble-plugin` with the rest of the
-call (agent-stacks ADR 0067). The rule is still the importer's,
-applied to its scan and the build's copy alike; nothing here decides
-what a skill keeps. `agent-plugin-shorts` was the one package pruning
-by hand, in a `preBuild` hook, and no longer is.
+The floor stands. `agent-stacks import --path-ignore` can now keep
+paths out of a skill, recorded in `source.json` as `ignoredPaths`,
+which `buildAgentPlugin` passes to `assemble-plugin` (agent-stacks
+ADR 0067). The rule is still the importer's. `agent-plugin-shorts`
+no longer prunes by hand.

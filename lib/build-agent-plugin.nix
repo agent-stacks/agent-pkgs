@@ -68,9 +68,8 @@
   # the skills and servers reference, and a Claude plugin's agents/,
   # commands/ and hooks/ (ADR 0016; agent-stacks ADRs 0035, 0037).
 , pluginRootPaths ? null
-  # what --path-ignore kept out of each skill's copy, skill name ->
-  # paths relative to the skill, as `agent-stacks import` recorded it
-  # (agent-stacks ADR 0067). assemble-plugin leaves them out.
+  # skill name -> paths --path-ignore kept out of it (agent-stacks
+  # ADR 0067)
 , ignoredPaths ? null
   # mcp server configs, serialized to mcp.json; attrset of server
   # name -> config (type/command/...)
@@ -261,11 +260,8 @@ let
       })
       resolvedRuntimes));
 
-  # Fails the build when a path source.json keeps out of a skill is
-  # still in the assembled tree: an agent-stacks older than
-  # ignoredPaths copies it anyway (agent-stacks ADR 0067). Empty when
-  # nothing is kept out, and spliced in without a line of its own, so
-  # a package recording nothing has the build phase it had before.
+  # An agent-stacks older than ignoredPaths copies the paths anyway.
+  # Empty when unset, so other packages' build phase is unchanged.
   ignoredPathsGuard = lib.optionalString (ignoredPaths != null) (lib.concatStrings
     (lib.mapAttrsToList (skill: lib.concatMapStrings (path: "\n" + ''
       if [ -e "$dest/skills/"${lib.escapeShellArg "${skill}/${path}"} ]; then

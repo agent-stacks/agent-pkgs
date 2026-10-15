@@ -297,11 +297,9 @@ by CI, so it is written once at import:
 agent-stacks import garrytan/gstack --path-ignore 'test/**'
 ```
 
-A file inside a skill that should not ship, such as an installer at a
-root skill's repository root, is a flag matter too: `--path-ignore`
-reaches inside a skill, and what it kept out is recorded in
-`source.json` as `ignoredPaths` (agent-stacks ADR 0067). A `preBuild`
-that removes files from the tree is not needed for that.
+To keep a file out of a skill, such as an installer at a root
+skill's repository root, use `--path-ignore` too, not a `preBuild`
+that deletes it (agent-stacks ADR 0067).
 
 The block is the text between the two markers in a package's
 `default.nix`. Everything outside the markers is rewritten on every

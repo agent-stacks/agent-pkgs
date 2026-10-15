@@ -200,18 +200,14 @@ build naming both
 ([ADR 0019](../decisions/0019-an-upstream-bin-ships-beside-the-interpreter-links.md)).
 The field is absent when nothing outside the skills ships.
 
-`ignoredPaths` is what `--path-ignore` kept out of each skill's copy:
-skill name to the paths it matched inside that skill, relative to the
-skill and sorted, a matched directory standing for everything below
-it. The importer's scan left them out the same way, so
-`requiredRuntimes` names no interpreter that only such a file wants.
-The builder hands the field to `assemble-plugin`, which leaves the
-paths out of the copy, and fails the build when a recorded path is
-still in the tree afterwards, which means an agent-stacks older than
-the field (agent-stacks ADR 0067). `assemble-plugin` refuses a list
-it cannot honour: a key naming no skill in `skills`, or an entry that
-is not a path inside the skill or is its `SKILL.md`. Only the skills
-a glob reached into are listed; the field is absent when none was.
+`ignoredPaths` maps a skill to the paths `--path-ignore` kept out of
+it, relative to the skill, and is absent when there are none. The
+importer's scan left them out too, so `requiredRuntimes` names
+nothing only they want. `assemble-plugin` leaves them out of the copy,
+and refuses a key naming no skill or an entry outside the skill or
+naming its `SKILL.md`. The build fails if a recorded path is still in
+the tree, which means an agent-stacks older than the field
+(agent-stacks ADR 0067).
 
 `requiredRuntimes` is a flat array of the interpreter tokens the
 scanner found in the package's files: shebangs, bare `mcp.json`
