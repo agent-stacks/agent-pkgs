@@ -8,8 +8,9 @@ root="$(mktemp -d)"
 trap 'rm -rf "$root"' EXIT
 
 mkdir -p "$root/bin"
-cat > "$root/bin/curl" <<'STUB'
-#!/usr/bin/env bash
+# The shebang is bash's absolute path: the Linux nix sandbox has no
+# /usr/bin/env, so an env shebang cannot exec and the stub records nothing.
+{ echo "#!$(command -v bash)"; cat <<'STUB'
 # Records one file pair per call: args, and the request body from stdin
 # or from a --data-binary @- argument.
 n=$(( $(ls "$STUB_LOG" | wc -l) / 2 + 1 ))
@@ -17,6 +18,7 @@ printf '%s\n' "$@" > "$STUB_LOG/$n.args"
 cat > "$STUB_LOG/$n.body"
 exit "${STUB_CURL_EXIT:-0}"
 STUB
+} > "$root/bin/curl"
 chmod +x "$root/bin/curl"
 
 failures=0
