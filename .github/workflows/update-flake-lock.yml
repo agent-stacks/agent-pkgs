@@ -56,6 +56,17 @@ jobs:
         with:
           token: ${{ steps.app-token.outputs.token }}
 
+      # The start of the run, for Sentry's missed-check-in alert. The
+      # schedule repeats the cron above; keep them equal. Never allowed
+      # to change how the run ends, here or in the monitor job.
+      - name: "Report the start to Sentry"
+        continue-on-error: true
+        uses: ./.github/actions/sentry-checkin
+        with:
+          dsn: ${{ secrets.SENTRY_DSN }}
+          monitor: agent-pkgs-update-flake-lock
+          schedule: "37 * * * *"
+
       - name: "Install flox"
         uses: flox/install-flox-action@3b80351ae97bbe063f264dc88fbd505507054963 # v2.5.3
 
@@ -222,3 +233,29 @@ jobs:
           echo "main moved under every attempt; nothing was pushed." >&2
           echo "Run this workflow again." >&2
           exit 1
+
+  # Reports how the run ended. Its own job, run on every outcome, so a
+  # failed or cancelled upstream job is still reported. Every step is
+  # continue-on-error and the token is read-only: this job must not be
+  # able to change a run's conclusion.
+  monitor:
+    name: "Report the run to Sentry"
+    needs: [prepare, verify, land]
+    if: always()
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        continue-on-error: true
+        with:
+          persist-credentials: false
+
+      - name: "Close the Sentry check-in"
+        continue-on-error: true
+        uses: ./.github/actions/sentry-checkin
+        with:
+          dsn: ${{ secrets.SENTRY_DSN }}
+          monitor: agent-pkgs-update-flake-lock
+          schedule: "37 * * * *"
+          results: ${{ toJSON(needs) }}

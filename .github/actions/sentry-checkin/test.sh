@@ -39,7 +39,7 @@ run_case() {
   rc=$?
 }
 
-calls() { ls "$log" | grep -c '\.args$'; }
+calls() { find "$log" -name '*.args' | wc -l | tr -d ' '; }
 expect_exit_zero() { [ "$rc" -eq 0 ] || fail "exit $rc, wanted 0"; }
 expect_calls() { [ "$(calls)" -eq "$1" ] || fail "$(calls) curl calls, wanted $1"; }
 # expect_jq <call> <jq filter> <wanted>: the filter runs on the call's body.
