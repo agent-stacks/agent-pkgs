@@ -68,6 +68,10 @@
   # the skills and servers reference, and a Claude plugin's agents/,
   # commands/ and hooks/ (ADR 0016; agent-stacks ADRs 0035, 0037).
 , pluginRootPaths ? null
+  # what --path-ignore kept out of each skill's copy, skill name ->
+  # paths relative to the skill, as `agent-stacks import` recorded it
+  # (agent-stacks ADR 0062). assemble-plugin leaves them out.
+, ignoredPaths ? null
   # mcp server configs, serialized to mcp.json; attrset of server
   # name -> config (type/command/...)
 , mcpServers ? null
@@ -257,13 +261,26 @@ let
       })
       resolvedRuntimes));
 
+  # Fails the build when a path source.json keeps out of a skill is
+  # still in the assembled tree: an agent-stacks older than
+  # ignoredPaths copies it anyway (agent-stacks ADR 0062). Empty when
+  # nothing is kept out, and spliced in without a line of its own, so
+  # a package recording nothing has the build phase it had before.
+  ignoredPathsGuard = lib.optionalString (ignoredPaths != null) (lib.concatStrings
+    (lib.mapAttrsToList (skill: lib.concatMapStrings (path: "\n" + ''
+      if [ -e "$dest/skills/"${lib.escapeShellArg "${skill}/${path}"} ]; then
+        echo "buildAgentPlugin: ${name}: source.json keeps ${path} out of skill ${skill}, but assemble-plugin copied it; this agent-stacks predates ignoredPaths (agent-stacks ADR 0062)" >&2
+        exit 1
+      fi
+    '')) ignoredPaths));
+
   # The builder call, handed to assemble-plugin as data. A generated
   # package's source.json is already exactly this; reconstructing it
   # here means a hand-written call gets the same treatment without
   # needing a file on disk.
   callFile = pkgs.writeText "source.json" (builtins.toJSON
     (lib.filterAttrs (_: v: v != null) {
-      inherit name skills manifest mcpServers hooks pluginRootPaths;
+      inherit name skills manifest mcpServers hooks pluginRootPaths ignoredPaths;
       inherit allowPathCommands extraSubstitutions;
     }));
 in
@@ -316,7 +333,7 @@ stdenvNoCC.mkDerivation {
         echo "buildAgentPlugin: ${name}: hooks were given but assemble-plugin wrote no hooks file; this agent-stacks predates the hooks argument (ADR 0051)" >&2
         exit 1
       fi
-    ''}
+    ''}${ignoredPathsGuard}
 
     # Hook point for extensions: runs on the fully assembled tree,
     # before install and the checks. It used to run between the

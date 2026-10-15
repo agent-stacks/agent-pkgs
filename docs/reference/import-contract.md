@@ -81,6 +81,8 @@ so an undeclared key is a build error by design:
     "skill-b": "other/path/skill-b"
   },
 
+  "ignoredPaths": { "skill-a": ["install.sh"] },
+
   "requiredRuntimes": ["python3", "node"],
 
   "pluginRootPaths": { "scripts": "scripts" },
@@ -197,6 +199,17 @@ links, and an entry in it with a linked interpreter's name fails the
 build naming both
 ([ADR 0019](../decisions/0019-an-upstream-bin-ships-beside-the-interpreter-links.md)).
 The field is absent when nothing outside the skills ships.
+
+`ignoredPaths` is what `--path-ignore` kept out of each skill's copy:
+skill name to the paths it matched inside that skill, relative to the
+skill and sorted, a matched directory standing for everything below
+it. The importer's scan left them out the same way, so
+`requiredRuntimes` names no interpreter that only such a file wants.
+The builder hands the field to `assemble-plugin`, which leaves the
+paths out of the copy, and fails the build when a recorded path is
+still in the tree afterwards, which means an agent-stacks older than
+the field (agent-stacks ADR 0062). Only the skills a glob reached
+into are listed; the field is absent when none was.
 
 `requiredRuntimes` is a flat array of the interpreter tokens the
 scanner found in the package's files: shebangs, bare `mcp.json`

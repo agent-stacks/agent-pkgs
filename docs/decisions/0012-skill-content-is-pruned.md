@@ -66,3 +66,15 @@ either accepts what the pruner keeps or is not packaged.
 - `-` A repository whose real skill content happens to collide with a
   pruned name (a skill about writing `.github` workflows, say) cannot
   be packaged as a root skill without losing part of itself.
+
+## Amended, 2026-10-15
+
+The floor stands, and a package can now add to it without a block in
+`default.nix`. `agent-stacks import --path-ignore` reaches inside a
+skill, and what it matched there is recorded in `source.json` as
+`ignoredPaths`, skill name to paths relative to the skill, which
+`buildAgentPlugin` hands to `assemble-plugin` with the rest of the
+call (agent-stacks ADR 0062). The rule is still the importer's,
+applied to its scan and the build's copy alike; nothing here decides
+what a skill keeps. `agent-plugin-shorts` was the one package pruning
+by hand, in a `preBuild` hook, and no longer is.
