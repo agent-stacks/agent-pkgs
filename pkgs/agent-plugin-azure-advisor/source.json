@@ -1,0 +1,106 @@
+{
+  "name": "azure-advisor",
+  "version": "1.0.1",
+  "src": {
+    "owner": "microsoft",
+    "repo": "skills",
+    "rev": "146f047391145d5c16c981ca8774fb722090efba",
+    "hash": "sha256-UJuaTsp6qA/oKLvRCyGQHWq25iQdKtsHlUphzbmuXmk="
+  },
+  "sourceUrl": "https://github.com/microsoft/skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Microsoft",
+      "url": "https://www.microsoft.com"
+    },
+    "description": "Azure Advisor recommendations, service-retirement impact, and customer-ready remediation guidance.",
+    "homepage": "https://github.com/microsoft/github-copilot-for-azure",
+    "keywords": [
+      "azure",
+      "cloud",
+      "advisor",
+      "recommendations",
+      "remediation"
+    ],
+    "license": "MIT",
+    "name": "azure-advisor",
+    "repository": "https://github.com/microsoft/github-copilot-for-azure",
+    "version": "1.0.1"
+  },
+  "skills": {
+    "azure-advisor": ".github/plugins/azure-advisor/skills/azure-advisor",
+    "azure-advisor-actionability": ".github/plugins/azure-advisor/skills/azure-advisor-actionability"
+  },
+  "requiredRuntimes": [
+    "bash",
+    "npx"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/hooks": ".github/plugins/azure-advisor/hooks"
+  },
+  "mcpServers": {
+    "azure": {
+      "args": [
+        "-y",
+        "@azure/mcp@latest",
+        "server",
+        "start"
+      ],
+      "command": "npx",
+      "type": "stdio"
+    }
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\"",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\"",
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "description": "Azure Advisor recommendations, service-retirement impact, and customer-ready remediation guidance",
+    "homepage": "https://github.com/microsoft/skills"
+  },
+  "import": {
+    "input": "microsoft/skills",
+    "flags": [],
+    "warnings": [
+      {
+        "path": ".github/skills",
+        "message": "13 SKILL.md outside every imported plugin, not imported"
+      },
+      {
+        "path": ".github/plugins/azure-advisor/hooks/claude-hooks.json",
+        "message": "Claude Code runs this on PostToolUse: bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\""
+      },
+      {
+        "path": ".github/plugins/azure-advisor/hooks/claude-hooks.json",
+        "message": "Claude Code runs this on SessionStart: bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\""
+      },
+      {
+        "path": "com.anthropic.claude-code/hooks/scripts/pluginPathAllowPattern.sh",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "com.anthropic.claude-code/hooks/scripts/track-telemetry.js",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      }
+    ]
+  }
+}
