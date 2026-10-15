@@ -1,11 +1,11 @@
 {
   "name": "aws-data-analytics",
-  "version": "1.0.0",
+  "version": "1.4.0",
   "src": {
     "owner": "aws",
     "repo": "agent-toolkit-for-aws",
-    "rev": "a2c98f2037dc7edf38af55b78a14456da06c2e4c",
-    "hash": "sha256-Pu25A2/57DOdtns2qGlMDZr5ma6hqJKMZjVq1y6LBq0="
+    "rev": "9d76dd4494b7ff76105f52f5d59ae2180dc91289",
+    "hash": "sha256-wxWnGI2RdmkDT0aO7Hlcxr1SSSQ8Qe+S+4Yn14oHBYA="
   },
   "sourceUrl": "https://github.com/aws/agent-toolkit-for-aws",
   "manifest": {
@@ -13,7 +13,7 @@
     "author": {
       "name": "Amazon Web Services"
     },
-    "description": "Data lake, analytics, and ETL workflows with S3 Tables, AWS Glue, and Athena. Covers managed Iceberg tables on S3 Tables, ingestion from JDBC databases, Amazon Redshift, Snowflake, BigQuery, and DynamoDB, AWS Glue Data Catalog inventory and asset discovery, federated Athena queries, and vector storage and semantic search on Amazon S3 Vectors.",
+    "description": "Data lake, analytics, search, streaming, ETL, and orchestration workflows with S3 Tables, AWS Glue, Athena, Amazon Redshift, Amazon OpenSearch Service, Amazon MSK, Amazon Managed Service for Apache Flink, and Amazon MWAA. Covers managed Iceberg tables on S3 Tables, ingestion from JDBC databases (Oracle, SQL Server, PostgreSQL, MySQL, RDS), Amazon Redshift, Snowflake, BigQuery, and DynamoDB, AWS Glue Data Catalog inventory and asset discovery, federated Athena queries, vector storage and semantic search on Amazon S3 Vectors, Amazon OpenSearch Service and Serverless (migration from Solr/Elasticsearch, provisioning, vector/semantic/hybrid search, log analytics, trace analytics), Amazon MSK Provisioned with Standard and Express brokers (cluster sizing, performance and consumer lag troubleshooting, topic management, MSK Replicator for disaster recovery and active-active replication, and Streaming Tables delivery to S3 Tables), migrating self-managed Apache Kafka to MSK Express, Apache Flink application development on Amazon Managed Service for Apache Flink, and Amazon MWAA Provisioned and MWAA Serverless (authoring, testing, and debugging DAGs and workflows, and Airflow version upgrades for provisioned environments).",
     "homepage": "https://aws.amazon.com/products/developer-tools/agent-toolkit-for-aws/",
     "keywords": [
       "aws",
@@ -39,12 +39,25 @@
       "dynamodb",
       "jdbc",
       "vector-search",
-      "rag"
+      "rag",
+      "streaming",
+      "stream-processing",
+      "msk",
+      "amazon-msk",
+      "managed-streaming-for-apache-kafka",
+      "kafka",
+      "apache-kafka",
+      "kafka-migration",
+      "msk-replicator",
+      "streaming-tables",
+      "flink",
+      "apache-flink",
+      "managed-service-for-apache-flink"
     ],
     "license": "Apache-2.0",
     "name": "aws-data-analytics",
     "repository": "https://github.com/aws/agent-toolkit-for-aws",
-    "version": "1.0.0"
+    "version": "1.4.0"
   },
   "skills": {
     "amazon-opensearch-service": "plugins/aws-data-analytics/skills/amazon-opensearch-service",
@@ -52,9 +65,12 @@
     "connecting-to-data-source": "plugins/aws-data-analytics/skills/connecting-to-data-source",
     "creating-data-lake-table": "plugins/aws-data-analytics/skills/creating-data-lake-table",
     "debugging-mwaa-workflow": "plugins/aws-data-analytics/skills/debugging-mwaa-workflow",
+    "developing-applications-on-managed-service-for-apache-flink": "plugins/aws-data-analytics/skills/developing-applications-on-managed-service-for-apache-flink",
     "exploring-data-catalog": "plugins/aws-data-analytics/skills/exploring-data-catalog",
     "finding-data-lake-assets": "plugins/aws-data-analytics/skills/finding-data-lake-assets",
     "ingesting-into-data-lake": "plugins/aws-data-analytics/skills/ingesting-into-data-lake",
+    "managing-amazon-msk": "plugins/aws-data-analytics/skills/managing-amazon-msk",
+    "migrate-to-msk": "plugins/aws-data-analytics/skills/migrate-to-msk",
     "querying-data-lake": "plugins/aws-data-analytics/skills/querying-data-lake",
     "redshift-guide": "plugins/aws-data-analytics/skills/redshift-guide",
     "storing-and-querying-vectors": "plugins/aws-data-analytics/skills/storing-and-querying-vectors",
@@ -62,6 +78,7 @@
     "upgrading-mwaa-environments": "plugins/aws-data-analytics/skills/upgrading-mwaa-environments"
   },
   "requiredRuntimes": [
+    "python3",
     "uvx"
   ],
   "mcpServers": {
@@ -78,7 +95,7 @@
     }
   },
   "meta": {
-    "description": "Data lake, analytics, and ETL workflows with S3 Tables, AWS Glue, and Athena",
+    "description": "Data lake, analytics, search, streaming, ETL, and orchestration workflows with S3 Tables, AWS Glue, Athena, Amazon Redshift, Amazon OpenSearch Service, Amazon MSK, Amazon Managed Service for Apache Flink, and Amazon MWAA",
     "homepage": "https://github.com/aws/agent-toolkit-for-aws"
   },
   "import": {
@@ -88,6 +105,10 @@
       {
         "path": "skills",
         "message": "115 SKILL.md outside every imported plugin, not imported"
+      },
+      {
+        "path": "skills/managing-amazon-msk/scripts/msk_sizing.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       }
     ]
   }
