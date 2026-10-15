@@ -176,6 +176,11 @@ plugin tree to its path inside `src`. It holds three kinds of entry:
   0037, 0052 and 0064, proposed); `hooks/` also ships for hooks
   declared outside `hooks.json`, with what they run (agent-stacks ADR
   0051). `settings.json` is the one namespace entry that is a file.
+  The entries a Claude manifest's `agents`, `commands`,
+  `outputStyles`, `workflows` or `experimental.themes` field names
+  ship the same way, and the fields themselves travel as declared
+  under `extensions.com.anthropic.claude-code` in `manifest`, which
+  the builder writes verbatim (agent-stacks ADR 0065).
 
 References are followed one level: an entry that ships is not read
 for further references. The builder copies these entries before the
