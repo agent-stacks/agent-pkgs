@@ -70,7 +70,7 @@
 , pluginRootPaths ? null
   # what --path-ignore kept out of each skill's copy, skill name ->
   # paths relative to the skill, as `agent-stacks import` recorded it
-  # (agent-stacks ADR 0062). assemble-plugin leaves them out.
+  # (agent-stacks ADR 0066). assemble-plugin leaves them out.
 , ignoredPaths ? null
   # mcp server configs, serialized to mcp.json; attrset of server
   # name -> config (type/command/...)
@@ -263,13 +263,13 @@ let
 
   # Fails the build when a path source.json keeps out of a skill is
   # still in the assembled tree: an agent-stacks older than
-  # ignoredPaths copies it anyway (agent-stacks ADR 0062). Empty when
+  # ignoredPaths copies it anyway (agent-stacks ADR 0066). Empty when
   # nothing is kept out, and spliced in without a line of its own, so
   # a package recording nothing has the build phase it had before.
   ignoredPathsGuard = lib.optionalString (ignoredPaths != null) (lib.concatStrings
     (lib.mapAttrsToList (skill: lib.concatMapStrings (path: "\n" + ''
       if [ -e "$dest/skills/"${lib.escapeShellArg "${skill}/${path}"} ]; then
-        echo "buildAgentPlugin: ${name}: source.json keeps ${path} out of skill ${skill}, but assemble-plugin copied it; this agent-stacks predates ignoredPaths (agent-stacks ADR 0062)" >&2
+        echo ${lib.escapeShellArg "buildAgentPlugin: ${name}: source.json keeps ${path} out of skill ${skill}, but assemble-plugin copied it; this agent-stacks predates ignoredPaths (agent-stacks ADR 0066)"} >&2
         exit 1
       fi
     '')) ignoredPaths));

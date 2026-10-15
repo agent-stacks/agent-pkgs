@@ -74,7 +74,7 @@ The floor stands, and a package can now add to it without a block in
 skill, and what it matched there is recorded in `source.json` as
 `ignoredPaths`, skill name to paths relative to the skill, which
 `buildAgentPlugin` hands to `assemble-plugin` with the rest of the
-call (agent-stacks ADR 0062). The rule is still the importer's,
+call (agent-stacks ADR 0066). The rule is still the importer's,
 applied to its scan and the build's copy alike; nothing here decides
 what a skill keeps. `agent-plugin-shorts` was the one package pruning
 by hand, in a `preBuild` hook, and no longer is.
