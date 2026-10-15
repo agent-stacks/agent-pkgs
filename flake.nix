@@ -326,6 +326,43 @@
               touch $out
             '';
 
+          agent-sandbox-nono-contract =
+            let nono = "${(mkPackages pkgs).agent-sandbox-nono}/bin/agent-sandbox-nono"; in
+            pkgs.runCommand "agent-sandbox-nono-contract" { nativeBuildInputs = [ pkgs.jq pkgs.nono ]; } ''
+              set -u
+              export HOME=$PWD/home TMPDIR=$PWD/tmp AGENT_SANDBOX_NONO_DRY_RUN=1
+              mkdir -p $HOME $TMPDIR proj plugins/remote plugins/local
+              cd proj
+              printf '{"mcpServers":{"seo":{"type":"http","url":"https://app.openseo.so/mcp"}}}' > ../plugins/remote/.mcp.json
+              printf '{"mcpServers":{"cli":{"type":"stdio","command":"x"}}}' > ../plugins/local/.mcp.json
+              export CLAUDE_CODE_PLUGIN_DIRS=$PWD/../plugins/remote:$PWD/../plugins/local:$PWD/../plugins/missing
+              ${nono} -- claude --version > p.json 2>cmd
+              nono profile validate p.json
+              jq -e '.extends == "default" and .workdir.access == "readwrite"' p.json
+              jq -e '.filesystem.read | index("/nix/store")' p.json
+              jq -e '.filesystem.allow | index("$HOME/.claude")' p.json
+              jq -e '.filesystem.allow_file | index("$HOME/.claude.json")' p.json
+              # Network stays open until options name hosts.
+              jq -e '.network.allow_domain == null and .network.block == false' p.json
+              grep -q -- 'run -s --no-diagnostics --allow-cwd --profile .* -- claude --version' cmd
+              ${nono} --options '{"allowedDomains":["example.com"],"allowWrite":["/data"],"denyRead":["~/.aws"]}' -- true > o.json 2>/dev/null
+              nono profile validate o.json
+              jq -e '.network.allow_domain | index("example.com") and index("api.anthropic.com") and index("platform.claude.com") and index("app.openseo.so")' o.json
+              jq -e '.network.allow_domain | length == 4' o.json
+              jq -e '(.filesystem.allow | index("/data")) and (.filesystem.deny | index("~/.aws"))' o.json
+              for bad in '[1]' '{"allowedDomains":"x"}' '{"allowedDomains":[1]}' '{"other":[]}' '{nope'; do
+                if ${nono} --options "$bad" -- true >/dev/null 2>err; then echo "accepted $bad"; exit 1; fi
+                [ -s err ] || { echo "no reason for $bad"; exit 1; }
+              done
+              if ${nono} echo no-separator 2>/dev/null; then exit 1; fi
+              # The project folder is writable, so / or ~ would open everything.
+              for top in / "$HOME"; do
+                if (cd "$top" && ${nono} -- true) >/dev/null 2>err; then echo "started from $top"; exit 1; fi
+                grep -q 'project folder' err || { echo "no reason for $top"; cat err; exit 1; }
+              done
+              touch $out
+            '';
+
           # A plugin built the way a generated source.json calls the
           # builder: src as a pin rather than a derivation, an import
           # record that only reaches passthru, and skills as plain
