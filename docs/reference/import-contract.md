@@ -170,11 +170,12 @@ plugin tree to its path inside `src`. It holds three kinds of entry:
 - what the plugin's MCP servers reference (agent-stacks ADR 0035);
 - for a plugin Claude Code installs, meaning a marketplace listing
   names it or its directory has `.claude-plugin/plugin.json`, its
-  `agents/`, `commands/` and `hooks/` in the namespace, and its
-  `bin/` at the root, plus what their own files reference
-  (agent-stacks ADR 0037 and 0052, proposed); `hooks/` also ships for
-  hooks declared outside `hooks.json`, with what they run (agent-stacks
-  ADR 0051).
+  `agents/`, `commands/`, `hooks/`, `output-styles/`, `workflows/`,
+  `themes/` and `settings.json` in the namespace, and its `bin/` at
+  the root, plus what their own files reference (agent-stacks ADR
+  0037, 0052 and 0064, proposed); `hooks/` also ships for hooks
+  declared outside `hooks.json`, with what they run (agent-stacks ADR
+  0051). `settings.json` is the one namespace entry that is a file.
 
 References are followed one level: an entry that ships is not read
 for further references. The builder copies these entries before the
