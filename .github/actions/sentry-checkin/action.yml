@@ -1,0 +1,43 @@
+name: "Sentry check-in"
+description: >-
+  Reports an update workflow's run to Sentry. Sends nothing when the DSN
+  is empty, so a fork without the secret runs unchanged.
+
+inputs:
+  dsn:
+    description: "The Sentry DSN. Empty sends nothing."
+    required: false
+    default: ""
+  monitor:
+    description: "Slug of the Sentry cron monitor."
+    required: true
+  schedule:
+    description: >-
+      Crontab of the workflow. Empty selects event mode: no check-ins,
+      only a failure event.
+    required: false
+    default: ""
+  results:
+    description: >-
+      toJSON(needs) of the job that closes the run. Empty sends the
+      start check-in.
+    required: false
+    default: ""
+  fingerprint-extra:
+    description: >-
+      Event mode: the value that makes one failure distinct from the
+      next, so a failure that repeats stays one issue.
+    required: false
+    default: ""
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      env:
+        DSN: ${{ inputs.dsn }}
+        MONITOR: ${{ inputs.monitor }}
+        SCHEDULE: ${{ inputs.schedule }}
+        RESULTS: ${{ inputs.results }}
+        FINGERPRINT_EXTRA: ${{ inputs.fingerprint-extra }}
+      run: bash "$GITHUB_ACTION_PATH/checkin.sh"

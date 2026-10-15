@@ -372,3 +372,30 @@ jobs:
           echo "main moved under every attempt; nothing was pushed." >&2
           echo "Run this workflow again for the same rev." >&2
           exit 1
+
+  # Reports a failed run as a Sentry event. This workflow is dispatched,
+  # not scheduled, so there is no monitor and no start step: a silent
+  # workflow is not a missed run. Every step is continue-on-error and
+  # the token is read-only, so this job cannot change the run's
+  # conclusion. The rev makes each failing release one issue.
+  monitor:
+    name: "Report the run to Sentry"
+    needs: [prepare, verify, land]
+    if: always()
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        continue-on-error: true
+        with:
+          persist-credentials: false
+
+      - name: "Report a failure to Sentry"
+        continue-on-error: true
+        uses: ./.github/actions/sentry-checkin
+        with:
+          dsn: ${{ secrets.SENTRY_DSN }}
+          monitor: agent-pkgs-update-agent-stacks
+          results: ${{ toJSON(needs) }}
+          fingerprint-extra: ${{ inputs.rev }}

@@ -265,6 +265,18 @@
                 touch $out
               '';
 
+          # The Sentry check-in the update workflows run, against a
+          # stub curl: what it sends, and the cases where it must send
+          # nothing. The script lives beside its action rather than in
+          # lib/ because only workflows call it.
+          sentry-checkin = pkgs.runCommand "sentry-checkin"
+            { nativeBuildInputs = [ pkgs.bash pkgs.coreutils pkgs.jq pkgs.gnugrep pkgs.gnused ]; }
+            ''
+              bash ${./.github/actions/sentry-checkin/test.sh} \
+                ${./.github/actions/sentry-checkin/checkin.sh}
+              touch $out
+            '';
+
           # A plugin built the way a generated source.json calls the
           # builder: src as a pin rather than a derivation, an import
           # record that only reaches passthru, and skills as plain
