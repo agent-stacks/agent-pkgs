@@ -60,6 +60,17 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
+      # The start of the run, for Sentry's missed-check-in alert. The
+      # schedule repeats the cron above; keep them equal. Never allowed
+      # to change how the run ends, here or in the monitor job.
+      - name: "Report the start to Sentry"
+        continue-on-error: true
+        uses: ./.github/actions/sentry-checkin
+        with:
+          dsn: ${{ secrets.SENTRY_DSN }}
+          monitor: agent-pkgs-update-agent-plugins
+          schedule: "17 * * * *"
+
       - name: "Reduce the packages to their upstreams"
         id: plan
         run: |
@@ -437,3 +448,34 @@ jobs:
           echo "The following imports failed to replay:" >&2
           echo "$FAILED" >&2
           exit 1
+
+  # Reports how the run ended. Its own job, run on every outcome, so a
+  # failed or cancelled upstream job is still reported. Every step is
+  # continue-on-error and the token is read-only: this job must not be
+  # able to change a run's conclusion.
+  #
+  # Not `report`: that job fails the run for every dead upstream, and a
+  # dead upstream is not an outage of this workflow. The action sends
+  # one event per failed upstream instead, read from prepare's `failed`
+  # output, which is part of `needs` here.
+  monitor:
+    name: "Report the run to Sentry"
+    needs: [gather, replay, prepare, verify, land]
+    if: always()
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        continue-on-error: true
+        with:
+          persist-credentials: false
+
+      - name: "Close the Sentry check-in"
+        continue-on-error: true
+        uses: ./.github/actions/sentry-checkin
+        with:
+          dsn: ${{ secrets.SENTRY_DSN }}
+          monitor: agent-pkgs-update-agent-plugins
+          schedule: "17 * * * *"
+          results: ${{ toJSON(needs) }}

@@ -98,3 +98,13 @@ package and runs the binary in an installCheck, which is the thing
 
 The binary cache is populated separately by Hydra (Distribution
 project); CI stays plain and forkable.
+
+The three update workflows report to Sentry through the
+`sentry-checkin` action. The two hourly ones send a cron check-in when
+they start and another when a closing `monitor` job sees how the run
+ended; `update-agent-stacks`, which is dispatched, sends a failure
+event only. The monitor configuration (schedule, margins, thresholds)
+lives in `.github/actions/sentry-checkin/checkin.sh` and is upserted on
+every check-in. Without a `SENTRY_DSN` secret the action sends
+nothing, so a fork runs the same workflows unchanged. `workflows-lint`
+in `ci.yml` checks that each `monitor` job waits for every other job.

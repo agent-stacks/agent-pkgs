@@ -104,6 +104,32 @@ jobs:
         if: matrix.os == 'ubuntu-24.04'
         run: nix flake check -L --all-systems
 
+  # Lints the workflows themselves. A job here rather than a flake
+  # check on purpose: a flake check is a gate, so it would run in the
+  # hourly verify of the update workflows, and a nixpkgs bump that
+  # makes actionlint stricter would then block a refresh from landing.
+  # Only a push or a pull request runs it; a workflow_call from an
+  # update workflow reports its caller's event and skips it, which
+  # Summary reads as passing.
+  #
+  # The tools come from the flake's pinned nixpkgs (`--inputs-from .`)
+  # rather than whatever the runner image ships, so the lint changes
+  # when flake.lock does.
+  workflows-lint:
+    name: Lint the workflows
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - uses: ./.github/actions/nix-setup
+
+      - name: Lint
+        run: >-
+          nix shell --inputs-from .
+          nixpkgs#actionlint nixpkgs#shellcheck nixpkgs#yq-go
+          -c .github/scripts/workflows-lint.sh
+
   # The one check branch protection requires. Every other job's name
   # carries a matrix value, so requiring them by name ties protection
   # to the matrix: change a runner and the required list goes stale
@@ -116,7 +142,7 @@ jobs:
   # and a skipped required check reads as success.
   summary:
     name: Summary
-    needs: [check]
+    needs: [check, workflows-lint]
     if: always()
     runs-on: ubuntu-24.04
     steps:
