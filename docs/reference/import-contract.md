@@ -170,17 +170,14 @@ plugin tree to its path inside `src`. It holds three kinds of entry:
 - what the plugin's MCP servers reference (agent-stacks ADR 0035);
 - for a plugin Claude Code installs, meaning a marketplace listing
   names it or its directory has `.claude-plugin/plugin.json`, its
-  `agents/`, `commands/`, `hooks/`, `output-styles/`, `workflows/`,
-  `themes/` and `settings.json` in the namespace, and its `bin/` at
-  the root, plus what their own files reference (agent-stacks ADR
-  0037, 0052 and 0064, proposed); `hooks/` also ships for hooks
-  declared outside `hooks.json`, with what they run (agent-stacks ADR
-  0051). `settings.json` is the one namespace entry that is a file.
-  The entries a Claude manifest's `agents`, `commands`,
-  `outputStyles`, `workflows` or `experimental.themes` field names
-  ship the same way, and the fields themselves travel as declared
-  under `extensions.com.anthropic.claude-code` in `manifest`, which
-  the builder writes verbatim (agent-stacks ADR 0065).
+  Claude components in the namespace (`agents/`, `commands/`,
+  `hooks/`, `output-styles/`, `workflows/`, `themes/` and the file
+  `settings.json`), its `bin/` at the root, and what their own files
+  reference (agent-stacks ADR 0037, 0052 and 0064, proposed);
+  `hooks/` also ships for hooks declared outside `hooks.json`, with
+  what they run (agent-stacks ADR 0051). Paths the manifest's
+  component fields name ship the same way, and the fields travel in
+  `manifest.extensions` (agent-stacks ADR 0065).
 
 References are followed one level: an entry that ships is not read
 for further references. The builder copies these entries before the
