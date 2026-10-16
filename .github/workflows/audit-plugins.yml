@@ -2,15 +2,16 @@ name: "Audit plugins"
 
 # Audits plugin packages with `agent-stacks audit` and commits each
 # result beside its package, as pkgs/agent-plugin-<name>/audit.json.
-# The build never reads that file; it is a record, not a gate. ADR 0021,
+# The build never reads that file; it is a record, not a gate. ADR 0022,
 # described in docs/reference/plugin-audit.md.
 #
 # Which packages a run audits:
 #
 #   push to main      the packages whose source.json changed; every
-#                     package when SkillSpector changed (pkgs/skillspector
-#                     or the skillspector-src input in flake.lock),
-#                     because the scoring changed with it
+#                     package when the scoring changed: SkillSpector
+#                     (pkgs/skillspector or the skillspector-src input
+#                     in flake.lock) or the pinned agent-stacks
+#                     (pkgs/agent-stacks/source.json)
 #   schedule          every package, nightly: the CVE data SkillSpector
 #                     checks against moves without anything here moving
 #   workflow_dispatch one package, or every package when none is named
@@ -24,6 +25,7 @@ on:
     paths:
       - "pkgs/agent-plugin-*/source.json"
       - "pkgs/skillspector/**"
+      - "pkgs/agent-stacks/source.json"
       # Hourly, for nixpkgs. gather reads whether skillspector-src moved
       # and audits nothing when it did not; that costs one runner
       # without nix.
@@ -43,15 +45,22 @@ on:
         required: false
         default: ""
 
+# Read only, everywhere. The one push, in record, authenticates as the
+# updater app with its own token, and downloading this run's artifacts
+# needs no GITHUB_TOKEN scope.
 permissions:
-  contents: write
+  contents: read
 
-# The workflow ends by pushing main, so runs are queued, never run side
-# by side, and never cancelled once running. GitHub keeps one pending
-# run per group: a push queued behind another is replaced by the next,
-# and the packages only it named wait for the nightly run.
+# Runs of a group are queued, never cancelled once running. GitHub keeps
+# one pending run per group and replaces it with the next, so the
+# nightly run has a group of its own: otherwise an hourly push run
+# queued behind it would replace a pending nightly run, and the full
+# audit would be lost for a day. A push run that is replaced loses only
+# its packages, until the nightly run audits them. A nightly and a push
+# run can therefore overlap; record's retry loop puts its own files
+# back on top of whatever the other landed.
 concurrency:
-  group: audit-plugins
+  group: audit-plugins-${{ github.event_name == 'schedule' && 'nightly' || 'changes' }}
   cancel-in-progress: false
 
 env:
@@ -80,6 +89,7 @@ jobs:
         with:
           # The push's own range, to diff it.
           fetch-depth: 0
+          persist-credentials: false
 
       - name: "List the packages"
         id: plan
@@ -117,7 +127,7 @@ jobs:
               # A new branch or a forced push has no usable before.
               if ! git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
                 all > packages.txt
-              elif git diff --quiet "$BEFORE" HEAD -- pkgs/skillspector \
+              elif git diff --quiet "$BEFORE" HEAD -- pkgs/skillspector pkgs/agent-stacks/source.json \
                 && [ "$(skillspector_rev "$BEFORE")" = "$(skillspector_rev HEAD)" ]; then
                 git diff --name-only "$BEFORE" HEAD -- 'pkgs/agent-plugin-*/source.json' \
                   | cut -d/ -f2 | sort -u \
@@ -125,7 +135,7 @@ jobs:
                       [ -f "pkgs/$p/default.nix" ] && echo "$p"
                     done > packages.txt || true
               else
-                echo "SkillSpector changed; auditing every package"
+                echo "SkillSpector or agent-stacks changed; auditing every package"
                 all > packages.txt
               fi
               ;;
@@ -170,33 +180,42 @@ jobs:
       matrix: ${{ fromJSON(needs.gather.outputs.matrix) }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          persist-credentials: false
 
       - uses: ./.github/actions/nix-setup
 
-      # The repository's pinned agent-stacks, which pkgs/agent-stacks
-      # wraps with skillspector on its PATH. A pin from before the
-      # SkillSpector audit (agent-stacks-cli #186) still has --kind and
-      # no --raw; this workflow then has nothing to run, and says so
-      # rather than recording what the old audit prints.
-      - name: "Build the pinned agent-stacks"
+      # The pinned agent-stacks, checked before anything heavy is
+      # built. A pin from before the SkillSpector audit
+      # (agent-stacks-cli #186) still has --kind and no --raw; this
+      # workflow then has nothing to run, and says so rather than
+      # recording what the old audit prints. The bare binary is a
+      # download, so this costs seconds.
+      - name: "Check the pinned agent-stacks"
         id: cli
         run: |
           set -euo pipefail
-          nix build .#agent-stacks --out-link "$RUNNER_TEMP/agent-stacks"
-          # Only for the version an exit-3 record names; the audit runs
-          # the one the wrapper above puts on its own PATH.
-          nix build .#skillspector --out-link "$RUNNER_TEMP/skillspector"
-          bin="$RUNNER_TEMP/agent-stacks/bin/agent-stacks"
-          usage="$("$bin" audit --help 2>&1 || true)"
+          bare="$(nix build --no-link --print-out-paths .#agent-stacks.unwrapped)"
+          usage="$("$bare/bin/agent-stacks" audit --help 2>&1 || true)"
           if grep -q -- '-kind' <<< "$usage" || ! grep -q -- '-raw' <<< "$usage"; then
             echo "::notice::pinned agent-stacks predates the plugin audit; skipping"
             echo "skip=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           echo "skip=false" >> "$GITHUB_OUTPUT"
+
+      # pkgs/agent-stacks, the binary wrapped with skillspector on its
+      # PATH, which is what audits. skillspector on its own only for
+      # the version an exit-3 record names.
+      - name: "Build agent-stacks and skillspector"
+        if: ${{ steps.cli.outputs.skip == 'false' }}
+        run: |
+          set -euo pipefail
+          wrapped="$(nix build --no-link --print-out-paths .#agent-stacks)"
+          scanner="$(nix build --no-link --print-out-paths .#skillspector)"
           {
-            echo "AGENT_STACKS_BIN=$bin"
-            echo "SKILLSPECTOR_BIN=$RUNNER_TEMP/skillspector/bin/skillspector"
+            echo "AGENT_STACKS_BIN=$wrapped/bin/agent-stacks"
+            echo "SKILLSPECTOR_BIN=$scanner/bin/skillspector"
           } >> "$GITHUB_ENV"
 
       - name: "Audit this shard's packages"
@@ -291,7 +310,8 @@ jobs:
           path: shards
 
       # Shards audit disjoint packages, so their patches apply in any
-      # order.
+      # order. The files they wrote are also kept aside whole, for the
+      # push loop below to put back on a newer main.
       - name: "Apply what the shards wrote"
         run: |
           set -euo pipefail
@@ -300,11 +320,12 @@ jobs:
             [ -s "$patch" ] || continue
             git apply --index "$patch"
           done
-          # A package directory removed since its last audit keeps no
-          # orphaned audit.json.
-          for f in pkgs/agent-plugin-*/audit.json; do
-            [ -f "$(dirname "$f")/default.nix" ] || git rm -q "$f"
-          done
+          mkdir -p "$RUNNER_TEMP/audits"
+          git diff --cached --name-only --diff-filter=AM -- pkgs \
+            | while read -r f; do
+                mkdir -p "$RUNNER_TEMP/audits/$(dirname "$f")"
+                cp "$f" "$RUNNER_TEMP/audits/$f"
+              done
           unbuilt="$(cat shards/audit-*/unbuilt.txt 2>/dev/null | grep . || true)"
           if [ -n "$unbuilt" ]; then
             {
@@ -314,27 +335,50 @@ jobs:
             } >> "$GITHUB_STEP_SUMMARY"
           fi
 
-      # Retried the way the other workflows land: main moving underneath
-      # is normal, so each attempt rebases the one commit onto the new
-      # main. Never a force. Only this workflow writes audit.json, so a
-      # rebase conflicts only with another run of it, which the
-      # concurrency group rules out.
+      # Retried, because main moving underneath is normal. Not a rebase:
+      # a nightly and a push run (separate concurrency groups) can both
+      # rewrite one audit.json, and a rebase would stop on that
+      # conflict, or merge two JSON documents hunk by hunk. Each retry
+      # instead starts again from the new main and puts this run's files
+      # back whole. Both runs' results are fresh, so the later push
+      # winning is fine. Never a force.
       - name: "Commit and push main"
         env:
           # gh looks up the bot user id for the commit identity below.
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           set -euo pipefail
-          if git diff --cached --quiet -- pkgs; then
-            echo "no audit changed"
-            exit 0
-          fi
-          git diff --cached --stat -- pkgs | tail -n 1
           slug="${{ steps.app-token.outputs.app-slug }}"
           git config user.name "${slug}[bot]"
           id="$(gh api "/users/${slug}%5Bbot%5D" --jq .id 2>/dev/null || true)"
           git config user.email "${id:+$id+}${slug}[bot]@users.noreply.github.com"
-          git commit -q -m "chore(audit): record plugin audits"
+
+          # Puts this run's files on the checked-out tree, drops an
+          # audit.json whose package is gone, and commits. Fails when
+          # there is nothing to commit.
+          stage() {
+            if [ -d "$RUNNER_TEMP/audits/pkgs" ]; then
+              cp -R "$RUNNER_TEMP/audits/pkgs/." pkgs/
+            fi
+            for f in pkgs/agent-plugin-*/audit.json; do
+              [ -f "$f" ] || continue
+              if [ -f "$(dirname "$f")/default.nix" ]; then
+                git add "$f"
+              else
+                git rm -q --cached "$f" && rm -f "$f"
+              fi
+            done
+            if git diff --cached --quiet -- pkgs; then
+              return 1
+            fi
+            git diff --cached --stat -- pkgs | tail -n 1
+            git commit -q -m "chore(audit): record plugin audits"
+          }
+
+          if ! stage; then
+            echo "no audit changed"
+            exit 0
+          fi
           for attempt in 1 2 3 4 5; do
             if git push origin "HEAD:refs/heads/main"; then
               exit 0
@@ -342,13 +386,13 @@ jobs:
             if [ "$attempt" -eq 5 ]; then
               break
             fi
-            echo "push rejected, attempt $attempt of 5; rebasing onto main" >&2
+            echo "push rejected, attempt $attempt of 5; restaging on main" >&2
             sleep 30
             git fetch origin main
-            if ! git rebase origin/main; then
-              git rebase --abort || true
-              echo "the audit commit conflicts with main; nothing was pushed." >&2
-              exit 1
+            git reset -q --hard origin/main
+            if ! stage; then
+              echo "main already holds these audits"
+              exit 0
             fi
           done
           echo "main moved under every attempt; nothing was pushed." >&2

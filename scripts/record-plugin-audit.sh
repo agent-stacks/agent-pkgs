@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Audit one built plugin package and record the result beside it, as
 # pkgs/<package>/audit.json. Called by .github/workflows/audit-plugins.yml
-# once per package; runnable by hand the same way. ADR 0021.
+# once per package; runnable by hand the same way. ADR 0022.
 #
 #   scripts/record-plugin-audit.sh <package> <built package> [<pkgs dir>]
 #
@@ -15,25 +15,30 @@
 # the skillspector whose version an exit-3 record names (default:
 # skillspector on PATH; the version is null when there is none).
 #
-# What is written:
+# What is written, each with an `agentStacks.version` field naming the
+# CLI that audited (`agent-stacks --version`):
 #
 #   exit 0 or 1  the `agent-stacks audit --json` document, as printed
-#   exit 3       a small document saying the plugin could not be
-#                audited, with the reason the CLI gave and the
-#                SkillSpector version
+#   exit 3       when the reason is the plugin's own (nothing to audit,
+#                not an agent plugin, cannot read the plugin), a small
+#                document saying it could not be audited, with that
+#                reason and the SkillSpector version
 #
 # The new document is compared with the committed one with the fields
 # that change on every run left out: tool.osv.checkedAt (when osv.dev
 # answered) and plugins[].dir (the plugin's store path, which moves
 # with any rebuild of the package without its content changing). The
 # file is written only when something else differs, so a run that
-# finds what the last one found touches nothing.
+# finds what the last one found touches nothing. A new agent-stacks
+# version is a difference.
 #
 # Prints one line, "<package>: new|changed|unchanged (<score>)", and
-# exits 0. Exits 2, writing nothing, on what is not the plugin's
-# result: a usage error, an interrupted run, any other exit code, an
-# unreadable document, or an exit 3 whose reason is the runner's
-# (skillspector missing, api.osv.dev unreachable).
+# exits 0. Exits 2, writing nothing, on anything that is not the
+# plugin's result: a usage error, an interrupted run (exit 130), any
+# other exit code, an unreadable document, and every exit-3 reason
+# not listed above (a scan that failed or timed out, skillspector
+# missing, api.osv.dev unreachable, anything unforeseen). Those leave
+# the last good record in place.
 set -euo pipefail
 
 if [ $# -lt 2 ] || [ $# -gt 3 ]; then
@@ -90,7 +95,6 @@ case "$rc" in
       cat "$work/err.txt" >&2
       exit 2
     fi
-    jq . "$work/out.json" > "$work/new.json"
     ;;
   3)
     # "ERROR: cannot audit ./result: <reason>", then hint lines
@@ -99,8 +103,12 @@ case "$rc" in
     if [ -z "$reason" ]; then
       reason=$(grep -v '^[[:space:]]*$' "$work/err.txt" | head -n 1 || true)
     fi
+    # Only what the plugin itself causes is its result: the CLI's
+    # reasons from validating and reading it (agent-stacks-cli
+    # internal/audit/audit/audit.go). Anything else is the run's.
     case "$reason" in
-      "skillspector is not on PATH"* | "api.osv.dev is unreachable"* | interrupted*)
+      "nothing to audit" | "not an agent plugin" | "not an agent plugin: "* | "cannot read the plugin: "*) ;;
+      *)
         echo "$package: not the plugin's result: $reason" >&2
         exit 2
         ;;
@@ -120,7 +128,8 @@ case "$rc" in
         reason: $reason,
         hints: $hints,
         tool: { name: "skillspector", version: (if $version == "" then null else $version end) }
-      }' > "$work/new.json"
+      }' > "$work/new.json.tmp"
+    mv "$work/new.json.tmp" "$work/out.json"
     ;;
   *)
     echo "$package: agent-stacks audit exited $rc" >&2
@@ -128,6 +137,14 @@ case "$rc" in
     exit 2
     ;;
 esac
+
+agent_stacks_version=$("$agent_stacks" --version 2> /dev/null | head -n 1 || true)
+if [ -z "$agent_stacks_version" ]; then
+  echo "$package: $agent_stacks --version printed nothing" >&2
+  exit 2
+fi
+jq --arg v "$agent_stacks_version" '. + { agentStacks: { version: $v } }' \
+  "$work/out.json" > "$work/new.json"
 
 # What a run changes without the result changing.
 volatile='del(.tool.osv.checkedAt?) | del(.plugins[]?.dir)'
