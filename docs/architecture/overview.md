@@ -37,7 +37,7 @@ is available ([ADR 0002](../decisions/0002-optional-check-phase.md)).
 
 `mkAgentStack` composes plugins and one harness into a stack: the
 neutral plugin layout, a launcher named after the stack, and an audit
-output. It bakes no per-harness trees, because `agent-stacks launch`
+output that security-audits each plugin. It bakes no per-harness trees, because `agent-stacks launch`
 adapts plugins to the agent just in time; how that staging works is
 described in the agent-stacks repo, `docs/architecture/launch.md`.
 

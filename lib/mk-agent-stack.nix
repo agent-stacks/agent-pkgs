@@ -154,13 +154,22 @@ let
     fi
     status=0
     stack_dir="${builtins.placeholder "out"}/share/agent-plugins"
-    for skill in "$stack_dir"/*/skills/*/; do
-      [ -f "$skill/SKILL.md" ] || continue
-      echo "==> $skill"
-      ${agentStacksBin} audit "$skill" --kind skill${
+    for plugin in "$stack_dir"/*/; do
+      [ -f "$plugin/plugin.json" ] || continue
+      echo "==> $plugin"
+      rc=0
+      ${agentStacksBin} audit "$plugin"${
         lib.optionalString (auditThreshold != null)
           " --threshold ${toString auditThreshold}"
-      } || status=1
+      } || rc=$?
+      case "$rc" in
+        0) ;;
+        3)
+          echo "==> $plugin: could not audit (see above)" >&2
+          status=1
+          ;;
+        *) status=1 ;;
+      esac
     done
     exit $status
   '';

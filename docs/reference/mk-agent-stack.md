@@ -24,7 +24,7 @@ repo, `docs/architecture/launch.md`.
 | `harness` | required | The agent to run. See below. |
 | `plugins` | `[ ]` | Packages built by `buildAgentPlugin`. |
 | `audit.tools` | defaults | Packages put on PATH by the audit script. |
-| `audit.threshold` | `null` | Score below which the audit script fails. |
+| `audit.threshold` | `null` | Score below which a plugin fails the audit script. |
 | `agentStacks` | this set's | The agent-stacks package the launcher and audit script run. |
 
 ## agent-stacks
@@ -123,6 +123,28 @@ The `audit` output is not built by default. Ask for it explicitly:
 nix build .#my-stack^audit
 ./result-audit/bin/my-stack-audit
 ```
+
+The script runs `agent-stacks audit` once per plugin in the stack, on
+each `share/agent-plugins/<plugin>/` directory that holds a
+`plugin.json`, and passes `--threshold` when `audit.threshold` is set.
+The audit is a security audit by NVIDIA SkillSpector alone; there is
+no per-skill run and no `--kind`. A stack with no plugins exits 0.
+
+It needs `skillspector` on PATH and network access to `api.osv.dev`.
+`audit.tools` puts its packages on PATH as before.
+
+Each `agent-stacks audit` exits:
+
+| Code | Meaning |
+| ---- | ------- |
+| 0 | Scored, and met the threshold. |
+| 1 | Scored below the threshold. |
+| 2 | Usage error. |
+| 3 | Could not audit: no score (SkillSpector missing, `api.osv.dev` unreachable, not a valid plugin). |
+
+The script exits 1 if any plugin exits 1, 3 or any other non-zero
+code, after auditing every plugin. On exit 3 it also prints
+`==> <plugin dir>: could not audit (see above)` to stderr.
 
 ## What fails to evaluate
 

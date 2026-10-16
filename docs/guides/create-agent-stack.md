@@ -297,8 +297,16 @@ nix build .#caveman-stack^audit
 ./result-audit/bin/caveman-stack-audit
 ```
 
-The audit script needs its tools on PATH; `doctor` lists which are
-missing and which audits they gate.
+The script audits each plugin in the stack, once per plugin
+directory, as a security audit by NVIDIA SkillSpector. It needs
+`skillspector` on PATH and network access to `api.osv.dev`; `doctor`
+lists which tools are missing. The script exits 0 when every plugin
+scored and met `audit.threshold`. It exits 1 if any plugin scored
+below the threshold or could not be audited (a plugin that could not
+be audited, for example because SkillSpector is missing or
+`api.osv.dev` is unreachable, gets its own message on stderr). See
+[mkAgentStack](../reference/mk-agent-stack.md#outputs) for the exit
+codes.
 
 ## How it works
 
