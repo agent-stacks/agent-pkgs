@@ -41,6 +41,16 @@ CI job that audits the plugins and for users who run
 `agent-stacks audit` themselves. It is not put on any stack's PATH:
 a stack has no audit of its own.
 
+We will wrap `pkgs/agent-stacks`, the published agent-stacks binary,
+so that this set's `skillspector` is first on its PATH. The CLI looks
+`skillspector` up on PATH, so an agent-stacks installed from this set
+audits with no separate install, and `nix run .#agent-stacks -- audit`
+runs the SkillSpector built here. Only this package is wrapped: the
+bare binary on downloads.agent-stacks.org is not, and needs
+`skillspector` installed beside it. Plugin builds run the bare binary
+(`passthru.unwrapped`): they assemble and check a plugin and never
+audit it, so they do not depend on SkillSpector.
+
 We will take SkillSpector's source as a flake input,
 `skillspector-src`, pinned to a release tag (`v2.12.0`) with
 `flake = false`, and build it from the `uv.lock` upstream ships
@@ -78,6 +88,12 @@ SkillSpector version.
   a reader can find in `flake.nix`.
 - `+` `agent-stacks/skillspector` is installable from the catalog, as
   the CLI's message says.
+- `+` `agent-stacks` from the catalog audits out of the box, with the
+  SkillSpector this set built.
+- `-` `agent-stacks`, and so every stack's launcher, carries
+  SkillSpector's Python closure, though only `audit` uses it.
+- `-` The wrapped package and the bare download behave differently:
+  the download still needs `skillspector` installed separately.
 - `+` Moving SkillSpector is a one-line tag edit and `nix flake lock`;
   no vendored lock, upgrade script or version label to maintain.
 - `+` The libraries evaluate against the nixpkgs the catalog serves,
@@ -94,5 +110,5 @@ SkillSpector version.
   so can rebuild or break SkillSpector unreviewed. Hydra reports a
   break after the lock has landed, and nothing records which
   interpreter or libyara an audit ran with.
-- `-` A consumer of this flake fetches four more inputs, though only
-  evaluating `skillspector` reads them.
+- `-` A consumer of this flake fetches four more inputs, read by
+  `skillspector` and so by `agent-stacks`.

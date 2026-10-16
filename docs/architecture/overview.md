@@ -61,6 +61,9 @@ flake inputs (`pyproject-nix`, `uv2nix`, `pyproject-build-systems`)
 that follow this flake's nixpkgs, and they and the source reach the
 package through the same scope
 ([ADR 0020](../decisions/0020-skillspector-is-packaged-for-the-plugin-audit.md)).
+`agent-stacks` is the published binary wrapped with `skillspector` on
+its PATH, so it audits with nothing else installed; plugin builds run
+the bare binary, its `passthru.unwrapped`.
 
 `packages` is wider than `pkgs/`. Every agent CLI packaged by
 `numtide/llm-agents.nix` is re-exported into it, rebuilt against the
