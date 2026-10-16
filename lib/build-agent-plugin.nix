@@ -260,11 +260,12 @@ let
       })
       resolvedRuntimes));
 
-  # An agent-stacks older than ignoredPaths copies the paths anyway.
-  # Empty when unset, so other packages' build phase is unchanged.
+  # An agent-stacks older than ignoredPaths copies the paths anyway;
+  # -L too, as -e is false for a copied link that dangles. Empty when
+  # unset, so other packages' build phase is unchanged.
   ignoredPathsGuard = lib.optionalString (ignoredPaths != null) (lib.concatStrings
     (lib.mapAttrsToList (skill: lib.concatMapStrings (path: "\n" + ''
-      if [ -e "$dest/skills/"${lib.escapeShellArg "${skill}/${path}"} ]; then
+      if [ -e "$dest/skills/"${lib.escapeShellArg "${skill}/${path}"} ] || [ -L "$dest/skills/"${lib.escapeShellArg "${skill}/${path}"} ]; then
         echo ${lib.escapeShellArg "buildAgentPlugin: ${name}: source.json keeps ${path} out of skill ${skill}, but assemble-plugin copied it; this agent-stacks predates ignoredPaths (agent-stacks ADR 0067)"} >&2
         exit 1
       fi
@@ -276,8 +277,10 @@ let
   # needing a file on disk.
   callFile = pkgs.writeText "source.json" (builtins.toJSON
     (lib.filterAttrs (_: v: v != null) {
-      inherit name skills manifest mcpServers hooks pluginRootPaths ignoredPaths;
+      inherit name skills manifest mcpServers hooks pluginRootPaths;
       inherit allowPathCommands extraSubstitutions;
+      # {} keeps nothing out, so it leaves the call as unset does.
+      ignoredPaths = if ignoredPaths == { } then null else ignoredPaths;
     }));
 in
 assert agentStacks != null || throw
