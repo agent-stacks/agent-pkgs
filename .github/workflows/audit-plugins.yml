@@ -1,0 +1,356 @@
+name: "Audit plugins"
+
+# Audits plugin packages with `agent-stacks audit` and commits each
+# result beside its package, as pkgs/agent-plugin-<name>/audit.json.
+# The build never reads that file; it is a record, not a gate. ADR 0021,
+# described in docs/reference/plugin-audit.md.
+#
+# Which packages a run audits:
+#
+#   push to main      the packages whose source.json changed; every
+#                     package when SkillSpector changed (pkgs/skillspector
+#                     or the skillspector-src input in flake.lock),
+#                     because the scoring changed with it
+#   schedule          every package, nightly: the CVE data SkillSpector
+#                     checks against moves without anything here moving
+#   workflow_dispatch one package, or every package when none is named
+#
+# A plugin that scores badly, or that cannot be audited, is recorded and
+# does not fail the run. Only what is not the plugin's result does: the
+# runner, nix, the network, or the CLI misbehaving.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "pkgs/agent-plugin-*/source.json"
+      - "pkgs/skillspector/**"
+      # Hourly, for nixpkgs. gather reads whether skillspector-src moved
+      # and audits nothing when it did not; that costs one runner
+      # without nix.
+      - "flake.lock"
+  schedule:
+    # Nightly, off the hour, and away from :17 and :37, where the other
+    # two workflows that push main run.
+    - cron: "47 2 * * *"
+  workflow_dispatch:
+    inputs:
+      package:
+        description: >-
+          The package to audit, agent-plugin-<name>. Empty audits every
+          plugin package. A dispatch from any branch other than main
+          audits but never commits.
+        type: string
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+# The workflow ends by pushing main, so runs are queued, never run side
+# by side, and never cancelled once running. GitHub keeps one pending
+# run per group: a push queued behind another is replaced by the next,
+# and the packages only it named wait for the nightly run.
+concurrency:
+  group: audit-plugins
+  cancel-in-progress: false
+
+env:
+  NIX_CONFIG: |
+    experimental-features = nix-command flakes
+    # The flake offers cache.numtide.com as a substituter. Without this,
+    # every nix command here opens with two warnings about ignoring it,
+    # because the runner's user is not a trusted user.
+    accept-flake-config = true
+    # Hydra's cache for this set, so the plugins and skillspector are
+    # fetched rather than built on the runner.
+    extra-substituters = https://cache.agent-stacks.org
+    extra-trusted-public-keys = agent-stacks-1:RWT4eI3clOY7jhOzIQNTyXL1Z8yQpN3KlNvvPMfFCRk=
+
+jobs:
+  # The packages this run audits, dealt round-robin across runners.
+  # Needs no nix: it reads git and the recorded files.
+  gather:
+    name: "Choose the packages to audit"
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+      any: ${{ steps.plan.outputs.any }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          # The push's own range, to diff it.
+          fetch-depth: 0
+
+      - name: "List the packages"
+        id: plan
+        env:
+          EVENT: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+          PACKAGE: ${{ inputs.package }}
+        run: |
+          set -euo pipefail
+
+          # Every plugin package that still has a default.nix.
+          all() {
+            for d in pkgs/agent-plugin-*/; do
+              [ -f "$d/default.nix" ] && basename "$d"
+            done
+          }
+
+          skillspector_rev() {
+            git show "$1:flake.lock" 2>/dev/null \
+              | jq -r '.nodes["skillspector-src"].locked.rev // empty' || true
+          }
+
+          case "$EVENT" in
+            workflow_dispatch)
+              if [ -z "$PACKAGE" ]; then
+                all > packages.txt
+              elif [ -f "pkgs/$PACKAGE/default.nix" ] && [[ "$PACKAGE" == agent-plugin-* ]]; then
+                echo "$PACKAGE" > packages.txt
+              else
+                echo "::error::$PACKAGE is not a plugin package under pkgs/"
+                exit 1
+              fi
+              ;;
+            push)
+              # A new branch or a forced push has no usable before.
+              if ! git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+                all > packages.txt
+              elif git diff --quiet "$BEFORE" HEAD -- pkgs/skillspector \
+                && [ "$(skillspector_rev "$BEFORE")" = "$(skillspector_rev HEAD)" ]; then
+                git diff --name-only "$BEFORE" HEAD -- 'pkgs/agent-plugin-*/source.json' \
+                  | cut -d/ -f2 | sort -u \
+                  | while read -r p; do
+                      [ -f "pkgs/$p/default.nix" ] && echo "$p"
+                    done > packages.txt || true
+              else
+                echo "SkillSpector changed; auditing every package"
+                all > packages.txt
+              fi
+              ;;
+            *)
+              all > packages.txt
+              ;;
+          esac
+
+          count=$(grep -c . packages.txt || true)
+          echo "$count package(s) to audit"
+          if [ "$count" -eq 0 ]; then
+            echo "any=false" >> "$GITHUB_OUTPUT"
+            echo 'matrix={"include":[]}' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "any=true" >> "$GITHUB_OUTPUT"
+
+          # Not one job per package: 300 jobs would spend more time
+          # starting runners and installing nix than auditing.
+          SHARDS=8
+          jq -R . < packages.txt | jq -sc --argjson n "$SHARDS" '
+            [ range(0; $n) as $i
+              | { shard: ($i + 1),
+                  packages: ( to_entries
+                              | map(select(.key % $n == $i) | .value)
+                              | join(" ") ) } ]
+            | map(select(.packages != ""))
+            | { include: . }' > matrix.json
+          echo "matrix=$(cat matrix.json)" >> "$GITHUB_OUTPUT"
+          jq -r '.include[] | "shard \(.shard): \(.packages | split(" ") | length) package(s)"' matrix.json
+
+  # Builds and audits each package of the shard, then hands what changed
+  # to `record` as a patch. fail-fast is off: one shard's runner fault
+  # must not stop the others' results from landing.
+  audit:
+    name: "Audit shard ${{ matrix.shard }}"
+    needs: gather
+    if: ${{ needs.gather.outputs.any == 'true' }}
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.gather.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - uses: ./.github/actions/nix-setup
+
+      # The repository's pinned agent-stacks, which pkgs/agent-stacks
+      # wraps with skillspector on its PATH. A pin from before the
+      # SkillSpector audit (agent-stacks-cli #186) still has --kind and
+      # no --raw; this workflow then has nothing to run, and says so
+      # rather than recording what the old audit prints.
+      - name: "Build the pinned agent-stacks"
+        id: cli
+        run: |
+          set -euo pipefail
+          nix build .#agent-stacks --out-link "$RUNNER_TEMP/agent-stacks"
+          # Only for the version an exit-3 record names; the audit runs
+          # the one the wrapper above puts on its own PATH.
+          nix build .#skillspector --out-link "$RUNNER_TEMP/skillspector"
+          bin="$RUNNER_TEMP/agent-stacks/bin/agent-stacks"
+          usage="$("$bin" audit --help 2>&1 || true)"
+          if grep -q -- '-kind' <<< "$usage" || ! grep -q -- '-raw' <<< "$usage"; then
+            echo "::notice::pinned agent-stacks predates the plugin audit; skipping"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+          {
+            echo "AGENT_STACKS_BIN=$bin"
+            echo "SKILLSPECTOR_BIN=$RUNNER_TEMP/skillspector/bin/skillspector"
+          } >> "$GITHUB_ENV"
+
+      - name: "Audit this shard's packages"
+        if: ${{ steps.cli.outputs.skip == 'false' }}
+        env:
+          PACKAGES: ${{ matrix.packages }}
+        run: |
+          set -uo pipefail
+          mkdir -p out
+          : > out/unbuilt.txt
+          : > out/faults.txt
+          read -ra packages <<< "$PACKAGES"
+          for p in "${packages[@]}"; do
+            echo "::group::$p"
+            # A package that does not build is Hydra's to report. It
+            # keeps its last audit and the run goes on.
+            if ! nix build ".#$p" --out-link "$RUNNER_TEMP/built/$p"; then
+              echo "$p" >> out/unbuilt.txt
+              echo "::warning::$p did not build; its audit.json is left as it was"
+            elif ! scripts/record-plugin-audit.sh "$p" "$RUNNER_TEMP/built/$p"; then
+              echo "$p" >> out/faults.txt
+              echo "::error::$p: the audit failed for a reason that is not the plugin's"
+            fi
+            echo "::endgroup::"
+          done
+
+      - name: "Record what this shard wrote"
+        if: ${{ always() && steps.cli.outputs.skip == 'false' }}
+        run: |
+          set -euo pipefail
+          mkdir -p out
+          git add -A pkgs
+          git diff --cached --binary HEAD -- 'pkgs/*/audit.json' > out/audit.patch
+          wc -c < out/audit.patch | xargs echo "patch bytes:"
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: ${{ always() && steps.cli.outputs.skip == 'false' }}
+        with:
+          name: audit-${{ matrix.shard }}
+          path: out
+          retention-days: 1
+
+      # After the upload, so the packages this shard did audit still
+      # land when one of them hit a runner fault.
+      - name: "Fail on runner faults"
+        if: ${{ steps.cli.outputs.skip == 'false' }}
+        run: |
+          if [ -s out/faults.txt ]; then
+            echo "Audits that failed for a reason that is not the plugin's:" >&2
+            cat out/faults.txt >&2
+            exit 1
+          fi
+
+  # One commit for the run, pushed straight to main. Not staged and
+  # verified the way the replay is: audit.json is read by no build and no
+  # check, so there is nothing for ci.yml to prove about it.
+  record:
+    name: "Commit the audits"
+    needs: [gather, audit]
+    # A shard that failed on a runner fault still uploaded what it
+    # audited, so this runs unless the run was cancelled or gather
+    # failed. Only from main: the token below bypasses the pull request
+    # main requires.
+    if: >-
+      ${{ !cancelled()
+      && needs.gather.result == 'success'
+      && needs.gather.outputs.any == 'true'
+      && github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-24.04
+    steps:
+      # The same app, and the same reasons, as update-agent-plugins.yml:
+      # main's rulesets refuse GITHUB_TOKEN's push, and the app is in
+      # their bypass list. No fallback to GITHUB_TOKEN.
+      - name: "Mint a token for the app that may push main"
+        id: app-token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          app-id: ${{ secrets.MANAGED_AGENT_STACKS_UPDATER_APP_ID }}
+          private-key: ${{ secrets.MANAGED_AGENT_STACKS_UPDATER_PRIVATE_KEY }}
+
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          fetch-depth: 0
+
+      # Allowed to find nothing: when every shard skipped, there is no
+      # artifact, and the next step then finds no patch to apply.
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        continue-on-error: true
+        with:
+          pattern: audit-*
+          path: shards
+
+      # Shards audit disjoint packages, so their patches apply in any
+      # order.
+      - name: "Apply what the shards wrote"
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          for patch in shards/audit-*/audit.patch; do
+            [ -s "$patch" ] || continue
+            git apply --index "$patch"
+          done
+          # A package directory removed since its last audit keeps no
+          # orphaned audit.json.
+          for f in pkgs/agent-plugin-*/audit.json; do
+            [ -f "$(dirname "$f")/default.nix" ] || git rm -q "$f"
+          done
+          unbuilt="$(cat shards/audit-*/unbuilt.txt 2>/dev/null | grep . || true)"
+          if [ -n "$unbuilt" ]; then
+            {
+              echo "### Packages that did not build, left unaudited"
+              echo
+              while IFS= read -r p; do echo "- $p"; done <<< "$unbuilt"
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      # Retried the way the other workflows land: main moving underneath
+      # is normal, so each attempt rebases the one commit onto the new
+      # main. Never a force. Only this workflow writes audit.json, so a
+      # rebase conflicts only with another run of it, which the
+      # concurrency group rules out.
+      - name: "Commit and push main"
+        env:
+          # gh looks up the bot user id for the commit identity below.
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          set -euo pipefail
+          if git diff --cached --quiet -- pkgs; then
+            echo "no audit changed"
+            exit 0
+          fi
+          git diff --cached --stat -- pkgs | tail -n 1
+          slug="${{ steps.app-token.outputs.app-slug }}"
+          git config user.name "${slug}[bot]"
+          id="$(gh api "/users/${slug}%5Bbot%5D" --jq .id 2>/dev/null || true)"
+          git config user.email "${id:+$id+}${slug}[bot]@users.noreply.github.com"
+          git commit -q -m "chore(audit): record plugin audits"
+          for attempt in 1 2 3 4 5; do
+            if git push origin "HEAD:refs/heads/main"; then
+              exit 0
+            fi
+            if [ "$attempt" -eq 5 ]; then
+              break
+            fi
+            echo "push rejected, attempt $attempt of 5; rebasing onto main" >&2
+            sleep 30
+            git fetch origin main
+            if ! git rebase origin/main; then
+              git rebase --abort || true
+              echo "the audit commit conflicts with main; nothing was pushed." >&2
+              exit 1
+            fi
+          done
+          echo "main moved under every attempt; nothing was pushed." >&2
+          echo "Run this workflow again." >&2
+          exit 1
