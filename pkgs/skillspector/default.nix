@@ -7,6 +7,12 @@
 # three. Ported from flox/floxenvs .flox/pkgs/skillspector, with that
 # repository's sibling wrapper packages for the uv2nix libraries
 # replaced by this flake's inputs (flake.nix, ADR 0020).
+#
+# hashes.json's version must be the one uv.lock locks; the
+# skillspector-version-matches-lock check in flake.nix fails otherwise.
+# python313 and yara (the libyara yara-python builds against) are not
+# pinned here: they come from this flake's nixpkgs and move with its
+# hourly bump. A known limit, ADR 0020.
 {
   lib,
   python313,

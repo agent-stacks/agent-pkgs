@@ -35,8 +35,10 @@
     # into a Python package set, pyproject-nix builds that set, and
     # pyproject-build-systems supplies the build backends the sdists
     # in it need. Libraries evaluated, not packages built, so all three
-    # follow our nixpkgs as their READMEs recommend, and the hourly
-    # flake.lock update moves them. ADR 0020.
+    # follow our nixpkgs as their READMEs recommend. The hourly
+    # flake.lock update leaves them alone: they shape the SkillSpector
+    # build the audit's score depends on, so they move only in a
+    # reviewed pull request. ADR 0020.
     pyproject-nix = {
       url = "github:pyproject-nix/pyproject.nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -293,6 +295,29 @@
                 (nixpkgs.lib.mapAttrsToList (pkg: name: "${pkg} -> ${name}") unresolved))
             else
               pkgs.runCommand "license-names-resolve" { } ''
+                touch $out
+              '';
+
+          # pkgs/skillspector labels itself with hashes.json's version,
+          # but what it builds is the skillspector uv.lock resolved.
+          # upgrade.sh writes both; a hand edit to one would publish a
+          # package whose name lies about the SkillSpector inside it.
+          # Read from the two files at evaluation time, so the package
+          # is never built here. ADR 0020.
+          skillspector-version-matches-lock =
+            let
+              labelled = (builtins.fromJSON (builtins.readFile ./pkgs/skillspector/hashes.json)).version;
+              lock = builtins.fromTOML (builtins.readFile ./pkgs/skillspector/uv.lock);
+              locked = map (p: p.version)
+                (builtins.filter (p: p.name == "skillspector") lock.package);
+            in
+            if locked != [ labelled ] then
+              throw ("pkgs/skillspector/hashes.json says version ${labelled}, "
+                + "but uv.lock locks skillspector at "
+                + (if locked == [ ] then "no version" else builtins.concatStringsSep ", " locked)
+                + "; run pkgs/skillspector/upgrade.sh rather than editing either file")
+            else
+              pkgs.runCommand "skillspector-version-matches-lock" { } ''
                 touch $out
               '';
 

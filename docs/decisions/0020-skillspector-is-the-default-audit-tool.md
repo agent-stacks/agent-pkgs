@@ -43,6 +43,23 @@ We will take the uv2nix libraries as flake inputs, `pyproject-nix`,
 the package through the `pkgs/` scope as arguments. They were first
 locked at the revisions floxenvs pinned.
 
+We will keep those three inputs out of the hourly flake.lock update.
+`update-flake-lock.yml` names the inputs it moves (`nixpkgs`,
+`llm-agents`) instead of updating all of them. The three shape the
+SkillSpector build the audit's score depends on, and no workflow
+builds packages before landing, so they move only through a reviewed
+pull request. A `skillspector-version-matches-lock` check asserts, at
+evaluation time, that the version in `hashes.json` is the one
+`uv.lock` locks, so the package's label cannot drift from what it
+builds.
+
+`python313` and `yara` (the libyara that `yara-python` builds against)
+come from this flake's nixpkgs, and so move with the hourly nixpkgs
+bump. We accept that as a known limit: pinning them apart from nixpkgs
+would need an overlay, and the interpreter and libyara do not decide
+what SkillSpector reports. The audit result names only the
+SkillSpector version.
+
 We will make `[ skillspector ]` the default in
 `mappings/audit-tools.nix`, so every stack's audit carries
 SkillSpector in its closure. `audit.tools` still replaces the list.
@@ -53,14 +70,19 @@ SkillSpector in its closure. `audit.tools` still replaces the list.
   and runs the SkillSpector this set built and tested.
 - `+` `agent-stacks/skillspector` is installable from the catalog, as
   the CLI's message says.
-- `+` The hourly `nix flake update` moves the uv2nix libraries; no
-  `hashes.json` or upgrade script per library to maintain.
+- `+` The uv2nix libraries move with `nix flake update <input>` in a
+  pull request; no `hashes.json` or upgrade script per library to
+  maintain.
 - `+` The libraries evaluate against the nixpkgs the catalog serves,
   so the package's closure is built from one nixpkgs.
-- `-` The hourly update can move the libraries to a revision that no
-  longer builds SkillSpector. CI evaluates `packages.*`, so an
-  evaluation break is caught there; a build break is caught by Hydra,
-  after the lock has landed.
+- `-` The libraries do not move on their own. Someone has to bump
+  them, and build `skillspector`, in a pull request.
+- `-` A new flake input is not updated hourly until it is added to the
+  workflow's list.
+- `-` The hourly nixpkgs bump still moves `python313` and `yara`, and
+  so can rebuild or break SkillSpector unreviewed. Hydra reports a
+  break after the lock has landed, and nothing records which
+  interpreter or libyara an audit ran with.
 - `-` SkillSpector itself and its Python dependencies do not move with
   the flake: `pkgs/skillspector/upgrade.sh` moves them, run by hand.
   No workflow runs it yet.
