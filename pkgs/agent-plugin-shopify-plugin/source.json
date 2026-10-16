@@ -1,11 +1,11 @@
 {
   "name": "shopify-plugin",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "src": {
     "owner": "Shopify",
     "repo": "Shopify-AI-Toolkit",
-    "rev": "3c32168c6e4cb73f0b46243c82586176ca58bb48",
-    "hash": "sha256-WZSX7QlFmwmVjxmKQWGf706IblnS+8eU4DijLSOV4sc="
+    "rev": "a788f6a87cad4be5dfac814605a7288dc9e8f3db",
+    "hash": "sha256-FODuce2zt3BC+1jHZuuSUR+Em1Dsdlc4itVWCviqo5Y="
   },
   "sourceUrl": "https://github.com/Shopify/Shopify-AI-Toolkit",
   "manifest": {
@@ -25,7 +25,7 @@
     ],
     "license": "MIT",
     "name": "shopify-plugin",
-    "version": "2.1.2"
+    "version": "2.2.0"
   },
   "skills": {
     "shopify": "skills/shopify",
@@ -113,6 +113,10 @@
       {
         "path": "scripts/track-telemetry.sh",
         "message": "this is named through ${PLUGIN_ROOT}, or sits at a plugin root a server runs from, and is not in the source; it resolves to nothing wherever the plugin is installed"
+      },
+      {
+        "path": "skills/shopify/assets/types.archive.br",
+        "message": "larger than 1MiB, so it was not read; a ${PLUGIN_ROOT} reference inside it ships nothing, and a script only it runs is not reported"
       },
       {
         "path": "package.json",
