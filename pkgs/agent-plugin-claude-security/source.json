@@ -41,6 +41,7 @@
   "pluginRootPaths": {
     "com.anthropic.claude-code/agents": "plugins/claude-security/agents",
     "com.anthropic.claude-code/hooks": "plugins/claude-security/hooks",
+    "com.anthropic.claude-code/workflows": "plugins/claude-security/workflows",
     "scripts": "plugins/claude-security/scripts"
   },
   "hooks": {
@@ -123,10 +124,6 @@
         "message": "must be a space-separated string, not a list of 23 tools"
       },
       {
-        "path": "plugins/claude-security/workflows",
-        "message": "Claude Code loads the plugin's workflows from here (1 file(s)); import does not package them"
-      },
-      {
         "path": "plugins/claude-security/hooks/hooks.json",
         "message": "Claude Code runs this on PermissionRequest: sh \"${CLAUDE_PLUGIN_ROOT}/hooks/hooks.sh\" unanswered || true"
       },
@@ -149,6 +146,10 @@
       {
         "path": "plugins/claude-security/hooks/hooks.json",
         "message": "Claude Code runs this on UserPromptExpansion: sh \"${CLAUDE_PLUGIN_ROOT}/hooks/hooks.sh\" banner"
+      },
+      {
+        "path": "plugins/claude-security/workflows",
+        "message": "Claude Code can run these as workflows: scan.js"
       },
       {
         "path": ".claude-plugin/marketplace.json",
