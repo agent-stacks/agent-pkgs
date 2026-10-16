@@ -36,10 +36,16 @@ is available ([ADR 0002](../decisions/0002-optional-check-phase.md)).
 ## Composition
 
 `mkAgentStack` composes plugins and one harness into a stack: the
-neutral plugin layout, a launcher named after the stack, and an audit
-output. It bakes no per-harness trees, because `agent-stacks launch`
-adapts plugins to the agent just in time; how that staging works is
-described in the agent-stacks repo, `docs/architecture/launch.md`.
+neutral plugin layout and a launcher named after the stack. It bakes
+no per-harness trees, because `agent-stacks launch` adapts plugins to
+the agent just in time; how that staging works is described in the
+agent-stacks repo, `docs/architecture/launch.md`.
+
+Auditing is not part of a stack
+([ADR 0021](../decisions/0021-a-stack-has-no-audit-output.md)). A
+built stack is audited with the CLI, `agent-stacks audit ./result`
+(agent-stacks-cli #187), or one plugin at a time,
+`agent-stacks audit ./result/share/agent-plugins/<name>` (#186).
 
 ## Package discovery
 

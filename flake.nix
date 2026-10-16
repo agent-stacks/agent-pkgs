@@ -163,7 +163,6 @@
           defaultAgentStacks = (mkPackages pkgs).agent-stacks;
         };
         mkAgentStack = pkgs.callPackage ./lib/mk-agent-stack.nix {
-          defaultAuditTools = import ./mappings/audit-tools.nix { inherit pkgs; };
           # Every stack runs the agent-stacks CLI from this set. Taken from
           # mkPackages rather than callPackage'd a second time, so the
           # stack and `nix run .#agent-stacks` are the same derivation. The
@@ -524,6 +523,27 @@
               [ "${(mkAllPackages pkgs).claude-code.meta.category}" = agent ]
               [ "${(mkAllPackages pkgs).ccusage.meta.category}" = agent-tool ]
               [ "${(mkAllPackages pkgs).agent-stacks.meta.category}" = agent-tool ]
+              touch $out
+            '';
+
+          # A stack has no audit output or option any more. A call still
+          # passing `audit` must fail evaluation with the reason, not
+          # build a stack that silently ignores it, and one without it
+          # must still build with the launcher as its only output.
+          stack-audit-removed =
+            let
+              lib' = mkLib pkgs;
+              call = extra: lib'.mkAgentStack ({
+                name = "no-audit-stack";
+                harness = "claude";
+              } // extra);
+              stack = call { };
+              refused = builtins.tryEval (call { audit = { }; }).drvPath;
+            in
+            assert !refused.success;
+            assert stack.outputs == [ "out" ];
+            pkgs.runCommand "stack-audit-removed" { } ''
+              [ -x ${stack}/bin/no-audit-stack ]
               touch $out
             '';
 
