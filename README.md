@@ -150,6 +150,7 @@ substituter`.
 | `lib/mk-agent-stack.nix` | `mkAgentStack` — compose plugins into a stack |
 | `pkgs/<name>/` | One package per plugin; auto-discovered, no central list |
 | `mappings/runtimes.nix` | Ecosystem runtime names to nixpkgs attributes |
+| `mappings/audit-tools.nix` | What a stack's audit script puts on PATH: SkillSpector |
 
 Add a package by dropping a directory into `pkgs/`. You can accomplish
 this by running `agent-stacks import <repo> --out pkgs`. In this

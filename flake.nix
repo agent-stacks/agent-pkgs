@@ -30,9 +30,31 @@
     # keep the bun-built packages substitutable, and following would
     # take that pin away.
     llm-agents.url = "github:numtide/llm-agents.nix";
+
+    # What pkgs/skillspector is built with: uv2nix turns its uv.lock
+    # into a Python package set, pyproject-nix builds that set, and
+    # pyproject-build-systems supplies the build backends the sdists
+    # in it need. Libraries evaluated, not packages built, so all three
+    # follow our nixpkgs as their READMEs recommend, and the hourly
+    # flake.lock update moves them. ADR 0020.
+    pyproject-nix = {
+      url = "github:pyproject-nix/pyproject.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    uv2nix = {
+      url = "github:pyproject-nix/uv2nix";
+      inputs.pyproject-nix.follows = "pyproject-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    pyproject-build-systems = {
+      url = "github:pyproject-nix/build-system-pkgs";
+      inputs.pyproject-nix.follows = "pyproject-nix";
+      inputs.uv2nix.follows = "uv2nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, llm-agents }:
+  outputs = { self, nixpkgs, llm-agents, pyproject-nix, uv2nix, pyproject-build-systems }:
     let
       # Every system this set is built, cached and published for.
       # x86_64-darwin is absent: Intel Macs are not a target.
@@ -163,7 +185,11 @@
           defaultAgentStacks = (mkPackages pkgs).agent-stacks;
         };
         mkAgentStack = pkgs.callPackage ./lib/mk-agent-stack.nix {
-          defaultAuditTools = import ./mappings/audit-tools.nix { inherit pkgs; };
+          # Lazy, like agentStacks below: skillspector builds no stack.
+          defaultAuditTools = import ./mappings/audit-tools.nix {
+            inherit pkgs;
+            inherit (mkPackages pkgs) skillspector;
+          };
           # Every stack runs the agent-stacks CLI from this set. Taken from
           # mkPackages rather than callPackage'd a second time, so the
           # stack and `nix run .#agent-stacks` are the same derivation. The
@@ -177,7 +203,12 @@
       mkPackages = pkgs:
         let
           lib' = mkLib pkgs;
-          scope = { inherit (lib') buildAgentPlugin mkAgentStack; } // built;
+          # The uv2nix inputs are in scope for pkgs/skillspector, which
+          # takes them as arguments; nothing else in pkgs/ names them.
+          scope = {
+            inherit (lib') buildAgentPlugin mkAgentStack;
+            inherit pyproject-nix uv2nix pyproject-build-systems;
+          } // built;
           built = nixpkgs.lib.genAttrs (pluginDirs pkgs) (name:
             pkgs.newScope scope (./pkgs + "/${name}") { });
         in
