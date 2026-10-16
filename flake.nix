@@ -372,6 +372,18 @@
               touch $out
             '';
 
+          # The script audit-plugins.yml records each plugin's audit
+          # with, against a stub agent-stacks: what it writes, that a
+          # run differing only in its timestamp writes nothing, and
+          # that a runner fault is never recorded as the plugin's.
+          record-plugin-audit = pkgs.runCommand "record-plugin-audit"
+            { nativeBuildInputs = [ pkgs.bash pkgs.coreutils pkgs.diffutils pkgs.jq pkgs.gnugrep pkgs.gnused ]; }
+            ''
+              bash ${./scripts/record-plugin-audit.test.sh} \
+                ${./scripts/record-plugin-audit.sh}
+              touch $out
+            '';
+
           agent-sandbox-nono-contract =
             let nono = "${(mkPackages pkgs).agent-sandbox-nono}/bin/agent-sandbox-nono"; in
             pkgs.runCommand "agent-sandbox-nono-contract" { nativeBuildInputs = [ pkgs.jq pkgs.nono ]; } ''
