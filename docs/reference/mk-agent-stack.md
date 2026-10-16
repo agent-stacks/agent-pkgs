@@ -120,25 +120,30 @@ so a stack does not need rebuilding when that wiring changes.
 
 ## Auditing a stack
 
-A stack has no audit output. It had one, `bin/<name>-audit`, which
-ran the same `agent-stacks audit` a user can run on the built stack,
-on the user's machine, and kept nothing of the result. Audit the
-built stack directly instead:
+A stack has no audit output
+([ADR 0021](../decisions/0021-a-stack-has-no-audit-output.md)). It
+had one, `bin/<name>-audit`, which ran `agent-stacks audit` on each
+plugin of the stack. Audit the built stack with the CLI instead:
 
 ```sh
 nix build .#my-stack
 agent-stacks audit ./result
 ```
 
-That needs an agent-stacks that takes a built stack as its target
-(agent-stacks-cli #187), `skillspector` on PATH, and network access
-to `api.osv.dev`. It audits each plugin under `share/agent-plugins/`;
-its exit codes and `--json` output are documented in the agent-stacks
-repo, `docs/reference/audit-command.md`.
+A built stack as the target needs an agent-stacks carrying
+agent-stacks-cli #187. One carrying only #186, the SkillSpector
+audit, takes one plugin at a time:
 
-The plugins in this repository are audited in CI. Each package's
-latest result is committed beside it as
-`pkgs/agent-plugin-<name>/audit.json`.
+```sh
+agent-stacks audit ./result/share/agent-plugins/<name>
+```
+
+Either needs `skillspector` on PATH and network access to
+`api.osv.dev`. The exit codes and `--json` output are documented in
+the agent-stacks repo, `docs/reference/audit-command.md`.
+
+Auditing this repository's plugins in CI, with each result kept
+beside the package, is proposed separately (ADR 0022).
 
 ## What fails to evaluate
 

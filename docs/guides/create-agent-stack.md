@@ -299,11 +299,11 @@ agent-stacks audit ./result
 ```
 
 That runs a security audit by NVIDIA SkillSpector on each plugin in
-the stack. It needs an agent-stacks that takes a built stack as its
-target, `skillspector` on PATH, and network access to `api.osv.dev`;
-`doctor` lists which tools are missing. The plugins in agent-pkgs are
-already audited in CI, and each package's latest result is in
-`pkgs/agent-plugin-<name>/audit.json`. See
+the stack. It needs an agent-stacks carrying agent-stacks-cli #187;
+with one carrying only #186, audit each plugin instead, as
+`agent-stacks audit ./result/share/agent-plugins/caveman`. Either
+needs `skillspector` on PATH and network access to `api.osv.dev`;
+`doctor` lists which tools are missing. See
 [mkAgentStack](../reference/mk-agent-stack.md#auditing-a-stack).
 
 ## How it works

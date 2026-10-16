@@ -124,16 +124,18 @@ let
       cp -R "${p}/${ap.path}" "$out/share/agent-plugins/${ap.name}"
     '';
 
-  # A stack had an `audit` output and option. Plugins are audited in
-  # CI now, with each result in pkgs/<plugin>/audit.json, and a built
-  # stack is audited with `agent-stacks audit ./result`. A call still
-  # passing the option is refused by name, so its author learns why.
+  # A stack had an `audit` output and option until ADR 0021. A call
+  # still passing the option is refused by name, so its author learns
+  # why and what to run instead.
   removedAudit = ''
-    mkAgentStack: stack '${name}' passes `audit`, which was removed.
-    A stack no longer builds an audit script. To audit a built stack:
+    mkAgentStack: stack '${name}' passes `audit`, which was removed
+    (ADR 0021). A stack no longer builds an audit script. Audit the
+    built stack with agent-stacks instead:
       agent-stacks audit ./result
-    Plugins in agent-pkgs are audited in CI; each package's result is
-    in pkgs/agent-plugin-<name>/audit.json. Drop `audit` from the call.
+    with an agent-stacks carrying agent-stacks-cli #187, or plugin by
+    plugin with one carrying #186:
+      agent-stacks audit ./result/share/agent-plugins/<name>
+    Drop `audit` from the call.
   '';
 in
 if args ? audit then throw removedAudit else
