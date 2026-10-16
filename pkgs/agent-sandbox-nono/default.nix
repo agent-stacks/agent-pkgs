@@ -29,12 +29,13 @@
   writeShellApplication,
   jq,
   coreutils,
+  findutils,
   nono,
 }:
 
 (writeShellApplication {
   name = "agent-sandbox-nono";
-  runtimeInputs = [ jq coreutils ];
+  runtimeInputs = [ jq coreutils findutils ];
   text = ''
     die() {
       echo "agent-sandbox-nono: $*" >&2
@@ -90,11 +91,22 @@
         die "cannot read MCP servers in $d/.mcp.json"
     done
 
-    # Claude's temp folder. Landlock attaches a rule only to a path that
-    # exists, so it is made before the sandbox goes up; otherwise Claude
-    # refuses to start on a machine whose /tmp was just cleared.
-    tmp=''${CLAUDE_CODE_TMPDIR:-/tmp/claude-$(id -u)}
+    # Claude's temp folder: Claude adds claude-<uid> to CLAUDE_CODE_TMPDIR
+    # (default /tmp). Landlock attaches a rule only to a path that exists,
+    # so it is made before the sandbox goes up; otherwise Claude refuses
+    # to start on a machine whose /tmp was just cleared. The profile is
+    # written there, and in a shared /tmp another user can make the
+    # folder first, so it must be ours and closed to everyone else.
+    tmp=''${CLAUDE_CODE_TMPDIR:-/tmp}
+    tmp=''${tmp%/}/claude-$(id -u)
     (umask 077 && mkdir -p "$tmp")
+    [ -d "$tmp" ] && [ ! -L "$tmp" ] && [ -O "$tmp" ] ||
+      die "$tmp is not a folder of yours; remove it, or set CLAUDE_CODE_TMPDIR to a folder you own"
+    chmod 700 "$tmp"
+
+    # exec leaves no chance to remove a launch's profile, so those from
+    # earlier days, long read by nono, are cleared here.
+    find "$tmp" -maxdepth 1 -name 'agent-sandbox-nono.*' -type f -mtime +0 -delete
 
     profile=$(mktemp "$tmp/agent-sandbox-nono.XXXXXX")
     jq -n --argjson o "$opts" --argjson mcp "$mcp_hosts" --arg tmp "$tmp" '{
@@ -129,10 +141,14 @@
     }' >"$profile"
 
     name=''${1##*/}
-    # Linux leaves TMPDIR unset, and /tmp itself is not writable inside,
-    # so mktemp would fail; point it at the temp folder instead.
+    # mktemp inside needs a TMPDIR it can write to. On Linux /tmp itself
+    # is not writable inside, and a TMPDIR from outside (/tmp, a nix-shell
+    # folder) is not granted, so it points at the temp folder; macOS's
+    # own TMPDIR is granted by nono and is kept.
     tmpenv=()
-    [ -n "''${TMPDIR:-}" ] || tmpenv=(env "TMPDIR=$tmp")
+    if [ "$(uname -s)" = Linux ] || [ -z "''${TMPDIR:-}" ]; then
+      tmpenv=(env "TMPDIR=$tmp")
+    fi
     set -- "''${tmpenv[@]}" "$nono" run -s --no-diagnostics --allow-cwd --profile "$profile" -- "$@"
     if [ -n "''${AGENT_SANDBOX_NONO_DRY_RUN:-}" ]; then
       cat "$profile"
