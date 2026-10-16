@@ -68,6 +68,9 @@
   # the skills and servers reference, and a Claude plugin's agents/,
   # commands/ and hooks/ (ADR 0016; agent-stacks ADRs 0035, 0037).
 , pluginRootPaths ? null
+  # skill name -> paths --path-ignore kept out of it (agent-stacks
+  # ADR 0067)
+, ignoredPaths ? null
   # mcp server configs, serialized to mcp.json; attrset of server
   # name -> config (type/command/...)
 , mcpServers ? null
@@ -257,6 +260,17 @@ let
       })
       resolvedRuntimes));
 
+  # An agent-stacks older than ignoredPaths copies the paths anyway;
+  # -L too, as -e is false for a copied link that dangles. Empty when
+  # unset, so other packages' build phase is unchanged.
+  ignoredPathsGuard = lib.optionalString (ignoredPaths != null) (lib.concatStrings
+    (lib.mapAttrsToList (skill: lib.concatMapStrings (path: "\n" + ''
+      if [ -e "$dest/skills/"${lib.escapeShellArg "${skill}/${path}"} ] || [ -L "$dest/skills/"${lib.escapeShellArg "${skill}/${path}"} ]; then
+        echo ${lib.escapeShellArg "buildAgentPlugin: ${name}: source.json keeps ${path} out of skill ${skill}, but assemble-plugin copied it; this agent-stacks predates ignoredPaths (agent-stacks ADR 0067)"} >&2
+        exit 1
+      fi
+    '')) ignoredPaths));
+
   # The builder call, handed to assemble-plugin as data. A generated
   # package's source.json is already exactly this; reconstructing it
   # here means a hand-written call gets the same treatment without
@@ -265,6 +279,8 @@ let
     (lib.filterAttrs (_: v: v != null) {
       inherit name skills manifest mcpServers hooks pluginRootPaths;
       inherit allowPathCommands extraSubstitutions;
+      # {} keeps nothing out, so it leaves the call as unset does.
+      ignoredPaths = if ignoredPaths == { } then null else ignoredPaths;
     }));
 in
 assert agentStacks != null || throw
@@ -316,7 +332,7 @@ stdenvNoCC.mkDerivation {
         echo "buildAgentPlugin: ${name}: hooks were given but assemble-plugin wrote no hooks file; this agent-stacks predates the hooks argument (ADR 0051)" >&2
         exit 1
       fi
-    ''}
+    ''}${ignoredPathsGuard}
 
     # Hook point for extensions: runs on the fully assembled tree,
     # before install and the checks. It used to run between the

@@ -601,7 +601,7 @@
               });
               written = [
                 "name" "version" "src" "sourceUrl" "manifest" "skills" "requiredRuntimes"
-                "pluginRootPaths" "mcpServers" "hooks" "meta" "import"
+                "pluginRootPaths" "ignoredPaths" "mcpServers" "hooks" "meta" "import"
               ];
               missing = builtins.filter (k: !(formals ? ${k})) written;
             in

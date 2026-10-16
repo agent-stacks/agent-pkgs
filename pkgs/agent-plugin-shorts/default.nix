@@ -7,18 +7,8 @@
 let
   source = builtins.fromJSON (builtins.readFile ./source.json);
   # BEGIN custom — kept as it is when this file is regenerated
-  # why: install.sh, uninstall.sh and uninstall.ps1 install or rm -rf an
-  # unpackaged copy under ~/.claude/skills, and the .ps1 is the only file
-  # naming pwsh. --path-ignore bounds discovery, not what a root skill
-  # ships, so they are removed before assembly scans the tree instead.
-  args = {
-    requiredRuntimes = builtins.filter (t: t != "pwsh") source.requiredRuntimes;
-  };
-  hooks = old: {
-    preBuild = ''
-      rm install.sh uninstall.sh uninstall.ps1
-    '';
-  };
+  args = { };
+  hooks = old: { };
   # END custom — anything outside these markers is overwritten
 in
 (buildAgentPlugin (source // args)).overrideAttrs hooks
