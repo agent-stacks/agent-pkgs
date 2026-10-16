@@ -288,25 +288,23 @@ A stack runs exactly one agent. For several agents over the same
 plugins, build multiple stacks. We may change this limitation in
 the future, please reach out if this is something you need!
 
-### The audit output
+### Auditing a stack
 
-Not built by default. Ask for it explicitly:
+A stack has no audit output of its own. Build it and audit the
+result with agent-stacks:
 
 ```sh
-nix build .#caveman-stack^audit
-./result-audit/bin/caveman-stack-audit
+nix build .#caveman-stack
+agent-stacks audit ./result
 ```
 
-The script audits each plugin in the stack, once per plugin
-directory, as a security audit by NVIDIA SkillSpector. It needs
-`skillspector` on PATH and network access to `api.osv.dev`; `doctor`
-lists which tools are missing. The script exits 0 when every plugin
-scored and met `audit.threshold`. It exits 1 if any plugin scored
-below the threshold or could not be audited (a plugin that could not
-be audited, for example because SkillSpector is missing or
-`api.osv.dev` is unreachable, gets its own message on stderr). See
-[mkAgentStack](../reference/mk-agent-stack.md#outputs) for the exit
-codes.
+That runs a security audit by NVIDIA SkillSpector on each plugin in
+the stack. It needs an agent-stacks that takes a built stack as its
+target, `skillspector` on PATH, and network access to `api.osv.dev`;
+`doctor` lists which tools are missing. The plugins in agent-pkgs are
+already audited in CI, and each package's latest result is in
+`pkgs/agent-plugin-<name>/audit.json`. See
+[mkAgentStack](../reference/mk-agent-stack.md#auditing-a-stack).
 
 ## How it works
 
