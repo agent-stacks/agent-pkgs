@@ -193,7 +193,10 @@
         # The reference is lazy: pkgs/agent-stacks is not built by
         # buildAgentPlugin, so naming it here does not recurse.
         buildAgentPlugin = pkgs.callPackage ./lib/build-agent-plugin.nix {
-          defaultAgentStacks = (mkPackages pkgs).agent-stacks;
+          # The bare binary, not the package wrapped with skillspector on
+          # its PATH: a plugin build assembles and checks, never audits,
+          # and the wrapper would make every plugin depend on SkillSpector.
+          defaultAgentStacks = (mkPackages pkgs).agent-stacks.unwrapped;
         };
         mkAgentStack = pkgs.callPackage ./lib/mk-agent-stack.nix {
           defaultAuditTools = import ./mappings/audit-tools.nix { inherit pkgs; };
