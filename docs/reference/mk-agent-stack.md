@@ -45,32 +45,6 @@ both are set:
 AGENT_STACKS_BIN=./agent-stacks ./result/bin/my-stack
 ```
 
-## Audit tools
-
-The audit script puts `audit.tools` on PATH before it runs
-`agent-stacks audit`. The stack audit is a security audit by NVIDIA
-SkillSpector alone, so the default is one package: this set's
-`skillspector` (`pkgs/skillspector`, version 2.12.0), from
-`mappings/audit-tools.nix`. A stack's audit therefore carries
-SkillSpector in its closure and needs no copy on the consumer's PATH.
-
-`audit.tools` replaces the default rather than adding to it:
-
-```nix
-mkAgentStack {
-  name = "my-stack";
-  harness = "claude";
-  plugins = [ agent-plugin-foo ];
-  audit.tools = [ my-skillspector ];
-}
-```
-
-With `audit.tools = [ ];` nothing is added to PATH, and the audit uses
-whatever `skillspector` the consumer has, if any. The package is also
-installable on its own, as `skillspector` in the `agent-stacks`
-catalog. Why it is packaged here is
-[ADR 0020](../decisions/0020-skillspector-is-the-default-audit-tool.md).
-
 ## The harness
 
 A stack runs exactly one agent. Three ways to name it:

@@ -48,4 +48,4 @@ on one of those links to it rather than restating it.
 | [0017](0017-checks-live-where-the-behaviour-lives.md) | Checks live where the behaviour lives; this flake does not assert what the binary writes |
 | [0018](0018-a-licence-named-in-meta.md) | A `meta.license` given as a string names a licence |
 | [0019](0019-an-upstream-bin-ships-beside-the-interpreter-links.md) | An upstream `bin/` ships beside the interpreter links |
-| [0020](0020-skillspector-is-the-default-audit-tool.md) | SkillSpector is packaged here and is every stack's audit tool |
+| [0020](0020-skillspector-is-packaged-for-the-plugin-audit.md) | SkillSpector is packaged here for the plugin audit |
