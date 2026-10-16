@@ -41,10 +41,11 @@ no per-harness trees, because `agent-stacks launch` adapts plugins to
 the agent just in time; how that staging works is described in the
 agent-stacks repo, `docs/architecture/launch.md`.
 
-Auditing is not part of a stack. The plugins are audited in CI, and
-each package's result is committed beside it as `audit.json`, which
-the build never reads. A built stack is audited with
-`agent-stacks audit ./result`.
+Auditing is not part of a stack
+([ADR 0021](../decisions/0021-a-stack-has-no-audit-output.md)). A
+built stack is audited with the CLI, `agent-stacks audit ./result`
+(agent-stacks-cli #187), or one plugin at a time,
+`agent-stacks audit ./result/share/agent-plugins/<name>` (#186).
 
 ## Package discovery
 
