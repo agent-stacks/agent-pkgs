@@ -290,6 +290,9 @@
               jq -e '.filesystem.denyRead | index("~/.ssh")' s.json
               jq -e '.filesystem.allowWrite | index("~/.claude") and index("~/.claude.json")' s.json
               jq -e '.network.deniedDomains == [] and .filesystem.denyWrite == []' s.json
+              # On Linux srt runs the bwrap the refusal message names.
+              if [ "$(uname -s)" = Linux ]; then jq -e '.bwrapPath | endswith("/bin/bwrap")' s.json; fi
+              if [ "$(uname -s)" = Darwin ]; then jq -e 'has("bwrapPath") | not' s.json; fi
               # srt does not follow macOS's /tmp -> /private/tmp link.
               if [ "$(uname -s)" = Darwin ]; then jq -e '.filesystem.allowWrite | index("/private/tmp")' s.json; fi
               # srt points TMPDIR here but does not create it on macOS.
