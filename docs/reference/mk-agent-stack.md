@@ -23,19 +23,21 @@ repo, `docs/architecture/launch.md`.
 | `name` | required | Stack name, and the launcher's name. |
 | `harness` | required | The agent to run. See below. |
 | `plugins` | `[ ]` | Packages built by `buildAgentPlugin`. |
-| `audit.tools` | defaults | Packages put on PATH by the audit script. |
-| `audit.threshold` | `null` | Score below which a plugin fails the audit script. |
-| `agentStacks` | this set's | The agent-stacks package the launcher and audit script run. |
+| `agentStacks` | this set's | The agent-stacks package the launcher runs. |
+
+`audit` is no longer an argument. Passing it fails evaluation with a
+message saying it was removed; see [Auditing a
+stack](#auditing-a-stack).
 
 ## agent-stacks
 
-The launcher and the audit script run the `agent-stacks` package the
+The launcher runs the `agent-stacks` package the
 stack was built against, so a stack carries its own agent in its
 closure instead of requiring one on the consumer's PATH. Stacks built
 from this repo get `pkgs/agent-stacks`; pass `agentStacks` to bind a
 different one.
 
-At run time, `AGENT_STACKS_BIN` overrides both scripts, for running a
+At run time, `AGENT_STACKS_BIN` overrides it, for running a
 stack against a local build. The deprecated `FLOX_AGENT_BIN` is still
 read as a fallback when `AGENT_STACKS_BIN` is unset, so an existing
 stack override does not break; `AGENT_STACKS_BIN` always wins when
@@ -111,40 +113,32 @@ Two limits are deliberate:
 | Output | Contents |
 | ------- | -------- |
 | `out` | `share/agent-plugins/<plugin>/` for each plugin, plus `bin/<name>`. |
-| `audit` | `bin/<name>-audit`. |
 
 The stack carries no per-harness directories. Adapting plugins to
 whatever the agent expects happens at launch, in `agent-stacks launch`,
 so a stack does not need rebuilding when that wiring changes.
 
-The `audit` output is not built by default. Ask for it explicitly:
+## Auditing a stack
+
+A stack has no audit output. It had one, `bin/<name>-audit`, which
+ran the same `agent-stacks audit` a user can run on the built stack,
+on the user's machine, and kept nothing of the result. Audit the
+built stack directly instead:
 
 ```sh
-nix build .#my-stack^audit
-./result-audit/bin/my-stack-audit
+nix build .#my-stack
+agent-stacks audit ./result
 ```
 
-The script runs `agent-stacks audit` once per plugin in the stack, on
-each `share/agent-plugins/<plugin>/` directory that holds a
-`plugin.json`, and passes `--threshold` when `audit.threshold` is set.
-The audit is a security audit by NVIDIA SkillSpector alone; there is
-no per-skill run and no `--kind`. A stack with no plugins exits 0.
+That needs an agent-stacks that takes a built stack as its target
+(agent-stacks-cli #187), `skillspector` on PATH, and network access
+to `api.osv.dev`. It audits each plugin under `share/agent-plugins/`;
+its exit codes and `--json` output are documented in the agent-stacks
+repo, `docs/reference/audit-command.md`.
 
-It needs `skillspector` on PATH and network access to `api.osv.dev`.
-`audit.tools` puts its packages on PATH as before.
-
-Each `agent-stacks audit` exits:
-
-| Code | Meaning |
-| ---- | ------- |
-| 0 | Scored, and met the threshold. |
-| 1 | Scored below the threshold. |
-| 2 | Usage error. |
-| 3 | Could not audit: no score (SkillSpector missing, `api.osv.dev` unreachable, not a valid plugin). |
-
-The script exits 1 if any plugin exits 1, 3 or any other non-zero
-code, after auditing every plugin. On exit 3 it also prints
-`==> <plugin dir>: could not audit (see above)` to stderr.
+The plugins in this repository are audited in CI. Each package's
+latest result is committed beside it as
+`pkgs/agent-plugin-<name>/audit.json`.
 
 ## What fails to evaluate
 
@@ -157,6 +151,7 @@ An invalid stack never builds:
 - a harness package without `meta.mainProgram`
 - a `harness` that is a Nix path literal, a list, or a number rather than
   a name, a binary path written as a string, or a package
+- an `audit` argument, which was removed
 
 ## Passthru
 
