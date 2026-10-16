@@ -49,3 +49,4 @@ on one of those links to it rather than restating it.
 | [0018](0018-a-licence-named-in-meta.md) | A `meta.license` given as a string names a licence |
 | [0019](0019-an-upstream-bin-ships-beside-the-interpreter-links.md) | An upstream `bin/` ships beside the interpreter links |
 | [0020](0020-skillspector-is-packaged-for-the-plugin-audit.md) | SkillSpector is packaged here for the plugin audit |
+| [0022](0022-plugins-are-audited-in-ci-and-the-result-is-kept-beside-the-package.md) | Plugins are audited in CI and the result is kept beside the package |
