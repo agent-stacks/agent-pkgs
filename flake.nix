@@ -202,10 +202,14 @@
           defaultAuditTools = import ./mappings/audit-tools.nix { inherit pkgs; };
           # Every stack runs the agent-stacks CLI from this set. Taken from
           # mkPackages rather than callPackage'd a second time, so the
-          # stack and `nix run .#agent-stacks` are the same derivation. The
-          # reference is lazy: pkgs/agent-stacks does not build a stack, so
-          # forcing it here does not recurse.
-          defaultAgentStacks = (mkPackages pkgs).agent-stacks;
+          # stack runs the same binary as `nix run .#agent-stacks`. The
+          # bare binary, not the package wrapped with skillspector on its
+          # PATH: a stack launches an agent and never audits, and the
+          # launcher passes its environment on, so the wrapper would put
+          # skillspector on every agent's PATH and its closure in every
+          # stack (ADR 0020). The reference is lazy: pkgs/agent-stacks
+          # does not build a stack, so forcing it here does not recurse.
+          defaultAgentStacks = (mkPackages pkgs).agent-stacks.unwrapped;
         };
         runtimeMappings = import ./mappings/runtimes.nix;
       };

@@ -261,8 +261,12 @@ jobs:
       - name: "Trust the runner's user"
         uses: ./.github/actions/trust-nix-user
 
+      # The bare binary, which carries the installCheck that runs it.
+      # pkgs/agent-stacks itself is that binary wrapped with skillspector
+      # on its PATH; building the wrapper here would make every pin bump
+      # build SkillSpector, and wait on a SkillSpector break (ADR 0020).
       - name: "Build agent-stacks"
-        run: nix build -L ".#packages.${{ matrix.system }}.agent-stacks"
+        run: nix build -L ".#packages.${{ matrix.system }}.agent-stacks.unwrapped"
 
   land:
     name: "Move main onto the staged commit"
