@@ -47,9 +47,14 @@ so that this set's `skillspector` is first on its PATH. The CLI looks
 audits with no separate install, and `nix run .#agent-stacks -- audit`
 runs the SkillSpector built here. Only this package is wrapped: the
 bare binary on downloads.agent-stacks.org is not, and needs
-`skillspector` installed beside it. Plugin builds run the bare binary
-(`passthru.unwrapped`): they assemble and check a plugin and never
-audit it, so they do not depend on SkillSpector.
+`skillspector` installed beside it. Plugin builds and stacks run the
+bare binary (`passthru.unwrapped`): a plugin build assembles and
+checks, and a stack launches an agent, and neither audits. A stack's
+launcher passes its environment to the agent, so the wrapper would
+otherwise put `skillspector` on every agent's PATH and its closure in
+every stack. `update-agent-stacks.yml` builds the bare binary too,
+which is where the installCheck that runs it lives, so a CLI pin bump
+neither builds SkillSpector nor waits on a SkillSpector break.
 
 We will take SkillSpector's source as a flake input,
 `skillspector-src`, pinned to a release tag (`v2.12.0`) with
@@ -57,7 +62,9 @@ We will take SkillSpector's source as a flake input,
 there. The package's version is the one that tag's `pyproject.toml`
 declares, and `flake.lock` pins the tag's revision. Nothing about
 SkillSpector is vendored here, so there is no local lock or version
-label to keep in step with it. SkillSpector moves by editing the tag
+label to keep in step with it. The tag resolves to revision c7958a3,
+not the 2226747 the formerly vendored lock pinned: both declare
+2.12.0, but the tree built is different, and so is the package. SkillSpector moves by editing the tag
 in `flake.nix` in a reviewed pull request, which also builds the
 package.
 
@@ -90,8 +97,9 @@ SkillSpector version.
   the CLI's message says.
 - `+` `agent-stacks` from the catalog audits out of the box, with the
   SkillSpector this set built.
-- `-` `agent-stacks`, and so every stack's launcher, carries
-  SkillSpector's Python closure, though only `audit` uses it.
+- `-` The `agent-stacks` package carries SkillSpector's Python
+  closure, though only `audit` uses it. Stacks and plugin builds do
+  not: they bind the bare binary.
 - `-` The wrapped package and the bare download behave differently:
   the download still needs `skillspector` installed separately.
 - `+` Moving SkillSpector is a one-line tag edit and `nix flake lock`;
