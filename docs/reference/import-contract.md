@@ -111,8 +111,11 @@ carries `manifest` in every case, and the builder writes it as
 vendors, not a fixed `1.0.0`. `mcpServers` is present when the plugin
 declares MCP servers, with `http` and untyped servers mapped by the
 importer to the transports the schema names, and the builder writes
-it as `mcp.json` with the manifest's `$schema` version. A file from
-an earlier importer is still built: such a file omits `manifest` when
+it as `mcp.json` with the manifest's `$schema` version. The server
+fields Claude reads and the schema does not define, `timeout` and
+`oauth`, are not in it: for a plugin Claude installs they travel in
+`manifest.extensions`, by server name (agent-stacks ADR 0068). A file
+from an earlier importer is still built: such a file omits `manifest` when
 the plugin's own `plugin.json` sits at the root and never carries
 `mcpServers`, and the builder then takes a root `plugin.json` that
 declares an `agent-plugins.org` `$schema`, and a root `mcp.json` that
