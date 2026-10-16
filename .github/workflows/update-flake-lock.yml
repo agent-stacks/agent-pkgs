@@ -79,12 +79,13 @@ jobs:
       - name: "Trust the runner's user"
         uses: ./.github/actions/trust-nix-user
 
-      # Named, not every input. pyproject-nix, uv2nix and
-      # pyproject-build-systems shape the SkillSpector build the stack
-      # audit's score depends on, and nothing here builds packages, so
-      # a bump of theirs would land unbuilt. They move only through a
-      # reviewed pull request (ADR 0020). A new input that should
-      # float hourly is added to this list.
+      # Named, not every input. skillspector-src, pyproject-nix, uv2nix
+      # and pyproject-build-systems shape the SkillSpector build the
+      # plugin audit's score depends on, and nothing here builds
+      # packages, so a bump of theirs would land unbuilt. They move only
+      # through a reviewed pull request; SkillSpector itself by editing
+      # its tag in flake.nix (ADR 0020). A new input that should float
+      # hourly is added to this list.
       - name: "Update flake inputs"
         run: nix flake update nixpkgs llm-agents
 

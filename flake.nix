@@ -31,7 +31,16 @@
     # take that pin away.
     llm-agents.url = "github:numtide/llm-agents.nix";
 
-    # What pkgs/skillspector is built with: uv2nix turns its uv.lock
+    # SkillSpector's own source at a release tag, for pkgs/skillspector,
+    # which builds it from the uv.lock upstream ships there. The tag is
+    # the package's version. SkillSpector moves by editing the tag here
+    # in a reviewed pull request, never with the hourly update. ADR 0020.
+    skillspector-src = {
+      url = "github:NVIDIA/SkillSpector/v2.12.0";
+      flake = false;
+    };
+
+    # What pkgs/skillspector is built with: uv2nix turns that uv.lock
     # into a Python package set, pyproject-nix builds that set, and
     # pyproject-build-systems supplies the build backends the sdists
     # in it need. Libraries evaluated, not packages built, so all three
@@ -56,7 +65,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, llm-agents, pyproject-nix, uv2nix, pyproject-build-systems }:
+  outputs = { self, nixpkgs, llm-agents, skillspector-src, pyproject-nix, uv2nix, pyproject-build-systems }:
     let
       # Every system this set is built, cached and published for.
       # x86_64-darwin is absent: Intel Macs are not a target.
@@ -187,11 +196,7 @@
           defaultAgentStacks = (mkPackages pkgs).agent-stacks;
         };
         mkAgentStack = pkgs.callPackage ./lib/mk-agent-stack.nix {
-          # Lazy, like agentStacks below: skillspector builds no stack.
-          defaultAuditTools = import ./mappings/audit-tools.nix {
-            inherit pkgs;
-            inherit (mkPackages pkgs) skillspector;
-          };
+          defaultAuditTools = import ./mappings/audit-tools.nix { inherit pkgs; };
           # Every stack runs the agent-stacks CLI from this set. Taken from
           # mkPackages rather than callPackage'd a second time, so the
           # stack and `nix run .#agent-stacks` are the same derivation. The
@@ -205,11 +210,12 @@
       mkPackages = pkgs:
         let
           lib' = mkLib pkgs;
-          # The uv2nix inputs are in scope for pkgs/skillspector, which
-          # takes them as arguments; nothing else in pkgs/ names them.
+          # SkillSpector's source and the uv2nix inputs are in scope for
+          # pkgs/skillspector, which takes them as arguments; nothing
+          # else in pkgs/ names them.
           scope = {
             inherit (lib') buildAgentPlugin mkAgentStack;
-            inherit pyproject-nix uv2nix pyproject-build-systems;
+            inherit skillspector-src pyproject-nix uv2nix pyproject-build-systems;
           } // built;
           built = nixpkgs.lib.genAttrs (pluginDirs pkgs) (name:
             pkgs.newScope scope (./pkgs + "/${name}") { });
@@ -295,29 +301,6 @@
                 (nixpkgs.lib.mapAttrsToList (pkg: name: "${pkg} -> ${name}") unresolved))
             else
               pkgs.runCommand "license-names-resolve" { } ''
-                touch $out
-              '';
-
-          # pkgs/skillspector labels itself with hashes.json's version,
-          # but what it builds is the skillspector uv.lock resolved.
-          # upgrade.sh writes both; a hand edit to one would publish a
-          # package whose name lies about the SkillSpector inside it.
-          # Read from the two files at evaluation time, so the package
-          # is never built here. ADR 0020.
-          skillspector-version-matches-lock =
-            let
-              labelled = (builtins.fromJSON (builtins.readFile ./pkgs/skillspector/hashes.json)).version;
-              lock = builtins.fromTOML (builtins.readFile ./pkgs/skillspector/uv.lock);
-              locked = map (p: p.version)
-                (builtins.filter (p: p.name == "skillspector") lock.package);
-            in
-            if locked != [ labelled ] then
-              throw ("pkgs/skillspector/hashes.json says version ${labelled}, "
-                + "but uv.lock locks skillspector at "
-                + (if locked == [ ] then "no version" else builtins.concatStringsSep ", " locked)
-                + "; run pkgs/skillspector/upgrade.sh rather than editing either file")
-            else
-              pkgs.runCommand "skillspector-version-matches-lock" { } ''
                 touch $out
               '';
 

@@ -10,8 +10,7 @@
 { lib
 , stdenvNoCC
 , runtimeShell
-  # From mappings/audit-tools.nix: SkillSpector. Empty only for a caller
-  # outside this flake that binds none.
+  # From mappings/audit-tools.nix; see that file for why it may be empty.
 , defaultAuditTools ? [ ]
   # The agent-stacks package the launcher and audit script run.
   # agent-pkgs binds pkgs/agent-stacks here; null falls back to PATH

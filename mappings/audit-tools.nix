@@ -1,13 +1,13 @@
-# Default audit tools: what a stack's audit script puts on PATH.
+# Default audit tools a stack's audit script puts on PATH.
 #
-# The stack audit is a security audit by NVIDIA SkillSpector alone:
-# `agent-stacks audit` runs `skillspector` from PATH and scores each
-# plugin from its findings. So the default is that one package, built
-# here from pkgs/skillspector, and a stack's audit carries it in its
-# closure instead of depending on a copy the consumer installed.
+# `agent-stacks audit` probes PATH for the tools it knows: skill-tools,
+# skill-validator, claudelint, agnix, cclint, skillcheck, skillspector.
+# Whatever is present is used; whatever is missing is skipped, so an
+# empty list still produces a working audit.
 #
-# `audit.tools` in a mkAgentStack call replaces this list, for a stack
-# that wants a different SkillSpector, or other tools, on that PATH.
-{ pkgs, skillspector }:
+# Entries land here as these tools are packaged into agent-pkgs.
+# Until then a stack audits with whatever the consumer already has,
+# and `audit.tools` lets a stack pin its own set.
+{ pkgs }:
 
-[ skillspector ]
+[ ]
