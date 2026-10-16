@@ -129,16 +129,20 @@
     if [ "$(uname -s)" = Linux ] &&
       [ "$(cat /proc/sys/kernel/apparmor_restrict_unprivileged_userns 2>/dev/null)" = 1 ] &&
       ! "$srt" --settings "$settings" -- true >/dev/null 2>&1; then
+      # Named after bwrap's store hash, so installs on other nixpkgs keep
+      # their own profile rather than replacing each other's.
+      aa=''${bwrap#/nix/store/}
+      aa=agent-sandbox-srt-''${aa:0:8}
       die "srt cannot start a sandbox here: this kernel restricts unprivileged user namespaces.
 Fix it once, as root, with either:
   - an AppArmor profile granting userns to srt's bwrap, for example
-    /etc/apparmor.d/agent-sandbox-srt holding
+    /etc/apparmor.d/$aa holding
       abi <abi/4.0>,
       include <tunables/global>
-      profile agent-sandbox-srt $bwrap flags=(unconfined) {
+      profile $aa $bwrap flags=(unconfined) {
         userns,
       }
-    then: apparmor_parser -r /etc/apparmor.d/agent-sandbox-srt
+    then: apparmor_parser -r /etc/apparmor.d/$aa
     (it names a /nix/store path, so redo it when bubblewrap is updated), or
   - sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 (relaxes it for the whole host)"
     fi
