@@ -90,8 +90,14 @@
         die "cannot read MCP servers in $d/.mcp.json"
     done
 
-    profile=$(mktemp "''${TMPDIR:-/tmp}/agent-sandbox-nono.XXXXXX")
-    jq -n --argjson o "$opts" --argjson mcp "$mcp_hosts" '{
+    # Claude's temp folder. Landlock attaches a rule only to a path that
+    # exists, so it is made before the sandbox goes up; otherwise Claude
+    # refuses to start on a machine whose /tmp was just cleared.
+    tmp=''${CLAUDE_CODE_TMPDIR:-/tmp/claude-$(id -u)}
+    (umask 077 && mkdir -p "$tmp")
+
+    profile=$(mktemp "$tmp/agent-sandbox-nono.XXXXXX")
+    jq -n --argjson o "$opts" --argjson mcp "$mcp_hosts" --arg tmp "$tmp" '{
       meta: { name: "agent-stacks-claude", description: "Claude Code under agent-stacks" },
       extends: "default",
       groups: { include: [
@@ -105,7 +111,7 @@
       filesystem: ({
         allow: ([
           "$HOME/.claude", "$HOME/.local/state/claude/locks", "$HOME/.cache/claude",
-          "/tmp/claude-$UID", { path: "$HOME/Library/Keychains", when: "macos" }
+          $tmp, { path: "$HOME/Library/Keychains", when: "macos" }
         ] + ($o.allowWrite // [])),
         read: ["/nix/store"],
         allow_file: ["$HOME/.claude.json", "$HOME/.claude.json.lock", "$HOME/.claude.lock"],
@@ -123,7 +129,11 @@
     }' >"$profile"
 
     name=''${1##*/}
-    set -- "$nono" run -s --no-diagnostics --allow-cwd --profile "$profile" -- "$@"
+    # Linux leaves TMPDIR unset, and /tmp itself is not writable inside,
+    # so mktemp would fail; point it at the temp folder instead.
+    tmpenv=()
+    [ -n "''${TMPDIR:-}" ] || tmpenv=(env "TMPDIR=$tmp")
+    set -- "''${tmpenv[@]}" "$nono" run -s --no-diagnostics --allow-cwd --profile "$profile" -- "$@"
     if [ -n "''${AGENT_SANDBOX_NONO_DRY_RUN:-}" ]; then
       cat "$profile"
       echo "would run: $*" >&2

@@ -331,6 +331,8 @@
             pkgs.runCommand "agent-sandbox-nono-contract" { nativeBuildInputs = [ pkgs.jq pkgs.nono ]; } ''
               set -u
               export HOME=$PWD/home TMPDIR=$PWD/tmp AGENT_SANDBOX_NONO_DRY_RUN=1
+              # Its own, or a macOS build would make /tmp/claude-<uid> for the build user.
+              export CLAUDE_CODE_TMPDIR=$PWD/agent-tmp
               mkdir -p $HOME $TMPDIR proj plugins/remote plugins/local
               cd proj
               printf '{"mcpServers":{"seo":{"type":"http","url":"https://app.openseo.so/mcp"}}}' > ../plugins/remote/.mcp.json
@@ -345,6 +347,14 @@
               # Network stays open until options name hosts.
               jq -e '.network.allow_domain == null and .network.block == false' p.json
               grep -q -- 'run -s --no-diagnostics --allow-cwd --profile .* -- claude --version' cmd
+              # Claude's temp folder exists before the sandbox goes up (Landlock
+              # drops a grant for a missing path) and is the one granted.
+              [ -d "$CLAUDE_CODE_TMPDIR" ] || { echo "temp folder not created"; exit 1; }
+              jq -e --arg t "$CLAUDE_CODE_TMPDIR" '.filesystem.allow | index($t)' p.json
+              # TMPDIR is kept when set, and pointed at that folder when not.
+              if grep -q 'TMPDIR=' cmd; then echo "replaced a set TMPDIR"; exit 1; fi
+              (unset TMPDIR; ${nono} -- true >/dev/null 2>cmd2)
+              grep -q -- "TMPDIR=$CLAUDE_CODE_TMPDIR " cmd2 || { echo "TMPDIR not set when unset"; cat cmd2; exit 1; }
               ${nono} --options '{"allowedDomains":["example.com"],"allowWrite":["/data"],"denyRead":["~/.aws"]}' -- true > o.json 2>/dev/null
               nono profile validate o.json
               jq -e '.network.allow_domain | index("example.com") and index("api.anthropic.com") and index("platform.claude.com") and index("app.openseo.so")' o.json
