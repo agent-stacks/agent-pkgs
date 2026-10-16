@@ -14,6 +14,13 @@
       "name": "ReScienceLab"
     },
     "description": "Create logos using AI image generation. Discuss style/ratio, generate variations, iterate with user feedback, crop, remove background, and export as SVG.",
+    "extensions": {
+      "com.anthropic.claude-code": {
+        "commands": [
+          "./scripts/"
+        ]
+      }
+    },
     "homepage": "https://opc.dev/skills/logo-creator",
     "keywords": [
       "logo",
@@ -52,6 +59,10 @@
       {
         "path": "skills/archive/SKILL.md",
         "message": "outside every imported plugin, not imported; --plugin skills/archive=NAME imports it"
+      },
+      {
+        "path": "skills/logo-creator/.claude-plugin/plugin.json",
+        "message": "commands: \"./scripts/\" holds no .md file, so Claude Code loads no commands from it; not packaged"
       },
       {
         "path": "template/SKILL.md",

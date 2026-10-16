@@ -14,6 +14,13 @@
       "name": "ReScienceLab"
     },
     "description": "SEO & GEO (Generative Engine Optimization) for websites. Optimize for AI search engines (ChatGPT, Perplexity, Gemini, Copilot, Claude) and traditional search (Google, Bing).",
+    "extensions": {
+      "com.anthropic.claude-code": {
+        "commands": [
+          "./scripts/"
+        ]
+      }
+    },
     "homepage": "https://opc.dev/skills/seo-geo",
     "keywords": [
       "seo",
@@ -52,6 +59,10 @@
       {
         "path": "skills/archive/SKILL.md",
         "message": "outside every imported plugin, not imported; --plugin skills/archive=NAME imports it"
+      },
+      {
+        "path": "skills/seo-geo/.claude-plugin/plugin.json",
+        "message": "commands: \"./scripts/\" holds no .md file, so Claude Code loads no commands from it; not packaged"
       },
       {
         "path": "template/SKILL.md",

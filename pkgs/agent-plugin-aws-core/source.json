@@ -14,11 +14,6 @@
       "name": "Amazon Web Services"
     },
     "description": "Build, deploy, and operate applications on AWS. Skills to author infrastructure-as-code (CDK, CloudFormation), use core services (Lambda, API Gateway, Step Functions, ECS/Fargate, ECR, IAM, Amazon Bedrock with Knowledge Bases and Guardrails, AWS Blocks), select and operate databases across relational, key-value, document, wide-column, graph, time-series, and in-memory engines, and complete common tasks across observability, messaging and streaming, AWS SDKs, cost optimization, and Well-Architected Framework reviews across all six pillars.",
-    "extensions": {
-      "com.anthropic.claude-code": {
-        "hooks": "./com.anthropic.claude-code/hooks/hooks.json"
-      }
-    },
     "homepage": "https://aws.amazon.com/products/developer-tools/agent-toolkit-for-aws/",
     "keywords": [
       "aws",
@@ -158,6 +153,10 @@
     "input": "aws/agent-toolkit-for-aws",
     "flags": [],
     "warnings": [
+      {
+        "path": "plugins/aws-core/plugin.json",
+        "message": "extensions.com.anthropic.claude-code held hooks; replaced by what the Claude manifest declares, since Claude Code reads that manifest and launch reads this block"
+      },
       {
         "path": "skills",
         "message": "115 SKILL.md outside every imported plugin, not imported"
