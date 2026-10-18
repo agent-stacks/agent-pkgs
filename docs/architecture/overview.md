@@ -52,6 +52,19 @@ exposes `lib.buildAgentPlugin` and `lib.mkAgentStack` per system, and
 `checks` covering every package in `pkgs/` plus the
 `runtimes-failures` assertion.
 
+Not everything in `pkgs/` is a plugin. `agent-stacks`, the
+`agent-sandbox-*` launchers and `skillspector`, the scanner
+`agent-stacks audit` runs, are discovered the same way. `skillspector`
+is built with uv2nix from the `uv.lock` upstream ships at the release
+tag the `skillspector-src` input names. The uv2nix libraries are
+flake inputs (`pyproject-nix`, `uv2nix`, `pyproject-build-systems`)
+that follow this flake's nixpkgs, and they and the source reach the
+package through the same scope
+([ADR 0020](../decisions/0020-skillspector-is-packaged-for-the-plugin-audit.md)).
+`agent-stacks` is the published binary wrapped with `skillspector` on
+its PATH, so it audits with nothing else installed; plugin builds and
+stacks run the bare binary, its `passthru.unwrapped`.
+
 `packages` is wider than `pkgs/`. Every agent CLI packaged by
 `numtide/llm-agents.nix` is re-exported into it, rebuilt against the
 nixpkgs this set pins via that flake's `overlays.shared-nixpkgs`, and

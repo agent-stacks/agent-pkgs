@@ -30,9 +30,42 @@
     # keep the bun-built packages substitutable, and following would
     # take that pin away.
     llm-agents.url = "github:numtide/llm-agents.nix";
+
+    # SkillSpector's own source at a release tag, for pkgs/skillspector,
+    # which builds it from the uv.lock upstream ships there. The tag is
+    # the package's version. SkillSpector moves by editing the tag here
+    # in a reviewed pull request, never with the hourly update. ADR 0020.
+    skillspector-src = {
+      url = "github:NVIDIA/SkillSpector/v2.12.0";
+      flake = false;
+    };
+
+    # What pkgs/skillspector is built with: uv2nix turns that uv.lock
+    # into a Python package set, pyproject-nix builds that set, and
+    # pyproject-build-systems supplies the build backends the sdists
+    # in it need. Libraries evaluated, not packages built, so all three
+    # follow our nixpkgs as their READMEs recommend. The hourly
+    # flake.lock update leaves them alone: they shape the SkillSpector
+    # build the audit's score depends on, so they move only in a
+    # reviewed pull request. ADR 0020.
+    pyproject-nix = {
+      url = "github:pyproject-nix/pyproject.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    uv2nix = {
+      url = "github:pyproject-nix/uv2nix";
+      inputs.pyproject-nix.follows = "pyproject-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    pyproject-build-systems = {
+      url = "github:pyproject-nix/build-system-pkgs";
+      inputs.pyproject-nix.follows = "pyproject-nix";
+      inputs.uv2nix.follows = "uv2nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, llm-agents }:
+  outputs = { self, nixpkgs, llm-agents, skillspector-src, pyproject-nix, uv2nix, pyproject-build-systems }:
     let
       # Every system this set is built, cached and published for.
       # x86_64-darwin is absent: Intel Macs are not a target.
@@ -160,16 +193,23 @@
         # The reference is lazy: pkgs/agent-stacks is not built by
         # buildAgentPlugin, so naming it here does not recurse.
         buildAgentPlugin = pkgs.callPackage ./lib/build-agent-plugin.nix {
-          defaultAgentStacks = (mkPackages pkgs).agent-stacks;
+          # The bare binary, not the package wrapped with skillspector on
+          # its PATH: a plugin build assembles and checks, never audits,
+          # and the wrapper would make every plugin depend on SkillSpector.
+          defaultAgentStacks = (mkPackages pkgs).agent-stacks.unwrapped;
         };
         mkAgentStack = pkgs.callPackage ./lib/mk-agent-stack.nix {
           defaultAuditTools = import ./mappings/audit-tools.nix { inherit pkgs; };
           # Every stack runs the agent-stacks CLI from this set. Taken from
           # mkPackages rather than callPackage'd a second time, so the
-          # stack and `nix run .#agent-stacks` are the same derivation. The
-          # reference is lazy: pkgs/agent-stacks does not build a stack, so
-          # forcing it here does not recurse.
-          defaultAgentStacks = (mkPackages pkgs).agent-stacks;
+          # stack runs the same binary as `nix run .#agent-stacks`. The
+          # bare binary, not the package wrapped with skillspector on its
+          # PATH: a stack launches an agent and never audits, and the
+          # launcher passes its environment on, so the wrapper would put
+          # skillspector on every agent's PATH and its closure in every
+          # stack (ADR 0020). The reference is lazy: pkgs/agent-stacks
+          # does not build a stack, so forcing it here does not recurse.
+          defaultAgentStacks = (mkPackages pkgs).agent-stacks.unwrapped;
         };
         runtimeMappings = import ./mappings/runtimes.nix;
       };
@@ -177,7 +217,13 @@
       mkPackages = pkgs:
         let
           lib' = mkLib pkgs;
-          scope = { inherit (lib') buildAgentPlugin mkAgentStack; } // built;
+          # SkillSpector's source and the uv2nix inputs are in scope for
+          # pkgs/skillspector, which takes them as arguments; nothing
+          # else in pkgs/ names them.
+          scope = {
+            inherit (lib') buildAgentPlugin mkAgentStack;
+            inherit skillspector-src pyproject-nix uv2nix pyproject-build-systems;
+          } // built;
           built = nixpkgs.lib.genAttrs (pluginDirs pkgs) (name:
             pkgs.newScope scope (./pkgs + "/${name}") { });
         in
