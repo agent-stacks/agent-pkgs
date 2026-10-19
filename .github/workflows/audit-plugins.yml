@@ -57,8 +57,8 @@ permissions:
 # queued behind it would replace a pending nightly run, and the full
 # audit would be lost for a day. A push run that is replaced loses only
 # its packages, until the nightly run audits them. A nightly and a push
-# run can therefore overlap; record's retry loop puts its own files
-# back on top of whatever the other landed.
+# run can therefore overlap; record puts its own files back on top
+# of whatever the other landed, unless the package moved since.
 concurrency:
   group: audit-plugins-${{ github.event_name == 'schedule' && 'nightly' || 'changes' }}
   cancel-in-progress: false
@@ -168,7 +168,7 @@ jobs:
           jq -r '.include[] | "shard \(.shard): \(.packages | split(" ") | length) package(s)"' matrix.json
 
   # Builds and audits each package of the shard, then hands what changed
-  # to `record` as a patch. fail-fast is off: one shard's runner fault
+  # to `record`. fail-fast is off: one shard's runner fault
   # must not stop the others' results from landing.
   audit:
     name: "Audit shard ${{ matrix.shard }}"
@@ -242,14 +242,24 @@ jobs:
             echo "::endgroup::"
           done
 
+      # Each audit.json the shard wrote, whole, and beside it what the
+      # package was audited from: a hash of its default.nix and
+      # source.json. record puts an audit back only on a main where
+      # that hash still holds.
       - name: "Record what this shard wrote"
         if: ${{ always() && steps.cli.outputs.skip == 'false' }}
         run: |
           set -euo pipefail
-          mkdir -p out
-          git add -A pkgs
-          git diff --cached --binary HEAD -- 'pkgs/*/audit.json' > out/audit.patch
-          wc -c < out/audit.patch | xargs echo "patch bytes:"
+          mkdir -p out/audits
+          : > out/audited.tsv
+          git ls-files -m -o --exclude-standard -- 'pkgs/agent-plugin-*/audit.json' \
+            | while read -r f; do
+                p="$(basename "$(dirname "$f")")"
+                cp "$f" "out/audits/$p.json"
+                key="$(cat "pkgs/$p/default.nix" "pkgs/$p/source.json" | sha256sum | cut -d' ' -f1)"
+                printf '%s\t%s\n' "$p" "$key" >> out/audited.tsv
+              done
+          echo "$(grep -c . out/audited.tsv || true) audit(s) changed"
 
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: ${{ always() && steps.cli.outputs.skip == 'false' }}
@@ -302,31 +312,57 @@ jobs:
           fetch-depth: 0
 
       # Allowed to find nothing: when every shard skipped, there is no
-      # artifact, and the next step then finds no patch to apply.
+      # artifact, and the next step then finds nothing to record.
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         continue-on-error: true
         with:
           pattern: audit-*
           path: shards
 
-      # Shards audit disjoint packages, so their patches apply in any
-      # order. The files they wrote are also kept aside whole, for the
-      # push loop below to put back on a newer main.
-      - name: "Apply what the shards wrote"
+      # A shard's runner builds and scans third-party code, so what it
+      # hands back is checked before anything here commits it: only
+      # audit.json documents, for packages gather gave that shard, that
+      # are regular files and parse as a JSON object. Anything else
+      # fails the job before a push.
+      - name: "Collect what the shards wrote"
+        env:
+          MATRIX: ${{ needs.gather.outputs.matrix }}
         run: |
           set -euo pipefail
           shopt -s nullglob
-          for patch in shards/audit-*/audit.patch; do
-            [ -s "$patch" ] || continue
-            git apply --index "$patch"
-          done
           mkdir -p "$RUNNER_TEMP/audits"
-          git diff --cached --name-only --diff-filter=AM -- pkgs \
-            | while read -r f; do
-                mkdir -p "$RUNNER_TEMP/audits/$(dirname "$f")"
-                cp "$f" "$RUNNER_TEMP/audits/$f"
-              done
-          unbuilt="$(cat shards/audit-*/unbuilt.txt 2>/dev/null | grep . || true)"
+          : > "$RUNNER_TEMP/audits.tsv"
+          bad=0
+          for dir in shards/audit-*; do
+            shard="${dir#shards/audit-}"
+            [ -f "$dir/audited.tsv" ] || continue
+            if [[ ! "$shard" =~ ^[0-9]+$ ]]; then
+              echo "::error::$dir is not a shard's artifact"
+              bad=1
+              continue
+            fi
+            given=" $(jq -r --argjson s "$shard" \
+              '.include[] | select(.shard == $s) | .packages' <<< "$MATRIX") "
+            while IFS=$'\t' read -r p key; do
+              f="$dir/audits/$p.json"
+              if [[ ! "$p" =~ ^agent-plugin-[A-Za-z0-9._-]+$ ]] \
+                || [[ "$given" != *" $p "* ]] \
+                || [[ ! "$key" =~ ^[0-9a-f]{64}$ ]] \
+                || [ -L "$f" ] || [ ! -f "$f" ] \
+                || ! jq -e 'type == "object"' "$f" > /dev/null 2>&1; then
+                echo "::error::shard $shard handed back '$p', which is not an audit of a package it was given"
+                bad=1
+                continue
+              fi
+              cp "$f" "$RUNNER_TEMP/audits/$p.json"
+              printf '%s\t%s\n' "$p" "$key" >> "$RUNNER_TEMP/audits.tsv"
+            done < "$dir/audited.tsv"
+          done
+          if [ "$bad" -ne 0 ]; then
+            exit 1
+          fi
+          echo "$(grep -c . "$RUNNER_TEMP/audits.tsv" || true) audit(s) to record"
+          unbuilt="$(cat /dev/null shards/audit-*/unbuilt.txt | grep . || true)"
           if [ -n "$unbuilt" ]; then
             {
               echo "### Packages that did not build, left unaudited"
@@ -338,10 +374,14 @@ jobs:
       # Retried, because main moving underneath is normal. Not a rebase:
       # a nightly and a push run (separate concurrency groups) can both
       # rewrite one audit.json, and a rebase would stop on that
-      # conflict, or merge two JSON documents hunk by hunk. Each retry
-      # instead starts again from the new main and puts this run's files
-      # back whole. Both runs' results are fresh, so the later push
-      # winning is fine. Never a force.
+      # conflict, or merge two JSON documents hunk by hunk. Each attempt
+      # instead starts from the current main and puts this run's files
+      # back whole, but only for a package whose default.nix and
+      # source.json are still what was audited: when the hourly update
+      # bumped it meanwhile, this run's result is of the old source, and
+      # the push run that bump started audits the new one. Otherwise
+      # both runs' results are fresh, and the later push winning is
+      # fine. Never a force.
       - name: "Commit and push main"
         env:
           # gh looks up the bot user id for the commit identity below.
@@ -353,32 +393,40 @@ jobs:
           id="$(gh api "/users/${slug}%5Bbot%5D" --jq .id 2>/dev/null || true)"
           git config user.email "${id:+$id+}${slug}[bot]@users.noreply.github.com"
 
+          audits='pkgs/agent-plugin-*/audit.json'
+
           # Puts this run's files on the checked-out tree, drops an
-          # audit.json whose package is gone, and commits. Fails when
-          # there is nothing to commit.
-          stage() {
-            if [ -d "$RUNNER_TEMP/audits/pkgs" ]; then
-              cp -R "$RUNNER_TEMP/audits/pkgs/." pkgs/
-            fi
-            for f in pkgs/agent-plugin-*/audit.json; do
+          # audit.json whose package is gone, and commits only those
+          # paths. When that changes nothing, prints $1 and ends the
+          # step successfully. Not called under `if`, so any other
+          # failure fails the step.
+          stage_and_commit() {
+            while IFS=$'\t' read -r p key; do
+              [ -f "pkgs/$p/default.nix" ] || continue
+              now="$(cat "pkgs/$p/default.nix" "pkgs/$p/source.json" | sha256sum | cut -d' ' -f1)"
+              if [ "$now" != "$key" ]; then
+                echo "::notice::$p changed on main after it was audited; its audit is left to a later run"
+                continue
+              fi
+              cp "$RUNNER_TEMP/audits/$p.json" "pkgs/$p/audit.json"
+              git add "pkgs/$p/audit.json"
+            done < "$RUNNER_TEMP/audits.tsv"
+            for f in $audits; do
               [ -f "$f" ] || continue
-              if [ -f "$(dirname "$f")/default.nix" ]; then
-                git add "$f"
-              else
-                git rm -q --cached "$f" && rm -f "$f"
+              if [ ! -f "$(dirname "$f")/default.nix" ]; then
+                git rm -q --cached "$f"
+                rm -f "$f"
               fi
             done
-            if git diff --cached --quiet -- pkgs; then
-              return 1
+            if git diff --cached --quiet -- "$audits"; then
+              echo "$1"
+              exit 0
             fi
-            git diff --cached --stat -- pkgs | tail -n 1
-            git commit -q -m "chore(audit): record plugin audits"
+            git diff --cached --stat -- "$audits" | tail -n 1
+            git commit -q -m "chore(audit): record plugin audits" -- "$audits"
           }
 
-          if ! stage; then
-            echo "no audit changed"
-            exit 0
-          fi
+          stage_and_commit "no audit changed"
           for attempt in 1 2 3 4 5; do
             if git push origin "HEAD:refs/heads/main"; then
               exit 0
@@ -390,10 +438,7 @@ jobs:
             sleep 30
             git fetch origin main
             git reset -q --hard origin/main
-            if ! stage; then
-              echo "main already holds these audits"
-              exit 0
-            fi
+            stage_and_commit "main already holds these audits"
           done
           echo "main moved under every attempt; nothing was pushed." >&2
           echo "Run this workflow again." >&2
