@@ -1,11 +1,11 @@
 {
   "name": "stripe",
-  "version": "0.5.23",
+  "version": "8.0.1",
   "src": {
     "owner": "stripe",
     "repo": "ai",
-    "rev": "2f68b6e13ceab52310058fd60d3ea24adaf8df32",
-    "hash": "sha256-hZj+JHHPvSc29P4WArfTnKdhi1Cd/lIqjKZoasgrLLE="
+    "rev": "a8813a705651eaa68fab38943527a786ea5b411a",
+    "hash": "sha256-gq2Okw39kaApN2uBlYVfhar8xuZtr1egE6hh1avTE2Q="
   },
   "sourceUrl": "https://github.com/stripe/ai",
   "manifest": {
@@ -15,10 +15,90 @@
       "url": "https://stripe.com"
     },
     "description": "Stripe agent plugin with skills for Stripe integrations including best practices, API and SDK upgrade guidance, and a remote MCP server configuration.",
+    "extensions": {
+      "com.openai": {
+        "interface": {
+          "brandColor": "#533AFD",
+          "category": "Finance",
+          "composerIcon": "./assets/parallelogram.png",
+          "defaultPrompt": [
+            "Show me the list of my top customers",
+            "Which of my products are selling best?",
+            "Help me build a coffee subscription business"
+          ],
+          "developerName": "Stripe",
+          "displayName": "Stripe",
+          "logo": "./assets/parallelogram.png",
+          "longDescription": "Accept payments, offer financial services, and implement custom revenue models with Stripe. Includes best practices and our MCP server.",
+          "privacyPolicyURL": "https://stripe.com/privacy",
+          "shortDescription": "Accept payments, grow revenue.",
+          "supportURL": "https://support.stripe.com",
+          "termsOfServiceURL": "https://stripe.com/legal/ssa",
+          "websiteURL": "https://stripe.com"
+        },
+        "publication": {
+          "release_notes": "Assorted updates to Stripe's skills."
+        },
+        "review": {
+          "commerce": false,
+          "commerce_description": "This plugin does not sell products or process payments.",
+          "demo_recording_url": "https://www.youtube.com/watch?v=LbfBDvzeXec",
+          "test_cases": {
+            "negative": [
+              {
+                "description": "Debug application code where Stripe is incidental to the surrounding product context",
+                "user_prompt": "The settings page in our Stripe-powered SaaS application becomes unresponsive when users open the navigation menu. Review this React component and fix its state-management bug. The component does not call Stripe or process Stripe data."
+              },
+              {
+                "description": "Research Stripe as a company rather than its products, APIs, documentation, or user data",
+                "user_prompt": "Compare Stripe and Airbnb as potential employers based on their engineering cultures, office policies, and employee reviews."
+              },
+              {
+                "description": "Provide general accounting advice when Stripe is merely the source of funds",
+                "user_prompt": "My business receives most of its revenue through Stripe. Explain whether I should elect S corporation status and estimate the personal tax consequences using the income figures below."
+              }
+            ],
+            "positive": [
+              {
+                "description": "Get refunded payments and their reason",
+                "expected_behavior": "Below are all your payments that have been refunded and the reason for the refund\n\nAmount: $99.90 USD\nCustomer: Billie_Beier@yahoo.com\nPayment Date: [date fixtures were run]\nRefunded Date: [date fixtures were run]\nRefund Reason: Customer request\n\nAmount: $99.99 USD\nCustomer: Chaim.Fisher-Towne45@gmail.com\nPayment Date: [date fixtures were run]\nRefunded Date: [date fixtures were run]\nRefund Reason: Customer request\n\n*Test data is created by running fixtures/test-data.json against the test account.*",
+                "tools_triggered": "stripe_api_search stripe_api_details stripe_api_read",
+                "user_prompt": "Get refunded payments and their reason"
+              },
+              {
+                "description": "Find the customer with the email Allison26@hotmail.com",
+                "expected_behavior": "Customer Details for Allison26@hotmail.com\n\nFull Name: Ben Stiedemann\nStripe Email: Allison26@hotmail.com\nStripe Customer ID: [assigned at fixture creation]\n\n*Customer is created by running fixtures/test-data.json against the test account.*",
+                "tools_triggered": "stripe_api_search stripe_api_details stripe_api_read",
+                "user_prompt": "Find the customer with the email Allison26@hotmail.com"
+              },
+              {
+                "description": "Show cancelled subscriptions",
+                "expected_behavior": "Below is a list of all subscriptions in the Stripe account that have been canceled (including those scheduled for future cancellation).\n\nGeorge Abernathy\nEmail: Jocelyn.Boyer@hotmail.com\nPlan: HyperGrowAI Growth (Annual)\nCancellation Date: [date fixtures were run]\n\nJuanita Haley\nEmail: Billie_Beier@yahoo.com\nPlan: HyperGrowAI Growth (Annual)\nCancellation Date: [date fixtures were run]\n\n*Subscriptions are created and cancelled by running fixtures/test-data.json against the test account.*",
+                "tools_triggered": "stripe_api_search stripe_api_details stripe_api_read",
+                "user_prompt": "Show cancelled subscriptions"
+              },
+              {
+                "description": "Show my stripe account information",
+                "expected_behavior": "Here's what I can see for your Stripe account 👇\n\nStripe account details\nAccount ID: acct_1TrfPUDaGV12u0NB\nAPI keys & settings: https://dashboard.stripe.com/acct_1TrfPUDaGV12u0NB/apikeys\n\nIf you want, I can also: Check your current balance, List customers, List subscriptions, and more.",
+                "tools_triggered": "get_stripe_account_info",
+                "user_prompt": "Show my stripe account information"
+              },
+              {
+                "description": "List prices I have in the system",
+                "expected_behavior": "Here is the list of your prices\n\nHyperGrowAI Growth — Annual\nPrice: $99.90 / year\nPrice ID: [assigned at fixture creation]\n\nHyperGrowAI Growth — Monthly\nPrice: $9.99 / month\nPrice ID: [assigned at fixture creation]\n\n*Prices are created by running fixtures/test-data.json against the test account.*",
+                "tools_triggered": "stripe_api_search stripe_api_details stripe_api_read",
+                "user_prompt": "List prices I have in the system"
+              }
+            ]
+          }
+        }
+      }
+    },
     "homepage": "https://docs.stripe.com",
     "keywords": [
       "stripe",
       "payments",
+      "subscriptions",
       "webhooks",
       "api",
       "security"
@@ -26,7 +106,7 @@
     "license": "MIT",
     "name": "stripe",
     "repository": "https://github.com/stripe/ai",
-    "version": "0.5.23"
+    "version": "8.0.1"
   },
   "skills": {
     "connect-recommend": "providers/agent-plugins/plugin/skills/connect-recommend",
@@ -73,10 +153,6 @@
       },
       {
         "path": "providers/claude",
-        "message": "10 SKILL.md outside every imported plugin, not imported"
-      },
-      {
-        "path": "providers/codex",
         "message": "10 SKILL.md outside every imported plugin, not imported"
       },
       {
