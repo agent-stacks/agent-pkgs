@@ -8,12 +8,22 @@
 #
 # Everything that changes between builds lives in source.json, which the
 # update-agent-stacks workflow rewrites when agent-stacks/agent-stacks-cli
-# uploads a new commit. Nothing here is edited by hand; to move this package,
-# run that workflow rather than editing either file.
+# uploads a new commit. source.json is never edited by hand; to move this
+# package, run that workflow. This file is maintained by hand.
+#
+# The package is the binary wrapped so that this set's `skillspector` is on
+# its PATH. `agent-stacks audit` looks `skillspector` up on PATH and cannot
+# score without it, so an agent-stacks installed from this set audits with
+# no separate install. Only this package is wrapped: the bare binary on
+# downloads.agent-stacks.org is not, and needs `skillspector` installed
+# beside it. passthru.unwrapped is the bare binary, for builds that run
+# agent-stacks but never audit (buildAgentPlugin, flake.nix). ADR 0020.
 {
   lib,
   stdenvNoCC,
   fetchurl,
+  makeBinaryWrapper,
+  skillspector,
 }:
 
 let
@@ -41,24 +51,36 @@ let
   version = source.version or "${baseVersion}-unstable-${source.date}";
 
   system = stdenvNoCC.hostPlatform.system;
-in
 
-stdenvNoCC.mkDerivation {
-  pname = "agent-stacks-bin";
-  inherit version;
+  meta = {
+    description = "CLI for building, checking, importing, and launching agent plugins";
+    homepage = "https://downloads.agent-stacks.org/";
+    license = lib.licenses.unfree;
+    mainProgram = "agent-stacks";
+    platforms = lib.attrNames source.hashes;
+    # The CLI itself: not an agent, and not a plugin. ADR 0014.
+    category = "agent-tool";
+    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+  };
 
-  # Uploaded by the CI workflow in agent-stacks/agent-stacks-cli, one object
-  # per system per commit. Static (CGO_ENABLED=0), so the Linux binaries
-  # carry no interpreter pointing into a foreign store. Nothing under
-  # by-commit is ever rewritten, so these hashes stay valid for as long as
-  # the object exists.
-  src = fetchurl {
-    url =
-      "https://downloads.agent-stacks.org/agent-stacks/by-commit/${rev}"
-      + "/agent-stacks-${baseVersion}-${shortRev}-${system}";
-    hash =
-      source.hashes.${system}
-        or (throw "agent-stacks: no binary published for ${system}; see meta.platforms");
+  # The binary as published. Its pname keeps the -bin suffix too, so the
+  # unfree predicate admits it on its own.
+  unwrapped = stdenvNoCC.mkDerivation {
+    pname = "agent-stacks-bin";
+    inherit version meta;
+
+    # Uploaded by the CI workflow in agent-stacks/agent-stacks-cli, one object
+    # per system per commit. Static (CGO_ENABLED=0), so the Linux binaries
+    # carry no interpreter pointing into a foreign store. Nothing under
+    # by-commit is ever rewritten, so these hashes stay valid for as long as
+    # the object exists.
+    src = fetchurl {
+      url =
+        "https://downloads.agent-stacks.org/agent-stacks/by-commit/${rev}"
+        + "/agent-stacks-${baseVersion}-${shortRev}-${system}";
+      hash =
+        source.hashes.${system}
+          or (throw "agent-stacks: no binary published for ${system}; see meta.platforms");
   };
 
   # A bare executable, not an archive.
@@ -84,15 +106,22 @@ stdenvNoCC.mkDerivation {
     fi
     runHook postInstallCheck
   '';
-
-  meta = {
-    description = "CLI for building, checking, importing, and launching agent plugins";
-    homepage = "https://downloads.agent-stacks.org/";
-    license = lib.licenses.unfree;
-    mainProgram = "agent-stacks";
-    platforms = lib.attrNames source.hashes;
-    # The CLI itself: not an agent, and not a plugin. ADR 0014.
-    category = "agent-tool";
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
   };
+in
+
+stdenvNoCC.mkDerivation {
+  pname = "agent-stacks-bin";
+  inherit version meta;
+
+  dontUnpack = true;
+  nativeBuildInputs = [ makeBinaryWrapper ];
+
+  installPhase = ''
+    runHook preInstall
+    makeBinaryWrapper ${lib.getExe' unwrapped "agent-stacks"} "$out/bin/agent-stacks" \
+      --prefix PATH : ${lib.makeBinPath [ skillspector ]}
+    runHook postInstall
+  '';
+
+  passthru = { inherit unwrapped; };
 }
