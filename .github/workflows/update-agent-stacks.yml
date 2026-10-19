@@ -395,7 +395,7 @@ jobs:
         continue-on-error: true
         uses: ./.github/actions/sentry-checkin
         with:
-          dsn: ${{ secrets.SENTRY_DSN }}
+          dsn: ${{ secrets.MANAGED_PIPELINE_SENTRY_DSN }}
           monitor: agent-pkgs-update-agent-stacks
           results: ${{ toJSON(needs) }}
           fingerprint-extra: ${{ inputs.rev }}

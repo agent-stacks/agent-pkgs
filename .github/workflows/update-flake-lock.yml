@@ -63,7 +63,7 @@ jobs:
         continue-on-error: true
         uses: ./.github/actions/sentry-checkin
         with:
-          dsn: ${{ secrets.SENTRY_DSN }}
+          dsn: ${{ secrets.MANAGED_PIPELINE_SENTRY_DSN }}
           monitor: agent-pkgs-update-flake-lock
           schedule: "37 * * * *"
 
@@ -255,7 +255,7 @@ jobs:
         continue-on-error: true
         uses: ./.github/actions/sentry-checkin
         with:
-          dsn: ${{ secrets.SENTRY_DSN }}
+          dsn: ${{ secrets.MANAGED_PIPELINE_SENTRY_DSN }}
           monitor: agent-pkgs-update-flake-lock
           schedule: "37 * * * *"
           results: ${{ toJSON(needs) }}
