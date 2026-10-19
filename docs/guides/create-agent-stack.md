@@ -299,11 +299,9 @@ agent-stacks audit ./result
 ```
 
 That runs a security audit by NVIDIA SkillSpector on each plugin in
-the stack. It needs an agent-stacks carrying agent-stacks-cli #187;
-with one carrying only #186, audit each plugin instead, as
-`agent-stacks audit ./result/share/agent-plugins/caveman`. Either
-needs `skillspector` on PATH and network access to `api.osv.dev`;
-`doctor` lists which tools are missing. See
+the stack. It needs an agent-stacks carrying agent-stacks-cli #186,
+`skillspector` on PATH and network access to `api.osv.dev`.
+`doctor`'s `Audit` line says whether SkillSpector is installed. See
 [mkAgentStack](../reference/mk-agent-stack.md#auditing-a-stack).
 
 ## How it works
@@ -449,9 +447,28 @@ nix run github:agent-stacks/agent-pkgs#agent-stacks -- \
 ```
 
 ```text
-  Installed plugins: 1
-  Skills: 20
+agent-stacks 0.9.0 · flox extension not registered
+
+Plugins   1 installed, 20 skills
+          /home/you/project/result/share/agent-plugins
+Config    .agent-stacks (active)
+
+Agents
+  agent-deck  —         not installed; install agent-stacks/agent-deck
+  claude      —         not installed; install agent-stacks/claude-code
+  codex       —         not installed; install agent-stacks/codex
+  opencode    —         not installed; install agent-stacks/opencode
+  pi          —         not installed; install agent-stacks/pi
+  no agent installed; nothing can use these plugins
+
+Audit     skillspector not installed
+
+1 warning
 ```
+
+The stack's agent is not on your PATH, since the launcher carries its
+own, so `doctor` warns that no agent is installed. That is expected
+here; `Plugins` is the line to read.
 
 ## Where the details live
 
