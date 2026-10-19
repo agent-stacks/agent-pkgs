@@ -23,19 +23,21 @@ repo, `docs/architecture/launch.md`.
 | `name` | required | Stack name, and the launcher's name. |
 | `harness` | required | The agent to run. See below. |
 | `plugins` | `[ ]` | Packages built by `buildAgentPlugin`. |
-| `audit.tools` | defaults | Packages put on PATH by the audit script. |
-| `audit.threshold` | `null` | Score below which the audit script fails. |
-| `agentStacks` | this set's | The agent-stacks package the launcher and audit script run. |
+| `agentStacks` | this set's | The agent-stacks package the launcher runs. |
+
+`audit` is no longer an argument. Passing it fails evaluation with a
+message saying it was removed; see [Auditing a
+stack](#auditing-a-stack).
 
 ## agent-stacks
 
-The launcher and the audit script run the `agent-stacks` package the
+The launcher runs the `agent-stacks` package the
 stack was built against, so a stack carries its own agent in its
 closure instead of requiring one on the consumer's PATH. Stacks built
 from this repo get `pkgs/agent-stacks`; pass `agentStacks` to bind a
 different one.
 
-At run time, `AGENT_STACKS_BIN` overrides both scripts, for running a
+At run time, `AGENT_STACKS_BIN` overrides it, for running a
 stack against a local build. The deprecated `FLOX_AGENT_BIN` is still
 read as a fallback when `AGENT_STACKS_BIN` is unset, so an existing
 stack override does not break; `AGENT_STACKS_BIN` always wins when
@@ -111,18 +113,37 @@ Two limits are deliberate:
 | Output | Contents |
 | ------- | -------- |
 | `out` | `share/agent-plugins/<plugin>/` for each plugin, plus `bin/<name>`. |
-| `audit` | `bin/<name>-audit`. |
 
 The stack carries no per-harness directories. Adapting plugins to
 whatever the agent expects happens at launch, in `agent-stacks launch`,
 so a stack does not need rebuilding when that wiring changes.
 
-The `audit` output is not built by default. Ask for it explicitly:
+## Auditing a stack
+
+A stack has no audit output
+([ADR 0021](../decisions/0021-a-stack-has-no-audit-output.md)). It
+had one, `bin/<name>-audit`, which ran `agent-stacks audit` on each
+plugin of the stack. Audit the built stack with the CLI instead:
 
 ```sh
-nix build .#my-stack^audit
-./result-audit/bin/my-stack-audit
+nix build .#my-stack
+agent-stacks audit ./result
 ```
+
+A built stack as the target needs an agent-stacks carrying
+agent-stacks-cli #187. One carrying only #186, the SkillSpector
+audit, takes one plugin at a time:
+
+```sh
+agent-stacks audit ./result/share/agent-plugins/<name>
+```
+
+Either needs `skillspector` on PATH and network access to
+`api.osv.dev`. The exit codes and `--json` output are documented in
+the agent-stacks repo, `docs/reference/audit-command.md`.
+
+Auditing this repository's plugins in CI, with each result kept
+beside the package, is proposed separately (ADR 0022).
 
 ## What fails to evaluate
 
@@ -135,6 +156,7 @@ An invalid stack never builds:
 - a harness package without `meta.mainProgram`
 - a `harness` that is a Nix path literal, a list, or a number rather than
   a name, a binary path written as a string, or a package
+- an `audit` argument, which was removed
 
 ## Passthru
 
