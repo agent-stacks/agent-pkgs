@@ -14,6 +14,15 @@
       "name": "Amazon Web Services"
     },
     "description": "Investigate incidents, review code and execute UAT for release readiness, scan code for vulnerabilities, and run penetration tests with AWS DevOps Agent and AWS Security Agent.",
+    "extensions": {
+      "com.anthropic.claude-code": {
+        "mcpServerFields": {
+          "aws-devops-agent": {
+            "timeout": 120000
+          }
+        }
+      }
+    },
     "homepage": "https://aws.amazon.com/products/developer-tools/agent-toolkit-for-aws/",
     "keywords": [
       "aws",
@@ -78,6 +87,10 @@
     "input": "aws/agent-toolkit-for-aws",
     "flags": [],
     "warnings": [
+      {
+        "path": "plugins/aws-agents-for-devsecops/.mcp.json/mcpServers/aws-devops-agent",
+        "message": "Claude Code reads timeout here; carried in the manifest's extensions block, since mcp.json cannot hold them"
+      },
       {
         "path": "plugins/aws-agents-for-devsecops/.mcp.json/mcpServers/aws-devops-agent",
         "message": "url or headers carry ${DEVOPS_AGENT_TOKEN}; a conforming client does not expand them and sends the text as written"

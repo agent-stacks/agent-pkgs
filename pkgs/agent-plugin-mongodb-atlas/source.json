@@ -16,6 +16,17 @@
       "url": "https://www.mongodb.com"
     },
     "description": "Connect to MongoDB Atlas clusters only through the Atlas Managed MCP Server. Sign in with your Atlas account to explore data, manage collections, optimize queries, generate reliable code with MongoDB best practices, and manage Atlas resources such as clusters, projects, database users, and network access.\n\nIf you are running a different MongoDB deployment or want to run a local MongoDB MCP Server, install the MongoDB (Self-Managed MCP) plugin instead.",
+    "extensions": {
+      "com.anthropic.claude-code": {
+        "mcpServerFields": {
+          "mongodb-atlas": {
+            "oauth": {
+              "clientId": "https://claude.ai/oauth/claude-code-client-metadata"
+            }
+          }
+        }
+      }
+    },
     "homepage": "https://www.mongodb.com/docs/mcp-server/get-started/",
     "keywords": [
       "mongodb",
@@ -55,6 +66,10 @@
     "input": "mongodb/agent-skills",
     "flags": [],
     "warnings": [
+      {
+        "path": "plugins/mongodb-atlas/.claude-plugin/plugin.json/mcpServers/mongodb-atlas",
+        "message": "Claude Code reads oauth here; carried in the manifest's extensions block, since mcp.json cannot hold them"
+      },
       {
         "path": "skills",
         "message": "8 SKILL.md outside every imported plugin, not imported"

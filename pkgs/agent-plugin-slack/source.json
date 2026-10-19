@@ -4,8 +4,8 @@
   "src": {
     "owner": "slackapi",
     "repo": "slack-skills-plugin",
-    "rev": "725f34140894b577665afd72fcaecd842d6fd507",
-    "hash": "sha256-9NieP5WfkWBlLrHBtgjPTmfKvjVvxVtc/Vh2K7Zvv4A="
+    "rev": "9aa77f187c355f0caad9fea19a5667fbbeae59f0",
+    "hash": "sha256-UUCrJg7TYP1EOpsla1RXMWGr/8rx9Fa3SvyfaGHw1aA="
   },
   "sourceUrl": "https://github.com/slackapi/slack-skills-plugin",
   "manifest": {
@@ -15,6 +15,18 @@
       "url": "https://slack.com"
     },
     "description": "Slack AI tools for users and developers: interact with your workspace via the Slack MCP server and use skills to develop Slack apps.",
+    "extensions": {
+      "com.anthropic.claude-code": {
+        "mcpServerFields": {
+          "slack": {
+            "oauth": {
+              "callbackPort": 3118,
+              "clientId": "1601185624273.8899143856786"
+            }
+          }
+        }
+      }
+    },
     "homepage": "https://docs.slack.dev/ai/slack-skills-plugin",
     "license": "MIT",
     "name": "slack",
@@ -52,6 +64,10 @@
     "input": "slackapi/slack-skills-plugin",
     "flags": [],
     "warnings": [
+      {
+        "path": ".mcp.json/mcpServers/slack",
+        "message": "Claude Code reads oauth here; carried in the manifest's extensions block, since mcp.json cannot hold them"
+      },
       {
         "path": "skills/block-kit/SKILL.md",
         "message": "unknown frontmatter fields: argument-hint"
