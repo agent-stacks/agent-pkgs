@@ -105,6 +105,8 @@ they start and another when a closing `monitor` job sees how the run
 ended; `update-agent-stacks`, which is dispatched, sends a failure
 event only. The monitor configuration (schedule, margins, thresholds)
 lives in `.github/actions/sentry-checkin/checkin.sh` and is upserted on
-every check-in. Without a `SENTRY_DSN` secret the action sends
-nothing, so a fork runs the same workflows unchanged. `workflows-lint`
+every check-in. The DSN arrives as the organization secret
+`MANAGED_PIPELINE_SENTRY_DSN`, which deltaops syncs from 1Password;
+without it the action sends nothing, so a fork runs the same
+workflows unchanged. `workflows-lint`
 in `ci.yml` checks that each `monitor` job waits for every other job.
