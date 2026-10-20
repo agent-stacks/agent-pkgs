@@ -1,0 +1,80 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "session-report",
+      "dir": "/nix/store/hv4yr7l2an5mqk7z36hjjkx4lxc998nc-agent-plugin-session-report-0.0.0-unstable.2026-10-19.ga0b04d9/share/agent-plugins/session-report",
+      "spec": "1.1.0",
+      "score": 75,
+      "status": "caution",
+      "coverage": {
+        "scanned": [
+          "skills/session-report"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/session-report",
+          "score": 75,
+          "risk": 25,
+          "status": "caution",
+          "partial": true,
+          "coverage": 33.3,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/session-report/SKILL.md",
+              "line": 22
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/session-report/analyze-sessions.mjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/session-report/template.html",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/session-report/SKILL.md",
+              "line": 12
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 75,
+  "status": "caution",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-20T03:59:50Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

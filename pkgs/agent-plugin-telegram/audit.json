@@ -1,0 +1,131 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "telegram",
+      "dir": "/nix/store/fwdn1nzffq9cxj36i37cmpi723m4qwm0-agent-plugin-telegram-0.0.7/share/agent-plugins/telegram",
+      "spec": "1.1.0",
+      "score": 79,
+      "status": "caution",
+      "coverage": {
+        "scanned": [
+          "skills/access",
+          "skills/configure"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "ACCESS.md",
+            "reason": "outside the spec"
+          },
+          {
+            "path": "LICENSE",
+            "reason": "outside the spec"
+          },
+          {
+            "path": "README.md",
+            "reason": "outside the spec"
+          },
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          },
+          {
+            "path": "bun.lock",
+            "reason": "outside the spec"
+          },
+          {
+            "path": "mcp.json",
+            "reason": "SkillSpector does not analyse this layout as an MCP manifest"
+          },
+          {
+            "path": "package.json",
+            "reason": "outside the spec"
+          },
+          {
+            "path": "server.ts",
+            "reason": "outside the spec"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/access",
+          "score": 94,
+          "risk": 6,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/access/SKILL.md",
+              "line": 7
+            }
+          ]
+        },
+        {
+          "path": "skills/configure",
+          "score": 79,
+          "risk": 21,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/configure/SKILL.md",
+              "line": 107
+            }
+          ],
+          "findings": [
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/configure/SKILL.md",
+              "line": 7
+            },
+            {
+              "id": "EA1",
+              "severity": "MEDIUM",
+              "message": "Unrestricted Tool Access",
+              "file": "skills/configure/SKILL.md",
+              "line": 74
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/configure/SKILL.md",
+              "line": 92
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 79,
+  "status": "caution",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-20T03:49:34Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

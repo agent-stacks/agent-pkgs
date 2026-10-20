@@ -1,0 +1,146 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "claude-security",
+      "dir": "/nix/store/lab2zdxa6zyq1x3xbpjwwjrzyr1bw5hj-agent-plugin-claude-security-0.12.0/share/agent-plugins/claude-security",
+      "spec": "1.1.0",
+      "score": 47,
+      "status": "do not install",
+      "coverage": {
+        "scanned": [
+          "skills/claude-security"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          },
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          },
+          {
+            "path": "scripts/",
+            "reason": "outside the spec"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/claude-security",
+          "score": 47,
+          "risk": 53,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 85.7,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/claude-security/SKILL.md",
+              "line": 42
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/claude-security/SKILL.md",
+              "line": 43
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/claude-security/SKILL.md",
+              "line": 44
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/claude-security/SKILL.md",
+              "line": 51
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/claude-security/SKILL.md",
+              "line": 52
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/claude-security/SKILL.md",
+              "line": 53
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/claude-security/SKILL.md",
+              "line": 59
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/claude-security/SKILL.md",
+              "line": 60
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/claude-security/jobs/suggest-patches.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "skills/claude-security/role.md",
+              "line": 17
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/claude-security/specs/patch-spec.md",
+              "line": 39
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/claude-security/role.md",
+              "line": 61
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/claude-security/specs/patch-spec.md",
+              "line": 92
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/claude-security/jobs/suggest-patches.md",
+              "line": 122
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 47,
+  "status": "do not install",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-20T03:08:27Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

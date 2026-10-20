@@ -1,0 +1,1337 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "plugin-dev",
+      "dir": "/nix/store/z9bl63gkrx560zdpw65pw5sjsl03sp1d-agent-plugin-plugin-dev-0.0.0-unstable.2026-10-19.ga0b04d9/share/agent-plugins/plugin-dev",
+      "spec": "1.1.0",
+      "score": 0,
+      "status": "do not install",
+      "coverage": {
+        "scanned": [
+          "skills/agent-development",
+          "skills/command-development",
+          "skills/hook-development",
+          "skills/mcp-integration",
+          "skills/plugin-settings",
+          "skills/plugin-structure",
+          "skills/skill-development"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          },
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/agent-development",
+          "score": 89,
+          "risk": 11,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/agent-development/SKILL.md",
+              "line": 238
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/agent-development/SKILL.md",
+              "line": 385
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/agent-development/SKILL.md",
+              "line": 393
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA1",
+              "severity": "MEDIUM",
+              "message": "Unrestricted Tool Access",
+              "file": "skills/agent-development/scripts/validate-agent.sh",
+              "line": 162
+            }
+          ]
+        },
+        {
+          "path": "skills/command-development",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 63.6,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/command-development/SKILL.md",
+              "line": 308
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/command-development/SKILL.md",
+              "line": 311
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/command-development/SKILL.md",
+              "line": 318
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/command-development/references/advanced-workflows.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/command-development/references/documentation-patterns.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/command-development/references/marketplace-considerations.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/command-development/references/plugin-features-reference.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/command-development/README.md",
+              "line": 258
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/command-development/SKILL.md",
+              "line": 277
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/command-development/SKILL.md",
+              "line": 283
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/command-development/SKILL.md",
+              "line": 352
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/command-development/SKILL.md",
+              "line": 686
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/command-development/SKILL.md",
+              "line": 762
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/command-development/SKILL.md",
+              "line": 883
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/command-development/references/advanced-workflows.md",
+              "line": 445
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/command-development/references/advanced-workflows.md",
+              "line": 717
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/command-development/references/documentation-patterns.md",
+              "line": 21
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/command-development/references/documentation-patterns.md",
+              "line": 187
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/command-development/references/documentation-patterns.md",
+              "line": 209
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/command-development/references/marketplace-considerations.md",
+              "line": 34
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/command-development/references/marketplace-considerations.md",
+              "line": 366
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/command-development/references/marketplace-considerations.md",
+              "line": 367
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/command-development/references/marketplace-considerations.md",
+              "line": 368
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/command-development/references/marketplace-considerations.md",
+              "line": 646
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/command-development/references/marketplace-considerations.md",
+              "line": 646
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/command-development/references/marketplace-considerations.md",
+              "line": 673
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/command-development/references/marketplace-considerations.md",
+              "line": 676
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/command-development/references/testing-strategies.md",
+              "line": 22
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/command-development/references/testing-strategies.md",
+              "line": 25
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/command-development/references/testing-strategies.md",
+              "line": 650
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/command-development/references/testing-strategies.md",
+              "line": 152
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/command-development/references/testing-strategies.md",
+              "line": 243
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/command-development/references/testing-strategies.md",
+              "line": 258
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/command-development/references/testing-strategies.md",
+              "line": 278
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/command-development/references/testing-strategies.md",
+              "line": 398
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/command-development/references/testing-strategies.md",
+              "line": 448
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/command-development/references/testing-strategies.md",
+              "line": 660
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/command-development/references/testing-strategies.md",
+              "line": 661
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/command-development/references/testing-strategies.md",
+              "line": 671
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/command-development/references/testing-strategies.md",
+              "line": 674
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/command-development/references/testing-strategies.md",
+              "line": 685
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/command-development/README.md",
+              "line": 85
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/command-development/SKILL.md",
+              "line": 3
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/command-development/references/advanced-workflows.md",
+              "line": 66
+            },
+            {
+              "id": "EA1",
+              "severity": "MEDIUM",
+              "message": "Unrestricted Tool Access",
+              "file": "skills/command-development/references/frontmatter-reference.md",
+              "line": 104
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/command-development/references/testing-strategies.md",
+              "line": 647
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/command-development/references/testing-strategies.md",
+              "line": 691
+            }
+          ]
+        },
+        {
+          "path": "skills/hook-development",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 54.5,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/hook-development/SKILL.md",
+              "line": 0
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/hook-development/SKILL.md",
+              "line": 64
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/hook-development/SKILL.md",
+              "line": 104
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/hook-development/SKILL.md",
+              "line": 342
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/hook-development/SKILL.md",
+              "line": 505
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/hook-development/SKILL.md",
+              "line": 506
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/hook-development/SKILL.md",
+              "line": 550
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/hook-development/SKILL.md",
+              "line": 579
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/hook-development/SKILL.md",
+              "line": 626
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/hook-development/SKILL.md",
+              "line": 704
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/hook-development/SKILL.md",
+              "line": 707
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/hook-development/examples/validate-bash.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/hook-development/references/advanced.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/hook-development/references/migration.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/hook-development/scripts/test-hook.sh",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/hook-development/SKILL.md",
+              "line": 461
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/hook-development/SKILL.md",
+              "line": 467
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/hook-development/SKILL.md",
+              "line": 680
+            },
+            {
+              "id": "P1",
+              "severity": "HIGH",
+              "message": "Instruction Override",
+              "file": "skills/hook-development/SKILL.md",
+              "line": 602
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/hook-development/SKILL.md",
+              "line": 672
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/hook-development/SKILL.md",
+              "line": 673
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/hook-development/SKILL.md",
+              "line": 688
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/hook-development/SKILL.md",
+              "line": 708
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/hook-development/examples/validate-write.sh",
+              "line": 32
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/hook-development/references/patterns.md",
+              "line": 17
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/hook-development/references/advanced.md",
+              "line": 396
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/hook-development/references/advanced.md",
+              "line": 396
+            },
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/hook-development/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/hook-development/references/advanced.md",
+              "line": 278
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/hook-development/references/patterns.md",
+              "line": 202
+            }
+          ]
+        },
+        {
+          "path": "skills/mcp-integration",
+          "score": 15,
+          "risk": 85,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 85.7,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/mcp-integration/SKILL.md",
+              "line": 25
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/mcp-integration/SKILL.md",
+              "line": 51
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/mcp-integration/SKILL.md",
+              "line": 427
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/mcp-integration/SKILL.md",
+              "line": 545
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/mcp-integration/references/authentication.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/mcp-integration/SKILL.md",
+              "line": 522
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/mcp-integration/references/authentication.md",
+              "line": 222
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/mcp-integration/references/authentication.md",
+              "line": 537
+            },
+            {
+              "id": "P1",
+              "severity": "HIGH",
+              "message": "Instruction Override",
+              "file": "skills/mcp-integration/references/authentication.md",
+              "line": 383
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/mcp-integration/SKILL.md",
+              "line": 129
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/mcp-integration/examples/http-server.json",
+              "line": 5
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/mcp-integration/examples/http-server.json",
+              "line": 14
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/mcp-integration/references/authentication.md",
+              "line": 90
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/mcp-integration/references/authentication.md",
+              "line": 112
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/mcp-integration/references/authentication.md",
+              "line": 158
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/mcp-integration/references/authentication.md",
+              "line": 319
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/mcp-integration/references/authentication.md",
+              "line": 398
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/mcp-integration/references/server-types.md",
+              "line": 216
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/mcp-integration/references/server-types.md",
+              "line": 226
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/mcp-integration/references/server-types.md",
+              "line": 440
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/mcp-integration/references/server-types.md",
+              "line": 475
+            },
+            {
+              "id": "EA1",
+              "severity": "MEDIUM",
+              "message": "Unrestricted Tool Access",
+              "file": "skills/mcp-integration/SKILL.md",
+              "line": 511
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/mcp-integration/references/server-types.md",
+              "line": 501
+            },
+            {
+              "id": "EA1",
+              "severity": "MEDIUM",
+              "message": "Unrestricted Tool Access",
+              "file": "skills/mcp-integration/references/tool-usage.md",
+              "line": 153
+            }
+          ]
+        },
+        {
+          "path": "skills/plugin-settings",
+          "score": 16,
+          "risk": 84,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 87.5,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-settings/SKILL.md",
+              "line": 3
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-settings/SKILL.md",
+              "line": 11
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-settings/SKILL.md",
+              "line": 14
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-settings/SKILL.md",
+              "line": 44
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-settings/SKILL.md",
+              "line": 71
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-settings/SKILL.md",
+              "line": 112
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-settings/SKILL.md",
+              "line": 129
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-settings/SKILL.md",
+              "line": 181
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-settings/SKILL.md",
+              "line": 206
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-settings/SKILL.md",
+              "line": 239
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-settings/SKILL.md",
+              "line": 283
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-settings/SKILL.md",
+              "line": 296
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-settings/SKILL.md",
+              "line": 318
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-settings/SKILL.md",
+              "line": 320
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-settings/SKILL.md",
+              "line": 376
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-settings/SKILL.md",
+              "line": 428
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-settings/SKILL.md",
+              "line": 454
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-settings/SKILL.md",
+              "line": 503
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/plugin-settings/references/real-world-examples.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/plugin-settings/SKILL.md",
+              "line": 515
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/plugin-settings/examples/read-settings-hook.sh",
+              "line": 41
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/plugin-settings/references/real-world-examples.md",
+              "line": 101
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/plugin-settings/references/real-world-examples.md",
+              "line": 240
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/plugin-settings/SKILL.md",
+              "line": 420
+            }
+          ]
+        },
+        {
+          "path": "skills/plugin-structure",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 42.9,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 0
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 15
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 41
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 48
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 69
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 93
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 94
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 95
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 96
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 202
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 235
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 281
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 308
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 309
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 310
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 313
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 314
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 315
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 325
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 326
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 327
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 330
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 331
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 332
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 335
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 336
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 337
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 343
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 347
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 348
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 355
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 365
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 382
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/plugin-structure/SKILL.md",
+              "line": 383
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/plugin-structure/examples/advanced-plugin.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/plugin-structure/examples/standard-plugin.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/plugin-structure/references/manifest-reference.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/plugin-structure/README.md",
+              "line": 104
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/plugin-structure/SKILL.md",
+              "line": 167
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/plugin-structure/SKILL.md",
+              "line": 168
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/plugin-structure/SKILL.md",
+              "line": 346
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/plugin-structure/SKILL.md",
+              "line": 453
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/plugin-structure/examples/advanced-plugin.md",
+              "line": 154
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/plugin-structure/examples/advanced-plugin.md",
+              "line": 154
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/plugin-structure/examples/advanced-plugin.md",
+              "line": 279
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/plugin-structure/examples/advanced-plugin.md",
+              "line": 310
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/plugin-structure/examples/standard-plugin.md",
+              "line": 224
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/plugin-structure/examples/standard-plugin.md",
+              "line": 485
+            }
+          ]
+        },
+        {
+          "path": "skills/skill-development",
+          "score": 30,
+          "risk": 70,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/skill-development/SKILL.md",
+              "line": 53
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/skill-development/SKILL.md",
+              "line": 62
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/skill-development/SKILL.md",
+              "line": 73
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/skill-development/SKILL.md",
+              "line": 118
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/skill-development/SKILL.md",
+              "line": 128
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/skill-development/SKILL.md",
+              "line": 132
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/skill-development/SKILL.md",
+              "line": 133
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/skill-development/SKILL.md",
+              "line": 143
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/skill-development/SKILL.md",
+              "line": 146
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/skill-development/SKILL.md",
+              "line": 191
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/skill-development/SKILL.md",
+              "line": 192
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/skill-development/SKILL.md",
+              "line": 193
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/skill-development/SKILL.md",
+              "line": 194
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/skill-development/SKILL.md",
+              "line": 203
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/skill-development/SKILL.md",
+              "line": 204
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/skill-development/SKILL.md",
+              "line": 209
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/skill-development/SKILL.md",
+              "line": 532
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/skill-development/SKILL.md",
+              "line": 533
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/skill-development/SKILL.md",
+              "line": 536
+            }
+          ],
+          "findings": [
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/skill-development/SKILL.md",
+              "line": 158
+            },
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/skill-development/references/skill-creator-original.md",
+              "line": 165
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/skill-development/SKILL.md",
+              "line": 273
+            },
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/skill-development/SKILL.md",
+              "line": 628
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/skill-development/SKILL.md",
+              "line": 143
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 0,
+  "status": "do not install",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-20T03:59:11Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}
