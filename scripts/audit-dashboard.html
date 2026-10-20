@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Built by scripts/audit-dashboard.py, which puts the data in place of
+     the DATA placeholder below, and published to GitHub Pages by
+     .github/workflows/audit-plugins.yml (its page and publish jobs). -->
+<title>Plugin Audit Triage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: triage console. Ranked plugins on the left, drill-down on the right; stacks on phones. Severity owns the colour. */
+:root {
+  --bg: #f3f5f7;
+  --surface: #ffffff;
+  --raise: #f8fafb;
+  --ink: #16202a;
+  --muted: #5d6878;
+  --line: #dde2e8;
+  --accent: #0f6a73;
+  --accent-soft: #dcefef;
+  --crit: #8e1b4f;
+  --high: #c2412d;
+  --med: #c08a1e;
+  --low: #6b7a8f;
+  --safe: #2f7d4f;
+  --code-bg: #eef1f5;
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f141a; --surface: #171e27; --raise: #1c2430; --ink: #e5e9ef; --muted: #98a3b3; --line: #2a3340;
+    --accent: #4fc0c8; --accent-soft: #15383d; --crit: #e2588f; --high: #f07a5f; --med: #e4b04e; --low: #8d9bb0;
+    --safe: #5cc184; --code-bg: #212a36; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f141a; --surface: #171e27; --raise: #1c2430; --ink: #e5e9ef; --muted: #98a3b3; --line: #2a3340;
+  --accent: #4fc0c8; --accent-soft: #15383d; --crit: #e2588f; --high: #f07a5f; --med: #e4b04e; --low: #8d9bb0;
+  --safe: #5cc184; --code-bg: #212a36; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 14px; line-height: 1.45;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 48px;
+}
+a { color: var(--accent); text-underline-offset: 2px; }
+a:hover { text-decoration-thickness: 2px; }
+button, select, input { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.mono, code { font-family: var(--mono); font-size: 0.9em; }
+h1, h2, h3 { font-family: var(--display); font-stretch: 85%; margin: 0; line-height: 1.15; text-wrap: balance; }
+.app { max-width: 1440px; margin: 0 auto; display: grid; gap: 16px; }
+
+/* top bar */
+.top { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px 24px; }
+.top h1 { font-size: 1.9rem; font-weight: 800; }
+.snap { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; display: grid; gap: 2px; min-width: 0; }
+.kpi b { font-family: var(--display); font-stretch: 90%; font-size: 1.55rem; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.kpi span { font-size: 0.78rem; color: var(--muted); }
+.kpi.crit b { color: var(--crit); } .kpi.high b { color: var(--high); } .kpi.bad b { color: var(--high); }
+
+/* layout */
+.split { display: grid; grid-template-columns: minmax(300px, 400px) minmax(0, 1fr); gap: 16px; align-items: start; }
+@media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+.pane { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; min-width: 0; }
+
+/* list pane */
+.listpane { display: grid; grid-template-rows: auto auto 1fr; position: sticky; top: max(12px, env(safe-area-inset-top, 0px)); max-height: calc(100vh - 24px); }
+@media (max-width: 900px) { .listpane { position: static; max-height: 70vh; } }
+.controls { padding: 12px; display: grid; gap: 8px; border-bottom: 1px solid var(--line); }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.search { flex: 1 1 160px; min-width: 0; padding: 7px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--raise); }
+select { padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--raise); max-width: 100%; }
+.chip { border: 1px solid var(--line); background: var(--raise); border-radius: 999px; padding: 2px 10px; font-size: 0.78rem; cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+.chip[aria-pressed="true"] { border-color: var(--c, var(--accent)); color: var(--c, var(--accent)); background: var(--surface); font-weight: 600; }
+.chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c, var(--accent)); }
+.rulechip { display: none; }
+.rulechip.on { display: inline-flex; border-color: var(--accent); color: var(--accent); }
+.count { font-size: 0.78rem; color: var(--muted); padding: 6px 12px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; gap: 8px; }
+.list { overflow-y: auto; min-height: 0; }
+.item { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 10px; padding: 9px 12px; border-bottom: 1px solid var(--line); cursor: pointer; text-align: left; width: 100%; background: none; border-left: 3px solid transparent; border-top: 0; border-right: 0; }
+.item:hover { background: var(--raise); }
+.item[aria-current="true"] { background: var(--accent-soft); border-left-color: var(--accent); }
+.item.reviewed { opacity: 0.55; }
+.score { width: 44px; height: 44px; border-radius: 8px; display: grid; place-items: center; font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 1.1rem; color: var(--sc); border: 2px solid var(--sc); font-variant-numeric: tabular-nums; }
+.score.na { font-size: 0.7rem; font-family: var(--mono); font-weight: 500; }
+.iname { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.imeta { font-size: 0.75rem; color: var(--muted); display: flex; gap: 8px; flex-wrap: wrap; margin-top: 2px; }
+.sevbar { display: flex; height: 6px; border-radius: 3px; overflow: hidden; background: var(--code-bg); margin-top: 5px; }
+.sevbar i { display: block; height: 100%; }
+.sv-c { background: var(--crit); } .sv-h { background: var(--high); } .sv-m { background: var(--med); } .sv-l { background: var(--low); }
+.n-c { color: var(--crit); } .n-h { color: var(--high); } .n-m { color: var(--med); } .n-l { color: var(--low); }
+.tab { font-variant-numeric: tabular-nums; font-family: var(--mono); }
+
+/* detail pane */
+.detail { padding: 18px; display: grid; gap: 18px; min-width: 0; }
+.dhead { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 16px; align-items: start; }
+.bigscore { width: 76px; height: 76px; border-radius: 12px; display: grid; place-items: center; border: 3px solid var(--sc); color: var(--sc); font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 2rem; font-variant-numeric: tabular-nums; }
+.bigscore small { display: block; font-size: 0.6rem; font-family: var(--mono); font-weight: 500; text-align: center; margin-top: -6px; }
+.dhead h2 { font-size: 1.6rem; overflow-wrap: anywhere; }
+.pill { display: inline-block; font-family: var(--mono); font-size: 0.72rem; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--c); color: var(--c); white-space: nowrap; }
+.links { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 0.85rem; margin-top: 8px; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.btn { border: 1px solid var(--line); background: var(--raise); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 0.82rem; }
+.btn:hover { border-color: var(--accent); }
+.btn.on { border-color: var(--safe); color: var(--safe); font-weight: 600; }
+.sectiontitle { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.rulesgrid { display: flex; flex-wrap: wrap; gap: 6px; }
+.rbtn { border: 1px solid var(--line); background: var(--raise); border-left: 4px solid var(--c); border-radius: 6px; padding: 4px 8px; font-size: 0.8rem; cursor: pointer; text-align: left; display: inline-flex; gap: 6px; align-items: baseline; max-width: 100%; }
+.rbtn[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); border-left-color: var(--c); }
+.rbtn b { font-family: var(--mono); font-weight: 500; }
+.rbtn span { color: var(--muted); }
+.skills { display: grid; gap: 8px; }
+details.skill { border: 1px solid var(--line); border-radius: 8px; background: var(--surface); min-width: 0; }
+details.skill > summary { list-style: none; cursor: pointer; padding: 10px 12px; display: grid; grid-template-columns: 36px minmax(0, 1fr) auto; gap: 10px; align-items: center; }
+details.skill > summary::-webkit-details-marker { display: none; }
+details.skill[open] > summary { border-bottom: 1px solid var(--line); background: var(--raise); border-radius: 8px 8px 0 0; }
+.sscore { width: 36px; height: 36px; border-radius: 7px; border: 2px solid var(--sc); color: var(--sc); display: grid; place-items: center; font-family: var(--display); font-stretch: 85%; font-weight: 800; font-variant-numeric: tabular-nums; }
+.sname { font-weight: 600; overflow-wrap: anywhere; }
+.smeta { font-size: 0.75rem; color: var(--muted); display: flex; gap: 10px; flex-wrap: wrap; }
+.scount { font-size: 0.78rem; display: flex; gap: 8px; justify-content: end; flex-wrap: wrap; }
+.sbody { padding: 10px 12px 12px; display: grid; gap: 12px; }
+.group { display: grid; gap: 4px; }
+.ghead { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; font-size: 0.85rem; }
+.ghead b { font-family: var(--mono); font-weight: 500; }
+.locs { display: grid; gap: 2px; padding-left: 12px; border-left: 2px solid var(--c); margin-left: 4px; }
+.locs a, .locs span { font-family: var(--mono); font-size: 0.78rem; overflow-wrap: anywhere; }
+.more { justify-self: start; border: 0; background: none; color: var(--accent); cursor: pointer; padding: 2px 0; font-size: 0.8rem; text-decoration: underline; }
+.exc { font-size: 0.8rem; color: var(--muted); display: grid; gap: 2px; }
+.empty { color: var(--muted); padding: 24px; text-align: center; }
+.why { border: 1px solid var(--line); border-left: 4px solid var(--low); border-radius: 8px; padding: 12px; }
+
+/* overview */
+.ov { display: grid; gap: 18px; }
+.ov h2 { font-size: 1.4rem; }
+.ovgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.ovcard { border: 1px solid var(--line); border-radius: 8px; padding: 14px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.hbar { display: grid; grid-template-columns: minmax(0, 1fr) 90px 3.5rem; gap: 8px; align-items: center; font-size: 0.82rem; cursor: pointer; border: 0; background: none; text-align: left; padding: 3px 0; width: 100%; }
+.hbar:hover .lbl { color: var(--accent); }
+.hbar .lbl { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hbar .track { height: 10px; background: var(--code-bg); border-radius: 3px; overflow: hidden; }
+.hbar .track i { display: block; height: 100%; background: var(--c); }
+.hbar .v { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 0.78rem; }
+.help { color: var(--muted); font-size: 0.85rem; max-width: 70ch; }
+.toast { position: fixed; bottom: max(16px, env(safe-area-inset-bottom, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); background: var(--ink); color: var(--bg); padding: 8px 14px; border-radius: 6px; font-size: 0.85rem; }
+textarea.copyfallback { width: 100%; min-height: 120px; font-family: var(--mono); font-size: 0.75rem; background: var(--raise); border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+@media (prefers-reduced-motion: no-preference) { .item, .btn, .rbtn { transition: background-color .12s, border-color .12s; } }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="top">
+    <div>
+      <h1>Plugin Audit Triage</h1>
+      <div class="snap" id="snap"></div>
+    </div>
+  </div>
+  <div class="kpis" id="kpis"></div>
+
+  <div class="split">
+    <aside class="pane listpane" aria-label="Plugins">
+      <div class="controls">
+        <div class="row">
+          <input id="q" class="search" type="search" placeholder="Search plugin or skill" aria-label="Search plugin or skill">
+          <select id="sort" aria-label="Sort">
+            <option value="affected">Most affected</option>
+            <option value="crit">Most critical</option>
+            <option value="high">Most high</option>
+            <option value="total">Most findings</option>
+            <option value="name">Name</option>
+          </select>
+        </div>
+        <div class="row" id="statuses"></div>
+        <div class="row">
+          <button class="chip" id="hideReviewed" aria-pressed="false">Hide reviewed</button>
+          <button class="chip rulechip" id="ruleChip" title="Clear the rule filter"></button>
+        </div>
+      </div>
+      <div class="count"><span id="count"></span><a href="#" id="toOverview">Overview</a></div>
+      <div class="list" id="list" role="list"></div>
+    </aside>
+    <main class="pane detail" id="detail" aria-live="polite"></main>
+  </div>
+</div>
+
+<script>
+const DATA = /*__DATA__*/null;
+const SEVS = ["CRITICAL", "HIGH", "MEDIUM", "LOW"];
+const SEVK = { CRITICAL: "c", HIGH: "h", MEDIUM: "m", LOW: "l" };
+const SEVVAR = { CRITICAL: "var(--crit)", HIGH: "var(--high)", MEDIUM: "var(--med)", LOW: "var(--low)" };
+const STATUS = [
+  ["do not install", "var(--crit)"], ["caution", "var(--med)"], ["incomplete", "var(--low)"],
+  ["safe", "var(--safe)"], ["could not audit", "var(--low)"]
+];
+const STATUSVAR = Object.fromEntries(STATUS);
+const RULES = DATA.rules;
+const short = p => p.replace(/^agent-plugin-/, "");
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const fmt = n => n.toLocaleString("en-US");
+const scoreColor = s => s == null ? "var(--low)" : s < 40 ? "var(--crit)" : s < 70 ? "var(--high)" : s < 90 ? "var(--med)" : "var(--safe)";
+
+// ---- storage (per viewer, optional)
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+};
+let reviewed = new Set(store.get("audit-reviewed", []));
+
+// ---- derived counts
+for (const p of DATA.plugins) {
+  p.c = { CRITICAL: 0, HIGH: 0, MEDIUM: 0, LOW: 0 };
+  p.rules = new Map();
+  for (const k of p.k) {
+    k.c = { CRITICAL: 0, HIGH: 0, MEDIUM: 0, LOW: 0 };
+    for (const f of k.f) {
+      const sev = RULES[f[0]][1];
+      k.c[sev] = (k.c[sev] || 0) + 1; p.c[sev] = (p.c[sev] || 0) + 1;
+      p.rules.set(f[0], (p.rules.get(f[0]) || 0) + 1);
+    }
+    k.total = k.f.length;
+  }
+  p.total = p.k.reduce((a, k) => a + k.total, 0);
+  p.st = p.st || (p.why ? "could not audit" : "unknown");
+  p.hay = (p.p + " " + p.k.map(k => k.n).join(" ")).toLowerCase();
+}
+const ruleStats = RULES.map((r, i) => ({ i, id: r[0], sev: r[1], msg: r[2], plugins: 0, findings: 0 }));
+for (const p of DATA.plugins) for (const [ri, n] of p.rules) { ruleStats[ri].plugins++; ruleStats[ri].findings += n; }
+
+// ---- github links
+function ghFile(p, k, rel, line) {
+  if (!p.gh || !p.rev || !k.up || rel.startsWith("/")) return null;
+  const path = (k.up + "/" + rel).split("/").map(encodeURIComponent).join("/");
+  const plain = /\.(md|mdx|markdown)$/i.test(rel) ? "?plain=1" : "";
+  return `https://github.com/${p.gh}/blob/${p.rev}/${path}${plain}${line > 0 ? "#L" + line : ""}`;
+}
+const ghSkill = (p, k) => p.gh && k.up ? `https://github.com/${p.gh}/tree/${p.rev}/${k.up.split("/").map(encodeURIComponent).join("/")}` : null;
+const ghRepo = p => p.gh ? `https://github.com/${p.gh}/tree/${p.rev}` : null;
+const ghAudit = p => `https://github.com/${DATA.repo}/blob/${DATA.rev}/pkgs/${p.p}/audit.json`;
+const ghPkg = p => `https://github.com/${DATA.repo}/tree/main/pkgs/${p.p}`;
+const ghHistory = p => `https://github.com/${DATA.repo}/commits/main/pkgs/${p.p}/audit.json`;
+
+// ---- state
+const state = {
+  q: "", sort: store.get("audit-sort", "affected"),
+  statuses: new Set(store.get("audit-statuses", ["do not install", "caution", "incomplete", "safe", "could not audit"])),
+  hideReviewed: store.get("audit-hide-reviewed", false),
+  rule: null, sel: null, detailRule: null
+};
+
+// ---- header
+const totals = { CRITICAL: 0, HIGH: 0, MEDIUM: 0, LOW: 0 };
+for (const p of DATA.plugins) for (const s of SEVS) totals[s] += p.c[s];
+const dni = DATA.plugins.filter(p => p.st === "do not install").length;
+const builtDate = DATA.built.slice(0, 16).replace("T", " ") + " UTC";
+document.getElementById("snap").innerHTML =
+  `Snapshot of <a href="https://github.com/${DATA.repo}/tree/${DATA.rev}" target="_blank" rel="noopener">${DATA.repo}@${DATA.rev.slice(0, 7)}</a> · main as of ${esc(DATA.revDate.slice(0, 16).replace("T", " "))} · built ${esc(builtDate)}`;
+document.getElementById("kpis").innerHTML = [
+  [fmt(DATA.plugins.length), "plugins audited", ""],
+  [fmt(dni), "marked do not install", "bad"],
+  [fmt(totals.CRITICAL), "critical findings", "crit"],
+  [fmt(totals.HIGH), "high findings", "high"],
+  [fmt(totals.MEDIUM + totals.LOW), "medium and low", ""],
+  [fmt(DATA.unaudited.length), "packages with no audit yet", ""]
+].map(([v, l, c]) => `<div class="kpi ${c}"><b>${v}</b><span>${l}</span></div>`).join("");
+
+// ---- controls
+const statusesEl = document.getElementById("statuses");
+statusesEl.innerHTML = STATUS.map(([s, c]) => {
+  const n = DATA.plugins.filter(p => p.st === s).length;
+  return n ? `<button class="chip" data-st="${esc(s)}" style="--c:${c}" aria-pressed="${state.statuses.has(s)}"><span class="dot"></span>${esc(s)} <span class="tab">${n}</span></button>` : "";
+}).join("");
+statusesEl.addEventListener("click", e => {
+  const b = e.target.closest("[data-st]"); if (!b) return;
+  const s = b.dataset.st;
+  state.statuses.has(s) ? state.statuses.delete(s) : state.statuses.add(s);
+  b.setAttribute("aria-pressed", state.statuses.has(s));
+  store.set("audit-statuses", [...state.statuses]); renderList();
+});
+const qEl = document.getElementById("q");
+qEl.addEventListener("input", () => { state.q = qEl.value.trim().toLowerCase(); renderList(); });
+const sortEl = document.getElementById("sort");
+sortEl.value = state.sort;
+sortEl.addEventListener("change", () => { state.sort = sortEl.value; store.set("audit-sort", state.sort); renderList(); });
+const hrEl = document.getElementById("hideReviewed");
+hrEl.setAttribute("aria-pressed", state.hideReviewed);
+hrEl.addEventListener("click", () => { state.hideReviewed = !state.hideReviewed; hrEl.setAttribute("aria-pressed", state.hideReviewed); store.set("audit-hide-reviewed", state.hideReviewed); renderList(); });
+const ruleChip = document.getElementById("ruleChip");
+ruleChip.addEventListener("click", () => setRule(null));
+document.getElementById("toOverview").addEventListener("click", e => { e.preventDefault(); select(null); });
+
+function setRule(ri) {
+  state.rule = ri;
+  if (ri == null) { ruleChip.classList.remove("on"); }
+  else { const r = RULES[ri]; ruleChip.textContent = `Rule ${r[0]} ${r[2] ? "· " + r[2] : ""} ✕`; ruleChip.classList.add("on"); }
+  renderList();
+}
+
+// ---- list
+const sorters = {
+  affected: (a, b) => (a.s ?? 101) - (b.s ?? 101) || b.c.CRITICAL - a.c.CRITICAL || b.c.HIGH - a.c.HIGH || b.total - a.total,
+  crit: (a, b) => b.c.CRITICAL - a.c.CRITICAL || b.c.HIGH - a.c.HIGH || (a.s ?? 101) - (b.s ?? 101),
+  high: (a, b) => b.c.HIGH - a.c.HIGH || b.c.CRITICAL - a.c.CRITICAL || (a.s ?? 101) - (b.s ?? 101),
+  total: (a, b) => b.total - a.total,
+  name: (a, b) => a.p.localeCompare(b.p)
+};
+const listEl = document.getElementById("list");
+let visible = [];
+function renderList() {
+  visible = DATA.plugins.filter(p =>
+    state.statuses.has(p.st) &&
+    (!state.q || p.hay.includes(state.q)) &&
+    (!state.hideReviewed || !reviewed.has(p.p)) &&
+    (state.rule == null || p.rules.has(state.rule))
+  ).sort(sorters[state.sort]);
+  document.getElementById("count").textContent = `${visible.length} of ${DATA.plugins.length} plugins`;
+  listEl.innerHTML = visible.length ? visible.map(itemHtml).join("") : `<div class="empty">No plugin matches these filters.</div>`;
+}
+function sevBar(c, total) {
+  if (!total) return `<div class="sevbar"></div>`;
+  return `<div class="sevbar">${SEVS.map(s => c[s] ? `<i class="sv-${SEVK[s]}" style="width:${(c[s] / total * 100).toFixed(2)}%"></i>` : "").join("")}</div>`;
+}
+function itemHtml(p) {
+  const sc = p.s == null ? `<div class="score na" style="--sc:var(--low)">n/a</div>` : `<div class="score" style="--sc:${scoreColor(p.s)}">${p.s}</div>`;
+  const ruleN = state.rule != null ? `<span>${fmt(p.rules.get(state.rule))}× ${esc(RULES[state.rule][0])}</span>` : "";
+  return `<button class="item${reviewed.has(p.p) ? " reviewed" : ""}" role="listitem" data-p="${esc(p.p)}" aria-current="${state.sel === p.p}">
+    ${sc}
+    <div style="min-width:0">
+      <div class="iname">${esc(short(p.p))}</div>
+      <div class="imeta"><span style="color:${STATUSVAR[p.st] || "var(--muted)"}">${esc(p.st)}</span>
+        ${p.c.CRITICAL ? `<span class="n-c tab">${p.c.CRITICAL} crit</span>` : ""}
+        ${p.c.HIGH ? `<span class="n-h tab">${p.c.HIGH} high</span>` : ""}
+        <span class="tab">${fmt(p.total)} total</span><span>${p.k.length} skill${p.k.length === 1 ? "" : "s"}</span>${ruleN}</div>
+      ${sevBar(p.c, p.total)}
+    </div></button>`;
+}
+listEl.addEventListener("click", e => { const b = e.target.closest("[data-p]"); if (b) select(b.dataset.p); });
+
+// ---- selection
+const detailEl = document.getElementById("detail");
+function select(pkg, scroll = true) {
+  state.sel = pkg; state.detailRule = state.rule;
+  for (const el of listEl.querySelectorAll("[data-p]")) el.setAttribute("aria-current", el.dataset.p === pkg);
+  try { history.replaceState(null, "", pkg ? "#" + pkg : location.pathname + location.search); } catch {}
+  pkg ? renderDetail() : renderOverview();
+  if (scroll && pkg && window.matchMedia("(max-width: 900px)").matches) detailEl.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+// ---- overview
+function hbars(rows, max, onAttr) {
+  return rows.map(r => `<button class="hbar" ${onAttr(r)} title="${esc(r.title)}"><span class="lbl">${r.label}</span><span class="track"><i style="width:${(r.v / max * 100).toFixed(1)}%;--c:${r.c}"></i></span><span class="v">${fmt(r.v)}</span></button>`).join("");
+}
+function renderOverview() {
+  const worstRules = [...ruleStats].filter(r => r.sev === "CRITICAL" || r.sev === "HIGH").sort((a, b) => b.plugins - a.plugins).slice(0, 12);
+  const commonRules = [...ruleStats].sort((a, b) => b.findings - a.findings).slice(0, 12);
+  const worst = [...DATA.plugins].sort(sorters.crit).slice(0, 12);
+  const rr = r => ({ label: `<b class="mono">${esc(r.id)}</b> ${esc(r.msg || "")}`, title: `${r.id} ${r.msg} · ${r.sev}`, c: SEVVAR[r.sev], i: r.i });
+  detailEl.innerHTML = `<div class="ov">
+    <div><h2>Where to start</h2><p class="help">Pick a plugin on the left, or click a rule to list only the plugins that have it. Every finding links to the exact file and line in the upstream repository, at the revision that was audited.</p></div>
+    <div class="ovgrid">
+      <div class="ovcard"><span class="sectiontitle">Most critical findings, by plugin</span>
+        ${hbars(worst.map(p => ({ label: esc(short(p.p)), title: p.p, v: p.c.CRITICAL, c: "var(--crit)", p: p.p })), Math.max(1, worst[0]?.c.CRITICAL || 1), r => `data-go="${esc(r.p)}"`)}</div>
+      <div class="ovcard"><span class="sectiontitle">Critical and high rules, by plugins affected</span>
+        ${hbars(worstRules.map(r => ({ ...rr(r), v: r.plugins })), Math.max(1, worstRules[0]?.plugins || 1), r => `data-rule="${r.i}"`)}</div>
+      <div class="ovcard"><span class="sectiontitle">Most frequent rules, by findings</span>
+        ${hbars(commonRules.map(r => ({ ...rr(r), v: r.findings })), Math.max(1, commonRules[0]?.findings || 1), r => `data-rule="${r.i}"`)}</div>
+    </div>
+    ${DATA.unaudited.length ? `<p class="help">No audit recorded yet: ${DATA.unaudited.map(p => `<a href="${ghPkg({ p })}" target="_blank" rel="noopener">${esc(short(p))}</a>`).join(", ")}.</p>` : ""}
+  </div>`;
+}
+detailEl.addEventListener("click", e => {
+  const g = e.target.closest("[data-go]"); if (g) { select(g.dataset.go); return; }
+  const r = e.target.closest("[data-rule]"); if (r) { setRule(+r.dataset.rule); return; }
+  const dr = e.target.closest("[data-drule]");
+  if (dr) { const v = +dr.dataset.drule; state.detailRule = state.detailRule === v ? null : v; renderDetail(true); return; }
+  const m = e.target.closest("[data-more]"); if (m) { expandGroup(m); return; }
+  const rv = e.target.closest("[data-review]"); if (rv) { toggleReviewed(rv.dataset.review); return; }
+  const cp = e.target.closest("[data-copy]"); if (cp) { copySummary(cp.dataset.copy, cp); return; }
+});
+
+// ---- detail
+const LIMIT = 25;
+function findingsFor(k) { return state.detailRule == null ? k.f : k.f.filter(f => f[0] === state.detailRule); }
+function renderDetail(keepOpen) {
+  const p = DATA.plugins.find(x => x.p === state.sel);
+  if (!p) { renderOverview(); return; }
+  const open = keepOpen ? new Set([...detailEl.querySelectorAll("details[open]")].map(d => d.dataset.k)) : null;
+  const rules = [...p.rules.entries()].sort((a, b) => SEVS.indexOf(RULES[a[0]][1]) - SEVS.indexOf(RULES[b[0]][1]) || b[1] - a[1]);
+  const skills = [...p.k].filter(k => state.detailRule == null || k.f.some(f => f[0] === state.detailRule))
+    .sort((a, b) => (a.s ?? 101) - (b.s ?? 101) || b.c.CRITICAL - a.c.CRITICAL || b.c.HIGH - a.c.HIGH || b.total - a.total);
+  const firstOpen = !keepOpen && skills.length && skills[0].total ? skills[0].n : null;
+  const big = p.s == null ? `<div class="bigscore" style="--sc:var(--low)"><span style="font-size:1rem">n/a</span></div>` : `<div class="bigscore" style="--sc:${scoreColor(p.s)}"><span>${p.s}<small>/ 100</small></span></div>`;
+  const isRev = reviewed.has(p.p);
+  detailEl.innerHTML = `
+    <div class="dhead">${big}
+      <div style="min-width:0">
+        <h2>${esc(short(p.p))}</h2>
+        <div class="row" style="margin-top:6px">
+          <span class="pill" style="--c:${STATUSVAR[p.st] || "var(--muted)"}">${esc(p.st)}</span>
+          <span class="mono" style="color:var(--muted)">${esc(p.p)}${p.v ? " · " + esc(p.v) : ""}</span>
+        </div>
+        <div class="links">
+          ${ghRepo(p) ? `<a href="${ghRepo(p)}" target="_blank" rel="noopener">Upstream ${esc(p.gh)} @ ${esc((p.rev || "").slice(0, 7))} ↗</a>` : ""}
+          <a href="${ghAudit(p)}" target="_blank" rel="noopener">audit.json ↗</a>
+          <a href="${ghHistory(p)}" target="_blank" rel="noopener">Audit history ↗</a>
+          <a href="${ghPkg(p)}" target="_blank" rel="noopener">Package ↗</a>
+        </div>
+        <div class="actions">
+          <button class="btn${isRev ? " on" : ""}" data-review="${esc(p.p)}">${isRev ? "✓ Reviewed" : "Mark reviewed"}</button>
+          <button class="btn" data-copy="${esc(p.p)}">Copy findings as Markdown</button>
+        </div>
+        <div id="copyout"></div>
+      </div>
+    </div>
+    ${p.why ? `<div class="why"><b>Could not be audited:</b> ${esc(p.why)}</div>` : ""}
+    <div style="display:grid;gap:8px">
+      <div class="row" style="justify-content:space-between"><span class="sectiontitle">Findings by severity</span>
+        <span class="tab" style="font-size:.8rem">${SEVS.map(s => `<span class="n-${SEVKS(s)}">${fmt(p.c[s])} ${s.toLowerCase()}</span>`).join(" · ")}</span></div>
+      ${sevBar(p.c, p.total)}
+    </div>
+    ${rules.length ? `<div style="display:grid;gap:8px"><span class="sectiontitle">Rules in this plugin · click to filter the skills below</span>
+      <div class="rulesgrid">${rules.map(([ri, n]) => { const r = RULES[ri]; return `<button class="rbtn" data-drule="${ri}" aria-pressed="${state.detailRule === ri}" style="--c:${SEVVAR[r[1]]}" title="${esc(r[1])}"><b>${esc(r[0])}</b> ${esc(r[2] || "")} <span class="tab">${fmt(n)}</span></button>`; }).join("")}</div></div>` : ""}
+    <div style="display:grid;gap:8px">
+      <span class="sectiontitle">Skills, worst first${state.detailRule != null ? ` · only those with ${esc(RULES[state.detailRule][0])}` : ""}</span>
+      <div class="skills">${skills.map(k => skillHtml(p, k, open ? open.has(k.n) : k.n === firstOpen)).join("") || `<div class="empty">No skills recorded.</div>`}</div>
+    </div>`;
+}
+const SEVKS = s => SEVK[s];
+function skillHtml(p, k, isOpen) {
+  const link = ghSkill(p, k);
+  return `<details class="skill" data-k="${esc(k.n)}"${isOpen ? " open" : ""}>
+    <summary>
+      <div class="sscore" style="--sc:${scoreColor(k.s)}">${k.s ?? "–"}</div>
+      <div style="min-width:0"><div class="sname">${esc(k.n)}</div>
+        <div class="smeta"><span style="color:${STATUSVAR[k.st] || "var(--muted)"}">${esc(k.st || "")}</span>${k.cov != null ? `<span>coverage ${k.cov}%</span>` : ""}${k.part ? `<span>partly scanned</span>` : ""}${k.up ? `<span class="mono">${esc(k.up)}</span>` : ""}</div>
+        ${sevBar(k.c, k.total)}</div>
+      <div class="scount tab">${SEVS.filter(s => k.c[s]).map(s => `<span class="n-${SEVK[s]}">${k.c[s]} ${s[0]}</span>`).join("") || `<span style="color:var(--safe)">clean</span>`}</div>
+    </summary>
+    <div class="sbody">${skillBody(p, k)}</div>
+  </details>`;
+}
+function skillBody(p, k) {
+  const fs = findingsFor(k);
+  const link = ghSkill(p, k);
+  const groups = new Map();
+  for (const f of fs) { if (!groups.has(f[0])) groups.set(f[0], []); groups.get(f[0]).push(f); }
+  let html = link ? `<a href="${link}" target="_blank" rel="noopener" style="font-size:.82rem">Open this skill on GitHub ↗</a>` : "";
+  for (const [ri, list] of groups) {
+    const r = RULES[ri];
+    html += `<div class="group" data-g="${ri}" data-k="${esc(k.n)}">
+      <div class="ghead"><span class="pill" style="--c:${SEVVAR[r[1]]}">${esc(r[1].toLowerCase())}</span><b>${esc(r[0])}</b><span>${esc(r[2] || "(no message)")}</span><span class="tab" style="color:var(--muted)">×${list.length}</span></div>
+      <div class="locs">${list.slice(0, LIMIT).map(f => locHtml(p, k, f)).join("")}</div>
+      ${list.length > LIMIT ? `<button class="more" data-more="1">Show ${list.length - LIMIT} more</button>` : ""}
+    </div>`;
+  }
+  if (k.x.length) html += `<div class="exc"><span class="sectiontitle">Not fully scanned</span>${k.x.map(x => `<span>${esc(x[0])} · <span class="mono">${esc(x[1])}${x[2] ? ":" + x[2] : ""}</span></span>`).join("")}</div>`;
+  if (!fs.length && !k.x.length) html += `<span style="color:var(--safe)">No findings.</span>`;
+  return html;
+}
+function locHtml(p, k, f) {
+  const label = `${f[1]}${f[2] > 0 ? ":" + f[2] : ""}`;
+  const url = ghFile(p, k, f[1], f[2]);
+  return url ? `<a href="${url}" target="_blank" rel="noopener">${esc(label)}</a>` : `<span>${esc(label)}</span>`;
+}
+function expandGroup(btn) {
+  const g = btn.closest(".group"); const p = DATA.plugins.find(x => x.p === state.sel);
+  const k = p.k.find(x => x.n === g.dataset.k); const ri = +g.dataset.g;
+  g.querySelector(".locs").innerHTML = findingsFor(k).filter(f => f[0] === ri).map(f => locHtml(p, k, f)).join("");
+  btn.remove();
+}
+function toggleReviewed(pkg) {
+  reviewed.has(pkg) ? reviewed.delete(pkg) : reviewed.add(pkg);
+  store.set("audit-reviewed", [...reviewed]);
+  renderList(); renderDetail(true);
+}
+
+// ---- copy as markdown
+function summaryMd(p) {
+  const lines = [`## ${p.p}: ${p.s ?? "n/a"}/100, ${p.st}`, "",
+    `Upstream: ${ghRepo(p) || "unknown"}`, `Audit: ${ghAudit(p)}`, `SkillSpector ${p.tool || "?"}`, "",
+    `| Severity | Count |`, `| -------- | ----- |`, ...SEVS.map(s => `| ${s.toLowerCase()} | ${p.c[s]} |`), ""];
+  const skills = [...p.k].filter(k => k.c.CRITICAL || k.c.HIGH).sort((a, b) => b.c.CRITICAL - a.c.CRITICAL || b.c.HIGH - a.c.HIGH);
+  for (const k of skills) {
+    lines.push(`### ${k.n} (${k.s ?? "n/a"}/100)`, "");
+    const byRule = new Map();
+    for (const f of k.f) { const r = RULES[f[0]]; if (r[1] !== "CRITICAL" && r[1] !== "HIGH") continue; if (!byRule.has(f[0])) byRule.set(f[0], []); byRule.get(f[0]).push(f); }
+    for (const [ri, fs] of byRule) {
+      const r = RULES[ri];
+      lines.push(`- **${r[1].toLowerCase()} ${r[0]}** ${r[2] || ""} (${fs.length})`);
+      for (const f of fs.slice(0, 10)) { const u = ghFile(p, k, f[1], f[2]); lines.push(`  - ${u ? `[${f[1]}${f[2] > 0 ? ":" + f[2] : ""}](${u})` : f[1]}`); }
+      if (fs.length > 10) lines.push(`  - and ${fs.length - 10} more`);
+    }
+    lines.push("");
+  }
+  if (!skills.length) lines.push("No critical or high findings.");
+  return lines.join("\n");
+}
+function toast(msg) { const t = document.createElement("div"); t.className = "toast"; t.textContent = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 1800); }
+function copySummary(pkg, btn) {
+  const p = DATA.plugins.find(x => x.p === pkg); const md = summaryMd(p);
+  const fallback = () => {
+    const out = document.getElementById("copyout");
+    out.innerHTML = `<textarea class="copyfallback" id="copyText" aria-label="Findings as Markdown" readonly></textarea>`;
+    const ta = document.getElementById("copyText"); ta.value = md; ta.focus(); ta.select();
+    toast("Select all and copy");
+  };
+  try { navigator.clipboard.writeText(md).then(() => toast("Copied the critical and high findings"), fallback); } catch { fallback(); }
+}
+
+// ---- boot
+renderList();
+const initial = (location.hash || "").slice(1);
+if (initial && DATA.plugins.some(p => p.p === initial)) select(initial, false); else renderOverview();
+</script>
+</body>
+</html>
