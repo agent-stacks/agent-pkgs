@@ -509,6 +509,10 @@ jobs:
   publish:
     name: "Publish the dashboard"
     needs: page
+    # Not the default success(), which looks at every job upstream: on a
+    # page-only push audit and record are skipped, and a failed shard
+    # would skip it too.
+    if: ${{ !cancelled() && needs.page.result == 'success' }}
     runs-on: ubuntu-24.04
     permissions:
       pages: write

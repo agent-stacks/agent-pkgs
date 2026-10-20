@@ -119,9 +119,9 @@ def main():
         template = f.read()
     if template.count(PLACEHOLDER) != 1:
         raise SystemExit(f"{args.template}: expected one {PLACEHOLDER}")
-    # Inside <script>, so no "</" may survive: "</script>" in a finding's
-    # message would end the script.
-    blob = json.dumps(data, separators=(",", ":")).replace("</", "<\\/")
+    # Inside <script>, so no "<" may survive: "</script>" would end the
+    # script, and "<!--<script>" would keep it from ending where it should.
+    blob = json.dumps(data, separators=(",", ":")).replace("<", "\\u003c")
     html = template.replace(PLACEHOLDER, blob)
     with open(args.out, "w") as f:
         f.write(html)

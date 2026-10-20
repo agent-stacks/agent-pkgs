@@ -30,7 +30,8 @@ cat > "$pkgs/agent-plugin-demo/audit.json" <<'EOF'
       { "id": "PE3", "severity": "HIGH", "message": "Credential Access", "file": "skills/lint/run.sh", "line": 7 },
       { "id": "PE3", "severity": "HIGH", "message": "Credential Access", "file": "skills/lint/run.sh", "line": 9 },
       { "id": "PE3", "severity": "CRITICAL", "message": "Credential Access", "file": "plugin.json", "line": 0 },
-      { "id": "X1", "severity": "LOW", "message": "</script><b>", "file": "skills/lint/a.md", "line": 1 }
+      { "id": "X1", "severity": "LOW", "message": "</script><b>", "file": "skills/lint/a.md", "line": 1 },
+      { "id": "X2", "severity": "LOW", "message": "comment", "file": "skills/lint/<!--<script>", "line": 1 }
     ] } ] } ] }
 EOF
 cat > "$pkgs/agent-plugin-blocked/audit.json" <<'EOF'
@@ -56,6 +57,8 @@ grep -q '</script><b>' "$out" && fail "a finding's message closed the script"
 data="$root/data.json"
 sed -n 's/^const DATA = \(.*\);$/\1/p' "$out" > "$data"
 jq -e . "$data" > /dev/null 2>&1 || fail "the embedded data is not JSON"
+# "<!--<script>" in a file name would keep the script from ending.
+grep -q '<' "$data" && fail "a \"<\" survived in the embedded data"
 
 check() {
   local what=$1 filter=$2
@@ -67,10 +70,11 @@ check "a package with no audit is listed as not audited" '.unaudited == ["agent-
 check "a could-not-audit package keeps its reason" '.plugins[0].why == "nothing to audit" and .plugins[0].s == null'
 check "the upstream is named" '.plugins[1].gh == "acme/skills" and .plugins[1].rev == "abc123"'
 check "a skill carries its upstream path" '.plugins[1].k[0].n == "lint" and .plugins[1].k[0].up == "plugins/demo/skills/lint"'
-check "rules are kept once per id, severity and message" '(.rules | length) == 4'
+check "rules are kept once per id, severity and message" '(.rules | length) == 5'
 check "a finding's file is relative to its skill" '[.plugins[1].k[0].f[] | .[1]] | index("run.sh") != null'
 check "a file outside the skill is marked with a leading /" '[.plugins[1].k[0].f[] | .[1]] | index("/plugin.json") != null'
 check "findings are ordered by severity, critical first" '.rules[.plugins[1].k[0].f[0][0]][1] == "CRITICAL"'
+check "a \"<\" in a file name round-trips" '[.plugins[1].k[0].f[] | .[1]] | index("<!--<script>") != null'
 check "exceptions are kept" '.plugins[1].k[0].x == [["reference_missing", "skills/lint/SKILL.md", 4]]'
 
 if [ "$failures" -ne 0 ]; then
