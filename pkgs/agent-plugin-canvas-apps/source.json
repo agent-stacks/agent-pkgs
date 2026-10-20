@@ -1,0 +1,104 @@
+{
+  "name": "canvas-apps",
+  "version": "3.1.1",
+  "src": {
+    "owner": "microsoft",
+    "repo": "power-platform-skills",
+    "rev": "336c9c5f14f1cb0aef30b4f61cbedf3c06e1a213",
+    "hash": "sha256-8fjP2qRYnE39ad6wgjaQwnYDlX2MJN5J+0vm9hfmSTQ="
+  },
+  "sourceUrl": "https://github.com/microsoft/power-platform-skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Microsoft",
+      "url": "https://www.microsoft.com"
+    },
+    "description": "Build Power Apps Canvas Apps using the Canvas Authoring MCP server.",
+    "homepage": "https://github.com/microsoft/power-platform-skills/",
+    "keywords": [
+      "canvas-apps",
+      "power-apps",
+      "canvas",
+      "pa-yaml",
+      "msapp"
+    ],
+    "license": "MIT",
+    "name": "canvas-apps",
+    "repository": "https://github.com/microsoft/power-platform-skills/",
+    "version": "3.1.1"
+  },
+  "skills": {
+    "add-data-source": "plugins/canvas-apps/skills/add-data-source",
+    "canvas-app": "plugins/canvas-apps/skills/canvas-app",
+    "configure-canvas-mcp": "plugins/canvas-apps/skills/configure-canvas-mcp",
+    "report-issue": "plugins/canvas-apps/skills/report-issue"
+  },
+  "requiredRuntimes": [
+    "dnx"
+  ],
+  "dependencies": [
+    "dotnet-sdk_10"
+  ],
+  "pluginRootPaths": {
+    ".plugin": "plugins/canvas-apps/.plugin",
+    "com.anthropic.claude-code/agents": "plugins/canvas-apps/agents",
+    "com.anthropic.claude-code/hooks": "plugins/canvas-apps/hooks",
+    "references": "plugins/canvas-apps/references"
+  },
+  "mcpServers": {
+    "canvas-authoring": {
+      "args": [
+        "Microsoft.PowerApps.CanvasAuthoring.McpServer",
+        "--yes"
+      ],
+      "command": "dnx",
+      "type": "stdio"
+    }
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "command": "dotnet run --file \"${CLAUDE_PLUGIN_ROOT}/hooks/inject-sync-reminder.cs\"",
+            "timeout": 30,
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "description": "Build Power Apps Canvas Apps using the Canvas Authoring MCP server",
+    "homepage": "https://github.com/microsoft/power-platform-skills"
+  },
+  "import": {
+    "input": "microsoft/power-platform-skills",
+    "flags": [
+      "--dependency=dotnet-sdk_10"
+    ],
+    "warnings": [
+      {
+        "path": "plugins/canvas-apps/skills/add-data-source/SKILL.md",
+        "message": "unknown frontmatter fields: author, user-invocable, version"
+      },
+      {
+        "path": "plugins/canvas-apps/skills/canvas-app/SKILL.md",
+        "message": "unknown frontmatter fields: author, user-invocable, version"
+      },
+      {
+        "path": "plugins/canvas-apps/skills/configure-canvas-mcp/SKILL.md",
+        "message": "unknown frontmatter fields: author, user-invocable, version"
+      },
+      {
+        "path": "plugins/canvas-apps/skills/report-issue/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/canvas-apps/hooks/hooks.json",
+        "message": "Claude Code runs this on UserPromptSubmit: dotnet run --file \"${CLAUDE_PLUGIN_ROOT}/hooks/inject-sync-reminder.cs\""
+      }
+    ]
+  }
+}

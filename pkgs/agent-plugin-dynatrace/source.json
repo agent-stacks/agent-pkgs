@@ -1,0 +1,91 @@
+{
+  "name": "dynatrace",
+  "version": "8.0.1",
+  "src": {
+    "owner": "Dynatrace",
+    "repo": "dynatrace-for-ai",
+    "rev": "4f9aa71f9802aa6db0a4069ae5619eb3392ff411",
+    "hash": "sha256-znCkHxL/AIk+Wvr75yCtN76rMayIxqLfn2g96EUdfAI="
+  },
+  "sourceUrl": "https://github.com/Dynatrace/dynatrace-for-ai",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Dynatrace"
+    },
+    "description": "Dynatrace observability skills and knowledge packages for AI coding agents.",
+    "homepage": "https://www.dynatrace.com",
+    "license": "Apache-2.0",
+    "name": "dynatrace",
+    "repository": "https://github.com/Dynatrace/dynatrace-for-ai",
+    "version": "8.0.1"
+  },
+  "skills": {
+    "dt-alerting": "skills/dt-alerting",
+    "dt-app-dashboards": "skills/dt-app-dashboards",
+    "dt-app-notebooks": "skills/dt-app-notebooks",
+    "dt-dql-essentials": "skills/dt-dql-essentials",
+    "dt-js-runtime": "skills/dt-js-runtime",
+    "dt-migration": "skills/dt-migration",
+    "dt-obs-analytics": "skills/dt-obs-analytics",
+    "dt-obs-aws": "skills/dt-obs-aws",
+    "dt-obs-azure": "skills/dt-obs-azure",
+    "dt-obs-compliance-assistant": "skills/dt-obs-compliance-assistant",
+    "dt-obs-ext-monitors": "skills/dt-obs-ext-monitors",
+    "dt-obs-frontends": "skills/dt-obs-frontends",
+    "dt-obs-gcp": "skills/dt-obs-gcp",
+    "dt-obs-genai": "skills/dt-obs-genai",
+    "dt-obs-hosts": "skills/dt-obs-hosts",
+    "dt-obs-kubernetes": "skills/dt-obs-kubernetes",
+    "dt-obs-log-semantic-mapping": "skills/dt-obs-log-semantic-mapping",
+    "dt-obs-logs": "skills/dt-obs-logs",
+    "dt-obs-network-devices": "skills/dt-obs-network-devices",
+    "dt-obs-network-flows": "skills/dt-obs-network-flows",
+    "dt-obs-predictive-analytics": "skills/dt-obs-predictive-analytics",
+    "dt-obs-problems": "skills/dt-obs-problems",
+    "dt-obs-services": "skills/dt-obs-services",
+    "dt-obs-tracing": "skills/dt-obs-tracing",
+    "dt-platform-costs": "skills/dt-platform-costs",
+    "dt-sec-contextualization": "skills/dt-sec-contextualization",
+    "dt-sec-insights": "skills/dt-sec-insights",
+    "dt-sec-ioc-hunting": "skills/dt-sec-ioc-hunting",
+    "dt-sec-semantic-mapping": "skills/dt-sec-semantic-mapping",
+    "dt-setup-android": "skills/dt-setup-android",
+    "dt-setup-flutter": "skills/dt-setup-flutter",
+    "dt-setup-ios": "skills/dt-setup-ios",
+    "dt-setup-oneagent": "skills/dt-setup-oneagent",
+    "dt-setup-react-native": "skills/dt-setup-react-native"
+  },
+  "requiredRuntimes": [
+    "bash",
+    "ruby"
+  ],
+  "mcpServers": {
+    "dynatrace": {
+      "headers": {
+        "Authorization": "Bearer ${DT_PLATFORM_TOKEN}",
+        "Dt-External-Source": "dynatrace-for-ai/8.0.1"
+      },
+      "type": "streamable-http",
+      "url": "${DT_ENVIRONMENT}/platform-reserved/mcp-gateway/v0.1/servers/dynatrace-mcp/mcp"
+    }
+  },
+  "meta": {
+    "description": "Dynatrace observability skills and knowledge packages for AI coding agents",
+    "homepage": "https://github.com/Dynatrace/dynatrace-for-ai"
+  },
+  "import": {
+    "input": "Dynatrace/dynatrace-for-ai",
+    "flags": [],
+    "warnings": [
+      {
+        "path": ".mcp.json/mcpServers/dynatrace",
+        "message": "url or headers carry ${DT_ENVIRONMENT}, ${DT_PLATFORM_TOKEN}; a conforming client does not expand them and sends the text as written"
+      },
+      {
+        "path": "skills/dt-setup-ios/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint"
+      }
+    ]
+  }
+}

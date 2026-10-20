@@ -1,0 +1,274 @@
+{
+  "name": "mobile-app",
+  "version": "0.6.0",
+  "src": {
+    "owner": "microsoft",
+    "repo": "power-platform-skills",
+    "rev": "336c9c5f14f1cb0aef30b4f61cbedf3c06e1a213",
+    "hash": "sha256-8fjP2qRYnE39ad6wgjaQwnYDlX2MJN5J+0vm9hfmSTQ="
+  },
+  "sourceUrl": "https://github.com/microsoft/power-platform-skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Microsoft",
+      "url": "https://www.microsoft.com"
+    },
+    "description": "Build and deploy Power Apps code apps for mobile using Expo (React Native), with native device functionality and Power Platform connectors",
+    "homepage": "https://github.com/microsoft/power-platform-skills/",
+    "keywords": [
+      "power-platform",
+      "power-apps",
+      "code-apps",
+      "mobile",
+      "expo",
+      "react-native",
+      "native",
+      "connectors",
+      "microsoft"
+    ],
+    "license": "MIT",
+    "name": "mobile-app",
+    "repository": "https://github.com/microsoft/power-platform-skills/",
+    "version": "0.6.0"
+  },
+  "skills": {
+    "add-connector": "plugins/mobile-apps/skills/add-connector",
+    "add-datasource": "plugins/mobile-apps/skills/add-datasource",
+    "add-dataverse": "plugins/mobile-apps/skills/add-dataverse",
+    "add-native": "plugins/mobile-apps/skills/add-native",
+    "add-sample-data": "plugins/mobile-apps/skills/add-sample-data",
+    "add-sharepoint": "plugins/mobile-apps/skills/add-sharepoint",
+    "add-table-to-offline-profile": "plugins/mobile-apps/skills/add-table-to-offline-profile",
+    "assign-offline-profile": "plugins/mobile-apps/skills/assign-offline-profile",
+    "check-updates": "plugins/mobile-apps/skills/check-updates",
+    "create-mobile-app": "plugins/mobile-apps/skills/create-mobile-app",
+    "debug-app": "plugins/mobile-apps/skills/debug-app",
+    "deploy": "plugins/mobile-apps/skills/deploy",
+    "design-system": "plugins/mobile-apps/skills/design-system",
+    "edit-app": "plugins/mobile-apps/skills/edit-app",
+    "edit-offline-profile": "plugins/mobile-apps/skills/edit-offline-profile",
+    "enable-tables-offline": "plugins/mobile-apps/skills/enable-tables-offline",
+    "list-connections": "plugins/mobile-apps/skills/list-connections",
+    "open-wrap-url": "plugins/mobile-apps/skills/open-wrap-url",
+    "preview-offline-scope": "plugins/mobile-apps/skills/preview-offline-scope",
+    "preview-screens": "plugins/mobile-apps/skills/preview-screens",
+    "report-issue": "plugins/mobile-apps/skills/report-issue",
+    "set-app-registration-native": "plugins/mobile-apps/skills/set-app-registration-native",
+    "setup-app-insights": "plugins/mobile-apps/skills/setup-app-insights",
+    "setup-datamodel": "plugins/mobile-apps/skills/setup-datamodel",
+    "setup-offline-profile": "plugins/mobile-apps/skills/setup-offline-profile",
+    "telemetry": "plugins/mobile-apps/skills/telemetry"
+  },
+  "requiredRuntimes": [
+    "bash",
+    "node"
+  ],
+  "dependencies": [
+    "dotnet-sdk_10"
+  ],
+  "pluginRootPaths": {
+    ".plugin": "plugins/mobile-apps/.plugin",
+    "AGENTS.md": "plugins/mobile-apps/AGENTS.md",
+    "agents": "plugins/mobile-apps/agents",
+    "hooks": "plugins/mobile-apps/hooks",
+    "scripts": "plugins/mobile-apps/scripts",
+    "shared": "plugins/mobile-apps/shared",
+    "template": "plugins/mobile-apps/template"
+  },
+  "mcpServers": {
+    "microsoft-learn": {
+      "type": "streamable-http",
+      "url": "https://learn.microsoft.com/api/mcp"
+    }
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "node -e \"const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root)process.exit(0); try{require(path.resolve(root,'hooks','run-telemetry.js')).start('pretool');}catch{}\"",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "Skill|skill"
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "command": "node -e \"const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root)process.exit(0); try{require(path.resolve(root,'hooks','run-telemetry.js')).start('prompt');}catch{}\"",
+            "timeout": 10,
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "description": "Build and deploy Power Apps code apps for mobile using Expo (React Native)",
+    "homepage": "https://github.com/microsoft/power-platform-skills"
+  },
+  "import": {
+    "input": "microsoft/power-platform-skills",
+    "flags": [
+      "--dependency=dotnet-sdk_10"
+    ],
+    "warnings": [
+      {
+        "path": "plugins/mobile-apps/skills/add-connector/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/add-datasource/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/add-dataverse/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/add-native/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/add-native/add-camera/SKILL.md",
+        "message": "inside skill \"add-native\" (plugins/mobile-apps/skills/add-native/SKILL.md), packaged with it; Claude Code loads that skill, not this file"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/add-native/add-geolocation/SKILL.md",
+        "message": "inside skill \"add-native\" (plugins/mobile-apps/skills/add-native/SKILL.md), packaged with it; Claude Code loads that skill, not this file"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/add-native/add-pdf-report/SKILL.md",
+        "message": "inside skill \"add-native\" (plugins/mobile-apps/skills/add-native/SKILL.md), packaged with it; Claude Code loads that skill, not this file"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/add-native/add-pdf-viewer/SKILL.md",
+        "message": "inside skill \"add-native\" (plugins/mobile-apps/skills/add-native/SKILL.md), packaged with it; Claude Code loads that skill, not this file"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/add-native/add-pen-input/SKILL.md",
+        "message": "inside skill \"add-native\" (plugins/mobile-apps/skills/add-native/SKILL.md), packaged with it; Claude Code loads that skill, not this file"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/add-sample-data/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/add-sharepoint/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/add-table-to-offline-profile/SKILL.md",
+        "message": "unknown frontmatter fields: disable-model-invocation, model, user-invocable"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/assign-offline-profile/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/check-updates/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/create-mobile-app/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/debug-app/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/deploy/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/design-system/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/edit-app/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/edit-offline-profile/SKILL.md",
+        "message": "unknown frontmatter fields: disable-model-invocation, model, user-invocable"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/enable-tables-offline/SKILL.md",
+        "message": "unknown frontmatter fields: disable-model-invocation, model, user-invocable"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/list-connections/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/open-wrap-url/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/preview-offline-scope/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/preview-screens/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/report-issue/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/set-app-registration-native/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/setup-app-insights/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/setup-datamodel/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/setup-offline-profile/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/mobile-apps/skills/telemetry/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/mobile-apps/hooks/hooks.json",
+        "message": "Claude Code runs this on PreToolUse: node -e \"const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root)process.exit(0); try{require(path.resolve(root,'hooks','run-telemetry.js')).start('pretool');}catch{}\""
+      },
+      {
+        "path": "plugins/mobile-apps/hooks/hooks.json",
+        "message": "Claude Code runs this on UserPromptSubmit: node -e \"const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root)process.exit(0); try{require(path.resolve(root,'hooks','run-telemetry.js')).start('prompt');}catch{}\""
+      },
+      {
+        "path": "...",
+        "message": "this is named through ${PLUGIN_ROOT}, or sits at a plugin root a server runs from, and is not in the source; it resolves to nothing wherever the plugin is installed"
+      },
+      {
+        "path": "skills/design-system/references/vibe/direction-",
+        "message": "this is named through ${PLUGIN_ROOT}, or sits at a plugin root a server runs from, and is not in the source; it resolves to nothing wherever the plugin is installed"
+      },
+      {
+        "path": "agents",
+        "message": "a Claude Code component location that a skill or an MCP server also names through ${PLUGIN_ROOT}, so it stays at the plugin root rather than moving into com.anthropic.claude-code/; Claude reads it there too"
+      },
+      {
+        "path": "hooks",
+        "message": "a Claude Code component location that a skill or an MCP server also names through ${PLUGIN_ROOT}, so it stays at the plugin root rather than moving into com.anthropic.claude-code/; Claude reads it there too"
+      },
+      {
+        "path": "template/package.json",
+        "message": "dependency manifest; the build does not resolve what it declares"
+      }
+    ]
+  }
+}

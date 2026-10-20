@@ -1,0 +1,85 @@
+{
+  "name": "mcp-apps",
+  "version": "1.2.0",
+  "src": {
+    "owner": "microsoft",
+    "repo": "power-platform-skills",
+    "rev": "336c9c5f14f1cb0aef30b4f61cbedf3c06e1a213",
+    "hash": "sha256-8fjP2qRYnE39ad6wgjaQwnYDlX2MJN5J+0vm9hfmSTQ="
+  },
+  "sourceUrl": "https://github.com/microsoft/power-platform-skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Microsoft",
+      "url": "https://www.microsoft.com"
+    },
+    "description": "Generate JavaScript server runtimes and CDN-free or CDN-enabled MCP App widgets.",
+    "homepage": "https://github.com/microsoft/power-platform-skills/",
+    "keywords": [
+      "mcp-apps",
+      "mcp",
+      "codeful-tool",
+      "dataverse",
+      "javascript",
+      "widget",
+      "ext-apps",
+      "fluent-ui",
+      "html",
+      "tool-visualization"
+    ],
+    "license": "MIT",
+    "name": "mcp-apps",
+    "repository": "https://github.com/microsoft/power-platform-skills/",
+    "version": "1.2.0"
+  },
+  "skills": {
+    "generate-codeful-mcp-tool": "plugins/mcp-apps/skills/generate-codeful-mcp-tool",
+    "generate-mcp-app-ui": "plugins/mcp-apps/skills/generate-mcp-app-ui",
+    "report-issue": "plugins/mcp-apps/skills/report-issue"
+  },
+  "requiredRuntimes": [
+    "node"
+  ],
+  "dependencies": [
+    "dotnet-sdk_10"
+  ],
+  "pluginRootPaths": {
+    ".plugin": "plugins/mcp-apps/.plugin",
+    "references": "plugins/mcp-apps/references",
+    "samples": "plugins/mcp-apps/samples",
+    "scripts": "plugins/mcp-apps/scripts"
+  },
+  "meta": {
+    "description": "Generate JavaScript server runtimes and CDN-free or CDN-enabled MCP App widgets",
+    "homepage": "https://github.com/microsoft/power-platform-skills"
+  },
+  "import": {
+    "input": "microsoft/power-platform-skills",
+    "flags": [
+      "--dependency=dotnet-sdk_10"
+    ],
+    "warnings": [
+      {
+        "path": "plugins/mcp-apps/skills/generate-codeful-mcp-tool/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, author, user-invocable, version"
+      },
+      {
+        "path": "plugins/mcp-apps/skills/generate-mcp-app-ui/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, author, user-invocable, version"
+      },
+      {
+        "path": "plugins/mcp-apps/skills/report-issue/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "scripts/_vendor-build/build.js",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/_vendor-build/package.json",
+        "message": "dependency manifest; the build does not resolve what it declares"
+      }
+    ]
+  }
+}

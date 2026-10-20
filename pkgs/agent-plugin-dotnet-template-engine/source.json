@@ -1,0 +1,63 @@
+{
+  "name": "dotnet-template-engine",
+  "version": "0.1.5",
+  "src": {
+    "owner": "dotnet",
+    "repo": "skills",
+    "rev": "9386ed7c1148a7bef970aa0502371c982effa01c",
+    "hash": "sha256-LzqVJ6hwSbhS2SciXZCeq5gjGB44/1Q5a5DOfF+N6Mc="
+  },
+  "sourceUrl": "https://github.com/dotnet/skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "description": ".NET Template Engine skills: template discovery, project scaffolding, and template authoring.",
+    "extensions": {
+      "com.anthropic.claude-code": {
+        "agents": [
+          "./agents/template-engine.agent.md"
+        ]
+      }
+    },
+    "name": "dotnet-template-engine",
+    "version": "0.1.5"
+  },
+  "skills": {
+    "template-authoring": "plugins/dotnet-template-engine/skills/template-authoring",
+    "template-comparison": "plugins/dotnet-template-engine/skills/template-comparison",
+    "template-discovery": "plugins/dotnet-template-engine/skills/template-discovery",
+    "template-instantiation": "plugins/dotnet-template-engine/skills/template-instantiation",
+    "template-smart-defaults": "plugins/dotnet-template-engine/skills/template-smart-defaults",
+    "template-validation": "plugins/dotnet-template-engine/skills/template-validation"
+  },
+  "requiredRuntimes": [],
+  "dependencies": [
+    "dotnet-sdk_10"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/agents": "plugins/dotnet-template-engine/agents"
+  },
+  "meta": {
+    "description": ".NET Template Engine skills",
+    "homepage": "https://github.com/dotnet/skills"
+  },
+  "import": {
+    "input": "dotnet/skills",
+    "flags": [
+      "--dependency=dotnet-sdk_10"
+    ],
+    "warnings": [
+      {
+        "path": ".agents",
+        "message": "5 SKILL.md outside every imported plugin, not imported"
+      },
+      {
+        "path": ".github/skills/agentic-workflows/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .github/skills/agentic-workflows=NAME imports it"
+      },
+      {
+        "path": "eng",
+        "message": "2 SKILL.md outside every imported plugin, not imported"
+      }
+    ]
+  }
+}

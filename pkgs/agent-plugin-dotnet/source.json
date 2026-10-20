@@ -1,0 +1,55 @@
+{
+  "name": "dotnet",
+  "version": "0.2.5",
+  "src": {
+    "owner": "dotnet",
+    "repo": "skills",
+    "rev": "9386ed7c1148a7bef970aa0502371c982effa01c",
+    "hash": "sha256-LzqVJ6hwSbhS2SciXZCeq5gjGB44/1Q5a5DOfF+N6Mc="
+  },
+  "sourceUrl": "https://github.com/dotnet/skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "description": "C# language server (LSP) integration for coding agents and high-level .NET development skills.",
+    "name": "dotnet",
+    "version": "0.2.5"
+  },
+  "skills": {
+    "csharp-expert": "plugins/dotnet/skills/csharp-expert",
+    "csharp-refactoring": "plugins/dotnet/skills/csharp-refactoring",
+    "msbuild": "plugins/dotnet/skills/msbuild",
+    "setup-local-sdk": "plugins/dotnet/skills/setup-local-sdk"
+  },
+  "requiredRuntimes": [],
+  "dependencies": [
+    "dotnet-sdk_10"
+  ],
+  "meta": {
+    "description": "C# language server (LSP) integration for coding agents and high-level .NET development skills",
+    "homepage": "https://github.com/dotnet/skills"
+  },
+  "import": {
+    "input": "dotnet/skills",
+    "flags": [
+      "--dependency=dotnet-sdk_10"
+    ],
+    "warnings": [
+      {
+        "path": ".agents",
+        "message": "5 SKILL.md outside every imported plugin, not imported"
+      },
+      {
+        "path": ".github/skills/agentic-workflows/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .github/skills/agentic-workflows=NAME imports it"
+      },
+      {
+        "path": "eng",
+        "message": "2 SKILL.md outside every imported plugin, not imported"
+      },
+      {
+        "path": "plugins/dotnet/.lsp.json",
+        "message": "Claude Code loads the plugin's LSP servers from this file; import does not package them"
+      }
+    ]
+  }
+}

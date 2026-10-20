@@ -1,0 +1,96 @@
+{
+  "name": "dotnet-msbuild",
+  "version": "0.1.11",
+  "src": {
+    "owner": "dotnet",
+    "repo": "skills",
+    "rev": "9386ed7c1148a7bef970aa0502371c982effa01c",
+    "hash": "sha256-LzqVJ6hwSbhS2SciXZCeq5gjGB44/1Q5a5DOfF+N6Mc="
+  },
+  "sourceUrl": "https://github.com/dotnet/skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "description": "Comprehensive MSBuild and .NET build skills: failure diagnosis, performance optimization, code quality, and modernization.",
+    "extensions": {
+      "com.anthropic.claude-code": {
+        "agents": [
+          "./agents/build-perf.agent.md",
+          "./agents/msbuild-code-review.agent.md",
+          "./agents/msbuild.agent.md"
+        ]
+      }
+    },
+    "name": "dotnet-msbuild",
+    "version": "0.1.11"
+  },
+  "skills": {
+    "binlog-failure-analysis": "plugins/dotnet-msbuild/skills/binlog-failure-analysis",
+    "binlog-generation": "plugins/dotnet-msbuild/skills/binlog-generation",
+    "build-parallelism": "plugins/dotnet-msbuild/skills/build-parallelism",
+    "build-perf-baseline": "plugins/dotnet-msbuild/skills/build-perf-baseline",
+    "build-perf-diagnostics": "plugins/dotnet-msbuild/skills/build-perf-diagnostics",
+    "check-bin-obj-clash": "plugins/dotnet-msbuild/skills/check-bin-obj-clash",
+    "copy-to-output-directory": "plugins/dotnet-msbuild/skills/copy-to-output-directory",
+    "directory-build-organization": "plugins/dotnet-msbuild/skills/directory-build-organization",
+    "eliminate-redundant-restores": "plugins/dotnet-msbuild/skills/eliminate-redundant-restores",
+    "eval-performance": "plugins/dotnet-msbuild/skills/eval-performance",
+    "extension-points": "plugins/dotnet-msbuild/skills/extension-points",
+    "including-generated-files": "plugins/dotnet-msbuild/skills/including-generated-files",
+    "incremental-build": "plugins/dotnet-msbuild/skills/incremental-build",
+    "item-management": "plugins/dotnet-msbuild/skills/item-management",
+    "msbuild-antipatterns": "plugins/dotnet-msbuild/skills/msbuild-antipatterns",
+    "msbuild-modernization": "plugins/dotnet-msbuild/skills/msbuild-modernization",
+    "property-patterns": "plugins/dotnet-msbuild/skills/property-patterns",
+    "resolve-project-references": "plugins/dotnet-msbuild/skills/resolve-project-references",
+    "target-authoring": "plugins/dotnet-msbuild/skills/target-authoring"
+  },
+  "requiredRuntimes": [
+    "dotnet"
+  ],
+  "dependencies": [
+    "dotnet-sdk_10"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/agents": "plugins/dotnet-msbuild/agents"
+  },
+  "mcpServers": {
+    "binlog": {
+      "args": [
+        "dnx",
+        "Microsoft.AITools.BinlogMcp",
+        "--yes",
+        "--prerelease"
+      ],
+      "command": "dotnet",
+      "type": "stdio"
+    }
+  },
+  "meta": {
+    "description": "Comprehensive MSBuild and .NET build skills",
+    "homepage": "https://github.com/dotnet/skills"
+  },
+  "import": {
+    "input": "dotnet/skills",
+    "flags": [
+      "--dependency=dotnet-sdk_10"
+    ],
+    "warnings": [
+      {
+        "path": ".agents",
+        "message": "5 SKILL.md outside every imported plugin, not imported"
+      },
+      {
+        "path": ".github/skills/agentic-workflows/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .github/skills/agentic-workflows=NAME imports it"
+      },
+      {
+        "path": "eng",
+        "message": "2 SKILL.md outside every imported plugin, not imported"
+      },
+      {
+        "path": ".claude-plugin/marketplace.json",
+        "message": "entry \"dotnet-msbuild\": mcpServers does not apply beside plugins/dotnet-msbuild/.claude-plugin/plugin.json, which Claude Code reads instead, not imported"
+      }
+    ]
+  }
+}

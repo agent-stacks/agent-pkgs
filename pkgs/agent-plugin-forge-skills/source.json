@@ -1,0 +1,94 @@
+{
+  "name": "forge-skills",
+  "version": "0.1.0",
+  "src": {
+    "owner": "atlassian",
+    "repo": "forge-skills",
+    "rev": "1b89cbd61844471264a7d4dce8eed44402f7f77f",
+    "hash": "sha256-BRFOsWoCkuUQz6TCdu/dmU3YuvaQ4CWqSBz6VFE5wyQ="
+  },
+  "sourceUrl": "https://github.com/atlassian/forge-skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Atlassian Developer"
+    },
+    "description": "Forge app builder skill bundle with Forge MCP integration for Atlassian Forge workflows.",
+    "homepage": "https://github.com/atlassian/forge-skills",
+    "keywords": [
+      "forge",
+      "atlassian",
+      "jira",
+      "confluence",
+      "mcp",
+      "skills"
+    ],
+    "license": "Apache-2.0",
+    "name": "forge-skills",
+    "repository": "https://github.com/atlassian/forge-skills.git",
+    "version": "0.1.0"
+  },
+  "skills": {
+    "forge-app-builder": "skills/forge-app-builder",
+    "forge-app-review": "skills/forge-app-review",
+    "forge-connector": "skills/forge-connector",
+    "forge-cost-optimizer": "skills/forge-cost-optimizer",
+    "forge-debugger": "skills/forge-debugger",
+    "forge-onboarding": "skills/forge-onboarding",
+    "forge-security-review": "skills/forge-security-review"
+  },
+  "requiredRuntimes": [
+    "bash",
+    "pwsh",
+    "python3"
+  ],
+  "dependencies": [
+    "powershell"
+  ],
+  "mcpServers": {
+    "ads-mcp": {
+      "type": "streamable-http",
+      "url": "https://mcp.atlassian.com/v1/ads/public/mcp"
+    },
+    "forge": {
+      "type": "streamable-http",
+      "url": "https://mcp.atlassian.com/v1/forge/mcp"
+    }
+  },
+  "meta": {
+    "description": "Forge app builder skill bundle with Forge MCP integration for Atlassian Forge workflows",
+    "homepage": "https://github.com/atlassian/forge-skills"
+  },
+  "import": {
+    "input": "atlassian/forge-skills",
+    "flags": [
+      "--dependency=powershell"
+    ],
+    "warnings": [
+      {
+        "path": "skills/forge-app-builder/scripts/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/forge-app-builder/scripts/forge_env.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/forge-connector/scripts/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/forge-connector/scripts/forge_env.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/forge-app-builder/evals/fixtures/existing-ui-kit-app/package.json",
+        "message": "dependency manifest; the build does not resolve what it declares"
+      },
+      {
+        "path": "skills/forge-app-builder/package.json",
+        "message": "dependency manifest; the build does not resolve what it declares"
+      }
+    ]
+  }
+}
