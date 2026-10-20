@@ -27,8 +27,12 @@ permissions:
   contents: write
 
 # The workflow ends by moving main. Two runs doing that at once would leave
-# one of them rejected halfway through, so they are queued. Never cancelled:
-# a cancelled run can have already pushed the staging branch.
+# one of them rejected halfway through, so they are queued. A run that has
+# started is never cancelled, because it can have already pushed the staging
+# branch. The group holds one pending run besides the running one, though,
+# and a newer dispatch replaces the pending one (GitHub docs,
+# actions/concepts/workflows-and-actions/concurrency.md), so a dispatch
+# queued behind a run can be dropped unrun.
 concurrency:
   group: update-agent-stacks
   cancel-in-progress: false
@@ -89,9 +93,15 @@ jobs:
           app-id: ${{ secrets.MANAGED_AGENT_STACKS_UPDATER_APP_ID }}
           private-key: ${{ secrets.MANAGED_AGENT_STACKS_UPDATER_PRIVATE_KEY }}
 
+      # The branch as it is when this job starts, not github.sha, which is
+      # frozen when the run is dispatched. A run queued behind another
+      # (see the concurrency group) would otherwise stage its bump on a
+      # main that lacks the bump the earlier run landed, and every bump
+      # rewrites all of source.json, so land's rebase would always conflict.
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           token: ${{ steps.app-token.outputs.token }}
+          ref: ${{ github.ref }}
 
       - name: "Install flox"
         uses: flox/install-flox-action@3b80351ae97bbe063f264dc88fbd505507054963 # v2.5.3
@@ -368,13 +378,19 @@ jobs:
             if ! git rebase origin/main; then
               git rebase --abort || true
               echo "the staged commit conflicts with main; nothing was pushed." >&2
-              echo "Run this workflow again for the same rev." >&2
+              echo "main already carries a different agent-stacks bump:" >&2
+              echo "  main:   $(git show origin/main:pkgs/agent-stacks/source.json | jq -r .rev)" >&2
+              echo "  staged: $(jq -r .rev pkgs/agent-stacks/source.json)" >&2
+              echo "Check which rev is newer before dispatching again;" >&2
+              echo "dispatching the older one downgrades main." >&2
               exit 1
             fi
             git push --force origin "HEAD:refs/heads/$STAGING_BRANCH"
           done
           echo "main moved under every attempt; nothing was pushed." >&2
-          echo "Run this workflow again for the same rev." >&2
+          echo "If main has since taken a different agent-stacks bump, check" >&2
+          echo "which rev is newer before dispatching again; the older one" >&2
+          echo "downgrades main." >&2
           exit 1
 
   # Reports a failed run as a Sentry event. This workflow is dispatched,
