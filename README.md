@@ -189,6 +189,8 @@ needing to define harness-specific configuration.
 See [Create an agent-stack package](docs/guides/create-agent-stack.md)
 for a worked example, and
 [mkAgentStack](docs/reference/mk-agent-stack.md) for the full API.
+To make a stack with the Flox CLI instead of a flake, see
+[Create an agent stack with Flox](docs/guides/create-agent-stack-with-flox.md).
 
 ## Fork it
 
