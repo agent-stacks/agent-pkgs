@@ -391,6 +391,18 @@
               touch $out
             '';
 
+          # The page audit-dashboard.yml publishes, built from a small
+          # pkgs tree: which packages it lists, what it keeps of each
+          # finding to link it upstream, and that no finding's text can
+          # close the page's script.
+          audit-dashboard = pkgs.runCommand "audit-dashboard"
+            { nativeBuildInputs = [ pkgs.bash pkgs.coreutils pkgs.gnugrep pkgs.gnused pkgs.jq pkgs.python3 ]; }
+            ''
+              bash ${./scripts/audit-dashboard.test.sh} \
+                ${./scripts/audit-dashboard.py} ${./scripts/audit-dashboard.html}
+              touch $out
+            '';
+
           agent-sandbox-nono-contract =
             let nono = "${(mkPackages pkgs).agent-sandbox-nono}/bin/agent-sandbox-nono"; in
             pkgs.runCommand "agent-sandbox-nono-contract" { nativeBuildInputs = [ pkgs.jq pkgs.nono ]; } ''

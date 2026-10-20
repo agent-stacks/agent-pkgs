@@ -79,6 +79,27 @@ It prints `agent-plugin-humanizer: new|changed|unchanged (<score>)`.
 The pinned CLI has to carry agent-stacks-cli #186. With an older
 one the script finds no readable result, exits 2 and writes nothing.
 
+## Reading them: the dashboard
+
+<https://agent-stacks.github.io/agent-pkgs/> shows every `audit.json`
+on main in one page. Plugins are ranked by how affected they are
+(lowest score, then most critical and most high findings), with
+filters by status, rule and name. A plugin opens to its skills, worst
+first, with the findings grouped by rule. Each finding links to its
+file and line in the upstream repository, at the revision that was
+audited. Each plugin has its own address, `#agent-plugin-<name>`.
+
+`.github/workflows/audit-dashboard.yml` publishes it to GitHub Pages
+after every push to main that changes an `audit.json`, which is every
+commit `audit-plugins.yml` makes. `scripts/audit-dashboard.py` builds
+it, with the data embedded in the page, so the page makes no requests
+of its own. The same build, locally, from the repository root:
+
+```sh
+python3 scripts/audit-dashboard.py pkgs scripts/audit-dashboard.html \
+  result.html --rev "$(git rev-parse HEAD)"
+```
+
 ## What it is not
 
 The build never reads it: a package's `default.nix` reads only
