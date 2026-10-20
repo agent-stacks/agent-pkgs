@@ -1,0 +1,63 @@
+{
+  "name": "dotnet-test-migration",
+  "version": "0.1.11",
+  "src": {
+    "owner": "dotnet",
+    "repo": "skills",
+    "rev": "9386ed7c1148a7bef970aa0502371c982effa01c",
+    "hash": "sha256-LzqVJ6hwSbhS2SciXZCeq5gjGB44/1Q5a5DOfF+N6Mc="
+  },
+  "sourceUrl": "https://github.com/dotnet/skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "description": "Skills and an orchestrator agent for migrating .NET test frameworks and platforms: MSTest and xUnit version upgrades, xUnit-to-MSTest conversion, and VSTest to Microsoft.Testing.Platform.",
+    "extensions": {
+      "com.anthropic.claude-code": {
+        "agents": [
+          "./agents/test-migration.agent.md"
+        ]
+      }
+    },
+    "name": "dotnet-test-migration",
+    "version": "0.1.11"
+  },
+  "skills": {
+    "migrate-mstest-v1v2-to-v3": "plugins/dotnet-test-migration/skills/migrate-mstest-v1v2-to-v3",
+    "migrate-mstest-v3-to-v4": "plugins/dotnet-test-migration/skills/migrate-mstest-v3-to-v4",
+    "migrate-nunit-to-mstest": "plugins/dotnet-test-migration/skills/migrate-nunit-to-mstest",
+    "migrate-vstest-to-mtp": "plugins/dotnet-test-migration/skills/migrate-vstest-to-mtp",
+    "migrate-xunit-to-mstest": "plugins/dotnet-test-migration/skills/migrate-xunit-to-mstest",
+    "migrate-xunit-to-xunit-v3": "plugins/dotnet-test-migration/skills/migrate-xunit-to-xunit-v3"
+  },
+  "requiredRuntimes": [],
+  "dependencies": [
+    "dotnet-sdk_10"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/agents": "plugins/dotnet-test-migration/agents"
+  },
+  "meta": {
+    "description": "Skills and an orchestrator agent for migrating .NET test frameworks and platforms",
+    "homepage": "https://github.com/dotnet/skills"
+  },
+  "import": {
+    "input": "dotnet/skills",
+    "flags": [
+      "--dependency=dotnet-sdk_10"
+    ],
+    "warnings": [
+      {
+        "path": ".agents",
+        "message": "5 SKILL.md outside every imported plugin, not imported"
+      },
+      {
+        "path": ".github/skills/agentic-workflows/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .github/skills/agentic-workflows=NAME imports it"
+      },
+      {
+        "path": "eng",
+        "message": "2 SKILL.md outside every imported plugin, not imported"
+      }
+    ]
+  }
+}

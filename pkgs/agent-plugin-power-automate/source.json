@@ -1,0 +1,162 @@
+{
+  "name": "power-automate",
+  "version": "3.2.1",
+  "src": {
+    "owner": "microsoft",
+    "repo": "power-platform-skills",
+    "rev": "336c9c5f14f1cb0aef30b4f61cbedf3c06e1a213",
+    "hash": "sha256-8fjP2qRYnE39ad6wgjaQwnYDlX2MJN5J+0vm9hfmSTQ="
+  },
+  "sourceUrl": "https://github.com/microsoft/power-platform-skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Microsoft",
+      "url": "https://www.microsoft.com"
+    },
+    "description": "Build, edit, run, and debug Power Automate cloud flows via the FlowAgent MCP server — connection lifecycle, surgical edits, copy across environments, run management, and validated expressions.",
+    "homepage": "https://github.com/microsoft/power-platform-skills/",
+    "keywords": [
+      "power-automate",
+      "cloud-flows",
+      "flows",
+      "mcp",
+      "power-platform",
+      "flowagent"
+    ],
+    "license": "MIT",
+    "name": "power-automate",
+    "repository": "https://github.com/microsoft/power-platform-skills/",
+    "version": "3.2.1"
+  },
+  "skills": {
+    "browse-flows": "plugins/power-automate/skills/browse-flows",
+    "build-flow": "plugins/power-automate/skills/build-flow",
+    "create-flow": "plugins/power-automate/skills/create-flow",
+    "debug-flow": "plugins/power-automate/skills/debug-flow",
+    "diagnose-flow": "plugins/power-automate/skills/diagnose-flow",
+    "manage-desktop-flows": "plugins/power-automate/skills/manage-desktop-flows",
+    "manage-flows": "plugins/power-automate/skills/manage-flows",
+    "report-issue": "plugins/power-automate/skills/report-issue",
+    "route-environments": "plugins/power-automate/skills/route-environments",
+    "setup": "plugins/power-automate/skills/setup",
+    "telemetry": "plugins/power-automate/skills/telemetry"
+  },
+  "requiredRuntimes": [
+    "node"
+  ],
+  "dependencies": [
+    "dotnet-sdk_10"
+  ],
+  "pluginRootPaths": {
+    ".plugin": "plugins/power-automate/.plugin",
+    "com.anthropic.claude-code/hooks": "plugins/power-automate/hooks"
+  },
+  "mcpServers": {
+    "flowagent": {
+      "args": [
+        "-e",
+        "const p=require('node:path'),fs=require('node:fs');const r=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT||process.cwd();const src=process.env.PLUGIN_ROOT?'PLUGIN_ROOT':process.env.CLAUDE_PLUGIN_ROOT?'CLAUDE_PLUGIN_ROOT':'cwd';const mjs=p.resolve(r,'server','mcp.mjs');if(!fs.existsSync(mjs)){console.error('FlowAgent MCP not found at '+mjs+' (resolved via '+src+'='+r+'). Run /setup to fix.');process.exit(1);}(async()=>{try{await import(require('node:url').pathToFileURL(mjs).href)}catch(e){console.error(e);process.exit(1)}})();"
+      ],
+      "command": "node",
+      "type": "stdio"
+    },
+    "microsoft-learn": {
+      "type": "streamable-http",
+      "url": "https://learn.microsoft.com/api/mcp"
+    }
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "node -e \"const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root){console.error('PLUGIN_ROOT is not set'); process.exit(0);} require(path.resolve(root,'hooks','run-skill-pretool-telemetry.js'));\"",
+            "timeout": 30,
+            "type": "command"
+          }
+        ],
+        "matcher": "Skill|skill"
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "command": "node -e \"const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root){console.error('PLUGIN_ROOT is not set'); process.exit(0);} require(path.resolve(root,'hooks','run-user-prompt-telemetry.js'));\"",
+            "timeout": 30,
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "description": "Build, edit, run, and debug Power Automate cloud flows via the FlowAgent MCP server",
+    "homepage": "https://github.com/microsoft/power-platform-skills"
+  },
+  "import": {
+    "input": "microsoft/power-platform-skills",
+    "flags": [
+      "--dependency=dotnet-sdk_10"
+    ],
+    "warnings": [
+      {
+        "path": "plugins/power-automate/skills/browse-flows/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-automate/skills/build-flow/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, context, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-automate/skills/create-flow/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-automate/skills/debug-flow/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-automate/skills/diagnose-flow/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, context, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-automate/skills/manage-desktop-flows/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-automate/skills/manage-flows/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, context, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-automate/skills/report-issue/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-automate/skills/route-environments/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-automate/skills/setup/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/power-automate/skills/telemetry/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-automate/hooks/hooks.json",
+        "message": "Claude Code runs this on PreToolUse: node -e \"const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root){console.error('PLUGIN_ROOT is not set'); process.exit(0);} require(path.resolve(root,'hooks','run-skill-pretool-telemetry.js'));\""
+      },
+      {
+        "path": "plugins/power-automate/hooks/hooks.json",
+        "message": "Claude Code runs this on UserPromptSubmit: node -e \"const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root){console.error('PLUGIN_ROOT is not set'); process.exit(0);} require(path.resolve(root,'hooks','run-user-prompt-telemetry.js'));\""
+      },
+      {
+        "path": "package.json",
+        "message": "dependency manifest; the build does not resolve what it declares"
+      }
+    ]
+  }
+}

@@ -1,6 +1,6 @@
 ---
 name: contributing
-description: Use when adding a package to agent-pkgs, when agent-stacks import errors or writes nothing, or when a build fails with "runtime '...' is not mapped".
+description: Use when adding a package to agent-pkgs, when agent-stacks import errors or writes nothing, or when a build fails with "runtime '...' is not provided by a declared dependency".
 ---
 
 # Contributing a package to agent-pkgs
@@ -22,7 +22,7 @@ Three situations, in the order you hit them:
 
 1. **Adding a package** that imports cleanly. Section 1.
 2. **The import refused it**, or wrote nothing. Section 2.
-3. **The build says a runtime is not mapped.** Section 3.
+3. **The build says no package provides a runtime.** Section 3.
 
 Links here are absolute on purpose. This file is copied out of the repository
 when a plugin is installed, and a relative path would not resolve there.
@@ -105,31 +105,39 @@ Errors you will actually see:
 * A non-GitHub input is refused. Import takes GitHub sources only. This is a
   boundary, not a gap.
 
-## 3. When a runtime is unmapped
+## 3. When no package provides a runtime
 
 The build fails with:
 
 ```
-runtime '<tok>' (wanted by <path>) is not mapped.
-  Add it to mappings/runtimes.nix, or pass runtimes.<tok> = <package>;
+runtime '<tok>' (wanted by <path>) is not provided by a declared dependency,
+a default package, or a package named '<tok>'.
+  Re-import with --dependency <nixpkgs attribute> naming the package that
+  ships bin/<tok>.
 ```
 
-Take the first suggestion. The second one does not apply to a generated
-package: `source.json` has no field for a runtime pin, and a pin added by hand
-to `default.nix` is erased by the next re-import.
+The build looks for an executable `bin/<tok>` in the packages the import
+declared, then in `bash`, `python3` and `nodejs`, then in the nixpkgs package
+named `<tok>`. There is no table to add a row to (ADR
+[0023](https://github.com/agent-stacks/agent-pkgs/blob/main/docs/decisions/0023-the-plugin-declares-packages-and-the-build-finds-binaries-in-them.md)).
 
-1. Add a row to [mappings/runtimes.nix](https://github.com/agent-stacks/agent-pkgs/blob/main/mappings/runtimes.nix):
-   `<tok> = "<nixpkgs attribute>";`. The key is the token as skills write it,
-   in a shebang or an `mcp.json` command. The value is the nixpkgs attribute
-   name, which is often different: `pwsh` maps to `powershell`, `npx` and
-   `node` both map to `nodejs`.
-2. Put the row in the same pull request as the package that needs it, never on
-   its own. A row nothing exercises cannot be shown to work.
-3. Rebuild. A wrong attribute fails with
-   `mappings/runtimes.nix maps '<tok>' to unknown nixpkgs attribute '<attr>'`.
+1. Find the nixpkgs attribute whose `bin/` holds the token. It is often not
+   the token: `uvx` ships in `uv`, `pwsh` in `powershell`, `Rscript` in `R`,
+   `dnx` in `dotnet-sdk_10`.
+2. Re-import with `--dependency <attr>`. The flag is recorded in
+   `source.json`, so a replay keeps it, and it applies to every plugin the
+   import writes. Do not add `dependencies` to `default.nix` by hand: the next
+   re-import erases it.
+3. Rebuild. An attribute nixpkgs lacks, or one that does not evaluate on the
+   system (unfree, broken, unsupported), fails evaluation with
+   `dependency '<attr>' ...; re-import with --dependency naming one that is`.
 
-If a skill needs a specific interpreter version rather than a name, the table
-cannot express it. Treat that as section 2 and report it.
+A version pin is the same flag: `--dependency python312` links `bin/python3`
+from `python312` ahead of the default. Two declared packages that both ship
+the token are an error; keep one.
+
+If the message instead ends `this builder predates --dependency`, the
+agent-stacks binary is newer than this builder. Update agent-pkgs.
 
 ## What a passing build looks like
 

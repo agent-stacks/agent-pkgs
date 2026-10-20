@@ -210,7 +210,6 @@
           # does not build a stack, so forcing it here does not recurse.
           defaultAgentStacks = (mkPackages pkgs).agent-stacks.unwrapped;
         };
-        runtimeMappings = import ./mappings/runtimes.nix;
       };
 
       mkPackages = pkgs:
@@ -258,30 +257,86 @@
 
       mkChecks = pkgs:
         mkPackages pkgs // {
-          # mappings/runtimes.nix is this repository's table, so this
-          # is this repository's check: every row must name a nixpkgs
-          # attribute that exists, and one that ships a runnable
-          # program. A row pointing at nothing fails only when a
-          # package happens to record that token, which can be months
-          # after the row lands.
-          #
-          # What the table is *for* — an unmapped token failing the
-          # build with a message naming the file — is asserted in
-          # agent-stacks, which produces that message. ADR 0017.
-          runtime-table-resolves =
+          # The default runtime packages are this repository's choice,
+          # so this repository checks they exist; what the search does
+          # with them is asserted in agent-stacks (ADR 0017).
+          runtime-defaults-resolve =
             let
-              table = builtins.import ./mappings/runtimes.nix;
-              missing = builtins.filter (tok: !(pkgs ? ${table.${tok}}))
-                (builtins.attrNames table);
+              missing = builtins.filter
+                (a: !(pkgs ? ${a}) || !(nixpkgs.lib.isDerivation pkgs.${a}))
+                (import ./lib/runtime-defaults.nix);
             in
             if missing != [ ] then
-              throw ("mappings/runtimes.nix maps to nixpkgs attributes that do not exist: "
-                + builtins.concatStringsSep ", "
-                (map (tok: "${tok} -> ${table.${tok}}") missing))
+              throw ("the default runtime packages are not nixpkgs attributes: "
+                + builtins.concatStringsSep ", " missing)
             else
-              pkgs.runCommand "runtime-table-resolves" { } ''
+              pkgs.runCommand "runtime-defaults-resolve" { } ''
                 touch $out
               '';
+
+          # The list handed to assemble-plugin: a declared dependency
+          # ahead of the defaults, a token's own package when nothing
+          # was declared, its main program when the binary is not its
+          # name, no repeat of a package already listed under its own
+          # binary, and nothing at all, declared or not, for a record
+          # naming no runtime.
+          runtime-candidates =
+            let
+              lib' = mkLib pkgs;
+              src = pkgs.runCommand "runtime-candidates-src" { } ''
+                mkdir -p $out/skills/one/scripts
+                printf -- '---\nname: one\ndescription: Does things.\n---\nBody.\n' \
+                  > $out/skills/one/SKILL.md
+                printf '#!/usr/bin/env python3\nprint(1)\n' > $out/skills/one/scripts/a.py
+                printf '#!/usr/bin/env ruby\nputs 1\n' > $out/skills/one/scripts/b.rb
+                printf '#!/usr/bin/env nodejs\n1\n' > $out/skills/one/scripts/c.js
+                chmod +x $out/skills/one/scripts/*
+              '';
+              mk = args: lib'.buildAgentPlugin ({
+                name = "runtime-candidates";
+                inherit src;
+                sourceUrl = "https://example.test/runtime-candidates";
+                manifest = {
+                  "$schema" = "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json";
+                  name = "runtime-candidates";
+                };
+                skills.one = "skills/one";
+                requiredRuntimes = [ "nodejs" "python3" "ruby" ];
+              } // args);
+              pinned = mk { dependencies = [ "python312" ]; };
+              named = mk { };
+              empty = mk { requiredRuntimes = [ ]; };
+              idle = mk { requiredRuntimes = [ ]; dependencies = [ "python312" ]; };
+              shells = mk { requiredRuntimes = [ "bash" "ruby" ]; };
+              unknown = builtins.tryEval
+                (builtins.deepSeq (attrs (mk { dependencies = [ "no-such-package" ]; })) true);
+              attrs = p: map (c: "${c.tier}:${c.attr}") p.passthru.agentPlugin.runtimeCandidates;
+              expect = what: got: want:
+                if got == want then "" else throw
+                  ("runtime-candidates: ${what}: handed over ${builtins.toJSON got}, want ${builtins.toJSON want}");
+              linksInto = plugin: tok: pkg: ''
+                target="$(readlink ${plugin}/share/agent-plugins/runtime-candidates/bin/${tok})"
+                case "$target" in
+                  ${pkg}/*) ;;
+                  *) echo "${tok} -> $target, want ${pkg}" >&2; exit 1 ;;
+                esac
+              '';
+            in
+            pkgs.runCommand "runtime-candidates" { } ''
+              ${expect "pinned" (attrs pinned)
+                [ "declared:python312" "default:bash" "default:python3" "default:nodejs"
+                  "named:nodejs" "named:python3" "named:ruby" ]}
+              ${expect "empty" (attrs empty) [ ]}
+              ${expect "idle" (attrs idle) [ ]}
+              ${expect "shells" (attrs shells)
+                [ "default:bash" "default:python3" "default:nodejs" "named:ruby" ]}
+              ${expect "unknown dependency fails" unknown.success false}
+              ${linksInto pinned "python3" pkgs.python312}
+              ${linksInto named "python3" pkgs.python3}
+              ${linksInto named "ruby" pkgs.ruby}
+              ${linksInto named "nodejs" pkgs.nodejs}
+              touch $out
+            '';
 
           # A source.json records a licence the manifest spells
           # unusually as a string, an SPDX identifier or a
@@ -687,7 +742,7 @@
               });
               written = [
                 "name" "version" "src" "sourceUrl" "manifest" "skills" "requiredRuntimes"
-                "pluginRootPaths" "ignoredPaths" "mcpServers" "hooks" "meta" "import"
+                "dependencies" "pluginRootPaths" "ignoredPaths" "mcpServers" "hooks" "meta" "import"
               ];
               missing = builtins.filter (k: !(formals ? ${k})) written;
             in

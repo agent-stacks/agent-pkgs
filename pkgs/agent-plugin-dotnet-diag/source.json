@@ -1,0 +1,64 @@
+{
+  "name": "dotnet-diag",
+  "version": "0.1.3",
+  "src": {
+    "owner": "dotnet",
+    "repo": "skills",
+    "rev": "9386ed7c1148a7bef970aa0502371c982effa01c",
+    "hash": "sha256-LzqVJ6hwSbhS2SciXZCeq5gjGB44/1Q5a5DOfF+N6Mc="
+  },
+  "sourceUrl": "https://github.com/dotnet/skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "description": "Skills for .NET performance investigations, debugging, and incident analysis.",
+    "extensions": {
+      "com.anthropic.claude-code": {
+        "agents": [
+          "./agents/optimizing-dotnet-performance.agent.md"
+        ]
+      }
+    },
+    "name": "dotnet-diag",
+    "version": "0.1.3"
+  },
+  "skills": {
+    "analyzing-dotnet-performance": "plugins/dotnet-diag/skills/analyzing-dotnet-performance",
+    "android-tombstone-symbolication": "plugins/dotnet-diag/skills/android-tombstone-symbolication",
+    "apple-crash-symbolication": "plugins/dotnet-diag/skills/apple-crash-symbolication",
+    "clr-activation-debugging": "plugins/dotnet-diag/skills/clr-activation-debugging",
+    "dotnet-trace-collect": "plugins/dotnet-diag/skills/dotnet-trace-collect",
+    "dump-collect": "plugins/dotnet-diag/skills/dump-collect",
+    "microbenchmarking": "plugins/dotnet-diag/skills/microbenchmarking"
+  },
+  "requiredRuntimes": [],
+  "dependencies": [
+    "dotnet-sdk_10"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/agents": "plugins/dotnet-diag/agents"
+  },
+  "meta": {
+    "description": "Skills for .NET performance investigations, debugging, and incident analysis",
+    "homepage": "https://github.com/dotnet/skills"
+  },
+  "import": {
+    "input": "dotnet/skills",
+    "flags": [
+      "--dependency=dotnet-sdk_10"
+    ],
+    "warnings": [
+      {
+        "path": ".agents",
+        "message": "5 SKILL.md outside every imported plugin, not imported"
+      },
+      {
+        "path": ".github/skills/agentic-workflows/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .github/skills/agentic-workflows=NAME imports it"
+      },
+      {
+        "path": "eng",
+        "message": "2 SKILL.md outside every imported plugin, not imported"
+      }
+    ]
+  }
+}

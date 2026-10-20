@@ -1,0 +1,195 @@
+{
+  "name": "model-apps",
+  "version": "2.16.0",
+  "src": {
+    "owner": "microsoft",
+    "repo": "power-platform-skills",
+    "rev": "336c9c5f14f1cb0aef30b4f61cbedf3c06e1a213",
+    "hash": "sha256-8fjP2qRYnE39ad6wgjaQwnYDlX2MJN5J+0vm9hfmSTQ="
+  },
+  "sourceUrl": "https://github.com/microsoft/power-platform-skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Microsoft",
+      "url": "https://www.microsoft.com"
+    },
+    "description": "Build model-driven Power Apps end to end: /app-builder authors whole apps (tables, relationships, forms, views, charts, security roles, app + sitemap) from a natural-language intent, and /genpage builds generative pages with specialist agents for planning, entity creation, and parallel code generation. Requires PAC CLI > 2.10.0 and Azure CLI (`az`). See CHANGELOG.md for v1.x -> v2.x migration.",
+    "homepage": "https://github.com/microsoft/power-platform-skills/",
+    "keywords": [
+      "model-apps",
+      "app-builder",
+      "model-driven",
+      "generative-pages",
+      "genux",
+      "genpage",
+      "react",
+      "fluent-ui",
+      "dataverse",
+      "pac-cli"
+    ],
+    "license": "MIT",
+    "name": "model-apps",
+    "repository": "https://github.com/microsoft/power-platform-skills/",
+    "version": "2.16.0"
+  },
+  "skills": {
+    "app-builder": "plugins/model-apps/skills/app-builder",
+    "genpage": "plugins/model-apps/skills/genpage",
+    "report-issue": "plugins/model-apps/skills/report-issue",
+    "telemetry": "plugins/model-apps/skills/telemetry"
+  },
+  "requiredRuntimes": [
+    "node"
+  ],
+  "dependencies": [
+    "dotnet-sdk_10"
+  ],
+  "pluginRootPaths": {
+    ".plugin": "plugins/model-apps/.plugin",
+    "com.anthropic.claude-code/agents": "plugins/model-apps/agents",
+    "com.anthropic.claude-code/hooks": "plugins/model-apps/hooks",
+    "references": "plugins/model-apps/references",
+    "samples": "plugins/model-apps/samples",
+    "scripts": "plugins/model-apps/scripts"
+  },
+  "mcpServers": {
+    "playwright": {
+      "args": [
+        "-e",
+        "const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root) throw new Error('PLUGIN_ROOT is not set'); const mod=require(path.resolve(root,'scripts','launch-playwright-mcp.js')); if(mod&&typeof mod.launch==='function') mod.launch();"
+      ],
+      "command": "node",
+      "type": "stdio"
+    }
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "node -e \"const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root){console.error('PLUGIN_ROOT is not set'); process.exit(0);} require(path.resolve(root,'hooks','run-skill-posttool-validation.js'));\"",
+            "timeout": 30,
+            "type": "command"
+          }
+        ],
+        "matcher": "Skill|skill"
+      },
+      {
+        "hooks": [
+          {
+            "command": "node -e \"const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root){console.error('PLUGIN_ROOT is not set'); process.exit(0);} require(path.resolve(root,'hooks','validate-icon-imports.js'));\"",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "Write|Edit|MultiEdit"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "node -e \"const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root){console.error('PLUGIN_ROOT is not set'); process.exit(0);} require(path.resolve(root,'hooks','validate-write-safety.js'));\"",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "Write|Edit|MultiEdit"
+      },
+      {
+        "hooks": [
+          {
+            "command": "node -e \"const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root){console.error('PLUGIN_ROOT is not set'); process.exit(0);} require(path.resolve(root,'hooks','run-skill-pretool-telemetry.js'));\"",
+            "timeout": 30,
+            "type": "command"
+          }
+        ],
+        "matcher": "Skill|skill"
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "command": "node -e \"const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root){console.error('PLUGIN_ROOT is not set'); process.exit(0);} require(path.resolve(root,'hooks','run-user-prompt-telemetry.js'));\"",
+            "timeout": 30,
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "description": "Build model-driven Power Apps end to end",
+    "homepage": "https://github.com/microsoft/power-platform-skills"
+  },
+  "import": {
+    "input": "microsoft/power-platform-skills",
+    "flags": [
+      "--dependency=dotnet-sdk_10"
+    ],
+    "warnings": [
+      {
+        "path": "plugins/model-apps/skills/app-builder/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, author, user-invocable, version"
+      },
+      {
+        "path": "plugins/model-apps/skills/genpage/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, author, model, user-invocable, version"
+      },
+      {
+        "path": "plugins/model-apps/skills/report-issue/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/model-apps/skills/telemetry/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/model-apps/hooks/hooks.json",
+        "message": "Claude Code runs this on PostToolUse: node -e \"const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root){console.error('PLUGIN_ROOT is not set'); process.exit(0);} require(path.resolve(root,'hooks','run-skill-posttool-validation.js'));\""
+      },
+      {
+        "path": "plugins/model-apps/hooks/hooks.json",
+        "message": "Claude Code runs this on PostToolUse: node -e \"const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root){console.error('PLUGIN_ROOT is not set'); process.exit(0);} require(path.resolve(root,'hooks','validate-icon-imports.js'));\""
+      },
+      {
+        "path": "plugins/model-apps/hooks/hooks.json",
+        "message": "Claude Code runs this on PreToolUse: node -e \"const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root){console.error('PLUGIN_ROOT is not set'); process.exit(0);} require(path.resolve(root,'hooks','validate-write-safety.js'));\""
+      },
+      {
+        "path": "plugins/model-apps/hooks/hooks.json",
+        "message": "Claude Code runs this on PreToolUse: node -e \"const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root){console.error('PLUGIN_ROOT is not set'); process.exit(0);} require(path.resolve(root,'hooks','run-skill-pretool-telemetry.js'));\""
+      },
+      {
+        "path": "plugins/model-apps/hooks/hooks.json",
+        "message": "Claude Code runs this on UserPromptSubmit: node -e \"const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root){console.error('PLUGIN_ROOT is not set'); process.exit(0);} require(path.resolve(root,'hooks','run-user-prompt-telemetry.js'));\""
+      },
+      {
+        "path": "plugins/model-apps/scripts/vendor/cds-maker-sdk.cjs",
+        "message": "larger than 1MiB, so it was not read; a ${PLUGIN_ROOT} reference inside it ships nothing, and a script only it runs is not reported"
+      },
+      {
+        "path": "scripts/_vendor-build/build-typescript.js",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/_vendor-build/build.js",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/genpage-base.js",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/spec-lint.js",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/_vendor-build/package.json",
+        "message": "dependency manifest; the build does not resolve what it declares"
+      }
+    ]
+  }
+}

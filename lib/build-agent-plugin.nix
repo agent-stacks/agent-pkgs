@@ -87,14 +87,16 @@
   # does not list (argument-hint, disable-model-invocation), and those
   # are warnings a correct plugin can legitimately have.
 , strict ? false
-  # per-plugin runtime pins: interpreter name -> package, overriding
-  # mappings/runtimes.nix (e.g. { python3 = python312; })
-, runtimes ? { }
   # Interpreter tokens the package's files name, as recorded by
-  # `agent-stacks import`. The builder resolves exactly these, so a
-  # plugin naming none pulls no interpreter into its closure. A
-  # hand-written call omits it and gets the whole table.
+  # `agent-stacks import`. The build links exactly these, so a plugin
+  # naming none pulls no interpreter into its closure. A hand-written
+  # call omits it, and gets the defaults and what it declares.
 , requiredRuntimes ? null
+  # nixpkgs attributes from `agent-stacks import --dependency`,
+  # searched first; also the version pin: [ "python312" ].
+, dependencies ? [ ]
+  # Gone (ADR 0023); accepted only to say so, or to pass { }.
+, runtimes ? null
   # bare mcp.json commands that intentionally resolve from the
   # consumer environment's PATH at launch instead of the closure
 , allowPathCommands ? [ ]
@@ -213,20 +215,10 @@ let
 
   finalMeta = defaultMeta // longDescription // callerMeta;
 
-  # Runtime resolution: the table maps interpreter names to
-  # nixpkgs attributes; the plugin's `runtimes` argument overrides it
-  # with concrete packages. The resolved map is handed to
-  # assemble-plugin as JSON — outPath plus the package's main program
-  # name, so it can locate the right binary (`sh` lives in bash's
-  # bin/sh, `python` may only exist as bin/python3).
-  runtimeTable = builtins.import ../mappings/runtimes.nix;
-
-  # Which tokens to resolve. A generated package always records them;
-  # a package generated before requiredRuntimes existed is regenerated
-  # rather than tolerated, because a silent fallback would leave the
-  # 1.6 GiB closure in place indefinitely. A hand-written call — the
-  # flake checks, a consumer of lib/ — has no import record and gets
-  # the whole table, which is what it got before.
+  # Which tokens the build links. A generated package records them; one
+  # generated before the key existed is regenerated, not tolerated, or
+  # the 1.6 GiB closure stays. A hand-written call records nothing and
+  # gets the defaults and what it declares.
   requiredList =
     if requiredRuntimes != null then requiredRuntimes
     else if import != null then throw
@@ -235,30 +227,76 @@ let
         + "an agent-stacks at or after rev 8be3bce — the first to emit "
         + "requiredRuntimes. An older agent-stacks reproduces this error "
         + "instead of fixing it.")
-    else builtins.attrNames runtimeTable;
+    else [ ];
 
-  # A recorded token that is neither pinned nor in the table is left
-  # out of the map rather than thrown here, so the error a reader sees
-  # is the one assemble-plugin prints, naming the file that wanted it.
-  # One error text for an unmapped runtime, not two.
-  mappedTokens = builtins.filter
-    (tok: runtimes ? ${tok} || runtimeTable ? ${tok})
-    requiredList;
+  # The candidates assemble-plugin searches for bin/<token>, in order:
+  # declared, the three defaults, a package named like the token. No
+  # table (ADR 0023).
+  defaultRuntimeAttrs = builtins.import ./runtime-defaults.nix;
 
-  resolveToken = tok:
-    if runtimes ? ${tok} then runtimes.${tok}
-    else pkgs.${runtimeTable.${tok}} or (throw
-      "mappings/runtimes.nix maps '${tok}' to unknown nixpkgs attribute '${runtimeTable.${tok}}'");
 
-  resolvedRuntimes = lib.genAttrs mappedTokens resolveToken;
+  # main: a named package's fallback when its binary is not its
+  # attribute (nodejs, bin/node).
+  candidate = tier: attr: p: {
+    inherit tier attr;
+    root = "${p}";
+    main = p.meta.mainProgram or (lib.getName p);
+  };
 
-  runtimeMapFile = pkgs.writeText "runtime-map.json" (builtins.toJSON
-    (lib.mapAttrs
-      (tok: p: {
-        root = "${p}";
-        main = p.meta.mainProgram or (lib.getName p);
-      })
-      resolvedRuntimes));
+  # The package named like the token, if any. tryEval: a retired alias
+  # (`python`) throws on access and an unfree package throws when its
+  # path is forced; both are no package.
+  namedPackage = tok:
+    let
+      r = builtins.tryEval (
+        let p = pkgs.${tok} or null;
+        in if lib.isDerivation p
+        then let v = candidate "named" tok p; in builtins.deepSeq v [ v ]
+        else [ ]);
+    in if r.success then r.value else [ ];
+
+  # tryEval as for namedPackage, but a declared package that cannot be
+  # evaluated is an error naming the flag, not nixpkgs' check-meta text.
+  declaredCandidate = attr:
+    let
+      r = builtins.tryEval (
+        let p = pkgs.${attr} or null;
+        in if lib.isDerivation p
+        then let v = candidate "declared" attr p; in builtins.deepSeq v v
+        else null);
+    in
+    if r.success && r.value != null then r.value
+    else throw ("buildAgentPlugin: ${name}: dependency '${attr}' "
+      + (if r.success then "is not a nixpkgs package"
+         else "does not evaluate on ${pkgs.stdenv.hostPlatform.system} "
+           + "(unfree, broken or unsupported here)")
+      + "; re-import with --dependency naming one that is");
+
+  # A generated package recording no runtime links nothing, so it gets
+  # neither the defaults nor what it declares (AI-710): --dependency
+  # applies to every plugin of an import, and a declared package is a
+  # build input even where nothing is linked from it. A hand-written
+  # call has no record and gets both.
+  links = requiredRuntimes == null || requiredList != [ ];
+
+  declaredCandidates = lib.optionals links (map declaredCandidate dependencies);
+  defaultCandidates = lib.optionals links
+    (map (a: candidate "default" a pkgs.${a}) defaultRuntimeAttrs);
+
+  # A token whose package is already listed and whose main program is
+  # the token itself adds nothing: bin/<token> was searched there. One
+  # whose main program differs stays, as the fallback is looked up on
+  # named entries only (nodejs, bin/node).
+  earlierAttrs = map (c: c.attr) (declaredCandidates ++ defaultCandidates);
+  redundantNamed = c: builtins.elem c.attr earlierAttrs && c.main == c.attr;
+
+  runtimeCandidates =
+    declaredCandidates ++ defaultCandidates
+    ++ builtins.filter (c: !redundantNamed c)
+      (lib.concatMap namedPackage requiredList);
+
+  runtimeMapFile = pkgs.writeText "runtime-map.json"
+    (builtins.toJSON { packages = runtimeCandidates; });
 
   # An agent-stacks older than ignoredPaths copies the paths anyway;
   # -L too, as -e is false for a copied link that dangles. Empty when
@@ -283,6 +321,10 @@ let
       ignoredPaths = if ignoredPaths == { } then null else ignoredPaths;
     }));
 in
+# { } was the old default, so a call still spelling it out is harmless.
+assert runtimes == null || runtimes == { } || throw
+  ("buildAgentPlugin: ${name}: `runtimes` is gone; declare the package with "
+    + "`agent-stacks import --dependency <attr>` instead (ADR 0023).");
 assert agentStacks != null || throw
   ("buildAgentPlugin: ${name}: an agent-stacks package is required — it "
     + "assembles the plugin tree. Pass agentStacks, or bind defaultAgentStacks "
@@ -422,6 +464,9 @@ stdenvNoCC.mkDerivation {
     # see it without unpacking the output (AI-759).
     pluginRootPaths =
       if pluginRootPaths == null then null else builtins.attrNames pluginRootPaths;
+    # The packages the build searches for runtimes, in order, so a
+    # check or a reader sees what the named tier picked.
+    runtimeCandidates = map (c: { inherit (c) attr tier; }) runtimeCandidates;
   };
 
   # A plugin makes no licence assertion unless its manifest declares a

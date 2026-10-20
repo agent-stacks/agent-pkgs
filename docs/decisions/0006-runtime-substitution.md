@@ -61,3 +61,10 @@ that intentionally come from the consumer environment are listed in
   that plugin, so the table stays lean.
 - `-` Body-text and SKILL.md rewrites need per-package attention via
   `extraSubstitutions`; the pass will not guess.
+
+## Amended 2026-10-20
+
+The name-mapping table and the `runtimes` argument are replaced by
+declared packages
+([0023](0023-the-plugin-declares-packages-and-the-build-finds-binaries-in-them.md)).
+The plugin-local `bin/` and the deterministic scope stand.

@@ -51,3 +51,4 @@ on one of those links to it rather than restating it.
 | [0020](0020-skillspector-is-packaged-for-the-plugin-audit.md) | SkillSpector is packaged here for the plugin audit |
 | [0021](0021-a-stack-has-no-audit-output.md) | A stack has no audit output |
 | [0022](0022-plugins-are-audited-in-ci-and-the-result-is-kept-beside-the-package.md) | Plugins are audited in CI and the result is kept beside the package |
+| [0023](0023-the-plugin-declares-packages-and-the-build-finds-binaries-in-them.md) | The plugin declares packages, and the build finds binaries in them |

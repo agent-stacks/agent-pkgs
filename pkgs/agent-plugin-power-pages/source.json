@@ -1,0 +1,336 @@
+{
+  "name": "power-pages",
+  "version": "2.9.0",
+  "src": {
+    "owner": "microsoft",
+    "repo": "power-platform-skills",
+    "rev": "336c9c5f14f1cb0aef30b4f61cbedf3c06e1a213",
+    "hash": "sha256-8fjP2qRYnE39ad6wgjaQwnYDlX2MJN5J+0vm9hfmSTQ="
+  },
+  "sourceUrl": "https://github.com/microsoft/power-platform-skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Microsoft",
+      "url": "https://www.microsoft.com"
+    },
+    "description": "Create and deploy Power Pages sites using modern development approaches. Supports code sites (SPAs) with React, Angular, Vue, or Astro. Adds multilingual localization and safe runtime LTR/RTL switching for React, Vue, and Angular runtime sites; Astro and Angular static localization are temporarily unavailable. Includes ALM orchestration (plan-alm) with a solution-splitting decision tree, per-solution pipelines, Azure Blob asset advisory, manifest schema v2 for multi-solution deployments, and force-link remediation for cross-host pipeline migrations.",
+    "homepage": "https://github.com/microsoft/power-platform-skills/",
+    "keywords": [
+      "power-pages",
+      "site-builder",
+      "code-sites",
+      "spa",
+      "localization",
+      "i18n",
+      "rtl",
+      "react",
+      "angular",
+      "vue",
+      "astro",
+      "pac-cli",
+      "dataverse",
+      "odata",
+      "web-api",
+      "tables",
+      "schema",
+      "solution",
+      "alm",
+      "plan-alm",
+      "ci-cd",
+      "pipeline",
+      "pipelines-host",
+      "force-link",
+      "diagnostics",
+      "shared-lib",
+      "solution-splitting",
+      "asset-advisory"
+    ],
+    "license": "MIT",
+    "name": "power-pages",
+    "repository": "https://github.com/microsoft/power-platform-skills/",
+    "version": "2.9.0"
+  },
+  "skills": {
+    "activate-site": "plugins/power-pages/skills/activate-site",
+    "add-ai-webapi": "plugins/power-pages/skills/add-ai-webapi",
+    "add-cloud-flow": "plugins/power-pages/skills/add-cloud-flow",
+    "add-localization": "plugins/power-pages/skills/add-localization",
+    "add-sample-data": "plugins/power-pages/skills/add-sample-data",
+    "add-seo": "plugins/power-pages/skills/add-seo",
+    "add-server-logic": "plugins/power-pages/skills/add-server-logic",
+    "audit-permissions": "plugins/power-pages/skills/audit-permissions",
+    "configure-env-variables": "plugins/power-pages/skills/configure-env-variables",
+    "create-site": "plugins/power-pages/skills/create-site",
+    "create-webroles": "plugins/power-pages/skills/create-webroles",
+    "deploy-pipeline": "plugins/power-pages/skills/deploy-pipeline",
+    "deploy-site": "plugins/power-pages/skills/deploy-site",
+    "diagnose-deployment": "plugins/power-pages/skills/diagnose-deployment",
+    "ensure-pipelines-host": "plugins/power-pages/skills/ensure-pipelines-host",
+    "exceptional-web-design": "plugins/power-pages/skills/exceptional-web-design",
+    "export-solution": "plugins/power-pages/skills/export-solution",
+    "force-link-environment": "plugins/power-pages/skills/force-link-environment",
+    "import-solution": "plugins/power-pages/skills/import-solution",
+    "integrate-backend": "plugins/power-pages/skills/integrate-backend",
+    "integrate-webapi": "plugins/power-pages/skills/integrate-webapi",
+    "manage-firewall": "plugins/power-pages/skills/manage-firewall",
+    "manage-headers": "plugins/power-pages/skills/manage-headers",
+    "migrate-bootstrap": "plugins/power-pages/skills/migrate-bootstrap",
+    "migrate-webapi-selectall": "plugins/power-pages/skills/migrate-webapi-selectall",
+    "plan-alm": "plugins/power-pages/skills/plan-alm",
+    "report-issue": "plugins/power-pages/skills/report-issue",
+    "scan-code": "plugins/power-pages/skills/scan-code",
+    "scan-site": "plugins/power-pages/skills/scan-site",
+    "security-review": "plugins/power-pages/skills/security-review",
+    "setup-auth": "plugins/power-pages/skills/setup-auth",
+    "setup-datamodel": "plugins/power-pages/skills/setup-datamodel",
+    "setup-pipeline": "plugins/power-pages/skills/setup-pipeline",
+    "setup-solution": "plugins/power-pages/skills/setup-solution",
+    "telemetry": "plugins/power-pages/skills/telemetry",
+    "test-site": "plugins/power-pages/skills/test-site"
+  },
+  "requiredRuntimes": [
+    "node"
+  ],
+  "dependencies": [
+    "dotnet-sdk_10"
+  ],
+  "pluginRootPaths": {
+    ".plugin": "plugins/power-pages/.plugin",
+    "agents": "plugins/power-pages/agents",
+    "com.anthropic.claude-code/hooks": "plugins/power-pages/hooks",
+    "references": "plugins/power-pages/references",
+    "scripts": "plugins/power-pages/scripts"
+  },
+  "mcpServers": {
+    "microsoft-learn": {
+      "type": "streamable-http",
+      "url": "https://learn.microsoft.com/api/mcp"
+    },
+    "playwright": {
+      "args": [
+        "-e",
+        "const fs=require('node:fs'); const path=require('node:path'); const fail=(message)=>{throw new Error('[Power Pages Playwright MCP] '+message);}; const declaredRoot=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!declaredRoot) fail('PLUGIN_ROOT or CLAUDE_PLUGIN_ROOT must be set; refusing to resolve the launcher from the current working directory.'); if(!path.isAbsolute(declaredRoot)) fail('Declared plugin root must be an absolute path: '+declaredRoot+'.'); let root; try{root=fs.realpathSync(declaredRoot);}catch(error){fail('Declared plugin root is invalid: '+declaredRoot+' ('+(error.code||error.message)+').');} let rootStat; try{rootStat=fs.statSync(root);}catch(error){fail('Could not inspect declared plugin root: '+root+' ('+(error.code||error.message)+').');} if(!rootStat.isDirectory()) fail('Declared plugin root is not a directory: '+declaredRoot+'.'); const candidate=path.resolve(root,'scripts','launch-playwright-mcp.js'); let entry; try{entry=fs.realpathSync(candidate);}catch(error){fail('Launcher was not found under the declared plugin root: '+candidate+'.');} const relative=path.relative(root,entry); if(relative==='..'||relative.startsWith('..'+path.sep)||path.isAbsolute(relative)) fail('Resolved launcher escapes the declared plugin root: '+entry+'.'); let entryStat; try{entryStat=fs.statSync(entry);}catch(error){fail('Could not inspect resolved launcher: '+entry+' ('+(error.code||error.message)+').');} if(!entryStat.isFile()) fail('Resolved launcher is not a file: '+entry+'.'); const mod=require(entry); if(!mod||typeof mod.launch!=='function') fail('Launcher did not export launch(): '+entry+'.'); mod.launch();"
+      ],
+      "command": "node",
+      "type": "stdio"
+    }
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "node -e \"const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root){console.error('PLUGIN_ROOT is not set'); process.exit(0);} require(path.resolve(root,'hooks','run-skill-posttool-validation.js'));\"",
+            "timeout": 30,
+            "type": "command"
+          }
+        ],
+        "matcher": "Skill|skill"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "node -e \"const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root){console.error('PLUGIN_ROOT is not set'); process.exit(0);} require(path.resolve(root,'hooks','run-skill-pretool-telemetry.js'));\"",
+            "timeout": 30,
+            "type": "command"
+          }
+        ],
+        "matcher": "Skill|skill"
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "command": "node -e \"const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root){console.error('PLUGIN_ROOT is not set'); process.exit(0);} require(path.resolve(root,'hooks','run-user-prompt-telemetry.js'));\"",
+            "timeout": 30,
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "description": "Create and deploy Power Pages sites using modern development approaches",
+    "homepage": "https://github.com/microsoft/power-platform-skills"
+  },
+  "import": {
+    "input": "microsoft/power-platform-skills",
+    "flags": [
+      "--dependency=dotnet-sdk_10"
+    ],
+    "warnings": [
+      {
+        "path": "plugins/power-pages/skills/activate-site/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/add-ai-webapi/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/add-cloud-flow/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/add-localization/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/add-sample-data/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/add-seo/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/add-server-logic/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/audit-permissions/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/configure-env-variables/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/create-site/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/create-webroles/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/deploy-pipeline/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/deploy-site/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/diagnose-deployment/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/ensure-pipelines-host/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/exceptional-web-design/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/export-solution/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/force-link-environment/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/import-solution/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/integrate-backend/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/integrate-webapi/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/manage-firewall/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/manage-headers/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/migrate-bootstrap/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/migrate-webapi-selectall/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/plan-alm/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/report-issue/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/scan-code/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/scan-site/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/security-review/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/setup-auth/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/setup-datamodel/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/setup-pipeline/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/setup-solution/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/telemetry/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/test-site/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/hooks/hooks.json",
+        "message": "Claude Code runs this on PostToolUse: node -e \"const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root){console.error('PLUGIN_ROOT is not set'); process.exit(0);} require(path.resolve(root,'hooks','run-skill-posttool-validation.js'));\""
+      },
+      {
+        "path": "plugins/power-pages/hooks/hooks.json",
+        "message": "Claude Code runs this on PreToolUse: node -e \"const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root){console.error('PLUGIN_ROOT is not set'); process.exit(0);} require(path.resolve(root,'hooks','run-skill-pretool-telemetry.js'));\""
+      },
+      {
+        "path": "plugins/power-pages/hooks/hooks.json",
+        "message": "Claude Code runs this on UserPromptSubmit: node -e \"const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root){console.error('PLUGIN_ROOT is not set'); process.exit(0);} require(path.resolve(root,'hooks','run-user-prompt-telemetry.js'));\""
+      },
+      {
+        "path": "scripts/lib/bump-solution-version",
+        "message": "this is named through ${PLUGIN_ROOT}, or sits at a plugin root a server runs from, and is not in the source; it resolves to nothing wherever the plugin is installed"
+      },
+      {
+        "path": "agents",
+        "message": "a Claude Code component location that a skill or an MCP server also names through ${PLUGIN_ROOT}, so it stays at the plugin root rather than moving into com.anthropic.claude-code/; Claude reads it there too"
+      },
+      {
+        "path": "scripts/lib/check-solution-installed.js",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      }
+    ]
+  }
+}

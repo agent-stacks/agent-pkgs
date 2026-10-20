@@ -1,0 +1,49 @@
+{
+  "name": "dotnet-experimental",
+  "version": "0.1.2",
+  "src": {
+    "owner": "dotnet",
+    "repo": "skills",
+    "rev": "9386ed7c1148a7bef970aa0502371c982effa01c",
+    "hash": "sha256-LzqVJ6hwSbhS2SciXZCeq5gjGB44/1Q5a5DOfF+N6Mc="
+  },
+  "sourceUrl": "https://github.com/dotnet/skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "description": "Experimental skills under active evaluation that may change or graduate to stable plugins.",
+    "name": "dotnet-experimental",
+    "version": "0.1.2"
+  },
+  "skills": {
+    "exp-mock-usage-analysis": "plugins/dotnet-experimental/skills/exp-mock-usage-analysis",
+    "exp-test-maintainability": "plugins/dotnet-experimental/skills/exp-test-maintainability"
+  },
+  "requiredRuntimes": [],
+  "dependencies": [
+    "dotnet-sdk_10"
+  ],
+  "meta": {
+    "description": "Experimental skills under active evaluation that may change or graduate to stable plugins",
+    "homepage": "https://github.com/dotnet/skills"
+  },
+  "import": {
+    "input": "dotnet/skills",
+    "flags": [
+      "--dependency=dotnet-sdk_10"
+    ],
+    "warnings": [
+      {
+        "path": ".agents",
+        "message": "5 SKILL.md outside every imported plugin, not imported"
+      },
+      {
+        "path": ".github/skills/agentic-workflows/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .github/skills/agentic-workflows=NAME imports it"
+      },
+      {
+        "path": "eng",
+        "message": "2 SKILL.md outside every imported plugin, not imported"
+      }
+    ]
+  }
+}

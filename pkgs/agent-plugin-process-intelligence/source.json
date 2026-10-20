@@ -1,0 +1,69 @@
+{
+  "name": "process-intelligence",
+  "version": "0.7.0",
+  "src": {
+    "owner": "microsoft",
+    "repo": "power-platform-skills",
+    "rev": "336c9c5f14f1cb0aef30b4f61cbedf3c06e1a213",
+    "hash": "sha256-8fjP2qRYnE39ad6wgjaQwnYDlX2MJN5J+0vm9hfmSTQ="
+  },
+  "sourceUrl": "https://github.com/microsoft/power-platform-skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Microsoft",
+      "url": "https://www.microsoft.com"
+    },
+    "description": "Analyze Power Automate Process Mining processes, bottlenecks, variants, cohorts and object-centric executions through MCP.",
+    "homepage": "https://github.com/microsoft/power-platform-skills/",
+    "keywords": [
+      "process-intelligence",
+      "power-automate",
+      "power-platform",
+      "mcp",
+      "analytics"
+    ],
+    "license": "MIT",
+    "name": "process-intelligence",
+    "repository": "https://github.com/microsoft/power-platform-skills/",
+    "version": "0.7.0"
+  },
+  "skills": {
+    "analytics": "plugins/process-intelligence/skills/analytics",
+    "analyze-drivers": "plugins/process-intelligence/skills/analyze-drivers",
+    "analyze-objects": "plugins/process-intelligence/skills/analyze-objects",
+    "analyze-performance": "plugins/process-intelligence/skills/analyze-performance",
+    "analyze-variants": "plugins/process-intelligence/skills/analyze-variants",
+    "compare-cohorts": "plugins/process-intelligence/skills/compare-cohorts",
+    "derive-metric": "plugins/process-intelligence/skills/derive-metric",
+    "investigate-process": "plugins/process-intelligence/skills/investigate-process",
+    "report-issue": "plugins/process-intelligence/skills/report-issue",
+    "setup": "plugins/process-intelligence/skills/setup"
+  },
+  "requiredRuntimes": [
+    "node"
+  ],
+  "dependencies": [
+    "dotnet-sdk_10"
+  ],
+  "mcpServers": {
+    "process-intelligence": {
+      "args": [
+        "-e",
+        "const p=require('node:path'),fs=require('node:fs'),u=require('node:url');const r=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT||process.cwd();const f=p.resolve(r,'server','mcp.mjs');if(!fs.existsSync(f)){console.error('Process Intelligence MCP not found at '+f+'. Set PLUGIN_ROOT to the installed plugin directory and run setup.');process.exit(1);}import(u.pathToFileURL(f).href).then(m=>m.launch(['serve'])).catch(()=>{console.error('Unable to load Process Intelligence MCP server. Run setup.');process.exitCode=1;});"
+      ],
+      "command": "node",
+      "type": "stdio"
+    }
+  },
+  "meta": {
+    "description": "Analyze Power Automate Process Mining processes, bottlenecks, variants, cohorts and object-centric executions through MCP",
+    "homepage": "https://github.com/microsoft/power-platform-skills"
+  },
+  "import": {
+    "input": "microsoft/power-platform-skills",
+    "flags": [
+      "--dependency=dotnet-sdk_10"
+    ]
+  }
+}
