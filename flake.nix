@@ -391,7 +391,7 @@
               touch $out
             '';
 
-          # The page audit-dashboard.yml publishes, built from a small
+          # The page audit-plugins.yml publishes, built from a small
           # pkgs tree: which packages it lists, what it keeps of each
           # finding to link it upstream, and that no finding's text can
           # close the page's script.

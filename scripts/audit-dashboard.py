@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Build the plugin audit dashboard: one self-contained HTML page with
-every plugin package's audit.json embedded. Called by
-.github/workflows/audit-dashboard.yml, which publishes it to GitHub
-Pages; runnable by hand the same way. Described in
+every plugin package's audit.json embedded. Called by the page job of
+.github/workflows/audit-plugins.yml, whose publish job deploys it to
+GitHub Pages; runnable by hand the same way. Described in
 docs/reference/plugin-audit.md.
 
     audit-dashboard.py <pkgs dir> <template> <out> --rev REV [--rev-date DATE]

@@ -89,11 +89,12 @@ first, with the findings grouped by rule. Each finding links to its
 file and line in the upstream repository, at the revision that was
 audited. Each plugin has its own address, `#agent-plugin-<name>`.
 
-`.github/workflows/audit-dashboard.yml` publishes it to GitHub Pages
-after every push to main that changes an `audit.json`, which is every
-commit `audit-plugins.yml` makes. `scripts/audit-dashboard.py` builds
-it, with the data embedded in the page, so the page makes no requests
-of its own. The same build, locally, from the repository root:
+`audit-plugins.yml` publishes it to GitHub Pages in the same run that
+records the audits: once `record` has pushed, `page` builds it from
+the tip of main and `publish` deploys it. A push that changes only
+the page (`scripts/audit-dashboard.py` or `.html`) audits nothing and
+publishes. `scripts/audit-dashboard.py` builds it, with the data
+embedded in the page, so the page makes no requests of its own. The same build, locally, from the repository root:
 
 ```sh
 python3 scripts/audit-dashboard.py pkgs scripts/audit-dashboard.html \
