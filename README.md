@@ -202,6 +202,9 @@ Start at [docs/index.md](docs/index.md): architecture, the
 [import→builder contract](docs/reference/import-contract.md), and
 decision records.
 
+Flox staff: to find where a package stopped updating, use the
+`agent-stacks-stuck-package` skill in `flox/flox-internal-skills`.
+
 ## License
 
 MIT. Individual packaged plugins carry their upstream licenses,
