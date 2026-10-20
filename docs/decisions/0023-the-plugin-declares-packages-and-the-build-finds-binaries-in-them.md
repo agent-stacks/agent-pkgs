@@ -1,4 +1,4 @@
-# 0020. The plugin declares packages, and the build finds binaries in them
+# 0023. The plugin declares packages, and the build finds binaries in them
 
 Date: 2026-10-14
 

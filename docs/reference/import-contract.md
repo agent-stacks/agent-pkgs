@@ -226,7 +226,7 @@ for the minimum agent-stacks rev that emits this key.
 searches them first, then `bash`, `python3` and `nodejs`, then the
 package of the token's own name
 ([build-agent-plugin.md](build-agent-plugin.md),
-[ADR 0020](../decisions/0020-the-plugin-declares-packages-and-the-build-finds-binaries-in-them.md)).
+[ADR 0023](../decisions/0023-the-plugin-declares-packages-and-the-build-finds-binaries-in-them.md)).
 A package imported without the flag reads exactly as before.
 
 ## What the generator decides
@@ -329,7 +329,7 @@ plugin-local `bin/` of store-path symlinks. `buildAgentPlugin`'s
 listing the packages a runtime may come from (`dependencies`, the
 defaults, and a package named like each token in `requiredRuntimes`),
 install, and the check phase. See
-[build-agent-plugin.md](build-agent-plugin.md), ADR 0006, ADR 0020, and
+[build-agent-plugin.md](build-agent-plugin.md), ADR 0006, ADR 0023, and
 [ADR 0013](../decisions/0013-assembly-lives-in-flox-agent.md) for the
 move out of Nix. The `postAssemble` hook still exists for extensions
 and runs on the fully assembled, substituted tree.

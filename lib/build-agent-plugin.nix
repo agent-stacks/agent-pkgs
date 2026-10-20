@@ -229,7 +229,7 @@ let
 
   # The candidates assemble-plugin searches for bin/<token>, in order:
   # declared, the three defaults, a package named like the token. No
-  # table (ADR 0020).
+  # table (ADR 0023).
   defaultRuntimeAttrs = [ "bash" "python3" "nodejs" ];
 
   declaredPackage = attr: pkgs.${attr} or (throw
