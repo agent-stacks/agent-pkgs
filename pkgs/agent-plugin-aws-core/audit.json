@@ -1,0 +1,2960 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "aws-core",
+      "dir": "/nix/store/fhkc061wyfc6r5r70fw0dxipd7d599b6-agent-plugin-aws-core-1.1.0/share/agent-plugins/aws-core",
+      "spec": "1.1.0",
+      "score": 0,
+      "status": "do not install",
+      "coverage": {
+        "scanned": [
+          "skills/amazon-bedrock",
+          "skills/aws-ai-ml",
+          "skills/aws-auth",
+          "skills/aws-billing-and-cost-management",
+          "skills/aws-blocks",
+          "skills/aws-cdk",
+          "skills/aws-cloudformation",
+          "skills/aws-compute",
+          "skills/aws-containers",
+          "skills/aws-database",
+          "skills/aws-deployment",
+          "skills/aws-iam",
+          "skills/aws-messaging-and-streaming",
+          "skills/aws-networking",
+          "skills/aws-observability",
+          "skills/aws-sdk-js-v3-usage",
+          "skills/aws-sdk-python-usage",
+          "skills/aws-sdk-swift-usage",
+          "skills/aws-secrets-manager",
+          "skills/aws-security",
+          "skills/aws-serverless",
+          "skills/aws-storage",
+          "skills/aws-well-architected-review",
+          "skills/launch-with-aws",
+          "skills/signing-in-to-aws"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          },
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          },
+          {
+            "path": "mcp.json",
+            "reason": "SkillSpector does not analyse this layout as an MCP manifest"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/amazon-bedrock",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 91.9,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/amazon-bedrock/SKILL.md",
+              "line": 338
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/amazon-bedrock/references/agentcore-harness.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/amazon-bedrock/references/agentcore-runtime-container-build.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/amazon-bedrock/references/sdk-converse-api-typescript.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/amazon-bedrock/SKILL.md",
+              "line": 111
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/amazon-bedrock/SKILL.md",
+              "line": 123
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/amazon-bedrock/SKILL.md",
+              "line": 240
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/amazon-bedrock/SKILL.md",
+              "line": 346
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/amazon-bedrock/SKILL.md",
+              "line": 349
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/amazon-bedrock/references/agentcore-payments.md",
+              "line": 280
+            },
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/amazon-bedrock/references/bedrock-agents-to-agentcore-harness/cli.md",
+              "line": 33
+            },
+            {
+              "id": "YR4",
+              "severity": "HIGH",
+              "message": "YARA rule 'agent_skill_prompt_injection_hidden_instructions': Prompt injection or hidden instructions embedded in AI agent skill text [agent_skills]",
+              "file": "skills/amazon-bedrock/references/guardrails.md",
+              "line": 44
+            },
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "skills/amazon-bedrock/references/guardrails.md",
+              "line": 161
+            },
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "skills/amazon-bedrock/references/model-invocation.md",
+              "line": 73
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/amazon-bedrock/scripts/fetch_bedrock_agent.py",
+              "line": 23
+            },
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/amazon-bedrock/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "E5",
+              "severity": "MEDIUM",
+              "message": "Cloud Storage Exfiltration",
+              "file": "skills/amazon-bedrock/references/agentcore-gateway.md",
+              "line": 46
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/amazon-bedrock/references/agentcore-registry-evaluations.md",
+              "line": 18
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/amazon-bedrock/references/agentcore-registry-evaluations.md",
+              "line": 23
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/amazon-bedrock/references/agentcore-registry-evaluations.md",
+              "line": 110
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/amazon-bedrock/references/agentcore-runtime-container-build.md",
+              "line": 224
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/amazon-bedrock/references/agents-and-action-groups.md",
+              "line": 39
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/amazon-bedrock/references/knowledge-bases-setup.md",
+              "line": 30
+            },
+            {
+              "id": "E5",
+              "severity": "MEDIUM",
+              "message": "Cloud Storage Exfiltration",
+              "file": "skills/amazon-bedrock/references/bedrock-agents-to-agentcore-harness/discovery.md",
+              "line": 31
+            },
+            {
+              "id": "PE1",
+              "severity": "LOW",
+              "message": "Excessive Permissions",
+              "file": "skills/amazon-bedrock/references/agentcore-harness.md",
+              "line": 223
+            }
+          ]
+        },
+        {
+          "path": "skills/aws-ai-ml",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 93.2,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-ai-ml/SKILL.md",
+              "line": 31
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-ai-ml/SKILL.md",
+              "line": 32
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-ai-ml/SKILL.md",
+              "line": 33
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-ai-ml/SKILL.md",
+              "line": 34
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-ai-ml/SKILL.md",
+              "line": 35
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-ai-ml/SKILL.md",
+              "line": 36
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-ai-ml/SKILL.md",
+              "line": 37
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-ai-ml/SKILL.md",
+              "line": 38
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-ai-ml/SKILL.md",
+              "line": 39
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-ai-ml/SKILL.md",
+              "line": 40
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-ai-ml/SKILL.md",
+              "line": 41
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-ai-ml/SKILL.md",
+              "line": 42
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-ai-ml/SKILL.md",
+              "line": 43
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-ai-ml/SKILL.md",
+              "line": 44
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-ai-ml/SKILL.md",
+              "line": 45
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/aws-ai-ml/references/model-selection/references/select-for-deployment.md",
+              "line": 0
+            },
+            {
+              "reason": "syntax_error",
+              "path": "skills/aws-ai-ml/references/processing-jobs/code_templates/dataset_definition_processing.py",
+              "line": 0
+            },
+            {
+              "reason": "syntax_error",
+              "path": "skills/aws-ai-ml/references/processing-jobs/code_templates/dataset_definition_processing.py",
+              "line": 0
+            },
+            {
+              "reason": "syntax_error",
+              "path": "skills/aws-ai-ml/references/processing-jobs/code_templates/framework_processing.py",
+              "line": 0
+            },
+            {
+              "reason": "syntax_error",
+              "path": "skills/aws-ai-ml/references/processing-jobs/code_templates/framework_processing.py",
+              "line": 0
+            },
+            {
+              "reason": "syntax_error",
+              "path": "skills/aws-ai-ml/references/processing-jobs/code_templates/script_processing.py",
+              "line": 0
+            },
+            {
+              "reason": "syntax_error",
+              "path": "skills/aws-ai-ml/references/processing-jobs/code_templates/script_processing.py",
+              "line": 0
+            },
+            {
+              "reason": "syntax_error",
+              "path": "skills/aws-ai-ml/references/processing-jobs/code_templates/spark_processing.py",
+              "line": 0
+            },
+            {
+              "reason": "syntax_error",
+              "path": "skills/aws-ai-ml/references/processing-jobs/code_templates/spark_processing.py",
+              "line": 0
+            },
+            {
+              "reason": "syntax_error",
+              "path": "skills/aws-ai-ml/references/training-jobs/code_templates/custom_training.py",
+              "line": 0
+            },
+            {
+              "reason": "syntax_error",
+              "path": "skills/aws-ai-ml/references/training-jobs/code_templates/custom_training.py",
+              "line": 0
+            },
+            {
+              "reason": "syntax_error",
+              "path": "skills/aws-ai-ml/references/training-jobs/code_templates/jumpstart_training.py",
+              "line": 0
+            },
+            {
+              "reason": "syntax_error",
+              "path": "skills/aws-ai-ml/references/training-jobs/code_templates/jumpstart_training.py",
+              "line": 0
+            },
+            {
+              "reason": "syntax_error",
+              "path": "skills/aws-ai-ml/references/training-jobs/code_templates/recipe_training.py",
+              "line": 0
+            },
+            {
+              "reason": "syntax_error",
+              "path": "skills/aws-ai-ml/references/training-jobs/code_templates/recipe_training.py",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-ai-ml/references/model-deployment/references/deploy-nova-sagemaker.md",
+              "line": 148
+            },
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "skills/aws-ai-ml/references/model-deployment/references/optimization/benchmarking-guidance.md",
+              "line": 56
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-ai-ml/references/model-deployment/references/optimization/huggingface-to-s3.md",
+              "line": 11
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-ai-ml/references/model-deployment/references/optimization/huggingface-to-s3.md",
+              "line": 21
+            },
+            {
+              "id": "YR4",
+              "severity": "HIGH",
+              "message": "YARA rule 'agent_skill_prompt_injection_hidden_instructions': Prompt injection or hidden instructions embedded in AI agent skill text [agent_skills]",
+              "file": "skills/aws-ai-ml/references/model-evaluation/references/custom-scorer-evaluation.md",
+              "line": 3
+            },
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-ai-ml/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "P4",
+              "severity": "MEDIUM",
+              "message": "Behavior Manipulation",
+              "file": "skills/aws-ai-ml/SKILL.md",
+              "line": 36
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/finetuning/references/eula_links.md",
+              "line": 3
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/model-selection/references/model-licenses.md",
+              "line": 3
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/finetuning/references/eula_links.md",
+              "line": 27
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/finetuning/references/eula_links.md",
+              "line": 28
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/finetuning/references/eula_links.md",
+              "line": 29
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/finetuning/references/eula_links.md",
+              "line": 30
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/model-selection/references/model-licenses.md",
+              "line": 27
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/model-selection/references/model-licenses.md",
+              "line": 28
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/model-selection/references/model-licenses.md",
+              "line": 29
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/model-selection/references/model-licenses.md",
+              "line": 30
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-ai-ml/references/manage-mlflow/overview.md",
+              "line": 43
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-ai-ml/references/manage-mlflow/overview.md",
+              "line": 75
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-ai-ml/references/model-deployment/code_templates/optimize-recommendation.py",
+              "line": 98
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-ai-ml/references/model-deployment/code_templates/optimize-recommendation.py",
+              "line": 101
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-ai-ml/references/model-deployment/code_templates/optimize-recommendation.py",
+              "line": 108
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-ai-ml/references/model-deployment/code_templates/optimize-recommendation.py",
+              "line": 122
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-ai-ml/references/model-deployment/references/optimization/huggingface-to-s3.md",
+              "line": 43
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-ai-ml/references/model-deployment/references/optimization/recommendation-deploy.md",
+              "line": 4
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-ai-ml/references/model-deployment/references/optimization/recommendation-deploy.md",
+              "line": 9
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-ai-ml/references/model-deployment/references/optimization/recommendation-deploy.md",
+              "line": 9
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/model-deployment/overview.md",
+              "line": 21
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/model-evaluation/references/llmaaj-builtin-evaluation.md",
+              "line": 39
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-ai-ml/references/model-deployment/overview.md",
+              "line": 53
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-ai-ml/references/model-deployment/overview.md",
+              "line": 183
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-ai-ml/references/model-deployment/references/deploy-jumpstart-sagemaker.md",
+              "line": 219
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-ai-ml/references/model-evaluation/references/llmaaj-evaluation.md",
+              "line": 211
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-ai-ml/references/model-deployment/overview.md",
+              "line": 183
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-ai-ml/references/model-deployment/references/deploy-jumpstart-sagemaker.md",
+              "line": 219
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/model-deployment/references/model-licenses.md",
+              "line": 15
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-ai-ml/references/model-deployment/references/optimization/benchmark-workflow.md",
+              "line": 22
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-ai-ml/references/model-deployment/references/optimization/benchmarking-guidance.md",
+              "line": 47
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-ai-ml/references/model-deployment/references/optimization/benchmark-workflow.md",
+              "line": 69
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/model-evaluation/references/evaluation-type-guide.md",
+              "line": 7
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/model-evaluation/references/llmaaj-builtin-evaluation.md",
+              "line": 31
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/model-evaluation/references/llmaaj-builtin-evaluation.md",
+              "line": 38
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/model-evaluation/references/llmaaj-builtin-evaluation.md",
+              "line": 44
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-ai-ml/references/model-selection/overview.md",
+              "line": 59
+            },
+            {
+              "id": "AE4",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-ai-ml/references/model-selection/references/benchmarks/agentic-index.md",
+              "line": 1
+            },
+            {
+              "id": "AE4",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-ai-ml/references/model-selection/references/benchmarks/tau2.md",
+              "line": 1
+            },
+            {
+              "id": "AE4",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-ai-ml/references/model-selection/references/model-selection.md",
+              "line": 1
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-ai-ml/references/planning/overview.md",
+              "line": 49
+            },
+            {
+              "id": "EA1",
+              "severity": "MEDIUM",
+              "message": "Unrestricted Tool Access",
+              "file": "skills/aws-ai-ml/references/processing-jobs/overview.md",
+              "line": 3
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-ai-ml/references/training-jobs/overview.md",
+              "line": 79
+            }
+          ]
+        },
+        {
+          "path": "skills/aws-auth",
+          "score": 18,
+          "risk": 82,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-auth/SKILL.md",
+              "line": 27
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-auth/SKILL.md",
+              "line": 125
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-auth/SKILL.md",
+              "line": 54
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-auth/references/api-authorization.md",
+              "line": 33
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-auth/references/api-authorization.md",
+              "line": 36
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-auth/references/identity-pools.md",
+              "line": 6
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-auth/references/identity-pools.md",
+              "line": 34
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-auth/references/lambda-triggers.md",
+              "line": 68
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-auth/references/tokens-and-sessions.md",
+              "line": 18
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-auth/references/tokens-and-sessions.md",
+              "line": 22
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-auth/references/api-authorization.md",
+              "line": 13
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-auth/references/identity-pools.md",
+              "line": 34
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-auth/references/managed-login-oauth.md",
+              "line": 162
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-auth/references/managed-login-oauth.md",
+              "line": 172
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-auth/references/managed-login-oauth.md",
+              "line": 174
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-auth/references/passkeys.md",
+              "line": 103
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-auth/references/passkeys.md",
+              "line": 114
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-auth/references/tokens-and-sessions.md",
+              "line": 38
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-auth/references/tokens-and-sessions.md",
+              "line": 43
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-auth/references/tokens-and-sessions.md",
+              "line": 197
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-auth/references/api-authorization.md",
+              "line": 34
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-auth/references/lambda-triggers.md",
+              "line": 70
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-auth/references/tokens-and-sessions.md",
+              "line": 14
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-auth/references/tokens-and-sessions.md",
+              "line": 16
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-auth/references/tokens-and-sessions.md",
+              "line": 29
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-auth/references/tokens-and-sessions.md",
+              "line": 94
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-auth/references/identity-pools.md",
+              "line": 29
+            },
+            {
+              "id": "MP3",
+              "severity": "HIGH",
+              "message": "Memory Manipulation",
+              "file": "skills/aws-auth/references/managed-login-oauth.md",
+              "line": 116
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-auth/references/tokens-and-sessions.md",
+              "line": 13
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-auth/references/tokens-and-sessions.md",
+              "line": 27
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-auth/references/tokens-and-sessions.md",
+              "line": 102
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-auth/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-auth/SKILL.md",
+              "line": 13
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-auth/SKILL.md",
+              "line": 27
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-auth/SKILL.md",
+              "line": 125
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-auth/references/lambda-triggers.md",
+              "line": 22
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/aws-auth/references/managed-login-oauth.md",
+              "line": 139
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/aws-auth/references/managed-login-oauth.md",
+              "line": 159
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/aws-auth/references/managed-login-oauth.md",
+              "line": 169
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/aws-auth/references/tokens-and-sessions.md",
+              "line": 37
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/aws-auth/references/managed-login-oauth.md",
+              "line": 166
+            }
+          ]
+        },
+        {
+          "path": "skills/aws-billing-and-cost-management",
+          "score": 68,
+          "risk": 32,
+          "status": "caution",
+          "partial": true,
+          "coverage": 93.8,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-billing-and-cost-management/SKILL.md",
+              "line": 165
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/aws-billing-and-cost-management/references/cost-optimization-hub.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-billing-and-cost-management/SKILL.md",
+              "line": 67
+            },
+            {
+              "id": "P4",
+              "severity": "MEDIUM",
+              "message": "Behavior Manipulation",
+              "file": "skills/aws-billing-and-cost-management/references/ebs-optimization.md",
+              "line": 15
+            }
+          ]
+        },
+        {
+          "path": "skills/aws-blocks",
+          "score": 88,
+          "risk": 12,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-blocks/SKILL.md",
+              "line": 42
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-blocks/SKILL.md",
+              "line": 65
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-blocks/SKILL.md",
+              "line": 75
+            }
+          ],
+          "findings": [
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-blocks/SKILL.md",
+              "line": 24
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-blocks/SKILL.md",
+              "line": 31
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-blocks/SKILL.md",
+              "line": 39
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-blocks/SKILL.md",
+              "line": 47
+            }
+          ]
+        },
+        {
+          "path": "skills/aws-cdk",
+          "score": 5,
+          "risk": 95,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 90.9,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-cdk/SKILL.md",
+              "line": 57
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-cdk/SKILL.md",
+              "line": 59
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-cdk/SKILL.md",
+              "line": 62
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-cdk/SKILL.md",
+              "line": 64
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-cdk/SKILL.md",
+              "line": 74
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-cdk/SKILL.md",
+              "line": 87
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/aws-cdk/references/construct-patterns.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-cdk/SKILL.md",
+              "line": 74
+            },
+            {
+              "id": "MP3",
+              "severity": "HIGH",
+              "message": "Memory Manipulation",
+              "file": "skills/aws-cdk/references/fast-deployments.md",
+              "line": 95
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-cdk/references/troubleshooting-credentials.md",
+              "line": 57
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-cdk/SKILL.md",
+              "line": 57
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-cdk/references/bootstrap-and-project-setup.md",
+              "line": 142
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-cdk/references/troubleshooting-synth.md",
+              "line": 48
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-cdk/references/troubleshooting-synth.md",
+              "line": 52
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-cdk/references/troubleshooting-synth.md",
+              "line": 136
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-cdk/SKILL.md",
+              "line": 64
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-cdk/references/troubleshooting-synth.md",
+              "line": 31
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-cdk/references/troubleshooting-synth.md",
+              "line": 46
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-cdk/references/bootstrap-and-project-setup.md",
+              "line": 238
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-cdk/references/bootstrap-and-project-setup.md",
+              "line": 249
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-cdk/references/bootstrap-and-project-setup.md",
+              "line": 250
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-cdk/references/compliance-and-drift.md",
+              "line": 152
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-cdk/references/compliance-and-drift.md",
+              "line": 153
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-cdk/references/troubleshooting-credentials.md",
+              "line": 115
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-cdk/references/troubleshooting-synth.md",
+              "line": 75
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-cdk/references/fast-deployments.md",
+              "line": 85
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-cdk/references/troubleshooting-synth.md",
+              "line": 52
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/aws-cdk/references/troubleshooting-synth.md",
+              "line": 116
+            }
+          ]
+        },
+        {
+          "path": "skills/aws-cloudformation",
+          "score": 10,
+          "risk": 90,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 93.8,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-cloudformation/SKILL.md",
+              "line": 58
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-cloudformation/SKILL.md",
+              "line": 99
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/aws-cloudformation/references/troubleshoot-deployment.script.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-cloudformation/SKILL.md",
+              "line": 134
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-cloudformation/references/persist-template-context.script.md",
+              "line": 164
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-cloudformation/references/persist-template-context.script.md",
+              "line": 164
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/aws-cloudformation/SKILL.md",
+              "line": 65
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "skills/aws-cloudformation/SKILL.md",
+              "line": 237
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "skills/aws-cloudformation/references/cloudformation-pre-deploy-validation.script.md",
+              "line": 93
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "skills/aws-cloudformation/references/cloudformation-pre-deploy-validation.script.md",
+              "line": 279
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "skills/aws-cloudformation/references/cloudformation-pre-deploy-validation.script.md",
+              "line": 279
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "skills/aws-cloudformation/references/cloudformation-pre-deploy-validation.script.md",
+              "line": 93
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "skills/aws-cloudformation/references/cloudformation-pre-deploy-validation.script.md",
+              "line": 279
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-cloudformation/references/template-safety-guidance.md",
+              "line": 14
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-cloudformation/references/validate-with-cfn-lint.script.md",
+              "line": 36
+            }
+          ]
+        },
+        {
+          "path": "skills/aws-compute",
+          "score": 64,
+          "risk": 36,
+          "status": "caution",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "SSRF1",
+              "severity": "HIGH",
+              "message": "Cloud Metadata Access",
+              "file": "skills/aws-compute/references/provisioning.md",
+              "line": 44
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/aws-compute/references/provisioning.md",
+              "line": 48
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/aws-compute/references/provisioning.md",
+              "line": 76
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/aws-compute/references/troubleshooting.md",
+              "line": 13
+            }
+          ]
+        },
+        {
+          "path": "skills/aws-containers",
+          "score": 56,
+          "risk": 44,
+          "status": "caution",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-containers/references/beanstalk-configuration.md",
+              "line": 92
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-containers/references/beanstalk-configuration.md",
+              "line": 97
+            },
+            {
+              "id": "E5",
+              "severity": "MEDIUM",
+              "message": "Cloud Storage Exfiltration",
+              "file": "skills/aws-containers/references/action-logs.md",
+              "line": 170
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-containers/references/ecs-workloads.md",
+              "line": 9
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-containers/references/ecs-workloads.md",
+              "line": 11
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-containers/references/ecs-workloads.md",
+              "line": 12
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-containers/references/ecs-workloads.md",
+              "line": 13
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-containers/references/ecs-workloads.md",
+              "line": 18
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-containers/references/ecs-workloads.md",
+              "line": 23
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-containers/references/ecs-workloads.md",
+              "line": 21
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-containers/references/ecs-workloads.md",
+              "line": 22
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-containers/references/ecs-workloads.md",
+              "line": 24
+            }
+          ]
+        },
+        {
+          "path": "skills/aws-database",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-database/SKILL.md",
+              "line": 24
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-database/SKILL.md",
+              "line": 34
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/aws-deployment",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 85.7,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/aws-deployment/references/codedeploy.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-deployment/SKILL.md",
+              "line": 48
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-deployment/SKILL.md",
+              "line": 56
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-deployment/SKILL.md",
+              "line": 60
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-deployment/SKILL.md",
+              "line": 61
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-deployment/SKILL.md",
+              "line": 81
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-deployment/references/codeartifact.md",
+              "line": 122
+            },
+            {
+              "id": "PE4",
+              "severity": "HIGH",
+              "message": "Docker Socket Access",
+              "file": "skills/aws-deployment/references/codebuild.md",
+              "line": 121
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/aws-deployment/references/codeartifact.md",
+              "line": 95
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/aws-deployment/references/codebuild.md",
+              "line": 121
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/aws-deployment/references/codedeploy.md",
+              "line": 241
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/aws-deployment/references/troubleshooting.md",
+              "line": 52
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/aws-deployment/references/codebuild.md",
+              "line": 9
+            }
+          ]
+        },
+        {
+          "path": "skills/aws-iam",
+          "score": 39,
+          "risk": 61,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 80,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-iam/SKILL.md",
+              "line": 105
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/aws-iam/references/aws-iam-policy-generation.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-iam/SKILL.md",
+              "line": 32
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-iam/references/aws-iam-policy-generation.md",
+              "line": 6
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-iam/references/aws-iam-policy-generation.md",
+              "line": 25
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-iam/references/aws-iam-policy-generation.md",
+              "line": 36
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-iam/references/aws-iam-policy-generation.md",
+              "line": 43
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-iam/references/aws-iam-policy-generation.md",
+              "line": 47
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-iam/references/aws-iam-policy-generation.md",
+              "line": 57
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-iam/references/aws-iam-policy-generation.md",
+              "line": 69
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-iam/references/aws-iam-policy-generation.md",
+              "line": 81
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-iam/references/aws-iam-policy-generation.md",
+              "line": 125
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-iam/references/aws-iam-policy-generation.md",
+              "line": 190
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-iam/references/aws-iam-policy-generation.md",
+              "line": 487
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-iam/references/aws-iam-policy-generation.md",
+              "line": 43
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/aws-iam/references/aws-iam-policy-generation.md",
+              "line": 182
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/aws-iam/references/aws-iam-policy-generation.md",
+              "line": 185
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-iam/references/aws-iam-policy-generation.md",
+              "line": 221
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-iam/references/aws-iam-policy-generation.md",
+              "line": 370
+            }
+          ]
+        },
+        {
+          "path": "skills/aws-messaging-and-streaming",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-messaging-and-streaming/SKILL.md",
+              "line": 139
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/aws-networking",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/aws-observability",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 94,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-observability/SKILL.md",
+              "line": 31
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-observability/SKILL.md",
+              "line": 79
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-observability/SKILL.md",
+              "line": 80
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-observability/SKILL.md",
+              "line": 81
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-observability/SKILL.md",
+              "line": 88
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-observability/SKILL.md",
+              "line": 90
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-observability/SKILL.md",
+              "line": 109
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-observability/SKILL.md",
+              "line": 114
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-observability/SKILL.md",
+              "line": 127
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-observability/SKILL.md",
+              "line": 128
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-observability/SKILL.md",
+              "line": 129
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-observability/SKILL.md",
+              "line": 130
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-observability/SKILL.md",
+              "line": 195
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-observability/SKILL.md",
+              "line": 207
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-observability/SKILL.md",
+              "line": 250
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-observability/SKILL.md",
+              "line": 251
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-observability/SKILL.md",
+              "line": 252
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-observability/SKILL.md",
+              "line": 253
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-observability/SKILL.md",
+              "line": 255
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-observability/SKILL.md",
+              "line": 291
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-observability/SKILL.md",
+              "line": 292
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-observability/SKILL.md",
+              "line": 293
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/aws-observability/references/cloudwatch-omni/agent-evaluation.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/aws-observability/references/cloudwatch-omni/agent-evaluation.md",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/aws-observability/references/cloudwatch-omni/dashboards.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/aws-observability/references/cloudwatch-omni/query/sql-logs-traces.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 109
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 114
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 207
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 250
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 251
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 291
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 173
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 222
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 254
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 294
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 221
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 257
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 296
+            },
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "skills/aws-observability/references/cloudwatch-omni/agent-evaluation.md",
+              "line": 39
+            },
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/aws-observability/references/cloudwatch-omni/alerts.md",
+              "line": 408
+            },
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/aws-observability/references/cloudwatch-omni/alerts.md",
+              "line": 435
+            },
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-observability/references/cloudwatch-omni/agent-evaluation.md",
+              "line": 42
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-observability/references/cloudwatch-omni/agent-evaluation.md",
+              "line": 362
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-observability/references/cloudwatch-omni/agent-evaluation.md",
+              "line": 473
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-observability/references/cloudwatch-omni/agent-evaluation.md",
+              "line": 273
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-observability/references/cloudwatch-omni/agent-evaluation.md",
+              "line": 302
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-observability/references/cloudwatch-omni/agent-evaluation.md",
+              "line": 473
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-observability/references/cloudwatch-omni/alerts.md",
+              "line": 21
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-observability/references/cloudwatch-omni/alerts.md",
+              "line": 410
+            },
+            {
+              "id": "P4",
+              "severity": "MEDIUM",
+              "message": "Behavior Manipulation",
+              "file": "skills/aws-observability/references/cloudwatch-omni/alerts.md",
+              "line": 351
+            },
+            {
+              "id": "P4",
+              "severity": "MEDIUM",
+              "message": "Behavior Manipulation",
+              "file": "skills/aws-observability/references/cloudwatch-omni/alerts.md",
+              "line": 908
+            },
+            {
+              "id": "P4",
+              "severity": "MEDIUM",
+              "message": "Behavior Manipulation",
+              "file": "skills/aws-observability/references/cloudwatch-omni/alerts.md",
+              "line": 1040
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-observability/references/cloudwatch-omni/alerts.md",
+              "line": 1412
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "skills/aws-observability/references/cloudwatch/dynamic-instrumentation.md",
+              "line": 73
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-observability/references/cloudwatch/dynamic-instrumentation.md",
+              "line": 392
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/aws-observability/references/cloudwatch/dynamic-instrumentation.md",
+              "line": 456
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "skills/aws-observability/references/cloudwatch/dynamic-instrumentation/snapshot-parsing.md",
+              "line": 61
+            }
+          ]
+        },
+        {
+          "path": "skills/aws-sdk-js-v3-usage",
+          "score": 69,
+          "risk": 31,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-sdk-js-v3-usage/SKILL.md",
+              "line": 52
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-sdk-js-v3-usage/SKILL.md",
+              "line": 162
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-sdk-js-v3-usage/references/credentials.md",
+              "line": 11
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-sdk-js-v3-usage/references/credentials.md",
+              "line": 11
+            }
+          ]
+        },
+        {
+          "path": "skills/aws-sdk-python-usage",
+          "score": 56,
+          "risk": 44,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-sdk-python-usage/SKILL.md",
+              "line": 89
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-sdk-python-usage/SKILL.md",
+              "line": 193
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-sdk-python-usage/references/configuration.md",
+              "line": 38
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-sdk-python-usage/references/credentials.md",
+              "line": 15
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-sdk-python-usage/references/credentials.md",
+              "line": 49
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-sdk-python-usage/references/credentials.md",
+              "line": 79
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-sdk-python-usage/references/credentials.md",
+              "line": 95
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-sdk-python-usage/references/credentials.md",
+              "line": 12
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-sdk-python-usage/references/credentials.md",
+              "line": 49
+            },
+            {
+              "id": "E5",
+              "severity": "MEDIUM",
+              "message": "Cloud Storage Exfiltration",
+              "file": "skills/aws-sdk-python-usage/references/s3.md",
+              "line": 13
+            },
+            {
+              "id": "E5",
+              "severity": "MEDIUM",
+              "message": "Cloud Storage Exfiltration",
+              "file": "skills/aws-sdk-python-usage/references/s3.md",
+              "line": 53
+            },
+            {
+              "id": "E5",
+              "severity": "MEDIUM",
+              "message": "Cloud Storage Exfiltration",
+              "file": "skills/aws-sdk-python-usage/references/s3.md",
+              "line": 69
+            },
+            {
+              "id": "E5",
+              "severity": "MEDIUM",
+              "message": "Cloud Storage Exfiltration",
+              "file": "skills/aws-sdk-python-usage/references/s3.md",
+              "line": 93
+            },
+            {
+              "id": "E5",
+              "severity": "MEDIUM",
+              "message": "Cloud Storage Exfiltration",
+              "file": "skills/aws-sdk-python-usage/references/s3.md",
+              "line": 110
+            },
+            {
+              "id": "E5",
+              "severity": "MEDIUM",
+              "message": "Cloud Storage Exfiltration",
+              "file": "skills/aws-sdk-python-usage/references/s3.md",
+              "line": 216
+            },
+            {
+              "id": "E5",
+              "severity": "MEDIUM",
+              "message": "Cloud Storage Exfiltration",
+              "file": "skills/aws-sdk-python-usage/references/s3.md",
+              "line": 18
+            },
+            {
+              "id": "E5",
+              "severity": "MEDIUM",
+              "message": "Cloud Storage Exfiltration",
+              "file": "skills/aws-sdk-python-usage/references/s3.md",
+              "line": 58
+            }
+          ]
+        },
+        {
+          "path": "skills/aws-sdk-swift-usage",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-sdk-swift-usage/SKILL.md",
+              "line": 50
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-sdk-swift-usage/SKILL.md",
+              "line": 52
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-sdk-swift-usage/SKILL.md",
+              "line": 161
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/aws-secrets-manager",
+          "score": 38,
+          "risk": 62,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-secrets-manager/SKILL.md",
+              "line": 90
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-secrets-manager/SKILL.md",
+              "line": 92
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-secrets-manager/SKILL.md",
+              "line": 106
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-secrets-manager/SKILL.md",
+              "line": 154
+            }
+          ],
+          "findings": [
+            {
+              "id": "YR4",
+              "severity": "HIGH",
+              "message": "YARA rule 'agent_skill_prompt_injection_hidden_instructions': Prompt injection or hidden instructions embedded in AI agent skill text [agent_skills]",
+              "file": "skills/aws-secrets-manager/SKILL.md",
+              "line": 5
+            },
+            {
+              "id": "E2",
+              "severity": "HIGH",
+              "message": "Env Variable Harvesting",
+              "file": "skills/aws-secrets-manager/references/asm-exec",
+              "line": 422
+            },
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-secrets-manager/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/aws-secrets-manager/SKILL.md",
+              "line": 70
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aws-secrets-manager/SKILL.md",
+              "line": 138
+            }
+          ]
+        },
+        {
+          "path": "skills/aws-security",
+          "score": 62,
+          "risk": 38,
+          "status": "caution",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "skills/aws-security/references/services-overview.md",
+              "line": 24
+            },
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "skills/aws-security/references/services-overview.md",
+              "line": 25
+            },
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "skills/aws-security/references/services-overview.md",
+              "line": 26
+            },
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "skills/aws-security/references/services-overview.md",
+              "line": 27
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-security/references/service-recommendations/enablement-checks.md",
+              "line": 174
+            }
+          ]
+        },
+        {
+          "path": "skills/aws-serverless",
+          "score": 18,
+          "risk": 82,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 83.3,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-serverless/SKILL.md",
+              "line": 53
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-serverless/SKILL.md",
+              "line": 147
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-serverless/SKILL.md",
+              "line": 211
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/aws-serverless/references/concurrency.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/aws-serverless/references/orchestration.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-serverless/SKILL.md",
+              "line": 16
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-serverless/SKILL.md",
+              "line": 55
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-serverless/SKILL.md",
+              "line": 147
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-serverless/SKILL.md",
+              "line": 151
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-serverless/SKILL.md",
+              "line": 188
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-serverless/SKILL.md",
+              "line": 42
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-serverless/SKILL.md",
+              "line": 113
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-serverless/SKILL.md",
+              "line": 133
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-serverless/SKILL.md",
+              "line": 186
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/aws-serverless/references/troubleshooting.md",
+              "line": 117
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/aws-serverless/SKILL.md",
+              "line": 209
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-serverless/references/api-gateway.md",
+              "line": 3
+            }
+          ]
+        },
+        {
+          "path": "skills/aws-storage",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/aws-well-architected-review",
+          "score": 81,
+          "risk": 19,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-well-architected-review/SKILL.md",
+              "line": 12
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-well-architected-review/SKILL.md",
+              "line": 66
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-well-architected-review/SKILL.md",
+              "line": 68
+            }
+          ],
+          "findings": [
+            {
+              "id": "OH3",
+              "severity": "MEDIUM",
+              "message": "Unbounded Output",
+              "file": "skills/aws-well-architected-review/SKILL.md",
+              "line": 93
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-well-architected-review/references/discovery-procedure.md",
+              "line": 54
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-well-architected-review/references/risk-assessment.md",
+              "line": 39
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-well-architected-review/references/review-modes.md",
+              "line": 53
+            }
+          ]
+        },
+        {
+          "path": "skills/launch-with-aws",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 87.5,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/launch-with-aws/SKILL.md",
+              "line": 145
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/launch-with-aws/SKILL.md",
+              "line": 250
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/launch-with-aws/SKILL.md",
+              "line": 257
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/launch-with-aws/SKILL.md",
+              "line": 264
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/launch-with-aws/scripts/auth.py",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/launch-with-aws/SKILL.md",
+              "line": 24
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/launch-with-aws/scripts/archive.py",
+              "line": 78
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/launch-with-aws/scripts/archive.py",
+              "line": 79
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/launch-with-aws/scripts/archive.py",
+              "line": 80
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/launch-with-aws/scripts/archive.py",
+              "line": 81
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/launch-with-aws/scripts/archive.py",
+              "line": 85
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/launch-with-aws/scripts/archive.py",
+              "line": 86
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/launch-with-aws/scripts/archive.py",
+              "line": 87
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/launch-with-aws/scripts/archive.py",
+              "line": 89
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/launch-with-aws/scripts/auth.py",
+              "line": 260
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/launch-with-aws/scripts/auth.py",
+              "line": 268
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/launch-with-aws/scripts/auth.py",
+              "line": 295
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/launch-with-aws/scripts/auth.py",
+              "line": 296
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/launch-with-aws/scripts/launch_api_client.py",
+              "line": 258
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/launch-with-aws/scripts/launch_config.py",
+              "line": 312
+            },
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/launch-with-aws/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/launch-with-aws/SKILL.md",
+              "line": 219
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/launch-with-aws/SKILL.md",
+              "line": 260
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/launch-with-aws/SKILL.md",
+              "line": 261
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/launch-with-aws/scripts/archive.py",
+              "line": 116
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/launch-with-aws/scripts/archive.py",
+              "line": 475
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/launch-with-aws/scripts/auth.py",
+              "line": 391
+            },
+            {
+              "id": "AST7",
+              "severity": "LOW",
+              "message": "Dynamic attribute access via getattr()",
+              "file": "skills/launch-with-aws/scripts/auth_callback_server.py",
+              "line": 96
+            }
+          ]
+        },
+        {
+          "path": "skills/signing-in-to-aws",
+          "score": 83,
+          "risk": 17,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/signing-in-to-aws/SKILL.md",
+              "line": 74
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 0,
+  "status": "do not install",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-20T01:06:24Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}
