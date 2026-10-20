@@ -14,9 +14,13 @@ echo '{}' > "$root/built/share/agent-plugins/demo/plugin.json"
 
 # The shebang is bash's absolute path: the Linux nix sandbox has no
 # /usr/bin/env. The stub prints STUB_OUT on stdout, STUB_ERR on
-# stderr, and exits STUB_EXIT; --version prints STUB_VERSION.
+# stderr, and exits STUB_EXIT; --version prints STUB_VERSION, and
+# `audit --help` prints STUB_HELP on stderr and exits 2, as Go's flag
+# package does. An audit's arguments are written to STUB_ARGV.
 { echo "#!$(command -v bash)"; cat <<'STUB'
 if [ "${1:-}" = --version ]; then echo "${STUB_VERSION:-1.0.0}"; exit 0; fi
+if [ "${1:-}" = audit ] && [ "${2:-}" = --help ]; then printf '%s' "${STUB_HELP:-}" >&2; exit 2; fi
+echo "$*" > "${STUB_ARGV:-/dev/null}"
 [ -e ./result/plugin.json ] || { echo "stub: ./result is not the plugin" >&2; exit 9; }
 printf '%s' "${STUB_OUT:-}"
 printf '%s' "${STUB_ERR:-}" >&2
@@ -98,6 +102,21 @@ run_case "usage error" STUB_EXIT=2 STUB_ERR="ERROR: usage"
 run_case "unreadable result" STUB_OUT="not json"
 [ "$rc" = 2 ] || fail "exit $rc, want 2"
 cmp -s "$dest" "$root/before" || fail "file was written"
+
+# Which arguments reach the CLI. Last, since each writes a result.
+run_case "an older CLI gets no --scan-timeout" STUB_ARGV="$root/argv" STUB_OUT="$(result 51 2026-10-17T03:00:00Z /nix/store/b)"
+[ "$rc" = 0 ] || fail "exit $rc: $out"
+[ "$(cat "$root/argv")" = "audit ./result --json" ] || fail "argv: $(cat "$root/argv")"
+
+help=$'Usage of audit:\n  -scan-timeout duration\n    \tstop a component\'s scan after this long\n'
+run_case "a CLI with --scan-timeout gets 20m" STUB_ARGV="$root/argv" STUB_HELP="$help" \
+  STUB_OUT="$(result 51 2026-10-17T03:00:00Z /nix/store/b)"
+[ "$rc" = 0 ] || fail "exit $rc: $out"
+[ "$(cat "$root/argv")" = "audit ./result --json --scan-timeout 20m" ] || fail "argv: $(cat "$root/argv")"
+
+run_case "AUDIT_SCAN_TIMEOUT overrides it" STUB_ARGV="$root/argv" STUB_HELP="$help" AUDIT_SCAN_TIMEOUT=45m \
+  STUB_OUT="$(result 51 2026-10-17T03:00:00Z /nix/store/b)"
+[ "$(cat "$root/argv")" = "audit ./result --json --scan-timeout 45m" ] || fail "argv: $(cat "$root/argv")"
 
 if [ "$failures" -gt 0 ]; then
   echo "$failures failure(s)"
