@@ -28,8 +28,10 @@ main program as a fallback.
 
 `mappings/runtimes.nix` and `runtimes` go. A version pin is
 `--dependency python312`. The defaults are a list, not a map, and do
-not grow. A generated package recording no runtime gets no defaults
-(AI-710); a hand-written call, which records nothing, gets them.
+not grow. A generated package recording no runtime gets no defaults and
+no declared packages (AI-710): `--dependency` applies to every plugin
+an import writes, and a declared package is a build input wherever it
+is listed. A hand-written call, which records nothing, gets both.
 
 ## Consequences
 
@@ -39,7 +41,11 @@ not grow. A generated package recording no runtime gets no defaults
   agent-stacks (ADR 0017); `runtime-candidates` asserts the order
   handed over and `runtime-defaults-resolve` that the defaults exist.
 - `+` Every package here resolved by a default or its own name except
-  six, which declare `uv` or `powershell`.
+  the ones imported from repositories that need `uv`, `powershell`, `R`
+  or `dotnet-sdk_10`.
+- `-` `--dependency` is per import, not per plugin: a sibling plugin
+  that records a runtime but not the declared one still has the
+  declared package as a build input (not in its closure).
 - `-` Every package recording a runtime has the three defaults as
   build inputs.
 - `-` A wrong attribute fails at build time, naming the flag.

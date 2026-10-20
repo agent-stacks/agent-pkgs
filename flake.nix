@@ -277,7 +277,9 @@
           # The list handed to assemble-plugin: a declared dependency
           # ahead of the defaults, a token's own package when nothing
           # was declared, its main program when the binary is not its
-          # name, and nothing at all for a record naming no runtime.
+          # name, no repeat of a package already listed under its own
+          # binary, and nothing at all, declared or not, for a record
+          # naming no runtime.
           runtime-candidates =
             let
               lib' = mkLib pkgs;
@@ -304,6 +306,10 @@
               pinned = mk { dependencies = [ "python312" ]; };
               named = mk { };
               empty = mk { requiredRuntimes = [ ]; };
+              idle = mk { requiredRuntimes = [ ]; dependencies = [ "python312" ]; };
+              shells = mk { requiredRuntimes = [ "bash" "ruby" ]; };
+              unknown = builtins.tryEval
+                (builtins.deepSeq (attrs (mk { dependencies = [ "no-such-package" ]; })) true);
               attrs = p: map (c: "${c.tier}:${c.attr}") p.passthru.agentPlugin.runtimeCandidates;
               expect = what: got: want:
                 if got == want then "" else throw
@@ -321,6 +327,10 @@
                 [ "declared:python312" "default:bash" "default:python3" "default:nodejs"
                   "named:nodejs" "named:python3" "named:ruby" ]}
               ${expect "empty" (attrs empty) [ ]}
+              ${expect "idle" (attrs idle) [ ]}
+              ${expect "shells" (attrs shells)
+                [ "default:bash" "default:python3" "default:nodejs" "named:ruby" ]}
+              ${expect "unknown dependency fails" unknown.success false}
               ${linksInto pinned "python3" pkgs.python312}
               ${linksInto named "python3" pkgs.python3}
               ${linksInto named "ruby" pkgs.ruby}

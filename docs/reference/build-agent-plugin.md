@@ -23,8 +23,8 @@ every argument.
 | `mcpServers` | `null` | Attrset serialized to `mcp.json` at the `manifest`'s spec version (1.0.0 without one). Without it, a passed-through tree keeps its own `mcp.json`, rewritten to the manifest's version when `manifest` replaced its `plugin.json`; an assembled package takes a root `mcp.json` only when it declares an `agent-plugins.org` `$schema`, and reports one it skips. |
 | `agentStacks` | this set's | The agent-stacks package that assembles the plugin tree (`assemble-plugin`) and whose `check-plugin` validates the output. Packages built from this repo get `pkgs/agent-stacks`; required — `null` fails the build, since assembly cannot be skipped (ADR 0013). What it validates is documented in the agent-stacks repo, `docs/reference/check-plugin-command.md`. |
 | `strict` | `false` | Pass `--strict`, making warnings fail the build. Off by default: skills in the wild carry harness frontmatter fields the Agent Skills spec does not list, and those are warnings a correct plugin can have. |
-| `requiredRuntimes` | `null` | Interpreter tokens the package's files name, as recorded by `agent-stacks import`. Required for a generated package — one whose `source.json` carries `import` — and the build fails, naming the fix, if it is missing there. A hand-written call omits it and gets only the default packages and what it declares. |
-| `dependencies` | `[ ]` | nixpkgs attribute names from `agent-stacks import --dependency`, searched before the defaults; also the version pin: `[ "python312" ]`. One nixpkgs lacks fails evaluation ([ADR 0023](../decisions/0023-the-plugin-declares-packages-and-the-build-finds-binaries-in-them.md)). |
+| `requiredRuntimes` | `null` | Interpreter tokens the package's files name, as recorded by `agent-stacks import`. Required for a generated package — one whose `source.json` carries `import` — and the build fails, naming the fix, if it is missing there. A hand-written call omits it and gets only the default packages and what it declares: no package named like a token, as it records no tokens, so a call running `bun`, `tsx`, `uv` or `pwsh` names the package in `dependencies`. |
+| `dependencies` | `[ ]` | nixpkgs attribute names from `agent-stacks import --dependency`, searched before the defaults; also the version pin: `[ "python312" ]`. Not searched when `requiredRuntimes` is `[ ]`, as nothing is linked. One nixpkgs lacks, or one that does not evaluate on the system, fails evaluation ([ADR 0023](../decisions/0023-the-plugin-declares-packages-and-the-build-finds-binaries-in-them.md)). |
 | `allowPathCommands` | `[ ]` | Bare `mcp.json` commands that intentionally resolve from the consumer environment's PATH instead of the closure. |
 | `extraSubstitutions` | `[ ]` | List of `{ file; replace; with; }` applied after the automatic pass, for interpreter mentions in script bodies or SKILL.md text. |
 | `meta` | `{ }` | Standard derivation meta, merged over computed defaults ([ADR 0014](../decisions/0014-generated-package-meta.md)): `category = "agent-plugin"`, `platforms = lib.platforms.all`, `description` and `homepage` from the manifest or `sourceUrl` when present, and `license` when `manifest.license` resolves to a known `lib.licenses` entry by `spdxId`. A `meta.license` given as a string names a licence, which is how a generated `source.json` records one the manifest does not spell as SPDX does: an SPDX identifier (`"Apache-2.0"` for a manifest saying `Apache 2.0`), or a `lib.licenses` attribute name where SPDX has none (`"publicDomain"`). It is replaced by that licence; a string nixpkgs has no licence for is dropped ([ADR 0018](../decisions/0018-a-licence-named-in-meta.md)). The manifest's full description is kept as `longDescription` when it says more than the effective `description`. The merge is `defaultMeta // longDescription // meta`, key by key: an explicit key in the caller's `meta` wins over the computed default. The merge can only add or override a key, not remove one — a caller whose manifest declares a licence cannot suppress `meta.license` from the call site by passing an empty `meta`; the manifest is the thing making the claim, so that is where to change it. |
@@ -63,9 +63,12 @@ On the copied tree, `assemble-plugin`:
    rewrites the references to point there. The symlink targets are
    store paths, so the interpreters land in the plugin's closure.
 
-A generated package recording no runtime gets no defaults, so a
-Markdown-only plugin pulls no interpreter; a hand-written call gets
-them.
+A generated package recording no runtime gets neither the defaults
+nor its declared packages, so a Markdown-only plugin pulls no
+interpreter even when its import's `--dependency` names one for a
+sibling plugin; a hand-written call gets both. A package named like a
+token is left out when it is already listed and its main program is
+the token, as `bin/<token>` was searched there.
 
 After the pass, a guard fails the build for any executable outside
 `assets/` whose shebang does not point into that plugin-local `bin/` —

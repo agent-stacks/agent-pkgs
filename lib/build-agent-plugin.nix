@@ -95,7 +95,7 @@
   # nixpkgs attributes from `agent-stacks import --dependency`,
   # searched first; also the version pin: [ "python312" ].
 , dependencies ? [ ]
-  # Gone (ADR 0023); accepted only to say so.
+  # Gone (ADR 0023); accepted only to say so, or to pass { }.
 , runtimes ? null
   # bare mcp.json commands that intentionally resolve from the
   # consumer environment's PATH at launch instead of the closure
@@ -234,11 +234,6 @@ let
   # table (ADR 0023).
   defaultRuntimeAttrs = builtins.import ./runtime-defaults.nix;
 
-  declaredPackage = attr:
-    let p = pkgs.${attr} or null;
-    in if lib.isDerivation p then p else throw
-      ("buildAgentPlugin: ${name}: dependency '${attr}' is not a nixpkgs "
-        + "package; re-import with --dependency naming one that is");
 
   # main: a named package's fallback when its binary is not its
   # attribute (nodejs, bin/node).
@@ -260,13 +255,45 @@ let
         else [ ]);
     in if r.success then r.value else [ ];
 
-  # A generated package recording no runtime gets no defaults (AI-710);
-  # a hand-written call has no record and gets them.
+  # tryEval as for namedPackage, but a declared package that cannot be
+  # evaluated is an error naming the flag, not nixpkgs' check-meta text.
+  declaredCandidate = attr:
+    let
+      r = builtins.tryEval (
+        let p = pkgs.${attr} or null;
+        in if lib.isDerivation p
+        then let v = candidate "declared" attr p; in builtins.deepSeq v v
+        else null);
+    in
+    if r.success && r.value != null then r.value
+    else throw ("buildAgentPlugin: ${name}: dependency '${attr}' "
+      + (if r.success then "is not a nixpkgs package"
+         else "does not evaluate on ${pkgs.stdenv.hostPlatform.system} "
+           + "(unfree, broken or unsupported here)")
+      + "; re-import with --dependency naming one that is");
+
+  # A generated package recording no runtime links nothing, so it gets
+  # neither the defaults nor what it declares (AI-710): --dependency
+  # applies to every plugin of an import, and a declared package is a
+  # build input even where nothing is linked from it. A hand-written
+  # call has no record and gets both.
+  links = requiredRuntimes == null || requiredList != [ ];
+
+  declaredCandidates = lib.optionals links (map declaredCandidate dependencies);
+  defaultCandidates = lib.optionals links
+    (map (a: candidate "default" a pkgs.${a}) defaultRuntimeAttrs);
+
+  # A token whose package is already listed and whose main program is
+  # the token itself adds nothing: bin/<token> was searched there. One
+  # whose main program differs stays, as the fallback is looked up on
+  # named entries only (nodejs, bin/node).
+  earlierAttrs = map (c: c.attr) (declaredCandidates ++ defaultCandidates);
+  redundantNamed = c: builtins.elem c.attr earlierAttrs && c.main == c.attr;
+
   runtimeCandidates =
-    map (a: candidate "declared" a (declaredPackage a)) dependencies
-    ++ lib.optionals (requiredRuntimes == null || requiredList != [ ])
-      (map (a: candidate "default" a pkgs.${a}) defaultRuntimeAttrs)
-    ++ lib.concatMap namedPackage requiredList;
+    declaredCandidates ++ defaultCandidates
+    ++ builtins.filter (c: !redundantNamed c)
+      (lib.concatMap namedPackage requiredList);
 
   runtimeMapFile = pkgs.writeText "runtime-map.json"
     (builtins.toJSON { packages = runtimeCandidates; });
@@ -294,7 +321,8 @@ let
       ignoredPaths = if ignoredPaths == { } then null else ignoredPaths;
     }));
 in
-assert runtimes == null || throw
+# { } was the old default, so a call still spelling it out is harmless.
+assert runtimes == null || runtimes == { } || throw
   ("buildAgentPlugin: ${name}: `runtimes` is gone; declare the package with "
     + "`agent-stacks import --dependency <attr>` instead (ADR 0023).");
 assert agentStacks != null || throw
