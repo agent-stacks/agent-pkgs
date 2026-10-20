@@ -1,0 +1,93 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "tolvi-solo",
+      "dir": "/nix/store/pij776kf5ihbhclpkjsmh7w0y41vzr71-agent-plugin-tolvi-solo-0.1.0/share/agent-plugins/tolvi-solo",
+      "spec": "1.1.0",
+      "score": 56,
+      "status": "caution",
+      "coverage": {
+        "scanned": [
+          "skills/vault-health"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          },
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/vault-health",
+          "score": 56,
+          "risk": 44,
+          "status": "caution",
+          "partial": true,
+          "coverage": 50,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/vault-health/SKILL.md",
+              "line": 62
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/vault-health/scripts/vault_health.py",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/vault-health/SKILL.md",
+              "line": 8
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/vault-health/SKILL.md",
+              "line": 27
+            },
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/vault-health/SKILL.md",
+              "line": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 56,
+  "status": "caution",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T23:15:16Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

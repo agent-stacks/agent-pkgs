@@ -1,0 +1,195 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "packer",
+      "dir": "/nix/store/nslr1rgfamr8sybw2xh1ki07ab0a520l-agent-plugin-packer-1.0.0/share/agent-plugins/packer",
+      "spec": "1.1.0",
+      "score": 67,
+      "status": "caution",
+      "coverage": {
+        "scanned": [
+          "skills/aws-ami-builder",
+          "skills/azure-image-builder",
+          "skills/push-to-registry",
+          "skills/windows-builder"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": []
+      },
+      "components": [
+        {
+          "path": "skills/aws-ami-builder",
+          "score": 67,
+          "risk": 33,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-ami-builder/SKILL.md",
+              "line": 39
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-ami-builder/SKILL.md",
+              "line": 61
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-ami-builder/SKILL.md",
+              "line": 105
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-ami-builder/SKILL.md",
+              "line": 128
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/aws-ami-builder/SKILL.md",
+              "line": 65
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/aws-ami-builder/SKILL.md",
+              "line": 66
+            }
+          ]
+        },
+        {
+          "path": "skills/azure-image-builder",
+          "score": 90,
+          "risk": 10,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/azure-image-builder/SKILL.md",
+              "line": 79
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/azure-image-builder/SKILL.md",
+              "line": 83
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/azure-image-builder/SKILL.md",
+              "line": 84
+            }
+          ]
+        },
+        {
+          "path": "skills/push-to-registry",
+          "score": 90,
+          "risk": 10,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/push-to-registry/SKILL.md",
+              "line": 34
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/push-to-registry/SKILL.md",
+              "line": 49
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/push-to-registry/SKILL.md",
+              "line": 169
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/push-to-registry/SKILL.md",
+              "line": 67
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/push-to-registry/SKILL.md",
+              "line": 68
+            }
+          ]
+        },
+        {
+          "path": "skills/windows-builder",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/windows-builder/SKILL.md",
+              "line": 25
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/windows-builder/SKILL.md",
+              "line": 43
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/windows-builder/SKILL.md",
+              "line": 47
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/windows-builder/SKILL.md",
+              "line": 102
+            }
+          ],
+          "findings": []
+        }
+      ]
+    }
+  ],
+  "score": 67,
+  "status": "caution",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T23:04:53Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

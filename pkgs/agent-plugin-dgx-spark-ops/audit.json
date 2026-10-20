@@ -1,0 +1,155 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "dgx-spark-ops",
+      "dir": "/nix/store/7j9gi15jgwvbz4i7qfikh8hcbgn75v08-agent-plugin-dgx-spark-ops-1.0.0/share/agent-plugins/dgx-spark-ops",
+      "spec": "1.1.0",
+      "score": 52,
+      "status": "caution",
+      "coverage": {
+        "scanned": [
+          "skills/spark-environment-setup",
+          "skills/spark-memory-thermal-ops",
+          "skills/spark-training-gotchas"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/spark-environment-setup",
+          "score": 52,
+          "risk": 48,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/spark-environment-setup/SKILL.md",
+              "line": 101
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/spark-environment-setup/SKILL.md",
+              "line": 102
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/spark-environment-setup/SKILL.md",
+              "line": 182
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE5",
+              "severity": "HIGH",
+              "message": "Privileged Container / Container Escape",
+              "file": "skills/spark-environment-setup/references/container-workflow.md",
+              "line": 13
+            },
+            {
+              "id": "PE5",
+              "severity": "HIGH",
+              "message": "Privileged Container / Container Escape",
+              "file": "skills/spark-environment-setup/references/container-workflow.md",
+              "line": 40
+            },
+            {
+              "id": "PE5",
+              "severity": "HIGH",
+              "message": "Privileged Container / Container Escape",
+              "file": "skills/spark-environment-setup/references/container-workflow.md",
+              "line": 21
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/spark-environment-setup/SKILL.md",
+              "line": 47
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/spark-environment-setup/references/container-workflow.md",
+              "line": 12
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/spark-environment-setup/references/container-workflow.md",
+              "line": 39
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/spark-environment-setup/references/container-workflow.md",
+              "line": 32
+            }
+          ]
+        },
+        {
+          "path": "skills/spark-memory-thermal-ops",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/spark-training-gotchas",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/spark-training-gotchas/SKILL.md",
+              "line": 47
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/spark-training-gotchas/SKILL.md",
+              "line": 136
+            }
+          ],
+          "findings": []
+        }
+      ]
+    }
+  ],
+  "score": 52,
+  "status": "caution",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T22:29:55Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "twitter",
+      "dir": "/nix/store/vx6b1v4szchsn719db8ph02shvcs6imi-agent-plugin-twitter-1.0.0/share/agent-plugins/twitter",
+      "spec": "1.1.0",
+      "score": 85,
+      "status": "safe",
+      "coverage": {
+        "scanned": [
+          "skills/twitter"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/twitter",
+          "score": 85,
+          "risk": 15,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/twitter/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/twitter/SKILL.md",
+              "line": 96
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/twitter/scripts/twitter_api.py",
+              "line": 11
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 85,
+  "status": "safe",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T23:38:12Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

@@ -1,0 +1,467 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "foundry-iq-skills",
+      "dir": "/nix/store/v9m0b0kb6hfw9hrd85fs7x62ql1qzgyj-agent-plugin-foundry-iq-skills-0.2.3/share/agent-plugins/foundry-iq-skills",
+      "spec": "1.1.0",
+      "score": 0,
+      "status": "do not install",
+      "coverage": {
+        "scanned": [
+          "skills/foundry-iq"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          },
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/foundry-iq",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 88.2,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/foundry-iq/SKILL.md",
+              "line": 8
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/foundry-iq/helpers/_blob_source_read.py",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/foundry-iq/helpers/_cleanup_dependencies.py",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/foundry-iq/helpers/_cleanup_receipts.py",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/foundry-iq/helpers/_progress.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/foundry-iq/helpers/blob_inventory.py",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/foundry-iq/helpers/bootstrap_azure.py",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/foundry-iq/helpers/cleanup_plan.py",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/foundry-iq/helpers/prompt_cleanup.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/foundry-iq/helpers/retrieval_verify.py",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/foundry-iq/helpers/search_reconcile.py",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AR3",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "skills/foundry-iq/SKILL.md",
+              "line": 16
+            },
+            {
+              "id": "P1",
+              "severity": "HIGH",
+              "message": "Instruction Override",
+              "file": "skills/foundry-iq/SKILL.md",
+              "line": 16
+            },
+            {
+              "id": "E2",
+              "severity": "HIGH",
+              "message": "Env Variable Harvesting",
+              "file": "skills/foundry-iq/helpers/_bootstrap_io.py",
+              "line": 605
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/foundry-iq/helpers/_common.py",
+              "line": 637
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/foundry-iq/helpers/_common.py",
+              "line": 643
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/foundry-iq/helpers/_common.py",
+              "line": 650
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/foundry-iq/helpers/_file_inventory.py",
+              "line": 90
+            },
+            {
+              "id": "SC4",
+              "severity": "HIGH",
+              "message": "Known Vulnerable Dependency: pypdf==6.16.1 — 16 advisory(ies): CVE-2026-102994 (pypdf: Possible long runtimes/large memory usage when parsing indirect objects); CVE-2026-102995 (pypdf: Possible large memory usage for large /ToUnicode streams (Follow-up 2)); CVE-2026-102996 (pypdf: Possible large memory usage when parsing font data) +13 more",
+              "file": "skills/foundry-iq/helpers/requirements-assessment.txt",
+              "line": 2
+            },
+            {
+              "id": "OH1",
+              "severity": "HIGH",
+              "message": "Unvalidated Output Injection",
+              "file": "skills/foundry-iq/helpers/search_reconcile.py",
+              "line": 764
+            },
+            {
+              "id": "OH1",
+              "severity": "HIGH",
+              "message": "Unvalidated Output Injection",
+              "file": "skills/foundry-iq/helpers/search_reconcile.py",
+              "line": 774
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/foundry-iq/references/bootstrap-azure.md",
+              "line": 116
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/foundry-iq/references/owner.md",
+              "line": 11
+            },
+            {
+              "id": "YR4",
+              "severity": "HIGH",
+              "message": "YARA rule 'agent_skill_prompt_injection_hidden_instructions': Prompt injection or hidden instructions embedded in AI agent skill text [agent_skills]",
+              "file": "skills/foundry-iq/references/search-substrate.md",
+              "line": 55
+            },
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/foundry-iq/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/SKILL.md",
+              "line": 59
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/agents/connect.md",
+              "line": 16
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/helpers/blob-contracts.md",
+              "line": 51
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/helpers/bootstrap-contracts.md",
+              "line": 45
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/helpers/contracts.md",
+              "line": 53
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/knowledge-bases/create.md",
+              "line": 19
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/knowledge-bases/retrieve.md",
+              "line": 24
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/knowledge-bases/retrieve.md",
+              "line": 93
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/knowledge-sources/create-azure-blob.md",
+              "line": 16
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/knowledge-sources/create-file.md",
+              "line": 18
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/knowledge-sources/create-file.md",
+              "line": 98
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/references/platform-contracts.md",
+              "line": 13
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/references/resource-intake.md",
+              "line": 121
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/search-services/create.md",
+              "line": 17
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/troubleshooting/diagnose.md",
+              "line": 35
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/agents/connect-hosted-toolbox.md",
+              "line": 85
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/agents/connect-prompt-sdk-fallback.md",
+              "line": 61
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/foundry-iq/agents/create-missing-agent.md",
+              "line": 37
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/foundry-iq/helpers/_bootstrap_io.py",
+              "line": 611
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/foundry-iq/helpers/_common.py",
+              "line": 611
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/helpers/blob-cu-contracts.md",
+              "line": 119
+            },
+            {
+              "id": "EA4",
+              "severity": "MEDIUM",
+              "message": "Unbounded Resource Access",
+              "file": "skills/foundry-iq/helpers/bootstrap_azure.py",
+              "line": 307
+            },
+            {
+              "id": "EA4",
+              "severity": "MEDIUM",
+              "message": "Unbounded Resource Access",
+              "file": "skills/foundry-iq/helpers/bootstrap_azure.py",
+              "line": 340
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/foundry-iq/helpers/document_assess.py",
+              "line": 251
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/foundry-iq/helpers/knowledge_base_retrieve.py",
+              "line": 96
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/helpers/vector-contracts.md",
+              "line": 97
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/knowledge-bases/create.md",
+              "line": 99
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/lifecycle/cleanup.md",
+              "line": 16
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/references/bootstrap-azure.md",
+              "line": 95
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/lifecycle/cleanup.md",
+              "line": 120
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "skills/foundry-iq/references/bootstrap-azure.md",
+              "line": 116
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/references/content-fit.md",
+              "line": 6
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/references/cu-ingestion.md",
+              "line": 105
+            },
+            {
+              "id": "AST7",
+              "severity": "LOW",
+              "message": "Dynamic attribute access via getattr()",
+              "file": "skills/foundry-iq/helpers/_cleanup_receipts.py",
+              "line": 27
+            },
+            {
+              "id": "AST7",
+              "severity": "LOW",
+              "message": "Dynamic attribute access via getattr()",
+              "file": "skills/foundry-iq/helpers/prompt_connect.py",
+              "line": 732
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/foundry-iq/references/bootstrap-azure.md",
+              "line": 105
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 0,
+  "status": "do not install",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T22:20:23Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

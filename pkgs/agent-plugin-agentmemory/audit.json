@@ -1,0 +1,636 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "agentmemory",
+      "dir": "/nix/store/0hd9dm1r796ggjm6scxnmvy4a5xx7nmh-agent-plugin-agentmemory-0.9.30/share/agent-plugins/agentmemory",
+      "spec": "1.1.0",
+      "score": 20,
+      "status": "do not install",
+      "coverage": {
+        "scanned": [
+          "skills/agentmemory-agents",
+          "skills/agentmemory-architecture",
+          "skills/agentmemory-config",
+          "skills/agentmemory-hooks",
+          "skills/agentmemory-mcp-tools",
+          "skills/agentmemory-rest-api",
+          "skills/commit-context",
+          "skills/commit-history",
+          "skills/forget",
+          "skills/handoff",
+          "skills/lesson",
+          "skills/memory-discipline",
+          "skills/recall",
+          "skills/recap",
+          "skills/remember",
+          "skills/session-history",
+          "skills/write-agentmemory-skill"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          },
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          },
+          {
+            "path": "mcp.json",
+            "reason": "SkillSpector does not analyse this layout as an MCP manifest"
+          },
+          {
+            "path": "scripts/",
+            "reason": "outside the spec"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/agentmemory-agents",
+          "score": 20,
+          "risk": 80,
+          "status": "do not install",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/agentmemory-agents/REFERENCE.md",
+              "line": 5
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/agentmemory-agents/REFERENCE.md",
+              "line": 10
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/agentmemory-agents/REFERENCE.md",
+              "line": 10
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/agentmemory-agents/REFERENCE.md",
+              "line": 11
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/agentmemory-agents/REFERENCE.md",
+              "line": 11
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/agentmemory-agents/REFERENCE.md",
+              "line": 15
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/agentmemory-agents/TROUBLESHOOTING.md",
+              "line": 1
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/agentmemory-agents/REFERENCE.md",
+              "line": 29
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/agentmemory-agents/TROUBLESHOOTING.md",
+              "line": 32
+            }
+          ]
+        },
+        {
+          "path": "skills/agentmemory-architecture",
+          "score": 77,
+          "risk": 23,
+          "status": "caution",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/agentmemory-architecture/TROUBLESHOOTING.md",
+              "line": 1
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/agentmemory-architecture/TROUBLESHOOTING.md",
+              "line": 32
+            }
+          ]
+        },
+        {
+          "path": "skills/agentmemory-config",
+          "score": 68,
+          "risk": 32,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/agentmemory-config/SKILL.md",
+              "line": 15
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/agentmemory-config/SKILL.md",
+              "line": 16
+            }
+          ],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/agentmemory-config/REFERENCE.md",
+              "line": 5
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/agentmemory-config/TROUBLESHOOTING.md",
+              "line": 1
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/agentmemory-config/TROUBLESHOOTING.md",
+              "line": 32
+            }
+          ]
+        },
+        {
+          "path": "skills/agentmemory-hooks",
+          "score": 68,
+          "risk": 32,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/agentmemory-hooks/SKILL.md",
+              "line": 47
+            }
+          ],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/agentmemory-hooks/REFERENCE.md",
+              "line": 5
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/agentmemory-hooks/TROUBLESHOOTING.md",
+              "line": 1
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/agentmemory-hooks/TROUBLESHOOTING.md",
+              "line": 32
+            }
+          ]
+        },
+        {
+          "path": "skills/agentmemory-mcp-tools",
+          "score": 68,
+          "risk": 32,
+          "status": "caution",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/agentmemory-mcp-tools/REFERENCE.md",
+              "line": 5
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/agentmemory-mcp-tools/TROUBLESHOOTING.md",
+              "line": 1
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/agentmemory-mcp-tools/TROUBLESHOOTING.md",
+              "line": 32
+            }
+          ]
+        },
+        {
+          "path": "skills/agentmemory-rest-api",
+          "score": 62,
+          "risk": 38,
+          "status": "caution",
+          "partial": true,
+          "coverage": 66.7,
+          "exceptions": [
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/agentmemory-rest-api/REFERENCE.md",
+              "line": 0
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/agentmemory-rest-api/SKILL.md",
+              "line": 49
+            }
+          ],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/agentmemory-rest-api/REFERENCE.md",
+              "line": 5
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/agentmemory-rest-api/TROUBLESHOOTING.md",
+              "line": 1
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/agentmemory-rest-api/SKILL.md",
+              "line": 20
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/agentmemory-rest-api/TROUBLESHOOTING.md",
+              "line": 32
+            }
+          ]
+        },
+        {
+          "path": "skills/commit-context",
+          "score": 77,
+          "risk": 23,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/commit-context/SKILL.md",
+              "line": 13
+            }
+          ],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/commit-context/TROUBLESHOOTING.md",
+              "line": 1
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/commit-context/TROUBLESHOOTING.md",
+              "line": 32
+            }
+          ]
+        },
+        {
+          "path": "skills/commit-history",
+          "score": 77,
+          "risk": 23,
+          "status": "caution",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/commit-history/TROUBLESHOOTING.md",
+              "line": 1
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/commit-history/TROUBLESHOOTING.md",
+              "line": 32
+            }
+          ]
+        },
+        {
+          "path": "skills/forget",
+          "score": 57,
+          "risk": 43,
+          "status": "caution",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "MP3",
+              "severity": "HIGH",
+              "message": "Memory Manipulation",
+              "file": "skills/forget/SKILL.md",
+              "line": 3
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/forget/TROUBLESHOOTING.md",
+              "line": 1
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/forget/TROUBLESHOOTING.md",
+              "line": 32
+            }
+          ]
+        },
+        {
+          "path": "skills/handoff",
+          "score": 77,
+          "risk": 23,
+          "status": "caution",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/handoff/TROUBLESHOOTING.md",
+              "line": 1
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/handoff/TROUBLESHOOTING.md",
+              "line": 32
+            }
+          ]
+        },
+        {
+          "path": "skills/lesson",
+          "score": 77,
+          "risk": 23,
+          "status": "caution",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/lesson/TROUBLESHOOTING.md",
+              "line": 1
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/lesson/TROUBLESHOOTING.md",
+              "line": 32
+            }
+          ]
+        },
+        {
+          "path": "skills/memory-discipline",
+          "score": 77,
+          "risk": 23,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/memory-discipline/SKILL.md",
+              "line": 23
+            }
+          ],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/memory-discipline/TROUBLESHOOTING.md",
+              "line": 1
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/memory-discipline/TROUBLESHOOTING.md",
+              "line": 32
+            }
+          ]
+        },
+        {
+          "path": "skills/recall",
+          "score": 77,
+          "risk": 23,
+          "status": "caution",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/recall/TROUBLESHOOTING.md",
+              "line": 1
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/recall/TROUBLESHOOTING.md",
+              "line": 32
+            }
+          ]
+        },
+        {
+          "path": "skills/recap",
+          "score": 77,
+          "risk": 23,
+          "status": "caution",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/recap/TROUBLESHOOTING.md",
+              "line": 1
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/recap/TROUBLESHOOTING.md",
+              "line": 32
+            }
+          ]
+        },
+        {
+          "path": "skills/remember",
+          "score": 77,
+          "risk": 23,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/remember/SKILL.md",
+              "line": 16
+            }
+          ],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/remember/TROUBLESHOOTING.md",
+              "line": 1
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/remember/TROUBLESHOOTING.md",
+              "line": 32
+            }
+          ]
+        },
+        {
+          "path": "skills/session-history",
+          "score": 77,
+          "risk": 23,
+          "status": "caution",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/session-history/TROUBLESHOOTING.md",
+              "line": 1
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/session-history/TROUBLESHOOTING.md",
+              "line": 32
+            }
+          ]
+        },
+        {
+          "path": "skills/write-agentmemory-skill",
+          "score": 77,
+          "risk": 23,
+          "status": "caution",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/write-agentmemory-skill/TROUBLESHOOTING.md",
+              "line": 1
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/write-agentmemory-skill/TROUBLESHOOTING.md",
+              "line": 32
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 20,
+  "status": "do not install",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T22:14:41Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

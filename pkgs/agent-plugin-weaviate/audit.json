@@ -1,0 +1,257 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "weaviate",
+      "dir": "/nix/store/4yyjzr3b682rqiwjs1vy61zjj39b11gc-agent-plugin-weaviate-0.2.3/share/agent-plugins/weaviate",
+      "spec": "1.1.0",
+      "score": 0,
+      "status": "do not install",
+      "coverage": {
+        "scanned": [
+          "skills/engram-memory",
+          "skills/weaviate",
+          "skills/weaviate-cookbooks"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          },
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/engram-memory",
+          "score": 85,
+          "risk": 15,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/engram-memory/reference/engram_memory.md",
+              "line": 213
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/engram-memory/reference/engram_memory.md",
+              "line": 422
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/engram-memory/reference/engram_memory.md",
+              "line": 422
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/engram-memory/reference/engram_memory.md",
+              "line": 428
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/engram-memory/reference/engram_memory.md",
+              "line": 434
+            }
+          ]
+        },
+        {
+          "path": "skills/weaviate",
+          "score": 44,
+          "risk": 56,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 96.3,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/weaviate/SKILL.md",
+              "line": 92
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/weaviate/scripts/import.py",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/weaviate/SKILL.md",
+              "line": 52
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/weaviate/SKILL.md",
+              "line": 92
+            },
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/weaviate/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/weaviate/scripts/import.py",
+              "line": 227
+            },
+            {
+              "id": "AST7",
+              "severity": "LOW",
+              "message": "Dynamic attribute access via getattr()",
+              "file": "skills/weaviate/scripts/explore_collection.py",
+              "line": 143
+            }
+          ]
+        },
+        {
+          "path": "skills/weaviate-cookbooks",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/weaviate-cookbooks/references/data_explorer.md",
+              "line": 64
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/weaviate-cookbooks/references/project_setup.md",
+              "line": 34
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/weaviate-cookbooks/references/query_agent_chatbot.md",
+              "line": 63
+            },
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "skills/weaviate-cookbooks/references/pdf_multimodal_rag.md",
+              "line": 50
+            },
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "skills/weaviate-cookbooks/references/pdf_multimodal_rag.md",
+              "line": 374
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/weaviate-cookbooks/references/pdf_multimodal_rag.md",
+              "line": 374
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/weaviate-cookbooks/references/frontend_interface.md",
+              "line": 5
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/weaviate-cookbooks/references/frontend_interface.md",
+              "line": 8
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/weaviate-cookbooks/references/frontend_interface.md",
+              "line": 19
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/weaviate-cookbooks/references/frontend_interface.md",
+              "line": 28
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/weaviate-cookbooks/references/frontend_interface.md",
+              "line": 29
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/weaviate-cookbooks/references/pdf_multimodal_rag.md",
+              "line": 594
+            },
+            {
+              "id": "SC2",
+              "severity": "LOW",
+              "message": "External Script Fetching",
+              "file": "skills/weaviate-cookbooks/references/pdf_multimodal_rag.md",
+              "line": 50
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 0,
+  "status": "do not install",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-20T00:19:59Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "azure-cost",
+      "dir": "/nix/store/8dwkrmx684qc3pbwp91qr1kxbxkm7b5h-agent-plugin-azure-cost-1.0.13/share/agent-plugins/azure-cost",
+      "spec": "1.1.0",
+      "score": 83,
+      "status": "safe",
+      "coverage": {
+        "scanned": [
+          "skills/cost-analysis",
+          "skills/cost-estimation",
+          "skills/cost-governance",
+          "skills/cost-optimization"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          },
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          },
+          {
+            "path": "mcp.json",
+            "reason": "SkillSpector does not analyse this layout as an MCP manifest"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/cost-analysis",
+          "score": 83,
+          "risk": 17,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/cost-analysis/SKILL.md",
+              "line": 7
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/cost-analysis/references/tools-and-safety.md",
+              "line": 23
+            }
+          ]
+        },
+        {
+          "path": "skills/cost-estimation",
+          "score": 83,
+          "risk": 17,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/cost-estimation/SKILL.md",
+              "line": 7
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/cost-estimation/references/tool-fallback.md",
+              "line": 15
+            }
+          ]
+        },
+        {
+          "path": "skills/cost-governance",
+          "score": 83,
+          "risk": 17,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/cost-governance/SKILL.md",
+              "line": 7
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/cost-governance/references/tool-fallback.md",
+              "line": 17
+            }
+          ]
+        },
+        {
+          "path": "skills/cost-optimization",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/cost-optimization/SKILL.md",
+              "line": 7
+            }
+          ],
+          "findings": []
+        }
+      ]
+    }
+  ],
+  "score": 83,
+  "status": "safe",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T22:20:21Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

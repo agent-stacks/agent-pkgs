@@ -1,0 +1,215 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "grafana-lgtm",
+      "dir": "/nix/store/i8jacwp0a0ikyx1fijgvhaxm3jp44cr0-agent-plugin-grafana-lgtm-0.1.0/share/agent-plugins/grafana-lgtm",
+      "spec": "1.1.0",
+      "score": 82,
+      "status": "incomplete",
+      "coverage": {
+        "scanned": [
+          "skills/loki",
+          "skills/mimir",
+          "skills/profilecli-insights",
+          "skills/prometheus",
+          "skills/pyroscope",
+          "skills/tempo"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": []
+      },
+      "components": [
+        {
+          "path": "skills/loki",
+          "score": 94,
+          "risk": 6,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/loki/SKILL.md",
+              "line": 44
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/loki/SKILL.md",
+              "line": 262
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/loki/SKILL.md",
+              "line": 263
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/loki/SKILL.md",
+              "line": 264
+            }
+          ],
+          "findings": [
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/loki/SKILL.md",
+              "line": 233
+            }
+          ]
+        },
+        {
+          "path": "skills/mimir",
+          "score": 93,
+          "risk": 7,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/mimir/SKILL.md",
+              "line": 61
+            }
+          ]
+        },
+        {
+          "path": "skills/profilecli-insights",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/profilecli-insights/SKILL.md",
+              "line": 106
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/profilecli-insights/SKILL.md",
+              "line": 119
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/profilecli-insights/SKILL.md",
+              "line": 126
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/profilecli-insights/SKILL.md",
+              "line": 146
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/prometheus",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/prometheus/SKILL.md",
+              "line": 163
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/pyroscope",
+          "score": 82,
+          "risk": 18,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/pyroscope/SKILL.md",
+              "line": 36
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pyroscope/SKILL.md",
+              "line": 81
+            }
+          ],
+          "findings": [
+            {
+              "id": "YR1",
+              "severity": "HIGH",
+              "message": "YARA rule 'backdoor_persistence': Backdoor persistence with malicious payloads (shell commands, SSH key injection, hidden root users) [malware]",
+              "file": "skills/pyroscope/references/sdks.md",
+              "line": 121
+            }
+          ]
+        },
+        {
+          "path": "skills/tempo",
+          "score": 91,
+          "risk": 9,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 66.7,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/tempo/SKILL.md",
+              "line": 0
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/tempo/SKILL.md",
+              "line": 37
+            }
+          ],
+          "findings": [
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/tempo/SKILL.md",
+              "line": 32
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/tempo/SKILL.md",
+              "line": 90
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 82,
+  "status": "incomplete",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T22:23:06Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

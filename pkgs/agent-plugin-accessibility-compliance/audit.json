@@ -1,0 +1,96 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "accessibility-compliance",
+      "dir": "/nix/store/zxwxl1rm8chi9dnkw1lbfvqcbi737580-agent-plugin-accessibility-compliance-1.2.3/share/agent-plugins/accessibility-compliance",
+      "spec": "1.1.0",
+      "score": 64,
+      "status": "caution",
+      "coverage": {
+        "scanned": [
+          "skills/screen-reader-testing",
+          "skills/wcag-audit-patterns"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/screen-reader-testing",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/wcag-audit-patterns",
+          "score": 64,
+          "risk": 36,
+          "status": "caution",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/wcag-audit-patterns/references/details.md",
+              "line": 21
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/wcag-audit-patterns/references/details.md",
+              "line": 219
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/wcag-audit-patterns/references/details.md",
+              "line": 396
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/wcag-audit-patterns/references/details.md",
+              "line": 397
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 64,
+  "status": "caution",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T22:14:24Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "infra-clickhouse",
+      "dir": "/nix/store/sbhcyhgjai7y4src0v8fk7zpkqc9sd2a-agent-plugin-infra-clickhouse-0.3.0/share/agent-plugins/infra-clickhouse",
+      "spec": "1.1.0",
+      "score": 38,
+      "status": "do not install",
+      "coverage": {
+        "scanned": [
+          "skills/infra-clickhouse"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": []
+      },
+      "components": [
+        {
+          "path": "skills/infra-clickhouse",
+          "score": 38,
+          "risk": 62,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/infra-clickhouse/SKILL.md",
+              "line": 7
+            }
+          ],
+          "findings": [
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/infra-clickhouse/SKILL.md",
+              "line": 41
+            },
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "skills/infra-clickhouse/SKILL.md",
+              "line": 41
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/infra-clickhouse/ref/cloud.md",
+              "line": 118
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/infra-clickhouse/ref/cloud.md",
+              "line": 119
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 38,
+  "status": "do not install",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T22:29:30Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

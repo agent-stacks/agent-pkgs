@@ -1,0 +1,174 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "documentation-generation",
+      "dir": "/nix/store/kzr5h5iibq6wl23glmijy7vlg7zznkqd-agent-plugin-documentation-generation-1.2.3/share/agent-plugins/documentation-generation",
+      "spec": "1.1.0",
+      "score": 63,
+      "status": "caution",
+      "coverage": {
+        "scanned": [
+          "skills/architecture-decision-records",
+          "skills/changelog-automation",
+          "skills/openapi-spec-generation"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/architecture-decision-records",
+          "score": 82,
+          "risk": 18,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/architecture-decision-records/SKILL.md",
+              "line": 77
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/architecture-decision-records/SKILL.md",
+              "line": 78
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/architecture-decision-records/SKILL.md",
+              "line": 79
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/architecture-decision-records/SKILL.md",
+              "line": 80
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/architecture-decision-records/SKILL.md",
+              "line": 84
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/architecture-decision-records/SKILL.md",
+              "line": 115
+            }
+          ],
+          "findings": [
+            {
+              "id": "E4",
+              "severity": "HIGH",
+              "message": "Context Leakage",
+              "file": "skills/architecture-decision-records/SKILL.md",
+              "line": 8
+            }
+          ]
+        },
+        {
+          "path": "skills/changelog-automation",
+          "score": 63,
+          "risk": 37,
+          "status": "caution",
+          "partial": true,
+          "coverage": 50,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/changelog-automation/references/details.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/changelog-automation/SKILL.md",
+              "line": 33
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/changelog-automation/references/details.md",
+              "line": 115
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/changelog-automation/references/details.md",
+              "line": 258
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/changelog-automation/references/details.md",
+              "line": 281
+            }
+          ]
+        },
+        {
+          "path": "skills/openapi-spec-generation",
+          "score": 92,
+          "risk": 8,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/openapi-spec-generation/SKILL.md",
+              "line": 29
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/openapi-spec-generation/references/code-first-and-tooling.md",
+              "line": 25
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/openapi-spec-generation/references/details.md",
+              "line": 30
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 63,
+  "status": "caution",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T22:30:11Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

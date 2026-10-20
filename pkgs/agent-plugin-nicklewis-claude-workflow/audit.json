@@ -1,0 +1,163 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "nicklewis-claude-workflow",
+      "dir": "/nix/store/6kbba8vsjv3mkx7fcc4k6nfsmgfi7n04-agent-plugin-nicklewis-claude-workflow-0.0.0-unstable.2026-10-01.g9596b2e/share/agent-plugins/nicklewis-claude-workflow",
+      "spec": "1.1.0",
+      "score": 93,
+      "status": "incomplete",
+      "coverage": {
+        "scanned": [
+          "skills/acceptance-pass",
+          "skills/pr-audit",
+          "skills/pr-overview-doc",
+          "skills/write-ticket"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/acceptance-pass",
+          "score": 93,
+          "risk": 7,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "TR2",
+              "severity": "MEDIUM",
+              "message": "Shadow Command Trigger",
+              "file": "skills/acceptance-pass/SKILL.md",
+              "line": 2
+            }
+          ]
+        },
+        {
+          "path": "skills/pr-audit",
+          "score": 94,
+          "risk": 6,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 80,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/pr-audit/SKILL.md",
+              "line": 173
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pr-audit/SKILL.md",
+              "line": 380
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pr-audit/SKILL.md",
+              "line": 384
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pr-audit/SKILL.md",
+              "line": 385
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pr-audit/SKILL.md",
+              "line": 435
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pr-audit/SKILL.md",
+              "line": 448
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pr-audit/SKILL.md",
+              "line": 514
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/pr-audit/tracker/index.html",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/pr-audit/SKILL.md",
+              "line": 149
+            }
+          ]
+        },
+        {
+          "path": "skills/pr-overview-doc",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/pr-overview-doc/SKILL.md",
+              "line": 9
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/write-ticket",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/write-ticket/SKILL.md",
+              "line": 82
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/write-ticket/SKILL.md",
+              "line": 134
+            }
+          ],
+          "findings": []
+        }
+      ]
+    }
+  ],
+  "score": 93,
+  "status": "incomplete",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T23:35:48Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

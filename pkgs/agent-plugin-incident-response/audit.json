@@ -1,0 +1,160 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "incident-response",
+      "dir": "/nix/store/jxhfkik3fgp6ng6v77nmibdw1akql8vk-agent-plugin-incident-response-1.4.0/share/agent-plugins/incident-response",
+      "spec": "1.1.0",
+      "score": 59,
+      "status": "caution",
+      "coverage": {
+        "scanned": [
+          "skills/connectivity-triage",
+          "skills/incident-runbook-templates",
+          "skills/on-call-handoff-patterns",
+          "skills/postmortem-writing"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/connectivity-triage",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/incident-runbook-templates",
+          "score": 59,
+          "risk": 41,
+          "status": "caution",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/incident-runbook-templates/SKILL.md",
+              "line": 74
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/incident-runbook-templates/SKILL.md",
+              "line": 75
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/incident-runbook-templates/SKILL.md",
+              "line": 59
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/incident-runbook-templates/references/details.md",
+              "line": 56
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/incident-runbook-templates/references/details.md",
+              "line": 130
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/incident-runbook-templates/references/details.md",
+              "line": 178
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/incident-runbook-templates/references/details.md",
+              "line": 200
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/incident-runbook-templates/references/details.md",
+              "line": 112
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/incident-runbook-templates/references/details.md",
+              "line": 130
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/incident-runbook-templates/references/details.md",
+              "line": 200
+            }
+          ]
+        },
+        {
+          "path": "skills/on-call-handoff-patterns",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/postmortem-writing",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        }
+      ]
+    }
+  ],
+  "score": 59,
+  "status": "caution",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T22:24:20Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

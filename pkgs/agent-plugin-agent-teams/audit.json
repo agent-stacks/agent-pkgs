@@ -1,0 +1,157 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "agent-teams",
+      "dir": "/nix/store/dp3ljlkzdv978f07vyb8wvqr40gh6mzh-agent-plugin-agent-teams-1.0.3/share/agent-plugins/agent-teams",
+      "spec": "1.1.0",
+      "score": 78,
+      "status": "caution",
+      "coverage": {
+        "scanned": [
+          "skills/multi-reviewer-patterns",
+          "skills/parallel-debugging",
+          "skills/parallel-feature-development",
+          "skills/task-coordination-strategies",
+          "skills/team-communication-protocols",
+          "skills/team-composition-patterns"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/multi-reviewer-patterns",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/parallel-debugging",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/parallel-debugging/SKILL.md",
+              "line": 86
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/parallel-feature-development",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/parallel-feature-development/SKILL.md",
+              "line": 76
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/parallel-feature-development/SKILL.md",
+              "line": 160
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/task-coordination-strategies",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/task-coordination-strategies/SKILL.md",
+              "line": 122
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/task-coordination-strategies/SKILL.md",
+              "line": 123
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/task-coordination-strategies/SKILL.md",
+              "line": 124
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/task-coordination-strategies/SKILL.md",
+              "line": 132
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/team-communication-protocols",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/team-composition-patterns",
+          "score": 78,
+          "risk": 22,
+          "status": "caution",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/team-composition-patterns/SKILL.md",
+              "line": 97
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 78,
+  "status": "caution",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T22:14:43Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "azure-local-skills",
+      "dir": "/nix/store/ylhxcc8ai66sl6qn6cnwdkm041g8p462-agent-plugin-azure-local-skills-1.0.18/share/agent-plugins/azure-local-skills",
+      "spec": "1.1.0",
+      "score": 82,
+      "status": "safe",
+      "coverage": {
+        "scanned": [
+          "skills/azure-local",
+          "skills/azure-local-multi-rack"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          },
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          },
+          {
+            "path": "mcp.json",
+            "reason": "SkillSpector does not analyse this layout as an MCP manifest"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/azure-local",
+          "score": 82,
+          "risk": 18,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/azure-local/SKILL.md",
+              "line": 7
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/azure-local/SKILL.md",
+              "line": 35
+            }
+          ],
+          "findings": [
+            {
+              "id": "E4",
+              "severity": "HIGH",
+              "message": "Context Leakage",
+              "file": "skills/azure-local/workflows/troubleshooting/troubleshooting.md",
+              "line": 8
+            }
+          ]
+        },
+        {
+          "path": "skills/azure-local-multi-rack",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/azure-local-multi-rack/SKILL.md",
+              "line": 7
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/azure-local-multi-rack/SKILL.md",
+              "line": 20
+            }
+          ],
+          "findings": []
+        }
+      ]
+    }
+  ],
+  "score": 82,
+  "status": "safe",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T22:16:13Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

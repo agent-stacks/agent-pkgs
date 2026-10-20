@@ -1,0 +1,162 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "squirrelscan",
+      "dir": "/nix/store/xahsw3zd1f8j36f1g1awxw8baall2fqn-agent-plugin-squirrelscan-0.0.0-unstable.2026-10-13.g4595577/share/agent-plugins/squirrelscan",
+      "spec": "1.1.0",
+      "score": 9,
+      "status": "do not install",
+      "coverage": {
+        "scanned": [
+          "skills/audit-website",
+          "skills/squirrelscan"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "mcp.json",
+            "reason": "SkillSpector does not analyse this layout as an MCP manifest"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/audit-website",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/audit-website/SKILL.md",
+              "line": 8
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/squirrelscan",
+          "score": 9,
+          "risk": 91,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 75,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/squirrelscan/SKILL.md",
+              "line": 8
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/squirrelscan/SKILL.md",
+              "line": 62
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/squirrelscan/SKILL.md",
+              "line": 114
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/squirrelscan/SKILL.md",
+              "line": 135
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/squirrelscan/SKILL.md",
+              "line": 341
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/squirrelscan/SKILL.md",
+              "line": 368
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/squirrelscan/SKILL.md",
+              "line": 398
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/squirrelscan/SKILL.md",
+              "line": 400
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/squirrelscan/references/entity-map-fixes.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/squirrelscan/SKILL.md",
+              "line": 30
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/squirrelscan/SKILL.md",
+              "line": 218
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/squirrelscan/SKILL.md",
+              "line": 283
+            },
+            {
+              "id": "OH1",
+              "severity": "HIGH",
+              "message": "Unvalidated Output Injection",
+              "file": "skills/squirrelscan/references/entity-map-fixes.md",
+              "line": 120
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/squirrelscan/SKILL.md",
+              "line": 307
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/squirrelscan/SKILL.md",
+              "line": 377
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 9,
+  "status": "do not install",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T22:54:20Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

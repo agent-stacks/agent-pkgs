@@ -1,0 +1,78 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "seo-geo",
+      "dir": "/nix/store/mdy6i2l30wy1i9a4simry30pq4ay03rk-agent-plugin-seo-geo-1.0.0/share/agent-plugins/seo-geo",
+      "spec": "1.1.0",
+      "score": 63,
+      "status": "caution",
+      "coverage": {
+        "scanned": [
+          "skills/seo-geo"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/seo-geo",
+          "score": 63,
+          "risk": 37,
+          "status": "caution",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/seo-geo/references/schema-templates.md",
+              "line": 53
+            },
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/seo-geo/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/seo-geo/scripts/dataforseo_api.py",
+              "line": 12
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 63,
+  "status": "caution",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T22:39:41Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

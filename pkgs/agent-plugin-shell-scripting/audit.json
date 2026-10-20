@@ -1,0 +1,203 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "shell-scripting",
+      "dir": "/nix/store/3mdvh1vrd0aca5pdyk6z5vh4l5svm3d5-agent-plugin-shell-scripting-1.2.3/share/agent-plugins/shell-scripting",
+      "spec": "1.1.0",
+      "score": 28,
+      "status": "do not install",
+      "coverage": {
+        "scanned": [
+          "skills/bash-defensive-patterns",
+          "skills/bats-testing-patterns",
+          "skills/shellcheck-configuration"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/bash-defensive-patterns",
+          "score": 28,
+          "risk": 72,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 50,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/bash-defensive-patterns/references/details.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/bash-defensive-patterns/SKILL.md",
+              "line": 23
+            },
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "skills/bash-defensive-patterns/references/details.md",
+              "line": 31
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/bash-defensive-patterns/references/details.md",
+              "line": 330
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/bash-defensive-patterns/references/details.md",
+              "line": 286
+            }
+          ]
+        },
+        {
+          "path": "skills/bats-testing-patterns",
+          "score": 42,
+          "risk": 58,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 50,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/bats-testing-patterns/SKILL.md",
+              "line": 42
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/bats-testing-patterns/SKILL.md",
+              "line": 43
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/bats-testing-patterns/SKILL.md",
+              "line": 44
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/bats-testing-patterns/SKILL.md",
+              "line": 46
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/bats-testing-patterns/references/details.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/bats-testing-patterns/SKILL.md",
+              "line": 23
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/bats-testing-patterns/references/details.md",
+              "line": 235
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/bats-testing-patterns/SKILL.md",
+              "line": 46
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/bats-testing-patterns/references/details.md",
+              "line": 177
+            }
+          ]
+        },
+        {
+          "path": "skills/shellcheck-configuration",
+          "score": 44,
+          "risk": 56,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 50,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/shellcheck-configuration/references/details.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/shellcheck-configuration/SKILL.md",
+              "line": 23
+            },
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "skills/shellcheck-configuration/references/details.md",
+              "line": 232
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/shellcheck-configuration/references/details.md",
+              "line": 37
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/shellcheck-configuration/references/details.md",
+              "line": 233
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 28,
+  "status": "do not install",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-20T00:31:41Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "observability-monitoring",
+      "dir": "/nix/store/am7bli9r1vpslvkr6rbffm3gmiipf1bs-agent-plugin-observability-monitoring-1.2.3/share/agent-plugins/observability-monitoring",
+      "spec": "1.1.0",
+      "score": 100,
+      "status": "safe",
+      "coverage": {
+        "scanned": [
+          "skills/distributed-tracing",
+          "skills/grafana-dashboards",
+          "skills/prometheus-configuration",
+          "skills/slo-implementation"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/distributed-tracing",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/grafana-dashboards",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/prometheus-configuration",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/slo-implementation",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/slo-implementation/SKILL.md",
+              "line": 50
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/slo-implementation/SKILL.md",
+              "line": 101
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/slo-implementation/SKILL.md",
+              "line": 155
+            }
+          ],
+          "findings": []
+        }
+      ]
+    }
+  ],
+  "score": 100,
+  "status": "safe",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T22:34:47Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

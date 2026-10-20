@@ -1,0 +1,82 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "api-scaffolding",
+      "dir": "/nix/store/1iyv9vkcqdazp2970kghp2jlmr17ws6w-agent-plugin-api-scaffolding-1.2.3/share/agent-plugins/api-scaffolding",
+      "spec": "1.1.0",
+      "score": 77,
+      "status": "caution",
+      "coverage": {
+        "scanned": [
+          "skills/fastapi-templates"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/fastapi-templates",
+          "score": 77,
+          "risk": 23,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/fastapi-templates/SKILL.md",
+              "line": 100
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/fastapi-templates/SKILL.md",
+              "line": 139
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/fastapi-templates/references/details.md",
+              "line": 52
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/fastapi-templates/references/details.md",
+              "line": 372
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 77,
+  "status": "caution",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T22:14:31Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

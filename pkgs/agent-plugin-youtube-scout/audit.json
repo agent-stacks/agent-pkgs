@@ -1,0 +1,255 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "youtube-scout",
+      "dir": "/nix/store/cqdk7fjag85jj4hb12rqc67x8wi9srzl-agent-plugin-youtube-scout-0.2.0/share/agent-plugins/youtube-scout",
+      "spec": "1.1.0",
+      "score": 0,
+      "status": "do not install",
+      "coverage": {
+        "scanned": [
+          "skills/scout"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/scout",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/scout/SKILL.md",
+              "line": 22
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/scout/SKILL.md",
+              "line": 44
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/scout/SKILL.md",
+              "line": 88
+            }
+          ],
+          "findings": [
+            {
+              "id": "TT3",
+              "severity": "CRITICAL",
+              "message": "Tainted flow: 'url' from os.environ.get (line 739, credential/environment) → urllib.request.urlopen (network output)",
+              "file": "skills/scout/scripts/scout.py",
+              "line": 650
+            },
+            {
+              "id": "TT3",
+              "severity": "CRITICAL",
+              "message": "Tainted flow: 'url' from os.environ.get (line 739, credential/environment) → urllib.request.urlopen (network output)",
+              "file": "skills/scout/scripts/scout.py",
+              "line": 1328
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/scout/README.md",
+              "line": 81
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/scout/README.md",
+              "line": 81
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/scout/scripts/scout.py",
+              "line": 39
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/scout/scripts/scout.py",
+              "line": 227
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/scout/README.md",
+              "line": 206
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/scout/README.md",
+              "line": 206
+            },
+            {
+              "id": "LP1",
+              "severity": "HIGH",
+              "message": "",
+              "file": "skills/scout/scripts/scout.py",
+              "line": 1
+            },
+            {
+              "id": "LP1",
+              "severity": "HIGH",
+              "message": "",
+              "file": "skills/scout/scripts/scout.py",
+              "line": 1
+            },
+            {
+              "id": "LP1",
+              "severity": "HIGH",
+              "message": "",
+              "file": "skills/scout/scripts/scout.py",
+              "line": 1
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/scout/scripts/scout.py",
+              "line": 41
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/scout/scripts/scout.py",
+              "line": 42
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/scout/README.md",
+              "line": 74
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/scout/README.md",
+              "line": 80
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/scout/README.md",
+              "line": 81
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/scout/SECURITY.md",
+              "line": 22
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/scout/scripts/scout.py",
+              "line": 2
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/scout/scripts/scout.py",
+              "line": 640
+            },
+            {
+              "id": "TT2",
+              "severity": "MEDIUM",
+              "message": "Tainted flow: 'cmd' from os.environ.get (line 1279, credential/environment) → subprocess.run (code execution)",
+              "file": "skills/scout/scripts/scout.py",
+              "line": 640
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/scout/scripts/scout.py",
+              "line": 1170
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/scout/scripts/scout.py",
+              "line": 1284
+            },
+            {
+              "id": "TT2",
+              "severity": "MEDIUM",
+              "message": "Tainted flow: 'cmd' from os.environ.get (line 1279, credential/environment) → subprocess.run (code execution)",
+              "file": "skills/scout/scripts/scout.py",
+              "line": 1284
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: openpyxl has 2 known advisory(ies) (CVE-2017-5992 (Improper Restriction of XML External Entity Reference in Openpyxl); CVE-2017-5992 (Openpyxl 2.4.1 resolves external entities by default, which allows remote attack)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/scout/pyproject.toml",
+              "line": 10
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: openpyxl has 2 known advisory(ies) (CVE-2017-5992 (Improper Restriction of XML External Entity Reference in Openpyxl); CVE-2017-5992 (Openpyxl 2.4.1 resolves external entities by default, which allows remote attack)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/scout/requirements.txt",
+              "line": 1
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: pytest has 2 known advisory(ies) (CVE-2025-71176 (pytest has vulnerable tmpdir handling); CVE-2025-71176 (pytest has vulnerable tmpdir handling)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/scout/pyproject.toml",
+              "line": 13
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 0,
+  "status": "do not install",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T22:43:52Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

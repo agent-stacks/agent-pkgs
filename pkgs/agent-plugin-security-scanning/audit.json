@@ -1,0 +1,119 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "security-scanning",
+      "dir": "/nix/store/bbg35jp2ycnyxqm9mlkv3c1mbfxvz7fh-agent-plugin-security-scanning-1.3.2/share/agent-plugins/security-scanning",
+      "spec": "1.1.0",
+      "score": 93,
+      "status": "safe",
+      "coverage": {
+        "scanned": [
+          "skills/attack-tree-construction",
+          "skills/sast-configuration",
+          "skills/security-requirement-extraction",
+          "skills/stride-analysis-patterns",
+          "skills/threat-mitigation-mapping"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/attack-tree-construction",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/sast-configuration",
+          "score": 93,
+          "risk": 7,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/sast-configuration/SKILL.md",
+              "line": 127
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/sast-configuration/SKILL.md",
+              "line": 133
+            }
+          ],
+          "findings": [
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/sast-configuration/SKILL.md",
+              "line": 63
+            }
+          ]
+        },
+        {
+          "path": "skills/security-requirement-extraction",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/stride-analysis-patterns",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/threat-mitigation-mapping",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        }
+      ]
+    }
+  ],
+  "score": 93,
+  "status": "safe",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T22:50:28Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

@@ -1,0 +1,181 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "reverse-engineering",
+      "dir": "/nix/store/phgsx8fmrh0b28y3aip92iwdnp0cvnxd-agent-plugin-reverse-engineering-1.0.1/share/agent-plugins/reverse-engineering",
+      "spec": "1.1.0",
+      "score": 42,
+      "status": "do not install",
+      "coverage": {
+        "scanned": [
+          "skills/anti-reversing-techniques",
+          "skills/binary-analysis-patterns",
+          "skills/memory-forensics",
+          "skills/protocol-reverse-engineering"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/anti-reversing-techniques",
+          "score": 42,
+          "risk": 58,
+          "status": "do not install",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/anti-reversing-techniques/references/advanced-techniques.md",
+              "line": 193
+            },
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/anti-reversing-techniques/references/advanced-techniques.md",
+              "line": 335
+            },
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/anti-reversing-techniques/references/details.md",
+              "line": 402
+            },
+            {
+              "id": "YR1",
+              "severity": "HIGH",
+              "message": "YARA rule 'backdoor_persistence': Backdoor persistence with malicious payloads (shell commands, SSH key injection, hidden root users) [malware]",
+              "file": "skills/anti-reversing-techniques/references/details.md",
+              "line": 182
+            }
+          ]
+        },
+        {
+          "path": "skills/binary-analysis-patterns",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/memory-forensics",
+          "score": 69,
+          "risk": 31,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/memory-forensics/SKILL.md",
+              "line": 55
+            }
+          ],
+          "findings": [
+            {
+              "id": "YR1",
+              "severity": "HIGH",
+              "message": "YARA rule 'info_stealer': Information stealer patterns (credential harvesting, browser data theft) [malware]",
+              "file": "skills/memory-forensics/SKILL.md",
+              "line": 243
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/memory-forensics/SKILL.md",
+              "line": 42
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/memory-forensics/SKILL.md",
+              "line": 48
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/memory-forensics/SKILL.md",
+              "line": 55
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/memory-forensics/SKILL.md",
+              "line": 45
+            }
+          ]
+        },
+        {
+          "path": "skills/protocol-reverse-engineering",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/protocol-reverse-engineering/SKILL.md",
+              "line": 108
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/protocol-reverse-engineering/SKILL.md",
+              "line": 123
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/protocol-reverse-engineering/SKILL.md",
+              "line": 136
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/protocol-reverse-engineering/SKILL.md",
+              "line": 203
+            }
+          ],
+          "findings": []
+        }
+      ]
+    }
+  ],
+  "score": 42,
+  "status": "do not install",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T23:11:48Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

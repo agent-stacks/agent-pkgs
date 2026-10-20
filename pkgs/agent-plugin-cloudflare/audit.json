@@ -1,0 +1,1613 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "cloudflare",
+      "dir": "/nix/store/8340x3dndsp78phwmxlcqms60v80y3z1-agent-plugin-cloudflare-1.0.2/share/agent-plugins/cloudflare",
+      "spec": "1.1.0",
+      "score": 0,
+      "status": "do not install",
+      "coverage": {
+        "scanned": [
+          "skills/agents-sdk",
+          "skills/basin",
+          "skills/cf-cli",
+          "skills/cloudflare",
+          "skills/cloudflare-email-service",
+          "skills/cloudflare-one",
+          "skills/cloudflare-one-migrations",
+          "skills/durable-objects",
+          "skills/gateway-workers",
+          "skills/k2",
+          "skills/nextjs-on-cloudflare",
+          "skills/sandbox-migrate-to-next",
+          "skills/sandbox-next",
+          "skills/sandbox-stable",
+          "skills/turnstile-spin",
+          "skills/web-perf",
+          "skills/workers-best-practices",
+          "skills/workers-profiling",
+          "skills/wrangler"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          },
+          {
+            "path": "mcp.json",
+            "reason": "SkillSpector does not analyse this layout as an MCP manifest"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/agents-sdk",
+          "score": 45,
+          "risk": 55,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 90,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/agents-sdk/SKILL.md",
+              "line": 18
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/agents-sdk/SKILL.md",
+              "line": 154
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/agents-sdk/references/codemode.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/agents-sdk/references/email.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/agents-sdk/SKILL.md",
+              "line": 194
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/agents-sdk/SKILL.md",
+              "line": 201
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/agents-sdk/references/codemode.md",
+              "line": 108
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/agents-sdk/references/configuration.md",
+              "line": 57
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/agents-sdk/references/webhooks-push.md",
+              "line": 86
+            }
+          ]
+        },
+        {
+          "path": "skills/basin",
+          "score": 49,
+          "risk": 51,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 93.8,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/basin/references/sql/patterns.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/basin/references/sql/configuration.md",
+              "line": 27
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/basin/references/catalog/api.md",
+              "line": 22
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/basin/references/pipelines/api.md",
+              "line": 51
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/basin/references/pipelines/api.md",
+              "line": 109
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/basin/references/pipelines/configuration.md",
+              "line": 65
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/basin/references/pipelines/patterns.md",
+              "line": 90
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/basin/references/pipelines/patterns.md",
+              "line": 93
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/basin/references/pipelines/README.md",
+              "line": 43
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/basin/references/pipelines/api.md",
+              "line": 32
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/basin/references/pipelines/configuration.md",
+              "line": 32
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/basin/references/pipelines/configuration.md",
+              "line": 39
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/basin/references/pipelines/configuration.md",
+              "line": 42
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/basin/references/pipelines/configuration.md",
+              "line": 49
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/basin/references/pipelines/configuration.md",
+              "line": 55
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/basin/references/pipelines/configuration.md",
+              "line": 108
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/basin/references/pipelines/patterns.md",
+              "line": 109
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/basin/references/sql/README.md",
+              "line": 26
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/basin/references/sql/README.md",
+              "line": 34
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/basin/references/sql/README.md",
+              "line": 36
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/basin/references/sql/api.md",
+              "line": 14
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/basin/references/sql/configuration.md",
+              "line": 16
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/basin/references/sql/configuration.md",
+              "line": 44
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/basin/references/sql/configuration.md",
+              "line": 45
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/basin/references/sql/patterns.md",
+              "line": 10
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/basin/references/sql/patterns.md",
+              "line": 75
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/basin/references/sql/patterns.md",
+              "line": 114
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/basin/references/pipelines/api.md",
+              "line": 21
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/basin/references/pipelines/api.md",
+              "line": 36
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/basin/references/pipelines/api.md",
+              "line": 106
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/basin/references/pipelines/api.md",
+              "line": 114
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/basin/references/sql/README.md",
+              "line": 25
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/basin/references/sql/api.md",
+              "line": 8
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/basin/references/sql/configuration.md",
+              "line": 36
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/basin/references/sql/patterns.md",
+              "line": 22
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/basin/references/sql/patterns.md",
+              "line": 38
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/basin/references/sql/patterns.md",
+              "line": 51
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/basin/references/pipelines/configuration.md",
+              "line": 69
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "skills/basin/references/pipelines/configuration.md",
+              "line": 120
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/basin/references/pipelines/patterns.md",
+              "line": 48
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/basin/references/pipelines/patterns.md",
+              "line": 93
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/basin/references/sql/configuration.md",
+              "line": 35
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/basin/references/sql/patterns.md",
+              "line": 37
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/basin/references/sql/patterns.md",
+              "line": 26
+            }
+          ]
+        },
+        {
+          "path": "skills/cf-cli",
+          "score": 88,
+          "risk": 12,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/cf-cli/SKILL.md",
+              "line": 25
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/cf-cli/SKILL.md",
+              "line": 44
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/cf-cli/SKILL.md",
+              "line": 76
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/cf-cli/SKILL.md",
+              "line": 77
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/cf-cli/SKILL.md",
+              "line": 84
+            }
+          ],
+          "findings": [
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/cf-cli/SKILL.md",
+              "line": 84
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/cf-cli/SKILL.md",
+              "line": 86
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/cf-cli/SKILL.md",
+              "line": 87
+            }
+          ]
+        },
+        {
+          "path": "skills/cloudflare",
+          "score": 54,
+          "risk": 46,
+          "status": "caution",
+          "partial": true,
+          "coverage": 99.3,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/cloudflare/SKILL.md",
+              "line": 14
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/cloudflare/SKILL.md",
+              "line": 74
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/cloudflare/SKILL.md",
+              "line": 145
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/cloudflare/references/c3/gotchas.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/cloudflare/references/secrets-store/api.md",
+              "line": 7
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/cloudflare/references/c3/configuration.md",
+              "line": 38
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/cloudflare/references/c3/configuration.md",
+              "line": 39
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/cloudflare/references/c3/configuration.md",
+              "line": 81
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/cloudflare/references/c3/gotchas.md",
+              "line": 10
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/cloudflare/references/c3/gotchas.md",
+              "line": 16
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/cloudflare/references/c3/gotchas.md",
+              "line": 88
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/cloudflare/references/containers/patterns.md",
+              "line": 10
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/cloudflare/references/smart-placement/README.md",
+              "line": 104
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/cloudflare/references/smart-placement/api.md",
+              "line": 8
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/cloudflare/references/smart-placement/api.md",
+              "line": 132
+            }
+          ]
+        },
+        {
+          "path": "skills/cloudflare-email-service",
+          "score": 41,
+          "risk": 59,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 83.3,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/cloudflare-email-service/SKILL.md",
+              "line": 28
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/cloudflare-email-service/SKILL.md",
+              "line": 55
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/cloudflare-email-service/references/routing.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/cloudflare-email-service/SKILL.md",
+              "line": 41
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/cloudflare-email-service/SKILL.md",
+              "line": 71
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/cloudflare-email-service/SKILL.md",
+              "line": 27
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/cloudflare-email-service/references/cli-and-mcp.md",
+              "line": 5
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/cloudflare-email-service/references/cli-and-mcp.md",
+              "line": 35
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/cloudflare-email-service/references/cli-and-mcp.md",
+              "line": 36
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/cloudflare-email-service/references/cli-and-mcp.md",
+              "line": 48
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/cloudflare-email-service/references/cli-and-mcp.md",
+              "line": 106
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/cloudflare-email-service/references/routing.md",
+              "line": 24
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/cloudflare-email-service/references/cli-and-mcp.md",
+              "line": 116
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/cloudflare-email-service/references/cli-and-mcp.md",
+              "line": 116
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/cloudflare-email-service/references/deliverability.md",
+              "line": 79
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/cloudflare-email-service/references/deliverability.md",
+              "line": 100
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/cloudflare-email-service/references/deliverability.md",
+              "line": 128
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/cloudflare-email-service/references/deliverability.md",
+              "line": 139
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/cloudflare-email-service/references/deliverability.md",
+              "line": 264
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/cloudflare-email-service/references/deliverability.md",
+              "line": 128
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/cloudflare-email-service/references/deliverability.md",
+              "line": 261
+            }
+          ]
+        },
+        {
+          "path": "skills/cloudflare-one",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/cloudflare-one/SKILL.md",
+              "line": 108
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/cloudflare-one/SKILL.md",
+              "line": 122
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/cloudflare-one-migrations",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/durable-objects",
+          "score": 75,
+          "risk": 25,
+          "status": "caution",
+          "partial": true,
+          "coverage": 75,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/durable-objects/SKILL.md",
+              "line": 39
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/durable-objects/references/workers.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/durable-objects/SKILL.md",
+              "line": 37
+            }
+          ]
+        },
+        {
+          "path": "skills/gateway-workers",
+          "score": 93,
+          "risk": 7,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/gateway-workers/SKILL.md",
+              "line": 15
+            }
+          ],
+          "findings": [
+            {
+              "id": "TR2",
+              "severity": "MEDIUM",
+              "message": "Shadow Command Trigger",
+              "file": "skills/gateway-workers/SKILL.md",
+              "line": 1
+            }
+          ]
+        },
+        {
+          "path": "skills/k2",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/nextjs-on-cloudflare",
+          "score": 80,
+          "risk": 20,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/nextjs-on-cloudflare/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/nextjs-on-cloudflare/SKILL.md",
+              "line": 3
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/nextjs-on-cloudflare/SKILL.md",
+              "line": 24
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/nextjs-on-cloudflare/SKILL.md",
+              "line": 30
+            }
+          ]
+        },
+        {
+          "path": "skills/sandbox-migrate-to-next",
+          "score": 93,
+          "risk": 7,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/sandbox-migrate-to-next/SKILL.md",
+              "line": 157
+            }
+          ]
+        },
+        {
+          "path": "skills/sandbox-next",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/sandbox-next/SKILL.md",
+              "line": 82
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/sandbox-stable",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/turnstile-spin",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 50,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/turnstile-spin/SKILL.md",
+              "line": 0
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/turnstile-spin/SKILL.md",
+              "line": 48
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/turnstile-spin/SKILL.md",
+              "line": 56
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/turnstile-spin/SKILL.md",
+              "line": 63
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/turnstile-spin/SKILL.md",
+              "line": 127
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/turnstile-spin/SKILL.md",
+              "line": 131
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/turnstile-spin/SKILL.md",
+              "line": 258
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/turnstile-spin/SKILL.md",
+              "line": 323
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/turnstile-spin/SKILL.md",
+              "line": 332
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/turnstile-spin/references/sveltekit.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/turnstile-spin/scripts/auth-probe.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/turnstile-spin/scripts/persist-skill.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/turnstile-spin/scripts/validate.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/turnstile-spin/scripts/widget-create.sh",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/turnstile-spin/SKILL.md",
+              "line": 24
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/turnstile-spin/SKILL.md",
+              "line": 50
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/turnstile-spin/SKILL.md",
+              "line": 55
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/turnstile-spin/SKILL.md",
+              "line": 56
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/turnstile-spin/SKILL.md",
+              "line": 57
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/turnstile-spin/SKILL.md",
+              "line": 58
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/turnstile-spin/SKILL.md",
+              "line": 61
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/turnstile-spin/SKILL.md",
+              "line": 330
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/turnstile-spin/SKILL.md",
+              "line": 334
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/turnstile-spin/SKILL.md",
+              "line": 80
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/turnstile-spin/SKILL.md",
+              "line": 129
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/turnstile-spin/SKILL.md",
+              "line": 131
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/turnstile-spin/SKILL.md",
+              "line": 259
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/turnstile-spin/scripts/auth-probe.sh",
+              "line": 179
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/turnstile-spin/scripts/widget-create.sh",
+              "line": 66
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/turnstile-spin/README.md",
+              "line": 29
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/turnstile-spin/README.md",
+              "line": 36
+            },
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/turnstile-spin/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/turnstile-spin/SKILL.md",
+              "line": 46
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/turnstile-spin/SKILL.md",
+              "line": 55
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/turnstile-spin/SKILL.md",
+              "line": 144
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/turnstile-spin/SKILL.md",
+              "line": 101
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/turnstile-spin/references/vanilla-html.md",
+              "line": 46
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/turnstile-spin/SKILL.md",
+              "line": 142
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/turnstile-spin/SKILL.md",
+              "line": 148
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/turnstile-spin/SKILL.md",
+              "line": 259
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/turnstile-spin/SKILL.md",
+              "line": 327
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/turnstile-spin/SKILL.md",
+              "line": 330
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/turnstile-spin/SKILL.md",
+              "line": 333
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/turnstile-spin/SKILL.md",
+              "line": 334
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/turnstile-spin/SKILL.md",
+              "line": 336
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/turnstile-spin/references/astro.md",
+              "line": 60
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/turnstile-spin/references/astro.md",
+              "line": 108
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/turnstile-spin/references/hugo.md",
+              "line": 58
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/turnstile-spin/references/nextjs-app.md",
+              "line": 103
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/turnstile-spin/references/nextjs-app.md",
+              "line": 155
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/turnstile-spin/references/nextjs-pages.md",
+              "line": 52
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/turnstile-spin/references/sveltekit.md",
+              "line": 82
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/turnstile-spin/references/sveltekit.md",
+              "line": 137
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/turnstile-spin/references/vanilla-html.md",
+              "line": 85
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/turnstile-spin/scripts/auth-probe.sh",
+              "line": 179
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/turnstile-spin/scripts/auth-probe.sh",
+              "line": 180
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/turnstile-spin/scripts/auth-probe.sh",
+              "line": 241
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/turnstile-spin/scripts/validate.sh",
+              "line": 84
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/turnstile-spin/scripts/widget-create.sh",
+              "line": 67
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/turnstile-spin/scripts/validate.sh",
+              "line": 117
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/turnstile-spin/scripts/widget-create.sh",
+              "line": 66
+            }
+          ]
+        },
+        {
+          "path": "skills/web-perf",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/web-perf/SKILL.md",
+              "line": 158
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/web-perf/SKILL.md",
+              "line": 159
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/web-perf/SKILL.md",
+              "line": 160
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/web-perf/SKILL.md",
+              "line": 161
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/web-perf/SKILL.md",
+              "line": 162
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/web-perf/SKILL.md",
+              "line": 163
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/web-perf/SKILL.md",
+              "line": 164
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/web-perf/SKILL.md",
+              "line": 165
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/web-perf/SKILL.md",
+              "line": 166
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/web-perf/SKILL.md",
+              "line": 168
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/web-perf/SKILL.md",
+              "line": 174
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/workers-best-practices",
+          "score": 46,
+          "risk": 54,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 75,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/workers-best-practices/SKILL.md",
+              "line": 28
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/workers-best-practices/SKILL.md",
+              "line": 46
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/workers-best-practices/SKILL.md",
+              "line": 47
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/workers-best-practices/references/runtime-patterns.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/workers-best-practices/SKILL.md",
+              "line": 17
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/workers-best-practices/SKILL.md",
+              "line": 34
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/workers-best-practices/SKILL.md",
+              "line": 42
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/workers-best-practices/references/runtime-patterns.md",
+              "line": 22
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/workers-best-practices/references/runtime-patterns.md",
+              "line": 30
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/workers-best-practices/references/runtime-patterns.md",
+              "line": 30
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/workers-best-practices/references/runtime-patterns.md",
+              "line": 53
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/workers-best-practices/references/runtime-patterns.md",
+              "line": 225
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/workers-best-practices/references/runtime-patterns.md",
+              "line": 228
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/workers-best-practices/references/runtime-patterns.md",
+              "line": 234
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/workers-best-practices/references/runtime-patterns.md",
+              "line": 96
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/workers-best-practices/references/runtime-patterns.md",
+              "line": 107
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/workers-best-practices/references/runtime-patterns.md",
+              "line": 225
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/workers-best-practices/references/runtime-patterns.md",
+              "line": 228
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/workers-best-practices/references/runtime-patterns.md",
+              "line": 234
+            }
+          ]
+        },
+        {
+          "path": "skills/workers-profiling",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/wrangler",
+          "score": 92,
+          "risk": 8,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/wrangler/SKILL.md",
+              "line": 8
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/wrangler/SKILL.md",
+              "line": 25
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/wrangler/SKILL.md",
+              "line": 44
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/wrangler/SKILL.md",
+              "line": 50
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/wrangler/SKILL.md",
+              "line": 49
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 0,
+  "status": "do not install",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T22:40:22Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

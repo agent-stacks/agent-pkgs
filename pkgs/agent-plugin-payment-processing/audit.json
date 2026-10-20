@@ -1,0 +1,165 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "payment-processing",
+      "dir": "/nix/store/gj4v5qx95lcxbh0cn7hi87ihpxid0gwk-agent-plugin-payment-processing-1.2.3/share/agent-plugins/payment-processing",
+      "spec": "1.1.0",
+      "score": 71,
+      "status": "caution",
+      "coverage": {
+        "scanned": [
+          "skills/billing-automation",
+          "skills/paypal-integration",
+          "skills/pci-compliance",
+          "skills/stripe-integration"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/billing-automation",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/paypal-integration",
+          "score": 71,
+          "risk": 29,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/paypal-integration/SKILL.md",
+              "line": 74
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/paypal-integration/references/details.md",
+              "line": 19
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/paypal-integration/references/details.md",
+              "line": 50
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/paypal-integration/references/details.md",
+              "line": 199
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/paypal-integration/references/details.md",
+              "line": 223
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/paypal-integration/references/details.md",
+              "line": 258
+            }
+          ]
+        },
+        {
+          "path": "skills/pci-compliance",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/stripe-integration",
+          "score": 75,
+          "risk": 25,
+          "status": "caution",
+          "partial": true,
+          "coverage": 50,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/stripe-integration/SKILL.md",
+              "line": 50
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/stripe-integration/SKILL.md",
+              "line": 52
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/stripe-integration/SKILL.md",
+              "line": 53
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/stripe-integration/SKILL.md",
+              "line": 54
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/stripe-integration/references/details.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/stripe-integration/SKILL.md",
+              "line": 106
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 71,
+  "status": "caution",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T22:34:56Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "machine-learning-ops",
+      "dir": "/nix/store/6pay1p98bjpnd6cjrd7jqx7kvzwmr93h-agent-plugin-machine-learning-ops-1.2.2/share/agent-plugins/machine-learning-ops",
+      "spec": "1.1.0",
+      "score": 93,
+      "status": "safe",
+      "coverage": {
+        "scanned": [
+          "skills/ml-pipeline-workflow",
+          "skills/recsys-pipeline-architect"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/ml-pipeline-workflow",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/ml-pipeline-workflow/SKILL.md",
+              "line": 90
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/ml-pipeline-workflow/SKILL.md",
+              "line": 190
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/ml-pipeline-workflow/SKILL.md",
+              "line": 207
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/ml-pipeline-workflow/SKILL.md",
+              "line": 215
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/recsys-pipeline-architect",
+          "score": 93,
+          "risk": 7,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/recsys-pipeline-architect/SKILL.md",
+              "line": 125
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 93,
+  "status": "safe",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T22:30:17Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

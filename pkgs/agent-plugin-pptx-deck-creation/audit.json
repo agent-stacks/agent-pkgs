@@ -1,0 +1,118 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "pptx-deck-creation",
+      "dir": "/nix/store/y0g1qikaphyj2pq7rcg886ynhlvhki9p-agent-plugin-pptx-deck-creation-1.0.1/share/agent-plugins/pptx-deck-creation",
+      "spec": "1.1.0",
+      "score": 93,
+      "status": "safe",
+      "coverage": {
+        "scanned": [
+          "skills/pptx-deck-context",
+          "skills/pptx-quality-gates",
+          "skills/pptx-reference-deck-analysis",
+          "skills/pptx-slide-specification",
+          "skills/pptx-visual-assets"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          },
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/pptx-deck-context",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/pptx-quality-gates",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/pptx-quality-gates/SKILL.md",
+              "line": 15
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/pptx-reference-deck-analysis",
+          "score": 93,
+          "risk": 7,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/pptx-reference-deck-analysis/SKILL.md",
+              "line": 1
+            }
+          ]
+        },
+        {
+          "path": "skills/pptx-slide-specification",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/pptx-visual-assets",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        }
+      ]
+    }
+  ],
+  "score": 93,
+  "status": "safe",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T22:32:56Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

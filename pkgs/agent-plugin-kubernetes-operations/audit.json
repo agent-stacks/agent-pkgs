@@ -1,0 +1,180 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "kubernetes-operations",
+      "dir": "/nix/store/m5z8lvwxbmqbqvsm04hj707fpzg6a6n1-agent-plugin-kubernetes-operations-1.2.3/share/agent-plugins/kubernetes-operations",
+      "spec": "1.1.0",
+      "score": 69,
+      "status": "caution",
+      "coverage": {
+        "scanned": [
+          "skills/gitops-workflow",
+          "skills/helm-chart-scaffolding",
+          "skills/k8s-manifest-generator",
+          "skills/k8s-security-policies"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          },
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/gitops-workflow",
+          "score": 70,
+          "risk": 30,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/gitops-workflow/SKILL.md",
+              "line": 70
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/gitops-workflow/SKILL.md",
+              "line": 160
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/gitops-workflow/SKILL.md",
+              "line": 256
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/gitops-workflow/SKILL.md",
+              "line": 256
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/gitops-workflow/SKILL.md",
+              "line": 258
+            }
+          ]
+        },
+        {
+          "path": "skills/helm-chart-scaffolding",
+          "score": 70,
+          "risk": 30,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/helm-chart-scaffolding/SKILL.md",
+              "line": 47
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/helm-chart-scaffolding/SKILL.md",
+              "line": 60
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/helm-chart-scaffolding/references/chart-structure.md",
+              "line": 27
+            },
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/helm-chart-scaffolding/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "E5",
+              "severity": "MEDIUM",
+              "message": "Cloud Storage Exfiltration",
+              "file": "skills/helm-chart-scaffolding/references/details.md",
+              "line": 340
+            }
+          ]
+        },
+        {
+          "path": "skills/k8s-manifest-generator",
+          "score": 69,
+          "risk": 31,
+          "status": "caution",
+          "partial": true,
+          "coverage": 85.7,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/k8s-manifest-generator/references/deployment-spec.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "TM4",
+              "severity": "HIGH",
+              "message": "Privileged Kubernetes Workload",
+              "file": "skills/k8s-manifest-generator/references/deployment-spec.md",
+              "line": 538
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/k8s-manifest-generator/references/details.md",
+              "line": 358
+            }
+          ]
+        },
+        {
+          "path": "skills/k8s-security-policies",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        }
+      ]
+    }
+  ],
+  "score": 69,
+  "status": "caution",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T23:33:10Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

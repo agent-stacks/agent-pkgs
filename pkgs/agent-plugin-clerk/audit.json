@@ -1,0 +1,3244 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "clerk",
+      "dir": "/nix/store/scj6xb5003mj72s3zypaqfhrywznq411-agent-plugin-clerk-1.0.0/share/agent-plugins/clerk",
+      "spec": "1.1.0",
+      "score": 0,
+      "status": "do not install",
+      "coverage": {
+        "scanned": [
+          "skills/clerk",
+          "skills/clerk-android",
+          "skills/clerk-astro-patterns",
+          "skills/clerk-backend-api",
+          "skills/clerk-billing",
+          "skills/clerk-chrome-extension-patterns",
+          "skills/clerk-cli",
+          "skills/clerk-custom-ui",
+          "skills/clerk-expo",
+          "skills/clerk-nextjs-patterns",
+          "skills/clerk-nuxt-patterns",
+          "skills/clerk-orgs",
+          "skills/clerk-react-patterns",
+          "skills/clerk-react-router-patterns",
+          "skills/clerk-setup",
+          "skills/clerk-swift",
+          "skills/clerk-tanstack-patterns",
+          "skills/clerk-testing",
+          "skills/clerk-vue-patterns",
+          "skills/clerk-webhooks"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          },
+          {
+            "path": "mcp.json",
+            "reason": "SkillSpector does not analyse this layout as an MCP manifest"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/clerk",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk/SKILL.md",
+              "line": 20
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/clerk-android",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-android/SKILL.md",
+              "line": 22
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-android/SKILL.md",
+              "line": 105
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-android/SKILL.md",
+              "line": 106
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/clerk-astro-patterns",
+          "score": 71,
+          "risk": 29,
+          "status": "caution",
+          "partial": true,
+          "coverage": 92.9,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-astro-patterns/SKILL.md",
+              "line": 56
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-astro-patterns/SKILL.md",
+              "line": 80
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-astro-patterns/SKILL.md",
+              "line": 95
+            },
+            {
+              "reason": "output_limit",
+              "path": "skills/clerk-astro-patterns/templates/astro-basic-auth/package.json",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/clerk-astro-patterns/SKILL.md",
+              "line": 112
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-astro-patterns/references/astro-react.md",
+              "line": 10
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-astro-patterns/templates/astro-basic-auth/package.json",
+              "line": 9
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: astro has 16 known advisory(ies) (GHSA-26w7-cxv4-gfx2 (Astro: Remote code execution through AVIF image optimization); CVE-2026-54299 (Astro: Host header SSRF in prerendered error page fetch); CVE-2026-84376 (Astro: Authorization bypass from missing path-segment boundary check when stripp) +13 more), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-astro-patterns/templates/astro-basic-auth/package.json",
+              "line": 9
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-astro-patterns/templates/astro-basic-auth/package.json",
+              "line": 10
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: @clerk/astro has 3 known advisory(ies) (CVE-2025-53548 (@clerk/backend Performs Insufficient Verification of Data Authenticity); CVE-2026-41248 (Official Clerk JavaScript SDKs: Middleware-based route protection bypass); CVE-2026-42349 (Clerk has an authorization bypass when combining organization, billing, or rever)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-astro-patterns/templates/astro-basic-auth/package.json",
+              "line": 10
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-astro-patterns/templates/astro-basic-auth/package.json",
+              "line": 11
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: @astrojs/node has 9 known advisory(ies) (CVE-2026-29772 (Astro: Memory exhaustion DoS due to missing request body size limit in Server Is); CVE-2025-55207 (@astrojs/node's trailing slash handling causes open redirect issue); CVE-2026-41322 (Astro: Cache Poisoning due to incorrect error handling when if-match header is m) +6 more), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-astro-patterns/templates/astro-basic-auth/package.json",
+              "line": 11
+            }
+          ]
+        },
+        {
+          "path": "skills/clerk-backend-api",
+          "score": 16,
+          "risk": 84,
+          "status": "do not install",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/clerk-backend-api/SKILL.md",
+              "line": 43
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/clerk-backend-api/SKILL.md",
+              "line": 53
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/clerk-backend-api/SKILL.md",
+              "line": 97
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/clerk-backend-api/SKILL.md",
+              "line": 140
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/clerk-backend-api/SKILL.md",
+              "line": 175
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/clerk-backend-api/evals/evals.json",
+              "line": 49
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/clerk-backend-api/evals/evals.json",
+              "line": 53
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/clerk-backend-api/SKILL.md",
+              "line": 403
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/clerk-backend-api/scripts/api-specs-context.sh",
+              "line": 12
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/clerk-backend-api/scripts/api-specs-context.sh",
+              "line": 30
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/clerk-backend-api/scripts/extract-endpoint-detail.sh",
+              "line": 8
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/clerk-backend-api/scripts/extract-tag-endpoints.sh",
+              "line": 8
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-backend-api/SKILL.md",
+              "line": 43
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-backend-api/SKILL.md",
+              "line": 43
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-backend-api/SKILL.md",
+              "line": 53
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-backend-api/SKILL.md",
+              "line": 97
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-backend-api/SKILL.md",
+              "line": 122
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-backend-api/SKILL.md",
+              "line": 140
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-backend-api/SKILL.md",
+              "line": 149
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-backend-api/SKILL.md",
+              "line": 211
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-backend-api/SKILL.md",
+              "line": 217
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-backend-api/SKILL.md",
+              "line": 225
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-backend-api/SKILL.md",
+              "line": 408
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-backend-api/SKILL.md",
+              "line": 53
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-backend-api/SKILL.md",
+              "line": 97
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-backend-api/SKILL.md",
+              "line": 122
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-backend-api/SKILL.md",
+              "line": 211
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-backend-api/scripts/api-specs-context.sh",
+              "line": 8
+            },
+            {
+              "id": "SC2",
+              "severity": "LOW",
+              "message": "External Script Fetching",
+              "file": "skills/clerk-backend-api/SKILL.md",
+              "line": 354
+            },
+            {
+              "id": "SC2",
+              "severity": "LOW",
+              "message": "External Script Fetching",
+              "file": "skills/clerk-backend-api/SKILL.md",
+              "line": 368
+            },
+            {
+              "id": "SC2",
+              "severity": "LOW",
+              "message": "External Script Fetching",
+              "file": "skills/clerk-backend-api/SKILL.md",
+              "line": 385
+            }
+          ]
+        },
+        {
+          "path": "skills/clerk-billing",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-billing/SKILL.md",
+              "line": 64
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-billing/SKILL.md",
+              "line": 68
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-billing/SKILL.md",
+              "line": 327
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-billing/SKILL.md",
+              "line": 331
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-billing/SKILL.md",
+              "line": 332
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-billing/SKILL.md",
+              "line": 333
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-billing/SKILL.md",
+              "line": 334
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-billing/SKILL.md",
+              "line": 335
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-billing/SKILL.md",
+              "line": 336
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-billing/SKILL.md",
+              "line": 337
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-billing/SKILL.md",
+              "line": 338
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-billing/SKILL.md",
+              "line": 339
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-billing/SKILL.md",
+              "line": 340
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-billing/SKILL.md",
+              "line": 341
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-billing/SKILL.md",
+              "line": 342
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-billing/SKILL.md",
+              "line": 343
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-billing/SKILL.md",
+              "line": 345
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-billing/SKILL.md",
+              "line": 346
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-billing/SKILL.md",
+              "line": 348
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-billing/SKILL.md",
+              "line": 350
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-billing/SKILL.md",
+              "line": 367
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-billing/SKILL.md",
+              "line": 385
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/clerk-chrome-extension-patterns",
+          "score": 30,
+          "risk": 70,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 88.9,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/clerk-chrome-extension-patterns/SKILL.md",
+              "line": 0
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-chrome-extension-patterns/SKILL.md",
+              "line": 59
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-chrome-extension-patterns/SKILL.md",
+              "line": 65
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-chrome-extension-patterns/SKILL.md",
+              "line": 108
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-chrome-extension-patterns/SKILL.md",
+              "line": 115
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-chrome-extension-patterns/SKILL.md",
+              "line": 179
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-chrome-extension-patterns/SKILL.md",
+              "line": 208
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-chrome-extension-patterns/SKILL.md",
+              "line": 298
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-chrome-extension-patterns/SKILL.md",
+              "line": 340
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-chrome-extension-patterns/SKILL.md",
+              "line": 341
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-chrome-extension-patterns/SKILL.md",
+              "line": 342
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-chrome-extension-patterns/SKILL.md",
+              "line": 355
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-chrome-extension-patterns/SKILL.md",
+              "line": 356
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-chrome-extension-patterns/SKILL.md",
+              "line": 358
+            }
+          ],
+          "findings": [
+            {
+              "id": "LP1",
+              "severity": "HIGH",
+              "message": "",
+              "file": "skills/clerk-chrome-extension-patterns/templates/chrome-ext-basic-auth/src/popup.tsx",
+              "line": 1
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/clerk-chrome-extension-patterns/templates/chrome-ext-basic-auth/src/popup.tsx",
+              "line": 15
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-chrome-extension-patterns/SKILL.md",
+              "line": 52
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-chrome-extension-patterns/SKILL.md",
+              "line": 154
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-chrome-extension-patterns/references/headless-extension.md",
+              "line": 109
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-chrome-extension-patterns/references/sync-host.md",
+              "line": 91
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-chrome-extension-patterns/SKILL.md",
+              "line": 154
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-chrome-extension-patterns/references/headless-extension.md",
+              "line": 109
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-chrome-extension-patterns/references/sync-host.md",
+              "line": 91
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-chrome-extension-patterns/references/content-scripts.md",
+              "line": 75
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-chrome-extension-patterns/references/create-clerk-client.md",
+              "line": 129
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-chrome-extension-patterns/references/headless-extension.md",
+              "line": 59
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-chrome-extension-patterns/references/create-clerk-client.md",
+              "line": 70
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-chrome-extension-patterns/references/headless-extension.md",
+              "line": 59
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-chrome-extension-patterns/templates/chrome-ext-basic-auth/package.json",
+              "line": 6
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: @clerk/chrome-extension has 1 known advisory(ies) (CVE-2026-42349 (Clerk has an authorization bypass when combining organization, billing, or rever)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-chrome-extension-patterns/templates/chrome-ext-basic-auth/package.json",
+              "line": 6
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-chrome-extension-patterns/templates/chrome-ext-basic-auth/package.json",
+              "line": 7
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-chrome-extension-patterns/templates/chrome-ext-basic-auth/package.json",
+              "line": 8
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: react has 2 known advisory(ies) (CVE-2013-7035 (Cross-Site Scripting in react); GHSA-hg79-j56m-fxgv (Cross-Site Scripting in react)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-chrome-extension-patterns/templates/chrome-ext-basic-auth/package.json",
+              "line": 8
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-chrome-extension-patterns/templates/chrome-ext-basic-auth/package.json",
+              "line": 9
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: react-dom has 1 known advisory(ies) (CVE-2018-6341 (Cross-Site Scripting in react-dom)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-chrome-extension-patterns/templates/chrome-ext-basic-auth/package.json",
+              "line": 9
+            }
+          ]
+        },
+        {
+          "path": "skills/clerk-cli",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 25,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/clerk-cli/SKILL.md",
+              "line": 0
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-cli/SKILL.md",
+              "line": 83
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-cli/SKILL.md",
+              "line": 84
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-cli/SKILL.md",
+              "line": 85
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-cli/SKILL.md",
+              "line": 223
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-cli/SKILL.md",
+              "line": 259
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-cli/SKILL.md",
+              "line": 283
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/clerk-cli/references/agent-mode.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/clerk-cli/references/agent-mode.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/clerk-cli/references/recipes.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 32
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 255
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 30
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/clerk-cli/references/auth.md",
+              "line": 71
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 185
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 237
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 289
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 267
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 268
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 270
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 290
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/clerk-cli/references/auth.md",
+              "line": 131
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/clerk-cli/references/recipes.md",
+              "line": 242
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/clerk-cli/references/recipes.md",
+              "line": 249
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 83
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 116
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 159
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 216
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 221
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 224
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 243
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 246
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 51
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 53
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 54
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 55
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 57
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 58
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 59
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 60
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 61
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 62
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 63
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 67
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 69
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 72
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 216
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 216
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 219
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 220
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 221
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 245
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 220
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 221
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 222
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 223
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 224
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 227
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 231
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 234
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 244
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 222
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 223
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 224
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 225
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 246
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 225
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 226
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 226
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 227
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 228
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 236
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 228
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 229
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 230
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 230
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 231
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 233
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 233
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 234
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 235
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 235
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 236
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 238
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 238
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 239
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 240
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 241
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 241
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 242
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 242
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 243
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 244
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 245
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/SKILL.md",
+              "line": 246
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 51
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 53
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 54
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 55
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 57
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 58
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 59
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 60
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 61
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 62
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 63
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 64
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 66
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 67
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 69
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 72
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 150
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 246
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/references/agent-mode.md",
+              "line": 252
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/references/auth.md",
+              "line": 9
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-cli/references/auth.md",
+              "line": 11
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-cli/references/auth.md",
+              "line": 12
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clerk-cli/references/auth.md",
+              "line": 43
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/clerk-cli/references/recipes.md",
+              "line": 159
+            }
+          ]
+        },
+        {
+          "path": "skills/clerk-custom-ui",
+          "score": 27,
+          "risk": 73,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 66.7,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-custom-ui/SKILL.md",
+              "line": 17
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-custom-ui/SKILL.md",
+              "line": 65
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-custom-ui/SKILL.md",
+              "line": 83
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-custom-ui/SKILL.md",
+              "line": 130
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-custom-ui/SKILL.md",
+              "line": 132
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-custom-ui/SKILL.md",
+              "line": 143
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-custom-ui/SKILL.md",
+              "line": 146
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-custom-ui/SKILL.md",
+              "line": 151
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/clerk-custom-ui/core-3/custom-sign-in.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/clerk-custom-ui/core-3/custom-sign-up.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/clerk-custom-ui/SKILL.md",
+              "line": 29
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/clerk-custom-ui/SKILL.md",
+              "line": 37
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/clerk-custom-ui/SKILL.md",
+              "line": 30
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/clerk-custom-ui/SKILL.md",
+              "line": 38
+            },
+            {
+              "id": "MP3",
+              "severity": "HIGH",
+              "message": "Memory Manipulation",
+              "file": "skills/clerk-custom-ui/core-3/custom-sign-in.md",
+              "line": 153
+            },
+            {
+              "id": "MP3",
+              "severity": "HIGH",
+              "message": "Memory Manipulation",
+              "file": "skills/clerk-custom-ui/core-3/custom-sign-up.md",
+              "line": 118
+            }
+          ]
+        },
+        {
+          "path": "skills/clerk-expo",
+          "score": 21,
+          "risk": 79,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 87.5,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-expo/SKILL.md",
+              "line": 24
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-expo/SKILL.md",
+              "line": 27
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-expo/SKILL.md",
+              "line": 28
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-expo/SKILL.md",
+              "line": 82
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-expo/SKILL.md",
+              "line": 83
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-expo/SKILL.md",
+              "line": 96
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/clerk-expo/references/recipes.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/clerk-expo/SKILL.md",
+              "line": 43
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/clerk-expo/SKILL.md",
+              "line": 44
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/clerk-expo/references/setup.md",
+              "line": 78
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-expo/SKILL.md",
+              "line": 66
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-expo/SKILL.md",
+              "line": 67
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-expo/SKILL.md",
+              "line": 79
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-expo/evals/evals.json",
+              "line": 77
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-expo/references/prebuilt-components.md",
+              "line": 10
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-expo/references/prebuilt-components.md",
+              "line": 88
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-expo/references/recipes.md",
+              "line": 97
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-expo/references/setup.md",
+              "line": 14
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-expo/references/setup.md",
+              "line": 16
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-expo/references/setup.md",
+              "line": 19
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-expo/references/setup.md",
+              "line": 23
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-expo/references/setup.md",
+              "line": 24
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-expo/references/setup.md",
+              "line": 25
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-expo/references/setup.md",
+              "line": 26
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-expo/references/setup.md",
+              "line": 27
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-expo/references/setup.md",
+              "line": 51
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-expo/references/setup.md",
+              "line": 61
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-expo/references/setup.md",
+              "line": 107
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-expo/references/sso-and-native-auth.md",
+              "line": 20
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-expo/references/sso-and-native-auth.md",
+              "line": 61
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-expo/references/sso-and-native-auth.md",
+              "line": 99
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-expo/SKILL.md",
+              "line": 72
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-expo/references/setup.md",
+              "line": 29
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/clerk-expo/SKILL.md",
+              "line": 98
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/clerk-expo/references/recipes.md",
+              "line": 97
+            }
+          ]
+        },
+        {
+          "path": "skills/clerk-nextjs-patterns",
+          "score": 40,
+          "risk": 60,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 75,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/clerk-nextjs-patterns/SKILL.md",
+              "line": 0
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-nextjs-patterns/SKILL.md",
+              "line": 36
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-nextjs-patterns/SKILL.md",
+              "line": 117
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-nextjs-patterns/SKILL.md",
+              "line": 124
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-nextjs-patterns/SKILL.md",
+              "line": 127
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/clerk-nextjs-patterns/references/middleware-strategies.md",
+              "line": 0
+            },
+            {
+              "reason": "output_limit",
+              "path": "skills/clerk-nextjs-patterns/templates/nextjs-basic-auth/package.json",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/clerk-nextjs-patterns/SKILL.md",
+              "line": 15
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/clerk-nextjs-patterns/SKILL.md",
+              "line": 26
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/clerk-nextjs-patterns/SKILL.md",
+              "line": 36
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-nextjs-patterns/SKILL.md",
+              "line": 146
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/clerk-nextjs-patterns/SKILL.md",
+              "line": 167
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-nextjs-patterns/templates/nextjs-basic-auth/package.json",
+              "line": 6
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: next has 16 known advisory(ies) (CVE-2025-30218 (Next.js may leak x-middleware-subrequest-id to external hosts); CVE-2021-43803 (Unexpected server crash in Next.js.); CVE-2026-44575 (Next.js has a Middleware / Proxy bypass in App Router applications via segment-p) +13 more), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-nextjs-patterns/templates/nextjs-basic-auth/package.json",
+              "line": 6
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-nextjs-patterns/templates/nextjs-basic-auth/package.json",
+              "line": 7
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: react has 2 known advisory(ies) (CVE-2013-7035 (Cross-Site Scripting in react); GHSA-hg79-j56m-fxgv (Cross-Site Scripting in react)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-nextjs-patterns/templates/nextjs-basic-auth/package.json",
+              "line": 7
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-nextjs-patterns/templates/nextjs-basic-auth/package.json",
+              "line": 8
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: react-dom has 1 known advisory(ies) (CVE-2018-6341 (Cross-Site Scripting in react-dom)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-nextjs-patterns/templates/nextjs-basic-auth/package.json",
+              "line": 8
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-nextjs-patterns/templates/nextjs-basic-auth/package.json",
+              "line": 9
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: @clerk/nextjs has 4 known advisory(ies) (CVE-2025-53548 (@clerk/backend Performs Insufficient Verification of Data Authenticity); CVE-2024-22206 (@clerk/nextjs auth() and getAuth() methods vulnerable to insecure direct object ); CVE-2026-41248 (Official Clerk JavaScript SDKs: Middleware-based route protection bypass) +1 more), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-nextjs-patterns/templates/nextjs-basic-auth/package.json",
+              "line": 9
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-nextjs-patterns/templates/nextjs-basic-auth/package.json",
+              "line": 12
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-nextjs-patterns/templates/nextjs-basic-auth/package.json",
+              "line": 13
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-nextjs-patterns/templates/nextjs-basic-auth/package.json",
+              "line": 14
+            }
+          ]
+        },
+        {
+          "path": "skills/clerk-nuxt-patterns",
+          "score": 75,
+          "risk": 25,
+          "status": "caution",
+          "partial": true,
+          "coverage": 88.9,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-nuxt-patterns/SKILL.md",
+              "line": 59
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-nuxt-patterns/SKILL.md",
+              "line": 65
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-nuxt-patterns/SKILL.md",
+              "line": 84
+            },
+            {
+              "reason": "output_limit",
+              "path": "skills/clerk-nuxt-patterns/templates/nuxt-basic-auth/package.json",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "SC6",
+              "severity": "HIGH",
+              "message": "Possible Typosquatting: 'nuxt' resembles popular package 'next'",
+              "file": "skills/clerk-nuxt-patterns/templates/nuxt-basic-auth/package.json",
+              "line": 9
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-nuxt-patterns/templates/nuxt-basic-auth/package.json",
+              "line": 9
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: nuxt has 16 known advisory(ies) (CVE-2026-71318 (Nuxt: Unauthorized Component Instantiation via Server Island Props); CVE-2026-56301 (Nuxt dev server vite-node IPC socket is world-connectable on Linux); CVE-2026-72744 (Nuxt dev server discloses project root and workspace UUID via the Chrome DevTool) +13 more), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-nuxt-patterns/templates/nuxt-basic-auth/package.json",
+              "line": 9
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-nuxt-patterns/templates/nuxt-basic-auth/package.json",
+              "line": 10
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: @clerk/nuxt has 3 known advisory(ies) (CVE-2025-53548 (@clerk/backend Performs Insufficient Verification of Data Authenticity); CVE-2026-41248 (Official Clerk JavaScript SDKs: Middleware-based route protection bypass); CVE-2026-42349 (Clerk has an authorization bypass when combining organization, billing, or rever)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-nuxt-patterns/templates/nuxt-basic-auth/package.json",
+              "line": 10
+            }
+          ]
+        },
+        {
+          "path": "skills/clerk-orgs",
+          "score": 50,
+          "risk": 50,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-orgs/SKILL.md",
+              "line": 308
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-orgs/SKILL.md",
+              "line": 353
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-orgs/SKILL.md",
+              "line": 390
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-orgs/SKILL.md",
+              "line": 470
+            }
+          ],
+          "findings": [
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/clerk-orgs/SKILL.md",
+              "line": 129
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/clerk-orgs/SKILL.md",
+              "line": 147
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/clerk-orgs/references/enterprise-sso.md",
+              "line": 110
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/clerk-orgs/SKILL.md",
+              "line": 56
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/clerk-orgs/references/nextjs-patterns.md",
+              "line": 94
+            }
+          ]
+        },
+        {
+          "path": "skills/clerk-react-patterns",
+          "score": 78,
+          "risk": 22,
+          "status": "caution",
+          "partial": true,
+          "coverage": 91.7,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-react-patterns/SKILL.md",
+              "line": 47
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-react-patterns/SKILL.md",
+              "line": 52
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-react-patterns/SKILL.md",
+              "line": 142
+            },
+            {
+              "reason": "output_limit",
+              "path": "skills/clerk-react-patterns/templates/react-basic-auth/package.json",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/clerk-react-patterns/evals/evals.json",
+              "line": 14
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-react-patterns/templates/react-basic-auth/package.json",
+              "line": 10
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: @clerk/react has 1 known advisory(ies) (CVE-2026-42349 (Clerk has an authorization bypass when combining organization, billing, or rever)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-react-patterns/templates/react-basic-auth/package.json",
+              "line": 10
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-react-patterns/templates/react-basic-auth/package.json",
+              "line": 11
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: react has 2 known advisory(ies) (CVE-2013-7035 (Cross-Site Scripting in react); GHSA-hg79-j56m-fxgv (Cross-Site Scripting in react)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-react-patterns/templates/react-basic-auth/package.json",
+              "line": 11
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-react-patterns/templates/react-basic-auth/package.json",
+              "line": 12
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: react-dom has 1 known advisory(ies) (CVE-2018-6341 (Cross-Site Scripting in react-dom)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-react-patterns/templates/react-basic-auth/package.json",
+              "line": 12
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-react-patterns/templates/react-basic-auth/package.json",
+              "line": 15
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-react-patterns/templates/react-basic-auth/package.json",
+              "line": 16
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-react-patterns/templates/react-basic-auth/package.json",
+              "line": 17
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-react-patterns/templates/react-basic-auth/package.json",
+              "line": 18
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-react-patterns/templates/react-basic-auth/package.json",
+              "line": 19
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: vite has 16 known advisory(ies) (CVE-2023-34092 (Vite Server Options (server.fs.deny) can be bypassed using double forward-slash ); CVE-2025-32395 (Vite has an `server.fs.deny` bypass with an invalid `request-target`); CVE-2025-31125 (Vite has a `server.fs.deny` bypassed for `inline` and `raw` with `?import` query) +13 more), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-react-patterns/templates/react-basic-auth/package.json",
+              "line": 19
+            }
+          ]
+        },
+        {
+          "path": "skills/clerk-react-router-patterns",
+          "score": 86,
+          "risk": 14,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 91.7,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-react-router-patterns/SKILL.md",
+              "line": 33
+            },
+            {
+              "reason": "output_limit",
+              "path": "skills/clerk-react-router-patterns/templates/react-router-basic-auth/package.json",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/clerk-react-router-patterns/evals/evals.json",
+              "line": 29
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-react-router-patterns/templates/react-router-basic-auth/package.json",
+              "line": 10
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: react has 2 known advisory(ies) (CVE-2013-7035 (Cross-Site Scripting in react); GHSA-hg79-j56m-fxgv (Cross-Site Scripting in react)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-react-router-patterns/templates/react-router-basic-auth/package.json",
+              "line": 10
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-react-router-patterns/templates/react-router-basic-auth/package.json",
+              "line": 11
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: react-dom has 1 known advisory(ies) (CVE-2018-6341 (Cross-Site Scripting in react-dom)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-react-router-patterns/templates/react-router-basic-auth/package.json",
+              "line": 11
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-react-router-patterns/templates/react-router-basic-auth/package.json",
+              "line": 12
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: react-router has 16 known advisory(ies) (CVE-2026-40181 (React Router's same-origin redirect with path starting // causes open redirect v); CVE-2026-22029 (React Router vulnerable to XSS via Open Redirects); CVE-2026-53666 (React Router: Arbitrary Constructor Injection via deserializeErrors() in React R) +13 more), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-react-router-patterns/templates/react-router-basic-auth/package.json",
+              "line": 12
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-react-router-patterns/templates/react-router-basic-auth/package.json",
+              "line": 13
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: @clerk/react-router has 2 known advisory(ies) (CVE-2025-53548 (@clerk/backend Performs Insufficient Verification of Data Authenticity); CVE-2026-42349 (Clerk has an authorization bypass when combining organization, billing, or rever)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-react-router-patterns/templates/react-router-basic-auth/package.json",
+              "line": 13
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-react-router-patterns/templates/react-router-basic-auth/package.json",
+              "line": 16
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-react-router-patterns/templates/react-router-basic-auth/package.json",
+              "line": 17
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: @react-router/node has 1 known advisory(ies) (CVE-2025-61686 (React Router has Path Traversal in File Session Storage)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-react-router-patterns/templates/react-router-basic-auth/package.json",
+              "line": 17
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-react-router-patterns/templates/react-router-basic-auth/package.json",
+              "line": 18
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: vite has 16 known advisory(ies) (CVE-2023-34092 (Vite Server Options (server.fs.deny) can be bypassed using double forward-slash ); CVE-2025-32395 (Vite has an `server.fs.deny` bypass with an invalid `request-target`); CVE-2025-31125 (Vite has a `server.fs.deny` bypassed for `inline` and `raw` with `?import` query) +13 more), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-react-router-patterns/templates/react-router-basic-auth/package.json",
+              "line": 18
+            }
+          ]
+        },
+        {
+          "path": "skills/clerk-setup",
+          "score": 46,
+          "risk": 54,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-setup/SKILL.md",
+              "line": 53
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-setup/SKILL.md",
+              "line": 174
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-setup/SKILL.md",
+              "line": 187
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/clerk-setup/evals/evals.json",
+              "line": 7
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/clerk-setup/evals/evals.json",
+              "line": 13
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/clerk-setup/evals/evals.json",
+              "line": 82
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-setup/SKILL.md",
+              "line": 14
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-setup/SKILL.md",
+              "line": 60
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-setup/SKILL.md",
+              "line": 66
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-setup/SKILL.md",
+              "line": 72
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-setup/SKILL.md",
+              "line": 78
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-setup/SKILL.md",
+              "line": 81
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-setup/SKILL.md",
+              "line": 88
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-setup/SKILL.md",
+              "line": 98
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-setup/SKILL.md",
+              "line": 107
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-setup/SKILL.md",
+              "line": 165
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-setup/SKILL.md",
+              "line": 170
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-setup/SKILL.md",
+              "line": 203
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-setup/SKILL.md",
+              "line": 205
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-setup/SKILL.md",
+              "line": 211
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-setup/evals/evals.json",
+              "line": 80
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/clerk-setup/SKILL.md",
+              "line": 39
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/clerk-setup/SKILL.md",
+              "line": 47
+            }
+          ]
+        },
+        {
+          "path": "skills/clerk-swift",
+          "score": 67,
+          "risk": 33,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-swift/SKILL.md",
+              "line": 20
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-swift/SKILL.md",
+              "line": 30
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-swift/SKILL.md",
+              "line": 98
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-swift/SKILL.md",
+              "line": 128
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/clerk-swift/SKILL.md",
+              "line": 30
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/clerk-swift/SKILL.md",
+              "line": 98
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/clerk-swift/evals/evals.json",
+              "line": 30
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/clerk-swift/evals/evals.json",
+              "line": 31
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/clerk-swift/evals/evals.json",
+              "line": 33
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-swift/SKILL.md",
+              "line": 100
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-swift/references/custom.md",
+              "line": 18
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-swift/references/custom.md",
+              "line": 19
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-swift/references/custom.md",
+              "line": 21
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-swift/references/prebuilt.md",
+              "line": 14
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-swift/references/prebuilt.md",
+              "line": 17
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-swift/references/prebuilt.md",
+              "line": 18
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-swift/references/prebuilt.md",
+              "line": 20
+            }
+          ]
+        },
+        {
+          "path": "skills/clerk-tanstack-patterns",
+          "score": 91,
+          "risk": 9,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 92.3,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-tanstack-patterns/SKILL.md",
+              "line": 45
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-tanstack-patterns/SKILL.md",
+              "line": 61
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-tanstack-patterns/SKILL.md",
+              "line": 80
+            },
+            {
+              "reason": "output_limit",
+              "path": "skills/clerk-tanstack-patterns/templates/tanstack-basic-auth/package.json",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-tanstack-patterns/templates/tanstack-basic-auth/package.json",
+              "line": 10
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: @clerk/tanstack-react-start has 2 known advisory(ies) (CVE-2025-53548 (@clerk/backend Performs Insufficient Verification of Data Authenticity); CVE-2026-42349 (Clerk has an authorization bypass when combining organization, billing, or rever)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-tanstack-patterns/templates/tanstack-basic-auth/package.json",
+              "line": 10
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-tanstack-patterns/templates/tanstack-basic-auth/package.json",
+              "line": 11
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: @tanstack/react-router has 2 known advisory(ies) (CVE-2026-45321 (Malware in @tanstack/* packages exfiltrates cloud credentials, GitHub tokens, an); MAL-2026-3465 (Malicious code in @tanstack/react-router (npm))), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-tanstack-patterns/templates/tanstack-basic-auth/package.json",
+              "line": 11
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-tanstack-patterns/templates/tanstack-basic-auth/package.json",
+              "line": 12
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: @tanstack/react-router-devtools has 2 known advisory(ies) (CVE-2026-45321 (Malware in @tanstack/* packages exfiltrates cloud credentials, GitHub tokens, an); MAL-2026-3466 (Malicious code in @tanstack/react-router-devtools (npm))), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-tanstack-patterns/templates/tanstack-basic-auth/package.json",
+              "line": 12
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-tanstack-patterns/templates/tanstack-basic-auth/package.json",
+              "line": 13
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: @tanstack/react-start has 3 known advisory(ies) (CVE-2026-45321 (Malware in @tanstack/* packages exfiltrates cloud credentials, GitHub tokens, an); CVE-2026-102989 (TanStack Router: Unauthenticated reflected XSS in TanStack Start server-function); MAL-2026-3468 (Malicious code in @tanstack/react-start (npm))), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-tanstack-patterns/templates/tanstack-basic-auth/package.json",
+              "line": 13
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-tanstack-patterns/templates/tanstack-basic-auth/package.json",
+              "line": 14
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: react has 2 known advisory(ies) (CVE-2013-7035 (Cross-Site Scripting in react); GHSA-hg79-j56m-fxgv (Cross-Site Scripting in react)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-tanstack-patterns/templates/tanstack-basic-auth/package.json",
+              "line": 14
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-tanstack-patterns/templates/tanstack-basic-auth/package.json",
+              "line": 15
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: react-dom has 1 known advisory(ies) (CVE-2018-6341 (Cross-Site Scripting in react-dom)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-tanstack-patterns/templates/tanstack-basic-auth/package.json",
+              "line": 15
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-tanstack-patterns/templates/tanstack-basic-auth/package.json",
+              "line": 18
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-tanstack-patterns/templates/tanstack-basic-auth/package.json",
+              "line": 19
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-tanstack-patterns/templates/tanstack-basic-auth/package.json",
+              "line": 20
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: vite has 16 known advisory(ies) (CVE-2023-34092 (Vite Server Options (server.fs.deny) can be bypassed using double forward-slash ); CVE-2025-32395 (Vite has an `server.fs.deny` bypass with an invalid `request-target`); CVE-2025-31125 (Vite has a `server.fs.deny` bypassed for `inline` and `raw` with `?import` query) +13 more), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-tanstack-patterns/templates/tanstack-basic-auth/package.json",
+              "line": 20
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-tanstack-patterns/templates/tanstack-basic-auth/package.json",
+              "line": 21
+            }
+          ]
+        },
+        {
+          "path": "skills/clerk-testing",
+          "score": 93,
+          "risk": 7,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/clerk-testing/SKILL.md",
+              "line": 35
+            }
+          ]
+        },
+        {
+          "path": "skills/clerk-vue-patterns",
+          "score": 71,
+          "risk": 29,
+          "status": "caution",
+          "partial": true,
+          "coverage": 90.9,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-vue-patterns/SKILL.md",
+              "line": 43
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-vue-patterns/SKILL.md",
+              "line": 83
+            },
+            {
+              "reason": "output_limit",
+              "path": "skills/clerk-vue-patterns/templates/vue-basic-auth/package.json",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/clerk-vue-patterns/templates/vue-basic-auth/src/main.ts",
+              "line": 9
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-vue-patterns/templates/vue-basic-auth/package.json",
+              "line": 9
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: vue has 1 known advisory(ies) (CVE-2024-9506 (ReDoS vulnerability in vue package that is exploitable through inefficient regex)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-vue-patterns/templates/vue-basic-auth/package.json",
+              "line": 9
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-vue-patterns/templates/vue-basic-auth/package.json",
+              "line": 10
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: @clerk/vue has 1 known advisory(ies) (CVE-2026-42349 (Clerk has an authorization bypass when combining organization, billing, or rever)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-vue-patterns/templates/vue-basic-auth/package.json",
+              "line": 10
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-vue-patterns/templates/vue-basic-auth/package.json",
+              "line": 13
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-vue-patterns/templates/vue-basic-auth/package.json",
+              "line": 14
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-vue-patterns/templates/vue-basic-auth/package.json",
+              "line": 15
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: vite has 16 known advisory(ies) (CVE-2023-34092 (Vite Server Options (server.fs.deny) can be bypassed using double forward-slash ); CVE-2025-32395 (Vite has an `server.fs.deny` bypass with an invalid `request-target`); CVE-2025-31125 (Vite has a `server.fs.deny` bypassed for `inline` and `raw` with `?import` query) +13 more), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/clerk-vue-patterns/templates/vue-basic-auth/package.json",
+              "line": 15
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/clerk-vue-patterns/templates/vue-basic-auth/package.json",
+              "line": 16
+            }
+          ]
+        },
+        {
+          "path": "skills/clerk-webhooks",
+          "score": 54,
+          "risk": 46,
+          "status": "caution",
+          "partial": true,
+          "coverage": 33.3,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 0
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 40
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 55
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 62
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 68
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 73
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 80
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 96
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 114
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 146
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 161
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 168
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 185
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 213
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 215
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 220
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 230
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 242
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 251
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 263
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 265
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 267
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 269
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 271
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 273
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 275
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 277
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 279
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 281
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 283
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 285
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 287
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/clerk-webhooks/SKILL.md",
+              "line": 304
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/clerk-webhooks/references/frameworks.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/clerk-webhooks/SKILL.md",
+              "line": 211
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/clerk-webhooks/SKILL.md",
+              "line": 323
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/clerk-webhooks/evals/evals.json",
+              "line": 29
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 0,
+  "status": "do not install",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T22:28:05Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

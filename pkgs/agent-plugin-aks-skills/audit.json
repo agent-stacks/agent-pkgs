@@ -1,0 +1,495 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "aks-skills",
+      "dir": "/nix/store/395hsv1iqy27nrjspgw2mk9a400wr58k-agent-plugin-aks-skills-1.0.6/share/agent-plugins/aks-skills",
+      "spec": "1.1.0",
+      "score": 0,
+      "status": "do not install",
+      "coverage": {
+        "scanned": [
+          "skills/aks-gpu-inference",
+          "skills/aks-known-issues",
+          "skills/aks-network-capture",
+          "skills/aks-troubleshooting",
+          "skills/azure-search-nav"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          },
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/aks-gpu-inference",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/aks-gpu-inference/SKILL.md",
+              "line": 7
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/aks-known-issues",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/aks-known-issues/SKILL.md",
+              "line": 6
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/aks-network-capture",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 38.5,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/aks-network-capture/SKILL.md",
+              "line": 7
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/aks-network-capture/scripts/collect-azure-network-info.ps1",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/aks-network-capture/scripts/create-capture.ps1",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/aks-network-capture/scripts/create-capture.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/aks-network-capture/scripts/generate-test-traffic.ps1",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/aks-network-capture/scripts/retrieve-captures.ps1",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/aks-network-capture/scripts/retrieve-captures.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/aks-network-capture/scripts/setup-capture-configmap.ps1",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/aks-network-capture/scripts/setup-capture-configmap.sh",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aks-network-capture/SKILL.md",
+              "line": 49
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aks-network-capture/SKILL.md",
+              "line": 49
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aks-network-capture/SKILL.md",
+              "line": 50
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aks-network-capture/SKILL.md",
+              "line": 50
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aks-network-capture/SKILL.md",
+              "line": 51
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aks-network-capture/SKILL.md",
+              "line": 52
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aks-network-capture/SKILL.md",
+              "line": 52
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aks-network-capture/SKILL.md",
+              "line": 53
+            },
+            {
+              "id": "TM4",
+              "severity": "HIGH",
+              "message": "Privileged Kubernetes Workload",
+              "file": "skills/aks-network-capture/scripts/create-capture.ps1",
+              "line": 274
+            },
+            {
+              "id": "TM4",
+              "severity": "HIGH",
+              "message": "Privileged Kubernetes Workload",
+              "file": "skills/aks-network-capture/scripts/create-capture.sh",
+              "line": 320
+            },
+            {
+              "id": "TM4",
+              "severity": "HIGH",
+              "message": "Privileged Kubernetes Workload",
+              "file": "skills/aks-network-capture/scripts/retrieve-captures.ps1",
+              "line": 184
+            },
+            {
+              "id": "TM4",
+              "severity": "HIGH",
+              "message": "Privileged Kubernetes Workload",
+              "file": "skills/aks-network-capture/scripts/retrieve-captures.sh",
+              "line": 209
+            },
+            {
+              "id": "TM4",
+              "severity": "HIGH",
+              "message": "Privileged Kubernetes Workload",
+              "file": "skills/aks-network-capture/scripts/create-capture.ps1",
+              "line": 303
+            },
+            {
+              "id": "TM4",
+              "severity": "HIGH",
+              "message": "Privileged Kubernetes Workload",
+              "file": "skills/aks-network-capture/scripts/create-capture.sh",
+              "line": 349
+            },
+            {
+              "id": "TM4",
+              "severity": "HIGH",
+              "message": "Privileged Kubernetes Workload",
+              "file": "skills/aks-network-capture/scripts/retrieve-captures.ps1",
+              "line": 196
+            },
+            {
+              "id": "TM4",
+              "severity": "HIGH",
+              "message": "Privileged Kubernetes Workload",
+              "file": "skills/aks-network-capture/scripts/retrieve-captures.sh",
+              "line": 221
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/aks-network-capture/scripts/generate-test-traffic.ps1",
+              "line": 113
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/aks-network-capture/scripts/generate-test-traffic.sh",
+              "line": 150
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/aks-network-capture/scripts/generate-test-traffic.ps1",
+              "line": 113
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/aks-network-capture/scripts/generate-test-traffic.sh",
+              "line": 150
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/aks-network-capture/scripts/retrieve-captures.ps1",
+              "line": 228
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/aks-network-capture/scripts/retrieve-captures.sh",
+              "line": 244
+            },
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aks-network-capture/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/aks-network-capture/scripts/create-capture.ps1",
+              "line": 313
+            }
+          ]
+        },
+        {
+          "path": "skills/aks-troubleshooting",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 70,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/aks-troubleshooting/SKILL.md",
+              "line": 6
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aks-troubleshooting/SKILL.md",
+              "line": 86
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/aks-troubleshooting/node-issues.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/aks-troubleshooting/references/azure-network-path.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/aks-troubleshooting/references/inspektor-gadget.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/aks-troubleshooting/references/symptom-map.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/aks-troubleshooting/scripts/cluster-snapshot.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/aks-troubleshooting/scripts/pod-deep-dive.sh",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aks-troubleshooting/SKILL.md",
+              "line": 50
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aks-troubleshooting/SKILL.md",
+              "line": 60
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aks-troubleshooting/SKILL.md",
+              "line": 58
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aks-troubleshooting/SKILL.md",
+              "line": 65
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aks-troubleshooting/SKILL.md",
+              "line": 71
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aks-troubleshooting/SKILL.md",
+              "line": 72
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aks-troubleshooting/SKILL.md",
+              "line": 93
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aks-troubleshooting/SKILL.md",
+              "line": 100
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aks-troubleshooting/node-issues.md",
+              "line": 10
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aks-troubleshooting/references/symptom-map.md",
+              "line": 228
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/aks-troubleshooting/references/symptom-map.md",
+              "line": 222
+            },
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/aks-troubleshooting/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/aks-troubleshooting/scripts/pod-deep-dive.sh",
+              "line": 38
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/aks-troubleshooting/scripts/pod-deep-dive.sh",
+              "line": 81
+            }
+          ]
+        },
+        {
+          "path": "skills/azure-search-nav",
+          "score": 78,
+          "risk": 22,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/azure-search-nav/SKILL.md",
+              "line": 7
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/azure-search-nav/SKILL.md",
+              "line": 18
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/azure-search-nav/SKILL.md",
+              "line": 45
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/azure-search-nav/references/Invoke-PortalSearchNav.ps1",
+              "line": 141
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 0,
+  "status": "do not install",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T22:14:36Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

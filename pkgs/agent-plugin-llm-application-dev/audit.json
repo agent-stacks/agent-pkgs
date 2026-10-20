@@ -1,0 +1,172 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "llm-application-dev",
+      "dir": "/nix/store/sycjm9n77d4i5rwlr0r760hjvyi82n5j-agent-plugin-llm-application-dev-2.0.6/share/agent-plugins/llm-application-dev",
+      "spec": "1.1.0",
+      "score": 56,
+      "status": "caution",
+      "coverage": {
+        "scanned": [
+          "skills/embedding-strategies",
+          "skills/hybrid-search-implementation",
+          "skills/langchain-architecture",
+          "skills/llm-evaluation",
+          "skills/prompt-engineering-patterns",
+          "skills/rag-implementation",
+          "skills/similarity-search-patterns",
+          "skills/vector-index-tuning"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          },
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/embedding-strategies",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/hybrid-search-implementation",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/langchain-architecture",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/langchain-architecture/SKILL.md",
+              "line": 155
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/llm-evaluation",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/prompt-engineering-patterns",
+          "score": 56,
+          "risk": 44,
+          "status": "caution",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "skills/prompt-engineering-patterns/references/few-shot-learning.md",
+              "line": 238
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "skills/prompt-engineering-patterns/references/few-shot-learning.md",
+              "line": 251
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "skills/prompt-engineering-patterns/references/few-shot-learning.md",
+              "line": 264
+            },
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/prompt-engineering-patterns/SKILL.md",
+              "line": 1
+            }
+          ]
+        },
+        {
+          "path": "skills/rag-implementation",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/similarity-search-patterns",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/vector-index-tuning",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        }
+      ]
+    }
+  ],
+  "score": 56,
+  "status": "caution",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T22:33:21Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

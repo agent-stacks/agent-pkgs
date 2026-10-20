@@ -1,0 +1,92 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "azure-advisor",
+      "dir": "/nix/store/3gc3w4695cfqgkcagcvjnbnfi3l6wr0y-agent-plugin-azure-advisor-1.0.2/share/agent-plugins/azure-advisor",
+      "spec": "1.1.0",
+      "score": 100,
+      "status": "safe",
+      "coverage": {
+        "scanned": [
+          "skills/azure-advisor",
+          "skills/azure-advisor-actionability"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          },
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          },
+          {
+            "path": "mcp.json",
+            "reason": "SkillSpector does not analyse this layout as an MCP manifest"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/azure-advisor",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/azure-advisor/SKILL.md",
+              "line": 7
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/azure-advisor-actionability",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/azure-advisor-actionability/SKILL.md",
+              "line": 7
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/azure-advisor-actionability/SKILL.md",
+              "line": 30
+            }
+          ],
+          "findings": []
+        }
+      ]
+    }
+  ],
+  "score": 100,
+  "status": "safe",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T22:18:20Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

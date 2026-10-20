@@ -1,0 +1,103 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "hr-legal-compliance",
+      "dir": "/nix/store/vqm7kc23hipx06w7xmhmbbgzsa6v2az9-agent-plugin-hr-legal-compliance-1.2.3/share/agent-plugins/hr-legal-compliance",
+      "spec": "1.1.0",
+      "score": 48,
+      "status": "do not install",
+      "coverage": {
+        "scanned": [
+          "skills/employment-contract-templates",
+          "skills/gdpr-data-handling"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/employment-contract-templates",
+          "score": 97,
+          "risk": 3,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/employment-contract-templates/references/details.md",
+              "line": 122
+            }
+          ]
+        },
+        {
+          "path": "skills/gdpr-data-handling",
+          "score": 48,
+          "risk": 52,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 50,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/gdpr-data-handling/references/details.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/gdpr-data-handling/SKILL.md",
+              "line": 55
+            },
+            {
+              "id": "AR3",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "skills/gdpr-data-handling/SKILL.md",
+              "line": 73
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/gdpr-data-handling/references/details.md",
+              "line": 99
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 48,
+  "status": "do not install",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T22:27:20Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

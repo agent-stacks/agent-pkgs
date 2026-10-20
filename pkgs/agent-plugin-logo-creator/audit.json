@@ -1,0 +1,157 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "logo-creator",
+      "dir": "/nix/store/dxqi83wyf5qwzxx9p40gk7ws3swjzi7z-agent-plugin-logo-creator-1.0.0/share/agent-plugins/logo-creator",
+      "spec": "1.1.0",
+      "score": 13,
+      "status": "do not install",
+      "coverage": {
+        "scanned": [
+          "skills/logo-creator"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/logo-creator",
+          "score": 13,
+          "risk": 87,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 81.8,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/logo-creator/SKILL.md",
+              "line": 131
+            },
+            {
+              "reason": "opaque_content",
+              "path": "skills/logo-creator/examples/images/logo-01.png",
+              "line": 0
+            },
+            {
+              "reason": "opaque_content",
+              "path": "skills/logo-creator/examples/images/logo-02.png",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/logo-creator/SKILL.md",
+              "line": 98
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/logo-creator/SKILL.md",
+              "line": 98
+            },
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/logo-creator/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/logo-creator/examples/images/logo-01.png",
+              "line": 116
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/logo-creator/scripts/remove_bg.py",
+              "line": 29
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/logo-creator/scripts/remove_bg.py",
+              "line": 55
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/logo-creator/scripts/remove_bg.py",
+              "line": 59
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/logo-creator/scripts/vectorize.py",
+              "line": 59
+            },
+            {
+              "id": "TT2",
+              "severity": "MEDIUM",
+              "message": "Tainted flow: 'cmd' from os.environ.get (line 48, credential/environment) → subprocess.run (code execution)",
+              "file": "skills/logo-creator/scripts/remove_bg.py",
+              "line": 59
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/logo-creator/scripts/vectorize.py",
+              "line": 30
+            },
+            {
+              "id": "TT2",
+              "severity": "MEDIUM",
+              "message": "Tainted flow: 'cmd' from os.environ.get (line 51, credential/environment) → subprocess.run (code execution)",
+              "file": "skills/logo-creator/scripts/vectorize.py",
+              "line": 59
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/logo-creator/scripts/vectorize.py",
+              "line": 84
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 13,
+  "status": "do not install",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T23:33:29Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

@@ -1,0 +1,846 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "superpowers",
+      "dir": "/nix/store/4is3f65ifc9a3rg6xqvygll1jk1skj4l-agent-plugin-superpowers-7.0.0/share/agent-plugins/superpowers",
+      "spec": "1.1.0",
+      "score": 0,
+      "status": "do not install",
+      "coverage": {
+        "scanned": [
+          "skills/brainstorming",
+          "skills/diagnosing-superpowers",
+          "skills/dispatching-parallel-agents",
+          "skills/executing-plans",
+          "skills/finishing-a-development-branch",
+          "skills/receiving-code-review",
+          "skills/requesting-code-review",
+          "skills/subagent-driven-development",
+          "skills/systematic-debugging",
+          "skills/test-driven-development",
+          "skills/using-git-worktrees",
+          "skills/using-superpowers",
+          "skills/verification-before-completion",
+          "skills/writing-plans",
+          "skills/writing-skills"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          },
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/brainstorming",
+          "score": 15,
+          "risk": 85,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 62.5,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/brainstorming/scripts/server.cjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/brainstorming/scripts/start-server.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/brainstorming/scripts/stop-server.sh",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/brainstorming/scripts/server.cjs",
+              "line": 174
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/brainstorming/scripts/stop-server.sh",
+              "line": 22
+            },
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/brainstorming/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/brainstorming/scripts/start-server.sh",
+              "line": 102
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/brainstorming/scripts/start-server.sh",
+              "line": 179
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/brainstorming/scripts/start-server.sh",
+              "line": 180
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/brainstorming/scripts/start-server.sh",
+              "line": 142
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/brainstorming/scripts/start-server.sh",
+              "line": 179
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/brainstorming/scripts/start-server.sh",
+              "line": 182
+            }
+          ]
+        },
+        {
+          "path": "skills/diagnosing-superpowers",
+          "score": 68,
+          "risk": 32,
+          "status": "caution",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "skills/diagnosing-superpowers/prompts/request-conflicts.md",
+              "line": 19
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/diagnosing-superpowers/SKILL.md",
+              "line": 21
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/diagnosing-superpowers/references/github-issues.md",
+              "line": 18
+            }
+          ]
+        },
+        {
+          "path": "skills/dispatching-parallel-agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/dispatching-parallel-agents/SKILL.md",
+              "line": 95
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/executing-plans",
+          "score": 83,
+          "risk": 17,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 0,
+          "exceptions": [
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/executing-plans/SKILL.md",
+              "line": 0
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/executing-plans/SKILL.md",
+              "line": 329
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/executing-plans/SKILL.md",
+              "line": 330
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/executing-plans/scripts/task-done",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/executing-plans/scripts/task-start",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/executing-plans/SKILL.md",
+              "line": 140
+            }
+          ]
+        },
+        {
+          "path": "skills/finishing-a-development-branch",
+          "score": 83,
+          "risk": 17,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/finishing-a-development-branch/SKILL.md",
+              "line": 16
+            }
+          ],
+          "findings": [
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/finishing-a-development-branch/SKILL.md",
+              "line": 116
+            }
+          ]
+        },
+        {
+          "path": "skills/receiving-code-review",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/requesting-code-review",
+          "score": 93,
+          "risk": 7,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/requesting-code-review/SKILL.md",
+              "line": 60
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/requesting-code-review/code-reviewer.md",
+              "line": 147
+            }
+          ]
+        },
+        {
+          "path": "skills/subagent-driven-development",
+          "score": 33,
+          "risk": 67,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 71.4,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/subagent-driven-development/SKILL.md",
+              "line": 146
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/subagent-driven-development/SKILL.md",
+              "line": 509
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/subagent-driven-development/SKILL.md",
+              "line": 510
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/subagent-driven-development/SKILL.md",
+              "line": 549
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/subagent-driven-development/SKILL.md",
+              "line": 552
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/subagent-driven-development/SKILL.md",
+              "line": 553
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/subagent-driven-development/scripts/review-package",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/subagent-driven-development/scripts/task-brief",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/subagent-driven-development/SKILL.md",
+              "line": 153
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/subagent-driven-development/SKILL.md",
+              "line": 252
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/subagent-driven-development/SKILL.md",
+              "line": 290
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/subagent-driven-development/SKILL.md",
+              "line": 317
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/subagent-driven-development/SKILL.md",
+              "line": 396
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/subagent-driven-development/SKILL.md",
+              "line": 448
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/subagent-driven-development/SKILL.md",
+              "line": 463
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/subagent-driven-development/SKILL.md",
+              "line": 511
+            }
+          ]
+        },
+        {
+          "path": "skills/systematic-debugging",
+          "score": 23,
+          "risk": 77,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 90.9,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/systematic-debugging/condition-based-waiting.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/systematic-debugging/SKILL.md",
+              "line": 98
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/systematic-debugging/SKILL.md",
+              "line": 99
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/systematic-debugging/SKILL.md",
+              "line": 283
+            },
+            {
+              "id": "E4",
+              "severity": "HIGH",
+              "message": "Context Leakage",
+              "file": "skills/systematic-debugging/defense-in-depth.md",
+              "line": 73
+            },
+            {
+              "id": "EA4",
+              "severity": "MEDIUM",
+              "message": "Unbounded Resource Access",
+              "file": "skills/systematic-debugging/condition-based-waiting.md",
+              "line": 89
+            }
+          ]
+        },
+        {
+          "path": "skills/test-driven-development",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 50,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/test-driven-development/SKILL.md",
+              "line": 0
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/test-driven-development/SKILL.md",
+              "line": 118
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/test-driven-development/SKILL.md",
+              "line": 173
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/using-git-worktrees",
+          "score": 89,
+          "risk": 11,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/using-git-worktrees/SKILL.md",
+              "line": 127
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/using-git-worktrees/SKILL.md",
+              "line": 157
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/using-git-worktrees/SKILL.md",
+              "line": 45
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/using-git-worktrees/SKILL.md",
+              "line": 67
+            }
+          ]
+        },
+        {
+          "path": "skills/using-superpowers",
+          "score": 42,
+          "risk": 58,
+          "status": "do not install",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/using-superpowers/references/codex-tools.md",
+              "line": 3
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/using-superpowers/references/codex-tools.md",
+              "line": 71
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/using-superpowers/references/codex-tools.md",
+              "line": 35
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/using-superpowers/references/gemini-tools.md",
+              "line": 28
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/using-superpowers/references/muse-tools.md",
+              "line": 31
+            }
+          ]
+        },
+        {
+          "path": "skills/verification-before-completion",
+          "score": 93,
+          "risk": 7,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/verification-before-completion/SKILL.md",
+              "line": 54
+            }
+          ]
+        },
+        {
+          "path": "skills/writing-plans",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/writing-plans/SKILL.md",
+              "line": 98
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/writing-plans/SKILL.md",
+              "line": 99
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/writing-plans/SKILL.md",
+              "line": 100
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/writing-plans/SKILL.md",
+              "line": 118
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/writing-plans/SKILL.md",
+              "line": 121
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/writing-plans/SKILL.md",
+              "line": 129
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/writing-plans/SKILL.md",
+              "line": 135
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/writing-skills",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 57.1,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/writing-skills/SKILL.md",
+              "line": 0
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/writing-skills/SKILL.md",
+              "line": 263
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/writing-skills/SKILL.md",
+              "line": 286
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/writing-skills/SKILL.md",
+              "line": 374
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/writing-skills/render-graphs.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/writing-skills/testing-skills-with-subagents.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/writing-skills/SKILL.md",
+              "line": 41
+            },
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/writing-skills/SKILL.md",
+              "line": 384
+            },
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/writing-skills/SKILL.md",
+              "line": 569
+            },
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/writing-skills/testing-skills-with-subagents.md",
+              "line": 36
+            },
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/writing-skills/testing-skills-with-subagents.md",
+              "line": 84
+            },
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/writing-skills/testing-skills-with-subagents.md",
+              "line": 364
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/writing-skills/SKILL.md",
+              "line": 318
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/writing-skills/SKILL.md",
+              "line": 320
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/writing-skills/SKILL.md",
+              "line": 321
+            },
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/writing-skills/SKILL.md",
+              "line": 385
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/writing-skills/SKILL.md",
+              "line": 589
+            },
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/writing-skills/anthropic-best-practices.md",
+              "line": 5
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/writing-skills/examples/CLAUDE_MD_TESTING.md",
+              "line": 85
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/writing-skills/examples/CLAUDE_MD_TESTING.md",
+              "line": 95
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/writing-skills/examples/CLAUDE_MD_TESTING.md",
+              "line": 123
+            },
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/writing-skills/testing-skills-with-subagents.md",
+              "line": 9
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/writing-skills/SKILL.md",
+              "line": 12
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/writing-skills/SKILL.md",
+              "line": 263
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/writing-skills/examples/CLAUDE_MD_TESTING.md",
+              "line": 73
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/writing-skills/examples/CLAUDE_MD_TESTING.md",
+              "line": 84
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/writing-skills/examples/CLAUDE_MD_TESTING.md",
+              "line": 94
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/writing-skills/examples/CLAUDE_MD_TESTING.md",
+              "line": 107
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/writing-skills/examples/CLAUDE_MD_TESTING.md",
+              "line": 91
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/writing-skills/examples/CLAUDE_MD_TESTING.md",
+              "line": 121
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 0,
+  "status": "do not install",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-20T00:31:59Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

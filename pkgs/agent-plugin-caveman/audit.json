@@ -1,0 +1,547 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "caveman",
+      "dir": "/nix/store/2qc12bhnv3bgj76112iw908krg90xl1g-agent-plugin-caveman-4.0.1/share/agent-plugins/caveman",
+      "spec": "1.1.0",
+      "score": 0,
+      "status": "do not install",
+      "coverage": {
+        "scanned": [
+          "skills/cavecrew",
+          "skills/caveman",
+          "skills/caveman-commit",
+          "skills/caveman-compress",
+          "skills/caveman-discover",
+          "skills/caveman-evidence-review",
+          "skills/caveman-explore",
+          "skills/caveman-help",
+          "skills/caveman-learn",
+          "skills/caveman-manage",
+          "skills/caveman-optimize",
+          "skills/caveman-review",
+          "skills/caveman-setup",
+          "skills/caveman-stats",
+          "skills/investigate-first",
+          "skills/lean-build",
+          "skills/megacave",
+          "skills/migration",
+          "skills/safe-refactor",
+          "skills/surgical-patch",
+          "skills/ultracave",
+          "skills/verify-and-stop"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          },
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          },
+          {
+            "path": "src/",
+            "reason": "outside the spec"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/cavecrew",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/caveman",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/caveman-commit",
+          "score": 93,
+          "risk": 7,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "TR2",
+              "severity": "MEDIUM",
+              "message": "Shadow Command Trigger",
+              "file": "skills/caveman-commit/SKILL.md",
+              "line": 1
+            }
+          ]
+        },
+        {
+          "path": "skills/caveman-compress",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 87.5,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/caveman-compress/SKILL.md",
+              "line": 55
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/caveman-compress/scripts/compress.py",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "TT3",
+              "severity": "CRITICAL",
+              "message": "Tainted flow: 'request' from os.environ.get (line 679, credential/environment) → urllib.request.urlopen (network output)",
+              "file": "skills/caveman-compress/scripts/compress.py",
+              "line": 690
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/caveman-compress/SKILL.md",
+              "line": 13
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/caveman-compress/SKILL.md",
+              "line": 13
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/caveman-compress/scripts/compress.py",
+              "line": 74
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/caveman-compress/scripts/compress.py",
+              "line": 68
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/caveman-compress/scripts/compress.py",
+              "line": 69
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/caveman-compress/scripts/compress.py",
+              "line": 69
+            },
+            {
+              "id": "E2",
+              "severity": "HIGH",
+              "message": "Env Variable Harvesting",
+              "file": "skills/caveman-compress/scripts/compress.py",
+              "line": 639
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/caveman-compress/scripts/detect.py",
+              "line": 18
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/caveman-compress/scripts/detect.py",
+              "line": 93
+            },
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/caveman-compress/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/caveman-compress/scripts/compress.py",
+              "line": 532
+            },
+            {
+              "id": "P7",
+              "severity": "MEDIUM",
+              "message": "Indirect Prompt Extraction",
+              "file": "skills/caveman-compress/scripts/compress.py",
+              "line": 664
+            }
+          ]
+        },
+        {
+          "path": "skills/caveman-discover",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/caveman-discover/SKILL.md",
+              "line": 39
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/caveman-discover/SKILL.md",
+              "line": 63
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/caveman-discover/SKILL.md",
+              "line": 64
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/caveman-discover/SKILL.md",
+              "line": 65
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/caveman-discover/SKILL.md",
+              "line": 103
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/caveman-discover/SKILL.md",
+              "line": 104
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/caveman-evidence-review",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/caveman-explore",
+          "score": 91,
+          "risk": 9,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/caveman-explore/SKILL.md",
+              "line": 30
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/caveman-explore/SKILL.md",
+              "line": 34
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/caveman-explore/SKILL.md",
+              "line": 35
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA5",
+              "severity": "MEDIUM",
+              "message": "External Model or Provider Selection",
+              "file": "skills/caveman-explore/SKILL.md",
+              "line": 5
+            }
+          ]
+        },
+        {
+          "path": "skills/caveman-help",
+          "score": 95,
+          "risk": 5,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/caveman-help/SKILL.md",
+              "line": 21
+            }
+          ]
+        },
+        {
+          "path": "skills/caveman-learn",
+          "score": 68,
+          "risk": 32,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/caveman-learn/SKILL.md",
+              "line": 154
+            }
+          ],
+          "findings": [
+            {
+              "id": "MP3",
+              "severity": "HIGH",
+              "message": "Memory Manipulation",
+              "file": "skills/caveman-learn/SKILL.md",
+              "line": 111
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/caveman-learn/README.md",
+              "line": 9
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/caveman-learn/README.md",
+              "line": 10
+            }
+          ]
+        },
+        {
+          "path": "skills/caveman-manage",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/caveman-optimize",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/caveman-review",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/caveman-setup",
+          "score": 94,
+          "risk": 6,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 0,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/caveman-setup/SKILL.md",
+              "line": 0
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/caveman-setup/SKILL.md",
+              "line": 30
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/caveman-setup/SKILL.md",
+              "line": 44
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/caveman-setup/SKILL.md",
+              "line": 45
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/caveman-setup/SKILL.md",
+              "line": 50
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/caveman-setup/SKILL.md",
+              "line": 123
+            }
+          ],
+          "findings": [
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/caveman-setup/SKILL.md",
+              "line": 153
+            }
+          ]
+        },
+        {
+          "path": "skills/caveman-stats",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/caveman-stats/SKILL.md",
+              "line": 9
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/caveman-stats/SKILL.md",
+              "line": 17
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/investigate-first",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/lean-build",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/megacave",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/migration",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/safe-refactor",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/surgical-patch",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/ultracave",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/verify-and-stop",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        }
+      ]
+    }
+  ],
+  "score": 0,
+  "status": "do not install",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T22:20:25Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

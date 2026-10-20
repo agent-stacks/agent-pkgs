@@ -1,0 +1,92 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "banner-creator",
+      "dir": "/nix/store/n2cbc2jkdwsgy8w0byx0jr46gkxacy31-agent-plugin-banner-creator-1.0.0/share/agent-plugins/banner-creator",
+      "spec": "1.1.0",
+      "score": 63,
+      "status": "caution",
+      "coverage": {
+        "scanned": [
+          "skills/banner-creator"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/banner-creator",
+          "score": 63,
+          "risk": 37,
+          "status": "caution",
+          "partial": true,
+          "coverage": 62.5,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/banner-creator/SKILL.md",
+              "line": 125
+            },
+            {
+              "reason": "opaque_content",
+              "path": "skills/banner-creator/examples/images/banner-01.png",
+              "line": 0
+            },
+            {
+              "reason": "opaque_content",
+              "path": "skills/banner-creator/examples/images/banner-02.png",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/banner-creator/templates/preview.html",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/banner-creator/SKILL.md",
+              "line": 92
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/banner-creator/SKILL.md",
+              "line": 92
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 63,
+  "status": "caution",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T22:16:27Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "chisle",
+      "dir": "/nix/store/m9bv2jfrfw22fwrkgi0fcf4sands9al5-agent-plugin-chisle-3.8.1/share/agent-plugins/chisle",
+      "spec": "1.1.0",
+      "score": 93,
+      "status": "safe",
+      "coverage": {
+        "scanned": [
+          "skills/chisle",
+          "skills/chisle-audit",
+          "skills/chisle-help",
+          "skills/chisle-review"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          },
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/chisle",
+          "score": 93,
+          "risk": 7,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/chisle/SKILL.md",
+              "line": 47
+            }
+          ]
+        },
+        {
+          "path": "skills/chisle-audit",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/chisle-help",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/chisle-help/SKILL.md",
+              "line": 31
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/chisle-review",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        }
+      ]
+    }
+  ],
+  "score": 93,
+  "status": "safe",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-19T22:16:45Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}
