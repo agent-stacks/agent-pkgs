@@ -84,13 +84,17 @@ the file under `assets/`. Design and trade-offs:
 ```nix
 passthru.agentPlugin = {
   name; path; sourceUrl; specVersion; skills; import; rev; hash;
-  unresolvedLicense;
+  unresolvedLicense; runtimeCandidates;
 };
 ```
 
 `unresolvedLicense` is a string passed in `meta.license` that
 nixpkgs has no licence for, and `null` when there was no string or it
 resolved.
+
+`runtimeCandidates` is the packages the build searches for runtimes,
+in order, each as `{ attr; tier; }` with the tier `declared`, `default`
+or `named`.
 
 `rev` and `hash` are the fetched pin's, when `src` is a recorded
 `fetchFromGitHub` pin; both are `null` when `src` is a path or a

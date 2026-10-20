@@ -5,10 +5,8 @@ Date: 2026-09-01
 Status: Accepted
 
 Note: `allowEnvShebangs`, mentioned below, is removed as of
-[0013](0013-assembly-lives-in-flox-agent.md), and the name-mapping
-table and the `runtimes` argument are replaced by declared packages
-as of [0023](0023-the-plugin-declares-packages-and-the-build-finds-binaries-in-them.md);
-the plugin-local `bin/` and the deterministic scope stand.
+[0013](0013-assembly-lives-in-flox-agent.md); the rest of this
+decision stands.
 
 Note: `bin/` is no longer assembly's alone. An upstream `bin/` ships
 beside the interpreter links, and a name both want fails the build
@@ -63,3 +61,10 @@ that intentionally come from the consumer environment are listed in
   that plugin, so the table stays lean.
 - `-` Body-text and SKILL.md rewrites need per-package attention via
   `extraSubstitutions`; the pass will not guess.
+
+## Amended 2026-10-20
+
+The name-mapping table and the `runtimes` argument are replaced by
+declared packages
+([0023](0023-the-plugin-declares-packages-and-the-build-finds-binaries-in-them.md)).
+The plugin-local `bin/` and the deterministic scope stand.

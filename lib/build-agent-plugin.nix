@@ -95,6 +95,8 @@
   # nixpkgs attributes from `agent-stacks import --dependency`,
   # searched first; also the version pin: [ "python312" ].
 , dependencies ? [ ]
+  # Gone (ADR 0023); accepted only to say so.
+, runtimes ? null
   # bare mcp.json commands that intentionally resolve from the
   # consumer environment's PATH at launch instead of the closure
 , allowPathCommands ? [ ]
@@ -230,11 +232,13 @@ let
   # The candidates assemble-plugin searches for bin/<token>, in order:
   # declared, the three defaults, a package named like the token. No
   # table (ADR 0023).
-  defaultRuntimeAttrs = [ "bash" "python3" "nodejs" ];
+  defaultRuntimeAttrs = builtins.import ./runtime-defaults.nix;
 
-  declaredPackage = attr: pkgs.${attr} or (throw
-    ("buildAgentPlugin: ${name}: dependency '${attr}' is not a nixpkgs "
-      + "attribute; re-import with --dependency naming one that exists"));
+  declaredPackage = attr:
+    let p = pkgs.${attr} or null;
+    in if lib.isDerivation p then p else throw
+      ("buildAgentPlugin: ${name}: dependency '${attr}' is not a nixpkgs "
+        + "package; re-import with --dependency naming one that is");
 
   # main: a named package's fallback when its binary is not its
   # attribute (nodejs, bin/node).
@@ -249,19 +253,23 @@ let
   # path is forced; both are no package.
   namedPackage = tok:
     let
-      r = builtins.tryEval (pkgs.${tok} or null);
-      c = builtins.tryEval (let v = candidate "named" tok r.value; in builtins.deepSeq v v);
-    in lib.optional (r.success && lib.isDerivation r.value && c.success) c.value;
+      r = builtins.tryEval (
+        let p = pkgs.${tok} or null;
+        in if lib.isDerivation p
+        then let v = candidate "named" tok p; in builtins.deepSeq v [ v ]
+        else [ ]);
+    in if r.success then r.value else [ ];
 
   # A generated package recording no runtime gets no defaults (AI-710);
   # a hand-written call has no record and gets them.
-  runtimeMapFile = pkgs.writeText "runtime-map.json" (builtins.toJSON {
-    packages =
-      map (a: candidate "declared" a (declaredPackage a)) dependencies
-      ++ lib.optionals (requiredRuntimes == null || requiredList != [ ])
-        (map (a: candidate "default" a pkgs.${a}) defaultRuntimeAttrs)
-      ++ lib.concatMap namedPackage requiredList;
-  });
+  runtimeCandidates =
+    map (a: candidate "declared" a (declaredPackage a)) dependencies
+    ++ lib.optionals (requiredRuntimes == null || requiredList != [ ])
+      (map (a: candidate "default" a pkgs.${a}) defaultRuntimeAttrs)
+    ++ lib.concatMap namedPackage requiredList;
+
+  runtimeMapFile = pkgs.writeText "runtime-map.json"
+    (builtins.toJSON { packages = runtimeCandidates; });
 
   # An agent-stacks older than ignoredPaths copies the paths anyway;
   # -L too, as -e is false for a copied link that dangles. Empty when
@@ -286,6 +294,9 @@ let
       ignoredPaths = if ignoredPaths == { } then null else ignoredPaths;
     }));
 in
+assert runtimes == null || throw
+  ("buildAgentPlugin: ${name}: `runtimes` is gone; declare the package with "
+    + "`agent-stacks import --dependency <attr>` instead (ADR 0023).");
 assert agentStacks != null || throw
   ("buildAgentPlugin: ${name}: an agent-stacks package is required — it "
     + "assembles the plugin tree. Pass agentStacks, or bind defaultAgentStacks "
@@ -425,6 +436,9 @@ stdenvNoCC.mkDerivation {
     # see it without unpacking the output (AI-759).
     pluginRootPaths =
       if pluginRootPaths == null then null else builtins.attrNames pluginRootPaths;
+    # The packages the build searches for runtimes, in order, so a
+    # check or a reader sees what the named tier picked.
+    runtimeCandidates = map (c: { inherit (c) attr tier; }) runtimeCandidates;
   };
 
   # A plugin makes no licence assertion unless its manifest declares a

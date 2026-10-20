@@ -264,7 +264,7 @@
             let
               missing = builtins.filter
                 (a: !(pkgs ? ${a}) || !(nixpkgs.lib.isDerivation pkgs.${a}))
-                [ "bash" "python3" "nodejs" ];
+                (import ./lib/runtime-defaults.nix);
             in
             if missing != [ ] then
               throw ("the default runtime packages are not nixpkgs attributes: "
@@ -275,8 +275,9 @@
               '';
 
           # The list handed to assemble-plugin: a declared dependency
-          # ahead of the defaults, and a token's own package when
-          # nothing was declared.
+          # ahead of the defaults, a token's own package when nothing
+          # was declared, its main program when the binary is not its
+          # name, and nothing at all for a record naming no runtime.
           runtime-candidates =
             let
               lib' = mkLib pkgs;
@@ -286,21 +287,27 @@
                   > $out/skills/one/SKILL.md
                 printf '#!/usr/bin/env python3\nprint(1)\n' > $out/skills/one/scripts/a.py
                 printf '#!/usr/bin/env ruby\nputs 1\n' > $out/skills/one/scripts/b.rb
+                printf '#!/usr/bin/env nodejs\n1\n' > $out/skills/one/scripts/c.js
                 chmod +x $out/skills/one/scripts/*
               '';
-              mk = dependencies: lib'.buildAgentPlugin {
+              mk = args: lib'.buildAgentPlugin ({
                 name = "runtime-candidates";
-                inherit src dependencies;
+                inherit src;
                 sourceUrl = "https://example.test/runtime-candidates";
                 manifest = {
                   "$schema" = "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json";
                   name = "runtime-candidates";
                 };
                 skills.one = "skills/one";
-                requiredRuntimes = [ "python3" "ruby" ];
-              };
-              pinned = mk [ "python312" ];
-              named = mk [ ];
+                requiredRuntimes = [ "nodejs" "python3" "ruby" ];
+              } // args);
+              pinned = mk { dependencies = [ "python312" ]; };
+              named = mk { };
+              empty = mk { requiredRuntimes = [ ]; };
+              attrs = p: map (c: "${c.tier}:${c.attr}") p.passthru.agentPlugin.runtimeCandidates;
+              expect = what: got: want:
+                if got == want then "" else throw
+                  ("runtime-candidates: ${what}: handed over ${builtins.toJSON got}, want ${builtins.toJSON want}");
               linksInto = plugin: tok: pkg: ''
                 target="$(readlink ${plugin}/share/agent-plugins/runtime-candidates/bin/${tok})"
                 case "$target" in
@@ -310,9 +317,14 @@
               '';
             in
             pkgs.runCommand "runtime-candidates" { } ''
+              ${expect "pinned" (attrs pinned)
+                [ "declared:python312" "default:bash" "default:python3" "default:nodejs"
+                  "named:nodejs" "named:python3" "named:ruby" ]}
+              ${expect "empty" (attrs empty) [ ]}
               ${linksInto pinned "python3" pkgs.python312}
               ${linksInto named "python3" pkgs.python3}
               ${linksInto named "ruby" pkgs.ruby}
+              ${linksInto named "nodejs" pkgs.nodejs}
               touch $out
             '';
 
