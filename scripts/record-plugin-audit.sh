@@ -14,6 +14,11 @@
 # provides, and network access to api.osv.dev. SKILLSPECTOR_BIN names
 # the skillspector whose version an exit-3 record names (default:
 # skillspector on PATH; the version is null when there is none).
+# AUDIT_SCAN_TIMEOUT bounds each component's scan (default 20m, a Go
+# duration). Large skills run past the CLI's own 5m default on a CI
+# runner. It is passed as --scan-timeout only to a CLI whose
+# `audit --help` lists that flag (agent-stacks-cli #192); an older one
+# keeps its fixed 5 minutes.
 #
 # What is written, each with an `agentStacks.version` field naming the
 # CLI that audited (`agent-stacks --version`):
@@ -84,8 +89,16 @@ case "$plugin" in
 esac
 ln -s "$plugin" "$work/result"
 
+args=(audit ./result --json)
+# `audit --help` exits 2, as Go's flag package does; under pipefail
+# that would fail a pipe into grep, so the text is read first.
+usage=$("$agent_stacks" audit --help 2>&1 || true)
+if grep -q -- '-scan-timeout' <<< "$usage"; then
+  args+=(--scan-timeout "${AUDIT_SCAN_TIMEOUT:-20m}")
+fi
+
 rc=0
-(cd "$work" && "$agent_stacks" audit ./result --json) \
+(cd "$work" && "$agent_stacks" "${args[@]}") \
   > "$work/out.json" 2> "$work/err.txt" || rc=$?
 
 case "$rc" in

@@ -75,6 +75,13 @@ SKILLSPECTOR_BIN=$(nix build --no-link --print-out-paths .#skillspector)/bin/ski
     "$(nix build --no-link --print-out-paths .#agent-plugin-humanizer)"
 ```
 
+Each component's scan is stopped after 20 minutes, which large
+skills need on a CI runner (the CLI's own default is 5).
+`AUDIT_SCAN_TIMEOUT` changes that, as a Go duration such as `30m`.
+It is passed as `--scan-timeout` only when the pinned CLI lists that
+flag in `audit --help` (agent-stacks-cli #192); an older pin keeps
+its fixed 5 minutes.
+
 It prints `agent-plugin-humanizer: new|changed|unchanged (<score>)`.
 The pinned CLI has to carry agent-stacks-cli #186. With an older
 one the script finds no readable result, exits 2 and writes nothing.
