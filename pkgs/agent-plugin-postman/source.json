@@ -1,51 +1,125 @@
 {
   "name": "postman",
-  "version": "1.0.0",
+  "version": "2.1.0",
   "src": {
     "owner": "postmanlabs",
-    "repo": "skills",
-    "rev": "06d609e5090231dba5d0343d8dca7b2da9ca9582",
-    "hash": "sha256-QZmXMSQLqnBVPvW+45s5YlTVt7WYTI/Fzv8Z804R+d4="
+    "repo": "postman-plugin",
+    "rev": "d6633bffb2545e56ebf7bfc1e5900f953b43dc6a",
+    "hash": "sha256-WVMinafbQ457pOocuBJ+UkkWYOlmhQI6+5RuqIGrZFg="
   },
-  "sourceUrl": "https://github.com/postmanlabs/skills",
+  "sourceUrl": "https://github.com/postmanlabs/postman-plugin",
   "manifest": {
     "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
     "author": {
+      "email": "postman-plugins@postman.com",
       "name": "Postman",
       "url": "https://github.com/postmanlabs"
     },
-    "description": "Work with Postman from your agent: design an OpenAPI contract, generate and run collections, and publish to a workspace.",
-    "homepage": "https://www.postmanlabs.com/skills/",
+    "description": "Work with Postman from your agent: bootstrap a repo's Postman setup, mock an API before it's implemented, run collection and governance checks in CI, monitor a live endpoint, deploy and debug Postman Flows, and publish generated API documentation.",
+    "homepage": "https://github.com/postmanlabs/postman-plugin",
     "keywords": [
       "postman",
       "api",
-      "openapi",
-      "testing",
-      "collections"
+      "mocking",
+      "monitoring",
+      "ci",
+      "documentation",
+      "ai-readiness",
+      "flows"
     ],
     "license": "Apache-2.0",
     "name": "postman",
-    "repository": "https://github.com/postmanlabs/skills",
-    "version": "1.0.0"
+    "repository": "https://github.com/postmanlabs/postman-plugin",
+    "version": "2.1.0"
   },
   "skills": {
-    "ai-readiness": "plugins/postman/skills/ai-readiness",
-    "api-discovery": "plugins/postman/skills/api-discovery",
-    "api-mocking": "plugins/postman/skills/api-mocking",
-    "api-monitoring": "plugins/postman/skills/api-monitoring",
-    "api-testing": "plugins/postman/skills/api-testing",
-    "bootstrap": "plugins/postman/skills/bootstrap",
-    "ci-integration": "plugins/postman/skills/ci-integration",
-    "collection-schema-v3": "plugins/postman/skills/collection-schema-v3",
-    "performance-testing": "plugins/postman/skills/performance-testing"
+    "add-marketplace": ".claude/skills/add-marketplace",
+    "ai-readiness": "skills/ai-readiness",
+    "api-discovery": "skills/api-discovery",
+    "api-documentation": "skills/api-documentation",
+    "api-engineer": "skills/api-engineer",
+    "api-mocking": "skills/api-mocking",
+    "api-monitoring": "skills/api-monitoring",
+    "api-simulation": "skills/api-simulation",
+    "api-testing": "skills/api-testing",
+    "bootstrap": "skills/bootstrap",
+    "ci-integration": "skills/ci-integration",
+    "collection-schema-v3": "skills/collection-schema-v3",
+    "datasets": "skills/datasets",
+    "flows": "skills/flows",
+    "performance-testing": "skills/performance-testing",
+    "postman-mcp-server": "skills/postman-mcp-server",
+    "release-installer": ".claude/skills/release-installer",
+    "variables": "skills/variables",
+    "webhook-testing": "skills/webhook-testing"
   },
-  "requiredRuntimes": [],
+  "requiredRuntimes": [
+    "bash",
+    "node",
+    "python3",
+    "sh"
+  ],
+  "pluginRootPaths": {
+    "hooks": "hooks"
+  },
+  "mcpServers": {
+    "postman": {
+      "headers": {
+        "User-Agent": "postman-claude-code-plugin/2.1.0",
+        "X-Plugin-Version": "2.1.0",
+        "X-Source": "postman-claude-code-plugin"
+      },
+      "type": "streamable-http",
+      "url": "https://mcp.postman.com/mcp"
+    }
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "async": false,
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/session-start\" \"${DROID_PLUGIN_ROOT}\"",
+            "shell": "bash",
+            "type": "command"
+          }
+        ],
+        "matcher": "startup|clear|compact"
+      }
+    ]
+  },
   "meta": {
-    "description": "Work with Postman from your agent: design an OpenAPI contract, generate and run collections, and publish to a workspace",
-    "homepage": "https://github.com/postmanlabs/skills"
+    "description": "Work with Postman from your agent",
+    "homepage": "https://github.com/postmanlabs/postman-plugin"
   },
   "import": {
-    "input": "postmanlabs/skills",
-    "flags": []
+    "input": "postmanlabs/postman-plugin",
+    "flags": [],
+    "warnings": [
+      {
+        "path": ".claude/skills/add-marketplace/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, disable-model-invocation"
+      },
+      {
+        "path": ".claude/skills/release-installer/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, disable-model-invocation"
+      },
+      {
+        "path": "hooks/hooks.json",
+        "message": "Claude Code runs this on SessionStart: \"${CLAUDE_PLUGIN_ROOT}/hooks/session-start\" \"${DROID_PLUGIN_ROOT}\""
+      },
+      {
+        "path": "hooks",
+        "message": "a Claude Code component location that a skill or an MCP server also names through ${PLUGIN_ROOT}, so it stays at the plugin root rather than moving into com.anthropic.claude-code/; Claude reads it there too"
+      },
+      {
+        "path": "skills/performance-testing/references/jmeter-import/scripts/groovy_to_js.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "package.json",
+        "message": "dependency manifest; the build does not resolve what it declares"
+      }
+    ]
   }
 }
