@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "posthog-skills",
-      "dir": "/nix/store/g0hlc9blki2f4rv3pfjd5mm81myrhwgv-agent-plugin-posthog-skills-0.0.0-unstable.2026-10-20.g86bca2c/share/agent-plugins/posthog-skills",
+      "dir": "/nix/store/0ycqf28cr5c22c8cn7v4lc2dnqzhdvda-agent-plugin-posthog-skills-0.0.0-unstable.2026-10-21.g5cdddbf/share/agent-plugins/posthog-skills",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -18,6 +18,7 @@
           "skills/all",
           "skills/analyzing-expensive-users",
           "skills/analyzing-experiment-session-replays",
+          "skills/analyzing-funnel-correlation",
           "skills/analyzing-offline-evaluations",
           "skills/analyzing-task-runs",
           "skills/android",
@@ -147,6 +148,7 @@
           "skills/implementing-api-surveys",
           "skills/inbound-lead",
           "skills/inbox-exploration",
+          "skills/installing-posthog-from-chat",
           "skills/instrument-error-tracking",
           "skills/instrument-feature-flags",
           "skills/instrument-integration",
@@ -508,6 +510,16 @@
               "line": 165
             }
           ],
+          "findings": []
+        },
+        {
+          "path": "skills/analyzing-funnel-correlation",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
           "findings": []
         },
         {
@@ -3210,7 +3222,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/creating-online-evaluations/SKILL.md",
-              "line": 425
+              "line": 426
             }
           ],
           "findings": [
@@ -3529,17 +3541,27 @@
             {
               "reason": "reference_missing",
               "path": "skills/designing-email-templates/SKILL.md",
-              "line": 54
+              "line": 60
             },
             {
               "reason": "reference_missing",
               "path": "skills/designing-email-templates/SKILL.md",
-              "line": 101
+              "line": 89
             },
             {
               "reason": "reference_missing",
               "path": "skills/designing-email-templates/SKILL.md",
               "line": 104
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/designing-email-templates/SKILL.md",
+              "line": 123
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/designing-email-templates/SKILL.md",
+              "line": 126
             }
           ],
           "findings": []
@@ -4043,12 +4065,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/diagnosing-failed-warehouse-syncs/SKILL.md",
-              "line": 172
+              "line": 173
             },
             {
               "reason": "reference_missing",
               "path": "skills/diagnosing-failed-warehouse-syncs/SKILL.md",
-              "line": 174
+              "line": 175
             }
           ],
           "findings": [
@@ -4693,15 +4715,9 @@
           "score": 100,
           "risk": 0,
           "status": "safe",
-          "partial": true,
+          "partial": false,
           "coverage": 100,
-          "exceptions": [
-            {
-              "reason": "reference_missing",
-              "path": "skills/exploring-ai-failures/SKILL.md",
-              "line": 46
-            }
-          ],
+          "exceptions": [],
           "findings": []
         },
         {
@@ -4715,27 +4731,27 @@
             {
               "reason": "reference_missing",
               "path": "skills/exploring-apm-traces/SKILL.md",
-              "line": 60
+              "line": 61
             },
             {
               "reason": "reference_missing",
               "path": "skills/exploring-apm-traces/SKILL.md",
-              "line": 114
+              "line": 128
             },
             {
               "reason": "reference_missing",
               "path": "skills/exploring-apm-traces/SKILL.md",
-              "line": 124
+              "line": 138
             },
             {
               "reason": "reference_missing",
               "path": "skills/exploring-apm-traces/SKILL.md",
-              "line": 148
+              "line": 162
             },
             {
               "reason": "reference_missing",
               "path": "skills/exploring-apm-traces/SKILL.md",
-              "line": 163
+              "line": 177
             }
           ],
           "findings": [
@@ -5442,27 +5458,32 @@
             {
               "reason": "reference_missing",
               "path": "skills/exploring-scouts/SKILL.md",
-              "line": 245
+              "line": 112
             },
             {
               "reason": "reference_missing",
               "path": "skills/exploring-scouts/SKILL.md",
-              "line": 277
+              "line": 243
             },
             {
               "reason": "reference_missing",
               "path": "skills/exploring-scouts/SKILL.md",
-              "line": 290
+              "line": 275
             },
             {
               "reason": "reference_missing",
               "path": "skills/exploring-scouts/SKILL.md",
-              "line": 317
+              "line": 288
             },
             {
               "reason": "reference_missing",
               "path": "skills/exploring-scouts/SKILL.md",
-              "line": 349
+              "line": 315
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/exploring-scouts/SKILL.md",
+              "line": 347
             }
           ],
           "findings": [
@@ -5485,7 +5506,7 @@
               "severity": "MEDIUM",
               "message": "Context Window Stuffing",
               "file": "skills/exploring-scouts/SKILL.md",
-              "line": 329
+              "line": 327
             },
             {
               "id": "MP2",
@@ -5723,7 +5744,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/exploring-scouts/SKILL.md",
-              "line": 224
+              "line": 222
             },
             {
               "id": "P9",
@@ -8267,6 +8288,31 @@
           ]
         },
         {
+          "path": "skills/installing-posthog-from-chat",
+          "score": 90,
+          "risk": 10,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/installing-posthog-from-chat/SKILL.md",
+              "line": 46
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/installing-posthog-from-chat/SKILL.md",
+              "line": 48
+            }
+          ]
+        },
+        {
           "path": "skills/instrument-error-tracking",
           "score": 0,
           "risk": 100,
@@ -8322,84 +8368,84 @@
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-error-tracking/references/dotnet.md",
-              "line": 194
+              "line": 192
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-error-tracking/references/laravel.md",
-              "line": 11
+              "line": 23
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-error-tracking/references/react.md",
-              "line": 45
+              "line": 62
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-error-tracking/references/nextjs.md",
-              "line": 45
+              "line": 62
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-error-tracking/references/ruby-on-rails.md",
-              "line": 137
+              "line": 152
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-error-tracking/references/django.md",
-              "line": 13
+              "line": 26
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-error-tracking/references/ruby-on-rails.md",
-              "line": 13
+              "line": 34
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-error-tracking/references/upload-source-maps.md",
-              "line": 13
+              "line": 15
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-error-tracking/references/flutter.md",
-              "line": 56
+              "line": 71
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-error-tracking/references/flutter.md",
-              "line": 58
+              "line": 73
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-error-tracking/references/react-native.md",
-              "line": 16
+              "line": 33
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-error-tracking/references/react-native.md",
-              "line": 130
+              "line": 147
             }
           ]
         },
@@ -8471,168 +8517,168 @@
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-feature-flags/references/dotnet.md",
-              "line": 194
+              "line": 192
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-feature-flags/references/java.md",
-              "line": 72
+              "line": 74
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-feature-flags/references/usage.md",
-              "line": 578
+              "line": 552
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-feature-flags/references/usage.md",
-              "line": 580
+              "line": 554
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-feature-flags/references/laravel.md",
-              "line": 11
+              "line": 23
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-feature-flags/references/react.md",
-              "line": 45
+              "line": 60
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-feature-flags/references/next-js.md",
-              "line": 70
+              "line": 86
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-feature-flags/references/ruby-on-rails.md",
-              "line": 137
+              "line": 152
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-feature-flags/references/usage.md",
-              "line": 597
+              "line": 567
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-feature-flags/references/adding-feature-flag-code.md",
-              "line": 2827
+              "line": 2583
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-feature-flags/references/adding-feature-flag-code.md",
-              "line": 2957
+              "line": 2713
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-feature-flags/references/adding-feature-flag-code.md",
-              "line": 3004
+              "line": 2758
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-feature-flags/references/adding-feature-flag-code.md",
-              "line": 3052
+              "line": 2800
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-feature-flags/references/adding-feature-flag-code.md",
-              "line": 3073
+              "line": 2819
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-feature-flags/references/api.md",
-              "line": 49
+              "line": 61
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-feature-flags/references/adding-feature-flag-code.md",
-              "line": 3025
+              "line": 2777
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-feature-flags/references/adding-feature-flag-code.md",
-              "line": 3025
+              "line": 2777
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-feature-flags/references/api.md",
-              "line": 16
+              "line": 28
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-feature-flags/references/django.md",
-              "line": 13
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/instrument-feature-flags/references/next-js.md",
               "line": 26
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
+              "file": "skills/instrument-feature-flags/references/next-js.md",
+              "line": 42
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
               "file": "skills/instrument-feature-flags/references/ruby-on-rails.md",
-              "line": 13
+              "line": 34
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-feature-flags/references/flutter.md",
-              "line": 56
+              "line": 70
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-feature-flags/references/flutter.md",
-              "line": 58
+              "line": 72
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-feature-flags/references/react-native.md",
-              "line": 16
+              "line": 29
             }
           ]
         },
@@ -8933,7 +8979,7 @@
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-integration/references/usage.md",
-              "line": 597
+              "line": 567
             },
             {
               "id": "PE3",
@@ -9136,21 +9182,21 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-integration/references/laravel.md",
-              "line": 11
+              "line": 23
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-integration/references/nuxt-js-3-6.md",
-              "line": 49
+              "line": 59
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-integration/references/nuxt-js.md",
-              "line": 88
+              "line": 102
             },
             {
               "id": "PE3",
@@ -9206,49 +9252,49 @@
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-integration/references/android.md",
-              "line": 659
+              "line": 630
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-integration/references/android.md",
-              "line": 661
+              "line": 632
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-integration/references/dotnet.md",
-              "line": 194
+              "line": 192
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 875
+              "line": 844
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 877
+              "line": 846
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-integration/references/node.md",
-              "line": 996
+              "line": 968
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-integration/references/node.md",
-              "line": 998
+              "line": 970
             },
             {
               "id": "P1",
@@ -9276,133 +9322,133 @@
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-integration/references/python.md",
-              "line": 1001
+              "line": 941
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-integration/references/python.md",
-              "line": 1003
+              "line": 943
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-integration/references/react-native.md",
-              "line": 1274
+              "line": 1186
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-integration/references/react-native.md",
-              "line": 1276
+              "line": 1188
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-integration/references/usage.md",
-              "line": 578
+              "line": 552
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-integration/references/usage.md",
-              "line": 580
+              "line": 554
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 51
+              "line": 78
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 54
+              "line": 81
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 69
+              "line": 96
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 112
+              "line": 139
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 130
+              "line": 157
             },
             {
               "id": "E4",
               "severity": "HIGH",
               "message": "Context Leakage",
               "file": "skills/instrument-integration/references/ios.md",
-              "line": 5
+              "line": 17
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-integration/references/next-js.md",
-              "line": 70
+              "line": 86
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-integration/references/react-router-v6.md",
-              "line": 57
+              "line": 74
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-integration/references/react-router-v7-data-mode.md",
-              "line": 57
+              "line": 74
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-integration/references/react-router-v7-declarative-mode.md",
-              "line": 57
+              "line": 74
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-integration/references/react-router-v7-framework-mode.md",
-              "line": 72
+              "line": 91
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-integration/references/react.md",
-              "line": 69
+              "line": 83
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-integration/references/ruby-on-rails.md",
-              "line": 137
+              "line": 152
             },
             {
               "id": "RP1",
@@ -9437,7 +9483,7 @@
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-integration/references/react-native.md",
-              "line": 16
+              "line": 44
             },
             {
               "id": "E1",
@@ -9465,91 +9511,49 @@
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-integration/references/astro.md",
-              "line": 13
+              "line": 24
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-integration/references/django.md",
-              "line": 13
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/instrument-integration/references/next-js.md",
               "line": 26
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
+              "file": "skills/instrument-integration/references/next-js.md",
+              "line": 42
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
               "file": "skills/instrument-integration/references/react.md",
-              "line": 23
+              "line": 37
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-integration/references/ruby-on-rails.md",
-              "line": 13
+              "line": 34
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-integration/references/svelte.md",
-              "line": 13
+              "line": 27
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 98
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "skills/instrument-integration/references/flutter.md",
-              "line": 100
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "skills/instrument-integration/references/flutter.md",
-              "line": 104
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "skills/instrument-integration/references/flutter.md",
-              "line": 105
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "skills/instrument-integration/references/flutter.md",
-              "line": 116
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "skills/instrument-integration/references/flutter.md",
-              "line": 121
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "skills/instrument-integration/references/flutter.md",
-              "line": 123
+              "line": 125
             },
             {
               "id": "RA2",
@@ -9563,70 +9567,112 @@
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 128
+              "line": 131
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 134
+              "line": 132
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 104
+              "line": 143
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 127
+              "line": 148
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/instrument-integration/references/flutter.md",
+              "line": 150
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/instrument-integration/references/flutter.md",
+              "line": 154
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/instrument-integration/references/flutter.md",
+              "line": 155
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/instrument-integration/references/flutter.md",
+              "line": 161
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/instrument-integration/references/flutter.md",
+              "line": 131
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/instrument-integration/references/flutter.md",
+              "line": 154
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-integration/references/node.md",
-              "line": 536
+              "line": 527
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-integration/references/python.md",
-              "line": 856
+              "line": 804
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-integration/references/react-native.md",
-              "line": 182
+              "line": 192
             },
             {
               "id": "PE1",
               "severity": "LOW",
               "message": "Excessive Permissions",
               "file": "skills/instrument-integration/references/configuration.md",
-              "line": 242
+              "line": 235
             },
             {
               "id": "PE1",
               "severity": "LOW",
               "message": "Excessive Permissions",
               "file": "skills/instrument-integration/references/nuxt-js-3-6.md",
-              "line": 76
+              "line": 86
             },
             {
               "id": "PE1",
               "severity": "LOW",
               "message": "Excessive Permissions",
               "file": "skills/instrument-integration/references/nuxt-js.md",
-              "line": 116
+              "line": 130
             }
           ]
         },
@@ -9698,399 +9744,399 @@
               "severity": "HIGH",
               "message": "Exfiltration Commands",
               "file": "skills/instrument-llm-analytics/references/basics.md",
-              "line": 44
+              "line": 54
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/anthropic.md",
-              "line": 407
+              "line": 507
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/autogen.md",
-              "line": 13
+              "line": 26
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/azure-openai.md",
-              "line": 13
+              "line": 27
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/cerebras.md",
-              "line": 13
+              "line": 26
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/cohere.md",
-              "line": 13
+              "line": 26
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/crewai.md",
-              "line": 13
+              "line": 26
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/deepseek.md",
-              "line": 13
+              "line": 26
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/dspy.md",
-              "line": 13
+              "line": 27
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/fireworks-ai.md",
-              "line": 13
+              "line": 26
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/google.md",
-              "line": 13
+              "line": 27
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/groq.md",
-              "line": 13
+              "line": 26
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/helicone.md",
-              "line": 13
+              "line": 26
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/hugging-face.md",
-              "line": 13
+              "line": 26
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/instructor.md",
-              "line": 13
+              "line": 26
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/langchain.md",
-              "line": 13
+              "line": 25
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/langgraph.md",
-              "line": 13
+              "line": 25
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/litellm.md",
-              "line": 13
+              "line": 28
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/llamaindex.md",
-              "line": 13
+              "line": 26
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/manual-capture.md",
-              "line": 13
+              "line": 25
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/mastra.md",
-              "line": 13
+              "line": 25
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/mirascope.md",
-              "line": 13
+              "line": 26
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/mistral.md",
-              "line": 13
+              "line": 26
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/ollama.md",
-              "line": 13
+              "line": 26
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/openai-agents.md",
-              "line": 13
+              "line": 27
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/openai.md",
-              "line": 13
+              "line": 28
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/openrouter.md",
-              "line": 13
+              "line": 26
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/perplexity.md",
-              "line": 13
+              "line": 26
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/portkey.md",
-              "line": 13
+              "line": 26
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/pydantic-ai.md",
-              "line": 13
+              "line": 26
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/semantic-kernel.md",
-              "line": 13
+              "line": 26
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/smolagents.md",
-              "line": 13
+              "line": 26
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/together-ai.md",
-              "line": 13
+              "line": 26
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/vercel-ai.md",
-              "line": 13
+              "line": 25
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/xai.md",
-              "line": 13
+              "line": 26
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-llm-analytics/references/cerebras.md",
-              "line": 67
+              "line": 80
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-llm-analytics/references/cerebras.md",
-              "line": 82
+              "line": 95
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-llm-analytics/references/cohere.md",
-              "line": 67
+              "line": 80
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-llm-analytics/references/cohere.md",
-              "line": 82
+              "line": 95
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-llm-analytics/references/fireworks-ai.md",
-              "line": 67
+              "line": 80
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-llm-analytics/references/fireworks-ai.md",
-              "line": 82
+              "line": 95
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-llm-analytics/references/groq.md",
-              "line": 67
+              "line": 80
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-llm-analytics/references/groq.md",
-              "line": 82
+              "line": 95
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-llm-analytics/references/litellm.md",
-              "line": 48
+              "line": 63
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-llm-analytics/references/litellm.md",
-              "line": 130
+              "line": 145
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-llm-analytics/references/litellm.md",
-              "line": 222
+              "line": 237
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-llm-analytics/references/manual-capture.md",
-              "line": 32
+              "line": 44
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-llm-analytics/references/manual-capture.md",
-              "line": 293
+              "line": 305
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-llm-analytics/references/manual-capture.md",
-              "line": 294
+              "line": 306
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-llm-analytics/references/manual-capture.md",
-              "line": 422
+              "line": 434
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-llm-analytics/references/manual-capture.md",
-              "line": 423
+              "line": 435
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-llm-analytics/references/mistral.md",
-              "line": 67
+              "line": 80
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-llm-analytics/references/mistral.md",
-              "line": 82
+              "line": 95
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-llm-analytics/references/together-ai.md",
-              "line": 67
+              "line": 80
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-llm-analytics/references/together-ai.md",
-              "line": 82
+              "line": 95
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-llm-analytics/references/xai.md",
-              "line": 67
+              "line": 80
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-llm-analytics/references/xai.md",
-              "line": 82
+              "line": 95
             }
           ]
         },
@@ -10100,7 +10146,7 @@
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 84.2,
+          "coverage": 78.9,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -10110,6 +10156,11 @@
             {
               "reason": "static_parse_limit",
               "path": "skills/instrument-logs/references/flutter.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/instrument-logs/references/ios.md",
               "line": 0
             },
             {
@@ -10136,6 +10187,13 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/instrument-logs/SKILL.md",
+              "line": 69
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/instrument-logs/SKILL.md",
               "line": 70
             },
             {
@@ -10150,33 +10208,68 @@
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/instrument-logs/references/flutter.md",
-              "line": 59
+              "line": 73
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/instrument-logs/references/flutter.md",
-              "line": 62
+              "line": 76
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/instrument-logs/references/flutter.md",
-              "line": 77
+              "line": 91
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
+              "file": "skills/instrument-logs/references/flutter.md",
+              "line": 134
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/instrument-logs/references/flutter.md",
+              "line": 152
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
               "file": "skills/instrument-logs/references/flutter.md",
               "line": 120
             },
             {
-              "id": "P2",
-              "severity": "HIGH",
-              "message": "Hidden Instructions",
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/instrument-logs/references/flutter.md",
+              "line": 122
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/instrument-logs/references/flutter.md",
+              "line": 126
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/instrument-logs/references/flutter.md",
+              "line": 127
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
               "file": "skills/instrument-logs/references/flutter.md",
               "line": 138
             },
@@ -10185,119 +10278,84 @@
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-logs/references/flutter.md",
-              "line": 106
+              "line": 143
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-logs/references/flutter.md",
-              "line": 108
+              "line": 145
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-logs/references/flutter.md",
-              "line": 112
+              "line": 149
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-logs/references/flutter.md",
-              "line": 113
+              "line": 150
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-logs/references/flutter.md",
-              "line": 124
+              "line": 156
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-logs/references/flutter.md",
-              "line": 129
+              "line": 126
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-logs/references/flutter.md",
-              "line": 131
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "skills/instrument-logs/references/flutter.md",
-              "line": 135
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "skills/instrument-logs/references/flutter.md",
-              "line": 136
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "skills/instrument-logs/references/flutter.md",
-              "line": 142
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "skills/instrument-logs/references/flutter.md",
-              "line": 112
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "skills/instrument-logs/references/flutter.md",
-              "line": 135
+              "line": 149
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-logs/references/link-session-replay.md",
-              "line": 60
+              "line": 73
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-logs/references/link-session-replay.md",
-              "line": 60
+              "line": 73
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-logs/references/react-native.md",
-              "line": 9
+              "line": 23
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-logs/references/react-native.md",
-              "line": 28
+              "line": 40
             }
           ]
         },
         {
           "path": "skills/instrument-metrics",
-          "score": 68,
-          "risk": 32,
+          "score": 64,
+          "risk": 36,
           "status": "caution",
           "partial": true,
           "coverage": 90,
@@ -10351,7 +10409,14 @@
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-metrics/references/kubernetes.md",
-              "line": 148
+              "line": 16
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/instrument-metrics/references/kubernetes.md",
+              "line": 150
             }
           ]
         },
@@ -10573,7 +10638,7 @@
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-product-analytics/references/usage.md",
-              "line": 597
+              "line": 567
             },
             {
               "id": "PE3",
@@ -10748,21 +10813,21 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-product-analytics/references/laravel.md",
-              "line": 11
+              "line": 23
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-product-analytics/references/nuxt-js-3-6.md",
-              "line": 49
+              "line": 59
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-product-analytics/references/nuxt-js.md",
-              "line": 88
+              "line": 102
             },
             {
               "id": "PE3",
@@ -10818,161 +10883,161 @@
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-product-analytics/references/android.md",
-              "line": 659
+              "line": 630
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-product-analytics/references/android.md",
-              "line": 661
+              "line": 632
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-product-analytics/references/dotnet.md",
-              "line": 194
+              "line": 192
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 875
+              "line": 844
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 877
+              "line": 846
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-product-analytics/references/python.md",
-              "line": 1001
+              "line": 941
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-product-analytics/references/python.md",
-              "line": 1003
+              "line": 943
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-product-analytics/references/react-native.md",
-              "line": 1274
+              "line": 1186
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-product-analytics/references/react-native.md",
-              "line": 1276
+              "line": 1188
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-product-analytics/references/usage.md",
-              "line": 578
+              "line": 552
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-product-analytics/references/usage.md",
-              "line": 580
+              "line": 554
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 51
+              "line": 78
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 54
+              "line": 81
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 69
+              "line": 96
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 112
+              "line": 139
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 130
+              "line": 157
             },
             {
               "id": "E4",
               "severity": "HIGH",
               "message": "Context Leakage",
               "file": "skills/instrument-product-analytics/references/ios.md",
-              "line": 5
+              "line": 17
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-product-analytics/references/next-js.md",
-              "line": 70
+              "line": 86
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-product-analytics/references/react-router-v6.md",
-              "line": 57
+              "line": 74
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-product-analytics/references/react-router-v7-data-mode.md",
-              "line": 57
+              "line": 74
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-product-analytics/references/react-router-v7-declarative-mode.md",
-              "line": 57
+              "line": 74
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-product-analytics/references/react-router-v7-framework-mode.md",
-              "line": 72
+              "line": 91
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-product-analytics/references/ruby-on-rails.md",
-              "line": 137
+              "line": 152
             },
             {
               "id": "RP1",
@@ -11007,7 +11072,7 @@
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-product-analytics/references/react-native.md",
-              "line": 16
+              "line": 44
             },
             {
               "id": "PE2",
@@ -11028,84 +11093,42 @@
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-product-analytics/references/astro.md",
-              "line": 13
+              "line": 24
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-product-analytics/references/django.md",
-              "line": 13
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/instrument-product-analytics/references/next-js.md",
               "line": 26
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
+              "file": "skills/instrument-product-analytics/references/next-js.md",
+              "line": 42
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
               "file": "skills/instrument-product-analytics/references/ruby-on-rails.md",
-              "line": 13
+              "line": 34
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-product-analytics/references/svelte.md",
-              "line": 13
+              "line": 27
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 98
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 100
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 104
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 105
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 116
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 121
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 123
+              "line": 125
             },
             {
               "id": "RA2",
@@ -11119,63 +11142,105 @@
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 128
+              "line": 131
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 134
+              "line": 132
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 104
+              "line": 143
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 127
+              "line": 148
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/instrument-product-analytics/references/flutter.md",
+              "line": 150
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/instrument-product-analytics/references/flutter.md",
+              "line": 154
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/instrument-product-analytics/references/flutter.md",
+              "line": 155
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/instrument-product-analytics/references/flutter.md",
+              "line": 161
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/instrument-product-analytics/references/flutter.md",
+              "line": 131
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/instrument-product-analytics/references/flutter.md",
+              "line": 154
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/instrument-product-analytics/references/python.md",
-              "line": 856
+              "line": 804
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/instrument-product-analytics/references/react-native.md",
-              "line": 182
+              "line": 192
             },
             {
               "id": "PE1",
               "severity": "LOW",
               "message": "Excessive Permissions",
               "file": "skills/instrument-product-analytics/references/configuration.md",
-              "line": 242
+              "line": 235
             },
             {
               "id": "PE1",
               "severity": "LOW",
               "message": "Excessive Permissions",
               "file": "skills/instrument-product-analytics/references/nuxt-js-3-6.md",
-              "line": 76
+              "line": 86
             },
             {
               "id": "PE1",
               "severity": "LOW",
               "message": "Excessive Permissions",
               "file": "skills/instrument-product-analytics/references/nuxt-js.md",
-              "line": 116
+              "line": 130
             }
           ]
         },
@@ -18564,27 +18629,27 @@
             {
               "reason": "reference_missing",
               "path": "skills/signals-scout-apm/SKILL.md",
-              "line": 107
+              "line": 105
             },
             {
               "reason": "reference_missing",
               "path": "skills/signals-scout-apm/SKILL.md",
-              "line": 117
+              "line": 115
             },
             {
               "reason": "reference_missing",
               "path": "skills/signals-scout-apm/SKILL.md",
-              "line": 135
+              "line": 133
             },
             {
               "reason": "reference_missing",
               "path": "skills/signals-scout-apm/SKILL.md",
-              "line": 152
+              "line": 150
             },
             {
               "reason": "reference_missing",
               "path": "skills/signals-scout-apm/SKILL.md",
-              "line": 165
+              "line": 163
             }
           ],
           "findings": []
@@ -18894,12 +18959,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/signals-scout-experiments/SKILL.md",
-              "line": 204
+              "line": 205
             },
             {
               "reason": "reference_missing",
               "path": "skills/signals-scout-experiments/SKILL.md",
-              "line": 249
+              "line": 250
             }
           ],
           "findings": [
@@ -20704,7 +20769,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/working-with-scouts/SKILL.md",
-              "line": 220
+              "line": 202
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/working-with-scouts/SKILL.md",
+              "line": 223
             }
           ],
           "findings": [
@@ -20818,13 +20888,6 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/working-with-scouts/SKILL.md",
-              "line": 211
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/working-with-scouts/SKILL.md",
               "line": 214
             },
             {
@@ -20832,14 +20895,21 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/working-with-scouts/SKILL.md",
-              "line": 223
+              "line": 217
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/working-with-scouts/SKILL.md",
-              "line": 215
+              "line": 226
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/working-with-scouts/SKILL.md",
+              "line": 218
             }
           ]
         },
@@ -21033,7 +21103,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-20T12:48:41Z"
+      "checkedAt": "2026-10-21T12:49:14Z"
     }
   },
   "agentStacks": {
