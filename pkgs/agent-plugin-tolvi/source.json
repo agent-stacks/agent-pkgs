@@ -1,11 +1,11 @@
 {
   "name": "tolvi",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "src": {
     "owner": "tolvi-labs",
     "repo": "tolvi",
-    "rev": "3421486478e3f91e83a80447c90f1b08b56480c2",
-    "hash": "sha256-1PBldUrmTS2N7T6wYHHxjAQHesfWvn12Vae5CYbKjCg="
+    "rev": "c9d7a7224c0ab42bb12b0b46c435ff6b1a87c29e",
+    "hash": "sha256-eaEw2Yc9cOjkMBocWBuC1gVITjs+i6zGtJW+8D77Nxc="
   },
   "sourceUrl": "https://github.com/tolvi-labs/tolvi",
   "manifest": {
@@ -33,7 +33,7 @@
     "license": "Apache-2.0",
     "name": "tolvi",
     "repository": "https://github.com/tolvi-labs/tolvi",
-    "version": "0.4.0"
+    "version": "0.5.0"
   },
   "skills": {
     "files": "cli/internal/integrations/files",
@@ -42,6 +42,35 @@
   "requiredRuntimes": [
     "bash"
   ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/hooks": "hooks"
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "\"${CLAUDE_PLUGIN_ROOT}\"/skills/tolvi/hooks/tolvi-sync",
+            "if": "Bash(git commit*)",
+            "type": "command"
+          }
+        ],
+        "matcher": "Bash"
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "\"${CLAUDE_PLUGIN_ROOT}\"/skills/tolvi/hooks/tolvi-recall",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "startup|resume|clear"
+      }
+    ]
+  },
   "meta": {
     "description": "Read, write, and ask questions of a Tolvi engineering vault",
     "homepage": "https://github.com/tolvi-labs/tolvi"
@@ -57,6 +86,18 @@
       {
         "path": "skills/tolvi/SKILL.md/name",
         "message": "skill name \"tolvi\" is also declared by the skill in directory \"files\""
+      },
+      {
+        "path": "hooks/hooks.json",
+        "message": "Claude Code runs this on PreToolUse: \"${CLAUDE_PLUGIN_ROOT}\"/skills/tolvi/hooks/tolvi-sync"
+      },
+      {
+        "path": "hooks/hooks.json",
+        "message": "Claude Code runs this on SessionStart: \"${CLAUDE_PLUGIN_ROOT}\"/skills/tolvi/hooks/tolvi-recall"
+      },
+      {
+        "path": "package.json",
+        "message": "dependency manifest; the build does not resolve what it declares"
       }
     ]
   }
