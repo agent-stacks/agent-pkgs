@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "android-skills",
-      "dir": "/nix/store/d7172bi0n6yjq2pjid56j6dhfsb6b9pj-agent-plugin-android-skills-1.0.15/share/agent-plugins/android-skills",
+      "dir": "/nix/store/bf35ngqfig7hdd541yjkkaav9d185j94-agent-plugin-android-skills-1.0.16/share/agent-plugins/android-skills",
       "spec": "1.1.0",
       "score": 4,
       "status": "do not install",
@@ -20,6 +20,7 @@
           "skills/android-intent-security",
           "skills/android-permissions-security",
           "skills/android-profiler",
+          "skills/anr-audit-and-fix",
           "skills/appfunctions",
           "skills/camerax",
           "skills/display-glasses-with-jetpack-compose-glimmer",
@@ -28,6 +29,7 @@
           "skills/glance-canonical-layouts",
           "skills/jetpack-compose-performance",
           "skills/leanback-to-compose-tv-migration",
+          "skills/litert-lm",
           "skills/litert-runtime",
           "skills/media3-cast-integration",
           "skills/migrate-xml-views-to-jetpack-compose",
@@ -36,6 +38,7 @@
           "skills/navigation-event",
           "skills/play-billing-library-version-upgrade",
           "skills/play-policy-insights",
+          "skills/projected-hardware",
           "skills/r8-analyzer",
           "skills/restore-credentials",
           "skills/styles",
@@ -61,8 +64,18 @@
           "risk": 25,
           "status": "caution",
           "partial": true,
-          "coverage": 91.7,
+          "coverage": 92.3,
           "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/adaptive/SKILL.md",
+              "line": 278
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/adaptive/SKILL.md",
+              "line": 346
+            },
             {
               "reason": "static_parse_limit",
               "path": "skills/adaptive/references/android/develop/ui/compose/layouts/adaptive/mediaquery/index.md",
@@ -75,7 +88,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/adaptive/SKILL.md",
-              "line": 289
+              "line": 438
             }
           ]
         },
@@ -129,22 +142,32 @@
           "risk": 96,
           "status": "do not install",
           "partial": true,
-          "coverage": 66.7,
+          "coverage": 100,
           "exceptions": [
             {
-              "reason": "static_parse_limit",
+              "reason": "reference_missing",
               "path": "skills/android-cli/SKILL.md",
-              "line": 0
+              "line": 54
             },
             {
               "reason": "reference_missing",
               "path": "skills/android-cli/SKILL.md",
-              "line": 53
+              "line": 118
             },
             {
               "reason": "reference_missing",
               "path": "skills/android-cli/SKILL.md",
-              "line": 184
+              "line": 129
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/android-cli/SKILL.md",
+              "line": 258
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/android-cli/SKILL.md",
+              "line": 408
             }
           ],
           "findings": [
@@ -177,6 +200,13 @@
               "line": 35
             },
             {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "skills/android-cli/SKILL.md",
+              "line": 36
+            },
+            {
               "id": "SC2",
               "severity": "HIGH",
               "message": "External Script Fetching",
@@ -191,18 +221,25 @@
               "line": 35
             },
             {
-              "id": "P2",
+              "id": "SC2",
               "severity": "HIGH",
-              "message": "Hidden Instructions",
-              "file": "skills/android-cli/references/journeys.md",
-              "line": 102
+              "message": "External Script Fetching",
+              "file": "skills/android-cli/SKILL.md",
+              "line": 36
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
-              "file": "skills/android-cli/references/journeys.md",
-              "line": 105
+              "file": "skills/android-cli/SKILL.md",
+              "line": 247
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/android-cli/SKILL.md",
+              "line": 250
             }
           ]
         },
@@ -528,6 +565,16 @@
           ]
         },
         {
+          "path": "skills/anr-audit-and-fix",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
           "path": "skills/appfunctions",
           "score": 93,
           "risk": 7,
@@ -601,12 +648,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/display-glasses-with-jetpack-compose-glimmer/SKILL.md",
-              "line": 64
+              "line": 65
             },
             {
               "reason": "reference_missing",
               "path": "skills/display-glasses-with-jetpack-compose-glimmer/SKILL.md",
-              "line": 267
+              "line": 268
             },
             {
               "reason": "static_parse_limit",
@@ -620,14 +667,14 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/display-glasses-with-jetpack-compose-glimmer/SKILL.md",
-              "line": 58
+              "line": 59
             },
             {
               "id": "PE1",
               "severity": "LOW",
               "message": "Excessive Permissions",
               "file": "skills/display-glasses-with-jetpack-compose-glimmer/SKILL.md",
-              "line": 67
+              "line": 68
             }
           ]
         },
@@ -776,14 +823,14 @@
               "severity": "LOW",
               "message": "Scope Creep",
               "file": "skills/engage-sdk-integration/references/android/guide/playcore/engage/otherverticals.md",
-              "line": 95
+              "line": 98
             },
             {
               "id": "EA3",
               "severity": "LOW",
               "message": "Scope Creep",
               "file": "skills/engage-sdk-integration/references/android/guide/playcore/engage/travel.md",
-              "line": 101
+              "line": 104
             },
             {
               "id": "EA3",
@@ -1181,6 +1228,122 @@
           ]
         },
         {
+          "path": "skills/litert-lm",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/litert-lm/SKILL.md",
+              "line": 27
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/litert-lm/SKILL.md",
+              "line": 39
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/litert-lm/SKILL.md",
+              "line": 40
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/litert-lm/SKILL.md",
+              "line": 45
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/litert-lm/SKILL.md",
+              "line": 55
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/litert-lm/SKILL.md",
+              "line": 56
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/litert-lm/SKILL.md",
+              "line": 57
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/litert-lm/SKILL.md",
+              "line": 76
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/litert-lm/SKILL.md",
+              "line": 77
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/litert-lm/SKILL.md",
+              "line": 86
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/litert-lm/SKILL.md",
+              "line": 91
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/litert-lm/SKILL.md",
+              "line": 95
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/litert-lm/SKILL.md",
+              "line": 98
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/litert-lm/SKILL.md",
+              "line": 105
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/litert-lm/SKILL.md",
+              "line": 106
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/litert-lm/SKILL.md",
+              "line": 107
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/litert-lm/SKILL.md",
+              "line": 108
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/litert-lm/SKILL.md",
+              "line": 359
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/litert-lm/SKILL.md",
+              "line": 360
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/litert-lm/SKILL.md",
+              "line": 364
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/litert-lm/SKILL.md",
+              "line": 368
+            }
+          ],
+          "findings": []
+        },
+        {
           "path": "skills/litert-runtime",
           "score": 100,
           "risk": 0,
@@ -1206,7 +1369,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/litert-runtime/SKILL.md",
-              "line": 48
+              "line": 43
             },
             {
               "reason": "reference_missing",
@@ -1216,22 +1379,22 @@
             {
               "reason": "reference_missing",
               "path": "skills/litert-runtime/SKILL.md",
-              "line": 51
+              "line": 50
             },
             {
               "reason": "reference_missing",
               "path": "skills/litert-runtime/SKILL.md",
-              "line": 64
+              "line": 52
             },
             {
               "reason": "reference_missing",
               "path": "skills/litert-runtime/SKILL.md",
-              "line": 67
+              "line": 65
             },
             {
               "reason": "reference_missing",
               "path": "skills/litert-runtime/SKILL.md",
-              "line": 77
+              "line": 68
             },
             {
               "reason": "reference_missing",
@@ -1251,97 +1414,102 @@
             {
               "reason": "reference_missing",
               "path": "skills/litert-runtime/SKILL.md",
-              "line": 83
+              "line": 81
             },
             {
               "reason": "reference_missing",
               "path": "skills/litert-runtime/SKILL.md",
-              "line": 105
+              "line": 84
             },
             {
               "reason": "reference_missing",
               "path": "skills/litert-runtime/SKILL.md",
-              "line": 135
+              "line": 106
             },
             {
               "reason": "reference_missing",
               "path": "skills/litert-runtime/SKILL.md",
-              "line": 156
+              "line": 136
             },
             {
               "reason": "reference_missing",
               "path": "skills/litert-runtime/SKILL.md",
-              "line": 243
+              "line": 157
             },
             {
               "reason": "reference_missing",
               "path": "skills/litert-runtime/SKILL.md",
-              "line": 290
+              "line": 244
             },
             {
               "reason": "reference_missing",
               "path": "skills/litert-runtime/SKILL.md",
-              "line": 318
+              "line": 291
             },
             {
               "reason": "reference_missing",
               "path": "skills/litert-runtime/SKILL.md",
-              "line": 329
+              "line": 319
             },
             {
               "reason": "reference_missing",
               "path": "skills/litert-runtime/SKILL.md",
-              "line": 334
+              "line": 330
             },
             {
               "reason": "reference_missing",
               "path": "skills/litert-runtime/SKILL.md",
-              "line": 339
+              "line": 335
             },
             {
               "reason": "reference_missing",
               "path": "skills/litert-runtime/SKILL.md",
-              "line": 340
+              "line": 344
             },
             {
               "reason": "reference_missing",
               "path": "skills/litert-runtime/SKILL.md",
-              "line": 341
+              "line": 345
             },
             {
               "reason": "reference_missing",
               "path": "skills/litert-runtime/SKILL.md",
-              "line": 347
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/litert-runtime/SKILL.md",
-              "line": 349
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/litert-runtime/SKILL.md",
-              "line": 353
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/litert-runtime/SKILL.md",
-              "line": 355
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/litert-runtime/SKILL.md",
-              "line": 356
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/litert-runtime/SKILL.md",
-              "line": 357
+              "line": 352
             },
             {
               "reason": "reference_missing",
               "path": "skills/litert-runtime/SKILL.md",
               "line": 358
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/litert-runtime/SKILL.md",
+              "line": 360
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/litert-runtime/SKILL.md",
+              "line": 364
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/litert-runtime/SKILL.md",
+              "line": 366
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/litert-runtime/SKILL.md",
+              "line": 367
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/litert-runtime/SKILL.md",
+              "line": 368
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/litert-runtime/SKILL.md",
+              "line": 369
             }
           ],
           "findings": []
@@ -1690,6 +1858,24 @@
               "message": "",
               "file": "skills/play-policy-insights/SKILL.md",
               "line": 1
+            }
+          ]
+        },
+        {
+          "path": "skills/projected-hardware",
+          "score": 92,
+          "risk": 8,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/projected-hardware/references/android/develop/xr/jetpack-xr-sdk/glasses/support-different-types.md",
+              "line": 74
             }
           ]
         },
@@ -2226,27 +2412,32 @@
             {
               "reason": "reference_missing",
               "path": "skills/wear-widgets/SKILL.md",
-              "line": 50
+              "line": 48
             },
             {
               "reason": "reference_missing",
               "path": "skills/wear-widgets/SKILL.md",
-              "line": 51
+              "line": 49
             },
             {
               "reason": "reference_missing",
               "path": "skills/wear-widgets/SKILL.md",
-              "line": 58
+              "line": 56
             },
             {
               "reason": "reference_missing",
               "path": "skills/wear-widgets/SKILL.md",
-              "line": 75
+              "line": 71
             },
             {
               "reason": "reference_missing",
               "path": "skills/wear-widgets/SKILL.md",
-              "line": 118
+              "line": 116
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/wear-widgets/SKILL.md",
+              "line": 121
             },
             {
               "reason": "reference_missing",
@@ -2256,42 +2447,37 @@
             {
               "reason": "reference_missing",
               "path": "skills/wear-widgets/SKILL.md",
-              "line": 125
+              "line": 124
             },
             {
               "reason": "reference_missing",
               "path": "skills/wear-widgets/SKILL.md",
-              "line": 126
+              "line": 133
             },
             {
               "reason": "reference_missing",
               "path": "skills/wear-widgets/SKILL.md",
-              "line": 135
+              "line": 142
             },
             {
               "reason": "reference_missing",
               "path": "skills/wear-widgets/SKILL.md",
-              "line": 144
+              "line": 146
             },
             {
               "reason": "reference_missing",
               "path": "skills/wear-widgets/SKILL.md",
-              "line": 148
+              "line": 155
             },
             {
               "reason": "reference_missing",
               "path": "skills/wear-widgets/SKILL.md",
-              "line": 157
+              "line": 159
             },
             {
               "reason": "reference_missing",
               "path": "skills/wear-widgets/SKILL.md",
-              "line": 161
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/wear-widgets/SKILL.md",
-              "line": 162
+              "line": 160
             }
           ],
           "findings": []
@@ -2307,7 +2493,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:14:34Z"
+      "checkedAt": "2026-10-21T09:15:33Z"
     }
   },
   "agentStacks": {
