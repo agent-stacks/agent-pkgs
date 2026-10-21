@@ -95,7 +95,12 @@
       llmAgentsPkgsFor = system: import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        overlays = [ llm-agents.overlays.shared-nixpkgs ];
+        overlays = [
+          llm-agents.overlays.shared-nixpkgs
+          # Stopgap repairs for llm-agents.nix packages that fail on
+          # this nixpkgs; see the file for what each waits on.
+          (import ./lib/llm-agents-stopgap.nix)
+        ];
       };
 
       # Attributes llm-agents.nix exposes that are not packages of this
