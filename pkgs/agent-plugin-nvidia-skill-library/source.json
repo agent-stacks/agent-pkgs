@@ -1,11 +1,11 @@
 {
   "name": "nvidia-skill-library",
-  "version": "0.0.0-unstable.2026-10-20.g252a770",
+  "version": "0.0.0-unstable.2026-10-20.g80fd955",
   "src": {
     "owner": "NVIDIA",
     "repo": "skills",
-    "rev": "252a77099f557be38f97cffc670b6dbbd89e4b12",
-    "hash": "sha256-Qyk4y0DMXOo6X9EnvbEqTQgVqMiiL6QN0vwjbq5jQaU="
+    "rev": "80fd955e037bbd73cd1799fe0c6fd6612bedb8e0",
+    "hash": "sha256-cU0eEsmR5HekwEc4AS7Y2sZiXZJB9oEQjOL0GS0lCU0="
   },
   "sourceUrl": "https://github.com/NVIDIA/skills",
   "manifest": {
@@ -47,6 +47,10 @@
     "bionemo-proteinmpnn-nim": "skills/bionemo-proteinmpnn-nim",
     "bionemo-rfd4-proteina-nim": "skills/bionemo-rfd4-proteina-nim",
     "bionemo-rfdiffusion-nim": "skills/bionemo-rfdiffusion-nim",
+    "cdf-anomalygen": "skills/cdf-anomalygen",
+    "cdf-augmentation": "skills/cdf-augmentation",
+    "cdf-auto-labeling": "skills/cdf-auto-labeling",
+    "cdf-curation-and-retrieval": "skills/cdf-curation-and-retrieval",
     "compute-sanitizer-diagnose-cuda-bugs": "skills/compute-sanitizer-diagnose-cuda-bugs",
     "cudaq-guide": "skills/cudaq-guide",
     "cudaq-importing": "skills/cudaq-importing",
@@ -310,10 +314,7 @@
     "omniverse-realtime-viewer": "skills/omniverse-realtime-viewer",
     "omniverse-usd-performance-tuning": "skills/omniverse-usd-performance-tuning",
     "ovnewton-usage": "skills/ovnewton-usage",
-    "paidf-augmentation": "skills/paidf-augmentation",
-    "paidf-auto-labeling": "skills/paidf-auto-labeling",
     "paidf-cosmos-predict": "skills/paidf-cosmos-predict",
-    "paidf-curation-and-retrieval": "skills/paidf-curation-and-retrieval",
     "paidf-orchestration-setup": "skills/paidf-orchestration-setup",
     "paidf-orchestration-write-dag": "skills/paidf-orchestration-write-dag",
     "physical-ai-defect-image-generation": "skills/physical-ai-defect-image-generation",
@@ -617,6 +618,38 @@
       {
         "path": "skills/bionemo-rfdiffusion-nim/SKILL.md/name",
         "message": "skill name \"rfdiffusion-nim\" must match directory name \"bionemo-rfdiffusion-nim\""
+      },
+      {
+        "path": "skills/cdf-anomalygen/SKILL.md/metadata/frameworks",
+        "message": "must be a string value"
+      },
+      {
+        "path": "skills/cdf-anomalygen/SKILL.md/metadata/languages",
+        "message": "must be a string value"
+      },
+      {
+        "path": "skills/cdf-anomalygen/SKILL.md/metadata/tags",
+        "message": "must be a string value"
+      },
+      {
+        "path": "skills/cdf-augmentation/SKILL.md/metadata/tags",
+        "message": "must be a string value"
+      },
+      {
+        "path": "skills/cdf-auto-labeling/SKILL.md",
+        "message": "unknown frontmatter fields: author, owner, reviewed, service, version"
+      },
+      {
+        "path": "skills/cdf-auto-labeling/SKILL.md/metadata/tags",
+        "message": "must be a string value"
+      },
+      {
+        "path": "skills/cdf-curation-and-retrieval/SKILL.md",
+        "message": "unknown frontmatter fields: owner, reviewed, service"
+      },
+      {
+        "path": "skills/cdf-curation-and-retrieval/SKILL.md/metadata/tags",
+        "message": "must be a string value"
       },
       {
         "path": "skills/compute-sanitizer-diagnose-cuda-bugs/SKILL.md/metadata/languages",
@@ -1171,40 +1204,20 @@
         "message": "must be a string value"
       },
       {
-        "path": "skills/holoscan-install-conda/SKILL.md",
-        "message": "unknown frontmatter fields: version"
-      },
-      {
         "path": "skills/holoscan-install-conda/SKILL.md/metadata/tags",
         "message": "must be a string value"
-      },
-      {
-        "path": "skills/holoscan-install-container/SKILL.md",
-        "message": "unknown frontmatter fields: version"
       },
       {
         "path": "skills/holoscan-install-container/SKILL.md/metadata/tags",
         "message": "must be a string value"
       },
       {
-        "path": "skills/holoscan-install-debian/SKILL.md",
-        "message": "unknown frontmatter fields: version"
-      },
-      {
         "path": "skills/holoscan-install-debian/SKILL.md/metadata/tags",
         "message": "must be a string value"
       },
       {
-        "path": "skills/holoscan-install-source/SKILL.md",
-        "message": "unknown frontmatter fields: version"
-      },
-      {
         "path": "skills/holoscan-install-source/SKILL.md/metadata/tags",
         "message": "must be a string value"
-      },
-      {
-        "path": "skills/holoscan-install-wheel/SKILL.md",
-        "message": "unknown frontmatter fields: version"
       },
       {
         "path": "skills/holoscan-install-wheel/SKILL.md/metadata/tags",
@@ -1213,10 +1226,6 @@
       {
         "path": "skills/holoscan-module-lifecycle/SKILL.md/metadata/tags",
         "message": "must be a string value"
-      },
-      {
-        "path": "skills/holoscan-setup/SKILL.md",
-        "message": "unknown frontmatter fields: version"
       },
       {
         "path": "skills/holoscan-setup/SKILL.md/metadata/tags",
@@ -2043,27 +2052,7 @@
         "message": "skill name \"using-ovnewton\" must match directory name \"ovnewton-usage\""
       },
       {
-        "path": "skills/paidf-augmentation/SKILL.md/metadata/tags",
-        "message": "must be a string value"
-      },
-      {
-        "path": "skills/paidf-auto-labeling/SKILL.md",
-        "message": "unknown frontmatter fields: author, owner, reviewed, service, version"
-      },
-      {
-        "path": "skills/paidf-auto-labeling/SKILL.md/metadata/tags",
-        "message": "must be a string value"
-      },
-      {
         "path": "skills/paidf-cosmos-predict/SKILL.md/metadata/tags",
-        "message": "must be a string value"
-      },
-      {
-        "path": "skills/paidf-curation-and-retrieval/SKILL.md",
-        "message": "unknown frontmatter fields: owner, reviewed, service"
-      },
-      {
-        "path": "skills/paidf-curation-and-retrieval/SKILL.md/metadata/tags",
         "message": "must be a string value"
       },
       {
