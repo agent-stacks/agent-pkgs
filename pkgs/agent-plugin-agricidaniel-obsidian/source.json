@@ -1,0 +1,127 @@
+{
+  "name": "agricidaniel-obsidian",
+  "version": "3.0.0",
+  "src": {
+    "owner": "AgriciDaniel",
+    "repo": "claude-obsidian",
+    "rev": "c621ef218f0e1cc50b0f3e9ca8b50eb6b2509e88",
+    "hash": "sha256-krtp8Zsqtp7DlabS0OZgAyWn/eneOI7mIRP3vMhu7wM="
+  },
+  "sourceUrl": "https://github.com/AgriciDaniel/claude-obsidian",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "AgriciDaniel",
+      "url": "https://github.com/AgriciDaniel"
+    },
+    "description": "Local-first Agent Skills package and Claude Code plugin for source-cited Obsidian knowledge bases. Includes recoverable transactions, deterministic lint and retrieval, provenance ledgers, explicit vault adoption, offline-first capture foundations, and methodology modes.",
+    "homepage": "https://github.com/AgriciDaniel/claude-obsidian",
+    "keywords": [
+      "obsidian",
+      "knowledge-base",
+      "wiki",
+      "memory",
+      "notetaker",
+      "second-brain",
+      "vault",
+      "markdown",
+      "cross-project",
+      "llm-wiki",
+      "karpathy",
+      "pkm",
+      "canvas",
+      "visual"
+    ],
+    "license": "MIT",
+    "name": "agricidaniel-obsidian",
+    "repository": "https://github.com/AgriciDaniel/claude-obsidian",
+    "version": "3.0.0"
+  },
+  "skills": {
+    "autoresearch": "skills/autoresearch",
+    "canvas": "skills/canvas",
+    "defuddle": "skills/defuddle",
+    "obsidian-bases": "skills/obsidian-bases",
+    "obsidian-markdown": "skills/obsidian-markdown",
+    "save": "skills/save",
+    "think": "skills/think",
+    "wiki": "skills/wiki",
+    "wiki-cli": "skills/wiki-cli",
+    "wiki-fold": "skills/wiki-fold",
+    "wiki-ingest": "skills/wiki-ingest",
+    "wiki-lint": "skills/wiki-lint",
+    "wiki-mode": "skills/wiki-mode",
+    "wiki-query": "skills/wiki-query",
+    "wiki-retrieve": "skills/wiki-retrieve"
+  },
+  "requiredRuntimes": [
+    "bash",
+    "python3"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/agents": "agents",
+    "com.anthropic.claude-code/hooks": "hooks",
+    "scripts": "scripts"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/scripts/claude-obsidian.py",
+              "hook",
+              "session-start"
+            ],
+            "command": "python3",
+            "timeout": 5,
+            "type": "command"
+          }
+        ],
+        "matcher": "startup|resume|clear|compact|fork"
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/scripts/claude-obsidian.py",
+              "hook",
+              "stop"
+            ],
+            "command": "python3",
+            "timeout": 5,
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "description": "Local-first Agent Skills package and Claude Code plugin for source-cited Obsidian knowledge bases",
+    "homepage": "https://github.com/AgriciDaniel/claude-obsidian"
+  },
+  "import": {
+    "input": "AgriciDaniel/claude-obsidian",
+    "flags": [],
+    "warnings": [
+      {
+        "path": "tests/fixtures/contracts/valid/skills/example/SKILL.md",
+        "message": "in a test or dependency directory the search skips, not imported; --plugin tests/fixtures/contracts/valid/skills/example=NAME imports it"
+      },
+      {
+        "path": ".claude-plugin/marketplace.json",
+        "message": "entry \"agricidaniel-obsidian\": renames maps \"claude-obsidian\" to it; a package generated under that name is this plugin under its earlier name"
+      },
+      {
+        "path": "hooks/hooks.json",
+        "message": "Claude Code runs this on SessionStart: python3 ${CLAUDE_PLUGIN_ROOT}/scripts/claude-obsidian.py hook session-start"
+      },
+      {
+        "path": "hooks/hooks.json",
+        "message": "Claude Code runs this on Stop: python3 ${CLAUDE_PLUGIN_ROOT}/scripts/claude-obsidian.py hook stop"
+      }
+    ]
+  }
+}
