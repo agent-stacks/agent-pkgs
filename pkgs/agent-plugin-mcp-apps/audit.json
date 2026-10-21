@@ -1,0 +1,208 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "mcp-apps",
+      "dir": "/nix/store/hnhkbah6cz6zilggh9zcmvq85m1zl2c5-agent-plugin-mcp-apps-1.2.0/share/agent-plugins/mcp-apps",
+      "spec": "1.1.0",
+      "score": 79,
+      "status": "caution",
+      "coverage": {
+        "scanned": [
+          "skills/generate-codeful-mcp-tool",
+          "skills/generate-mcp-app-ui",
+          "skills/report-issue"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": ".plugin/",
+            "reason": "outside the spec"
+          },
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          },
+          {
+            "path": "references/",
+            "reason": "outside the spec"
+          },
+          {
+            "path": "samples/",
+            "reason": "outside the spec"
+          },
+          {
+            "path": "scripts/",
+            "reason": "outside the spec"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/generate-codeful-mcp-tool",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 0,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/generate-codeful-mcp-tool/SKILL.md",
+              "line": 0
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/generate-codeful-mcp-tool/SKILL.md",
+              "line": 94
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/generate-codeful-mcp-tool/SKILL.md",
+              "line": 101
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/generate-codeful-mcp-tool/SKILL.md",
+              "line": 128
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/generate-codeful-mcp-tool/SKILL.md",
+              "line": 129
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/generate-codeful-mcp-tool/SKILL.md",
+              "line": 130
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/generate-codeful-mcp-tool/SKILL.md",
+              "line": 240
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/generate-codeful-mcp-tool/SKILL.md",
+              "line": 244
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/generate-codeful-mcp-tool/SKILL.md",
+              "line": 262
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/generate-codeful-mcp-tool/SKILL.md",
+              "line": 271
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/generate-mcp-app-ui",
+          "score": 79,
+          "risk": 21,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/generate-mcp-app-ui/SKILL.md",
+              "line": 67
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/generate-mcp-app-ui/SKILL.md",
+              "line": 89
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/generate-mcp-app-ui/SKILL.md",
+              "line": 93
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/generate-mcp-app-ui/SKILL.md",
+              "line": 111
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/generate-mcp-app-ui/SKILL.md",
+              "line": 177
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/generate-mcp-app-ui/SKILL.md",
+              "line": 207
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/generate-mcp-app-ui/SKILL.md",
+              "line": 246
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/generate-mcp-app-ui/SKILL.md",
+              "line": 258
+            }
+          ],
+          "findings": [
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "skills/generate-mcp-app-ui/SKILL.md",
+              "line": 250
+            }
+          ]
+        },
+        {
+          "path": "skills/report-issue",
+          "score": 91,
+          "risk": 9,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/report-issue/SKILL.md",
+              "line": 13
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA5",
+              "severity": "MEDIUM",
+              "message": "External Model or Provider Selection",
+              "file": "skills/report-issue/SKILL.md",
+              "line": 10
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 79,
+  "status": "caution",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-20T23:20:53Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

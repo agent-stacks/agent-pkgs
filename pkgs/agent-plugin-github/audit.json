@@ -1,0 +1,132 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "github",
+      "dir": "/nix/store/lxszqgq5ps6h6qrd95qc8m559dzcxkav-agent-plugin-github-0.0.0-unstable.2026-10-15.g4400f97/share/agent-plugins/github",
+      "spec": "1.1.0",
+      "score": 92,
+      "status": "incomplete",
+      "coverage": {
+        "scanned": [
+          "skills/pr-create",
+          "skills/pr-threads-address",
+          "skills/pr-threads-resolve"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/pr-create",
+          "score": 92,
+          "risk": 8,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 50,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/pr-create/SKILL.md",
+              "line": 0
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pr-create/SKILL.md",
+              "line": 7
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pr-create/SKILL.md",
+              "line": 57
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pr-create/SKILL.md",
+              "line": 227
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pr-create/SKILL.md",
+              "line": 414
+            }
+          ],
+          "findings": [
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/pr-create/SKILL.md",
+              "line": 354
+            }
+          ]
+        },
+        {
+          "path": "skills/pr-threads-address",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/pr-threads-address/SKILL.md",
+              "line": 7
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/pr-threads-resolve",
+          "score": 93,
+          "risk": 7,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/pr-threads-resolve/SKILL.md",
+              "line": 7
+            }
+          ],
+          "findings": [
+            {
+              "id": "TR2",
+              "severity": "MEDIUM",
+              "message": "Shadow Command Trigger",
+              "file": "skills/pr-threads-resolve/SKILL.md",
+              "line": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 92,
+  "status": "incomplete",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-20T22:12:35Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

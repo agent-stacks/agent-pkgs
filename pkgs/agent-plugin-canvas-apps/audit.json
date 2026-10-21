@@ -1,0 +1,211 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "canvas-apps",
+      "dir": "/nix/store/7q10p717v6h685ix99pvnm20g523fh8d-agent-plugin-canvas-apps-3.1.1/share/agent-plugins/canvas-apps",
+      "spec": "1.1.0",
+      "score": 85,
+      "status": "safe",
+      "coverage": {
+        "scanned": [
+          "skills/add-data-source",
+          "skills/canvas-app",
+          "skills/configure-canvas-mcp",
+          "skills/report-issue"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": ".plugin/",
+            "reason": "outside the spec"
+          },
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          },
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          },
+          {
+            "path": "mcp.json",
+            "reason": "SkillSpector does not analyse this layout as an MCP manifest"
+          },
+          {
+            "path": "references/",
+            "reason": "outside the spec"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/add-data-source",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/canvas-app",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/canvas-app/SKILL.md",
+              "line": 35
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/canvas-app/SKILL.md",
+              "line": 36
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/canvas-app/SKILL.md",
+              "line": 38
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/canvas-app/SKILL.md",
+              "line": 83
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/canvas-app/SKILL.md",
+              "line": 86
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/canvas-app/SKILL.md",
+              "line": 87
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/configure-canvas-mcp",
+          "score": 85,
+          "risk": 15,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/configure-canvas-mcp/SKILL.md",
+              "line": 34
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/configure-canvas-mcp/SKILL.md",
+              "line": 41
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/configure-canvas-mcp/SKILL.md",
+              "line": 42
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/configure-canvas-mcp/SKILL.md",
+              "line": 43
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/configure-canvas-mcp/SKILL.md",
+              "line": 44
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/configure-canvas-mcp/SKILL.md",
+              "line": 45
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/configure-canvas-mcp/SKILL.md",
+              "line": 46
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/configure-canvas-mcp/SKILL.md",
+              "line": 47
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/configure-canvas-mcp/SKILL.md",
+              "line": 56
+            }
+          ],
+          "findings": [
+            {
+              "id": "TR2",
+              "severity": "MEDIUM",
+              "message": "Shadow Command Trigger",
+              "file": "skills/configure-canvas-mcp/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/configure-canvas-mcp/SKILL.md",
+              "line": 76
+            }
+          ]
+        },
+        {
+          "path": "skills/report-issue",
+          "score": 91,
+          "risk": 9,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/report-issue/SKILL.md",
+              "line": 13
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA5",
+              "severity": "MEDIUM",
+              "message": "External Model or Provider Selection",
+              "file": "skills/report-issue/SKILL.md",
+              "line": 10
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 85,
+  "status": "safe",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-20T21:58:49Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}
