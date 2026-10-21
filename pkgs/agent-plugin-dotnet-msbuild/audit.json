@@ -1,0 +1,1765 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "dotnet-msbuild",
+      "dir": "/nix/store/ckd24x4iqvdaa6iw03gwgsxcvhmvrazl-agent-plugin-dotnet-msbuild-0.1.11/share/agent-plugins/dotnet-msbuild",
+      "spec": "1.1.0",
+      "score": 2,
+      "status": "do not install",
+      "coverage": {
+        "scanned": [
+          "skills/binlog-failure-analysis",
+          "skills/binlog-generation",
+          "skills/build-parallelism",
+          "skills/build-perf-baseline",
+          "skills/build-perf-diagnostics",
+          "skills/check-bin-obj-clash",
+          "skills/copy-to-output-directory",
+          "skills/directory-build-organization",
+          "skills/eliminate-redundant-restores",
+          "skills/eval-performance",
+          "skills/extension-points",
+          "skills/including-generated-files",
+          "skills/incremental-build",
+          "skills/item-management",
+          "skills/msbuild-antipatterns",
+          "skills/msbuild-modernization",
+          "skills/property-patterns",
+          "skills/resolve-project-references",
+          "skills/target-authoring",
+          "skills/troubleshoot-binlog-mcp"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          },
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          },
+          {
+            "path": "mcp.json",
+            "reason": "SkillSpector does not analyse this layout as an MCP manifest"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/binlog-failure-analysis",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/binlog-failure-analysis/SKILL.md",
+              "line": 10
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/binlog-generation",
+          "score": 74,
+          "risk": 26,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/binlog-generation/SKILL.md",
+              "line": 19
+            }
+          ],
+          "findings": [
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/binlog-generation/SKILL.md",
+              "line": 119
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/binlog-generation/SKILL.md",
+              "line": 122
+            }
+          ]
+        },
+        {
+          "path": "skills/build-parallelism",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/build-parallelism/SKILL.md",
+              "line": 17
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/build-parallelism/SKILL.md",
+              "line": 38
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/build-parallelism/SKILL.md",
+              "line": 86
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/build-parallelism/SKILL.md",
+              "line": 99
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/build-perf-baseline",
+          "score": 74,
+          "risk": 26,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/build-perf-baseline/SKILL.md",
+              "line": 152
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/build-perf-baseline/SKILL.md",
+              "line": 155
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/build-perf-baseline/SKILL.md",
+              "line": 159
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/build-perf-baseline/SKILL.md",
+              "line": 160
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/build-perf-baseline/SKILL.md",
+              "line": 385
+            }
+          ],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/build-perf-baseline/SKILL.md",
+              "line": 140
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/build-perf-baseline/SKILL.md",
+              "line": 190
+            }
+          ]
+        },
+        {
+          "path": "skills/build-perf-diagnostics",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 0,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/build-perf-diagnostics/SKILL.md",
+              "line": 0
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/build-perf-diagnostics/SKILL.md",
+              "line": 10
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/build-perf-diagnostics/SKILL.md",
+              "line": 22
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/build-perf-diagnostics/SKILL.md",
+              "line": 66
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/build-perf-diagnostics/SKILL.md",
+              "line": 67
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/build-perf-diagnostics/SKILL.md",
+              "line": 112
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/check-bin-obj-clash",
+          "score": 70,
+          "risk": 30,
+          "status": "caution",
+          "partial": true,
+          "coverage": 0,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/check-bin-obj-clash/SKILL.md",
+              "line": 0
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/check-bin-obj-clash/SKILL.md",
+              "line": 17
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/check-bin-obj-clash/SKILL.md",
+              "line": 134
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/check-bin-obj-clash/SKILL.md",
+              "line": 169
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/check-bin-obj-clash/SKILL.md",
+              "line": 173
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/check-bin-obj-clash/SKILL.md",
+              "line": 191
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/check-bin-obj-clash/SKILL.md",
+              "line": 290
+            }
+          ],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/check-bin-obj-clash/SKILL.md",
+              "line": 100
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/check-bin-obj-clash/SKILL.md",
+              "line": 123
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/check-bin-obj-clash/SKILL.md",
+              "line": 145
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/check-bin-obj-clash/SKILL.md",
+              "line": 208
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/check-bin-obj-clash/SKILL.md",
+              "line": 247
+            }
+          ]
+        },
+        {
+          "path": "skills/copy-to-output-directory",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/copy-to-output-directory/SKILL.md",
+              "line": 24
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/copy-to-output-directory/SKILL.md",
+              "line": 75
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/copy-to-output-directory/SKILL.md",
+              "line": 92
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/directory-build-organization",
+          "score": 50,
+          "risk": 50,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/directory-build-organization/SKILL.md",
+              "line": 22
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/directory-build-organization/SKILL.md",
+              "line": 24
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/directory-build-organization/SKILL.md",
+              "line": 25
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/directory-build-organization/SKILL.md",
+              "line": 26
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/directory-build-organization/SKILL.md",
+              "line": 99
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/directory-build-organization/SKILL.md",
+              "line": 108
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/directory-build-organization/SKILL.md",
+              "line": 109
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/directory-build-organization/SKILL.md",
+              "line": 110
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/directory-build-organization/SKILL.md",
+              "line": 111
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/directory-build-organization/SKILL.md",
+              "line": 116
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/directory-build-organization/SKILL.md",
+              "line": 117
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/directory-build-organization/SKILL.md",
+              "line": 126
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/directory-build-organization/SKILL.md",
+              "line": 141
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/directory-build-organization/SKILL.md",
+              "line": 145
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/directory-build-organization/SKILL.md",
+              "line": 146
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/directory-build-organization/SKILL.md",
+              "line": 167
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/directory-build-organization/SKILL.md",
+              "line": 172
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/directory-build-organization/SKILL.md",
+              "line": 173
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/directory-build-organization/SKILL.md",
+              "line": 174
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/directory-build-organization/SKILL.md",
+              "line": 175
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/directory-build-organization/SKILL.md",
+              "line": 188
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/directory-build-organization/SKILL.md",
+              "line": 189
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/directory-build-organization/SKILL.md",
+              "line": 192
+            }
+          ],
+          "findings": [
+            {
+              "id": "YR4",
+              "severity": "HIGH",
+              "message": "YARA rule 'agent_skill_mcp_tool_poisoning_metadata': MCP/tool metadata poisoning indicators in tool schemas or skill manifests [agent_skills]",
+              "file": "skills/directory-build-organization/SKILL.md",
+              "line": 3
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/directory-build-organization/SKILL.md",
+              "line": 89
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/directory-build-organization/references/multi-level-examples.md",
+              "line": 62
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/directory-build-organization/references/multi-level-examples.md",
+              "line": 104
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/directory-build-organization/references/targetframework-props-pitfall.md",
+              "line": 10
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/directory-build-organization/references/targetframework-props-pitfall.md",
+              "line": 15
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/directory-build-organization/references/targetframework-props-pitfall.md",
+              "line": 25
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/directory-build-organization/references/targetframework-props-pitfall.md",
+              "line": 42
+            }
+          ]
+        },
+        {
+          "path": "skills/eliminate-redundant-restores",
+          "score": 92,
+          "risk": 8,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/eliminate-redundant-restores/SKILL.md",
+              "line": 15
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/eliminate-redundant-restores/SKILL.md",
+              "line": 30
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/eliminate-redundant-restores/SKILL.md",
+              "line": 31
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/eliminate-redundant-restores/SKILL.md",
+              "line": 32
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/eliminate-redundant-restores/SKILL.md",
+              "line": 50
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/eliminate-redundant-restores/SKILL.md",
+              "line": 54
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/eliminate-redundant-restores/SKILL.md",
+              "line": 66
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/eliminate-redundant-restores/SKILL.md",
+              "line": 67
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/eliminate-redundant-restores/SKILL.md",
+              "line": 74
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/eliminate-redundant-restores/SKILL.md",
+              "line": 91
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/eliminate-redundant-restores/SKILL.md",
+              "line": 105
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/eliminate-redundant-restores/SKILL.md",
+              "line": 28
+            }
+          ]
+        },
+        {
+          "path": "skills/eval-performance",
+          "score": 94,
+          "risk": 6,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/eval-performance/SKILL.md",
+              "line": 49
+            }
+          ],
+          "findings": [
+            {
+              "id": "E3",
+              "severity": "MEDIUM",
+              "message": "File System Enumeration",
+              "file": "skills/eval-performance/SKILL.md",
+              "line": 83
+            }
+          ]
+        },
+        {
+          "path": "skills/extension-points",
+          "score": 70,
+          "risk": 30,
+          "status": "caution",
+          "partial": true,
+          "coverage": 0,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/extension-points/SKILL.md",
+              "line": 0
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/extension-points/SKILL.md",
+              "line": 61
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/extension-points/SKILL.md",
+              "line": 111
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/extension-points/SKILL.md",
+              "line": 160
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/extension-points/SKILL.md",
+              "line": 185
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/extension-points/SKILL.md",
+              "line": 193
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/extension-points/SKILL.md",
+              "line": 197
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/extension-points/SKILL.md",
+              "line": 204
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/extension-points/SKILL.md",
+              "line": 206
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/extension-points/SKILL.md",
+              "line": 216
+            }
+          ],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/extension-points/SKILL.md",
+              "line": 24
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/extension-points/SKILL.md",
+              "line": 114
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/extension-points/SKILL.md",
+              "line": 114
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/extension-points/SKILL.md",
+              "line": 160
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/extension-points/SKILL.md",
+              "line": 160
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/extension-points/SKILL.md",
+              "line": 184
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/extension-points/SKILL.md",
+              "line": 204
+            }
+          ]
+        },
+        {
+          "path": "skills/including-generated-files",
+          "score": 83,
+          "risk": 17,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/including-generated-files/SKILL.md",
+              "line": 70
+            }
+          ]
+        },
+        {
+          "path": "skills/incremental-build",
+          "score": 70,
+          "risk": 30,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/incremental-build/SKILL.md",
+              "line": 62
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/incremental-build/SKILL.md",
+              "line": 94
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/incremental-build/SKILL.md",
+              "line": 98
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/incremental-build/SKILL.md",
+              "line": 100
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/incremental-build/SKILL.md",
+              "line": 130
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/incremental-build/SKILL.md",
+              "line": 209
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/incremental-build/SKILL.md",
+              "line": 216
+            }
+          ],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/incremental-build/SKILL.md",
+              "line": 35
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/incremental-build/SKILL.md",
+              "line": 39
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/incremental-build/SKILL.md",
+              "line": 148
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/incremental-build/SKILL.md",
+              "line": 207
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/incremental-build/SKILL.md",
+              "line": 219
+            }
+          ]
+        },
+        {
+          "path": "skills/item-management",
+          "score": 74,
+          "risk": 26,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/item-management/SKILL.md",
+              "line": 9
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/item-management/SKILL.md",
+              "line": 50
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/item-management/SKILL.md",
+              "line": 124
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/item-management/SKILL.md",
+              "line": 129
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/item-management/SKILL.md",
+              "line": 138
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/item-management/SKILL.md",
+              "line": 139
+            }
+          ],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/item-management/SKILL.md",
+              "line": 33
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/item-management/SKILL.md",
+              "line": 101
+            }
+          ]
+        },
+        {
+          "path": "skills/msbuild-antipatterns",
+          "score": 2,
+          "risk": 98,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 75,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 45
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 144
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 151
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 165
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 173
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 178
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 185
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 195
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 229
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 235
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 242
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 244
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 260
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 331
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 343
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 372
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 393
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/msbuild-antipatterns/references/additional-antipatterns.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "YR4",
+              "severity": "HIGH",
+              "message": "YARA rule 'agent_skill_mcp_tool_poisoning_metadata': MCP/tool metadata poisoning indicators in tool schemas or skill manifests [agent_skills]",
+              "file": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 3
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 35
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 71
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 99
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 129
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 149
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 183
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 211
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 241
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 265
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 305
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 313
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 314
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 336
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 336
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 418
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-antipatterns/references/additional-antipatterns.md",
+              "line": 8
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-antipatterns/references/additional-antipatterns.md",
+              "line": 20
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-antipatterns/references/additional-antipatterns.md",
+              "line": 42
+            },
+            {
+              "id": "MP3",
+              "severity": "HIGH",
+              "message": "Memory Manipulation",
+              "file": "skills/msbuild-antipatterns/references/additional-antipatterns.md",
+              "line": 80
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-antipatterns/references/additional-antipatterns.md",
+              "line": 103
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-antipatterns/references/additional-antipatterns.md",
+              "line": 126
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-antipatterns/references/additional-antipatterns.md",
+              "line": 131
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-antipatterns/references/additional-antipatterns.md",
+              "line": 141
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-antipatterns/references/additional-antipatterns.md",
+              "line": 158
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-antipatterns/references/additional-antipatterns.md",
+              "line": 179
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-antipatterns/references/additional-antipatterns.md",
+              "line": 190
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-antipatterns/references/additional-antipatterns.md",
+              "line": 199
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-antipatterns/references/additional-antipatterns.md",
+              "line": 216
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-antipatterns/references/additional-antipatterns.md",
+              "line": 248
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-antipatterns/references/additional-antipatterns.md",
+              "line": 265
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-antipatterns/references/incremental-build-inputs-outputs.md",
+              "line": 6
+            }
+          ]
+        },
+        {
+          "path": "skills/msbuild-modernization",
+          "score": 70,
+          "risk": 30,
+          "status": "caution",
+          "partial": true,
+          "coverage": 0,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 0
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 3
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 16
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 21
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 24
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 30
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 31
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 50
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 64
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 65
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 76
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 105
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 106
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 107
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 108
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 109
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 140
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 159
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 160
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 178
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 188
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 191
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 193
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 194
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 195
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 203
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 204
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 205
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 209
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 213
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 215
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 260
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 261
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 262
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 263
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 264
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 268
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 290
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 297
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 298
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 332
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 333
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 334
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 345
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 354
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 359
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 360
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 379
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 401
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 413
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 419
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 420
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 421
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 430
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 436
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 439
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 446
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 461
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 474
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 492
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/msbuild-modernization/SKILL.md",
+              "line": 501
+            }
+          ],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-modernization/SKILL.md",
+              "line": 29
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-modernization/SKILL.md",
+              "line": 49
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-modernization/SKILL.md",
+              "line": 77
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-modernization/SKILL.md",
+              "line": 128
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-modernization/SKILL.md",
+              "line": 226
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-modernization/SKILL.md",
+              "line": 270
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-modernization/SKILL.md",
+              "line": 390
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/msbuild-modernization/SKILL.md",
+              "line": 397
+            }
+          ]
+        },
+        {
+          "path": "skills/property-patterns",
+          "score": 70,
+          "risk": 30,
+          "status": "caution",
+          "partial": true,
+          "coverage": 0,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/property-patterns/SKILL.md",
+              "line": 0
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/property-patterns/SKILL.md",
+              "line": 125
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/property-patterns/SKILL.md",
+              "line": 131
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/property-patterns/SKILL.md",
+              "line": 142
+            }
+          ],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/property-patterns/SKILL.md",
+              "line": 65
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/property-patterns/SKILL.md",
+              "line": 98
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/property-patterns/SKILL.md",
+              "line": 103
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/property-patterns/SKILL.md",
+              "line": 119
+            }
+          ]
+        },
+        {
+          "path": "skills/resolve-project-references",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/target-authoring",
+          "score": 50,
+          "risk": 50,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/target-authoring/SKILL.md",
+              "line": 9
+            }
+          ],
+          "findings": [
+            {
+              "id": "YR4",
+              "severity": "HIGH",
+              "message": "YARA rule 'agent_skill_mcp_tool_poisoning_metadata': MCP/tool metadata poisoning indicators in tool schemas or skill manifests [agent_skills]",
+              "file": "skills/target-authoring/SKILL.md",
+              "line": 3
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/target-authoring/SKILL.md",
+              "line": 29
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/target-authoring/SKILL.md",
+              "line": 55
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/target-authoring/SKILL.md",
+              "line": 91
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/target-authoring/SKILL.md",
+              "line": 118
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/target-authoring/SKILL.md",
+              "line": 133
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/target-authoring/SKILL.md",
+              "line": 142
+            }
+          ]
+        },
+        {
+          "path": "skills/troubleshoot-binlog-mcp",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/troubleshoot-binlog-mcp/SKILL.md",
+              "line": 48
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/troubleshoot-binlog-mcp/SKILL.md",
+              "line": 61
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/troubleshoot-binlog-mcp/SKILL.md",
+              "line": 87
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/troubleshoot-binlog-mcp/SKILL.md",
+              "line": 97
+            }
+          ],
+          "findings": []
+        }
+      ]
+    }
+  ],
+  "score": 2,
+  "status": "do not install",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-21T03:21:03Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

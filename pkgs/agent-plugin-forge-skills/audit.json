@@ -1,0 +1,920 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "forge-skills",
+      "dir": "/nix/store/xbdqdvz4mglfx4qvalyp7yn6a5f4hr2d-agent-plugin-forge-skills-0.1.0/share/agent-plugins/forge-skills",
+      "spec": "1.1.0",
+      "score": 0,
+      "status": "do not install",
+      "coverage": {
+        "scanned": [
+          "skills/forge-app-builder",
+          "skills/forge-app-review",
+          "skills/forge-connector",
+          "skills/forge-cost-optimizer",
+          "skills/forge-debugger",
+          "skills/forge-onboarding",
+          "skills/forge-security-review"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          },
+          {
+            "path": "mcp.json",
+            "reason": "SkillSpector does not analyse this layout as an MCP manifest"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/forge-app-builder",
+          "score": 23,
+          "risk": 77,
+          "status": "do not install",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/forge-app-builder/scripts/deploy_forge_app.py",
+              "line": 68
+            },
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/forge-app-builder/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/forge-app-builder/SKILL.md",
+              "line": 53
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/forge-app-builder/SKILL.md",
+              "line": 53
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/forge-app-builder/SKILL.md",
+              "line": 56
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/forge-app-builder/SKILL.md",
+              "line": 57
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/forge-app-builder/evals/evals.json",
+              "line": 38
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/forge-app-builder/scripts/create_forge_app.py",
+              "line": 26
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/forge-app-builder/scripts/create_forge_app.py",
+              "line": 27
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/forge-app-builder/scripts/create_forge_app.py",
+              "line": 64
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/forge-app-builder/scripts/create_forge_app.py",
+              "line": 146
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/forge-app-builder/scripts/deploy_forge_app.py",
+              "line": 68
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/forge-app-builder/evals/fixtures/existing-ui-kit-app/package.json",
+              "line": 8
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/forge-app-builder/evals/fixtures/existing-ui-kit-app/package.json",
+              "line": 9
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/forge-app-builder/evals/fixtures/existing-ui-kit-app/package.json",
+              "line": 10
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/forge-app-builder/evals/fixtures/existing-ui-kit-app/package.json",
+              "line": 11
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/forge-app-builder/evals/fixtures/existing-ui-kit-app/package.json",
+              "line": 12
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: react has 2 known advisory(ies) (CVE-2013-7035 (Cross-Site Scripting in react); GHSA-hg79-j56m-fxgv (Cross-Site Scripting in react)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/forge-app-builder/evals/fixtures/existing-ui-kit-app/package.json",
+              "line": 12
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/forge-app-builder/package.json",
+              "line": 3
+            }
+          ]
+        },
+        {
+          "path": "skills/forge-app-review",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-app-review/SKILL.md",
+              "line": 46
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-app-review/SKILL.md",
+              "line": 56
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-app-review/SKILL.md",
+              "line": 59
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-app-review/SKILL.md",
+              "line": 62
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-app-review/SKILL.md",
+              "line": 127
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-app-review/SKILL.md",
+              "line": 130
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/forge-connector",
+          "score": 20,
+          "risk": 80,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 60,
+          "exceptions": [
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 0
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 30
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 34
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 38
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 41
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 43
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 111
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 172
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 183
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 189
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 190
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 191
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 205
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 224
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 227
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 256
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 257
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 258
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 259
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 386
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 397
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 418
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 489
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 520
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 591
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 711
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 962
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 963
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 976
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 1037
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 1052
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 1055
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 1057
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-connector/SKILL.md",
+              "line": 1058
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/forge-connector/scripts/scaffold_connector.py",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/forge-connector/SKILL.md",
+              "line": 27
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/forge-connector/SKILL.md",
+              "line": 962
+            },
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/forge-connector/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/forge-connector/SKILL.md",
+              "line": 960
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/forge-connector/SKILL.md",
+              "line": 1028
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/forge-connector/scripts/scaffold_connector.py",
+              "line": 241
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/forge-connector/scripts/scaffold_connector.py",
+              "line": 73
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/forge-connector/scripts/scaffold_connector.py",
+              "line": 91
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/forge-connector/scripts/scaffold_connector.py",
+              "line": 346
+            }
+          ]
+        },
+        {
+          "path": "skills/forge-cost-optimizer",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-cost-optimizer/SKILL.md",
+              "line": 41
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-cost-optimizer/SKILL.md",
+              "line": 42
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-cost-optimizer/SKILL.md",
+              "line": 57
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-cost-optimizer/SKILL.md",
+              "line": 90
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-cost-optimizer/SKILL.md",
+              "line": 102
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-cost-optimizer/SKILL.md",
+              "line": 123
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-cost-optimizer/SKILL.md",
+              "line": 134
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/forge-debugger",
+          "score": 74,
+          "risk": 26,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-debugger/SKILL.md",
+              "line": 159
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-debugger/SKILL.md",
+              "line": 175
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-debugger/SKILL.md",
+              "line": 176
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-debugger/SKILL.md",
+              "line": 185
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-debugger/SKILL.md",
+              "line": 187
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-debugger/SKILL.md",
+              "line": 192
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-debugger/SKILL.md",
+              "line": 200
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-debugger/SKILL.md",
+              "line": 201
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-debugger/SKILL.md",
+              "line": 202
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-debugger/SKILL.md",
+              "line": 205
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-debugger/SKILL.md",
+              "line": 206
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-debugger/SKILL.md",
+              "line": 207
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-debugger/SKILL.md",
+              "line": 215
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-debugger/SKILL.md",
+              "line": 228
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-debugger/SKILL.md",
+              "line": 229
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-debugger/SKILL.md",
+              "line": 270
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-debugger/SKILL.md",
+              "line": 272
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-debugger/SKILL.md",
+              "line": 273
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-debugger/SKILL.md",
+              "line": 275
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-debugger/SKILL.md",
+              "line": 277
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/forge-debugger/SKILL.md",
+              "line": 12
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/forge-debugger/SKILL.md",
+              "line": 22
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/forge-debugger/SKILL.md",
+              "line": 31
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/forge-debugger/SKILL.md",
+              "line": 188
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/forge-debugger/SKILL.md",
+              "line": 22
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/forge-debugger/SKILL.md",
+              "line": 31
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/forge-debugger/SKILL.md",
+              "line": 188
+            }
+          ]
+        },
+        {
+          "path": "skills/forge-onboarding",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-onboarding/SKILL.md",
+              "line": 45
+            }
+          ],
+          "findings": []
+        },
+        {
+          "path": "skills/forge-security-review",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 80,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-security-review/SKILL.md",
+              "line": 38
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-security-review/SKILL.md",
+              "line": 57
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-security-review/SKILL.md",
+              "line": 59
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-security-review/SKILL.md",
+              "line": 60
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-security-review/SKILL.md",
+              "line": 61
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-security-review/SKILL.md",
+              "line": 64
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/forge-security-review/SKILL.md",
+              "line": 85
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/forge-security-review/assets/security-rules/forge-authn-authz/asapp-privilege-escalation.mdc",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/forge-security-review/assets/security-rules/forge-authn-authz/missing-resolver-authz.mdc",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/forge-security-review/assets/security-rules/forge-egress-remotes/data-egress-redirects.mdc",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/forge-security-review/assets/security-rules/forge-rovo-agents/_index-rovo-agents.mdc",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/forge-security-review/assets/security-rules/forge-webtrigger-entrypoints/webtrigger-security.mdc",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/forge-security-review/scripts/run_static_analysis.ps1",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/forge-security-review/scripts/run_static_analysis.sh",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/forge-security-review/SKILL.md",
+              "line": 36
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/forge-security-review/SKILL.md",
+              "line": 90
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/forge-security-review/assets/security-rules/_global-forge.mdc",
+              "line": 56
+            },
+            {
+              "id": "OH1",
+              "severity": "HIGH",
+              "message": "Unvalidated Output Injection",
+              "file": "skills/forge-security-review/assets/security-rules/forge-auditing/static-analysis-forge.mdc",
+              "line": 73
+            },
+            {
+              "id": "OH1",
+              "severity": "HIGH",
+              "message": "Unvalidated Output Injection",
+              "file": "skills/forge-security-review/assets/security-rules/forge-injection/xss.mdc",
+              "line": 39
+            },
+            {
+              "id": "OH1",
+              "severity": "HIGH",
+              "message": "Unvalidated Output Injection",
+              "file": "skills/forge-security-review/assets/security-rules/forge-injection/xss.mdc",
+              "line": 46
+            },
+            {
+              "id": "OH1",
+              "severity": "HIGH",
+              "message": "Unvalidated Output Injection",
+              "file": "skills/forge-security-review/assets/security-rules/forge-injection/xss.mdc",
+              "line": 52
+            },
+            {
+              "id": "OH1",
+              "severity": "HIGH",
+              "message": "Unvalidated Output Injection",
+              "file": "skills/forge-security-review/assets/security-rules/forge-injection/xss.mdc",
+              "line": 67
+            },
+            {
+              "id": "OH1",
+              "severity": "HIGH",
+              "message": "Unvalidated Output Injection",
+              "file": "skills/forge-security-review/assets/security-rules/forge-injection/xss.mdc",
+              "line": 88
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/forge-security-review/assets/security-rules/forge-auditing/static-analysis-forge.mdc",
+              "line": 120
+            },
+            {
+              "id": "SSRF1",
+              "severity": "HIGH",
+              "message": "Cloud Metadata Access",
+              "file": "skills/forge-security-review/assets/security-rules/forge-injection/ssrf.mdc",
+              "line": 109
+            },
+            {
+              "id": "SSRF1",
+              "severity": "HIGH",
+              "message": "Cloud Metadata Access",
+              "file": "skills/forge-security-review/assets/security-rules/forge-injection/ssrf.mdc",
+              "line": 138
+            },
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/forge-security-review/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/forge-security-review/SKILL.md",
+              "line": 81
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/forge-security-review/assets/security-rules/forge-authn-authz/missing-resolver-authz.mdc",
+              "line": 23
+            },
+            {
+              "id": "SSRF3",
+              "severity": "MEDIUM",
+              "message": "Dynamic Request Target",
+              "file": "skills/forge-security-review/assets/security-rules/forge-injection/ssrf.mdc",
+              "line": 46
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/forge-security-review/scripts/run_static_analysis.sh",
+              "line": 109
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 0,
+  "status": "do not install",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-10-21T03:18:47Z"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}
