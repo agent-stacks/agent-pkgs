@@ -92,16 +92,20 @@
       # Roughly a seventh of the set is unfree, upstream adds packages
       # daily, and a name list here would be stale within the week. The
       # narrow predicate above still governs everything under pkgs/.
-      llmAgentsPkgsFor = system: import nixpkgs {
+      #
+      # One instance per system, shared by the re-export and the checks:
+      # each import of nixpkgs costs seconds of evaluation.
+      llmAgentsPkgs = nixpkgs.lib.genAttrs systems (system: import nixpkgs {
         inherit system;
         config.allowUnfree = true;
         overlays = [ llm-agents.overlays.shared-nixpkgs llmAgentsOverlay ];
-      };
+      });
+      llmAgentsPkgsFor = system: llmAgentsPkgs.${system};
 
       # Applies overrides/ to the llm-agents set. ADR 0024. A name
       # upstream no longer has is skipped here and failed by
       # overrides-name-packages, so it can't break evaluation.
-      llmAgentsOverlay = final: prev: {
+      llmAgentsOverlay = _final: prev: {
         llm-agents = prev.llm-agents // builtins.mapAttrs
           (name: f:
             let p = prev.llm-agents.${name}; in
@@ -849,18 +853,33 @@
         # flake check doesn't build the re-export (ADR 0008). Applying
         # each override's patches without building means a bump that
         # breaks one fails the lock update, not Hydra after the merge.
+        # It also fails if the published package lacks a patch its
+        # override adds, which is what a dropped overlay looks like.
         // nixpkgs.lib.mapAttrs'
-          (name: p: nixpkgs.lib.nameValuePair "${name}-patches-apply"
-            (pkgs.stdenvNoCC.mkDerivation ({
-              name = "${name}-patches-apply";
-              inherit (p) src patches;
-              dontConfigure = true;
-              dontBuild = true;
-              dontFixup = true;
-              installPhase = "touch $out";
-            } // nixpkgs.lib.optionalAttrs (p ? sourceRoot) { inherit (p) sourceRoot; }
-              // nixpkgs.lib.optionalAttrs (p ? patchFlags) { inherit (p) patchFlags; })))
-          (nixpkgs.lib.filterAttrs (name: p: overrides ? ${name} && p ? patches)
+          (name: p:
+            let
+              patches = p.patches or [ ];
+              missing = builtins.filter (x: !(builtins.elem x patches))
+                ((overrides.${name} { }).patches or [ ]);
+            in
+            nixpkgs.lib.nameValuePair "${name}-patches-apply" (
+              if missing != [ ] then
+                pkgs.runCommand "${name}-patches-apply" { } ''
+                  echo "${name} is published without ${toString missing}; is llmAgentsOverlay applied?" >&2
+                  exit 1
+                ''
+              else
+                pkgs.stdenvNoCC.mkDerivation ({
+                  name = "${name}-patches-apply";
+                  inherit (p) src;
+                  inherit patches;
+                  dontConfigure = true;
+                  dontBuild = true;
+                  dontFixup = true;
+                  installPhase = "touch $out";
+                } // nixpkgs.lib.optionalAttrs (p ? sourceRoot) { inherit (p) sourceRoot; }
+                  // nixpkgs.lib.optionalAttrs (p ? patchFlags) { inherit (p) patchFlags; })))
+          (builtins.intersectAttrs overrides
             (llmAgentsFor pkgs.stdenv.hostPlatform.system));
     in
     {
