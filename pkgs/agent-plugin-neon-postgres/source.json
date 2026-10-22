@@ -15,34 +15,6 @@
       "url": "https://neon.com"
     },
     "description": "Manage your Neon backend with the Neon agent skills and the Neon MCP Server: Lakebase Postgres, Managed Better Auth, Realtime, Object Storage, Functions, the Data API, and AI Gateway",
-    "extensions": {
-      "com.openai": {
-        "interface": {
-          "capabilities": [
-            "Read",
-            "Write"
-          ],
-          "category": "Developer Tools",
-          "composerIcon": "./assets/neon-logomark-light.svg",
-          "composerIconDark": "./assets/neon-logomark-dark.svg",
-          "defaultPrompt": [
-            "Create a Neon database and add Neon Auth to my application.",
-            "Deploy a Neon Function that uses Neon Object Storage.",
-            "Add AI to my application with the Neon AI Gateway."
-          ],
-          "developerName": "Neon (A Databricks, Inc. company)",
-          "displayName": "Neon",
-          "logo": "./assets/neon-logomark-light.svg",
-          "logoDark": "./assets/neon-logomark-dark.svg",
-          "longDescription": "Manage Neon projects directly through ChatGPT. Run SQL and transactions on Lakebase Postgres, inspect and diff table schemas, apply migrations on a temporary branch before committing them, and provision Auth and the Data API. Create copy-on-write branches for isolated work, query logs from Serverless Functions and Object Storage for debugging, tune slow queries, and search Neon docs all through natural language commands. Connect with OAuth. During authorization, choose read-only or full access. Always review and authorize actions before execution.",
-          "privacyPolicyURL": "https://neon.com/privacy-policy",
-          "shortDescription": "Manage your Neon backend",
-          "supportURL": "https://neon.com/docs/introduction/support",
-          "termsOfServiceURL": "https://neon.com/platform-terms",
-          "websiteURL": "https://neon.com"
-        }
-      }
-    },
     "homepage": "https://neon.com",
     "keywords": [
       "neon",
@@ -85,43 +57,15 @@
     "warnings": [
       {
         "path": "evals/neon-postgres-egress-optimizer/.claude/skills/score-eval/SKILL.md",
-        "message": "in a dot directory the search does not enter, not imported; --plugin evals/neon-postgres-egress-optimizer/.claude/skills/score-eval=NAME imports it"
+        "message": "outside every imported plugin, not imported; --plugin evals/neon-postgres-egress-optimizer/.claude/skills/score-eval=NAME imports it"
       },
       {
-        "path": "skills/neon",
-        "message": "skill \"neon\" already found at plugins/neon-postgres/skills/neon, not imported"
+        "path": "skills",
+        "message": "9 SKILL.md outside every imported plugin, not imported"
       },
       {
-        "path": "skills/neon-ai-gateway",
-        "message": "skill \"neon-ai-gateway\" already found at plugins/neon-postgres/skills/neon-ai-gateway, not imported"
-      },
-      {
-        "path": "skills/neon-auth",
-        "message": "skill \"neon-auth\" already found at plugins/neon-postgres/skills/neon-auth, not imported"
-      },
-      {
-        "path": "skills/neon-functions",
-        "message": "skill \"neon-functions\" already found at plugins/neon-postgres/skills/neon-functions, not imported"
-      },
-      {
-        "path": "skills/neon-object-storage",
-        "message": "skill \"neon-object-storage\" already found at plugins/neon-postgres/skills/neon-object-storage, not imported"
-      },
-      {
-        "path": "skills/neon-postgres",
-        "message": "skill \"neon-postgres\" already found at plugins/neon-postgres/skills/neon-postgres, not imported"
-      },
-      {
-        "path": "skills/neon-postgres-branches",
-        "message": "skill \"neon-postgres-branches\" already found at plugins/neon-postgres/skills/neon-postgres-branches, not imported"
-      },
-      {
-        "path": "skills/neon-postgres-egress-optimizer",
-        "message": "skill \"neon-postgres-egress-optimizer\" already found at plugins/neon-postgres/skills/neon-postgres-egress-optimizer, not imported"
-      },
-      {
-        "path": "skills/neon-realtime",
-        "message": "skill \"neon-realtime\" already found at plugins/neon-postgres/skills/neon-realtime, not imported"
+        "path": "plugin.json",
+        "message": "plugin \"neon-postgres\" is imported from plugins/neon-postgres/, where .claude-plugin/marketplace.json lists it, not imported"
       }
     ]
   }
