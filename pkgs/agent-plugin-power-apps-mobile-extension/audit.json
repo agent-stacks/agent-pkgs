@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "power-apps-mobile-extension",
-      "dir": "/nix/store/1w2c5yylwc6m7kpj7n6vv25f1di6793a-agent-plugin-power-apps-mobile-extension-0.1.0/share/agent-plugins/power-apps-mobile-extension",
+      "dir": "/nix/store/bndpqhdsbx6jlx1p3fy1j0kxghwcfmlf-agent-plugin-power-apps-mobile-extension-0.2.0/share/agent-plugins/power-apps-mobile-extension",
       "spec": "1.1.0",
       "score": 20,
       "status": "do not install",
@@ -24,12 +24,18 @@
           "skills/generate-ppmplugin",
           "skills/generate-ppmplugin-manifest",
           "skills/publish-pcf-companion",
+          "skills/telemetry",
           "skills/test-native-extension"
         ],
         "validated": [
           "plugin.json"
         ],
-        "notChecked": []
+        "notChecked": [
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          }
+        ]
       },
       "components": [
         {
@@ -2655,6 +2661,16 @@
           ]
         },
         {
+          "path": "skills/telemetry",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
           "path": "skills/test-native-extension",
           "score": 72,
           "risk": 28,
@@ -3070,7 +3086,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-20T22:54:17Z"
+      "checkedAt": "2026-10-22T05:37:38Z"
     }
   },
   "agentStacks": {
