@@ -21,7 +21,7 @@ Which repository that should be depends on who the skills are for:
 
 | The skills are | Put the package in | Why |
 | -------------- | ------------------ | --- |
-| public and broadly applicable | this repo, under `pkgs/` | CI builds it on every PR and Hydra publishes it to `cache.agent-stacks.org`, so everyone gets it prebuilt |
+| public and broadly applicable | this repo, under `pkgs/` | CI evaluates it on every PR, and after merge Hydra builds it and publishes it to `cache.agent-stacks.org`, so everyone gets it prebuilt |
 | private, or specific to one organization | a repository of your own | a public package set is the wrong home for skills that should not be published; see [Building outside agent-pkgs](#building-outside-agent-pkgs) |
 
 This guide walks the public case, which would involve a pull request
@@ -223,8 +223,11 @@ git checkout -b import/caveman
 git commit -m "import: juliusbrussee/caveman"
 ```
 
-CI builds every package on every PR. Commit only the two generated
-files; `result` is a build artifact and should be ignored.
+CI evaluates every package on every PR but builds none, so the
+`nix build` in step 4 is the only build the package gets before
+merge. Hydra builds it for every system after merge. Commit only the
+two generated files; `result` is a build artifact and should be
+ignored.
 
 ## Next: run it in a stack
 

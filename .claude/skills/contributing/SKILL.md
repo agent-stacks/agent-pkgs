@@ -66,9 +66,22 @@ when a plugin is installed, and a relative path would not resolve there.
 
 3. Request review, and do not merge it yourself.
 
-   CI builds every package on `ubuntu-latest` and `macos-latest`. The Linux job
-   is the gate: confirm from its log that your new package actually built, since
-   a package that only builds on a macOS workstation is not done.
+   CI does not build your package. It runs `nix flake check`, which builds the
+   gates and only evaluates packages, so a green PR proves the package
+   evaluates on every system and nothing about whether it builds. Build it
+   yourself before opening the PR, and look for the install check's `OK` line
+   (below). Hydra builds every package for `x86_64-linux`, `aarch64-linux` and
+   `aarch64-darwin` after merge, and publishes it to `cache.agent-stacks.org`
+   ([why](https://github.com/agent-stacks/agent-pkgs/blob/main/docs/architecture/overview.md)).
+   A package built only on a macOS workstation is proven on Linux once its
+   Linux output is in that cache:
+
+   ```sh
+   nix path-info --store https://cache.agent-stacks.org \
+     "$(nix eval --raw .#packages.x86_64-linux.agent-plugin-<name>.outPath)"
+   ```
+
+   It prints the store path when Hydra has built it, and errors until then.
 
    A maintainer reviews; today that is Rok (`garbas`). Branch protection does
    not enforce this, so a green check and a mergeable state prove nothing about
