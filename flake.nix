@@ -172,9 +172,21 @@
               meta = (old.meta or { }) // { inherit category; };
             })
             else p;
+
+          # The patches this set carries against an upstream package,
+          # applied before the category so the published derivation is
+          # the patched one. ADR 0024.
+          overrides = import ./overrides;
+          gone = builtins.filter (name: !(pkgs.llm-agents ? ${name}))
+            (builtins.attrNames overrides);
+          withOverride = name: p:
+            if overrides ? ${name} then p.overrideAttrs overrides.${name} else p;
         in
-        nixpkgs.lib.mapAttrs withCategory
-          (nixpkgs.lib.filterAttrs keep pkgs.llm-agents);
+        if gone != [ ]
+        then throw "overrides/default.nix names ${toString gone}, which llm-agents.nix no longer defines"
+        else
+          nixpkgs.lib.mapAttrs (name: p: withCategory name (withOverride name p))
+            (nixpkgs.lib.filterAttrs keep pkgs.llm-agents);
 
       # Every subdirectory of pkgs/ with a default.nix is a package.
       # `agent-stacks import --out pkgs/<name>` drops packages here; no
