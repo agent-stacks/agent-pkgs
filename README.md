@@ -142,6 +142,54 @@ nix build github:agent-stacks/agent-pkgs#agent-plugin-caveman \
 For any other user Nix ignores both, with `warning: ignoring untrusted
 substituter`.
 
+## Installing with Flox
+
+The same packages are published to the `agent-stacks` FloxHub catalog.
+Installing from it does not use the binary cache above; it needs a
+FloxHub login and a Nix daemon that trusts the catalog's signing keys.
+
+Log in first, or `flox install` stops with `Authentication is required
+to resolve packages`:
+
+```sh
+flox auth login
+flox install agent-stacks/claude-code
+```
+
+In CI, set `FLOX_FLOXHUB_TOKEN` instead of logging in.
+
+The catalog names two keys for its store, `floxhub-1` and the
+`agent-stacks-1` key from the binary cache section, and the paths it
+serves, dependencies included, are signed by both. Nix has to trust
+one of them. Recent Flox installers configure `floxhub-1`, so a
+machine with Flox installed that way needs nothing more. A machine
+whose `nix.conf` is managed some other way, such as a NixOS host or a
+CI runner, or a Flox install that predates the key (the installer
+added it in June 2025), has to add it; otherwise the install fails
+with `Package '<name>' is not signed by a trusted key`:
+
+```sh
+sudo tee -a /etc/nix/nix.conf <<'EOF'
+extra-trusted-public-keys = floxhub-1:0QOAlcobcEvq1mqEf4qAYCaWnTTOXpyoRv/PmqfSixM=
+EOF
+```
+
+Use `extra-trusted-public-keys`, not `trusted-public-keys`: the latter
+replaces the default list, and `cache.nixos.org` stops being trusted.
+The key has to reach the daemon, so the same rules as the binary cache
+apply: the system file (`/etc/nix/nix.custom.conf` on Determinate Nix)
+followed by a daemon restart, or `~/.config/nix/nix.conf` only if your
+user is in `trusted-users`. On NixOS, the same applies to the option:
+set `nix.settings.extra-trusted-public-keys`, because defining
+`nix.settings.trusted-public-keys` replaces its default.
+
+A path may also carry `flox-cache-public-1`, `cache.nixos.org-1` or
+`niks3.numtide.com-1`, depending on where Hydra fetched it from before
+publishing. Do not rely on them: which of them a path carries changes
+from build to build, so trusting only those keys makes an install
+succeed or fail according to which build the lock file happens to
+name.
+
 ## File layout
 
 | Path | Contents |
