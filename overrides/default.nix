@@ -1,6 +1,6 @@
 # Changes made to the llm-agents.nix package set, keyed by package
-# name. llmAgentsOverlay in flake.nix passes each value to that
-# package's overrideAttrs. ADR 0024.
+# name. overlays/llm-agents.nix passes each value to that package's
+# overrideAttrs. ADR 0024.
 {
   # Adds the env vars agent-stacks passes skills through (agent-stacks
   # ADR 0011).

@@ -102,18 +102,7 @@
       });
       llmAgentsPkgsFor = system: llmAgentsPkgs.${system};
 
-      # Applies overrides/ to the llm-agents set. ADR 0024. A name
-      # upstream no longer has is skipped here and failed by
-      # overrides-name-packages, so it can't break evaluation.
-      llmAgentsOverlay = _final: prev: {
-        llm-agents = prev.llm-agents // builtins.mapAttrs
-          (name: f:
-            let p = prev.llm-agents.${name}; in
-            nixpkgs.lib.throwIfNot (p ? overrideAttrs)
-              "overrides/default.nix names ${name}, which has no overrideAttrs"
-              (p.overrideAttrs f))
-          (builtins.intersectAttrs prev.llm-agents overrides);
-      };
+      llmAgentsOverlay = import ./overlays/llm-agents.nix;
 
       # Attributes llm-agents.nix exposes that are not packages of this
       # set: the nixpkgs builders and fetchers it patches, its setup
@@ -865,7 +854,7 @@
             nixpkgs.lib.nameValuePair "${name}-patches-apply" (
               if missing != [ ] then
                 pkgs.runCommand "${name}-patches-apply" { } ''
-                  echo "${name} is published without ${toString missing}; is llmAgentsOverlay applied?" >&2
+                  echo "${name} is published without ${toString missing}; is overlays.llm-agents applied?" >&2
                   exit 1
                 ''
               else
@@ -893,6 +882,10 @@
       # evaluates packages.* whether or not it builds them.
       checks = forAllSystems mkGates;
       lib = forAllSystems mkLib;
+
+      # For a flake that builds its own llm-agents set: compose it after
+      # llm-agents.overlays.shared-nixpkgs.
+      overlays.llm-agents = llmAgentsOverlay;
 
       # What Hydra builds. packages.* is published to the agent-stacks
       # catalog; checks.* builds as a gate and is never published. The

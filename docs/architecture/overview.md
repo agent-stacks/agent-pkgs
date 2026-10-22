@@ -84,8 +84,9 @@ and warns. The re-exported packages are not in `checks`, only in
 `packages` and `hydraJobs.packages`; the reasoning is in
 [decisions/0008](../decisions/0008-re-export-llm-agents-nix.md).
 
-An overlay applies `overrides/default.nix` to the llm-agents set
-before it is re-exported. Today that is only codex, patched so
+An overlay, `overlays/llm-agents.nix` (the flake's
+`overlays.llm-agents`), applies `overrides/default.nix` to the
+llm-agents set before it is re-exported. Today that is only codex, patched so
 `agent-stacks launch` can pass it skills
 ([decisions/0024](../decisions/0024-a-re-exported-package-can-carry-a-patch.md)).
 
