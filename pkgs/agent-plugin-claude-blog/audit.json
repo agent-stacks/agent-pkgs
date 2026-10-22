@@ -1118,7 +1118,7 @@
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 96,
+          "coverage": 92,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -1244,6 +1244,11 @@
               "reason": "static_parse_limit",
               "path": "skills/blog-google/scripts/google_report.py",
               "line": 0
+            },
+            {
+              "reason": "output_limit",
+              "path": "skills/blog-google/scripts/requirements.lock",
+              "line": 0
             }
           ],
           "findings": [
@@ -1257,7 +1262,7 @@
             {
               "id": "SC4",
               "severity": "CRITICAL",
-              "message": "Known Vulnerable Dependency: pillow==12.3.0 — 9 advisory(ies): CVE-2026-112395 (Pillow tiled-TIFF decoder reads past tile buffer in copy4 (Unpack.c:1290)); CVE-2026-112397 (Pillow: Out-of-bounds access in _imagingmorph on a zero-width image); CVE-2026-112400 (Pillow: GIF seek keeps rejected size after DecompressionBombError, allowing DoS) +6 more",
+              "message": "Known Vulnerable Dependency: pillow==12.3.0 — 16 advisory(ies): CVE-2026-112390 (Pillow: Infinite loop in MIC n_frames when the embedded TIFF); CVE-2026-112391 (Pillow: PdfParser can recurse without limit in get_value() and linearize_page_tr); CVE-2026-112392 (Pillow: NULL dereference in ImagingExpand via rank filters on zero-size images) +13 more",
               "file": "skills/blog-google/scripts/requirements.lock",
               "line": 1027
             },
@@ -5063,7 +5068,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-20T22:00:01Z"
+      "checkedAt": "2026-10-22T03:10:04Z"
     }
   },
   "agentStacks": {

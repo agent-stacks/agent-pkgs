@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "claude-seo",
-      "dir": "/nix/store/7gy8lgx4qp5lq2yk6viilwl9lvndib8b-agent-plugin-claude-seo-2.4.2/share/agent-plugins/claude-seo",
+      "dir": "/nix/store/vwd22hqsadxr9p6943ymfhh4jmi796g4-agent-plugin-claude-seo-2.4.2/share/agent-plugins/claude-seo",
       "spec": "1.1.0",
       "score": 33,
       "status": "do not install",
@@ -1487,8 +1487,8 @@
         },
         {
           "path": "skills/seo-technical",
-          "score": 100,
-          "risk": 0,
+          "score": 95,
+          "risk": 5,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -1514,7 +1514,15 @@
               "line": 114
             }
           ],
-          "findings": []
+          "findings": [
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/seo-technical/references/stack-cve-exposure.md",
+              "line": 50
+            }
+          ]
         },
         {
           "path": "skills/seo-unlighthouse",
@@ -1573,7 +1581,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:38:04Z"
+      "checkedAt": "2026-10-22T03:05:42Z"
     }
   },
   "agentStacks": {
