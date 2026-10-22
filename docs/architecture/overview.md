@@ -70,6 +70,10 @@ package through the same scope
 `agent-stacks` is the published binary wrapped with `skillspector` on
 its PATH, so it audits with nothing else installed; plugin builds and
 stacks run the bare binary, its `passthru.unwrapped`.
+`impeccable-engine` is the Rust binary impeccable's skill runs, built
+from the commit `agent-plugin-impeccable` pins, which ships it so the
+skill never downloads one
+([ADR 0025](../decisions/0025-a-skills-own-engine-is-built-from-the-skills-source.md)).
 
 `packages` is wider than `pkgs/`. Every agent CLI packaged by
 `numtide/llm-agents.nix` is re-exported into it, rebuilt against the

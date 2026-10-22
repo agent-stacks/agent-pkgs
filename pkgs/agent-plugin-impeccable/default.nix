@@ -7,8 +7,27 @@
 let
   source = builtins.fromJSON (builtins.readFile ./source.json);
   # BEGIN custom — kept as it is when this file is regenerated
+  # why: every skill verb runs a Rust engine the launcher otherwise
+  # downloads into ~/.impeccable at run time. Ship the one built from
+  # this src in the sibling slot it tries first, with the update check
+  # off, since a store path cannot be updated in place (ADR 0025).
   args = { };
-  hooks = old: { };
+  hooks = old:
+    let
+      engine = pkgs.callPackage ../impeccable-engine { };
+      platform = pkgs.stdenv.hostPlatform;
+      os = if platform.isDarwin then "darwin" else "linux";
+      arch = if platform.isAarch64 then "arm64" else "x64";
+    in
+    {
+      nativeBuildInputs = old.nativeBuildInputs ++ [ pkgs.makeBinaryWrapper ];
+      postAssemble = old.postAssemble + ''
+        slot="$dest/skills/impeccable/scripts/bin/${os}-${arch}"
+        mkdir -p "$slot"
+        makeBinaryWrapper ${pkgs.lib.getExe engine} "$slot/impeccable" \
+          --set-default IMPECCABLE_NO_UPDATE_CHECK 1
+      '';
+    };
   # END custom — anything outside these markers is overwritten
 in
 (buildAgentPlugin (source // args)).overrideAttrs hooks
