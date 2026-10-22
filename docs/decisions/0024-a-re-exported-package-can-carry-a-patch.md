@@ -47,9 +47,9 @@ Two checks guard the list:
 - `overrides-name-packages` fails on a name upstream no longer
   defines, so a rename can't drop a patch unnoticed.
 - `<name>-patches-apply` applies a package's patches to its source
-  without building it, so a bump that breaks a patch fails the lock
-  update. It also fails if the published package lacks a patch its
-  override adds, as it would if the overlay stopped applying.
+  without building it, so a bump that stops a patch applying fails the
+  lock update. It also fails if the published package lacks a patch
+  its override adds, as it would if the overlay stopped applying.
 
 A change every user of the package would want goes upstream instead.
 
@@ -66,14 +66,20 @@ A change every user of the package would want goes upstream instead.
   on every bump.
 - `-` A patch that stops applying blocks the hourly lock update until
   someone rebases it.
+- `-` A patch that still applies but no longer compiles is caught only
+  by Hydra, after the lock update merges. One that compiles but stops
+  working is caught by nothing: `doctor` only looks for the env var's
+  name in the binary.
 - `-` `codex-acp`, `t3code`, `oh-my-codex` and `kandev` keep upstream's
   unpatched codex. Upstream builds them against codex from its own
   internal scope, which the overlay can't reach. If `llm-agents.nix`
   exposed that scope, for example so `overrideScope` works, the same
   overlay would patch codex for them too.
-- `-` Not verified: the patched codex keeps version 0.163.0, which
-  the catalog already has unpatched. Check what `agent-stacks/codex`
-  resolves to before floxenvs deletes its codex.
+- `+` The patched codex keeps upstream's version. The catalog already
+  holds several builds of one version (two of codex 0.163.0 per
+  system on 2026-10-22), and resolving `agent-stacks/codex@0.163.0`
+  returned the newest, so no version suffix is needed. A suffix would
+  also fail upstream's `versionCheckHook`.
 
 ---
 
