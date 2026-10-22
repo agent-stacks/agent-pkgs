@@ -33,10 +33,11 @@ The options:
 ## Decision
 
 We will patch packages with an overlay on the llm-agents set,
-`llmAgentsOverlay` in `flake.nix`, applied after upstream's
-`shared-nixpkgs` overlay. It passes each entry in
-`overrides/default.nix` to that package's `overrideAttrs`. Patch files
-live under `overrides/<name>/`. codex is the only entry.
+`overlays/llm-agents.nix`, applied after upstream's `shared-nixpkgs`
+overlay and exposed as the flake output `overlays.llm-agents`. It
+passes each entry in `overrides/default.nix` to that package's
+`overrideAttrs`. Patch files live under `overrides/<name>/`. codex is
+the only entry.
 
 The re-export and the checks see the patched codex. Packages upstream
 builds against codex don't (see Consequences).
@@ -57,6 +58,10 @@ A change every user of the package would want goes upstream instead.
 - `+` The published codex passes `doctor`, so floxenvs can drop its
   recipe.
 - `+` codex's version and recipe still track upstream.
+- `+` A flake that builds its own llm-agents set can apply the same
+  overlay.
+- `-` `overlays.llm-agents` is a public output, so changing what it
+  takes or does affects those flakes.
 - `-` codex no longer comes from `cache.numtide.com`. Hydra builds it
   on every bump.
 - `-` A patch that stops applying blocks the hourly lock update until
