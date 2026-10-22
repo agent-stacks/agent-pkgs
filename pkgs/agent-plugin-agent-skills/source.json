@@ -1,0 +1,96 @@
+{
+  "name": "agent-skills",
+  "version": "0.6.13",
+  "src": {
+    "owner": "addyosmani",
+    "repo": "agent-skills",
+    "rev": "aeac41d4d005999432bb7312f7ff06383a91d59d",
+    "hash": "sha256-HxaYbxuZwVo2wybYazM05YUJG/udQNQP6X0qA5wfYIs="
+  },
+  "sourceUrl": "https://github.com/addyosmani/agent-skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Addy Osmani"
+    },
+    "description": "Production-grade engineering skills covering every phase of software development: spec, plan, build, verify, review, and ship.",
+    "extensions": {
+      "com.anthropic.claude-code": {
+        "commands": [
+          "./.claude/commands",
+          "./commands"
+        ]
+      }
+    },
+    "homepage": "https://github.com/addyosmani/agent-skills",
+    "keywords": [
+      "skills",
+      "agents",
+      "engineering",
+      "spec",
+      "tdd",
+      "review",
+      "ship"
+    ],
+    "license": "MIT",
+    "name": "agent-skills",
+    "repository": "https://github.com/addyosmani/agent-skills",
+    "version": "0.6.13"
+  },
+  "skills": {
+    "api-and-interface-design": "skills/api-and-interface-design",
+    "browser-testing-with-devtools": "skills/browser-testing-with-devtools",
+    "ci-cd-and-automation": "skills/ci-cd-and-automation",
+    "code-review-and-quality": "skills/code-review-and-quality",
+    "code-simplification": "skills/code-simplification",
+    "constraint-driven-development": "skills/constraint-driven-development",
+    "context-engineering": "skills/context-engineering",
+    "debugging-and-error-recovery": "skills/debugging-and-error-recovery",
+    "deprecation-and-migration": "skills/deprecation-and-migration",
+    "documentation-and-adrs": "skills/documentation-and-adrs",
+    "doubt-driven-development": "skills/doubt-driven-development",
+    "frontend-ui-engineering": "skills/frontend-ui-engineering",
+    "git-workflow-and-versioning": "skills/git-workflow-and-versioning",
+    "idea-refine": "skills/idea-refine",
+    "incremental-implementation": "skills/incremental-implementation",
+    "interview-me": "skills/interview-me",
+    "observability-and-instrumentation": "skills/observability-and-instrumentation",
+    "performance-optimization": "skills/performance-optimization",
+    "planning-and-task-breakdown": "skills/planning-and-task-breakdown",
+    "security-and-hardening": "skills/security-and-hardening",
+    "shipping-and-launch": "skills/shipping-and-launch",
+    "source-driven-development": "skills/source-driven-development",
+    "spec-driven-development": "skills/spec-driven-development",
+    "test-driven-development": "skills/test-driven-development",
+    "using-agent-skills": "skills/using-agent-skills"
+  },
+  "requiredRuntimes": [
+    "bash"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/.claude": ".claude",
+    "com.anthropic.claude-code/agents": "agents"
+  },
+  "meta": {
+    "description": "Production-grade engineering skills covering every phase of software development",
+    "homepage": "https://github.com/addyosmani/agent-skills"
+  },
+  "import": {
+    "input": "addyosmani/agent-skills",
+    "flags": [],
+    "warnings": [
+      {
+        "path": ".claude-plugin/plugin.json",
+        "message": "commands: \"./commands\" holds no .md file, so Claude Code loads no commands from it; not packaged"
+      },
+      {
+        "path": ".claude-plugin/plugin.json",
+        "message": "experimental.evals is declared; a package carries no evals (ADR 0038)"
+      },
+      {
+        "path": ".opencode/skills",
+        "message": "symlink to skills, followed"
+      }
+    ]
+  }
+}
