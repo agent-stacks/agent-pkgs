@@ -2,9 +2,11 @@
 #
 # Exceptions only, keyed by the re-exported name: each value is the
 # function handed to that package's overrideAttrs. Everything not named
-# here is published as upstream builds it. A name upstream no longer
-# defines fails evaluation rather than being skipped, so a rename
-# cannot drop a patch without anyone seeing it. ADR 0024.
+# here is published as upstream builds it. Two checks in flake.nix
+# guard the list: overrides-name-packages fails on a name upstream no
+# longer defines, so a rename cannot drop a patch unseen, and
+# <name>-patches-apply applies each package's patches to its source
+# without building it. ADR 0024.
 #
 # A patch here changes the store path, so Hydra builds the package
 # itself instead of finding it in upstream's cache, and the packages

@@ -144,6 +144,10 @@
       # re-export-is-packages check for that name alone.
       notPackagesExempt = [ ];
 
+      # The changes this set makes to a re-exported package, by name.
+      # ADR 0024.
+      overrides = import ./overrides;
+
       # Upstream's packages/ also holds builders, setup hooks and the
       # toolchains it builds with. They are derivations, not functions,
       # so no property distinguishes them from packages — they are
@@ -173,20 +177,17 @@
             })
             else p;
 
-          # The patches this set carries against an upstream package,
-          # applied before the category so the published derivation is
-          # the patched one. ADR 0024.
-          overrides = import ./overrides;
-          gone = builtins.filter (name: !(pkgs.llm-agents ? ${name}))
-            (builtins.attrNames overrides);
+          # Applied before the category, so the published derivation is
+          # the patched one. A name upstream no longer defines is not an
+          # error here; overrides-name-packages fails on it.
           withOverride = name: p:
-            if overrides ? ${name} then p.overrideAttrs overrides.${name} else p;
+            if !(overrides ? ${name}) then p
+            else nixpkgs.lib.throwIfNot (p ? overrideAttrs)
+              "overrides/default.nix names ${name}, which has no overrideAttrs"
+              (p.overrideAttrs overrides.${name});
         in
-        if gone != [ ]
-        then throw "overrides/default.nix names ${toString gone}, which llm-agents.nix no longer defines"
-        else
-          nixpkgs.lib.mapAttrs (name: p: withCategory name (withOverride name p))
-            (nixpkgs.lib.filterAttrs keep pkgs.llm-agents);
+        nixpkgs.lib.mapAttrs (name: p: withCategory name (withOverride name p))
+          (nixpkgs.lib.filterAttrs keep pkgs.llm-agents);
 
       # Every subdirectory of pkgs/ with a default.nix is a package.
       # `agent-stacks import --out pkgs/<name>` drops packages here; no
@@ -818,7 +819,52 @@
               ''
             );
 
-        };
+          # A name in overrides/ that upstream no longer defines would
+          # otherwise apply to nothing, and a rename would drop a patch
+          # without anyone seeing it. Failed here by name, not thrown
+          # from the re-export, so one stale entry leaves packages.*
+          # evaluable and every unrelated update unblocked. ADR 0024.
+          overrides-name-packages =
+            let
+              scope = (llmAgentsPkgsFor pkgs.stdenv.hostPlatform.system).llm-agents;
+              gone = builtins.filter (name: !(scope ? ${name}))
+                (builtins.attrNames overrides);
+            in
+            pkgs.runCommand "overrides-name-packages" { } (
+              if gone == [ ] then "touch $out"
+              else ''
+                cat >&2 <<'MSG'
+                overrides/default.nix names packages llm-agents.nix no longer
+                defines:
+
+                  ${builtins.concatStringsSep "\n  " gone}
+
+                Rename the entry to the package's new name, or remove it if
+                upstream dropped the package.
+                MSG
+                exit 1
+              ''
+            );
+        }
+        # Hydra builds the re-export and flake check does not (ADR
+        # 0008), so a bump that breaks a patch in overrides/ would merge
+        # with flake.lock and only turn Hydra red. This unpacks each
+        # overridden package's source and applies its patches, the same
+        # list in the same order, and stops there: cheap enough for a
+        # GitHub runner, and it fails the lock update that broke it.
+        // nixpkgs.lib.mapAttrs'
+          (name: p: nixpkgs.lib.nameValuePair "${name}-patches-apply"
+            (pkgs.stdenvNoCC.mkDerivation ({
+              name = "${name}-patches-apply";
+              inherit (p) src patches;
+              dontConfigure = true;
+              dontBuild = true;
+              dontFixup = true;
+              installPhase = "touch $out";
+            } // nixpkgs.lib.optionalAttrs (p ? sourceRoot) { inherit (p) sourceRoot; }
+              // nixpkgs.lib.optionalAttrs (p ? patchFlags) { inherit (p) patchFlags; })))
+          (nixpkgs.lib.filterAttrs (name: p: overrides ? ${name} && p ? patches)
+            (llmAgentsFor pkgs.stdenv.hostPlatform.system));
     in
     {
       packages = forAllSystems mkAllPackages;
