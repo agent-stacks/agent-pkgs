@@ -1,30 +1,11 @@
-# Changes this set makes to a package it re-exports from llm-agents.nix.
-#
-# Exceptions only, keyed by the re-exported name: each value is the
-# function handed to that package's overrideAttrs. Everything not named
-# here is published as upstream builds it. Two checks in flake.nix
-# guard the list: overrides-name-packages fails on a name upstream no
-# longer defines, so a rename cannot drop a patch unseen, and
-# <name>-patches-apply applies each package's patches to its source
-# without building it. ADR 0024.
-#
-# A patch here changes the store path, so Hydra builds the package
-# itself instead of finding it in upstream's cache, and the packages
-# upstream builds against it (codex-acp, for codex) keep upstream's
-# unpatched build: the scope they are called from is not exposed.
+# Changes made to packages re-exported from llm-agents.nix, keyed by
+# name. Each value is passed to that package's overrideAttrs. ADR 0024.
 {
-  # The two env vars agent-stacks launches codex with, so skills reach
-  # it without writing to ~/.codex or the working tree: agent-stacks
-  # ADR 0011. `agent-stacks doctor` finds the patch by grepping the
-  # binary for CODEX_FLOX_SKILL_ROOTS, and reports codex degraded
-  # without it. Carried verbatim from floxenvs' .flox/pkgs/codex.
-  # Paths are relative to codex-rs, upstream's sourceRoot; re-verify on
-  # every codex bump, which arrives with flake.lock.
+  # Adds the env vars agent-stacks passes skills through (agent-stacks
+  # ADR 0011).
   #
-  # builtins.path copies the patch into a store path of its own. A bare
-  # ./codex/flox-fragments.patch resolves inside this flake's source, so
-  # every commit to the repository would change codex's derivation and
-  # rebuild it from scratch.
+  # builtins.path gives the patch its own store path. A plain path sits
+  # inside this flake's source, so every commit would rebuild codex.
   codex = old: {
     patches = (old.patches or [ ]) ++ [
       (builtins.path {

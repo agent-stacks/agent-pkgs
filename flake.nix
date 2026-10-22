@@ -144,8 +144,6 @@
       # re-export-is-packages check for that name alone.
       notPackagesExempt = [ ];
 
-      # The changes this set makes to a re-exported package, by name.
-      # ADR 0024.
       overrides = import ./overrides;
 
       # Upstream's packages/ also holds builders, setup hooks and the
@@ -177,9 +175,6 @@
             })
             else p;
 
-          # Applied before the category, so the published derivation is
-          # the patched one. A name upstream no longer defines is not an
-          # error here; overrides-name-packages fails on it.
           withOverride = name: p:
             if !(overrides ? ${name}) then p
             else nixpkgs.lib.throwIfNot (p ? overrideAttrs)
@@ -819,11 +814,9 @@
               ''
             );
 
-          # A name in overrides/ that upstream no longer defines would
-          # otherwise apply to nothing, and a rename would drop a patch
-          # without anyone seeing it. Failed here by name, not thrown
-          # from the re-export, so one stale entry leaves packages.*
-          # evaluable and every unrelated update unblocked. ADR 0024.
+          # Otherwise an upstream rename silently drops a patch. A check
+          # rather than an eval error, so a stale entry blocks nothing
+          # else.
           overrides-name-packages =
             let
               scope = (llmAgentsPkgsFor pkgs.stdenv.hostPlatform.system).llm-agents;
@@ -846,12 +839,9 @@
               ''
             );
         }
-        # Hydra builds the re-export and flake check does not (ADR
-        # 0008), so a bump that breaks a patch in overrides/ would merge
-        # with flake.lock and only turn Hydra red. This unpacks each
-        # overridden package's source and applies its patches, the same
-        # list in the same order, and stops there: cheap enough for a
-        # GitHub runner, and it fails the lock update that broke it.
+        # flake check doesn't build the re-export (ADR 0008). Applying
+        # each override's patches without building means a bump that
+        # breaks one fails the lock update, not Hydra after the merge.
         // nixpkgs.lib.mapAttrs'
           (name: p: nixpkgs.lib.nameValuePair "${name}-patches-apply"
             (pkgs.stdenvNoCC.mkDerivation ({

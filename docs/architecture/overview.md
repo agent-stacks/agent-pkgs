@@ -84,11 +84,9 @@ and warns. The re-exported packages are not in `checks`, only in
 `packages` and `hydraJobs.packages`; the reasoning is in
 [decisions/0008](../decisions/0008-re-export-llm-agents-nix.md).
 
-A re-exported package named in `overrides/default.nix` is published
-with that change applied. Today that is only codex, patched so
-`agent-stacks launch` can pass it skills. `checks` asks that every
-name there still exists upstream and that every patch there still
-applies, without building the package
+Packages named in `overrides/default.nix` are published with that
+change. Today that is only codex, patched so `agent-stacks launch`
+can pass it skills
 ([decisions/0024](../decisions/0024-a-re-exported-package-can-carry-a-patch.md)).
 
 Spec conformance is not a separate check. `buildAgentPlugin` runs
