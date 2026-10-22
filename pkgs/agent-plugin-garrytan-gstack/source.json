@@ -1,0 +1,708 @@
+{
+  "name": "garrytan-gstack",
+  "version": "1.2.0",
+  "src": {
+    "owner": "garrytan",
+    "repo": "gstack",
+    "rev": "514fbfdc9799376edfd2536f60659501a48ead64",
+    "hash": "sha256-eviignG3Oj0n2E76Vsvry7BEQ6uzNQziGuqxv++XVHM="
+  },
+  "sourceUrl": "https://github.com/garrytan/gstack",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "name": "garrytan-gstack",
+    "version": "1.2.0"
+  },
+  "skills": {
+    "autoplan": "autoplan",
+    "benchmark": "benchmark",
+    "benchmark-models": "benchmark-models",
+    "browse": "browse",
+    "canary": "canary",
+    "careful": "careful",
+    "codex": "codex",
+    "context-restore": "context-restore",
+    "context-save": "context-save",
+    "cso": "cso",
+    "design-consultation": "design-consultation",
+    "design-html": "design-html",
+    "design-review": "design-review",
+    "design-shotgun": "design-shotgun",
+    "deslop-shared-libs": "deslop-shared-libs",
+    "devex-review": "devex-review",
+    "diagram": "diagram",
+    "document-generate": "document-generate",
+    "document-release": "document-release",
+    "eval-plan": "eval-plan",
+    "freeze": "freeze",
+    "gstack": ".",
+    "gstack-openclaw-ceo-review": "openclaw/skills/gstack-openclaw-ceo-review",
+    "gstack-openclaw-investigate": "openclaw/skills/gstack-openclaw-investigate",
+    "gstack-openclaw-office-hours": "openclaw/skills/gstack-openclaw-office-hours",
+    "gstack-openclaw-retro": "openclaw/skills/gstack-openclaw-retro",
+    "gstack-upgrade": "gstack-upgrade",
+    "guard": "guard",
+    "hackernews-frontpage": "browser-skills/hackernews-frontpage",
+    "health": "health",
+    "investigate": "investigate",
+    "ios-clean": "ios-clean",
+    "ios-design-review": "ios-design-review",
+    "ios-fix": "ios-fix",
+    "ios-qa": "ios-qa",
+    "ios-sync": "ios-sync",
+    "land-and-deploy": "land-and-deploy",
+    "landing-report": "landing-report",
+    "learn": "learn",
+    "make-pdf": "make-pdf",
+    "office-hours": "office-hours",
+    "open-gstack-browser": "open-gstack-browser",
+    "pair-agent": "pair-agent",
+    "plan-ceo-review": "plan-ceo-review",
+    "plan-design-review": "plan-design-review",
+    "plan-devex-review": "plan-devex-review",
+    "plan-eng-review": "plan-eng-review",
+    "plan-tune": "plan-tune",
+    "qa": "qa",
+    "qa-only": "qa-only",
+    "retro": "retro",
+    "review": "review",
+    "scrape": "scrape",
+    "setup-browser-cookies": "setup-browser-cookies",
+    "setup-deploy": "setup-deploy",
+    "setup-gbrain": "setup-gbrain",
+    "ship": "ship",
+    "skillify": "skillify",
+    "spec": "spec",
+    "sync-gbrain": "sync-gbrain",
+    "test-audit": "test-audit",
+    "unfreeze": "unfreeze"
+  },
+  "requiredRuntimes": [
+    "bash",
+    "bun",
+    "python3",
+    "sh"
+  ],
+  "meta": {
+    "description": "Agent plugin imported from https://github.com/garrytan/gstack",
+    "homepage": "https://github.com/garrytan/gstack"
+  },
+  "import": {
+    "input": "garrytan/gstack",
+    "flags": [],
+    "warnings": [
+      {
+        "path": "SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read AskUserQuestion)"
+      },
+      {
+        "path": "autoplan/SKILL.md",
+        "message": "unknown frontmatter fields: hooks, preamble-tier, triggers, version"
+      },
+      {
+        "path": "autoplan/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write Edit Glob Grep WebSearch AskUserQuestion)"
+      },
+      {
+        "path": "benchmark-models/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "benchmark-models/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read AskUserQuestion)"
+      },
+      {
+        "path": "benchmark/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "benchmark/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write Glob AskUserQuestion)"
+      },
+      {
+        "path": "browse/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "browse/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read AskUserQuestion)"
+      },
+      {
+        "path": "browser-skills/hackernews-frontpage/SKILL.md",
+        "message": "unknown frontmatter fields: args, host, source, triggers, trusted, version"
+      },
+      {
+        "path": "canary/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "canary/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write Glob AskUserQuestion)"
+      },
+      {
+        "path": "capy/skill/gstack",
+        "message": "skill \"gstack\" already found at ., not imported"
+      },
+      {
+        "path": "careful/SKILL.md",
+        "message": "unknown frontmatter fields: hooks, triggers, version"
+      },
+      {
+        "path": "careful/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read)"
+      },
+      {
+        "path": "codex/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "codex/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write Glob Grep AskUserQuestion)"
+      },
+      {
+        "path": "connect-chrome",
+        "message": "symlink to open-gstack-browser, followed"
+      },
+      {
+        "path": "context-restore/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "context-restore/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Glob Grep AskUserQuestion)"
+      },
+      {
+        "path": "context-save/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "context-save/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write Glob Grep AskUserQuestion)"
+      },
+      {
+        "path": "cso/SKILL.md",
+        "message": "unknown frontmatter fields: triggers, version"
+      },
+      {
+        "path": "cso/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list of 2 tools"
+      },
+      {
+        "path": "design-consultation/SKILL.md",
+        "message": "unknown frontmatter fields: gbrain, preamble-tier, triggers, version"
+      },
+      {
+        "path": "design-consultation/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write Edit Glob Grep AskUserQuestion WebSearch)"
+      },
+      {
+        "path": "design-html/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "design-html/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write Edit Glob Grep Agent AskUserQuestion)"
+      },
+      {
+        "path": "design-review/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "design-review/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write Edit Glob Grep AskUserQuestion WebSearch)"
+      },
+      {
+        "path": "design-shotgun/SKILL.md",
+        "message": "unknown frontmatter fields: gbrain, preamble-tier, triggers, version"
+      },
+      {
+        "path": "design-shotgun/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Glob Grep AskUserQuestion)"
+      },
+      {
+        "path": "deslop-shared-libs/SKILL.md",
+        "message": "unknown frontmatter fields: triggers, version"
+      },
+      {
+        "path": "deslop-shared-libs/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Glob Grep)"
+      },
+      {
+        "path": "devex-review/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "devex-review/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Read Edit Grep Glob Bash AskUserQuestion WebSearch)"
+      },
+      {
+        "path": "diagram/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "diagram/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write AskUserQuestion)"
+      },
+      {
+        "path": "document-generate/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "document-generate/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write Edit Grep Glob AskUserQuestion)"
+      },
+      {
+        "path": "document-release/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "document-release/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write Edit Grep Glob AskUserQuestion)"
+      },
+      {
+        "path": "eval-plan/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "eval-plan/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write Edit Glob Grep AskUserQuestion)"
+      },
+      {
+        "path": "freeze/SKILL.md",
+        "message": "unknown frontmatter fields: hooks, triggers, version"
+      },
+      {
+        "path": "freeze/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read AskUserQuestion)"
+      },
+      {
+        "path": "gstack-upgrade/SKILL.md",
+        "message": "unknown frontmatter fields: triggers, version"
+      },
+      {
+        "path": "gstack-upgrade/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write AskUserQuestion)"
+      },
+      {
+        "path": "guard/SKILL.md",
+        "message": "unknown frontmatter fields: hooks, triggers, version"
+      },
+      {
+        "path": "guard/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read AskUserQuestion)"
+      },
+      {
+        "path": "health/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "health/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write Edit Glob Grep AskUserQuestion)"
+      },
+      {
+        "path": "investigate/SKILL.md",
+        "message": "unknown frontmatter fields: gbrain, hooks, preamble-tier, triggers, version"
+      },
+      {
+        "path": "investigate/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write Edit Grep Glob AskUserQuestion WebSearch)"
+      },
+      {
+        "path": "ios-clean/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "ios-clean/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Edit Glob Grep AskUserQuestion)"
+      },
+      {
+        "path": "ios-design-review/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "ios-design-review/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Glob Grep AskUserQuestion)"
+      },
+      {
+        "path": "ios-fix/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "ios-fix/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write Edit Grep Glob AskUserQuestion)"
+      },
+      {
+        "path": "ios-qa/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "ios-qa/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write Edit Grep Glob AskUserQuestion)"
+      },
+      {
+        "path": "ios-sync/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "ios-sync/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write Edit Glob Grep AskUserQuestion)"
+      },
+      {
+        "path": "land-and-deploy/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "land-and-deploy/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write Glob AskUserQuestion)"
+      },
+      {
+        "path": "landing-report/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "landing-report/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read)"
+      },
+      {
+        "path": "learn/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "learn/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write Edit AskUserQuestion Glob Grep)"
+      },
+      {
+        "path": "make-pdf/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "make-pdf/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read AskUserQuestion)"
+      },
+      {
+        "path": "office-hours/SKILL.md",
+        "message": "unknown frontmatter fields: gbrain, preamble-tier, triggers, version"
+      },
+      {
+        "path": "office-hours/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Grep Glob Write Edit AskUserQuestion WebSearch)"
+      },
+      {
+        "path": "open-gstack-browser/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "open-gstack-browser/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read AskUserQuestion)"
+      },
+      {
+        "path": "pair-agent/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "pair-agent/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read AskUserQuestion)"
+      },
+      {
+        "path": "plan-ceo-review/SKILL.md",
+        "message": "unknown frontmatter fields: gbrain, hooks, preamble-tier, triggers, version"
+      },
+      {
+        "path": "plan-ceo-review/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Read Grep Glob Bash AskUserQuestion WebSearch)"
+      },
+      {
+        "path": "plan-design-review/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "plan-design-review/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Read Edit Grep Glob Bash AskUserQuestion)"
+      },
+      {
+        "path": "plan-devex-review/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "plan-devex-review/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Read Edit Grep Glob Bash AskUserQuestion WebSearch)"
+      },
+      {
+        "path": "plan-eng-review/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "plan-eng-review/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Read Write Grep Glob AskUserQuestion Bash WebSearch)"
+      },
+      {
+        "path": "plan-tune/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "plan-tune/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write Edit AskUserQuestion Glob Grep)"
+      },
+      {
+        "path": "qa-only/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "qa-only/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write AskUserQuestion WebSearch)"
+      },
+      {
+        "path": "qa/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "qa/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write Edit Glob Grep AskUserQuestion WebSearch)"
+      },
+      {
+        "path": "retro/SKILL.md",
+        "message": "unknown frontmatter fields: gbrain, preamble-tier, triggers, version"
+      },
+      {
+        "path": "retro/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write Glob AskUserQuestion)"
+      },
+      {
+        "path": "review/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "review/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Edit Write Grep Glob Agent AskUserQuestion WebSearch)"
+      },
+      {
+        "path": "scrape/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "scrape/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read AskUserQuestion)"
+      },
+      {
+        "path": "setup-browser-cookies/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "setup-browser-cookies/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read AskUserQuestion)"
+      },
+      {
+        "path": "setup-deploy/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "setup-deploy/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write Edit Glob Grep AskUserQuestion)"
+      },
+      {
+        "path": "setup-gbrain/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "setup-gbrain/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write Edit Glob Grep AskUserQuestion)"
+      },
+      {
+        "path": "ship/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "ship/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write Edit Grep Glob Agent AskUserQuestion WebSearch)"
+      },
+      {
+        "path": "skillify/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "skillify/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write AskUserQuestion)"
+      },
+      {
+        "path": "spec/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "spec/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Grep Glob AskUserQuestion)"
+      },
+      {
+        "path": "sync-gbrain/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "sync-gbrain/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write Edit Glob Grep AskUserQuestion)"
+      },
+      {
+        "path": "test",
+        "message": "2 SKILL.md in a test or dependency directory the search skips, not imported, left out of the root skill's copy"
+      },
+      {
+        "path": "test-audit/SKILL.md",
+        "message": "unknown frontmatter fields: preamble-tier, triggers, version"
+      },
+      {
+        "path": "test-audit/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read Write Edit Glob Grep AskUserQuestion)"
+      },
+      {
+        "path": "unfreeze/SKILL.md",
+        "message": "unknown frontmatter fields: triggers, version"
+      },
+      {
+        "path": "unfreeze/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash Read)"
+      },
+      {
+        "path": ".agents/gbrain-launcher",
+        "message": "this is named through ${PLUGIN_ROOT}, or sits at a plugin root a server runs from, and is not in the source; it resolves to nothing wherever the plugin is installed"
+      },
+      {
+        "path": "CHANGELOG.md",
+        "message": "larger than 1MiB, so it was not read; a ${PLUGIN_ROOT} reference inside it ships nothing, and a script only it runs is not reported"
+      },
+      {
+        "path": "lib/diagram-render/dist/diagram-render.html",
+        "message": "larger than 1MiB, so it was not read; a ${PLUGIN_ROOT} reference inside it ships nothing, and a script only it runs is not reported"
+      },
+      {
+        "path": "scripts/app/icon.icns",
+        "message": "larger than 1MiB, so it was not read; a ${PLUGIN_ROOT} reference inside it ships nothing, and a script only it runs is not reported"
+      },
+      {
+        "path": "skills/gstack/bin/gstack-brain-lock.sh",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/gstack/bin/gstack-bun-version.sh",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/gstack/bin/gstack-claude-root.sh",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/gstack/bin/gstack-codex-status.sh",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/gstack/bin/gstack-doctor-check.sh",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/gstack/bin/gstack-doctor-components.sh",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/gstack/bin/gstack-egress-lib.sh",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/gstack/bin/gstack-gbrain-lib.sh",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/gstack/bin/gstack-harness-pid.sh",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/gstack/bin/gstack-host-renders.sh",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/gstack/bin/gstack-install-registry.sh",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/gstack/bin/gstack-install-verdict.sh",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/gstack/bin/gstack-launch-probe.sh",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/gstack/bin/gstack-node-runtime.sh",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/gstack/bin/gstack-path-spelling.sh",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/gstack/bin/gstack-remote-identity.sh",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/gstack/bin/gstack-render-claude.sh",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/gstack/bin/gstack-sanitize-echo.sh",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/gstack/bin/gstack-state-root.sh",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/gstack/test/fixtures/arm-benchmark/bugfix-decoys/run-tests.js",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/gstack/test/fixtures/arm-benchmark/crud-endpoint/app.js",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/gstack/test/fixtures/arm-benchmark/crud-endpoint/run-tests.js",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/gstack/test/fixtures/arm-benchmark/native-overbuild/app.js",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/gstack/test/fixtures/review-army-n-plus-one.rb",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/gstack/test/fixtures/review-eval-enum-diff.rb",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/gstack/test/fixtures/review-eval-enum.rb",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/gstack/test/fixtures/review-eval-vuln.rb",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/gstack/lib/diagram-render/package.json",
+        "message": "dependency manifest; the build does not resolve what it declares"
+      },
+      {
+        "path": "skills/gstack/package.json",
+        "message": "dependency manifest; the build does not resolve what it declares"
+      },
+      {
+        "path": "skills/gstack/test/fixtures/arm-benchmark/bugfix-decoys/package.json",
+        "message": "dependency manifest; the build does not resolve what it declares"
+      },
+      {
+        "path": "skills/gstack/test/fixtures/arm-benchmark/crud-endpoint/package.json",
+        "message": "dependency manifest; the build does not resolve what it declares"
+      }
+    ]
+  }
+}
