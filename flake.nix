@@ -841,7 +841,8 @@
         }
         # flake check doesn't build the re-export (ADR 0008). Applying
         # each override's patches without building means a bump that
-        # breaks one fails the lock update, not Hydra after the merge.
+        # stops one applying fails the lock update. A patch that applies
+        # but no longer compiles still only fails on Hydra.
         # It also fails if the published package lacks a patch its
         # override adds, which is what a dropped overlay looks like.
         // nixpkgs.lib.mapAttrs'
