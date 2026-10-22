@@ -22,15 +22,19 @@ The options:
   codex 0.163 does have its own extra skill roots
   (`SkillsExtraRootsSet`), but only over the app-server protocol. If
   upstream exposed that on the command line, the patch could go.
-- **`overrideAttrs` on the re-exported package.** The recipe and
-  version still come from upstream with `flake.lock`. Only the patch
-  lives here.
+- **An overlay on the llm-agents set.** The recipe and version still
+  come from upstream with `flake.lock`. Only the patch lives here.
 
 ## Decision
 
-We will patch re-exported packages with `overrideAttrs`, listed by
-name in `overrides/default.nix`, with patch files under
-`overrides/<name>/`. codex is the only entry.
+We will patch packages with an overlay on the llm-agents set,
+`llmAgentsOverlay` in `flake.nix`, applied after upstream's
+`shared-nixpkgs` overlay. It passes each entry in
+`overrides/default.nix` to that package's `overrideAttrs`. Patch files
+live under `overrides/<name>/`. codex is the only entry.
+
+Everything built from that package set sees the patched codex,
+including the re-export and the checks.
 
 Two checks guard the list:
 
@@ -52,8 +56,8 @@ A change every user of the package would want goes upstream instead.
 - `-` A patch that stops applying blocks the hourly lock update until
   someone rebases it.
 - `-` `codex-acp`, `t3code`, `oh-my-codex` and `kandev` keep upstream's
-  unpatched codex. Upstream doesn't expose the scope they're built
-  from.
+  unpatched codex. Upstream builds them against codex from its own
+  internal scope, which the overlay can't reach.
 - `-` Not verified: the patched codex keeps version 0.163.0, which
   the catalog already has unpatched. Check what `agent-stacks/codex`
   resolves to before floxenvs deletes its codex.

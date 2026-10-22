@@ -95,7 +95,20 @@
       llmAgentsPkgsFor = system: import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        overlays = [ llm-agents.overlays.shared-nixpkgs ];
+        overlays = [ llm-agents.overlays.shared-nixpkgs llmAgentsOverlay ];
+      };
+
+      # Applies overrides/ to the llm-agents set. ADR 0024. A name
+      # upstream no longer has is skipped here and failed by
+      # overrides-name-packages, so it can't break evaluation.
+      llmAgentsOverlay = final: prev: {
+        llm-agents = prev.llm-agents // builtins.mapAttrs
+          (name: f:
+            let p = prev.llm-agents.${name}; in
+            nixpkgs.lib.throwIfNot (p ? overrideAttrs)
+              "overrides/default.nix names ${name}, which has no overrideAttrs"
+              (p.overrideAttrs f))
+          (builtins.intersectAttrs prev.llm-agents overrides);
       };
 
       # Attributes llm-agents.nix exposes that are not packages of this
@@ -174,14 +187,8 @@
               meta = (old.meta or { }) // { inherit category; };
             })
             else p;
-
-          withOverride = name: p:
-            if !(overrides ? ${name}) then p
-            else nixpkgs.lib.throwIfNot (p ? overrideAttrs)
-              "overrides/default.nix names ${name}, which has no overrideAttrs"
-              (p.overrideAttrs overrides.${name});
         in
-        nixpkgs.lib.mapAttrs (name: p: withCategory name (withOverride name p))
+        nixpkgs.lib.mapAttrs withCategory
           (nixpkgs.lib.filterAttrs keep pkgs.llm-agents);
 
       # Every subdirectory of pkgs/ with a default.nix is a package.
