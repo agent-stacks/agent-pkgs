@@ -1,11 +1,11 @@
 {
   "name": "power-apps-mobile-extension",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "src": {
     "owner": "microsoft",
     "repo": "power-platform-skills",
-    "rev": "e67e459ac316e9c0bc8b972d11c955a1d84c3097",
-    "hash": "sha256-OCMKmZRQ3b/HciUP6r8pocwmcg5revMrYbEBJUB/TmA="
+    "rev": "3cbe9cedb32650b5d9ef225408db294389e6c430",
+    "hash": "sha256-FWfz5+ieGhcB6o2QjSI2s7gnD6l9tVgZUgBjZLR1xmM="
   },
   "sourceUrl": "https://github.com/microsoft/power-platform-skills",
   "manifest": {
@@ -31,7 +31,7 @@
     "license": "MIT",
     "name": "power-apps-mobile-extension",
     "repository": "https://github.com/microsoft/power-platform-skills/",
-    "version": "0.1.0"
+    "version": "0.2.0"
   },
   "skills": {
     "assemble-ppmplugin": "plugins/power-apps-mobile-extension/skills/assemble-ppmplugin",
@@ -45,12 +45,41 @@
     "generate-ppmplugin": "plugins/power-apps-mobile-extension/skills/generate-ppmplugin",
     "generate-ppmplugin-manifest": "plugins/power-apps-mobile-extension/skills/generate-ppmplugin-manifest",
     "publish-pcf-companion": "plugins/power-apps-mobile-extension/skills/publish-pcf-companion",
+    "telemetry": "plugins/power-apps-mobile-extension/skills/telemetry",
     "test-native-extension": "plugins/power-apps-mobile-extension/skills/test-native-extension"
   },
   "requiredRuntimes": [],
   "dependencies": [
     "dotnet-sdk_10"
   ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/hooks": "plugins/power-apps-mobile-extension/hooks"
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "node -e \"const path=require('node:path');const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT;if(!root)process.exit(0);try{require(path.resolve(root,'hooks','run-telemetry.js')).start('pretool');}catch{}\"",
+            "timeout": 30,
+            "type": "command"
+          }
+        ],
+        "matcher": "Skill|skill"
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "command": "node -e \"const path=require('node:path');const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT;if(!root)process.exit(0);try{require(path.resolve(root,'hooks','run-telemetry.js')).start('prompt');}catch{}\"",
+            "timeout": 30,
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
   "meta": {
     "description": "Build third-party Power Apps Mobile (PAM) controls into a prebuilt .ppmplugin binary (Android DEX + flat iOS .framework + manifest.json) for the wrap runtime",
     "homepage": "https://github.com/microsoft/power-platform-skills"
@@ -106,8 +135,20 @@
         "message": "unknown frontmatter fields: model"
       },
       {
+        "path": "plugins/power-apps-mobile-extension/skills/telemetry/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, user-invocable"
+      },
+      {
         "path": "plugins/power-apps-mobile-extension/skills/test-native-extension/SKILL.md",
         "message": "unknown frontmatter fields: model"
+      },
+      {
+        "path": "plugins/power-apps-mobile-extension/hooks/hooks.json",
+        "message": "Claude Code runs this on PreToolUse: node -e \"const path=require('node:path');const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT;if(!root)process.exit(0);try{require(path.resolve(root,'hooks','run-telemetry.js')).start('pretool');}catch{}\""
+      },
+      {
+        "path": "plugins/power-apps-mobile-extension/hooks/hooks.json",
+        "message": "Claude Code runs this on UserPromptSubmit: node -e \"const path=require('node:path');const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT;if(!root)process.exit(0);try{require(path.resolve(root,'hooks','run-telemetry.js')).start('prompt');}catch{}\""
       }
     ]
   }
