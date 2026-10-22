@@ -76,7 +76,10 @@ stacks run the bare binary, its `passthru.unwrapped`.
 nixpkgs this set pins via that flake's `overlays.shared-nixpkgs`, and
 filtered to derivations that are available on the platform and not
 broken. A name defined in both places resolves to the one in `pkgs/`
-and warns. They are not in `checks`, only in `packages` and
+and warns. A re-exported package named in `overrides/default.nix` is
+published with that change applied. Today that is only codex,
+patched so `agent-stacks launch` can pass it skills
+([decisions/0024](../decisions/0024-a-re-exported-package-can-carry-a-patch.md)). They are not in `checks`, only in `packages` and
 `hydraJobs.packages`; the reasoning is in
 [decisions/0008](../decisions/0008-re-export-llm-agents-nix.md).
 
