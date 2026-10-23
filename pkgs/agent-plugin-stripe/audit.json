@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "stripe",
-      "dir": "/nix/store/m3pnrpq3rpp0z80y0sjqk56r61s7zn30-agent-plugin-stripe-8.0.4/share/agent-plugins/stripe",
+      "dir": "/nix/store/w9zj84rhqfbphq2h73rv3gc6rwgdpizc-agent-plugin-stripe-0.11.27/share/agent-plugins/stripe",
       "spec": "1.1.0",
       "score": 43,
       "status": "do not install",
@@ -29,8 +29,20 @@
         ],
         "notChecked": [
           {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          },
+          {
+            "path": "com.anthropic.claude-code/",
+            "reason": "client extension; no portable meaning in the spec"
+          },
+          {
             "path": "mcp.json",
             "reason": "SkillSpector does not analyse this layout as an MCP manifest"
+          },
+          {
+            "path": "scripts/",
+            "reason": "outside the spec"
           }
         ]
       },
@@ -504,7 +516,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-22T01:12:58Z"
+      "checkedAt": "2026-10-23T04:25:17Z"
     }
   },
   "agentStacks": {

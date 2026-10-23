@@ -7,9 +7,9 @@
   "plugins": [
     {
       "name": "openseo",
-      "dir": "/nix/store/rypwxpi6mqmm59disn0ddjmg28b645n3-agent-plugin-openseo-1.0.22/share/agent-plugins/openseo",
+      "dir": "/nix/store/rxbngijcwlx829is47bcwp20c495g433-agent-plugin-openseo-1.0.25/share/agent-plugins/openseo",
       "spec": "1.1.0",
-      "score": 100,
+      "score": 83,
       "status": "safe",
       "coverage": {
         "scanned": [
@@ -131,13 +131,27 @@
         },
         {
           "path": "skills/local-seo",
-          "score": 100,
-          "risk": 0,
+          "score": 83,
+          "risk": 17,
           "status": "safe",
-          "partial": false,
+          "partial": true,
           "coverage": 100,
-          "exceptions": [],
-          "findings": []
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/local-seo/SKILL.md",
+              "line": 132
+            }
+          ],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/local-seo/SKILL.md",
+              "line": 105
+            }
+          ]
         },
         {
           "path": "skills/seo-audit",
@@ -215,7 +229,7 @@
       ]
     }
   ],
-  "score": 100,
+  "score": 83,
   "status": "safe",
   "tool": {
     "name": "skillspector",
@@ -223,7 +237,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:32:21Z"
+      "checkedAt": "2026-10-23T05:06:43Z"
     }
   },
   "agentStacks": {
