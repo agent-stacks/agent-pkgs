@@ -355,6 +355,22 @@ jobs:
           mkdir -p "$RUNNER_TEMP/audits"
           : > "$RUNNER_TEMP/audits.tsv"
           bad=0
+          # download-artifact extracts a lone artifact straight into
+          # shards/, not into shards/audit-<n>/. A run with one shard,
+          # such as a push changing one plugin, lands here flat, and the
+          # loop below would find nothing. Put it under the one shard
+          # gather made. mkdir without -p: an artifact that brought its
+          # own audit-<n> fails the job.
+          if [ -e shards/audited.tsv ]; then
+            only="$(jq -r 'if (.include | length) == 1 then .include[0].shard else empty end' <<< "$MATRIX")"
+            if [ -z "$only" ]; then
+              echo "::error::shards/ holds one shard's files, but gather made more than one shard"
+              exit 1
+            fi
+            mkdir "shards/audit-$only"
+            find shards -mindepth 1 -maxdepth 1 ! -name "audit-$only" \
+              -exec mv -t "shards/audit-$only" {} +
+          fi
           for dir in shards/audit-*; do
             shard="${dir#shards/audit-}"
             [ -f "$dir/audited.tsv" ] || continue
