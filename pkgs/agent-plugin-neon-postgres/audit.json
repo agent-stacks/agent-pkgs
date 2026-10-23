@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "neon-postgres",
-      "dir": "/nix/store/4v20b9d2kky5g47ialr3sjy8mipzzkc1-agent-plugin-neon-postgres-2.3.0/share/agent-plugins/neon-postgres",
+      "dir": "/nix/store/h551imijxgy211f8vr8mvfb1hrbmfy8g-agent-plugin-neon-postgres-2.3.0/share/agent-plugins/neon-postgres",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -924,12 +924,17 @@
         },
         {
           "path": "skills/neon-postgres",
-          "score": 51,
-          "risk": 49,
-          "status": "caution",
+          "score": 39,
+          "risk": 61,
+          "status": "do not install",
           "partial": true,
-          "coverage": 80,
+          "coverage": 60,
           "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/neon-postgres/references/hybrid-search.md",
+              "line": 0
+            },
             {
               "reason": "static_parse_limit",
               "path": "skills/neon-postgres/references/vector-search.md",
@@ -943,6 +948,13 @@
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/neon-postgres/SKILL.md",
               "line": 263
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/neon-postgres/SKILL.md",
+              "line": 265
             },
             {
               "id": "AS3",
@@ -1283,7 +1295,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T23:02:47Z"
+      "checkedAt": "2026-10-23T21:41:36Z"
     }
   },
   "agentStacks": {
