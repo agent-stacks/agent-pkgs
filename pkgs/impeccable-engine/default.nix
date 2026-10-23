@@ -32,9 +32,13 @@ rustPlatform.buildRustPackage {
 
   cargoLock.lockFile = "${src}/Cargo.lock";
   cargoBuildFlags = [ "-p" "impeccable" ];
-  # Unit tests only: the suites under crates/cli/tests drive Chrome and
-  # timed loopback servers, which fail in the build sandbox.
-  cargoTestFlags = [ "-p" "impeccable" "--bins" ];
+  # The crate's unit tests, which all live in its library; upstream
+  # marks the ones that need Chromium #[ignore]. The suites under
+  # crates/cli/tests drive Chrome and timed loopback servers, which
+  # fail in the build sandbox.
+  cargoTestFlags = [ "-p" "impeccable" "--lib" ];
+  # Some unit tests listen on 127.0.0.1.
+  __darwinAllowLocalNetworking = true;
 
   # The launcher execs the sibling slot without asking its version, so
   # a commit whose engine and VERSION disagree fails here instead.

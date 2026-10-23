@@ -68,7 +68,8 @@ mechanism for one package. A second case is the evidence for one.
 ## Consequences
 
 - `+` The skill and its hooks work offline, and run what Nix built.
-  Nothing is written to `~/.impeccable`.
+  Nothing is downloaded into `~/.impeccable`. The engine still keeps
+  its staleness cache, seed salt and telemetry config there.
 - `+` A replay moves the engine with the skill. There is no hash or
   version to keep in step by hand.
 - `+` `impeccable-engine` is installable on its own, for a skill
@@ -79,7 +80,7 @@ mechanism for one package. A second case is the evidence for one.
   build with fat LTO, where it used to be a copy.
 - `-` A commit whose engine fails to build now fails the plugin too.
   So does one whose engine and `scripts/VERSION` disagree.
-- `-` The build runs the binary's unit tests only. The integration
+- `-` The build runs the CLI crate's unit tests only. The integration
   suites drive Chrome and timed loopback servers, and fail in the
   sandbox.
 - `-` The slot is filled by hand in one package's block. A second

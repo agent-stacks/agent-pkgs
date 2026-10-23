@@ -15,14 +15,19 @@ let
   hooks = old:
     let
       engine = pkgs.callPackage ../impeccable-engine { };
-      platform = pkgs.stdenv.hostPlatform;
-      os = if platform.isDarwin then "darwin" else "linux";
-      arch = if platform.isAarch64 then "arm64" else "x64";
+      system = pkgs.stdenv.hostPlatform.system;
+      # The slots the launcher's uname mapping can name.
+      slot = {
+        x86_64-linux = "linux-x64";
+        aarch64-linux = "linux-arm64";
+        x86_64-darwin = "darwin-x64";
+        aarch64-darwin = "darwin-arm64";
+      }.${system} or (throw "agent-plugin-impeccable: the launcher has no engine slot for ${system}");
     in
     {
       nativeBuildInputs = old.nativeBuildInputs ++ [ pkgs.makeBinaryWrapper ];
       postAssemble = old.postAssemble + ''
-        slot="$dest/skills/impeccable/scripts/bin/${os}-${arch}"
+        slot="$dest/skills/impeccable/scripts/bin/${slot}"
         mkdir -p "$slot"
         makeBinaryWrapper ${pkgs.lib.getExe engine} "$slot/impeccable" \
           --set-default IMPECCABLE_NO_UPDATE_CHECK 1
