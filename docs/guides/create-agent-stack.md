@@ -476,5 +476,6 @@ here; `Plugins` is the line to read.
 | -------- | ---- |
 | Every `mkAgentStack` argument, and what fails to evaluate | [reference/mk-agent-stack.md](../reference/mk-agent-stack.md) |
 | Creating the plugins a stack carries | [create-agent-plugin.md](create-agent-plugin.md) |
+| Making a stack with the Flox CLI instead of a flake | [create-agent-stack-with-flox.md](create-agent-stack-with-flox.md) |
 | What the builder produces | [reference/build-agent-plugin.md](../reference/build-agent-plugin.md) |
 | How staging works per agent | [agent-stacks `docs/architecture/launch.md`](https://github.com/agent-stacks/agent-stacks-cli/blob/main/docs/architecture/launch.md) |
