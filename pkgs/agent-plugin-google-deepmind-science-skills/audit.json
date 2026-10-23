@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "google-deepmind-science-skills",
-      "dir": "/nix/store/xp0yjqdx4xy991qv0i36y99jp9zm87wj-agent-plugin-google-deepmind-science-skills-0.0.0-unstable.2026-10-15.g99f3085/share/agent-plugins/google-deepmind-science-skills",
+      "dir": "/nix/store/3dsm1b9w23y76f9wh8d3vqpidk7xx6pz-agent-plugin-google-deepmind-science-skills-0.0.0-unstable.2026-10-23.g4de6786/share/agent-plugins/google-deepmind-science-skills",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -110,12 +110,22 @@
           "risk": 39,
           "status": "caution",
           "partial": true,
-          "coverage": 100,
+          "coverage": 66.7,
           "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/alphagenome-atlas-website-links/SKILL.md",
+              "line": 0
+            },
             {
               "reason": "reference_missing",
               "path": "skills/alphagenome-atlas-website-links/SKILL.md",
-              "line": 215
+              "line": 164
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/alphagenome-atlas-website-links/SKILL.md",
+              "line": 233
             }
           ],
           "findings": [
@@ -1286,9 +1296,9 @@
         },
         {
           "path": "skills/literature-search-openalex",
-          "score": 57,
-          "risk": 43,
-          "status": "caution",
+          "score": 47,
+          "risk": 53,
+          "status": "do not install",
           "partial": true,
           "coverage": 100,
           "exceptions": [
@@ -1296,6 +1306,11 @@
               "reason": "reference_missing",
               "path": "skills/literature-search-openalex/SKILL.md",
               "line": 18
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/literature-search-openalex/SKILL.md",
+              "line": 101
             }
           ],
           "findings": [
@@ -1304,7 +1319,7 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/literature-search-openalex/scripts/openalex_cli.py",
-              "line": 527
+              "line": 622
             },
             {
               "id": "LP3",
@@ -1314,32 +1329,39 @@
               "line": 1
             },
             {
-              "id": "E1",
+              "id": "EA4",
               "severity": "MEDIUM",
-              "message": "External Transmission",
+              "message": "Unbounded Resource Access",
               "file": "skills/literature-search-openalex/scripts/openalex_cli.py",
-              "line": 213
+              "line": 160
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/literature-search-openalex/scripts/openalex_cli.py",
-              "line": 270
+              "line": 295
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/literature-search-openalex/scripts/openalex_cli.py",
+              "line": 352
             },
             {
               "id": "AST7",
               "severity": "LOW",
               "message": "Dynamic attribute access via getattr()",
               "file": "skills/literature-search-openalex/scripts/openalex_cli.py",
-              "line": 464
+              "line": 547
             },
             {
               "id": "AST7",
               "severity": "LOW",
               "message": "Dynamic attribute access via getattr()",
               "file": "skills/literature-search-openalex/scripts/openalex_cli.py",
-              "line": 466
+              "line": 549
             }
           ]
         },
@@ -2337,7 +2359,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T23:27:36Z"
+      "checkedAt": "2026-10-23T13:45:01Z"
     }
   },
   "agentStacks": {
