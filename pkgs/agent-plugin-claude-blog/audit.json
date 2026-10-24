@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "claude-blog",
-      "dir": "/nix/store/mlv2aph02czjb9czz54isbb0aa574z19-agent-plugin-claude-blog-2.3.1/share/agent-plugins/claude-blog",
+      "dir": "/nix/store/b4ydwbbwyx850v2nxwdbjm10vj2y17ys-agent-plugin-claude-blog-2.3.1/share/agent-plugins/claude-blog",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -1252,6 +1252,20 @@
             }
           ],
           "findings": [
+            {
+              "id": "SC4",
+              "severity": "CRITICAL",
+              "message": "Known Vulnerable Dependency: brotli==1.2.0 — 2 advisory(ies): GHSA-9v8h-qqgm-4m35 (Brotli: Out-of-bounds write in the Brotli decoder (\"Node2Shell\") also affects th); CVE-2026-111497 (Out-of-bounds write in the Brotli decoder (\"Node2Shell\") also affects the PyPI B)",
+              "file": "skills/blog-google/scripts/requirements.lock",
+              "line": 3
+            },
+            {
+              "id": "SC4",
+              "severity": "CRITICAL",
+              "message": "Known Vulnerable Dependency: brotlicffi==1.2.0.2 — 2 advisory(ies): GHSA-9v8h-qqgm-4m35 (Brotli: Out-of-bounds write in the Brotli decoder (\"Node2Shell\") also affects th); CVE-2026-111497 (Out-of-bounds write in the brotlicffi decoder (\"Node2Shell\") also affects the Py)",
+              "file": "skills/blog-google/scripts/requirements.lock",
+              "line": 105
+            },
             {
               "id": "SC4",
               "severity": "CRITICAL",
@@ -5030,7 +5044,7 @@
             {
               "id": "SC4",
               "severity": "LOW",
-              "message": "Unverifiable Dependency: setuptools has 10 known advisory(ies) (CVE-2013-1633 (Setuptools vulnerable to Man-in-the-middle attacks); CVE-2025-47273 (setuptools has a path traversal vulnerability in PackageIndex.download that lead); CVE-2024-6345 (setuptools vulnerable to Command Injection via package URL) +7 more), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "message": "Unverifiable Dependency: setuptools has 11 known advisory(ies) (CVE-2013-1633 (Setuptools vulnerable to Man-in-the-middle attacks); CVE-2025-47273 (setuptools has a path traversal vulnerability in PackageIndex.download that lead); CVE-2024-6345 (setuptools vulnerable to Command Injection via package URL) +8 more), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
               "file": "skills/brain/pyproject.toml",
               "line": 2
             },
@@ -5068,7 +5082,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-22T22:14:58Z"
+      "checkedAt": "2026-10-24T03:12:07Z"
     }
   },
   "agentStacks": {
