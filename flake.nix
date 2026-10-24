@@ -92,11 +92,17 @@
       # Roughly a seventh of the set is unfree, upstream adds packages
       # daily, and a name list here would be stale within the week. The
       # narrow predicate above still governs everything under pkgs/.
-      llmAgentsPkgsFor = system: import nixpkgs {
+      #
+      # One instance per system, shared by the re-export and the checks:
+      # each import of nixpkgs costs seconds of evaluation.
+      llmAgentsPkgs = nixpkgs.lib.genAttrs systems (system: import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        overlays = [ llm-agents.overlays.shared-nixpkgs ];
-      };
+        overlays = [ llm-agents.overlays.shared-nixpkgs llmAgentsOverlay ];
+      });
+      llmAgentsPkgsFor = system: llmAgentsPkgs.${system};
+
+      llmAgentsOverlay = import ./overlays/llm-agents.nix;
 
       # Attributes llm-agents.nix exposes that are not packages of this
       # set: the nixpkgs builders and fetchers it patches, its setup
@@ -143,6 +149,8 @@
       # today. Listing one here keeps it published and silences the
       # re-export-is-packages check for that name alone.
       notPackagesExempt = [ ];
+
+      overrides = import ./overrides;
 
       # Upstream's packages/ also holds builders, setup hooks and the
       # toolchains it builds with. They are derivations, not functions,
@@ -806,7 +814,63 @@
               ''
             );
 
-        };
+          # Otherwise an upstream rename silently drops a patch. A check
+          # rather than an eval error, so a stale entry blocks nothing
+          # else.
+          overrides-name-packages =
+            let
+              scope = (llmAgentsPkgsFor pkgs.stdenv.hostPlatform.system).llm-agents;
+              gone = builtins.filter (name: !(scope ? ${name}))
+                (builtins.attrNames overrides);
+            in
+            pkgs.runCommand "overrides-name-packages" { } (
+              if gone == [ ] then "touch $out"
+              else ''
+                cat >&2 <<'MSG'
+                overrides/default.nix names packages llm-agents.nix no longer
+                defines:
+
+                  ${builtins.concatStringsSep "\n  " gone}
+
+                Rename the entry to the package's new name, or remove it if
+                upstream dropped the package.
+                MSG
+                exit 1
+              ''
+            );
+        }
+        # flake check doesn't build the re-export (ADR 0008). Applying
+        # each override's patches without building means a bump that
+        # stops one applying fails the lock update. A patch that applies
+        # but no longer compiles still only fails on Hydra.
+        # It also fails if the published package lacks a patch its
+        # override adds, which is what a dropped overlay looks like.
+        // nixpkgs.lib.mapAttrs'
+          (name: p:
+            let
+              patches = p.patches or [ ];
+              missing = builtins.filter (x: !(builtins.elem x patches))
+                ((overrides.${name} { }).patches or [ ]);
+            in
+            nixpkgs.lib.nameValuePair "${name}-patches-apply" (
+              if missing != [ ] then
+                pkgs.runCommand "${name}-patches-apply" { } ''
+                  echo "${name} is published without ${toString missing}; is overlays.llm-agents applied?" >&2
+                  exit 1
+                ''
+              else
+                pkgs.stdenvNoCC.mkDerivation ({
+                  name = "${name}-patches-apply";
+                  inherit (p) src;
+                  inherit patches;
+                  dontConfigure = true;
+                  dontBuild = true;
+                  dontFixup = true;
+                  installPhase = "touch $out";
+                } // nixpkgs.lib.optionalAttrs (p ? sourceRoot) { inherit (p) sourceRoot; }
+                  // nixpkgs.lib.optionalAttrs (p ? patchFlags) { inherit (p) patchFlags; })))
+          (builtins.intersectAttrs overrides
+            (llmAgentsFor pkgs.stdenv.hostPlatform.system));
     in
     {
       packages = forAllSystems mkAllPackages;
@@ -819,6 +883,10 @@
       # evaluates packages.* whether or not it builds them.
       checks = forAllSystems mkGates;
       lib = forAllSystems mkLib;
+
+      # For a flake that builds its own llm-agents set: compose it after
+      # llm-agents.overlays.shared-nixpkgs.
+      overlays.llm-agents = llmAgentsOverlay;
 
       # What Hydra builds. packages.* is published to the agent-stacks
       # catalog; checks.* builds as a gate and is never published. The
