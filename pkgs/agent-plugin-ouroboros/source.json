@@ -4,8 +4,8 @@
   "src": {
     "owner": "Q00",
     "repo": "ouroboros",
-    "rev": "a02b5a19cefb508dd20b5e7e59fa938b2365449d",
-    "hash": "sha256-d7RA/gpNlrblYA1pzsjf7l/eGuSAjmsM4rFX4HkwYMg="
+    "rev": "ebfeb1a7af59ea4b69aaf309a95491eadf8d0927",
+    "hash": "sha256-RhA5PG6oHn9rmkiRl2obLipiP9yEgnoyOyknltSue1s="
   },
   "sourceUrl": "https://github.com/Q00/ouroboros",
   "manifest": {
@@ -50,9 +50,12 @@
     "seed": "skills/seed",
     "setup": "skills/setup",
     "status": "skills/status",
+    "threat-model": ".claude/skills/threat-model",
+    "triage": ".claude/skills/triage",
     "tutorial": "skills/tutorial",
     "unstuck": "skills/unstuck",
     "update": "skills/update",
+    "vuln-scan": ".claude/skills/vuln-scan",
     "welcome": "skills/welcome"
   },
   "requiredRuntimes": [
@@ -138,6 +141,30 @@
       "--dependency=uv"
     ],
     "warnings": [
+      {
+        "path": ".claude/skills/threat-model/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint"
+      },
+      {
+        "path": ".claude/skills/threat-model/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list of 12 tools"
+      },
+      {
+        "path": ".claude/skills/triage/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint"
+      },
+      {
+        "path": ".claude/skills/triage/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list of 12 tools"
+      },
+      {
+        "path": ".claude/skills/vuln-scan/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint"
+      },
+      {
+        "path": ".claude/skills/vuln-scan/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list of 12 tools"
+      },
       {
         "path": "skills/auto/SKILL.md",
         "message": "unknown frontmatter fields: mcp_args, mcp_tool"
