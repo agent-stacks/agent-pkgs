@@ -4,8 +4,8 @@
   "src": {
     "owner": "microsoft",
     "repo": "power-platform-skills",
-    "rev": "9d2486d27d93c9006b66ee941065be621afa5d6f",
-    "hash": "sha256-ExI99j/IQnMac+EdWXjcNjYfI1FxOsTeiowDuO+yee8="
+    "rev": "aed70bfca39805db167e6bf08364d8bf55c49592",
+    "hash": "sha256-z0yKsIhTep5gRRG0ziCgrmT9VxhkdBsJqIg/+1h4hCc="
   },
   "sourceUrl": "https://github.com/microsoft/power-platform-skills",
   "manifest": {
@@ -165,6 +165,10 @@
       {
         "path": "plugins/model-apps/hooks/hooks.json",
         "message": "Claude Code runs this on UserPromptSubmit: node -e \"const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root){console.error('PLUGIN_ROOT is not set'); process.exit(0);} require(path.resolve(root,'hooks','run-user-prompt-telemetry.js'));\""
+      },
+      {
+        "path": "scripts/telemetry-config.js",
+        "message": "this is named through ${PLUGIN_ROOT}, or sits at a plugin root a server runs from, and is not in the source; it resolves to nothing wherever the plugin is installed"
       },
       {
         "path": "scripts/_vendor-build/build-typescript.js",

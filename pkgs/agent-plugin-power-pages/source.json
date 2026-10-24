@@ -1,11 +1,11 @@
 {
   "name": "power-pages",
-  "version": "2.10.0",
+  "version": "3.0.0",
   "src": {
     "owner": "microsoft",
     "repo": "power-platform-skills",
-    "rev": "9d2486d27d93c9006b66ee941065be621afa5d6f",
-    "hash": "sha256-ExI99j/IQnMac+EdWXjcNjYfI1FxOsTeiowDuO+yee8="
+    "rev": "aed70bfca39805db167e6bf08364d8bf55c49592",
+    "hash": "sha256-z0yKsIhTep5gRRG0ziCgrmT9VxhkdBsJqIg/+1h4hCc="
   },
   "sourceUrl": "https://github.com/microsoft/power-platform-skills",
   "manifest": {
@@ -14,12 +14,14 @@
       "name": "Microsoft",
       "url": "https://www.microsoft.com"
     },
-    "description": "Create and deploy Power Pages sites using modern development approaches. Supports code sites (SPAs) with React, Angular, Vue, or Astro. Adds multilingual localization and safe runtime LTR/RTL switching for React, Vue, and Angular runtime sites; Astro and Angular static localization are temporarily unavailable. Includes ALM orchestration (plan-alm) with a solution-splitting decision tree, per-solution pipelines, Azure Blob asset advisory, manifest schema v2 for multi-solution deployments, and force-link remediation for cross-host pipeline migrations.",
+    "description": "Create and deploy Power Pages sites using modern development approaches. Supports Enhanced-model non-SPA sites using Liquid and Web Templates, plus SPA sites with React, Angular, Vue, or Astro. Adds multilingual localization and safe runtime LTR/RTL switching for React, Vue, and Angular runtime sites; Astro and Angular static localization are temporarily unavailable. Includes ALM orchestration (plan-alm) with a solution-splitting decision tree, per-solution pipelines, Azure Blob asset advisory, manifest schema v2 for multi-solution deployments, and force-link remediation for cross-host pipeline migrations.",
     "homepage": "https://github.com/microsoft/power-platform-skills/",
     "keywords": [
       "power-pages",
       "site-builder",
       "code-sites",
+      "non-spa-sites",
+      "enhanced-data-model",
       "spa",
       "localization",
       "i18n",
@@ -49,7 +51,7 @@
     "license": "MIT",
     "name": "power-pages",
     "repository": "https://github.com/microsoft/power-platform-skills/",
-    "version": "2.10.0"
+    "version": "3.0.0"
   },
   "skills": {
     "activate-site": "plugins/power-pages/skills/activate-site",
@@ -61,12 +63,14 @@
     "add-server-logic": "plugins/power-pages/skills/add-server-logic",
     "analyze-performance": "plugins/power-pages/skills/analyze-performance",
     "audit-permissions": "plugins/power-pages/skills/audit-permissions",
+    "author-webpage-content": "plugins/power-pages/skills/author-webpage-content",
     "configure-env-variables": "plugins/power-pages/skills/configure-env-variables",
     "create-site": "plugins/power-pages/skills/create-site",
     "create-webroles": "plugins/power-pages/skills/create-webroles",
     "deploy-pipeline": "plugins/power-pages/skills/deploy-pipeline",
     "deploy-site": "plugins/power-pages/skills/deploy-site",
     "diagnose-deployment": "plugins/power-pages/skills/diagnose-deployment",
+    "edit-site": "plugins/power-pages/skills/edit-site",
     "ensure-pipelines-host": "plugins/power-pages/skills/ensure-pipelines-host",
     "exceptional-web-design": "plugins/power-pages/skills/exceptional-web-design",
     "export-solution": "plugins/power-pages/skills/export-solution",
@@ -201,6 +205,10 @@
         "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
       },
       {
+        "path": "plugins/power-pages/skills/author-webpage-content/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
         "path": "plugins/power-pages/skills/configure-env-variables/SKILL.md",
         "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
       },
@@ -222,6 +230,10 @@
       },
       {
         "path": "plugins/power-pages/skills/diagnose-deployment/SKILL.md",
+        "message": "unknown frontmatter fields: model, user-invocable"
+      },
+      {
+        "path": "plugins/power-pages/skills/edit-site/SKILL.md",
         "message": "unknown frontmatter fields: model, user-invocable"
       },
       {
@@ -335,6 +347,10 @@
       {
         "path": "scripts/lib/check-solution-installed.js",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/vendor/css-tools/package.json",
+        "message": "dependency manifest; the build does not resolve what it declares"
       }
     ]
   }
