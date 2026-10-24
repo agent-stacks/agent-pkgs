@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "power-pages",
-      "dir": "/nix/store/qwdbrq3vnsawjvlqzcmi7k7f52kznzck-agent-plugin-power-pages-2.10.0/share/agent-plugins/power-pages",
+      "dir": "/nix/store/irx423rywmwyxsridcdqhz8a1p42xy8h-agent-plugin-power-pages-3.0.0/share/agent-plugins/power-pages",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -22,12 +22,14 @@
           "skills/add-server-logic",
           "skills/analyze-performance",
           "skills/audit-permissions",
+          "skills/author-webpage-content",
           "skills/configure-env-variables",
           "skills/create-site",
           "skills/create-webroles",
           "skills/deploy-pipeline",
           "skills/deploy-site",
           "skills/diagnose-deployment",
+          "skills/edit-site",
           "skills/ensure-pipelines-host",
           "skills/exceptional-web-design",
           "skills/export-solution",
@@ -1468,7 +1470,7 @@
           "risk": 38,
           "status": "caution",
           "partial": true,
-          "coverage": 60,
+          "coverage": 57.1,
           "exceptions": [
             {
               "reason": "obfuscated_instruction_text",
@@ -1483,72 +1485,87 @@
             {
               "reason": "reference_missing",
               "path": "skills/audit-permissions/SKILL.md",
-              "line": 121
+              "line": 35
             },
             {
               "reason": "reference_missing",
               "path": "skills/audit-permissions/SKILL.md",
-              "line": 124
+              "line": 38
             },
             {
               "reason": "reference_missing",
               "path": "skills/audit-permissions/SKILL.md",
-              "line": 155
+              "line": 139
             },
             {
               "reason": "reference_missing",
               "path": "skills/audit-permissions/SKILL.md",
-              "line": 159
+              "line": 142
             },
             {
               "reason": "reference_missing",
               "path": "skills/audit-permissions/SKILL.md",
-              "line": 248
+              "line": 173
             },
             {
               "reason": "reference_missing",
               "path": "skills/audit-permissions/SKILL.md",
-              "line": 252
+              "line": 177
             },
             {
               "reason": "reference_missing",
               "path": "skills/audit-permissions/SKILL.md",
-              "line": 581
+              "line": 266
             },
             {
               "reason": "reference_missing",
               "path": "skills/audit-permissions/SKILL.md",
-              "line": 646
+              "line": 270
             },
             {
               "reason": "reference_missing",
               "path": "skills/audit-permissions/SKILL.md",
-              "line": 653
+              "line": 599
             },
             {
               "reason": "reference_missing",
               "path": "skills/audit-permissions/SKILL.md",
-              "line": 668
+              "line": 664
             },
             {
               "reason": "reference_missing",
               "path": "skills/audit-permissions/SKILL.md",
-              "line": 683
+              "line": 671
             },
             {
               "reason": "reference_missing",
               "path": "skills/audit-permissions/SKILL.md",
-              "line": 743
+              "line": 686
             },
             {
               "reason": "reference_missing",
               "path": "skills/audit-permissions/SKILL.md",
-              "line": 764
+              "line": 701
             },
             {
               "reason": "reference_missing",
               "path": "skills/audit-permissions/SKILL.md",
-              "line": 868
+              "line": 761
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/audit-permissions/SKILL.md",
+              "line": 782
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/audit-permissions/SKILL.md",
+              "line": 886
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/audit-permissions/scripts/collect-non-spa-permission-evidence.js",
+              "line": 0
             },
             {
               "reason": "static_parse_limit",
@@ -1562,7 +1579,7 @@
               "severity": "HIGH",
               "message": "Self-Modification",
               "file": "skills/audit-permissions/SKILL.md",
-              "line": 743
+              "line": 761
             },
             {
               "id": "EA5",
@@ -1576,7 +1593,114 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/audit-permissions/SKILL.md",
-              "line": 42
+              "line": 60
+            }
+          ]
+        },
+        {
+          "path": "skills/author-webpage-content",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 73.3,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/author-webpage-content/SKILL.md",
+              "line": 0
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/author-webpage-content/SKILL.md",
+              "line": 8
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/author-webpage-content/references/design-studio-iframe-component.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/author-webpage-content/references/design-studio-spacer-component.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/author-webpage-content/references/design-studio-video-component.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/author-webpage-content/SKILL.md",
+              "line": 49
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/author-webpage-content/SKILL.md",
+              "line": 50
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/author-webpage-content/SKILL.md",
+              "line": 55
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/author-webpage-content/references/design-studio-iframe-component.md",
+              "line": 70
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/author-webpage-content/references/design-studio-section-layouts.md",
+              "line": 84
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/author-webpage-content/references/design-studio-video-component.md",
+              "line": 167
+            },
+            {
+              "id": "EA5",
+              "severity": "MEDIUM",
+              "message": "External Model or Provider Selection",
+              "file": "skills/author-webpage-content/SKILL.md",
+              "line": 18
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/author-webpage-content/SKILL.md",
+              "line": 79
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/author-webpage-content/SKILL.md",
+              "line": 121
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/author-webpage-content/references/design-studio-component-authoring.md",
+              "line": 18
             }
           ]
         },
@@ -1796,7 +1920,7 @@
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 89.5,
+          "coverage": 83.9,
           "exceptions": [
             {
               "reason": "obfuscated_instruction_text",
@@ -1821,191 +1945,186 @@
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 42
+              "line": 44
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 67
+              "line": 69
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 140
+              "line": 146
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 141
+              "line": 147
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 159
+              "line": 275
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 191
+              "line": 368
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 249
+              "line": 396
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 342
+              "line": 737
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 370
+              "line": 741
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 707
+              "line": 750
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 711
+              "line": 760
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 720
+              "line": 954
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 730
+              "line": 966
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 921
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/create-site/SKILL.md",
-              "line": 933
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/create-site/SKILL.md",
-              "line": 1055
+              "line": 1088
             },
             {
               "reason": "reference_unresolved",
               "path": "skills/create-site/SKILL.md",
-              "line": 1081
+              "line": 1114
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 1303
+              "line": 1336
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 1345
+              "line": 1378
             },
             {
               "reason": "reference_unresolved",
               "path": "skills/create-site/SKILL.md",
-              "line": 1391
+              "line": 1424
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 1394
+              "line": 1427
             },
             {
               "reason": "reference_unresolved",
               "path": "skills/create-site/SKILL.md",
-              "line": 1397
+              "line": 1430
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 1464
+              "line": 1497
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 1482
+              "line": 1515
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 1571
+              "line": 1604
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 1579
+              "line": 1612
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 1594
+              "line": 1627
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 1608
+              "line": 1641
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 1836
+              "line": 1869
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 1857
+              "line": 1890
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 1883
+              "line": 1916
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 1888
+              "line": 1921
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 1918
+              "line": 1951
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 2016
+              "line": 2049
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 2069
+              "line": 2102
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 2087
+              "line": 2120
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-site/SKILL.md",
-              "line": 2141
+              "line": 2174
             },
             {
               "reason": "output_limit",
               "path": "skills/create-site/assets/astro/package.json",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/create-site/assets/non-spa-creation-status-template.html",
               "line": 0
             },
             {
@@ -2021,6 +2140,21 @@
             {
               "reason": "output_limit",
               "path": "skills/create-site/assets/vue/package.json",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/create-site/scripts/list-site-templates.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/create-site/scripts/render-non-spa-status.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/create-site/scripts/resolve-non-spa-context.js",
               "line": 0
             },
             {
@@ -2042,105 +2176,105 @@
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/create-site/SKILL.md",
-              "line": 42
+              "line": 44
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/create-site/SKILL.md",
-              "line": 42
+              "line": 44
             },
             {
               "id": "MP3",
               "severity": "HIGH",
               "message": "Memory Manipulation",
               "file": "skills/create-site/SKILL.md",
-              "line": 117
+              "line": 119
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/create-site/SKILL.md",
-              "line": 148
+              "line": 163
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/create-site/SKILL.md",
-              "line": 283
+              "line": 309
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/create-site/SKILL.md",
-              "line": 316
+              "line": 342
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/create-site/SKILL.md",
-              "line": 366
+              "line": 392
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/create-site/SKILL.md",
-              "line": 495
+              "line": 522
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/create-site/SKILL.md",
-              "line": 615
+              "line": 642
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/create-site/SKILL.md",
-              "line": 738
+              "line": 768
             },
             {
               "id": "RA1",
               "severity": "HIGH",
               "message": "Self-Modification",
               "file": "skills/create-site/SKILL.md",
-              "line": 1303
+              "line": 1336
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/create-site/SKILL.md",
-              "line": 1341
+              "line": 1374
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/create-site/SKILL.md",
-              "line": 1404
+              "line": 1437
             },
             {
               "id": "MP3",
               "severity": "HIGH",
               "message": "Memory Manipulation",
               "file": "skills/create-site/SKILL.md",
-              "line": 1528
+              "line": 1561
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/create-site/SKILL.md",
-              "line": 1646
+              "line": 1679
             },
             {
               "id": "PE3",
@@ -2199,46 +2333,67 @@
               "line": 18
             },
             {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/create-site/workflows/non-spa-site.md",
+              "line": 74
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/create-site/workflows/non-spa-site.md",
+              "line": 308
+            },
+            {
               "id": "EA5",
               "severity": "MEDIUM",
               "message": "External Model or Provider Selection",
               "file": "skills/create-site/SKILL.md",
-              "line": 12
+              "line": 11
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/create-site/SKILL.md",
-              "line": 734
+              "line": 764
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/create-site/SKILL.md",
-              "line": 750
+              "line": 783
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/create-site/SKILL.md",
-              "line": 1949
+              "line": 1982
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/create-site/SKILL.md",
-              "line": 2012
+              "line": 2045
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/create-site/workflows/non-spa-site.md",
+              "line": 246
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/create-site/SKILL.md",
-              "line": 1956
+              "line": 1989
             },
             {
               "id": "SC1",
@@ -2500,7 +2655,7 @@
           "risk": 34,
           "status": "caution",
           "partial": true,
-          "coverage": 0,
+          "coverage": 25,
           "exceptions": [
             {
               "reason": "static_parse_limit",
@@ -2510,7 +2665,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/create-webroles/SKILL.md",
-              "line": 176
+              "line": 26
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/create-webroles/SKILL.md",
+              "line": 30
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/create-webroles/SKILL.md",
+              "line": 201
             },
             {
               "reason": "static_parse_limit",
@@ -2529,21 +2694,21 @@
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/create-webroles/SKILL.md",
-              "line": 68
+              "line": 93
             },
             {
               "id": "EA5",
               "severity": "MEDIUM",
               "message": "External Model or Provider Selection",
               "file": "skills/create-webroles/SKILL.md",
-              "line": 9
+              "line": 10
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/create-webroles/SKILL.md",
-              "line": 38
+              "line": 63
             }
           ]
         },
@@ -3293,7 +3458,7 @@
           "risk": 47,
           "status": "caution",
           "partial": true,
-          "coverage": 0,
+          "coverage": 50,
           "exceptions": [
             {
               "reason": "static_parse_limit",
@@ -3303,37 +3468,52 @@
             {
               "reason": "reference_missing",
               "path": "skills/deploy-site/SKILL.md",
-              "line": 167
+              "line": 35
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy-site/SKILL.md",
-              "line": 175
+              "line": 37
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy-site/SKILL.md",
-              "line": 217
+              "line": 41
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy-site/SKILL.md",
-              "line": 343
+              "line": 42
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy-site/SKILL.md",
-              "line": 426
+              "line": 216
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy-site/SKILL.md",
-              "line": 433
+              "line": 224
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy-site/SKILL.md",
-              "line": 477
+              "line": 378
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/deploy-site/SKILL.md",
+              "line": 461
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/deploy-site/SKILL.md",
+              "line": 468
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/deploy-site/SKILL.md",
+              "line": 512
             }
           ],
           "findings": [
@@ -3342,35 +3522,42 @@
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/deploy-site/SKILL.md",
-              "line": 85
+              "line": 49
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/deploy-site/SKILL.md",
-              "line": 173
+              "line": 168
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/deploy-site/SKILL.md",
-              "line": 298
+              "line": 238
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/deploy-site/workflows/non-spa-site.md",
+              "line": 96
             },
             {
               "id": "EA5",
               "severity": "MEDIUM",
               "message": "External Model or Provider Selection",
               "file": "skills/deploy-site/SKILL.md",
-              "line": 9
+              "line": 11
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/deploy-site/SKILL.md",
-              "line": 22
+              "line": 25
             }
           ]
         },
@@ -3454,6 +3641,203 @@
               "message": "Autonomous Decision Making",
               "file": "skills/diagnose-deployment/SKILL.md",
               "line": 18
+            }
+          ]
+        },
+        {
+          "path": "skills/edit-site",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 81.8,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/edit-site/SKILL.md",
+              "line": 0
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/edit-site/SKILL.md",
+              "line": 95
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/edit-site/SKILL.md",
+              "line": 96
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/edit-site/SKILL.md",
+              "line": 120
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/edit-site/SKILL.md",
+              "line": 121
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/edit-site/SKILL.md",
+              "line": 188
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/edit-site/SKILL.md",
+              "line": 193
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/edit-site/SKILL.md",
+              "line": 204
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/edit-site/SKILL.md",
+              "line": 267
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/edit-site/SKILL.md",
+              "line": 303
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/edit-site/SKILL.md",
+              "line": 304
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/edit-site/SKILL.md",
+              "line": 325
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/edit-site/SKILL.md",
+              "line": 375
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/edit-site/assets/customization-plan.html",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/edit-site/references/content-and-page-compositions.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/edit-site/references/styling/runtime-dom-discovery.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/edit-site/SKILL.md",
+              "line": 224
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/edit-site/SKILL.md",
+              "line": 233
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/edit-site/references/content-snippet-authoring.md",
+              "line": 493
+            },
+            {
+              "id": "MP3",
+              "severity": "HIGH",
+              "message": "Memory Manipulation",
+              "file": "skills/edit-site/references/content-snippet-authoring.md",
+              "line": 593
+            },
+            {
+              "id": "MP3",
+              "severity": "HIGH",
+              "message": "Memory Manipulation",
+              "file": "skills/edit-site/references/web-template-authoring.md",
+              "line": 413
+            },
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "skills/edit-site/references/customization-plan-contract.md",
+              "line": 46
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/edit-site/references/style-site-workflow.md",
+              "line": 20
+            },
+            {
+              "id": "EA5",
+              "severity": "MEDIUM",
+              "message": "External Model or Provider Selection",
+              "file": "skills/edit-site/SKILL.md",
+              "line": 12
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/edit-site/SKILL.md",
+              "line": 176
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/edit-site/references/non-spa-site-authoring.md",
+              "line": 89
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/edit-site/assets/customization-plan.html",
+              "line": 415
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/edit-site/references/content-snippet-authoring.md",
+              "line": 539
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/edit-site/references/page-template-authoring.md",
+              "line": 418
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/edit-site/references/styling/proposal-and-verification.md",
+              "line": 460
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/edit-site/references/styling/styling-policy.md",
+              "line": 73
             }
           ]
         },
@@ -4014,11 +4398,11 @@
         },
         {
           "path": "skills/exceptional-web-design",
-          "score": 74,
-          "risk": 26,
+          "score": 65,
+          "risk": 35,
           "status": "caution",
           "partial": true,
-          "coverage": 0,
+          "coverage": 50,
           "exceptions": [
             {
               "reason": "static_parse_limit",
@@ -4028,22 +4412,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/exceptional-web-design/SKILL.md",
-              "line": 55
+              "line": 22
             },
             {
               "reason": "reference_missing",
               "path": "skills/exceptional-web-design/SKILL.md",
-              "line": 113
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/exceptional-web-design/SKILL.md",
-              "line": 114
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/exceptional-web-design/SKILL.md",
-              "line": 115
+              "line": 61
             },
             {
               "reason": "reference_missing",
@@ -4053,17 +4427,32 @@
             {
               "reason": "reference_missing",
               "path": "skills/exceptional-web-design/SKILL.md",
+              "line": 120
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/exceptional-web-design/SKILL.md",
               "line": 121
             },
             {
               "reason": "reference_missing",
               "path": "skills/exceptional-web-design/SKILL.md",
-              "line": 123
+              "line": 125
             },
             {
               "reason": "reference_missing",
               "path": "skills/exceptional-web-design/SKILL.md",
-              "line": 125
+              "line": 127
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/exceptional-web-design/SKILL.md",
+              "line": 129
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/exceptional-web-design/SKILL.md",
+              "line": 131
             }
           ],
           "findings": [
@@ -4072,7 +4461,14 @@
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/exceptional-web-design/SKILL.md",
-              "line": 60
+              "line": 66
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/exceptional-web-design/workflows/non-spa-site.md",
+              "line": 15
             },
             {
               "id": "EA5",
@@ -4582,7 +4978,7 @@
           "risk": 48,
           "status": "caution",
           "partial": true,
-          "coverage": 0,
+          "coverage": 33.3,
           "exceptions": [
             {
               "reason": "obfuscated_instruction_text",
@@ -4597,127 +4993,137 @@
             {
               "reason": "reference_missing",
               "path": "skills/integrate-webapi/SKILL.md",
-              "line": 21
+              "line": 27
             },
             {
               "reason": "reference_missing",
               "path": "skills/integrate-webapi/SKILL.md",
-              "line": 58
+              "line": 31
             },
             {
               "reason": "reference_missing",
               "path": "skills/integrate-webapi/SKILL.md",
-              "line": 64
+              "line": 52
             },
             {
               "reason": "reference_missing",
               "path": "skills/integrate-webapi/SKILL.md",
-              "line": 68
+              "line": 89
             },
             {
               "reason": "reference_missing",
               "path": "skills/integrate-webapi/SKILL.md",
-              "line": 72
+              "line": 95
             },
             {
               "reason": "reference_missing",
               "path": "skills/integrate-webapi/SKILL.md",
-              "line": 131
+              "line": 99
             },
             {
               "reason": "reference_missing",
               "path": "skills/integrate-webapi/SKILL.md",
-              "line": 141
+              "line": 103
             },
             {
               "reason": "reference_missing",
               "path": "skills/integrate-webapi/SKILL.md",
-              "line": 151
+              "line": 162
             },
             {
               "reason": "reference_missing",
               "path": "skills/integrate-webapi/SKILL.md",
-              "line": 164
+              "line": 172
             },
             {
               "reason": "reference_missing",
               "path": "skills/integrate-webapi/SKILL.md",
-              "line": 165
+              "line": 182
             },
             {
               "reason": "reference_missing",
               "path": "skills/integrate-webapi/SKILL.md",
-              "line": 236
+              "line": 195
             },
             {
               "reason": "reference_missing",
               "path": "skills/integrate-webapi/SKILL.md",
-              "line": 240
+              "line": 196
             },
             {
               "reason": "reference_missing",
               "path": "skills/integrate-webapi/SKILL.md",
-              "line": 242
+              "line": 267
             },
             {
               "reason": "reference_missing",
               "path": "skills/integrate-webapi/SKILL.md",
-              "line": 281
+              "line": 271
             },
             {
               "reason": "reference_missing",
               "path": "skills/integrate-webapi/SKILL.md",
-              "line": 282
+              "line": 273
             },
             {
               "reason": "reference_missing",
               "path": "skills/integrate-webapi/SKILL.md",
-              "line": 283
+              "line": 312
             },
             {
               "reason": "reference_missing",
               "path": "skills/integrate-webapi/SKILL.md",
-              "line": 287
+              "line": 313
             },
             {
               "reason": "reference_missing",
               "path": "skills/integrate-webapi/SKILL.md",
-              "line": 311
+              "line": 314
             },
             {
               "reason": "reference_missing",
               "path": "skills/integrate-webapi/SKILL.md",
-              "line": 447
+              "line": 318
             },
             {
               "reason": "reference_missing",
               "path": "skills/integrate-webapi/SKILL.md",
-              "line": 448
+              "line": 342
             },
             {
               "reason": "reference_missing",
               "path": "skills/integrate-webapi/SKILL.md",
-              "line": 473
+              "line": 478
             },
             {
               "reason": "reference_missing",
               "path": "skills/integrate-webapi/SKILL.md",
-              "line": 599
+              "line": 479
             },
             {
               "reason": "reference_missing",
               "path": "skills/integrate-webapi/SKILL.md",
-              "line": 600
+              "line": 504
             },
             {
               "reason": "reference_missing",
               "path": "skills/integrate-webapi/SKILL.md",
-              "line": 601
+              "line": 630
             },
             {
               "reason": "reference_missing",
               "path": "skills/integrate-webapi/SKILL.md",
-              "line": 602
+              "line": 631
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/integrate-webapi/SKILL.md",
+              "line": 632
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/integrate-webapi/SKILL.md",
+              "line": 633
             },
             {
               "reason": "static_parse_limit",
@@ -4731,35 +5137,35 @@
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/integrate-webapi/SKILL.md",
-              "line": 188
+              "line": 219
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/integrate-webapi/SKILL.md",
-              "line": 357
+              "line": 388
             },
             {
               "id": "EA5",
               "severity": "MEDIUM",
               "message": "External Model or Provider Selection",
               "file": "skills/integrate-webapi/SKILL.md",
-              "line": 10
+              "line": 12
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/integrate-webapi/SKILL.md",
-              "line": 342
+              "line": 373
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/integrate-webapi/SKILL.md",
-              "line": 614
+              "line": 645
             }
           ]
         },
@@ -6905,7 +7311,7 @@
           "risk": 34,
           "status": "caution",
           "partial": true,
-          "coverage": 66.7,
+          "coverage": 75,
           "exceptions": [
             {
               "reason": "static_parse_limit",
@@ -6915,27 +7321,37 @@
             {
               "reason": "reference_missing",
               "path": "skills/setup-datamodel/SKILL.md",
-              "line": 154
+              "line": 46
             },
             {
               "reason": "reference_missing",
               "path": "skills/setup-datamodel/SKILL.md",
-              "line": 246
+              "line": 49
             },
             {
               "reason": "reference_missing",
               "path": "skills/setup-datamodel/SKILL.md",
-              "line": 308
+              "line": 201
             },
             {
               "reason": "reference_missing",
               "path": "skills/setup-datamodel/SKILL.md",
-              "line": 351
+              "line": 297
             },
             {
               "reason": "reference_missing",
               "path": "skills/setup-datamodel/SKILL.md",
-              "line": 373
+              "line": 359
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/setup-datamodel/SKILL.md",
+              "line": 402
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/setup-datamodel/SKILL.md",
+              "line": 430
             }
           ],
           "findings": [
@@ -6944,21 +7360,21 @@
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/setup-datamodel/SKILL.md",
-              "line": 47
+              "line": 71
             },
             {
               "id": "EA5",
               "severity": "MEDIUM",
               "message": "External Model or Provider Selection",
               "file": "skills/setup-datamodel/SKILL.md",
-              "line": 9
+              "line": 10
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/setup-datamodel/SKILL.md",
-              "line": 20
+              "line": 21
             }
           ]
         },
@@ -7780,7 +8196,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-23T08:46:41Z"
+      "checkedAt": "2026-10-24T07:03:26Z"
     }
   },
   "agentStacks": {
