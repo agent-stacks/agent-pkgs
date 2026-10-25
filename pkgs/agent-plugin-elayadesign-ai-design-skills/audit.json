@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "elayadesign-ai-design-skills",
-      "dir": "/nix/store/ns7w6f2mb1k1ksialkq7vy0fab97mwyg-agent-plugin-elayadesign-ai-design-skills-0.0.0-unstable.2026-07-29.g1c1e97c/share/agent-plugins/elayadesign-ai-design-skills",
+      "dir": "/nix/store/3m3cyhbxyhgrb172kww4h8vg75hbwd16-agent-plugin-elayadesign-ai-design-skills-0.0.0-unstable.2026-10-25.g38bbe57/share/agent-plugins/elayadesign-ai-design-skills",
       "spec": "1.1.0",
-      "score": 100,
-      "status": "safe",
+      "score": 83,
+      "status": "incomplete",
       "coverage": {
         "scanned": [
+          "skills/design-to-motion",
           "skills/landing-page-design"
         ],
         "validated": [
@@ -21,6 +22,40 @@
         "notChecked": []
       },
       "components": [
+        {
+          "path": "skills/design-to-motion",
+          "score": 83,
+          "risk": 17,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 0,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/design-to-motion/SKILL.md",
+              "line": 0
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/design-to-motion/SKILL.md",
+              "line": 91
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/design-to-motion/SKILL.md",
+              "line": 179
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/design-to-motion/SKILL.md",
+              "line": 74
+            }
+          ]
+        },
         {
           "path": "skills/landing-page-design",
           "score": 100,
@@ -40,15 +75,15 @@
       ]
     }
   ],
-  "score": 100,
-  "status": "safe",
+  "score": 83,
+  "status": "incomplete",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:34:49Z"
+      "checkedAt": "2026-10-25T12:43:14Z"
     }
   },
   "agentStacks": {
