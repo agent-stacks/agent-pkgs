@@ -7,10 +7,10 @@
   "plugins": [
     {
       "name": "interfaces",
-      "dir": "/nix/store/9mf4nasa0ny2p8pbcpn9yzbc1lbzhkrb-agent-plugin-interfaces-1.15.1/share/agent-plugins/interfaces",
+      "dir": "/nix/store/lmwc0dgn1rw0hb1amjv8s00gbnrdv8mp-agent-plugin-interfaces-1.16.0/share/agent-plugins/interfaces",
       "spec": "1.1.0",
-      "score": 57,
-      "status": "caution",
+      "score": 20,
+      "status": "do not install",
       "coverage": {
         "scanned": [
           "skills/better-accessibility",
@@ -325,31 +325,26 @@
         },
         {
           "path": "skills/technical-drawing",
-          "score": 64,
-          "risk": 36,
-          "status": "caution",
+          "score": 20,
+          "risk": 80,
+          "status": "do not install",
           "partial": true,
           "coverage": 71.4,
           "exceptions": [
             {
               "reason": "reference_missing",
               "path": "skills/technical-drawing/SKILL.md",
-              "line": 24
+              "line": 26
             },
             {
               "reason": "reference_missing",
               "path": "skills/technical-drawing/SKILL.md",
-              "line": 37
+              "line": 40
             },
             {
               "reason": "reference_missing",
               "path": "skills/technical-drawing/SKILL.md",
-              "line": 60
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/technical-drawing/assets/export.js",
-              "line": 0
+              "line": 64
             },
             {
               "reason": "static_parse_limit",
@@ -390,15 +385,48 @@
               "reason": "static_parse_limit",
               "path": "skills/technical-drawing/scripts/test-geometry.cjs",
               "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/technical-drawing/viewer-assets.md",
+              "line": 0
             }
           ],
           "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/technical-drawing/SKILL.md",
+              "line": 64
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/technical-drawing/SKILL.md",
+              "line": 101
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/technical-drawing/SKILL.md",
+              "line": 119
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/technical-drawing/SKILL.md",
+              "line": 129
+            },
             {
               "id": "OH1",
               "severity": "HIGH",
               "message": "Unvalidated Output Injection",
               "file": "skills/technical-drawing/assets/viewer.js",
-              "line": 87
+              "line": 102
             },
             {
               "id": "LP3",
@@ -422,15 +450,15 @@
       ]
     }
   ],
-  "score": 57,
-  "status": "caution",
+  "score": 20,
+  "status": "do not install",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-24T23:31:11Z"
+      "checkedAt": "2026-10-25T03:40:19Z"
     }
   },
   "agentStacks": {
