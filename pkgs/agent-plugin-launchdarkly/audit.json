@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "launchdarkly",
-      "dir": "/nix/store/ff4dqkg703vsz4cz1jl2zq1vvlsd4am4-agent-plugin-launchdarkly-1.0.2/share/agent-plugins/launchdarkly",
+      "dir": "/nix/store/ijc5ls790vrw5as8lw8kwd1q3f9mg5a2-agent-plugin-launchdarkly-1.0.2/share/agent-plugins/launchdarkly",
       "spec": "1.1.0",
       "score": 15,
       "status": "do not install",
@@ -38,6 +38,7 @@
           "skills/flag-and-release-change",
           "skills/flag-release",
           "skills/investigate",
+          "skills/launchdarkly-experiment-guide",
           "skills/launchdarkly-experiment-setup",
           "skills/launchdarkly-flag-cleanup",
           "skills/launchdarkly-flag-command",
@@ -480,52 +481,62 @@
             {
               "reason": "reference_missing",
               "path": "skills/custom-metrics/SKILL.md",
-              "line": 146
+              "line": 43
             },
             {
               "reason": "reference_missing",
               "path": "skills/custom-metrics/SKILL.md",
-              "line": 168
+              "line": 46
             },
             {
               "reason": "reference_missing",
               "path": "skills/custom-metrics/SKILL.md",
-              "line": 188
+              "line": 173
             },
             {
               "reason": "reference_missing",
               "path": "skills/custom-metrics/SKILL.md",
-              "line": 342
+              "line": 187
             },
             {
               "reason": "reference_missing",
               "path": "skills/custom-metrics/SKILL.md",
-              "line": 351
+              "line": 200
             },
             {
               "reason": "reference_missing",
               "path": "skills/custom-metrics/SKILL.md",
-              "line": 352
+              "line": 222
             },
             {
               "reason": "reference_missing",
               "path": "skills/custom-metrics/SKILL.md",
-              "line": 353
+              "line": 242
             },
             {
               "reason": "reference_missing",
               "path": "skills/custom-metrics/SKILL.md",
-              "line": 357
+              "line": 392
             },
             {
               "reason": "reference_missing",
               "path": "skills/custom-metrics/SKILL.md",
-              "line": 360
+              "line": 403
             },
             {
               "reason": "reference_missing",
               "path": "skills/custom-metrics/SKILL.md",
-              "line": 366
+              "line": 404
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/custom-metrics/SKILL.md",
+              "line": 405
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/custom-metrics/SKILL.md",
+              "line": 409
             },
             {
               "reason": "reference_missing",
@@ -535,42 +546,52 @@
             {
               "reason": "reference_missing",
               "path": "skills/custom-metrics/SKILL.md",
-              "line": 437
+              "line": 418
             },
             {
               "reason": "reference_missing",
               "path": "skills/custom-metrics/SKILL.md",
-              "line": 438
+              "line": 466
             },
             {
               "reason": "reference_missing",
               "path": "skills/custom-metrics/SKILL.md",
-              "line": 439
+              "line": 491
             },
             {
               "reason": "reference_missing",
               "path": "skills/custom-metrics/SKILL.md",
-              "line": 440
+              "line": 492
             },
             {
               "reason": "reference_missing",
               "path": "skills/custom-metrics/SKILL.md",
-              "line": 441
+              "line": 493
             },
             {
               "reason": "reference_missing",
               "path": "skills/custom-metrics/SKILL.md",
-              "line": 443
+              "line": 494
             },
             {
               "reason": "reference_missing",
               "path": "skills/custom-metrics/SKILL.md",
-              "line": 444
+              "line": 495
             },
             {
               "reason": "reference_missing",
               "path": "skills/custom-metrics/SKILL.md",
-              "line": 445
+              "line": 497
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/custom-metrics/SKILL.md",
+              "line": 498
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/custom-metrics/SKILL.md",
+              "line": 499
             }
           ],
           "findings": [
@@ -579,14 +600,14 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/custom-metrics/SKILL.md",
-              "line": 23
+              "line": 24
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/custom-metrics/SKILL.md",
-              "line": 84
+              "line": 108
             }
           ]
         },
@@ -655,6 +676,37 @@
               "message": "Unbounded Resource Access",
               "file": "skills/investigate/traces.md",
               "line": 12
+            }
+          ]
+        },
+        {
+          "path": "skills/launchdarkly-experiment-guide",
+          "score": 85,
+          "risk": 15,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/launchdarkly-experiment-guide/SKILL.md",
+              "line": 139
+            }
+          ],
+          "findings": [
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/launchdarkly-experiment-guide/README.md",
+              "line": 38
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/launchdarkly-experiment-guide/SKILL.md",
+              "line": 304
             }
           ]
         },
@@ -1460,17 +1512,12 @@
         },
         {
           "path": "skills/online-evals",
-          "score": 58,
-          "risk": 42,
+          "score": 59,
+          "risk": 41,
           "status": "caution",
           "partial": true,
-          "coverage": 50,
+          "coverage": 100,
           "exceptions": [
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/online-evals/SKILL.md",
-              "line": 0
-            },
             {
               "reason": "reference_missing",
               "path": "skills/online-evals/SKILL.md",
@@ -1497,13 +1544,6 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/online-evals/SKILL.md",
-              "line": 17
-            },
-            {
-              "id": "PE3",
-              "severity": "HIGH",
-              "message": "Credential Access",
-              "file": "skills/online-evals/SKILL.md",
               "line": 23
             },
             {
@@ -1511,21 +1551,14 @@
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/online-evals/SKILL.md",
-              "line": 66
+              "line": 198
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/online-evals/SKILL.md",
-              "line": 205
-            },
-            {
-              "id": "E1",
-              "severity": "MEDIUM",
-              "message": "External Transmission",
-              "file": "skills/online-evals/SKILL.md",
-              "line": 219
+              "line": 216
             }
           ]
         },
@@ -1545,7 +1578,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/projects/SKILL.md",
-              "line": 167
+              "line": 183
             },
             {
               "reason": "static_parse_limit",
@@ -1600,7 +1633,7 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/projects/SKILL.md",
-              "line": 29
+              "line": 30
             },
             {
               "id": "PE3",
@@ -1614,7 +1647,7 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/projects/SKILL.md",
-              "line": 54
+              "line": 55
             },
             {
               "id": "PE3",
@@ -1719,35 +1752,21 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/projects/SKILL.md",
-              "line": 88
+              "line": 89
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/projects/SKILL.md",
-              "line": 234
+              "line": 250
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/projects/SKILL.md",
-              "line": 90
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/projects/SKILL.md",
-              "line": 94
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/projects/SKILL.md",
-              "line": 237
+              "line": 91
             },
             {
               "id": "AE1",
@@ -1761,7 +1780,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/projects/SKILL.md",
-              "line": 238
+              "line": 253
             },
             {
               "id": "AE1",
@@ -1775,7 +1794,21 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/projects/SKILL.md",
-              "line": 239
+              "line": 254
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/projects/SKILL.md",
+              "line": 97
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/projects/SKILL.md",
+              "line": 255
             },
             {
               "id": "PE3",
@@ -2087,7 +2120,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-22T18:44:59Z"
+      "checkedAt": "2026-10-26T18:13:29Z"
     }
   },
   "agentStacks": {
