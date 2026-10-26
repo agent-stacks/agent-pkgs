@@ -1,0 +1,57 @@
+{
+  "name": "ralph-loop",
+  "version": "1.0.0",
+  "src": {
+    "owner": "anthropics",
+    "repo": "claude-plugins-official",
+    "rev": "58267944f92187b7d6a1c822165c96c81c864806",
+    "hash": "sha256-f6wBcSVGNvY+lqFbs0cczTRfRjYZrqWb0hslE7IX2p8="
+  },
+  "sourceUrl": "https://github.com/anthropics/claude-plugins-official",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "email": "support@anthropic.com",
+      "name": "Anthropic"
+    },
+    "description": "Interactive self-referential AI loops for iterative development, implementing the Ralph Wiggum technique. Claude works on the same task repeatedly, seeing its previous work, until completion.",
+    "homepage": "https://github.com/anthropics/claude-plugins-public/tree/main/plugins/ralph-loop",
+    "name": "ralph-loop",
+    "version": "1.0.0"
+  },
+  "skills": {},
+  "requiredRuntimes": [
+    "bash"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/commands": "plugins/ralph-loop/commands",
+    "com.anthropic.claude-code/hooks": "plugins/ralph-loop/hooks",
+    "scripts": "plugins/ralph-loop/scripts"
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/stop-hook.sh\"",
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "description": "Interactive self-referential AI loops for iterative development, implementing the Ralph Wiggum technique",
+    "homepage": "https://github.com/anthropics/claude-plugins-official"
+  },
+  "import": {
+    "input": "anthropics/claude-plugins-official",
+    "flags": [],
+    "warnings": [
+      {
+        "path": "plugins/ralph-loop/hooks/hooks.json",
+        "message": "Claude Code runs this on Stop: bash \"${CLAUDE_PLUGIN_ROOT}/hooks/stop-hook.sh\""
+      }
+    ]
+  }
+}

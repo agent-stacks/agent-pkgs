@@ -1,0 +1,68 @@
+{
+  "name": "fakechat",
+  "version": "0.0.1",
+  "src": {
+    "owner": "anthropics",
+    "repo": "claude-plugins-official",
+    "rev": "58267944f92187b7d6a1c822165c96c81c864806",
+    "hash": "sha256-f6wBcSVGNvY+lqFbs0cczTRfRjYZrqWb0hslE7IX2p8="
+  },
+  "sourceUrl": "https://github.com/anthropics/claude-plugins-official",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "description": "Localhost web chat for testing the channel notification flow. No tokens, no access control, no third-party service.",
+    "keywords": [
+      "fakechat",
+      "web",
+      "localhost",
+      "testing",
+      "channel",
+      "mcp"
+    ],
+    "name": "fakechat",
+    "version": "0.0.1"
+  },
+  "skills": {},
+  "requiredRuntimes": [
+    "bun"
+  ],
+  "pluginRootPaths": {
+    "LICENSE": "external_plugins/fakechat/LICENSE",
+    "README.md": "external_plugins/fakechat/README.md",
+    "bun.lock": "external_plugins/fakechat/bun.lock",
+    "package.json": "external_plugins/fakechat/package.json",
+    "server.ts": "external_plugins/fakechat/server.ts"
+  },
+  "mcpServers": {
+    "fakechat": {
+      "args": [
+        "run",
+        "--cwd",
+        "${PLUGIN_ROOT}",
+        "--shell=bun",
+        "--silent",
+        "start"
+      ],
+      "command": "bun",
+      "type": "stdio"
+    }
+  },
+  "meta": {
+    "description": "Localhost web chat for testing the channel notification flow",
+    "homepage": "https://github.com/anthropics/claude-plugins-official"
+  },
+  "import": {
+    "input": "anthropics/claude-plugins-official",
+    "flags": [],
+    "warnings": [
+      {
+        "path": "external_plugins/fakechat",
+        "message": "a server declared in external_plugins/fakechat/.mcp.json runs from the plugin root, so the root's files ship: LICENSE, README.md, bun.lock, package.json, server.ts"
+      },
+      {
+        "path": "package.json",
+        "message": "dependency manifest; the build does not resolve what it declares"
+      }
+    ]
+  }
+}

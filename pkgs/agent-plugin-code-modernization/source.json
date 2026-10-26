@@ -1,0 +1,153 @@
+{
+  "name": "code-modernization",
+  "version": "1.0.0",
+  "src": {
+    "owner": "anthropics",
+    "repo": "claude-plugins-official",
+    "rev": "58267944f92187b7d6a1c822165c96c81c864806",
+    "hash": "sha256-f6wBcSVGNvY+lqFbs0cczTRfRjYZrqWb0hslE7IX2p8="
+  },
+  "sourceUrl": "https://github.com/anthropics/claude-plugins-official",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "email": "support@anthropic.com",
+      "name": "Anthropic"
+    },
+    "description": "Guided modernization for any legacy codebase: start with /modernize, get an assessment, an interactive map, the business rules mined from the code, and a plan you approve, then an upgrade, a rewrite or a rebuild with independent proof that the new code behaves like the old. Includes security hardening, a one-page report, specialist agents, and an optional live progress pane (early access).",
+    "homepage": "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/code-modernization",
+    "name": "code-modernization",
+    "version": "1.0.0"
+  },
+  "skills": {},
+  "requiredRuntimes": [
+    "python3",
+    "sh"
+  ],
+  "pluginRootPaths": {
+    "assets": "plugins/code-modernization/assets",
+    "com.anthropic.claude-code/agents": "plugins/code-modernization/agents",
+    "com.anthropic.claude-code/commands": "plugins/code-modernization/commands",
+    "com.anthropic.claude-code/hooks": "plugins/code-modernization/hooks",
+    "com.anthropic.claude-code/workflows": "plugins/code-modernization/workflows",
+    "scripts": "plugins/code-modernization/scripts"
+  },
+  "hooks": {
+    "PostToolUseFailure": [
+      {
+        "hooks": [
+          {
+            "asyncRewake": true,
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/scripts/telemetry.sh\" failure",
+            "timeout": 10,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "asyncRewake": true,
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/scripts/telemetry.sh\" health",
+            "timeout": 10,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "asyncRewake": true,
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/scripts/telemetry.sh\" state",
+            "timeout": 10,
+            "type": "command"
+          },
+          {
+            "asyncRewake": true,
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/scripts/telemetry.sh\" run",
+            "timeout": 10,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "StopFailure": [
+      {
+        "hooks": [
+          {
+            "asyncRewake": true,
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/scripts/telemetry.sh\" failure",
+            "timeout": 10,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "asyncRewake": true,
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/scripts/telemetry.sh\" command",
+            "timeout": 10,
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "description": "Guided modernization for any legacy codebase",
+    "homepage": "https://github.com/anthropics/claude-plugins-official"
+  },
+  "import": {
+    "input": "anthropics/claude-plugins-official",
+    "flags": [],
+    "warnings": [
+      {
+        "path": "plugins/code-modernization/hooks/hooks.json",
+        "message": "Claude Code runs this on PostToolUseFailure: sh \"${CLAUDE_PLUGIN_ROOT}/scripts/telemetry.sh\" failure"
+      },
+      {
+        "path": "plugins/code-modernization/hooks/hooks.json",
+        "message": "Claude Code runs this on SessionStart: sh \"${CLAUDE_PLUGIN_ROOT}/scripts/telemetry.sh\" health"
+      },
+      {
+        "path": "plugins/code-modernization/hooks/hooks.json",
+        "message": "Claude Code runs this on Stop: sh \"${CLAUDE_PLUGIN_ROOT}/scripts/telemetry.sh\" state"
+      },
+      {
+        "path": "plugins/code-modernization/hooks/hooks.json",
+        "message": "Claude Code runs this on Stop: sh \"${CLAUDE_PLUGIN_ROOT}/scripts/telemetry.sh\" run"
+      },
+      {
+        "path": "plugins/code-modernization/hooks/hooks.json",
+        "message": "Claude Code runs this on StopFailure: sh \"${CLAUDE_PLUGIN_ROOT}/scripts/telemetry.sh\" failure"
+      },
+      {
+        "path": "plugins/code-modernization/hooks/hooks.json",
+        "message": "Claude Code runs this on UserPromptSubmit: sh \"${CLAUDE_PLUGIN_ROOT}/scripts/telemetry.sh\" command"
+      },
+      {
+        "path": "plugins/code-modernization/hooks/hooks.json",
+        "message": "Claude Code loads this module into its own process whenever the plugin is enabled: ./register.ts"
+      },
+      {
+        "path": "plugins/code-modernization/workflows",
+        "message": "Claude Code can run these as workflows: extract-rules.js, harden-scan.js, portfolio-assess.js, reimagine-scaffold.js, uplift-deltas.js, uplift-migrate.js"
+      },
+      {
+        "path": "plugins/code-modernization/assets/media/pane-live.gif",
+        "message": "larger than 1MiB, so it was not read; a ${PLUGIN_ROOT} reference inside it ships nothing, and a script only it runs is not reported"
+      },
+      {
+        "path": "plugins/code-modernization/assets/vendor/mermaid.min.js",
+        "message": "larger than 1MiB, so it was not read; a ${PLUGIN_ROOT} reference inside it ships nothing, and a script only it runs is not reported"
+      }
+    ]
+  }
+}
