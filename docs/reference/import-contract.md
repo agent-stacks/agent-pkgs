@@ -239,7 +239,7 @@ package of the token's own name
 A package imported without the flag reads exactly as before.
 
 `nodeModules` is the plugin root's `bun.lock` as import read it
-(agent-stacks ADR 0075, [ADR 0026](../decisions/0026-a-plugins-lockfile-is-laid-out-by-the-build.md)).
+(agent-stacks ADR 0078, [ADR 0026](../decisions/0026-a-plugins-lockfile-is-laid-out-by-the-build.md)).
 Each entry is one package, sorted by `path`: its install path under
 `node_modules/`, registry tarball `url`, `sha512-` `integrity`, and
 `bin` or `binDir`, the commands to link. Import also sets

@@ -18,7 +18,7 @@ plugin: registry packages pinned in the lockfile, frozen, no scripts
 (plugins/loading, "Node.js package dependencies"). Launch loads
 packages in place, which gets no install. Measured under launch,
 the servers run unpinned versions online and fail offline; with
-`node_modules` laid out they connect offline (agent-stacks ADR 0075).
+`node_modules` laid out they connect offline (agent-stacks ADR 0078).
 
 | Already decided | |
 | --------------- | - |
@@ -34,7 +34,7 @@ by hand and go stale on the hourly replay.
 ## Decision
 
 We lay out a plugin's `bun.lock` at build time, from what import
-records (agent-stacks ADR 0075).
+records (agent-stacks ADR 0078).
 
 - `source.json` carries `nodeModules`: per package, its install
   path, registry tarball, sha512 integrity, and `bin` or `binDir`.

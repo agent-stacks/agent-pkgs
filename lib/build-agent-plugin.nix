@@ -346,7 +346,7 @@ let
   nodeModulesGuard = lib.optionalString hasNodeModules ("\n" + ''
     for p in ${lib.escapeShellArgs (map (m: m.path) checkedNodeModules)}; do
       if [ ! -d "$dest/$p" ]; then
-        echo "buildAgentPlugin: ${name}: source.json records $p but assemble-plugin did not lay it out; is this agent-stacks older than nodeModules (agent-stacks ADR 0075)?" >&2
+        echo "buildAgentPlugin: ${name}: source.json records $p but assemble-plugin did not lay it out; is this agent-stacks older than nodeModules (agent-stacks ADR 0078)?" >&2
         exit 1
       fi
     done
