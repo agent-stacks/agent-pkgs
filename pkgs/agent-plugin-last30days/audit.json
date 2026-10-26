@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "last30days",
-      "dir": "/nix/store/pc607s3n1j6y1p9vmmhigsmj61zi2sbb-agent-plugin-last30days-3.30.0/share/agent-plugins/last30days",
+      "dir": "/nix/store/hjf66pmcg4hal6y93sl6wdm8vz8cpv5l-agent-plugin-last30days-3.30.0/share/agent-plugins/last30days",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -32,7 +32,7 @@
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 82.2,
+          "coverage": 81.7,
           "exceptions": [
             {
               "reason": "static_parse_limit",
@@ -157,6 +157,11 @@
             {
               "reason": "static_parse_limit",
               "path": "skills/last30days/scripts/lib/github.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/last30days/scripts/lib/grok_audit.py",
               "line": 0
             },
             {
@@ -655,7 +660,7 @@
               "severity": "HIGH",
               "message": "External Script Fetching",
               "file": "skills/last30days/scripts/lib/backends.py",
-              "line": 305
+              "line": 306
             },
             {
               "id": "SC2",
@@ -1348,14 +1353,14 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/backends.py",
-              "line": 204
+              "line": 205
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/backends.py",
-              "line": 366
+              "line": 385
             },
             {
               "id": "PE3",
@@ -1848,6 +1853,13 @@
               "line": 515
             },
             {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/last30days/scripts/lib/grok_audit.py",
+              "line": 487
+            },
+            {
               "id": "YR4",
               "severity": "HIGH",
               "message": "YARA rule 'agent_skill_prompt_injection_hidden_instructions': Prompt injection or hidden instructions embedded in AI agent skill text [agent_skills]",
@@ -1859,14 +1871,14 @@
               "severity": "HIGH",
               "message": "YARA rule 'agent_skill_mcp_tool_poisoning_metadata': MCP/tool metadata poisoning indicators in tool schemas or skill manifests [agent_skills]",
               "file": "skills/last30days/scripts/lib/grok_x.py",
-              "line": 741
+              "line": 747
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/last30days/scripts/lib/grok_x.py",
-              "line": 774
+              "line": 778
             },
             {
               "id": "E4",
@@ -1985,7 +1997,7 @@
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/last30days/scripts/lib/backends.py",
-              "line": 251
+              "line": 252
             },
             {
               "id": "PE2",
@@ -2261,6 +2273,20 @@
               "line": 58
             },
             {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/last30days/scripts/lib/grok_audit.py",
+              "line": 113
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/last30days/scripts/lib/grok_audit.py",
+              "line": 509
+            },
+            {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
@@ -2272,14 +2298,14 @@
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "skills/last30days/scripts/lib/grok_x.py",
-              "line": 844
+              "line": 875
             },
             {
               "id": "AST4",
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "skills/last30days/scripts/lib/grok_x.py",
-              "line": 900
+              "line": 957
             },
             {
               "id": "E1",
@@ -2398,21 +2424,21 @@
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/last30days/scripts/lib/tiktok.py",
-              "line": 16
+              "line": 18
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/last30days/scripts/lib/tiktok.py",
-              "line": 223
+              "line": 246
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/last30days/scripts/lib/youtube_yt.py",
-              "line": 1552
+              "line": 1657
             },
             {
               "id": "E1",
@@ -2447,21 +2473,21 @@
               "severity": "MEDIUM",
               "message": "Unbounded Resource Access",
               "file": "skills/last30days/scripts/lib/pipeline.py",
-              "line": 2760
+              "line": 2761
             },
             {
               "id": "EA4",
               "severity": "MEDIUM",
               "message": "Unbounded Resource Access",
               "file": "skills/last30days/scripts/lib/pipeline.py",
-              "line": 2810
+              "line": 2811
             },
             {
               "id": "EA4",
               "severity": "MEDIUM",
               "message": "Unbounded Resource Access",
               "file": "skills/last30days/scripts/lib/pipeline.py",
-              "line": 5017
+              "line": 5034
             },
             {
               "id": "EA4",
@@ -2692,7 +2718,14 @@
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/last30days/scripts/lib/youtube_yt.py",
-              "line": 298
+              "line": 351
+            },
+            {
+              "id": "EA4",
+              "severity": "MEDIUM",
+              "message": "Unbounded Resource Access",
+              "file": "skills/last30days/scripts/lib/youtube_yt.py",
+              "line": 1397
             },
             {
               "id": "AST4",
@@ -2742,7 +2775,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-25T23:30:14Z"
+      "checkedAt": "2026-10-26T19:01:21Z"
     }
   },
   "agentStacks": {
