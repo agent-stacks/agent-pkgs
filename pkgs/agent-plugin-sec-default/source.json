@@ -1,0 +1,43 @@
+{
+  "name": "sec-default",
+  "version": "0.1.0",
+  "src": {
+    "owner": "anthropics",
+    "repo": "claude-code",
+    "rev": "a5b0f2e03aba37ea34e527fe30b2f6aaa4895b9f",
+    "hash": "sha256-6SuMeS7qd50OH0m6HOO8VVeu4YaIQFs9uYdeKV9cgwY="
+  },
+  "sourceUrl": "https://github.com/anthropics/claude-code",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Anthropic"
+    },
+    "description": "Security default for organizations: seated outermost, it keeps the organization's classic hooks, prompt content, settings, tool policy and pinned environment out of reach of the plugins a person installs, and adds no policy of its own; one managed option, allowManagedModsOnly, limits mods to the organization's.",
+    "name": "sec-default",
+    "version": "0.1.0"
+  },
+  "skills": {},
+  "requiredRuntimes": [],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/hooks": "mods/sec-default/hooks"
+  },
+  "meta": {
+    "description": "Security default for organizations",
+    "homepage": "https://github.com/anthropics/claude-code"
+  },
+  "import": {
+    "input": "anthropics/claude-code",
+    "flags": [
+      "--path-ignore=plugins/frontend-design",
+      "--path-ignore=plugins/hookify",
+      "--path-ignore=plugins/plugin-dev"
+    ],
+    "warnings": [
+      {
+        "path": "mods/sec-default/hooks/hooks.json",
+        "message": "Claude Code loads this module into its own process whenever the plugin is enabled: ./register.ts"
+      }
+    ]
+  }
+}

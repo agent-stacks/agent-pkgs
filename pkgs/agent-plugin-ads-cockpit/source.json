@@ -1,0 +1,47 @@
+{
+  "name": "ads-cockpit",
+  "version": "0.1.0",
+  "src": {
+    "owner": "AgriciDaniel",
+    "repo": "claude-ads",
+    "rev": "fc3908e786c318776df89a3a098333da377364be",
+    "hash": "sha256-AN1D44Vd32kWG1eLQmFT0cG4qKlBsQNzl6N6zJ/atiE="
+  },
+  "sourceUrl": "https://github.com/AgriciDaniel/claude-ads",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "AI Marketing Hub"
+    },
+    "description": "Optional local Claude Ads workbench for runs, evidence, inputs, comparison and report receipts. Enabled separately.",
+    "extensions": {
+      "com.anthropic.claude-code": {
+        "types": "./types/index.d.ts"
+      }
+    },
+    "license": "MIT",
+    "name": "ads-cockpit",
+    "repository": "https://github.com/AgriciDaniel/claude-ads",
+    "version": "0.1.0"
+  },
+  "skills": {},
+  "requiredRuntimes": [],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/hooks": "mods/claude-ads-cockpit/hooks",
+    "com.anthropic.claude-code/types": "mods/claude-ads-cockpit/types"
+  },
+  "meta": {
+    "description": "Optional local Claude Ads workbench for runs, evidence, inputs, comparison and report receipts",
+    "homepage": "https://github.com/AgriciDaniel/claude-ads"
+  },
+  "import": {
+    "input": "AgriciDaniel/claude-ads",
+    "flags": [],
+    "warnings": [
+      {
+        "path": "mods/claude-ads-cockpit/hooks/hooks.json",
+        "message": "Claude Code loads this module into its own process whenever the plugin is enabled: ./register.mjs"
+      }
+    ]
+  }
+}

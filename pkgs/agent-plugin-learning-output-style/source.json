@@ -1,0 +1,59 @@
+{
+  "name": "learning-output-style",
+  "version": "1.0.0",
+  "src": {
+    "owner": "anthropics",
+    "repo": "claude-code",
+    "rev": "a5b0f2e03aba37ea34e527fe30b2f6aaa4895b9f",
+    "hash": "sha256-6SuMeS7qd50OH0m6HOO8VVeu4YaIQFs9uYdeKV9cgwY="
+  },
+  "sourceUrl": "https://github.com/anthropics/claude-code",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "email": "boris@anthropic.com",
+      "name": "Boris Cherny"
+    },
+    "description": "Interactive learning mode that requests meaningful code contributions at decision points (mimics the unshipped Learning output style)",
+    "name": "learning-output-style",
+    "version": "1.0.0"
+  },
+  "skills": {},
+  "requiredRuntimes": [
+    "bash"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/hooks": "plugins/learning-output-style/hooks",
+    "hooks-handlers": "plugins/learning-output-style/hooks-handlers"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.sh",
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "description": "Interactive learning mode that requests meaningful code contributions at decision points (mimics the unshipped Learning output style)",
+    "homepage": "https://github.com/anthropics/claude-code"
+  },
+  "import": {
+    "input": "anthropics/claude-code",
+    "flags": [
+      "--path-ignore=plugins/frontend-design",
+      "--path-ignore=plugins/hookify",
+      "--path-ignore=plugins/plugin-dev"
+    ],
+    "warnings": [
+      {
+        "path": "plugins/learning-output-style/hooks/hooks.json",
+        "message": "Claude Code runs this on SessionStart: ${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.sh"
+      }
+    ]
+  }
+}

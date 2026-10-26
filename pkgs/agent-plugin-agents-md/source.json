@@ -1,0 +1,43 @@
+{
+  "name": "agents-md",
+  "version": "0.1.0",
+  "src": {
+    "owner": "anthropics",
+    "repo": "claude-code",
+    "rev": "a5b0f2e03aba37ea34e527fe30b2f6aaa4895b9f",
+    "hash": "sha256-6SuMeS7qd50OH0m6HOO8VVeu4YaIQFs9uYdeKV9cgwY="
+  },
+  "sourceUrl": "https://github.com/anthropics/claude-code",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Anthropic"
+    },
+    "description": "AGENTS.md as project instructions, by one option. Under claude-md-or-agents-md a project with no instruction files of its own gets its AGENTS.md files instead: a prompt.context hook asks $.fs.ancestors for every AGENTS.md and .claude/AGENTS.md from the filesystem root down to the working directory and hands them to the engine as project instruction files, which it renders, announces and withholds from agents exactly as it does CLAUDE.md, skipping any file the engine already loaded by import or link; a tool.call hook on Read attaches the ones under the project root as the engine attaches a nested CLAUDE.md. Under claude-md-and-agents-md every AGENTS.md is loaded beside CLAUDE.md. Under managed-only the project's and the person's instruction files are dropped and the organization's managed ones kept. Under claude-md the engine's walk stands alone. claude-md-or-agents-md is the default.",
+    "name": "agents-md",
+    "version": "0.1.0"
+  },
+  "skills": {},
+  "requiredRuntimes": [],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/hooks": "mods/agents-md/hooks"
+  },
+  "meta": {
+    "description": "AGENTS.md as project instructions, by one option",
+    "homepage": "https://github.com/anthropics/claude-code"
+  },
+  "import": {
+    "input": "anthropics/claude-code",
+    "flags": [
+      "--path-ignore=plugins/frontend-design",
+      "--path-ignore=plugins/hookify",
+      "--path-ignore=plugins/plugin-dev"
+    ],
+    "warnings": [
+      {
+        "path": "mods/agents-md/hooks/hooks.json",
+        "message": "Claude Code loads this module into its own process whenever the plugin is enabled: ./register.ts"
+      }
+    ]
+  }
+}

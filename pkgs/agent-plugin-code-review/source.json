@@ -1,0 +1,38 @@
+{
+  "name": "code-review",
+  "version": "1.0.0",
+  "src": {
+    "owner": "anthropics",
+    "repo": "claude-code",
+    "rev": "a5b0f2e03aba37ea34e527fe30b2f6aaa4895b9f",
+    "hash": "sha256-6SuMeS7qd50OH0m6HOO8VVeu4YaIQFs9uYdeKV9cgwY="
+  },
+  "sourceUrl": "https://github.com/anthropics/claude-code",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "email": "boris@anthropic.com",
+      "name": "Boris Cherny"
+    },
+    "description": "Automated code review for pull requests using multiple specialized agents with confidence-based scoring to filter false positives",
+    "name": "code-review",
+    "version": "1.0.0"
+  },
+  "skills": {},
+  "requiredRuntimes": [],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/commands": "plugins/code-review/commands"
+  },
+  "meta": {
+    "description": "Automated code review for pull requests using multiple specialized agents with confidence-based scoring to filter false positives",
+    "homepage": "https://github.com/anthropics/claude-code"
+  },
+  "import": {
+    "input": "anthropics/claude-code",
+    "flags": [
+      "--path-ignore=plugins/frontend-design",
+      "--path-ignore=plugins/hookify",
+      "--path-ignore=plugins/plugin-dev"
+    ]
+  }
+}

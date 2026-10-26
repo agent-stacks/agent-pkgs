@@ -1,0 +1,53 @@
+{
+  "name": "blog-studio",
+  "version": "0.2.0",
+  "src": {
+    "owner": "AgriciDaniel",
+    "repo": "claude-blog",
+    "rev": "354442348815a7f0327077ad89af2c43cf4b4ab4",
+    "hash": "sha256-WZ50jFPCZf0/LwaSpMqDYkX0LQPnczr+HkXe+7Qlqws="
+  },
+  "sourceUrl": "https://github.com/AgriciDaniel/claude-blog",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "AgriciDaniel",
+      "url": "https://github.com/AgriciDaniel"
+    },
+    "description": "Optional companion to claude-blog: article status band, live pipeline and five-gate review panel, history of past blogs, and an explicit Run checks control. A Claude Code mod; install it separately.",
+    "extensions": {
+      "com.anthropic.claude-code": {
+        "types": "./types/index.d.ts"
+      }
+    },
+    "homepage": "https://github.com/AgriciDaniel/claude-blog",
+    "license": "MIT",
+    "name": "blog-studio",
+    "repository": "https://github.com/AgriciDaniel/claude-blog",
+    "version": "0.2.0"
+  },
+  "skills": {},
+  "requiredRuntimes": [],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/hooks": "plugins/blog-studio/hooks",
+    "com.anthropic.claude-code/types": "plugins/blog-studio/types"
+  },
+  "meta": {
+    "description": "Optional companion to claude-blog",
+    "homepage": "https://github.com/AgriciDaniel/claude-blog"
+  },
+  "import": {
+    "input": "AgriciDaniel/claude-blog",
+    "flags": [],
+    "warnings": [
+      {
+        "path": "plugins/blog-studio/hooks/hooks.json",
+        "message": "Claude Code loads this module into its own process whenever the plugin is enabled: ./register.ts"
+      },
+      {
+        "path": "package.json",
+        "message": "dependency manifest; the build does not resolve what it declares"
+      }
+    ]
+  }
+}
