@@ -6,6 +6,7 @@
 #   ├── mcp.json        # optional
 #   ├── bin/            # pinned interpreters, beside upstream's own bin/ when it has one
 #   ├── com.anthropic.claude-code/  # Claude's components; hooks.json from `hooks`
+#   ├── node_modules/   # optional, from `nodeModules`
 #   └── ...             # pluginRootPaths entries, e.g. scripts/
 #
 # Skill selection, in precedence order:
@@ -15,8 +16,9 @@
 # 2. A `skills-lock.json` at the src root (the project lock written by
 #    the upstream skills CLI): entries are read at build time and each
 #    skill is copied from its in-tree skillPath. Entries whose files
-#    are not inside src (external sources) fail the build — a pure
-#    build cannot fetch them; resolve those with `agent-stacks import`.
+#    are not inside src (external sources) fail the build — the lock
+#    records no hash to fetch them by; resolve those with
+#    `agent-stacks import`.
 # 3. Passthrough: src is already a conformant plugin tree (plugin.json
 #    + skills/) and is copied as-is.
 #
@@ -78,6 +80,11 @@
   # (agent-stacks ADR 0051). Not the overrideAttrs function a generated
   # default.nix binds under the same name.
 , hooks ? null
+  # The plugin's bun.lock as import recorded it, one { path, url,
+  # integrity, bin?, binDir? } per package: what Claude Code installs
+  # into a plugin it caches. Each tarball is fetched by its integrity and
+  # laid out under node_modules/ (agent-stacks ADR 0075, ADR 0026).
+, nodeModules ? null
   # agent-stacks package providing `agent-stacks assemble-plugin` and
   # `agent-stacks check-plugin`; required, because the build phase is a
   # call to it
@@ -309,17 +316,66 @@ let
       fi
     '')) ignoredPaths));
 
+  hasNodeModules = nodeModules != null && nodeModules != [ ];
+
+  # A malformed entry fails here, naming it, rather than inside
+  # fetchurl or assemble-plugin.
+  checkNodeModule = m:
+    let
+      field = k: builtins.isString (m.${k} or null);
+      bad = "buildAgentPlugin: ${name}: nodeModules entry "
+        + (if field "path" then m.path else builtins.toJSON m);
+    in
+    if !(field "path" && field "url" && field "integrity")
+    then throw "${bad} needs string path, url and integrity"
+    else if builtins.match "sha512-[A-Za-z0-9+/]{86}==" m.integrity == null
+    then throw "${bad} has integrity ${m.integrity}, not one sha512- SRI hash"
+    else m;
+
+  checkedNodeModules = map checkNodeModule nodeModules;
+
+  # assemble-plugin gets each tarball as a store path to unpack. The
+  # name is set because an npm URL's last segment need not be a valid
+  # store path name.
+  fetchedNodeModules = map
+    (m: m // {
+      tarball = "${pkgs.fetchurl {
+        name = "npm-" + lib.strings.sanitizeDerivationName (baseNameOf m.url);
+        inherit (m) url;
+        hash = m.integrity;
+      }}";
+    })
+    checkedNodeModules;
+
+  # An agent-stacks older than nodeModules lays out nothing, and every
+  # recorded path is a directory once it has, including a package
+  # assemble-plugin skipped because its parent's tarball bundles it.
+  # Empty when unset, so other packages' build phase is unchanged.
+  nodeModulesGuard = lib.optionalString hasNodeModules ("\n" + ''
+    if [ ! -d "$dest/node_modules" ]; then
+      echo ${lib.escapeShellArg "buildAgentPlugin: ${name}: source.json records nodeModules but assemble-plugin laid out none; this agent-stacks predates nodeModules (agent-stacks ADR 0075)"} >&2
+      exit 1
+    fi
+    for p in ${lib.escapeShellArgs (map (m: m.path) checkedNodeModules)}; do
+      if [ ! -d "$dest/$p" ]; then
+        echo "buildAgentPlugin: ${name}: source.json records $p but assemble-plugin did not lay it out" >&2
+        exit 1
+      fi
+    done
+  '');
+
   # The builder call, handed to assemble-plugin as data. A generated
-  # package's source.json is already exactly this; reconstructing it
-  # here means a hand-written call gets the same treatment without
-  # needing a file on disk.
-  callFile = pkgs.writeText "source.json" (builtins.toJSON
-    (lib.filterAttrs (_: v: v != null) {
-      inherit name skills manifest mcpServers hooks pluginRootPaths;
-      inherit allowPathCommands extraSubstitutions;
-      # {} keeps nothing out, so it leaves the call as unset does.
-      ignoredPaths = if ignoredPaths == { } then null else ignoredPaths;
-    }));
+  # package's source.json is already this, but for each nodeModules
+  # entry's tarball; reconstructing it here means a hand-written call
+  # gets the same treatment without needing a file on disk.
+  call = lib.filterAttrs (_: v: v != null) {
+    inherit name skills manifest mcpServers hooks pluginRootPaths;
+    inherit allowPathCommands extraSubstitutions;
+    # {} keeps nothing out, so it leaves the call as unset does.
+    ignoredPaths = if ignoredPaths == { } then null else ignoredPaths;
+    nodeModules = if hasNodeModules then fetchedNodeModules else null;
+  };
+  callFile = pkgs.writeText "source.json" (builtins.toJSON call);
 in
 # { } was the old default, so a call still spelling it out is harmless.
 assert runtimes == null || runtimes == { } || throw
@@ -374,7 +430,7 @@ stdenvNoCC.mkDerivation {
         echo "buildAgentPlugin: ${name}: hooks were given but assemble-plugin wrote no hooks file; this agent-stacks predates the hooks argument (ADR 0051)" >&2
         exit 1
       fi
-    ''}${ignoredPathsGuard}
+    ''}${ignoredPathsGuard}${nodeModulesGuard}
 
     # Hook point for extensions: runs on the fully assembled tree,
     # before install and the checks. It used to run between the
@@ -464,6 +520,11 @@ stdenvNoCC.mkDerivation {
     # see it without unpacking the output (AI-759).
     pluginRootPaths =
       if pluginRootPaths == null then null else builtins.attrNames pluginRootPaths;
+    # Where each laid-out package sits, likewise.
+    nodeModules =
+      if hasNodeModules then map (m: m.path) checkedNodeModules else null;
+    # What assemble-plugin is handed, tarballs included.
+    inherit call;
     # The packages the build searches for runtimes, in order, so a
     # check or a reader sees what the named tier picked.
     runtimeCandidates = map (c: { inherit (c) attr tier; }) runtimeCandidates;

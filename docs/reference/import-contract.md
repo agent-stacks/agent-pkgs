@@ -89,6 +89,15 @@ so an undeclared key is a build error by design:
 
   "pluginRootPaths": { "scripts": "scripts" },
 
+  "nodeModules": [
+    {
+      "path": "node_modules/which",
+      "url": "https://registry.npmjs.org/which/-/which-2.0.2.tgz",
+      "integrity": "sha512-...",
+      "bin": { "node-which": "./bin/node-which" }
+    }
+  ],
+
   "meta": {
     "description": "...",
     "homepage": "https://github.com/OWNER/REPO"
@@ -229,6 +238,45 @@ package of the token's own name
 [ADR 0023](../decisions/0023-the-plugin-declares-packages-and-the-build-finds-binaries-in-them.md)).
 A package imported without the flag reads exactly as before.
 
+`nodeModules` is the plugin's `bun.lock` as import read it, present
+when the plugin root ships `package.json` and a `bun.lock` Claude
+Code would install from when it caches a plugin (agent-stacks ADR
+0075). An npm lockfile is not read. Import refuses many lockfiles
+and records nothing for them; the agent-stacks repo's
+`docs/reference/import-command.md` lists which. The key holds one
+entry per package, sorted by `path`:
+
+- `path` is where the package sits in the plugin tree,
+  `node_modules/<name>`, or nested below another package's
+  `node_modules/`;
+- `url` is its registry tarball;
+- `integrity` is the lockfile's `sha512-` SRI hash for it;
+- `bin`, when present, maps a command to a file in the package;
+- `binDir`, when present, is a directory in the package whose every
+  file is a command, as `bun.lock` records for `directories.bin`.
+
+The builder checks that each entry has a string `path` and `url` and
+one `sha512-` hash as `integrity`, fetches each tarball with
+`fetchurl` by it, and hands `assemble-plugin` each entry with
+`tarball`, the fetched store path, added. `assemble-plugin` unpacks
+them after its guard, skipping, with a line in the build log, a
+package its parent's tarball already bundles. It links each
+top-level package's `bin` and `binDir` commands into
+`node_modules/.bin`, and runs no scripts. A `node_modules` upstream
+committed is still pruned; the shipped one is built from the
+recorded tarballs
+([ADR 0026](../decisions/0026-a-plugins-lockfile-is-laid-out-by-the-build.md)).
+For such a plugin, import also sets
+`BUN_CONFIG_SKIP_INSTALL_PACKAGES=1` in the `env` of each stdio
+server in `mcpServers` that runs from the plugin root, so upstream's
+own `bun install` there does nothing.
+
+The builder accepts the key before the pinned agent-stacks emits it.
+A call without it, or with an empty list, builds exactly as before.
+With entries, the build fails unless every recorded `path` is a
+directory once `assemble-plugin` has run; none at all means an
+agent-stacks older than the key.
+
 ## What the generator decides
 
 How `<name>`, `version`, `manifest` and the `skills` paths are chosen
@@ -281,8 +329,8 @@ Two further consequences bind the builder:
 
 1. Explicit `skills` argument — what import generates.
 2. `skills-lock.json` at the src root, read at build time. Entries
-   whose files are not inside src fail the build (a pure build cannot
-   fetch external sources).
+   whose files are not inside src fail the build (the lock records no
+   hash to fetch an external source by).
 3. Passthrough: src already is a conformant plugin tree.
 
 ## Output layout
@@ -291,25 +339,14 @@ Two further consequences bind the builder:
 $out/share/agent-plugins/<name>/
 ├── plugin.json
 ├── skills/<skill-name>/SKILL.md ...
+├── node_modules/   # only when nodeModules is recorded
 └── mcp.json        # only when configured
 ```
 
 ## Passthru schema
 
-```nix
-passthru.agentPlugin = {
-  name = "NAME";
-  path = "share/agent-plugins/NAME";
-  sourceUrl = "...";        # null for local sources
-  specVersion = "1.0.0";    # from manifest $schema; null without a
-                            #   manifest argument or its $schema
-  skills = [ "skill-a" ];   # null when selected at build time
-  import = { input = "OWNER/REPO"; flags = [ ]; };
-                            # null when the package was hand-written
-  unresolvedLicense = null; # a meta.license string nixpkgs has no
-                            #   licence for; null when it resolved
-};
-```
+`passthru.agentPlugin` is documented once, in
+[build-agent-plugin.md](build-agent-plugin.md#passthru).
 
 ## Validation
 

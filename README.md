@@ -218,6 +218,11 @@ script like `python3 script.py`. If `script.py` doesn't have a shebang
 that defines the interpreter, `python3` will not be in the closure.
 The same is true for any libraries a script imports, the tools it
 shells out to (like `ffmpeg`), and any packages in a dependency manifest.
+The exception is a plugin root's `bun.lock`, when import records
+it: the build then lays out its `node_modules`
+([ADR 0026](docs/decisions/0026-a-plugins-lockfile-is-laid-out-by-the-build.md)).
+Import refuses many lockfiles and records nothing for them; the
+[import contract](docs/reference/import-contract.md) points to which.
 
 ## Stacks
 

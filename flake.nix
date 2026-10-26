@@ -675,6 +675,55 @@
               touch $out
             '';
 
+          # The Nix side of nodeModules (ADR 0026): an empty list is the
+          # unset call, so a package without a lockfile is unchanged,
+          # and a recorded one changes the build. What assemble-plugin
+          # lays out is asserted in agent-stacks (ADR 0017). Evaluated,
+          # not built, so the pinned binary need not lay anything out.
+          node-modules-call =
+            let
+              lib' = mkLib pkgs;
+              mk = args: lib'.buildAgentPlugin ({
+                name = "node-modules";
+                src = pkgs.emptyDirectory;
+                skills.one = "skills/one";
+                requiredRuntimes = [ ];
+              } // args);
+              isexe = {
+                path = "node_modules/isexe";
+                url = "https://registry.npmjs.org/isexe/-/isexe-2.0.0.tgz";
+                integrity = "sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==";
+              };
+              unset = mk { };
+              laid = mk { nodeModules = [ isexe ]; };
+              call = laid.passthru.agentPlugin.call;
+              tarball = pkgs.fetchurl {
+                name = "npm-isexe-2.0.0.tgz";
+                inherit (isexe) url;
+                hash = isexe.integrity;
+              };
+              evaluates = args: (builtins.tryEval (mk args).drvPath).success;
+            in
+            assert (mk { nodeModules = [ ]; }).drvPath == unset.drvPath;
+            assert laid.drvPath != unset.drvPath;
+            assert unset.passthru.agentPlugin.nodeModules == null;
+            assert !(unset.passthru.agentPlugin.call ? nodeModules);
+            assert laid.passthru.agentPlugin.nodeModules == [ "node_modules/isexe" ];
+            # The entry reaches assemble-plugin whole, with its fetch,
+            # and the call in passthru is the file the build reads.
+            assert call.nodeModules == [ (isexe // { tarball = "${tarball}"; }) ];
+            assert builtins.getContext laid.buildPhase ? ${builtins.unsafeDiscardStringContext
+              (pkgs.writeText "source.json" (builtins.toJSON call)).drvPath};
+            # A URL whose last segment is no store path name still
+            # evaluates; a malformed entry does not.
+            assert evaluates { nodeModules = [ (isexe // { url = isexe.url + "?a=b"; }) ]; };
+            assert !evaluates { nodeModules = [ (removeAttrs isexe [ "url" ]) ]; };
+            assert !evaluates { nodeModules = [ (isexe // { integrity = "sha1-Q5YGFYMzZK/4RTlr1J71UtIrWnI="; }) ]; };
+            assert !evaluates { nodeModules = [ (isexe // { integrity = "${isexe.integrity} ${isexe.integrity}"; }) ]; };
+            pkgs.runCommand "node-modules-call" { } ''
+              touch $out
+            '';
+
           # The reference tells readers to attach postAssemble with
           # overrideAttrs. This is the check that sentence promises:
           # the hook runs on the assembled tree, and passthru survives
@@ -757,7 +806,8 @@
               });
               written = [
                 "name" "version" "src" "sourceUrl" "manifest" "skills" "requiredRuntimes"
-                "dependencies" "pluginRootPaths" "ignoredPaths" "mcpServers" "hooks" "meta" "import"
+                "dependencies" "pluginRootPaths" "ignoredPaths" "mcpServers" "hooks" "nodeModules"
+                "meta" "import"
               ];
               missing = builtins.filter (k: !(formals ? ${k})) written;
             in

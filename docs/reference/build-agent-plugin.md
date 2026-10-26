@@ -20,6 +20,7 @@ every argument.
 | `pluginRootPaths` | `null` | Plugin-root entries to ship beside `skills/`, destination → path in src: what the skills and MCP servers reference, and a Claude plugin's `agents/`, `commands/` and `hooks/` (whose `hooks.json` then comes from `hooks`). Copied before the runtime pass, pruned like a skill. See the [import contract](import-contract.md). |
 | `ignoredPaths` | `null` | Skill name → paths `--path-ignore` kept out of it, which `assemble-plugin` leaves out. The build fails if one is still in the tree, which means an older agent-stacks (agent-stacks ADR 0067). See the [import contract](import-contract.md). |
 | `hooks` | `null` | Claude Code's hooks, an event map, written under a `hooks` key as `com.anthropic.claude-code/hooks/hooks.json`, or as `hooks/hooks.json` when `pluginRootPaths` ships `hooks/` at the root. An agent-stacks older than the key ignores it and the build fails. Not the `hooks` a generated `default.nix` binds for `overrideAttrs` (agent-stacks ADR 0051). |
+| `nodeModules` | `null` | The plugin's `bun.lock` as import recorded it, one `{ path, url, integrity, bin?, binDir? }` per package. An entry without a string `path`, `url` and one `sha512-` `integrity` fails evaluation. Each tarball is fetched by its `integrity` and laid out under `node_modules/` by `assemble-plugin`, after the prune. The build fails unless every `path` is then a directory; none at all means an older agent-stacks. An empty list is the same as unset ([ADR 0026](../decisions/0026-a-plugins-lockfile-is-laid-out-by-the-build.md), agent-stacks ADR 0075). See the [import contract](import-contract.md). |
 | `mcpServers` | `null` | Attrset serialized to `mcp.json` at the `manifest`'s spec version (1.0.0 without one). Without it, a passed-through tree keeps its own `mcp.json`, rewritten to the manifest's version when `manifest` replaced its `plugin.json`; an assembled package takes a root `mcp.json` only when it declares an `agent-plugins.org` `$schema`, and reports one it skips. |
 | `agentStacks` | this set's | The agent-stacks package that assembles the plugin tree (`assemble-plugin`) and whose `check-plugin` validates the output. Packages built from this repo get `pkgs/agent-stacks`; required — `null` fails the build, since assembly cannot be skipped (ADR 0013). What it validates is documented in the agent-stacks repo, `docs/reference/check-plugin-command.md`. |
 | `strict` | `false` | Pass `--strict`, making warnings fail the build. Off by default: skills in the wild carry harness frontmatter fields the Agent Skills spec does not list, and those are warnings a correct plugin can have. |
@@ -84,24 +85,39 @@ the file under `assets/`. Design and trade-offs:
 
 ## Passthru
 
+The schema consumers rely on, and what the
+[import contract](import-contract.md) refers to:
+
 ```nix
 passthru.agentPlugin = {
-  name; path; sourceUrl; specVersion; skills; import; rev; hash;
-  unresolvedLicense; runtimeCandidates;
+  name = "NAME";
+  path = "share/agent-plugins/NAME";
+  sourceUrl = "...";        # the argument; null without it
+  specVersion = "1.0.0";    # from manifest $schema; null without a
+                            #   manifest argument or its $schema
+  skills = [ "skill-a" ];   # the skills argument's names; null when
+                            #   selected at build time
+  import = { input = "OWNER/REPO"; flags = [ ]; };
+                            # the argument; null when hand-written
+  rev = "...";              # the src pin's rev and hash; null when
+  hash = "sha256-...";      #   src is a path or a derivation
+  unresolvedLicense = null; # a meta.license string nixpkgs has no
+                            #   licence for; null when it resolved
+  pluginRootPaths = [ "scripts" ];
+                            # the argument's destinations; null when
+                            #   unset, [ ] for { }
+  nodeModules = [ "node_modules/which" ];
+                            # each entry's path; null when unset or [ ]
+  call = { name = "NAME"; ... };
+                            # what assemble-plugin reads: the arguments
+                            #   it takes, null ones left out, each
+                            #   nodeModules entry with its tarball
+  runtimeCandidates = [ { attr = "bash"; tier = "default"; } ];
 };
 ```
 
-`unresolvedLicense` is a string passed in `meta.license` that
-nixpkgs has no licence for, and `null` when there was no string or it
-resolved.
-
 `runtimeCandidates` is the packages the build searches for runtimes,
-in order, each as `{ attr; tier; }` with the tier `declared`, `default`
-or `named`.
-
-`rev` and `hash` are the fetched pin's, when `src` is a recorded
-`fetchFromGitHub` pin; both are `null` when `src` is a path or a
-derivation instead, since then there is nothing pinned to report.
+in order, with the tier `declared`, `default` or `named`.
 
 ## Extension point
 
