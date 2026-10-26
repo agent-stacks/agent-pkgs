@@ -80,9 +80,14 @@ skill never downloads one
 nixpkgs this set pins via that flake's `overlays.shared-nixpkgs`, and
 filtered to derivations that are available on the platform and not
 broken. A name defined in both places resolves to the one in `pkgs/`
-and warns. They are not in `checks`, only in `packages` and
-`hydraJobs.packages`; the reasoning is in
+and warns. The re-exported packages are not in `checks`, only in
+`packages` and `hydraJobs.packages`; the reasoning is in
 [decisions/0008](../decisions/0008-re-export-llm-agents-nix.md).
+
+An overlay, `overlays/llm-agents.nix`, patches the llm-agents set
+before it is re-exported. Today that is only codex, so
+`agent-stacks launch` can pass it skills
+([decisions/0024](../decisions/0024-a-re-exported-package-can-carry-a-patch.md)).
 
 Spec conformance is not a separate check. `buildAgentPlugin` runs
 `agent-stacks check-plugin` on every plugin it builds, so a tree that

@@ -95,7 +95,10 @@
       llmAgentsPkgsFor = system: import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        overlays = [ llm-agents.overlays.shared-nixpkgs ];
+        overlays = [
+          llm-agents.overlays.shared-nixpkgs
+          (import ./overlays/llm-agents.nix)
+        ];
       };
 
       # Attributes llm-agents.nix exposes that are not packages of this
