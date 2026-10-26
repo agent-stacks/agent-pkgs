@@ -1,17 +1,19 @@
-# Applies overrides/ to the llm-agents set. Compose it after
+# Patches packages of the llm-agents set. Compose it after
 # llm-agents.nix's shared-nixpkgs overlay. ADR 0024.
-#
-# A name upstream no longer has is skipped, so it can't break
-# evaluation; the overrides-name-packages check fails on it instead.
-let
-  overrides = import ../overrides;
-in
 final: prev: {
-  llm-agents = prev.llm-agents // builtins.mapAttrs
-    (name: f:
-      let p = prev.llm-agents.${name}; in
-      final.lib.throwIfNot (p ? overrideAttrs)
-        "overrides/default.nix names ${name}, which has no overrideAttrs"
-        (p.overrideAttrs f))
-    (builtins.intersectAttrs prev.llm-agents overrides);
+  llm-agents = prev.llm-agents // {
+    # Adds the env vars agent-stacks passes skills through (agent-stacks
+    # ADR 0011).
+    #
+    # builtins.path gives the patch its own store path. A plain path sits
+    # inside this flake's source, so every commit would rebuild codex.
+    codex = prev.llm-agents.codex.overrideAttrs (old: {
+      patches = (old.patches or [ ]) ++ [
+        (builtins.path {
+          path = ./codex-flox-fragments.patch;
+          name = "codex-flox-fragments.patch";
+        })
+      ];
+    });
+  };
 }

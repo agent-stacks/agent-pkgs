@@ -1,4 +1,4 @@
-# 0024. A re-exported package can carry a patch, named in `overrides/`
+# 0024. A re-exported package can carry a patch
 
 Date: 2026-10-22
 
@@ -34,22 +34,11 @@ The options:
 
 We will patch packages with an overlay on the llm-agents set,
 `overlays/llm-agents.nix`, applied after upstream's `shared-nixpkgs`
-overlay and exposed as the flake output `overlays.llm-agents`. It
-passes each entry in `overrides/default.nix` to that package's
-`overrideAttrs`. Patch files live under `overrides/<name>/`. codex is
-the only entry.
+overlay and exposed as the flake output `overlays.llm-agents`. Each
+patch sits next to it. codex is the only package it changes.
 
 The re-export and the checks see the patched codex. Packages upstream
 builds against codex don't (see Consequences).
-
-Two checks guard the list:
-
-- `overrides-name-packages` fails on a name upstream no longer
-  defines, so a rename can't drop a patch unnoticed.
-- `<name>-patches-apply` applies a package's patches to its source
-  without building it, so a bump that stops a patch applying fails the
-  lock update. It also fails if the published package lacks a patch
-  its override adds, as it would if the overlay stopped applying.
 
 A change every user of the package would want goes upstream instead.
 
@@ -64,12 +53,13 @@ A change every user of the package would want goes upstream instead.
   takes or does affects those flakes.
 - `-` codex no longer comes from `cache.numtide.com`. Hydra builds it
   on every bump.
-- `-` A patch that stops applying blocks the hourly lock update until
-  someone rebases it.
-- `-` A patch that still applies but no longer compiles is caught only
-  by Hydra, after the lock update merges. One that compiles but stops
-  working is caught by nothing: `doctor` only looks for the env var's
-  name in the binary.
+- `-` `nix flake check` doesn't build the re-export (ADR 0008), so a
+  patch that stops applying or compiling is caught only by Hydra,
+  after the lock update merges. One that compiles but stops working is
+  caught by nothing: `doctor` only looks for the env var's name in the
+  binary.
+- `-` If upstream renames or drops codex, the flake fails to evaluate
+  and the lock update is blocked until the overlay is fixed.
 - `-` `codex-acp`, `t3code`, `oh-my-codex` and `kandev` keep upstream's
   unpatched codex. Upstream builds them against codex from its own
   internal scope, which the overlay can't reach. If `llm-agents.nix`
