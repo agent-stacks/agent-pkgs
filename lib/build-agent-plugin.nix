@@ -80,10 +80,8 @@
   # (agent-stacks ADR 0051). Not the overrideAttrs function a generated
   # default.nix binds under the same name.
 , hooks ? null
-  # The plugin's bun.lock as import recorded it, one { path, url,
-  # integrity, bin?, binDir? } per package: what Claude Code installs
-  # into a plugin it caches. Each tarball is fetched by its integrity and
-  # laid out under node_modules/ (agent-stacks ADR 0075, ADR 0026).
+  # the plugin's bun.lock as import recorded it, one { path, url,
+  # integrity, bin?, binDir? } per package (ADR 0026)
 , nodeModules ? null
   # agent-stacks package providing `agent-stacks assemble-plugin` and
   # `agent-stacks check-plugin`; required, because the build phase is a
@@ -318,8 +316,6 @@ let
 
   hasNodeModules = nodeModules != null && nodeModules != [ ];
 
-  # A malformed entry fails here, naming it, rather than inside
-  # fetchurl or assemble-plugin.
   checkNodeModule = m:
     let
       field = k: builtins.isString (m.${k} or null);
@@ -334,9 +330,7 @@ let
 
   checkedNodeModules = map checkNodeModule nodeModules;
 
-  # assemble-plugin gets each tarball as a store path to unpack. The
-  # name is set because an npm URL's last segment need not be a valid
-  # store path name.
+  # Named, as an npm URL's last segment need not be a store path name.
   fetchedNodeModules = map
     (m: m // {
       tarball = "${pkgs.fetchurl {
@@ -347,27 +341,21 @@ let
     })
     checkedNodeModules;
 
-  # An agent-stacks older than nodeModules lays out nothing, and every
-  # recorded path is a directory once it has, including a package
-  # assemble-plugin skipped because its parent's tarball bundles it.
-  # Empty when unset, so other packages' build phase is unchanged.
+  # An agent-stacks older than nodeModules lays out none. Empty when
+  # unset, so other packages' build phase is unchanged.
   nodeModulesGuard = lib.optionalString hasNodeModules ("\n" + ''
-    if [ ! -d "$dest/node_modules" ]; then
-      echo ${lib.escapeShellArg "buildAgentPlugin: ${name}: source.json records nodeModules but assemble-plugin laid out none; this agent-stacks predates nodeModules (agent-stacks ADR 0075)"} >&2
-      exit 1
-    fi
     for p in ${lib.escapeShellArgs (map (m: m.path) checkedNodeModules)}; do
       if [ ! -d "$dest/$p" ]; then
-        echo "buildAgentPlugin: ${name}: source.json records $p but assemble-plugin did not lay it out" >&2
+        echo "buildAgentPlugin: ${name}: source.json records $p but assemble-plugin did not lay it out; is this agent-stacks older than nodeModules (agent-stacks ADR 0075)?" >&2
         exit 1
       fi
     done
   '');
 
   # The builder call, handed to assemble-plugin as data. A generated
-  # package's source.json is already this, but for each nodeModules
-  # entry's tarball; reconstructing it here means a hand-written call
-  # gets the same treatment without needing a file on disk.
+  # package's source.json is already this, but for the nodeModules
+  # tarballs; reconstructing it here means a hand-written call gets the
+  # same treatment without needing a file on disk.
   call = lib.filterAttrs (_: v: v != null) {
     inherit name skills manifest mcpServers hooks pluginRootPaths;
     inherit allowPathCommands extraSubstitutions;
@@ -520,10 +508,9 @@ stdenvNoCC.mkDerivation {
     # see it without unpacking the output (AI-759).
     pluginRootPaths =
       if pluginRootPaths == null then null else builtins.attrNames pluginRootPaths;
-    # Where each laid-out package sits, likewise.
     nodeModules =
       if hasNodeModules then map (m: m.path) checkedNodeModules else null;
-    # What assemble-plugin is handed, tarballs included.
+    # The call assemble-plugin reads.
     inherit call;
     # The packages the build searches for runtimes, in order, so a
     # check or a reader sees what the named tier picked.

@@ -675,11 +675,8 @@
               touch $out
             '';
 
-          # The Nix side of nodeModules (ADR 0026): an empty list is the
-          # unset call, so a package without a lockfile is unchanged,
-          # and a recorded one changes the build. What assemble-plugin
-          # lays out is asserted in agent-stacks (ADR 0017). Evaluated,
-          # not built, so the pinned binary need not lay anything out.
+          # The Nix side of nodeModules (ADR 0026), evaluated only; the
+          # layout is agent-stacks' to test (ADR 0017).
           node-modules-call =
             let
               lib' = mkLib pkgs;
@@ -709,13 +706,10 @@
             assert unset.passthru.agentPlugin.nodeModules == null;
             assert !(unset.passthru.agentPlugin.call ? nodeModules);
             assert laid.passthru.agentPlugin.nodeModules == [ "node_modules/isexe" ];
-            # The entry reaches assemble-plugin whole, with its fetch,
-            # and the call in passthru is the file the build reads.
+            # passthru's call is the file the build reads.
             assert call.nodeModules == [ (isexe // { tarball = "${tarball}"; }) ];
             assert builtins.getContext laid.buildPhase ? ${builtins.unsafeDiscardStringContext
               (pkgs.writeText "source.json" (builtins.toJSON call)).drvPath};
-            # A URL whose last segment is no store path name still
-            # evaluates; a malformed entry does not.
             assert evaluates { nodeModules = [ (isexe // { url = isexe.url + "?a=b"; }) ]; };
             assert !evaluates { nodeModules = [ (removeAttrs isexe [ "url" ]) ]; };
             assert !evaluates { nodeModules = [ (isexe // { integrity = "sha1-Q5YGFYMzZK/4RTlr1J71UtIrWnI="; }) ]; };

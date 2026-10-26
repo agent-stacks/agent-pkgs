@@ -238,44 +238,19 @@ package of the token's own name
 [ADR 0023](../decisions/0023-the-plugin-declares-packages-and-the-build-finds-binaries-in-them.md)).
 A package imported without the flag reads exactly as before.
 
-`nodeModules` is the plugin's `bun.lock` as import read it, present
-when the plugin root ships `package.json` and a `bun.lock` Claude
-Code would install from when it caches a plugin (agent-stacks ADR
-0075). An npm lockfile is not read. Import refuses many lockfiles
-and records nothing for them; the agent-stacks repo's
-`docs/reference/import-command.md` lists which. The key holds one
-entry per package, sorted by `path`:
+`nodeModules` is the plugin root's `bun.lock` as import read it
+(agent-stacks ADR 0075, [ADR 0026](../decisions/0026-a-plugins-lockfile-is-laid-out-by-the-build.md)).
+Each entry is one package, sorted by `path`: its install path under
+`node_modules/`, registry tarball `url`, `sha512-` `integrity`, and
+`bin` or `binDir`, the commands to link. Import also sets
+`BUN_CONFIG_SKIP_INSTALL_PACKAGES=1` on each server that runs from
+the plugin root, so its own `bun install` does nothing.
 
-- `path` is where the package sits in the plugin tree,
-  `node_modules/<name>`, or nested below another package's
-  `node_modules/`;
-- `url` is its registry tarball;
-- `integrity` is the lockfile's `sha512-` SRI hash for it;
-- `bin`, when present, maps a command to a file in the package;
-- `binDir`, when present, is a directory in the package whose every
-  file is a command, as `bun.lock` records for `directories.bin`.
-
-The builder checks that each entry has a string `path` and `url` and
-one `sha512-` hash as `integrity`, fetches each tarball with
-`fetchurl` by it, and hands `assemble-plugin` each entry with
-`tarball`, the fetched store path, added. `assemble-plugin` unpacks
-them after its guard, skipping, with a line in the build log, a
-package its parent's tarball already bundles. It links each
-top-level package's `bin` and `binDir` commands into
-`node_modules/.bin`, and runs no scripts. A `node_modules` upstream
-committed is still pruned; the shipped one is built from the
-recorded tarballs
-([ADR 0026](../decisions/0026-a-plugins-lockfile-is-laid-out-by-the-build.md)).
-For such a plugin, import also sets
-`BUN_CONFIG_SKIP_INSTALL_PACKAGES=1` in the `env` of each stdio
-server in `mcpServers` that runs from the plugin root, so upstream's
-own `bun install` there does nothing.
-
+The builder fetches each tarball by its `integrity` and hands it to
+`assemble-plugin` as `tarball`. That lays the packages out after its
+guard, keeps one its parent's tarball bundles, links top-level bins,
+and runs no scripts. The build fails unless every `path` is laid out.
 The builder accepts the key before the pinned agent-stacks emits it.
-A call without it, or with an empty list, builds exactly as before.
-With entries, the build fails unless every recorded `path` is a
-directory once `assemble-plugin` has run; none at all means an
-agent-stacks older than the key.
 
 ## What the generator decides
 
