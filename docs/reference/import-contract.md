@@ -238,18 +238,20 @@ package of the token's own name
 [ADR 0023](../decisions/0023-the-plugin-declares-packages-and-the-build-finds-binaries-in-them.md)).
 A package imported without the flag reads exactly as before.
 
-`nodeModules` is the plugin root's `bun.lock` as import read it
+`nodeModules` is the plugin root's `bun.lock` as import read it, when
+the root holds `package.json` and `bun.lock` and the package ships
+something from it
 (agent-stacks ADR 0078, [ADR 0026](../decisions/0026-a-plugins-lockfile-is-laid-out-by-the-build.md)).
 Each entry is one package, sorted by `path`: its install path under
-`node_modules/`, registry tarball `url`, `sha512-` `integrity`, and
-`bin` or `binDir`, the commands to link. Import also sets
+`node_modules/`, `registry.npmjs.org` tarball `url`, `sha512-`
+`integrity`, and `bin` or `binDir`, the commands to link. Import also sets
 `BUN_CONFIG_SKIP_INSTALL_PACKAGES=1` on each server that runs from
 the plugin root, so its own `bun install` does nothing.
 
 The builder fetches each tarball by its `integrity` and hands it to
 `assemble-plugin` as `tarball`. That lays the packages out after its
-guard, keeps one its parent's tarball bundles, links top-level bins,
-and runs no scripts. The build fails unless every `path` is laid out.
+guard, keeps one its parent's tarball bundles, links each package's
+bins into the `.bin` beside it, and runs no scripts. The build fails unless every `path` is laid out.
 The builder accepts the key before the pinned agent-stacks emits it.
 
 ## What the generator decides

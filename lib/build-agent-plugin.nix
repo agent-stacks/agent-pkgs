@@ -326,6 +326,8 @@ let
     then throw "${bad} needs string path, url and integrity"
     else if builtins.match "sha512-[A-Za-z0-9+/]{86}==" m.integrity == null
     then throw "${bad} has integrity ${m.integrity}, not one sha512- SRI hash"
+    else if !lib.hasPrefix "https://registry.npmjs.org/" m.url
+    then throw "${bad} is fetched from ${m.url}, not registry.npmjs.org"
     else m;
 
   checkedNodeModules = map checkNodeModule nodeModules;

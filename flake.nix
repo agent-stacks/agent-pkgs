@@ -714,6 +714,7 @@
             assert !evaluates { nodeModules = [ (removeAttrs isexe [ "url" ]) ]; };
             assert !evaluates { nodeModules = [ (isexe // { integrity = "sha1-Q5YGFYMzZK/4RTlr1J71UtIrWnI="; }) ]; };
             assert !evaluates { nodeModules = [ (isexe // { integrity = "${isexe.integrity} ${isexe.integrity}"; }) ]; };
+            assert !evaluates { nodeModules = [ (isexe // { url = "https://npm.example.com/isexe/-/isexe-2.0.0.tgz"; }) ]; };
             pkgs.runCommand "node-modules-call" { } ''
               touch $out
             '';

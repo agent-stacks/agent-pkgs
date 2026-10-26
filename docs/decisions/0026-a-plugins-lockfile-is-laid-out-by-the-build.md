@@ -37,8 +37,10 @@ We lay out a plugin's `bun.lock` at build time, from what import
 records (agent-stacks ADR 0078).
 
 - `source.json` carries `nodeModules`: per package, its install
-  path, registry tarball, sha512 integrity, and `bin` or `binDir`.
-- `buildAgentPlugin` checks each entry, fetches it with `fetchurl` by
+  path, `registry.npmjs.org` tarball, sha512 integrity, and `bin` or
+  `binDir`.
+- `buildAgentPlugin` checks each entry, refusing another registry,
+  fetches it with `fetchurl` by
   its integrity, and hands it to `assemble-plugin`, which lays it
   out and links bins without running scripts. The build fails
   unless every recorded path was laid out.
