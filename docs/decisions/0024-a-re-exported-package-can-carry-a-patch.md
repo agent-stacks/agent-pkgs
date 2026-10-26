@@ -34,8 +34,8 @@ The options:
 
 We will patch packages with an overlay on the llm-agents set,
 `overlays/llm-agents.nix`, applied after upstream's `shared-nixpkgs`
-overlay and exposed as the flake output `overlays.llm-agents`. Each
-patch sits next to it. codex is the only package it changes.
+overlay. Each patch sits next to it. codex is the only package it
+changes.
 
 The re-export and the checks see the patched codex. Packages upstream
 builds against codex don't (see Consequences).
@@ -47,10 +47,6 @@ A change every user of the package would want goes upstream instead.
 - `+` The published codex passes `doctor`, so floxenvs can drop its
   recipe.
 - `+` codex's version and recipe still track upstream.
-- `+` A flake that builds its own llm-agents set can apply the same
-  overlay.
-- `-` `overlays.llm-agents` is a public output, so changing what it
-  takes or does affects those flakes.
 - `-` codex no longer comes from `cache.numtide.com`. Hydra builds it
   on every bump.
 - `-` `nix flake check` doesn't build the re-export (ADR 0008), so a

@@ -95,10 +95,11 @@
       llmAgentsPkgsFor = system: import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        overlays = [ llm-agents.overlays.shared-nixpkgs llmAgentsOverlay ];
+        overlays = [
+          llm-agents.overlays.shared-nixpkgs
+          (import ./overlays/llm-agents.nix)
+        ];
       };
-
-      llmAgentsOverlay = import ./overlays/llm-agents.nix;
 
       # Attributes llm-agents.nix exposes that are not packages of this
       # set: the nixpkgs builders and fetchers it patches, its setup
@@ -821,10 +822,6 @@
       # evaluates packages.* whether or not it builds them.
       checks = forAllSystems mkGates;
       lib = forAllSystems mkLib;
-
-      # For a flake that builds its own llm-agents set: compose it after
-      # llm-agents.overlays.shared-nixpkgs.
-      overlays.llm-agents = llmAgentsOverlay;
 
       # What Hydra builds. packages.* is published to the agent-stacks
       # catalog; checks.* builds as a gate and is never published. The
