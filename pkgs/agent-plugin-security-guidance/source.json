@@ -1,23 +1,23 @@
 {
   "name": "security-guidance",
-  "version": "1.0.0",
+  "version": "2.0.16",
   "src": {
     "owner": "anthropics",
-    "repo": "claude-code",
-    "rev": "a5b0f2e03aba37ea34e527fe30b2f6aaa4895b9f",
-    "hash": "sha256-6SuMeS7qd50OH0m6HOO8VVeu4YaIQFs9uYdeKV9cgwY="
+    "repo": "claude-plugins-official",
+    "rev": "58267944f92187b7d6a1c822165c96c81c864806",
+    "hash": "sha256-f6wBcSVGNvY+lqFbs0cczTRfRjYZrqWb0hslE7IX2p8="
   },
-  "sourceUrl": "https://github.com/anthropics/claude-code",
+  "sourceUrl": "https://github.com/anthropics/claude-plugins-official",
   "manifest": {
     "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
     "author": {
-      "email": "dworken@anthropic.com",
-      "name": "David Dworken"
+      "email": "support@anthropic.com",
+      "name": "Anthropic"
     },
-    "description": "Security reminder hook that warns about potential security issues when editing files, including command injection, XSS, and unsafe code patterns",
-    "homepage": "https://github.com/anthropics/claude-code/tree/main/plugins/security-guidance",
+    "description": "Security review for Claude-generated code. Pattern-based warnings on edits, LLM-powered diff review on Stop, and an agentic commit reviewer that catches injection, XSS, SSRF, hardcoded secrets, and 25+ other vulnerability classes.",
+    "homepage": "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/security-guidance",
     "name": "security-guidance",
-    "version": "1.0.0"
+    "version": "2.0.16"
   },
   "skills": {},
   "requiredRuntimes": [
@@ -43,17 +43,25 @@
           {
             "asyncRewake": true,
             "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/sg-python.sh\" \"${CLAUDE_PLUGIN_ROOT}/hooks/security_reminder_hook.py\"",
-            "if": "Bash(git commit:*)",
-            "rewakeMessage": "Background security review of commit — address or acknowledge the findings below, then continue with the user's original request or continue waiting for their reply:",
-            "rewakeSummary": "Commit security review found issues",
+            "if": "Bash(git*commit*)",
+            "rewakeMessage": "Background security review of committed or pushed changes — address or acknowledge the findings below, then continue with the user's original request or continue waiting for their reply:",
+            "rewakeSummary": "Security review found issues",
             "type": "command"
           },
           {
             "asyncRewake": true,
             "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/sg-python.sh\" \"${CLAUDE_PLUGIN_ROOT}/hooks/security_reminder_hook.py\"",
-            "if": "Bash(git push:*)",
-            "rewakeMessage": "Background security review of pushed commits not yet reviewed — address or acknowledge the findings below, then continue with the user's original request or continue waiting for their reply:",
-            "rewakeSummary": "Push security review found issues",
+            "if": "Bash(git*push*)",
+            "rewakeMessage": "Background security review of committed or pushed changes — address or acknowledge the findings below, then continue with the user's original request or continue waiting for their reply:",
+            "rewakeSummary": "Security review found issues",
+            "type": "command"
+          },
+          {
+            "asyncRewake": true,
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/sg-python.sh\" \"${CLAUDE_PLUGIN_ROOT}/hooks/security_reminder_hook.py\"",
+            "if": "Bash(gt *)",
+            "rewakeMessage": "Background security review of committed or pushed changes — address or acknowledge the findings below, then continue with the user's original request or continue waiting for their reply:",
+            "rewakeSummary": "Security review found issues",
             "type": "command"
           }
         ],
@@ -96,17 +104,19 @@
     ]
   },
   "meta": {
-    "description": "Security reminder hook that warns about potential security issues when editing files",
-    "homepage": "https://github.com/anthropics/claude-code"
+    "description": "Security review for Claude-generated code",
+    "homepage": "https://github.com/anthropics/claude-plugins-official"
   },
   "import": {
-    "input": "anthropics/claude-code",
+    "input": "anthropics/claude-plugins-official",
     "flags": [
-      "--path-ignore=plugins/frontend-design",
-      "--path-ignore=plugins/hookify",
-      "--path-ignore=plugins/plugin-dev"
+      "--path-ignore=external_plugins/context7"
     ],
     "warnings": [
+      {
+        "path": "plugins/security-guidance/hooks/hooks.json",
+        "message": "Claude Code runs this on PostToolUse: bash \"${CLAUDE_PLUGIN_ROOT}/hooks/sg-python.sh\" \"${CLAUDE_PLUGIN_ROOT}/hooks/security_reminder_hook.py\""
+      },
       {
         "path": "plugins/security-guidance/hooks/hooks.json",
         "message": "Claude Code runs this on PostToolUse: bash \"${CLAUDE_PLUGIN_ROOT}/hooks/sg-python.sh\" \"${CLAUDE_PLUGIN_ROOT}/hooks/security_reminder_hook.py\""
@@ -153,6 +163,10 @@
       },
       {
         "path": "com.anthropic.claude-code/hooks/patterns.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "com.anthropic.claude-code/hooks/reporesolve.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {

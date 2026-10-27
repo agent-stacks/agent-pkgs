@@ -3,18 +3,19 @@
   "version": "1.0.0",
   "src": {
     "owner": "anthropics",
-    "repo": "claude-code",
-    "rev": "08c6a4f5121ae140d3c1b5c96e3e5ae53587b54b",
-    "hash": "sha256-eKU7r6Sz0M07ZtnG/V8OidjvXdJfY2+00b72ZBvNhK4="
+    "repo": "claude-plugins-official",
+    "rev": "58267944f92187b7d6a1c822165c96c81c864806",
+    "hash": "sha256-f6wBcSVGNvY+lqFbs0cczTRfRjYZrqWb0hslE7IX2p8="
   },
-  "sourceUrl": "https://github.com/anthropics/claude-code",
+  "sourceUrl": "https://github.com/anthropics/claude-plugins-official",
   "manifest": {
     "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
     "author": {
-      "email": "boris@anthropic.com",
-      "name": "Boris Cherny"
+      "email": "support@anthropic.com",
+      "name": "Anthropic"
     },
     "description": "Interactive learning mode that requests meaningful code contributions at decision points (mimics the unshipped Learning output style)",
+    "homepage": "https://github.com/anthropics/claude-plugins-public/tree/main/plugins/learning-output-style",
     "name": "learning-output-style",
     "version": "1.0.0"
   },
@@ -31,7 +32,7 @@
       {
         "hooks": [
           {
-            "command": "${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.sh",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.sh\"",
             "type": "command"
           }
         ]
@@ -40,19 +41,17 @@
   },
   "meta": {
     "description": "Interactive learning mode that requests meaningful code contributions at decision points (mimics the unshipped Learning output style)",
-    "homepage": "https://github.com/anthropics/claude-code"
+    "homepage": "https://github.com/anthropics/claude-plugins-official"
   },
   "import": {
-    "input": "anthropics/claude-code",
+    "input": "anthropics/claude-plugins-official",
     "flags": [
-      "--path-ignore=plugins/frontend-design",
-      "--path-ignore=plugins/hookify",
-      "--path-ignore=plugins/plugin-dev"
+      "--path-ignore=external_plugins/context7"
     ],
     "warnings": [
       {
         "path": "plugins/learning-output-style/hooks/hooks.json",
-        "message": "Claude Code runs this on SessionStart: ${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.sh"
+        "message": "Claude Code runs this on SessionStart: bash \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.sh\""
       }
     ]
   }
