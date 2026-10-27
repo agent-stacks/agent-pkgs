@@ -7,13 +7,14 @@
   "plugins": [
     {
       "name": "higgsfield",
-      "dir": "/nix/store/vzq8vwvb2ssi62ly7pkq3a7sablss6gs-agent-plugin-higgsfield-0.13.0/share/agent-plugins/higgsfield",
+      "dir": "/nix/store/23dn778inm70hhpvr9p10rh2gnm3fmc0-agent-plugin-higgsfield-0.14.0/share/agent-plugins/higgsfield",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
       "coverage": {
         "scanned": [
           "skills/higgsfield-brandkit",
+          "skills/higgsfield-faceless-video",
           "skills/higgsfield-generate",
           "skills/higgsfield-marketplace-cards",
           "skills/higgsfield-product-photoshoot",
@@ -272,6 +273,90 @@
           ]
         },
         {
+          "path": "skills/higgsfield-faceless-video",
+          "score": 16,
+          "risk": 84,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 77.8,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/higgsfield-faceless-video/scripts/assemble_blocks.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/higgsfield-faceless-video/scripts/assemble_final.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/higgsfield-faceless-video/scripts/assemble_partial_edit.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/higgsfield-faceless-video/scripts/assemble_slides.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/higgsfield-faceless-video/scripts/presenter_composite.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/higgsfield-faceless-video/scripts/speech_metrics.sh",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/higgsfield-faceless-video/SKILL.md",
+              "line": 24
+            },
+            {
+              "id": "LP1",
+              "severity": "HIGH",
+              "message": "",
+              "file": "skills/higgsfield-faceless-video/scripts/assemble_blocks.sh",
+              "line": 1
+            },
+            {
+              "id": "LP1",
+              "severity": "HIGH",
+              "message": "",
+              "file": "skills/higgsfield-faceless-video/scripts/assemble_partial_edit.sh",
+              "line": 1
+            },
+            {
+              "id": "LP1",
+              "severity": "HIGH",
+              "message": "",
+              "file": "skills/higgsfield-faceless-video/scripts/assemble_partial_edit.sh",
+              "line": 1
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/higgsfield-faceless-video/SKILL.md",
+              "line": 16
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/higgsfield-faceless-video/scripts/audio_to_captions.py",
+              "line": 390
+            }
+          ]
+        },
+        {
           "path": "skills/higgsfield-generate",
           "score": 82,
           "risk": 18,
@@ -414,34 +499,13 @@
         },
         {
           "path": "skills/higgsfield-video-explainer",
-          "score": 82,
-          "risk": 18,
+          "score": 100,
+          "risk": 0,
           "status": "safe",
-          "partial": true,
+          "partial": false,
           "coverage": 100,
-          "exceptions": [
-            {
-              "reason": "reference_missing",
-              "path": "skills/higgsfield-video-explainer/SKILL.md",
-              "line": 234
-            }
-          ],
-          "findings": [
-            {
-              "id": "TM2",
-              "severity": "HIGH",
-              "message": "Chaining Abuse",
-              "file": "skills/higgsfield-video-explainer/SKILL.md",
-              "line": 45
-            },
-            {
-              "id": "SC2",
-              "severity": "LOW",
-              "message": "External Script Fetching",
-              "file": "skills/higgsfield-video-explainer/SKILL.md",
-              "line": 45
-            }
-          ]
+          "exceptions": [],
+          "findings": []
         },
         {
           "path": "skills/higgsfield-websites",
@@ -1158,7 +1222,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-26T22:46:43Z"
+      "checkedAt": "2026-10-27T18:35:48Z"
     }
   },
   "agentStacks": {
