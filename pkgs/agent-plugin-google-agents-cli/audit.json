@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "google-agents-cli",
-      "dir": "/nix/store/bbha5nsw9aq8357jq4sr2ys92xi0bc2i-agent-plugin-google-agents-cli-1.10.0/share/agent-plugins/google-agents-cli",
+      "dir": "/nix/store/a0cayxqp15mlx60zc8xayxax3wd5p29l-agent-plugin-google-agents-cli-1.12.0/share/agent-plugins/google-agents-cli",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -134,6 +134,11 @@
               "reason": "reference_missing",
               "path": "skills/google-agents-cli-deploy/SKILL.md",
               "line": 70
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/google-agents-cli-deploy/SKILL.md",
+              "line": 113
             },
             {
               "reason": "reference_missing",
@@ -571,11 +576,11 @@
         },
         {
           "path": "skills/google-agents-cli-scaffold",
-          "score": 61,
-          "risk": 39,
-          "status": "caution",
+          "score": 36,
+          "risk": 64,
+          "status": "do not install",
           "partial": true,
-          "coverage": 100,
+          "coverage": 50,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -635,10 +640,22 @@
             {
               "reason": "reference_missing",
               "path": "skills/google-agents-cli-scaffold/SKILL.md",
-              "line": 260
+              "line": 250
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/google-agents-cli-scaffold/references/flags.md",
+              "line": 0
             }
           ],
           "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/google-agents-cli-scaffold/SKILL.md",
+              "line": 84
+            },
             {
               "id": "TM1",
               "severity": "HIGH",
@@ -651,7 +668,7 @@
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
               "file": "skills/google-agents-cli-scaffold/references/flags.md",
-              "line": 44
+              "line": 60
             },
             {
               "id": "EA2",
@@ -672,7 +689,7 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/google-agents-cli-scaffold/references/flags.md",
-              "line": 46
+              "line": 62
             },
             {
               "id": "EA2",
@@ -693,7 +710,7 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/google-agents-cli-scaffold/references/flags.md",
-              "line": 46
+              "line": 62
             },
             {
               "id": "EA2",
@@ -721,7 +738,7 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/google-agents-cli-scaffold/references/flags.md",
-              "line": 44
+              "line": 60
             },
             {
               "id": "EA2",
@@ -735,7 +752,7 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/google-agents-cli-scaffold/references/flags.md",
-              "line": 46
+              "line": 62
             }
           ]
         },
@@ -884,7 +901,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:27:49Z"
+      "checkedAt": "2026-10-27T11:36:13Z"
     }
   },
   "agentStacks": {
