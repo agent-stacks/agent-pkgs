@@ -1,0 +1,46 @@
+{
+  "name": "mercat",
+  "version": "0.3.4",
+  "src": {
+    "owner": "tawago",
+    "repo": "mercat",
+    "rev": "6bf6ba0535656f8b517f26b2c77ed24ea4432fb9",
+    "hash": "sha256-lCg5Za5zYf77/eaSiid+FNbLMgB7nHsELNo/ZXZ5STE="
+  },
+  "sourceUrl": "https://github.com/tawago/mercat",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "tawago"
+    },
+    "description": "mermaid diagrams in Claude's replies, and a /mercat pane for markdown and mermaid files",
+    "extensions": {
+      "com.anthropic.claude-code": {
+        "types": "./types/index.d.ts"
+      }
+    },
+    "homepage": "https://github.com/tawago/mercat",
+    "name": "mercat",
+    "version": "0.3.4"
+  },
+  "skills": {},
+  "requiredRuntimes": [],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/hooks": "mods/mercat/hooks",
+    "com.anthropic.claude-code/types": "mods/mercat/types"
+  },
+  "meta": {
+    "description": "mermaid diagrams in Claude's replies",
+    "homepage": "https://github.com/tawago/mercat"
+  },
+  "import": {
+    "input": "tawago/mercat",
+    "flags": [],
+    "warnings": [
+      {
+        "path": "mods/mercat/hooks/hooks.json",
+        "message": "Claude Code loads this module into its own process whenever the plugin is enabled: ./register.tsx"
+      }
+    ]
+  }
+}
