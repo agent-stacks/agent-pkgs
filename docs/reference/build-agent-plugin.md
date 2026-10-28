@@ -6,6 +6,11 @@ packages is defined by the
 [import→builder contract](import-contract.md); this page documents
 every argument.
 
+`lib/build-agent-plugin.nix` is written by `agent-stacks import`,
+whole, from `internal/importer/nixlib/` in agent-stacks-cli; change it
+there. The file takes the binary package as `agent-stacks`, which
+`flake.nix` passes from this set.
+
 ## Arguments
 
 | Argument | Default | What it does |
@@ -21,10 +26,11 @@ every argument.
 | `ignoredPaths` | `null` | Skill name → paths `--path-ignore` kept out of it, which `assemble-plugin` leaves out. The build fails if one is still in the tree, which means an older agent-stacks (agent-stacks ADR 0067). See the [import contract](import-contract.md). |
 | `hooks` | `null` | Claude Code's hooks, an event map, written under a `hooks` key as `com.anthropic.claude-code/hooks/hooks.json`, or as `hooks/hooks.json` when `pluginRootPaths` ships `hooks/` at the root. An agent-stacks older than the key ignores it and the build fails. Not the `hooks` a generated `default.nix` binds for `overrideAttrs` (agent-stacks ADR 0051). |
 | `mcpServers` | `null` | Attrset serialized to `mcp.json` at the `manifest`'s spec version (1.0.0 without one). Without it, a passed-through tree keeps its own `mcp.json`, rewritten to the manifest's version when `manifest` replaced its `plugin.json`; an assembled package takes a root `mcp.json` only when it declares an `agent-plugins.org` `$schema`, and reports one it skips. |
-| `agentStacks` | this set's | The agent-stacks package that assembles the plugin tree (`assemble-plugin`) and whose `check-plugin` validates the output. Packages built from this repo get `pkgs/agent-stacks`; required — `null` fails the build, since assembly cannot be skipped (ADR 0013). What it validates is documented in the agent-stacks repo, `docs/reference/check-plugin-command.md`. |
+| `agentStacks` | `null` | A package providing `bin/agent-stacks`, for this call only. Without it the builder runs the bare binary of the binary package it was called with (`pkgs/agent-stacks`'s `passthru.unwrapped` here), which assembles the plugin tree (`assemble-plugin`) and whose `check-plugin` validates the output (ADR 0013, [ADR 0026](../decisions/0026-the-builder-and-the-binary-come-from-import.md)). What it validates is documented in the agent-stacks repo, `docs/reference/check-plugin-command.md`. |
 | `strict` | `false` | Pass `--strict`, making warnings fail the build. Off by default: skills in the wild carry harness frontmatter fields the Agent Skills spec does not list, and those are warnings a correct plugin can have. |
 | `requiredRuntimes` | `null` | Interpreter tokens the package's files name, as recorded by `agent-stacks import`. Required for a generated package — one whose `source.json` carries `import` — and the build fails, naming the fix, if it is missing there. A hand-written call omits it and gets only the default packages and what it declares: no package named like a token, as it records no tokens, so a call running `bun`, `tsx`, `uv` or `pwsh` names the package in `dependencies`. |
 | `dependencies` | `[ ]` | nixpkgs attribute names from `agent-stacks import --dependency`, searched before the defaults; also the version pin: `[ "python312" ]`. Not searched when `requiredRuntimes` is `[ ]`, as nothing is linked. One nixpkgs lacks, or one that does not evaluate on the system, fails evaluation ([ADR 0023](../decisions/0023-the-plugin-declares-packages-and-the-build-finds-binaries-in-them.md)). |
+| `defaultDependencies` | `null` | The packages searched after `dependencies` when a runtime is linked: `[ "bash" "python3" "nodejs" ]` in every generated `source.json`. agent-stacks owns the list, so the builder holds none: a generated package without it fails, saying to re-import, and a hand-written call without it gets no defaults ([ADR 0026](../decisions/0026-the-builder-and-the-binary-come-from-import.md)). |
 | `allowPathCommands` | `[ ]` | Bare `mcp.json` commands that intentionally resolve from the consumer environment's PATH instead of the closure. |
 | `extraSubstitutions` | `[ ]` | List of `{ file; replace; with; }` applied after the automatic pass, for interpreter mentions in script bodies or SKILL.md text. |
 | `meta` | `{ }` | Standard derivation meta, merged over computed defaults ([ADR 0014](../decisions/0014-generated-package-meta.md)): `category = "agent-plugin"`, `platforms = lib.platforms.all`, `description` and `homepage` from the manifest or `sourceUrl` when present, and `license` when `manifest.license` resolves to a known `lib.licenses` entry by `spdxId`. A `meta.license` given as a string names a licence, which is how a generated `source.json` records one the manifest does not spell as SPDX does: an SPDX identifier (`"Apache-2.0"` for a manifest saying `Apache 2.0`), or a `lib.licenses` attribute name where SPDX has none (`"publicDomain"`). It is replaced by that licence; a string nixpkgs has no licence for is dropped ([ADR 0018](../decisions/0018-a-licence-named-in-meta.md)). The manifest's full description is kept as `longDescription` when it says more than the effective `description`. The merge is `defaultMeta // longDescription // meta`, key by key: an explicit key in the caller's `meta` wins over the computed default. The merge can only add or override a key, not remove one — a caller whose manifest declares a licence cannot suppress `meta.license` from the call site by passing an empty `meta`; the manifest is the thing making the claim, so that is where to change it. |
@@ -54,7 +60,7 @@ On the copied tree, `assemble-plugin`:
    bare `mcp.json` commands.
 2. Finds each name as an executable `bin/<name>` in the packages the
    builder handed it, in order: the `dependencies` the package
-   declared, then `bash`, `python3` and `nodejs`, then the package
+   declared, then `defaultDependencies`, then the package
    named like it, with that package's main program as a fallback
    (`nodejs`, `bin/node`). Two declared packages shipping a name is
    an error; a name none ships fails the build, naming the file and

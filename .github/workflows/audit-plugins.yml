@@ -12,7 +12,7 @@ name: "Audit plugins"
 #                     changed; every package when the scoring changed:
 #                     SkillSpector (pkgs/skillspector or the
 #                     skillspector-src input in flake.lock) or the
-#                     pinned agent-stacks (pkgs/agent-stacks/source.json)
+#                     pinned agent-stacks (pkgs/agent-stacks/default.json)
 #   schedule          every package, nightly: the CVE data SkillSpector
 #                     checks against moves without anything here moving
 #   workflow_dispatch one package, or every package when none is named
@@ -32,7 +32,7 @@ on:
       - "pkgs/agent-plugin-*/source.json"
       - "pkgs/agent-plugin-*/default.nix"
       - "pkgs/skillspector/**"
-      - "pkgs/agent-stacks/source.json"
+      - "pkgs/agent-stacks/default.json"
       # The dashboard: publish only, nothing is audited.
       - "scripts/audit-dashboard.py"
       - "scripts/audit-dashboard.html"
@@ -149,7 +149,7 @@ jobs:
               # A new branch or a forced push has no usable before.
               if ! git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
                 all > packages.txt
-              elif git diff --quiet "$BEFORE" HEAD -- pkgs/skillspector pkgs/agent-stacks/source.json \
+              elif git diff --quiet "$BEFORE" HEAD -- pkgs/skillspector pkgs/agent-stacks/default.json \
                 && [ "$(skillspector_rev "$BEFORE")" = "$(skillspector_rev HEAD)" ]; then
                 {
                   git diff --name-only "$BEFORE" HEAD -- 'pkgs/agent-plugin-*/source.json'
