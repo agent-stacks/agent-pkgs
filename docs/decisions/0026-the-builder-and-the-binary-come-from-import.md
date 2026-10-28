@@ -47,7 +47,10 @@ import, and stop maintaining our own.
 - `-` This lands together with the first pin to a binary carrying
   agent-stacks ADR 0079: such a binary refuses the hand-written
   `pkgs/agent-stacks`, and its builder takes formals the old flake did
-  not pass.
+  not pass. `update-agent-stacks` is paused while agent-stacks-cli
+  releases that binary; this change is then regenerated with it, every
+  package replayed in the same commit, and landed before the workflow
+  runs again (the order is spelled out in agent-stacks ADR 0079).
 - `-` Every package needs one replay with such a binary before it
   builds: a generated `source.json` without `defaultDependencies`
   fails, saying to re-import.

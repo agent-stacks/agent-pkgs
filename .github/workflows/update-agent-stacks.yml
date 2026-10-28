@@ -188,7 +188,11 @@ jobs:
               test "$(jq -r .rev pkgs/agent-stacks/default.json)" = "$REV"
               exit 0
             fi
+            # A failed replay can have written the plugins that succeeded,
+            # new directories among them; drop all of it, or the next
+            # input's commit would carry a half-imported upstream.
             git checkout -- pkgs lib
+            git clean -fdq -- pkgs lib
           done
           echo "no recorded input replayed with $REV" >&2
           exit 1
