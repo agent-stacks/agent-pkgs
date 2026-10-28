@@ -7,13 +7,15 @@
   "plugins": [
     {
       "name": "vercel-labs-skills",
-      "dir": "/nix/store/hzrwmvln1365dr35kg3wi7zvj2qkqxj5-agent-plugin-vercel-labs-skills-0.0.0-unstable.2026-10-19.ga80e4c9/share/agent-plugins/vercel-labs-skills",
+      "dir": "/nix/store/bbq848b6ijp4bxwshsl2mmbpym3h177r-agent-plugin-vercel-labs-skills-0.0.0-unstable.2026-10-27.gd8eca76/share/agent-plugins/vercel-labs-skills",
       "spec": "1.1.0",
-      "score": 88,
-      "status": "safe",
+      "score": 78,
+      "status": "caution",
       "coverage": {
         "scanned": [
-          "skills/find-skills"
+          "skills/find-skills",
+          "skills/pr-labeling",
+          "skills/triage"
         ],
         "validated": [
           "plugin.json"
@@ -115,19 +117,53 @@
               "line": 140
             }
           ]
+        },
+        {
+          "path": "skills/pr-labeling",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
+          "path": "skills/triage",
+          "score": 78,
+          "risk": 22,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/triage/SKILL.md",
+              "line": 54
+            }
+          ],
+          "findings": [
+            {
+              "id": "P1",
+              "severity": "HIGH",
+              "message": "Instruction Override",
+              "file": "skills/triage/SKILL.md",
+              "line": 42
+            }
+          ]
         }
       ]
     }
   ],
-  "score": 88,
-  "status": "safe",
+  "score": 78,
+  "status": "caution",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T23:38:17Z"
+      "checkedAt": "2026-10-28T04:37:28Z"
     }
   },
   "agentStacks": {
