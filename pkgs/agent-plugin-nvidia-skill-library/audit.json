@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "nvidia-skill-library",
-      "dir": "/nix/store/jbsmnvjl3dfflhlafwmy60my1cbgf85y-agent-plugin-nvidia-skill-library-0.0.0-unstable.2026-10-27.gdccf9bb/share/agent-plugins/nvidia-skill-library",
+      "dir": "/nix/store/0c1bill30i7984whrqv6g5bislk2741z-agent-plugin-nvidia-skill-library-0.0.0-unstable.2026-10-28.gca116d6/share/agent-plugins/nvidia-skill-library",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -93,7 +93,6 @@
           "skills/doca-argus",
           "skills/doca-bare-metal-deployment",
           "skills/doca-bench",
-          "skills/doca-bench-extension",
           "skills/doca-bf3-deployment",
           "skills/doca-bf4-deployment",
           "skills/doca-caps",
@@ -108,18 +107,20 @@
           "skills/doca-dms",
           "skills/doca-dpa",
           "skills/doca-dpdk-bridge",
+          "skills/doca-dts",
           "skills/doca-erasure-coding",
           "skills/doca-eth",
           "skills/doca-firefly",
           "skills/doca-flow",
-          "skills/doca-flow-perf",
           "skills/doca-flow-tune",
           "skills/doca-gpunetio",
           "skills/doca-hardware-safety",
           "skills/doca-mgmt",
+          "skills/doca-ngauge",
           "skills/doca-pcc",
           "skills/doca-pcc-counters",
-          "skills/doca-pcc-ztr-rttcc-algo",
+          "skills/doca-perftest",
+          "skills/doca-pipeline-language-developer-tools",
           "skills/doca-programming-guide",
           "skills/doca-public-knowledge-map",
           "skills/doca-rdma",
@@ -133,6 +134,7 @@
           "skills/doca-structured-tools-contract",
           "skills/doca-telemetry",
           "skills/doca-telemetry-exporter",
+          "skills/doca-telemetry-traceback-application",
           "skills/doca-telemetry-utils",
           "skills/doca-upgrade",
           "skills/doca-urom",
@@ -315,6 +317,7 @@
           "skills/nvshmem-select-remote-transport",
           "skills/nvshmem-troubleshoot-and-report-bugs",
           "skills/nvshmem-tune-performance",
+          "skills/omniverse-content-services",
           "skills/omniverse-realtime-viewer",
           "skills/omniverse-usd-performance-tuning",
           "skills/ovnewton-usage",
@@ -327,6 +330,12 @@
           "skills/physicsnemo-discover",
           "skills/physicsnemo-shard-tensor",
           "skills/portfolio-optimization",
+          "skills/pva-build-test",
+          "skills/pva-debug",
+          "skills/pva-doctor",
+          "skills/pva-opgen",
+          "skills/pva-setup",
+          "skills/pva-spec",
           "skills/rag-blueprint",
           "skills/rag-eval",
           "skills/rag-perf",
@@ -334,7 +343,10 @@
           "skills/rtvi-cv-scaffold-vss-service",
           "skills/rtvi-vlm-customize-model",
           "skills/rtx-remix-modding",
+          "skills/runai-audit-assigned-quota",
           "skills/runai-diagnose-failed-workload",
+          "skills/runai-get-cluster-health-summary",
+          "skills/runai-get-utilization-overview",
           "skills/runai-get-workload-health-summary",
           "skills/skill-card-generator",
           "skills/tao-analyze-changenet-rca",
@@ -14730,9 +14742,9 @@
           "path": "skills/doca-aes-gcm",
           "score": 82,
           "risk": 18,
-          "status": "incomplete",
+          "status": "safe",
           "partial": true,
-          "coverage": 85.7,
+          "coverage": 100,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -14843,11 +14855,6 @@
               "reason": "reference_missing",
               "path": "skills/doca-aes-gcm/SKILL.md",
               "line": 347
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/doca-aes-gcm/TASKS.md",
-              "line": 0
             }
           ],
           "findings": [
@@ -14856,14 +14863,14 @@
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-aes-gcm/BENCHMARK.md",
-              "line": 88
+              "line": 114
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-aes-gcm/TASKS.md",
-              "line": 413
+              "line": 411
             },
             {
               "id": "EA2",
@@ -14876,8 +14883,8 @@
         },
         {
           "path": "skills/doca-argp",
-          "score": 88,
-          "risk": 12,
+          "score": 90,
+          "risk": 10,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -14979,14 +14986,7 @@
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-argp/BENCHMARK.md",
-              "line": 87
-            },
-            {
-              "id": "PE2",
-              "severity": "MEDIUM",
-              "message": "Sudo/Root Execution",
-              "file": "skills/doca-argp/BENCHMARK.md",
-              "line": 88
+              "line": 116
             },
             {
               "id": "PE2",
@@ -15013,37 +15013,42 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-argus/SKILL.md",
-              "line": 61
+              "line": 60
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-argus/SKILL.md",
-              "line": 80
+              "line": 79
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-argus/SKILL.md",
-              "line": 84
+              "line": 83
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-argus/SKILL.md",
-              "line": 159
+              "line": 158
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-argus/SKILL.md",
-              "line": 163
+              "line": 162
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-argus/SKILL.md",
-              "line": 175
+              "line": 174
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-argus/SKILL.md",
-              "line": 178
+              "line": 177
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-argus/SKILL.md",
+              "line": 209
             },
             {
               "reason": "reference_missing",
@@ -15053,22 +15058,22 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-argus/SKILL.md",
-              "line": 211
+              "line": 241
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-argus/SKILL.md",
-              "line": 242
+              "line": 264
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-argus/SKILL.md",
-              "line": 265
+              "line": 302
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-argus/SKILL.md",
-              "line": 303
+              "line": 306
             },
             {
               "reason": "reference_missing",
@@ -15078,42 +15083,37 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-argus/SKILL.md",
-              "line": 308
+              "line": 312
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-argus/SKILL.md",
-              "line": 313
+              "line": 317
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-argus/SKILL.md",
-              "line": 318
+              "line": 321
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-argus/SKILL.md",
-              "line": 322
+              "line": 333
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-argus/SKILL.md",
-              "line": 335
+              "line": 337
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-argus/SKILL.md",
-              "line": 339
+              "line": 338
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-argus/SKILL.md",
-              "line": 340
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-argus/SKILL.md",
-              "line": 346
+              "line": 344
             }
           ],
           "findings": []
@@ -15208,14 +15208,14 @@
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/doca-bare-metal-deployment/TASKS.md",
-              "line": 704
+              "line": 700
             }
           ]
         },
         {
           "path": "skills/doca-bench",
-          "score": 100,
-          "risk": 0,
+          "score": 92,
+          "risk": 8,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -15248,12 +15248,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-bench/SKILL.md",
-              "line": 183
+              "line": 182
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-bench/SKILL.md",
-              "line": 185
+              "line": 184
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-bench/SKILL.md",
+              "line": 265
             },
             {
               "reason": "reference_missing",
@@ -15263,255 +15268,57 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-bench/SKILL.md",
-              "line": 267
+              "line": 268
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-bench/SKILL.md",
-              "line": 269
+              "line": 273
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-bench/SKILL.md",
-              "line": 274
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench/SKILL.md",
-              "line": 281
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench/SKILL.md",
-              "line": 284
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench/SKILL.md",
-              "line": 289
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench/SKILL.md",
-              "line": 295
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench/SKILL.md",
-              "line": 296
-            }
-          ],
-          "findings": []
-        },
-        {
-          "path": "skills/doca-bench-extension",
-          "score": 100,
-          "risk": 0,
-          "status": "safe",
-          "partial": true,
-          "coverage": 100,
-          "exceptions": [
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 23
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 30
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 32
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 57
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 75
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 77
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 85
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 102
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 103
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 124
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 139
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 160
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 192
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 204
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 207
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 211
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 215
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 216
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 260
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 266
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
               "line": 279
             },
             {
               "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 286
+              "path": "skills/doca-bench/SKILL.md",
+              "line": 282
             },
             {
               "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 290
+              "path": "skills/doca-bench/SKILL.md",
+              "line": 287
             },
             {
               "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
+              "path": "skills/doca-bench/SKILL.md",
+              "line": 293
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-bench/SKILL.md",
               "line": 294
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 302
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 305
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 321
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 327
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 330
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 333
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 337
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 341
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 345
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 347
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 349
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 353
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bench-extension/SKILL.md",
-              "line": 355
             }
           ],
-          "findings": []
+          "findings": [
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/doca-bench/CAPABILITIES.md",
+              "line": 88
+            }
+          ]
         },
         {
           "path": "skills/doca-bf3-deployment",
           "score": 93,
           "risk": 7,
-          "status": "incomplete",
+          "status": "safe",
           "partial": true,
-          "coverage": 85.7,
+          "coverage": 100,
           "exceptions": [
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/doca-bf3-deployment/CAPABILITIES.md",
-              "line": 0
-            },
             {
               "reason": "reference_missing",
               "path": "skills/doca-bf3-deployment/SKILL.md",
@@ -15684,52 +15491,57 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-bf4-deployment/SKILL.md",
-              "line": 122
+              "line": 121
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-bf4-deployment/SKILL.md",
-              "line": 161
+              "line": 160
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-bf4-deployment/SKILL.md",
-              "line": 163
+              "line": 162
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-bf4-deployment/SKILL.md",
-              "line": 165
+              "line": 164
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-bf4-deployment/SKILL.md",
-              "line": 167
+              "line": 166
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-bf4-deployment/SKILL.md",
-              "line": 169
+              "line": 168
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-bf4-deployment/SKILL.md",
-              "line": 181
+              "line": 180
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-bf4-deployment/SKILL.md",
-              "line": 189
+              "line": 188
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-bf4-deployment/SKILL.md",
-              "line": 215
+              "line": 214
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-bf4-deployment/SKILL.md",
-              "line": 236
+              "line": 235
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-bf4-deployment/SKILL.md",
+              "line": 241
             },
             {
               "reason": "reference_missing",
@@ -15760,11 +15572,6 @@
               "reason": "reference_missing",
               "path": "skills/doca-bf4-deployment/SKILL.md",
               "line": 247
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-bf4-deployment/SKILL.md",
-              "line": 248
             }
           ],
           "findings": []
@@ -15968,21 +15775,14 @@
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-comch/BENCHMARK.md",
-              "line": 86
+              "line": 113
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-comch/BENCHMARK.md",
-              "line": 87
-            },
-            {
-              "id": "PE2",
-              "severity": "MEDIUM",
-              "message": "Sudo/Root Execution",
-              "file": "skills/doca-comch/BENCHMARK.md",
-              "line": 88
+              "line": 114
             },
             {
               "id": "PE2",
@@ -15996,7 +15796,7 @@
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-comch/TASKS.md",
-              "line": 328
+              "line": 327
             }
           ]
         },
@@ -16365,21 +16165,21 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/doca-compress/BENCHMARK.md",
-              "line": 86
+              "line": 112
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/doca-compress/BENCHMARK.md",
-              "line": 88
+              "line": 114
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/doca-compress/BENCHMARK.md",
-              "line": 90
+              "line": 116
             },
             {
               "id": "EA2",
@@ -16616,9 +16416,9 @@
           "path": "skills/doca-devemu",
           "score": 88,
           "risk": 12,
-          "status": "incomplete",
+          "status": "safe",
           "partial": true,
-          "coverage": 87.5,
+          "coverage": 100,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -16709,11 +16509,6 @@
               "reason": "reference_missing",
               "path": "skills/doca-devemu/SKILL.md",
               "line": 279
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/doca-devemu/references/details.md",
-              "line": 0
             }
           ],
           "findings": [
@@ -16722,14 +16517,14 @@
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-devemu/CAPABILITIES.md",
-              "line": 340
+              "line": 335
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-devemu/CAPABILITIES.md",
-              "line": 340
+              "line": 335
             },
             {
               "id": "PE2",
@@ -16743,7 +16538,7 @@
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-devemu/TASKS.md",
-              "line": 138
+              "line": 122
             },
             {
               "id": "PE2",
@@ -16874,28 +16669,28 @@
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-dma/BENCHMARK.md",
-              "line": 86
+              "line": 112
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-dma/BENCHMARK.md",
-              "line": 87
+              "line": 113
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-dma/BENCHMARK.md",
-              "line": 88
+              "line": 114
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-dma/TASKS.md",
-              "line": 355
+              "line": 354
             }
           ]
         },
@@ -16969,21 +16764,21 @@
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/doca-dms/BENCHMARK.md",
-              "line": 86
+              "line": 112
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/doca-dms/BENCHMARK.md",
-              "line": 87
+              "line": 113
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/doca-dms/BENCHMARK.md",
-              "line": 88
+              "line": 114
             },
             {
               "id": "RA2",
@@ -17137,32 +16932,32 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-dpa/SKILL.md",
-              "line": 314
+              "line": 310
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-dpa/SKILL.md",
-              "line": 324
+              "line": 318
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-dpa/SKILL.md",
-              "line": 325
+              "line": 319
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dpa/SKILL.md",
+              "line": 320
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dpa/SKILL.md",
+              "line": 322
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-dpa/SKILL.md",
               "line": 326
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-dpa/SKILL.md",
-              "line": 328
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-dpa/SKILL.md",
-              "line": 332
             }
           ],
           "findings": []
@@ -17171,9 +16966,9 @@
           "path": "skills/doca-dpdk-bridge",
           "score": 88,
           "risk": 12,
-          "status": "incomplete",
+          "status": "safe",
           "partial": true,
-          "coverage": 85.7,
+          "coverage": 100,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -17324,11 +17119,6 @@
               "reason": "reference_missing",
               "path": "skills/doca-dpdk-bridge/SKILL.md",
               "line": 324
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/doca-dpdk-bridge/TASKS.md",
-              "line": 0
             }
           ],
           "findings": [
@@ -17337,14 +17127,7 @@
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-dpdk-bridge/BENCHMARK.md",
-              "line": 87
-            },
-            {
-              "id": "PE2",
-              "severity": "MEDIUM",
-              "message": "Sudo/Root Execution",
-              "file": "skills/doca-dpdk-bridge/BENCHMARK.md",
-              "line": 88
+              "line": 114
             },
             {
               "id": "PE2",
@@ -17372,14 +17155,226 @@
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-dpdk-bridge/TASKS.md",
-              "line": 458
+              "line": 457
+            }
+          ]
+        },
+        {
+          "path": "skills/doca-dts",
+          "score": 72,
+          "risk": 28,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 9
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 23
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 42
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 44
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 46
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 51
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 66
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 74
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 107
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 126
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 131
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 142
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 153
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 161
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 176
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 177
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 212
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 222
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 239
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 254
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 255
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 257
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 259
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 267
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 268
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 269
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 272
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 273
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 275
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 277
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 280
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 282
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-dts/SKILL.md",
+              "line": 286
+            }
+          ],
+          "findings": [
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/doca-dts/CAPABILITIES.md",
+              "line": 48
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/doca-dts/CAPABILITIES.md",
+              "line": 105
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/doca-dts/CAPABILITIES.md",
+              "line": 113
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/doca-dts/TASKS.md",
+              "line": 516
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/doca-dts/skill-card.md",
+              "line": 19
             }
           ]
         },
         {
           "path": "skills/doca-erasure-coding",
-          "score": 71,
-          "risk": 29,
+          "score": 77,
+          "risk": 23,
           "status": "caution",
           "partial": true,
           "coverage": 100,
@@ -17477,18 +17472,11 @@
           ],
           "findings": [
             {
-              "id": "P7",
+              "id": "EA2",
               "severity": "MEDIUM",
-              "message": "Indirect Prompt Extraction",
-              "file": "skills/doca-erasure-coding/BENCHMARK.md",
-              "line": 87
-            },
-            {
-              "id": "P7",
-              "severity": "MEDIUM",
-              "message": "Indirect Prompt Extraction",
-              "file": "skills/doca-erasure-coding/BENCHMARK.md",
-              "line": 88
+              "message": "Autonomous Decision Making",
+              "file": "skills/doca-erasure-coding/CAPABILITIES.md",
+              "line": 38
             },
             {
               "id": "P7",
@@ -17498,28 +17486,21 @@
               "line": 125
             },
             {
-              "id": "EA2",
-              "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "skills/doca-erasure-coding/CAPABILITIES.md",
-              "line": 38
-            },
-            {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-erasure-coding/TASKS.md",
-              "line": 462
+              "line": 459
             }
           ]
         },
         {
           "path": "skills/doca-eth",
-          "score": 63,
-          "risk": 37,
-          "status": "caution",
+          "score": 88,
+          "risk": 12,
+          "status": "safe",
           "partial": true,
-          "coverage": 85.7,
+          "coverage": 100,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -17645,34 +17626,22 @@
               "reason": "reference_missing",
               "path": "skills/doca-eth/SKILL.md",
               "line": 307
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/doca-eth/TASKS.md",
-              "line": 0
             }
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/doca-eth/SKILL.md",
-              "line": 130
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/doca-eth/BENCHMARK.md",
+              "line": 113
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-eth/BENCHMARK.md",
-              "line": 87
-            },
-            {
-              "id": "PE2",
-              "severity": "MEDIUM",
-              "message": "Sudo/Root Execution",
-              "file": "skills/doca-eth/BENCHMARK.md",
-              "line": 88
+              "line": 114
             },
             {
               "id": "PE2",
@@ -17714,23 +17683,18 @@
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-eth/TASKS.md",
-              "line": 378
+              "line": 377
             }
           ]
         },
         {
           "path": "skills/doca-firefly",
-          "score": 88,
-          "risk": 12,
-          "status": "incomplete",
+          "score": 90,
+          "risk": 10,
+          "status": "safe",
           "partial": true,
-          "coverage": 85.7,
+          "coverage": 100,
           "exceptions": [
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/doca-firefly/SKILL.md",
-              "line": 0
-            },
             {
               "reason": "reference_missing",
               "path": "skills/doca-firefly/SKILL.md",
@@ -17744,37 +17708,42 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-firefly/SKILL.md",
-              "line": 88
+              "line": 87
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-firefly/SKILL.md",
-              "line": 116
+              "line": 115
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-firefly/SKILL.md",
-              "line": 119
+              "line": 118
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-firefly/SKILL.md",
-              "line": 163
+              "line": 162
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-firefly/SKILL.md",
-              "line": 189
+              "line": 188
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-firefly/SKILL.md",
-              "line": 191
+              "line": 190
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-firefly/SKILL.md",
-              "line": 218
+              "line": 217
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-firefly/SKILL.md",
+              "line": 242
             },
             {
               "reason": "reference_missing",
@@ -17784,22 +17753,22 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-firefly/SKILL.md",
-              "line": 244
+              "line": 270
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-firefly/SKILL.md",
-              "line": 271
+              "line": 290
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-firefly/SKILL.md",
-              "line": 291
+              "line": 319
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-firefly/SKILL.md",
-              "line": 320
+              "line": 323
             },
             {
               "reason": "reference_missing",
@@ -17809,37 +17778,32 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-firefly/SKILL.md",
-              "line": 325
+              "line": 329
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-firefly/SKILL.md",
-              "line": 330
+              "line": 333
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-firefly/SKILL.md",
-              "line": 334
+              "line": 337
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-firefly/SKILL.md",
-              "line": 338
+              "line": 344
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-firefly/SKILL.md",
-              "line": 345
+              "line": 351
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-firefly/SKILL.md",
-              "line": 352
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-firefly/SKILL.md",
-              "line": 358
+              "line": 357
             }
           ],
           "findings": [
@@ -17847,15 +17811,8 @@
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
-              "file": "skills/doca-firefly/BENCHMARK.md",
-              "line": 87
-            },
-            {
-              "id": "PE2",
-              "severity": "MEDIUM",
-              "message": "Sudo/Root Execution",
-              "file": "skills/doca-firefly/BENCHMARK.md",
-              "line": 88
+              "file": "skills/doca-firefly/TASKS.md",
+              "line": 46
             },
             {
               "id": "PE2",
@@ -17863,13 +17820,6 @@
               "message": "Sudo/Root Execution",
               "file": "skills/doca-firefly/TASKS.md",
               "line": 57
-            },
-            {
-              "id": "PE2",
-              "severity": "MEDIUM",
-              "message": "Sudo/Root Execution",
-              "file": "skills/doca-firefly/TASKS.md",
-              "line": 46
             }
           ]
         },
@@ -17877,15 +17827,10 @@
           "path": "skills/doca-flow",
           "score": 86,
           "risk": 14,
-          "status": "incomplete",
+          "status": "safe",
           "partial": true,
-          "coverage": 71.4,
+          "coverage": 100,
           "exceptions": [
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/doca-flow/SKILL.md",
-              "line": 0
-            },
             {
               "reason": "reference_missing",
               "path": "skills/doca-flow/SKILL.md",
@@ -17985,11 +17930,6 @@
               "reason": "reference_missing",
               "path": "skills/doca-flow/SKILL.md",
               "line": 337
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/doca-flow/TASKS.md",
-              "line": 0
             }
           ],
           "findings": [
@@ -18038,167 +17978,6 @@
           ]
         },
         {
-          "path": "skills/doca-flow-perf",
-          "score": 100,
-          "risk": 0,
-          "status": "safe",
-          "partial": true,
-          "coverage": 100,
-          "exceptions": [
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 21
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 28
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 72
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 74
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 144
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 148
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 157
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 190
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 193
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 196
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 199
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 200
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 205
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 243
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 247
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 263
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 278
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 281
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 284
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 300
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 304
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 308
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 314
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 316
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 319
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 324
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 325
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 328
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 331
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-perf/SKILL.md",
-              "line": 333
-            }
-          ],
-          "findings": []
-        },
-        {
           "path": "skills/doca-flow-tune",
           "score": 87,
           "risk": 13,
@@ -18209,12 +17988,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-flow-tune/SKILL.md",
-              "line": 24
+              "line": 23
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-flow-tune/SKILL.md",
-              "line": 31
+              "line": 30
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-flow-tune/SKILL.md",
+              "line": 97
             },
             {
               "reason": "reference_missing",
@@ -18224,82 +18008,67 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-flow-tune/SKILL.md",
-              "line": 101
+              "line": 179
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-flow-tune/SKILL.md",
-              "line": 118
+              "line": 198
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-flow-tune/SKILL.md",
-              "line": 183
+              "line": 200
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-flow-tune/SKILL.md",
-              "line": 185
+              "line": 226
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-flow-tune/SKILL.md",
-              "line": 202
+              "line": 227
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-flow-tune/SKILL.md",
-              "line": 204
+              "line": 228
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-flow-tune/SKILL.md",
-              "line": 230
+              "line": 240
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-flow-tune/SKILL.md",
-              "line": 231
+              "line": 244
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-flow-tune/SKILL.md",
-              "line": 232
+              "line": 267
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-flow-tune/SKILL.md",
-              "line": 233
+              "line": 279
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-flow-tune/SKILL.md",
-              "line": 246
+              "line": 313
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-flow-tune/SKILL.md",
-              "line": 250
+              "line": 318
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-flow-tune/SKILL.md",
-              "line": 273
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-tune/SKILL.md",
-              "line": 285
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-tune/SKILL.md",
-              "line": 295
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-tune/SKILL.md",
-              "line": 296
+              "line": 319
             },
             {
               "reason": "reference_missing",
@@ -18314,7 +18083,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-flow-tune/SKILL.md",
-              "line": 332
+              "line": 330
             },
             {
               "reason": "reference_missing",
@@ -18324,27 +18093,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-flow-tune/SKILL.md",
-              "line": 335
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-tune/SKILL.md",
-              "line": 340
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-tune/SKILL.md",
-              "line": 344
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-tune/SKILL.md",
-              "line": 347
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-flow-tune/SKILL.md",
-              "line": 350
+              "line": 336
             }
           ],
           "findings": [
@@ -18353,21 +18102,21 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/doca-flow-tune/BENCHMARK.md",
-              "line": 86
+              "line": 112
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/doca-flow-tune/BENCHMARK.md",
-              "line": 87
+              "line": 113
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/doca-flow-tune/BENCHMARK.md",
-              "line": 88
+              "line": 114
             },
             {
               "id": "EA2",
@@ -18498,7 +18247,7 @@
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-gpunetio/CAPABILITIES.md",
-              "line": 255
+              "line": 249
             },
             {
               "id": "PE2",
@@ -18512,14 +18261,14 @@
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-gpunetio/TASKS.md",
-              "line": 80
+              "line": 76
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-gpunetio/TASKS.md",
-              "line": 557
+              "line": 552
             }
           ]
         },
@@ -18663,42 +18412,42 @@
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-hardware-safety/BENCHMARK.md",
-              "line": 86
+              "line": 112
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-hardware-safety/BENCHMARK.md",
-              "line": 87
+              "line": 113
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-hardware-safety/BENCHMARK.md",
-              "line": 88
+              "line": 114
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-hardware-safety/CAPABILITIES.md",
-              "line": 358
+              "line": 357
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-hardware-safety/CAPABILITIES.md",
-              "line": 363
+              "line": 362
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-hardware-safety/CAPABILITIES.md",
-              "line": 369
+              "line": 368
             }
           ]
         },
@@ -18706,9 +18455,9 @@
           "path": "skills/doca-mgmt",
           "score": 92,
           "risk": 8,
-          "status": "incomplete",
+          "status": "safe",
           "partial": true,
-          "coverage": 85.7,
+          "coverage": 100,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -18839,11 +18588,6 @@
               "reason": "reference_missing",
               "path": "skills/doca-mgmt/SKILL.md",
               "line": 309
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/doca-mgmt/TASKS.md",
-              "line": 0
             }
           ],
           "findings": [
@@ -18857,12 +18601,255 @@
           ]
         },
         {
+          "path": "skills/doca-ngauge",
+          "score": 74,
+          "risk": 26,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-ngauge/SKILL.md",
+              "line": 20
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-ngauge/SKILL.md",
+              "line": 45
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-ngauge/SKILL.md",
+              "line": 46
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-ngauge/SKILL.md",
+              "line": 47
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-ngauge/SKILL.md",
+              "line": 48
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-ngauge/SKILL.md",
+              "line": 49
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-ngauge/SKILL.md",
+              "line": 50
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-ngauge/SKILL.md",
+              "line": 133
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-ngauge/SKILL.md",
+              "line": 135
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-ngauge/SKILL.md",
+              "line": 136
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-ngauge/SKILL.md",
+              "line": 164
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-ngauge/SKILL.md",
+              "line": 194
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-ngauge/SKILL.md",
+              "line": 195
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-ngauge/SKILL.md",
+              "line": 196
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-ngauge/SKILL.md",
+              "line": 197
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-ngauge/SKILL.md",
+              "line": 198
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-ngauge/SKILL.md",
+              "line": 199
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-ngauge/SKILL.md",
+              "line": 219
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-ngauge/SKILL.md",
+              "line": 233
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-ngauge/SKILL.md",
+              "line": 264
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-ngauge/SKILL.md",
+              "line": 268
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-ngauge/SKILL.md",
+              "line": 272
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-ngauge/SKILL.md",
+              "line": 276
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-ngauge/SKILL.md",
+              "line": 280
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-ngauge/SKILL.md",
+              "line": 281
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-ngauge/SKILL.md",
+              "line": 285
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-ngauge/SKILL.md",
+              "line": 289
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-ngauge/SKILL.md",
+              "line": 293
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE4",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/doca-ngauge/CAPABILITIES.md",
+              "line": 1
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/doca-ngauge/CAPABILITIES.md",
+              "line": 123
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/doca-ngauge/CAPABILITIES.md",
+              "line": 124
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/doca-ngauge/SKILL.md",
+              "line": 29
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/doca-ngauge/SKILL.md",
+              "line": 30
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/doca-ngauge/TASKS.md",
+              "line": 82
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/doca-ngauge/TASKS.md",
+              "line": 82
+            },
+            {
+              "id": "AE4",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/doca-ngauge/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "AE4",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/doca-ngauge/TASKS.md",
+              "line": 1
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/doca-ngauge/TASKS.md",
+              "line": 261
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/doca-ngauge/TASKS.md",
+              "line": 268
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/doca-ngauge/TASKS.md",
+              "line": 274
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/doca-ngauge/TASKS.md",
+              "line": 280
+            }
+          ]
+        },
+        {
           "path": "skills/doca-pcc",
           "score": 90,
           "risk": 10,
-          "status": "incomplete",
+          "status": "safe",
           "partial": true,
-          "coverage": 85.7,
+          "coverage": 100,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -19013,11 +19000,6 @@
               "reason": "reference_missing",
               "path": "skills/doca-pcc/SKILL.md",
               "line": 364
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/doca-pcc/TASKS.md",
-              "line": 0
             }
           ],
           "findings": [
@@ -19026,14 +19008,14 @@
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-pcc/BENCHMARK.md",
-              "line": 88
+              "line": 114
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-pcc/CAPABILITIES.md",
-              "line": 323
+              "line": 310
             }
           ]
         },
@@ -19041,15 +19023,10 @@
           "path": "skills/doca-pcc-counters",
           "score": 88,
           "risk": 12,
-          "status": "incomplete",
+          "status": "safe",
           "partial": true,
-          "coverage": 85.7,
+          "coverage": 100,
           "exceptions": [
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/doca-pcc-counters/CAPABILITIES.md",
-              "line": 0
-            },
             {
               "reason": "reference_missing",
               "path": "skills/doca-pcc-counters/SKILL.md",
@@ -19128,7 +19105,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-pcc-counters/SKILL.md",
-              "line": 142
+              "line": 166
             },
             {
               "reason": "reference_missing",
@@ -19143,57 +19120,52 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-pcc-counters/SKILL.md",
-              "line": 169
+              "line": 175
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-pcc-counters/SKILL.md",
-              "line": 176
+              "line": 186
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-pcc-counters/SKILL.md",
-              "line": 187
+              "line": 213
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-pcc-counters/SKILL.md",
-              "line": 214
+              "line": 247
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-pcc-counters/SKILL.md",
-              "line": 248
+              "line": 250
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-pcc-counters/SKILL.md",
-              "line": 251
+              "line": 257
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-pcc-counters/SKILL.md",
-              "line": 258
+              "line": 260
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-pcc-counters/SKILL.md",
-              "line": 261
+              "line": 264
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-pcc-counters/SKILL.md",
-              "line": 265
+              "line": 269
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-pcc-counters/SKILL.md",
-              "line": 270
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-pcc-counters/SKILL.md",
-              "line": 274
+              "line": 273
             }
           ],
           "findings": [
@@ -19202,70 +19174,63 @@
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-pcc-counters/BENCHMARK.md",
-              "line": 86
+              "line": 113
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-pcc-counters/BENCHMARK.md",
-              "line": 87
-            },
-            {
-              "id": "PE2",
-              "severity": "MEDIUM",
-              "message": "Sudo/Root Execution",
-              "file": "skills/doca-pcc-counters/BENCHMARK.md",
-              "line": 88
+              "line": 114
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-pcc-counters/CAPABILITIES.md",
-              "line": 60
+              "line": 58
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-pcc-counters/CAPABILITIES.md",
-              "line": 61
+              "line": 59
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-pcc-counters/CAPABILITIES.md",
-              "line": 144
+              "line": 140
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-pcc-counters/CAPABILITIES.md",
-              "line": 145
+              "line": 141
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-pcc-counters/CAPABILITIES.md",
-              "line": 146
+              "line": 142
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-pcc-counters/SKILL.md",
-              "line": 205
+              "line": 204
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-pcc-counters/SKILLCARD.yaml",
-              "line": 16
+              "line": 14
             },
             {
               "id": "PE2",
@@ -19293,14 +19258,21 @@
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-pcc-counters/TASKS.md",
-              "line": 190
+              "line": 189
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-pcc-counters/TASKS.md",
-              "line": 259
+              "line": 258
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/doca-pcc-counters/TASKS.md",
+              "line": 258
             },
             {
               "id": "PE2",
@@ -19320,226 +19292,220 @@
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
-              "file": "skills/doca-pcc-counters/TASKS.md",
-              "line": 261
-            },
-            {
-              "id": "PE2",
-              "severity": "MEDIUM",
-              "message": "Sudo/Root Execution",
               "file": "skills/doca-pcc-counters/CAPABILITIES.md",
-              "line": 69
+              "line": 67
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-pcc-counters/TASKS.md",
-              "line": 115
+              "line": 114
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-pcc-counters/TASKS.md",
-              "line": 119
+              "line": 118
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-pcc-counters/TASKS.md",
-              "line": 131
+              "line": 130
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-pcc-counters/TASKS.md",
-              "line": 193
+              "line": 192
             }
           ]
         },
         {
-          "path": "skills/doca-pcc-ztr-rttcc-algo",
-          "score": 100,
-          "risk": 0,
-          "status": "incomplete",
+          "path": "skills/doca-perftest",
+          "score": 93,
+          "risk": 7,
+          "status": "safe",
           "partial": true,
-          "coverage": 85.7,
+          "coverage": 100,
           "exceptions": [
             {
               "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 22
+              "path": "skills/doca-perftest/SKILL.md",
+              "line": 18
             },
             {
               "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 29
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
+              "path": "skills/doca-perftest/SKILL.md",
               "line": 65
             },
             {
               "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 67
+              "path": "skills/doca-perftest/SKILL.md",
+              "line": 83
             },
             {
               "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 70
+              "path": "skills/doca-perftest/SKILL.md",
+              "line": 84
             },
             {
               "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 119
+              "path": "skills/doca-perftest/SKILL.md",
+              "line": 85
             },
             {
               "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 156
+              "path": "skills/doca-perftest/SKILL.md",
+              "line": 86
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/doca-perftest/TASKS.md",
+              "line": 77
+            }
+          ]
+        },
+        {
+          "path": "skills/doca-pipeline-language-developer-tools",
+          "score": 94,
+          "risk": 6,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-pipeline-language-developer-tools/SKILL.md",
+              "line": 24
             },
             {
               "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 157
+              "path": "skills/doca-pipeline-language-developer-tools/SKILL.md",
+              "line": 50
             },
             {
               "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 171
+              "path": "skills/doca-pipeline-language-developer-tools/SKILL.md",
+              "line": 53
             },
             {
               "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 175
+              "path": "skills/doca-pipeline-language-developer-tools/SKILL.md",
+              "line": 54
             },
             {
               "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 177
+              "path": "skills/doca-pipeline-language-developer-tools/SKILL.md",
+              "line": 55
             },
             {
               "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 180
+              "path": "skills/doca-pipeline-language-developer-tools/SKILL.md",
+              "line": 129
             },
             {
               "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 207
+              "path": "skills/doca-pipeline-language-developer-tools/SKILL.md",
+              "line": 133
             },
             {
               "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 211
+              "path": "skills/doca-pipeline-language-developer-tools/SKILL.md",
+              "line": 134
             },
             {
               "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 220
+              "path": "skills/doca-pipeline-language-developer-tools/SKILL.md",
+              "line": 197
             },
             {
               "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 222
+              "path": "skills/doca-pipeline-language-developer-tools/SKILL.md",
+              "line": 199
             },
             {
               "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
+              "path": "skills/doca-pipeline-language-developer-tools/SKILL.md",
+              "line": 200
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-pipeline-language-developer-tools/SKILL.md",
               "line": 224
             },
             {
               "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 228
+              "path": "skills/doca-pipeline-language-developer-tools/SKILL.md",
+              "line": 239
             },
             {
               "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 264
+              "path": "skills/doca-pipeline-language-developer-tools/SKILL.md",
+              "line": 268
             },
             {
               "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
+              "path": "skills/doca-pipeline-language-developer-tools/SKILL.md",
+              "line": 272
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-pipeline-language-developer-tools/SKILL.md",
+              "line": 273
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-pipeline-language-developer-tools/SKILL.md",
+              "line": 276
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-pipeline-language-developer-tools/SKILL.md",
               "line": 280
             },
             {
               "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 283
+              "path": "skills/doca-pipeline-language-developer-tools/SKILL.md",
+              "line": 282
             },
             {
               "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 298
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 328
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 334
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 339
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 343
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 348
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 354
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 357
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 358
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 361
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 365
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/SKILL.md",
-              "line": 369
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/doca-pcc-ztr-rttcc-algo/TASKS.md",
-              "line": 0
+              "path": "skills/doca-pipeline-language-developer-tools/SKILL.md",
+              "line": 286
             }
           ],
-          "findings": []
+          "findings": [
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/doca-pipeline-language-developer-tools/CAPABILITIES.md",
+              "line": 60
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/doca-pipeline-language-developer-tools/CAPABILITIES.md",
+              "line": 118
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/doca-pipeline-language-developer-tools/SKILL.md",
+              "line": 237
+            }
+          ]
         },
         {
           "path": "skills/doca-programming-guide",
@@ -19637,17 +19603,12 @@
         },
         {
           "path": "skills/doca-public-knowledge-map",
-          "score": 57,
-          "risk": 43,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
           "partial": true,
-          "coverage": 70,
+          "coverage": 100,
           "exceptions": [
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/doca-public-knowledge-map/SKILL.md",
-              "line": 0
-            },
             {
               "reason": "reference_missing",
               "path": "skills/doca-public-knowledge-map/SKILL.md",
@@ -19727,49 +19688,17 @@
               "reason": "reference_missing",
               "path": "skills/doca-public-knowledge-map/SKILL.md",
               "line": 219
-            },
-            {
-              "reason": "obfuscated_instruction_text",
-              "path": "skills/doca-public-knowledge-map/references/external-fabric.md",
-              "line": 0
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/doca-public-knowledge-map/references/services.md",
-              "line": 0
             }
           ],
-          "findings": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/doca-public-knowledge-map/SKILL.md",
-              "line": 188
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/doca-public-knowledge-map/SKILL.md",
-              "line": 236
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/doca-public-knowledge-map/SKILL.md",
-              "line": 243
-            }
-          ]
+          "findings": []
         },
         {
           "path": "skills/doca-rdma",
-          "score": 87,
-          "risk": 13,
-          "status": "incomplete",
+          "score": 89,
+          "risk": 11,
+          "status": "safe",
           "partial": true,
-          "coverage": 85.7,
+          "coverage": 100,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -19855,11 +19784,6 @@
               "reason": "reference_missing",
               "path": "skills/doca-rdma/SKILL.md",
               "line": 324
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/doca-rdma/TASKS.md",
-              "line": 0
             }
           ],
           "findings": [
@@ -19868,14 +19792,7 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/doca-rdma/BENCHMARK.md",
-              "line": 87
-            },
-            {
-              "id": "EA2",
-              "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "skills/doca-rdma/BENCHMARK.md",
-              "line": 88
+              "line": 126
             },
             {
               "id": "EA2",
@@ -19890,9 +19807,9 @@
           "path": "skills/doca-rmax",
           "score": 88,
           "risk": 12,
-          "status": "incomplete",
+          "status": "safe",
           "partial": true,
-          "coverage": 85.7,
+          "coverage": 100,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -19907,127 +19824,132 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-rmax/SKILL.md",
-              "line": 68
+              "line": 45
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-rmax/SKILL.md",
-              "line": 71
+              "line": 47
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-rmax/SKILL.md",
-              "line": 75
+              "line": 74
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-rmax/SKILL.md",
-              "line": 76
+              "line": 77
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-rmax/SKILL.md",
-              "line": 95
+              "line": 81
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-rmax/SKILL.md",
-              "line": 121
+              "line": 82
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-rmax/SKILL.md",
-              "line": 122
+              "line": 101
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-rmax/SKILL.md",
-              "line": 134
+              "line": 127
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-rmax/SKILL.md",
-              "line": 143
+              "line": 128
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-rmax/SKILL.md",
-              "line": 161
+              "line": 140
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-rmax/SKILL.md",
-              "line": 213
+              "line": 149
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-rmax/SKILL.md",
-              "line": 228
+              "line": 167
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-rmax/SKILL.md",
-              "line": 230
+              "line": 219
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-rmax/SKILL.md",
-              "line": 233
+              "line": 234
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-rmax/SKILL.md",
-              "line": 268
+              "line": 236
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-rmax/SKILL.md",
-              "line": 271
+              "line": 239
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-rmax/SKILL.md",
-              "line": 285
+              "line": 274
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-rmax/SKILL.md",
-              "line": 288
+              "line": 277
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-rmax/SKILL.md",
-              "line": 289
+              "line": 291
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-rmax/SKILL.md",
-              "line": 320
+              "line": 294
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-rmax/SKILL.md",
-              "line": 323
+              "line": 295
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-rmax/SKILL.md",
-              "line": 325
+              "line": 326
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-rmax/SKILL.md",
-              "line": 327
+              "line": 329
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-rmax/SKILL.md",
-              "line": 334
+              "line": 331
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-rmax/SKILL.md",
-              "line": 341
+              "line": 333
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-rmax/SKILL.md",
+              "line": 340
             },
             {
               "reason": "reference_missing",
@@ -20037,22 +19959,22 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-rmax/SKILL.md",
-              "line": 354
+              "line": 353
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-rmax/SKILL.md",
-              "line": 358
+              "line": 360
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-rmax/SKILL.md",
-              "line": 365
+              "line": 364
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-rmax/SKILL.md",
-              "line": 370
+              "line": 371
             },
             {
               "reason": "reference_missing",
@@ -20060,9 +19982,9 @@
               "line": 376
             },
             {
-              "reason": "static_parse_limit",
-              "path": "skills/doca-rmax/TASKS.md",
-              "line": 0
+              "reason": "reference_missing",
+              "path": "skills/doca-rmax/SKILL.md",
+              "line": 382
             }
           ],
           "findings": [
@@ -20071,14 +19993,14 @@
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-rmax/BENCHMARK.md",
-              "line": 87
+              "line": 113
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-rmax/BENCHMARK.md",
-              "line": 88
+              "line": 114
             },
             {
               "id": "PE2",
@@ -20099,7 +20021,7 @@
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-rmax/SKILL.md",
-              "line": 265
+              "line": 271
             },
             {
               "id": "PE2",
@@ -20339,21 +20261,14 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/doca-sha/BENCHMARK.md",
-              "line": 86
+              "line": 115
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/doca-sha/BENCHMARK.md",
-              "line": 87
-            },
-            {
-              "id": "EA2",
-              "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "skills/doca-sha/BENCHMARK.md",
-              "line": 88
+              "line": 116
             },
             {
               "id": "EA2",
@@ -20366,22 +20281,12 @@
         },
         {
           "path": "skills/doca-sha-offload-engine",
-          "score": 88,
-          "risk": 12,
-          "status": "incomplete",
+          "score": 90,
+          "risk": 10,
+          "status": "safe",
           "partial": true,
-          "coverage": 57.1,
+          "coverage": 100,
           "exceptions": [
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/doca-sha-offload-engine/CAPABILITIES.md",
-              "line": 0
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/doca-sha-offload-engine/SKILL.md",
-              "line": 0
-            },
             {
               "reason": "reference_missing",
               "path": "skills/doca-sha-offload-engine/SKILL.md",
@@ -20395,42 +20300,47 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-sha-offload-engine/SKILL.md",
+              "line": 75
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-sha-offload-engine/SKILL.md",
               "line": 76
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-sha-offload-engine/SKILL.md",
-              "line": 96
+              "line": 90
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-sha-offload-engine/SKILL.md",
-              "line": 100
+              "line": 94
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-sha-offload-engine/SKILL.md",
-              "line": 160
+              "line": 154
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-sha-offload-engine/SKILL.md",
-              "line": 173
+              "line": 167
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-sha-offload-engine/SKILL.md",
-              "line": 186
+              "line": 180
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-sha-offload-engine/SKILL.md",
-              "line": 210
+              "line": 203
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-sha-offload-engine/SKILL.md",
-              "line": 220
+              "line": 240
             },
             {
               "reason": "reference_missing",
@@ -20440,57 +20350,47 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-sha-offload-engine/SKILL.md",
-              "line": 256
+              "line": 268
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-sha-offload-engine/SKILL.md",
-              "line": 276
+              "line": 281
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-sha-offload-engine/SKILL.md",
-              "line": 289
+              "line": 290
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-sha-offload-engine/SKILL.md",
-              "line": 298
+              "line": 291
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-sha-offload-engine/SKILL.md",
-              "line": 299
+              "line": 296
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-sha-offload-engine/SKILL.md",
-              "line": 304
+              "line": 300
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-sha-offload-engine/SKILL.md",
+              "line": 303
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-sha-offload-engine/SKILL.md",
+              "line": 307
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-sha-offload-engine/SKILL.md",
               "line": 308
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-sha-offload-engine/SKILL.md",
-              "line": 311
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-sha-offload-engine/SKILL.md",
-              "line": 315
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-sha-offload-engine/SKILL.md",
-              "line": 316
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/doca-sha-offload-engine/TASKS.md",
-              "line": 0
             }
           ],
           "findings": [
@@ -20499,42 +20399,21 @@
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-sha-offload-engine/BENCHMARK.md",
-              "line": 86
+              "line": 113
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-sha-offload-engine/BENCHMARK.md",
-              "line": 87
-            },
-            {
-              "id": "PE2",
-              "severity": "MEDIUM",
-              "message": "Sudo/Root Execution",
-              "file": "skills/doca-sha-offload-engine/BENCHMARK.md",
-              "line": 88
-            },
-            {
-              "id": "PE2",
-              "severity": "MEDIUM",
-              "message": "Sudo/Root Execution",
-              "file": "skills/doca-sha-offload-engine/TASKS.md",
-              "line": 40
-            },
-            {
-              "id": "PE2",
-              "severity": "MEDIUM",
-              "message": "Sudo/Root Execution",
-              "file": "skills/doca-sha-offload-engine/TASKS.md",
-              "line": 41
+              "line": 114
             }
           ]
         },
         {
           "path": "skills/doca-socket-relay",
-          "score": 88,
-          "risk": 12,
+          "score": 93,
+          "risk": 7,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -20660,20 +20539,6 @@
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
-              "file": "skills/doca-socket-relay/BENCHMARK.md",
-              "line": 87
-            },
-            {
-              "id": "PE2",
-              "severity": "MEDIUM",
-              "message": "Sudo/Root Execution",
-              "file": "skills/doca-socket-relay/BENCHMARK.md",
-              "line": 88
-            },
-            {
-              "id": "PE2",
-              "severity": "MEDIUM",
-              "message": "Sudo/Root Execution",
               "file": "skills/doca-socket-relay/CAPABILITIES.md",
               "line": 213
             }
@@ -20710,47 +20575,47 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-spcx-cc/SKILL.md",
-              "line": 78
+              "line": 140
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-spcx-cc/SKILL.md",
-              "line": 141
+              "line": 151
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-spcx-cc/SKILL.md",
-              "line": 152
+              "line": 194
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-spcx-cc/SKILL.md",
-              "line": 176
+              "line": 195
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-spcx-cc/SKILL.md",
-              "line": 196
+              "line": 199
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-spcx-cc/SKILL.md",
-              "line": 197
+              "line": 209
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-spcx-cc/SKILL.md",
-              "line": 201
+              "line": 216
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-spcx-cc/SKILL.md",
-              "line": 211
+              "line": 249
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-spcx-cc/SKILL.md",
-              "line": 218
+              "line": 250
             },
             {
               "reason": "reference_missing",
@@ -20765,52 +20630,47 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-spcx-cc/SKILL.md",
-              "line": 253
+              "line": 270
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-spcx-cc/SKILL.md",
-              "line": 254
+              "line": 341
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-spcx-cc/SKILL.md",
-              "line": 272
+              "line": 342
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-spcx-cc/SKILL.md",
-              "line": 343
+              "line": 363
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-spcx-cc/SKILL.md",
-              "line": 344
+              "line": 369
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-spcx-cc/SKILL.md",
-              "line": 365
+              "line": 372
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-spcx-cc/SKILL.md",
-              "line": 371
+              "line": 376
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-spcx-cc/SKILL.md",
-              "line": 375
+              "line": 379
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-spcx-cc/SKILL.md",
-              "line": 378
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-spcx-cc/SKILL.md",
-              "line": 382
+              "line": 383
             },
             {
               "reason": "reference_missing",
@@ -20825,12 +20685,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-spcx-cc/SKILL.md",
-              "line": 391
+              "line": 393
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-spcx-cc/SKILL.md",
-              "line": 395
+              "line": 396
             },
             {
               "reason": "reference_missing",
@@ -20840,17 +20700,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-spcx-cc/SKILL.md",
-              "line": 402
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-spcx-cc/SKILL.md",
-              "line": 405
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-spcx-cc/SKILL.md",
-              "line": 412
+              "line": 406
             }
           ],
           "findings": [
@@ -20944,12 +20794,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-sta/SKILL.md",
-              "line": 272
+              "line": 270
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-sta/SKILL.md",
-              "line": 273
+              "line": 271
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-sta/SKILL.md",
+              "line": 292
             },
             {
               "reason": "reference_missing",
@@ -20969,52 +20824,47 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-sta/SKILL.md",
-              "line": 300
+              "line": 305
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-sta/SKILL.md",
-              "line": 307
+              "line": 309
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-sta/SKILL.md",
-              "line": 311
+              "line": 314
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-sta/SKILL.md",
-              "line": 316
+              "line": 320
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-sta/SKILL.md",
-              "line": 322
+              "line": 324
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-sta/SKILL.md",
-              "line": 326
+              "line": 331
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-sta/SKILL.md",
-              "line": 333
+              "line": 337
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-sta/SKILL.md",
-              "line": 339
+              "line": 342
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-sta/SKILL.md",
-              "line": 344
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-sta/SKILL.md",
-              "line": 349
+              "line": 347
             }
           ],
           "findings": [
@@ -21023,21 +20873,14 @@
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-sta/BENCHMARK.md",
-              "line": 86
+              "line": 119
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-sta/BENCHMARK.md",
-              "line": 87
-            },
-            {
-              "id": "PE2",
-              "severity": "MEDIUM",
-              "message": "Sudo/Root Execution",
-              "file": "skills/doca-sta/BENCHMARK.md",
-              "line": 88
+              "line": 120
             },
             {
               "id": "PE2",
@@ -21058,7 +20901,7 @@
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-sta/TASKS.md",
-              "line": 438
+              "line": 437
             },
             {
               "id": "EA2",
@@ -21073,15 +20916,10 @@
           "path": "skills/doca-structured-tools-contract",
           "score": 100,
           "risk": 0,
-          "status": "incomplete",
+          "status": "safe",
           "partial": true,
-          "coverage": 80,
+          "coverage": 100,
           "exceptions": [
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/doca-structured-tools-contract/SKILL.md",
-              "line": 0
-            },
             {
               "reason": "reference_missing",
               "path": "skills/doca-structured-tools-contract/SKILL.md",
@@ -21090,7 +20928,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-structured-tools-contract/SKILL.md",
-              "line": 176
+              "line": 175
             }
           ],
           "findings": []
@@ -21099,9 +20937,9 @@
           "path": "skills/doca-telemetry",
           "score": 93,
           "risk": 7,
-          "status": "incomplete",
+          "status": "safe",
           "partial": true,
-          "coverage": 87.5,
+          "coverage": 100,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -21116,17 +20954,22 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-telemetry/SKILL.md",
-              "line": 80
+              "line": 79
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-telemetry/SKILL.md",
-              "line": 83
+              "line": 82
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-telemetry/SKILL.md",
-              "line": 106
+              "line": 105
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-telemetry/SKILL.md",
+              "line": 128
             },
             {
               "reason": "reference_missing",
@@ -21151,92 +20994,82 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-telemetry/SKILL.md",
-              "line": 133
+              "line": 159
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-telemetry/SKILL.md",
-              "line": 160
+              "line": 174
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-telemetry/SKILL.md",
-              "line": 175
+              "line": 178
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-telemetry/SKILL.md",
-              "line": 179
+              "line": 202
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-telemetry/SKILL.md",
-              "line": 203
+              "line": 215
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-telemetry/SKILL.md",
-              "line": 216
+              "line": 217
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-telemetry/SKILL.md",
-              "line": 218
+              "line": 225
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-telemetry/SKILL.md",
-              "line": 226
+              "line": 241
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-telemetry/SKILL.md",
-              "line": 242
+              "line": 243
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-telemetry/SKILL.md",
-              "line": 244
+              "line": 250
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-telemetry/SKILL.md",
-              "line": 251
+              "line": 263
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-telemetry/SKILL.md",
-              "line": 264
+              "line": 273
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-telemetry/SKILL.md",
-              "line": 274
+              "line": 280
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-telemetry/SKILL.md",
-              "line": 281
+              "line": 286
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-telemetry/SKILL.md",
-              "line": 287
+              "line": 290
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-telemetry/SKILL.md",
-              "line": 291
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-telemetry/SKILL.md",
-              "line": 305
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/doca-telemetry/TASKS.md",
-              "line": 0
+              "line": 304
             }
           ],
           "findings": [
@@ -21245,7 +21078,7 @@
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-telemetry/TASKS.md",
-              "line": 482
+              "line": 480
             }
           ]
         },
@@ -21374,14 +21207,14 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/doca-telemetry-exporter/BENCHMARK.md",
-              "line": 87
+              "line": 113
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/doca-telemetry-exporter/BENCHMARK.md",
-              "line": 88
+              "line": 114
             },
             {
               "id": "EA2",
@@ -21409,7 +21242,182 @@
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-telemetry-exporter/TASKS.md",
-              "line": 407
+              "line": 406
+            }
+          ]
+        },
+        {
+          "path": "skills/doca-telemetry-traceback-application",
+          "score": 81,
+          "risk": 19,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-telemetry-traceback-application/SKILL.md",
+              "line": 23
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-telemetry-traceback-application/SKILL.md",
+              "line": 45
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-telemetry-traceback-application/SKILL.md",
+              "line": 46
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-telemetry-traceback-application/SKILL.md",
+              "line": 47
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-telemetry-traceback-application/SKILL.md",
+              "line": 48
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-telemetry-traceback-application/SKILL.md",
+              "line": 82
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-telemetry-traceback-application/SKILL.md",
+              "line": 98
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-telemetry-traceback-application/SKILL.md",
+              "line": 99
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-telemetry-traceback-application/SKILL.md",
+              "line": 101
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-telemetry-traceback-application/SKILL.md",
+              "line": 162
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-telemetry-traceback-application/SKILL.md",
+              "line": 163
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-telemetry-traceback-application/SKILL.md",
+              "line": 164
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-telemetry-traceback-application/SKILL.md",
+              "line": 174
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-telemetry-traceback-application/SKILL.md",
+              "line": 181
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-telemetry-traceback-application/SKILL.md",
+              "line": 223
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-telemetry-traceback-application/SKILL.md",
+              "line": 228
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-telemetry-traceback-application/SKILL.md",
+              "line": 232
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-telemetry-traceback-application/SKILL.md",
+              "line": 235
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-telemetry-traceback-application/SKILL.md",
+              "line": 239
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-telemetry-traceback-application/SKILL.md",
+              "line": 240
+            }
+          ],
+          "findings": [
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/doca-telemetry-traceback-application/CAPABILITIES.md",
+              "line": 72
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/doca-telemetry-traceback-application/CAPABILITIES.md",
+              "line": 157
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/doca-telemetry-traceback-application/CAPABILITIES.md",
+              "line": 198
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/doca-telemetry-traceback-application/TASKS.md",
+              "line": 211
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/doca-telemetry-traceback-application/TASKS.md",
+              "line": 303
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/doca-telemetry-traceback-application/TASKS.md",
+              "line": 203
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/doca-telemetry-traceback-application/TASKS.md",
+              "line": 227
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/doca-telemetry-traceback-application/TASKS.md",
+              "line": 372
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/doca-telemetry-traceback-application/TASKS.md",
+              "line": 378
             }
           ]
         },
@@ -21629,35 +21637,35 @@
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-upgrade/BENCHMARK.md",
-              "line": 86
+              "line": 112
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-upgrade/BENCHMARK.md",
-              "line": 87
+              "line": 113
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-upgrade/BENCHMARK.md",
-              "line": 88
+              "line": 114
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-upgrade/CAPABILITIES.md",
-              "line": 143
+              "line": 142
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-upgrade/CAPABILITIES.md",
-              "line": 143
+              "line": 142
             },
             {
               "id": "PE2",
@@ -21698,11 +21706,11 @@
         },
         {
           "path": "skills/doca-urom",
-          "score": 77,
-          "risk": 23,
+          "score": 79,
+          "risk": 21,
           "status": "caution",
           "partial": true,
-          "coverage": 85.7,
+          "coverage": 100,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -21838,11 +21846,6 @@
               "reason": "reference_missing",
               "path": "skills/doca-urom/SKILL.md",
               "line": 333
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/doca-urom/TASKS.md",
-              "line": 0
             }
           ],
           "findings": [
@@ -21851,21 +21854,7 @@
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/doca-urom/BENCHMARK.md",
-              "line": 86
-            },
-            {
-              "id": "PE2",
-              "severity": "MEDIUM",
-              "message": "Sudo/Root Execution",
-              "file": "skills/doca-urom/BENCHMARK.md",
-              "line": 87
-            },
-            {
-              "id": "PE2",
-              "severity": "MEDIUM",
-              "message": "Sudo/Root Execution",
-              "file": "skills/doca-urom/BENCHMARK.md",
-              "line": 88
+              "line": 140
             },
             {
               "id": "PE2",
@@ -22030,9 +22019,9 @@
           "path": "skills/doca-verbs",
           "score": 100,
           "risk": 0,
-          "status": "incomplete",
+          "status": "safe",
           "partial": true,
-          "coverage": 92.3,
+          "coverage": 100,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -22057,12 +22046,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-verbs/SKILL.md",
-              "line": 57
+              "line": 56
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-verbs/SKILL.md",
-              "line": 65
+              "line": 64
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-verbs/SKILL.md",
+              "line": 69
             },
             {
               "reason": "reference_missing",
@@ -22072,17 +22066,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-verbs/SKILL.md",
-              "line": 71
+              "line": 76
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-verbs/SKILL.md",
-              "line": 77
+              "line": 97
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-verbs/SKILL.md",
-              "line": 98
+              "line": 110
             },
             {
               "reason": "reference_missing",
@@ -22097,12 +22091,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-verbs/SKILL.md",
-              "line": 113
+              "line": 151
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-verbs/SKILL.md",
-              "line": 152
+              "line": 179
             },
             {
               "reason": "reference_missing",
@@ -22127,12 +22121,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-verbs/SKILL.md",
-              "line": 185
+              "line": 184
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-verbs/SKILL.md",
-              "line": 187
+              "line": 186
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/doca-verbs/SKILL.md",
+              "line": 210
             },
             {
               "reason": "reference_missing",
@@ -22142,12 +22141,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-verbs/SKILL.md",
-              "line": 212
+              "line": 223
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-verbs/SKILL.md",
-              "line": 224
+              "line": 226
             },
             {
               "reason": "reference_missing",
@@ -22157,7 +22156,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-verbs/SKILL.md",
-              "line": 228
+              "line": 247
             },
             {
               "reason": "reference_missing",
@@ -22177,82 +22176,72 @@
             {
               "reason": "reference_missing",
               "path": "skills/doca-verbs/SKILL.md",
-              "line": 251
+              "line": 252
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-verbs/SKILL.md",
-              "line": 253
+              "line": 254
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-verbs/SKILL.md",
-              "line": 255
+              "line": 264
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-verbs/SKILL.md",
-              "line": 265
+              "line": 268
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-verbs/SKILL.md",
-              "line": 269
+              "line": 273
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-verbs/SKILL.md",
-              "line": 274
+              "line": 277
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-verbs/SKILL.md",
-              "line": 278
+              "line": 281
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-verbs/SKILL.md",
-              "line": 282
+              "line": 284
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-verbs/SKILL.md",
-              "line": 285
+              "line": 287
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-verbs/SKILL.md",
-              "line": 288
+              "line": 289
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-verbs/SKILL.md",
-              "line": 290
+              "line": 291
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-verbs/SKILL.md",
-              "line": 292
+              "line": 295
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-verbs/SKILL.md",
-              "line": 296
+              "line": 300
             },
             {
               "reason": "reference_missing",
               "path": "skills/doca-verbs/SKILL.md",
-              "line": 301
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/doca-verbs/SKILL.md",
-              "line": 305
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/doca-verbs/references/command-appendix.md",
-              "line": 0
+              "line": 304
             }
           ],
           "findings": []
@@ -22261,15 +22250,10 @@
           "path": "skills/doca-version",
           "score": 97,
           "risk": 3,
-          "status": "incomplete",
+          "status": "safe",
           "partial": true,
-          "coverage": 83.3,
+          "coverage": 100,
           "exceptions": [
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/doca-version/CAPABILITIES.md",
-              "line": 0
-            },
             {
               "reason": "reference_missing",
               "path": "skills/doca-version/SKILL.md",
@@ -39773,6 +39757,65 @@
           "findings": []
         },
         {
+          "path": "skills/omniverse-content-services",
+          "score": 86,
+          "risk": 14,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/omniverse-content-services/SKILL.md",
+              "line": 12
+            }
+          ],
+          "findings": [
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/omniverse-content-services/BENCHMARK.md",
+              "line": 100
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/omniverse-content-services/references/repositories.md",
+              "line": 17
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/omniverse-content-services/references/repositories.md",
+              "line": 18
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/omniverse-content-services/references/repositories.md",
+              "line": 19
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/omniverse-content-services/references/repositories.md",
+              "line": 19
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/omniverse-content-services/references/repositories.md",
+              "line": 21
+            }
+          ]
+        },
+        {
           "path": "skills/omniverse-realtime-viewer",
           "score": 0,
           "risk": 100,
@@ -39833,6 +39876,11 @@
             {
               "reason": "static_parse_limit",
               "path": "skills/omniverse-realtime-viewer/references/streaming-server/README.md",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "skills/omniverse-realtime-viewer/references/streaming-viewer-recipe",
               "line": 0
             },
             {
@@ -40249,6 +40297,11 @@
             {
               "reason": "static_parse_limit",
               "path": "skills/omniverse-usd-performance-tuning/references/usd-structure-assessment/references/asset-structure-principles.md",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "skills/omniverse-usd-performance-tuning/references/usd-validation-runner/scripts",
               "line": 0
             }
           ],
@@ -42950,6 +43003,881 @@
           "findings": []
         },
         {
+          "path": "skills/pva-build-test",
+          "score": 12,
+          "risk": 88,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-build-test/SKILL.md",
+              "line": 69
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-build-test/SKILL.md",
+              "line": 73
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-build-test/SKILL.md",
+              "line": 104
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-build-test/SKILL.md",
+              "line": 136
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-build-test/SKILL.md",
+              "line": 230
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-build-test/SKILL.md",
+              "line": 231
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-build-test/SKILL.md",
+              "line": 232
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-build-test/SKILL.md",
+              "line": 233
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA5",
+              "severity": "HIGH",
+              "message": "External Model or Provider Selection",
+              "file": "skills/pva-build-test/README.md",
+              "line": 120
+            },
+            {
+              "id": "EA5",
+              "severity": "HIGH",
+              "message": "External Model or Provider Selection",
+              "file": "skills/pva-build-test/README.md",
+              "line": 126
+            },
+            {
+              "id": "EA5",
+              "severity": "HIGH",
+              "message": "External Model or Provider Selection",
+              "file": "skills/pva-build-test/README.md",
+              "line": 132
+            },
+            {
+              "id": "EA5",
+              "severity": "HIGH",
+              "message": "External Model or Provider Selection",
+              "file": "skills/pva-build-test/README.md",
+              "line": 137
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/pva-build-test/SKILL.md",
+              "line": 26
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/pva-build-test/BENCHMARK.md",
+              "line": 113
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/pva-build-test/references/direct-ssh-tegra.md",
+              "line": 117
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-build-test/README.md",
+              "line": 16
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-build-test/README.md",
+              "line": 17
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-build-test/README.md",
+              "line": 60
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-build-test/README.md",
+              "line": 18
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-build-test/README.md",
+              "line": 19
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-build-test/README.md",
+              "line": 21
+            }
+          ]
+        },
+        {
+          "path": "skills/pva-debug",
+          "score": 22,
+          "risk": 78,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-debug/SKILL.md",
+              "line": 52
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-debug/SKILL.md",
+              "line": 56
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-debug/SKILL.md",
+              "line": 132
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA5",
+              "severity": "HIGH",
+              "message": "External Model or Provider Selection",
+              "file": "skills/pva-debug/README.md",
+              "line": 120
+            },
+            {
+              "id": "EA5",
+              "severity": "HIGH",
+              "message": "External Model or Provider Selection",
+              "file": "skills/pva-debug/README.md",
+              "line": 126
+            },
+            {
+              "id": "EA5",
+              "severity": "HIGH",
+              "message": "External Model or Provider Selection",
+              "file": "skills/pva-debug/README.md",
+              "line": 132
+            },
+            {
+              "id": "EA5",
+              "severity": "HIGH",
+              "message": "External Model or Provider Selection",
+              "file": "skills/pva-debug/README.md",
+              "line": 137
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/pva-debug/SKILL.md",
+              "line": 24
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-debug/README.md",
+              "line": 16
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-debug/README.md",
+              "line": 17
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-debug/README.md",
+              "line": 60
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-debug/README.md",
+              "line": 18
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-debug/README.md",
+              "line": 19
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-debug/README.md",
+              "line": 20
+            }
+          ]
+        },
+        {
+          "path": "skills/pva-doctor",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-doctor/SKILL.md",
+              "line": 100
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-doctor/SKILL.md",
+              "line": 101
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-doctor/SKILL.md",
+              "line": 109
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-doctor/SKILL.md",
+              "line": 110
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-doctor/SKILL.md",
+              "line": 116
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-doctor/SKILL.md",
+              "line": 122
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-doctor/SKILL.md",
+              "line": 324
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA5",
+              "severity": "HIGH",
+              "message": "External Model or Provider Selection",
+              "file": "skills/pva-doctor/README.md",
+              "line": 120
+            },
+            {
+              "id": "EA5",
+              "severity": "HIGH",
+              "message": "External Model or Provider Selection",
+              "file": "skills/pva-doctor/README.md",
+              "line": 126
+            },
+            {
+              "id": "EA5",
+              "severity": "HIGH",
+              "message": "External Model or Provider Selection",
+              "file": "skills/pva-doctor/README.md",
+              "line": 132
+            },
+            {
+              "id": "EA5",
+              "severity": "HIGH",
+              "message": "External Model or Provider Selection",
+              "file": "skills/pva-doctor/README.md",
+              "line": 137
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/pva-doctor/SKILL.md",
+              "line": 57
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-doctor/README.md",
+              "line": 17
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-doctor/README.md",
+              "line": 60
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-doctor/README.md",
+              "line": 18
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-doctor/README.md",
+              "line": 19
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-doctor/README.md",
+              "line": 20
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-doctor/README.md",
+              "line": 21
+            },
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/pva-doctor/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/pva-doctor/SKILL.md",
+              "line": 225
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/pva-doctor/evals/evals.json",
+              "line": 30
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/pva-doctor/scripts/materialize_sdk_references.py",
+              "line": 663
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/pva-doctor/scripts/materialize_sdk_references.py",
+              "line": 672
+            }
+          ]
+        },
+        {
+          "path": "skills/pva-opgen",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 92.3,
+          "exceptions": [
+            {
+              "reason": "reference_unresolved",
+              "path": "skills/pva-opgen/SKILL.md",
+              "line": 48
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-opgen/SKILL.md",
+              "line": 56
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-opgen/SKILL.md",
+              "line": 61
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-opgen/SKILL.md",
+              "line": 79
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-opgen/SKILL.md",
+              "line": 80
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-opgen/SKILL.md",
+              "line": 85
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-opgen/SKILL.md",
+              "line": 213
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/pva-opgen/scripts/finalize_opgen_inputs.py",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA5",
+              "severity": "HIGH",
+              "message": "External Model or Provider Selection",
+              "file": "skills/pva-opgen/README.md",
+              "line": 120
+            },
+            {
+              "id": "EA5",
+              "severity": "HIGH",
+              "message": "External Model or Provider Selection",
+              "file": "skills/pva-opgen/README.md",
+              "line": 126
+            },
+            {
+              "id": "EA5",
+              "severity": "HIGH",
+              "message": "External Model or Provider Selection",
+              "file": "skills/pva-opgen/README.md",
+              "line": 132
+            },
+            {
+              "id": "EA5",
+              "severity": "HIGH",
+              "message": "External Model or Provider Selection",
+              "file": "skills/pva-opgen/README.md",
+              "line": 137
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/pva-opgen/SKILL.md",
+              "line": 24
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/pva-opgen/SKILL.md",
+              "line": 41
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/pva-opgen/SKILL.md",
+              "line": 56
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-opgen/README.md",
+              "line": 16
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-opgen/README.md",
+              "line": 17
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-opgen/README.md",
+              "line": 60
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-opgen/README.md",
+              "line": 18
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-opgen/README.md",
+              "line": 20
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-opgen/README.md",
+              "line": 21
+            },
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/pva-opgen/SKILL.md",
+              "line": 1
+            }
+          ]
+        },
+        {
+          "path": "skills/pva-setup",
+          "score": 37,
+          "risk": 63,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-setup/SKILL.md",
+              "line": 162
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-setup/SKILL.md",
+              "line": 183
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA5",
+              "severity": "HIGH",
+              "message": "External Model or Provider Selection",
+              "file": "skills/pva-setup/README.md",
+              "line": 120
+            },
+            {
+              "id": "EA5",
+              "severity": "HIGH",
+              "message": "External Model or Provider Selection",
+              "file": "skills/pva-setup/README.md",
+              "line": 126
+            },
+            {
+              "id": "EA5",
+              "severity": "HIGH",
+              "message": "External Model or Provider Selection",
+              "file": "skills/pva-setup/README.md",
+              "line": 132
+            },
+            {
+              "id": "EA5",
+              "severity": "HIGH",
+              "message": "External Model or Provider Selection",
+              "file": "skills/pva-setup/README.md",
+              "line": 137
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/pva-setup/BENCHMARK.md",
+              "line": 115
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/pva-setup/SKILL.md",
+              "line": 82
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-setup/README.md",
+              "line": 16
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-setup/README.md",
+              "line": 18
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-setup/README.md",
+              "line": 19
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-setup/README.md",
+              "line": 20
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-setup/README.md",
+              "line": 21
+            }
+          ]
+        },
+        {
+          "path": "skills/pva-spec",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 95.7,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-spec/SKILL.md",
+              "line": 56
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-spec/SKILL.md",
+              "line": 60
+            },
+            {
+              "reason": "reference_unresolved",
+              "path": "skills/pva-spec/SKILL.md",
+              "line": 106
+            },
+            {
+              "reason": "reference_unresolved",
+              "path": "skills/pva-spec/SKILL.md",
+              "line": 108
+            },
+            {
+              "reason": "reference_unresolved",
+              "path": "skills/pva-spec/SKILL.md",
+              "line": 109
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-spec/SKILL.md",
+              "line": 116
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-spec/SKILL.md",
+              "line": 152
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-spec/SKILL.md",
+              "line": 153
+            },
+            {
+              "reason": "reference_unresolved",
+              "path": "skills/pva-spec/SKILL.md",
+              "line": 168
+            },
+            {
+              "reason": "reference_unresolved",
+              "path": "skills/pva-spec/SKILL.md",
+              "line": 172
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-spec/SKILL.md",
+              "line": 183
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-spec/SKILL.md",
+              "line": 184
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-spec/SKILL.md",
+              "line": 190
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-spec/SKILL.md",
+              "line": 191
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-spec/SKILL.md",
+              "line": 192
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-spec/SKILL.md",
+              "line": 193
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-spec/SKILL.md",
+              "line": 196
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-spec/SKILL.md",
+              "line": 199
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-spec/SKILL.md",
+              "line": 207
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-spec/SKILL.md",
+              "line": 208
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/pva-spec/SKILL.md",
+              "line": 216
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/pva-spec/scripts/finalize_opgen_inputs.py",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA5",
+              "severity": "HIGH",
+              "message": "External Model or Provider Selection",
+              "file": "skills/pva-spec/README.md",
+              "line": 120
+            },
+            {
+              "id": "EA5",
+              "severity": "HIGH",
+              "message": "External Model or Provider Selection",
+              "file": "skills/pva-spec/README.md",
+              "line": 126
+            },
+            {
+              "id": "EA5",
+              "severity": "HIGH",
+              "message": "External Model or Provider Selection",
+              "file": "skills/pva-spec/README.md",
+              "line": 132
+            },
+            {
+              "id": "EA5",
+              "severity": "HIGH",
+              "message": "External Model or Provider Selection",
+              "file": "skills/pva-spec/README.md",
+              "line": 137
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/pva-spec/SKILL.md",
+              "line": 48
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/pva-spec/SKILL.md",
+              "line": 183
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/pva-spec/SKILL.md",
+              "line": 184
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-spec/README.md",
+              "line": 16
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-spec/README.md",
+              "line": 17
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-spec/README.md",
+              "line": 60
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-spec/README.md",
+              "line": 19
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-spec/README.md",
+              "line": 20
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/pva-spec/README.md",
+              "line": 21
+            },
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/pva-spec/SKILL.md",
+              "line": 1
+            }
+          ]
+        },
+        {
           "path": "skills/rag-blueprint",
           "score": 0,
           "risk": 100,
@@ -44005,6 +44933,16 @@
           ]
         },
         {
+          "path": "skills/runai-audit-assigned-quota",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": []
+        },
+        {
           "path": "skills/runai-diagnose-failed-workload",
           "score": 93,
           "risk": 7,
@@ -44024,6 +44962,42 @@
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/runai-diagnose-failed-workload/SKILL.md",
+              "line": 1
+            }
+          ]
+        },
+        {
+          "path": "skills/runai-get-cluster-health-summary",
+          "score": 93,
+          "risk": 7,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/runai-get-cluster-health-summary/SKILL.md",
+              "line": 1
+            }
+          ]
+        },
+        {
+          "path": "skills/runai-get-utilization-overview",
+          "score": 93,
+          "risk": 7,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/runai-get-utilization-overview/SKILL.md",
               "line": 1
             }
           ]
@@ -62207,7 +63181,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-27T19:26:40Z"
+      "checkedAt": "2026-10-28T21:07:13Z"
     }
   },
   "agentStacks": {
