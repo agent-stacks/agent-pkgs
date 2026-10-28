@@ -8,19 +8,9 @@ let
   source = builtins.fromJSON (builtins.readFile ./source.json);
   # BEGIN custom — kept as it is when this file is regenerated
   # why: the server's start script runs `bun install` into the plugin
-  # root, which is read-only here. Ship the tree it would install, and
-  # wrap bun so that install does nothing (ADR 0026).
+  # root, which is read-only here (ADR 0026).
   args = { };
-  hooks = old: {
-    nativeBuildInputs = old.nativeBuildInputs ++ [ pkgs.makeBinaryWrapper ];
-    postAssemble = old.postAssemble + ''
-      cp -R ${pkgs.callPackage ../imessage-node-modules { }}/node_modules "$dest/node_modules"
-      chmod -R u+w "$dest/node_modules"
-      bun="$(readlink "$dest/bin/bun")"
-      rm "$dest/bin/bun"
-      makeBinaryWrapper "$bun" "$dest/bin/bun" --set-default BUN_CONFIG_SKIP_INSTALL_PACKAGES 1
-    '';
-  };
+  hooks = pkgs.callPackage ../../lib/bun-server-hooks.nix { } (pkgs.callPackage ../imessage-node-modules { });
   # END custom — anything outside these markers is overwritten
 in
 (buildAgentPlugin (source // args)).overrideAttrs hooks
