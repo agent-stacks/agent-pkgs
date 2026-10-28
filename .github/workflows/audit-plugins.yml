@@ -7,11 +7,11 @@ name: "Audit plugins"
 #
 # Which packages a run audits:
 #
-#   push to main      the packages whose source.json changed; every
-#                     package when the scoring changed: SkillSpector
-#                     (pkgs/skillspector or the skillspector-src input
-#                     in flake.lock) or the pinned agent-stacks
-#                     (pkgs/agent-stacks/source.json)
+#   push to main      the packages whose source.json or default.nix
+#                     changed; every package when the scoring changed:
+#                     SkillSpector (pkgs/skillspector or the
+#                     skillspector-src input in flake.lock) or the
+#                     pinned agent-stacks (pkgs/agent-stacks/source.json)
 #   schedule          every package, nightly: the CVE data SkillSpector
 #                     checks against moves without anything here moving
 #   workflow_dispatch one package, or every package when none is named
@@ -29,6 +29,7 @@ on:
     branches: [main]
     paths:
       - "pkgs/agent-plugin-*/source.json"
+      - "pkgs/agent-plugin-*/default.nix"
       - "pkgs/skillspector/**"
       - "pkgs/agent-stacks/source.json"
       # The dashboard: publish only, nothing is audited.
@@ -150,6 +151,7 @@ jobs:
               elif git diff --quiet "$BEFORE" HEAD -- pkgs/skillspector pkgs/agent-stacks/source.json \
                 && [ "$(skillspector_rev "$BEFORE")" = "$(skillspector_rev HEAD)" ]; then
                 git diff --name-only "$BEFORE" HEAD -- 'pkgs/agent-plugin-*/source.json' \
+                  'pkgs/agent-plugin-*/default.nix' \
                   | cut -d/ -f2 | sort -u \
                   | while read -r p; do
                       [ -f "pkgs/$p/default.nix" ] && echo "$p"
@@ -264,8 +266,9 @@ jobs:
 
       # Each audit.json the shard wrote, whole, and beside it what the
       # package was audited from: a hash of its default.nix and
-      # source.json. record puts an audit back only on a main where
-      # that hash still holds.
+      # source.json, which a hand-written package lacks (ADR 0027).
+      # record puts an audit back only on a main where that hash still
+      # holds.
       - name: "Record what this shard wrote"
         if: ${{ always() && steps.cli.outputs.skip == 'false' }}
         run: |
@@ -276,7 +279,8 @@ jobs:
             | while read -r f; do
                 p="$(basename "$(dirname "$f")")"
                 cp "$f" "out/audits/$p.json"
-                key="$(cat "pkgs/$p/default.nix" "pkgs/$p/source.json" | sha256sum | cut -d' ' -f1)"
+                src="pkgs/$p/source.json"; [ -f "$src" ] || src=/dev/null
+                key="$(cat "pkgs/$p/default.nix" "$src" | sha256sum | cut -d' ' -f1)"
                 printf '%s\t%s\n' "$p" "$key" >> out/audited.tsv
               done
           echo "$(grep -c . out/audited.tsv || true) audit(s) changed"
@@ -442,7 +446,8 @@ jobs:
           stage_and_commit() {
             while IFS=$'\t' read -r p key; do
               [ -f "pkgs/$p/default.nix" ] || continue
-              now="$(cat "pkgs/$p/default.nix" "pkgs/$p/source.json" | sha256sum | cut -d' ' -f1)"
+              src="pkgs/$p/source.json"; [ -f "$src" ] || src=/dev/null
+              now="$(cat "pkgs/$p/default.nix" "$src" | sha256sum | cut -d' ' -f1)"
               if [ "$now" != "$key" ]; then
                 echo "::notice::$p changed on main after it was audited; its audit is left to a later run"
                 continue
