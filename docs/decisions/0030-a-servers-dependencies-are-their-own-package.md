@@ -25,7 +25,13 @@ A server's dependencies are a package of their own,
 plugin's source, fetched as ADR 0025 fetches it, fetches each package
 by the lock's sha512, and lays out the hoisted tree without running
 Bun or any script. A package limited by `os` or `cpu` is laid out only
-where it matches, as Bun selects it.
+where it matches, as Bun selects it. The packages are published, as
+`impeccable-engine` is.
+
+Not bun2nix: it builds from a generated `bun.nix` committed per
+server, which the hourly replay cannot regenerate when upstream's
+`bun.lock` moves, and it defaults to an isolated layout. These
+servers need the hoisted one: two import `zod` without declaring it.
 
 The plugin's custom block, through `lib/bun-server-hooks.nix`, copies
 that tree into the plugin, since the Agent Plugins spec rejects a path
