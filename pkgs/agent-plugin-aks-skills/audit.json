@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "aks-skills",
-      "dir": "/nix/store/395hsv1iqy27nrjspgw2mk9a400wr58k-agent-plugin-aks-skills-1.0.6/share/agent-plugins/aks-skills",
+      "dir": "/nix/store/bddb5ig43dwg3nvchhwgbk5k0hrabqal-agent-plugin-aks-skills-1.0.10/share/agent-plugins/aks-skills",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "skills/aks-cost-optimization",
           "skills/aks-gpu-inference",
           "skills/aks-known-issues",
           "skills/aks-network-capture",
@@ -34,6 +35,30 @@
         ]
       },
       "components": [
+        {
+          "path": "skills/aks-cost-optimization",
+          "score": 93,
+          "risk": 7,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/aks-cost-optimization/SKILL.md",
+              "line": 6
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aks-cost-optimization/references/node-scaling-bottlenecks.md",
+              "line": 76
+            }
+          ]
+        },
         {
           "path": "skills/aks-gpu-inference",
           "score": 100,
@@ -486,7 +511,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:14:36Z"
+      "checkedAt": "2026-10-29T02:51:03Z"
     }
   },
   "agentStacks": {
