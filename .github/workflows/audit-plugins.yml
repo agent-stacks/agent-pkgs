@@ -7,7 +7,8 @@ name: "Audit plugins"
 #
 # Which packages a run audits:
 #
-#   push to main      the packages whose source.json or default.nix
+#   push to main      the packages whose source.json changed, and a
+#                     package with no source.json whose default.nix
 #                     changed; every package when the scoring changed:
 #                     SkillSpector (pkgs/skillspector or the
 #                     skillspector-src input in flake.lock) or the
@@ -150,9 +151,14 @@ jobs:
                 all > packages.txt
               elif git diff --quiet "$BEFORE" HEAD -- pkgs/skillspector pkgs/agent-stacks/source.json \
                 && [ "$(skillspector_rev "$BEFORE")" = "$(skillspector_rev HEAD)" ]; then
-                git diff --name-only "$BEFORE" HEAD -- 'pkgs/agent-plugin-*/source.json' \
-                  'pkgs/agent-plugin-*/default.nix' \
-                  | cut -d/ -f2 | sort -u \
+                {
+                  git diff --name-only "$BEFORE" HEAD -- 'pkgs/agent-plugin-*/source.json'
+                  # A hand-written package has no source.json to change (ADR 0027).
+                  git diff --name-only "$BEFORE" HEAD -- 'pkgs/agent-plugin-*/default.nix' \
+                    | while read -r f; do
+                        [ -f "$(dirname "$f")/source.json" ] || echo "$f"
+                      done
+                } | cut -d/ -f2 | sort -u \
                   | while read -r p; do
                       [ -f "pkgs/$p/default.nix" ] && echo "$p"
                     done > packages.txt || true

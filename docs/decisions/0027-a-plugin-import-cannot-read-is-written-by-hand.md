@@ -47,8 +47,11 @@ is regenerated and this file goes.
 The audit workflow keys an audit on a hash of `default.nix` and
 `source.json`, and audits a pushed package only when its `source.json`
 changed. We will hash `source.json` only when it exists, and audit a
-push that changes `default.nix` too, so this package is audited when
-it is bumped and the nightly run does not fail on it.
+push that changes the `default.nix` of a package with no `source.json`,
+so this package is audited when it is bumped and the nightly run does
+not fail on it. A generated `default.nix` changing alone is left to the
+nightly run, as before: an importer template change rewrites most of
+them at once, right after a pin bump that already audits everything.
 
 ## Consequences
 
@@ -56,8 +59,6 @@ it is bumped and the nightly run does not fail on it.
   without waiting on upstream.
 - `+` The skill is byte for byte what `graphify install` writes for
   Claude Code, and the build's `check-plugin` validates it.
-- `+` A push that changes only a generated package's custom block is
-  now audited as well, which it was not before.
 - `-` The hourly replay reads only `source.json`, so it never moves this
   package. A new release is a hand edit of `version` and `hash`.
 - `-` A package nothing regenerates can drift from upstream's layout
