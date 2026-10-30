@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "agent-deck",
-      "dir": "/nix/store/5b5fhh3vipilygwxxi7hx6l225jrhx3s-agent-plugin-agent-deck-0.0.0-unstable.2026-10-25.ge5649d5/share/agent-plugins/agent-deck",
+      "dir": "/nix/store/irf3r156hf0si8dgw2zv5pxfwp0m2gw5-agent-plugin-agent-deck-0.0.0-unstable.2026-10-30.g4fca4cb/share/agent-plugins/agent-deck",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -32,7 +32,7 @@
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 68.9,
+          "coverage": 67.2,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -77,6 +77,16 @@
             {
               "reason": "static_parse_limit",
               "path": "skills/agent-deck/evals/evals.json",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/agent-deck/evals/flows.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/agent-deck/evals/flows/fake-claude",
               "line": 0
             },
             {
@@ -854,6 +864,20 @@
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
+              "file": "skills/agent-deck/evals/flows.sh",
+              "line": 79
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/agent-deck/scripts/repro/run.py",
+              "line": 38
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
               "file": "skills/agent-deck/evals/promises.json",
               "line": 668
             },
@@ -1334,13 +1358,6 @@
               "line": 394
             },
             {
-              "id": "PE2",
-              "severity": "MEDIUM",
-              "message": "Sudo/Root Execution",
-              "file": "skills/agent-deck/scripts/repro/run.py",
-              "line": 38
-            },
-            {
               "id": "AST4",
               "severity": "MEDIUM",
               "message": "subprocess module call",
@@ -1416,7 +1433,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-25T04:38:11Z"
+      "checkedAt": "2026-10-30T21:28:23Z"
     }
   },
   "agentStacks": {
