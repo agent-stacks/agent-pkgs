@@ -1,0 +1,54 @@
+{
+  "name": "jdtls-lsp",
+  "version": "1.0.0",
+  "src": {
+    "owner": "anthropics",
+    "repo": "claude-plugins-official",
+    "rev": "a7ba5b93db0c7c8d17f3f1d25853adca79598a1a",
+    "hash": "sha256-C8uTRCtKEvL7dz+dDbfs/DwU/uxH5YzYFDn0oo3BKnA="
+  },
+  "sourceUrl": "https://github.com/anthropics/claude-plugins-official",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "email": "support@anthropic.com",
+      "name": "Anthropic"
+    },
+    "description": "Java language server (Eclipse JDT.LS) for code intelligence",
+    "extensions": {
+      "com.anthropic.claude-code": {
+        "lspServers": {
+          "jdtls": {
+            "command": "jdtls",
+            "extensionToLanguage": {
+              ".java": "java"
+            },
+            "startupTimeout": 120000
+          }
+        }
+      }
+    },
+    "name": "jdtls-lsp",
+    "version": "1.0.0"
+  },
+  "skills": {},
+  "requiredRuntimes": [
+    "jdtls"
+  ],
+  "meta": {
+    "description": "Java language server (Eclipse JDT.LS) for code intelligence",
+    "homepage": "https://github.com/anthropics/claude-plugins-official"
+  },
+  "import": {
+    "input": "anthropics/claude-plugins-official",
+    "flags": [
+      "--path-ignore=external_plugins/context7"
+    ],
+    "warnings": [
+      {
+        "path": ".claude-plugin/marketplace.json/lspServers/jdtls",
+        "message": "Claude Code starts this language server for .java files: jdtls"
+      }
+    ]
+  }
+}

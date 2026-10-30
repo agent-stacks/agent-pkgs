@@ -1,0 +1,53 @@
+{
+  "name": "lua-lsp",
+  "version": "1.0.0",
+  "src": {
+    "owner": "anthropics",
+    "repo": "claude-plugins-official",
+    "rev": "a7ba5b93db0c7c8d17f3f1d25853adca79598a1a",
+    "hash": "sha256-C8uTRCtKEvL7dz+dDbfs/DwU/uxH5YzYFDn0oo3BKnA="
+  },
+  "sourceUrl": "https://github.com/anthropics/claude-plugins-official",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "email": "support@anthropic.com",
+      "name": "Anthropic"
+    },
+    "description": "Lua language server for code intelligence",
+    "extensions": {
+      "com.anthropic.claude-code": {
+        "lspServers": {
+          "lua": {
+            "command": "lua-language-server",
+            "extensionToLanguage": {
+              ".lua": "lua"
+            }
+          }
+        }
+      }
+    },
+    "name": "lua-lsp",
+    "version": "1.0.0"
+  },
+  "skills": {},
+  "requiredRuntimes": [
+    "lua-language-server"
+  ],
+  "meta": {
+    "description": "Lua language server for code intelligence",
+    "homepage": "https://github.com/anthropics/claude-plugins-official"
+  },
+  "import": {
+    "input": "anthropics/claude-plugins-official",
+    "flags": [
+      "--path-ignore=external_plugins/context7"
+    ],
+    "warnings": [
+      {
+        "path": ".claude-plugin/marketplace.json/lspServers/lua",
+        "message": "Claude Code starts this language server for .lua files: lua-language-server"
+      }
+    ]
+  }
+}

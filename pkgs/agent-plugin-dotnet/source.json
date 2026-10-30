@@ -11,6 +11,30 @@
   "manifest": {
     "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
     "description": "C# language server (LSP) integration for coding agents and high-level .NET development skills.",
+    "extensions": {
+      "com.anthropic.claude-code": {
+        "lspServers": {
+          "csharp": {
+            "args": [
+              "dnx",
+              "roslyn-language-server",
+              "--yes",
+              "--prerelease",
+              "--",
+              "--stdio",
+              "--daemon-mode",
+              "--autoLoadProjects"
+            ],
+            "command": "dotnet",
+            "extensionToLanguage": {
+              ".cs": "csharp",
+              ".cshtml": "aspnetcorerazor",
+              ".razor": "aspnetcorerazor"
+            }
+          }
+        }
+      }
+    },
     "name": "dotnet",
     "version": "0.2.5"
   },
@@ -20,7 +44,9 @@
     "msbuild": "plugins/dotnet/skills/msbuild",
     "setup-local-sdk": "plugins/dotnet/skills/setup-local-sdk"
   },
-  "requiredRuntimes": [],
+  "requiredRuntimes": [
+    "dotnet"
+  ],
   "dependencies": [
     "dotnet-sdk_10"
   ],
@@ -47,8 +73,8 @@
         "message": "2 SKILL.md outside every imported plugin, not imported"
       },
       {
-        "path": "plugins/dotnet/.lsp.json",
-        "message": "Claude Code loads the plugin's LSP servers from this file; import does not package them"
+        "path": "plugins/dotnet/.lsp.json/csharp",
+        "message": "Claude Code starts this language server for .cs, .cshtml, .razor files: dotnet dnx roslyn-language-server --yes --prerelease -- --stdio --daemon-mode --autoLoadProjects"
       }
     ]
   }

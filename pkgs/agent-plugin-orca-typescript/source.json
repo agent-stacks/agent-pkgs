@@ -1,0 +1,66 @@
+{
+  "name": "orca-typescript",
+  "version": "1.0.0",
+  "src": {
+    "owner": "stablyai",
+    "repo": "orca",
+    "rev": "48bb6bc86370588f31ac96231435e2a48b7673df",
+    "hash": "sha256-1SiUEAbteklfFWYfo8FFBke0sAq+49dLLwZQ4hgFjwM="
+  },
+  "sourceUrl": "https://github.com/stablyai/orca",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Orca"
+    },
+    "description": "TypeScript 7 diagnostics and code navigation from the repo's own compiler",
+    "extensions": {
+      "com.anthropic.claude-code": {
+        "lspServers": {
+          "orca-typescript": {
+            "args": [
+              "${CLAUDE_PROJECT_DIR}/config/scripts/agent-typescript-lsp.mjs"
+            ],
+            "command": "node",
+            "extensionToLanguage": {
+              ".cjs": "javascript",
+              ".cts": "typescript",
+              ".js": "javascript",
+              ".jsx": "javascriptreact",
+              ".mjs": "javascript",
+              ".mts": "typescript",
+              ".ts": "typescript",
+              ".tsx": "typescriptreact"
+            },
+            "maxRestarts": 3,
+            "startupTimeout": 60000
+          }
+        }
+      }
+    },
+    "name": "orca-typescript",
+    "version": "1.0.0"
+  },
+  "skills": {},
+  "requiredRuntimes": [
+    "node"
+  ],
+  "meta": {
+    "description": "TypeScript 7 diagnostics and code navigation from the repo's own compiler",
+    "homepage": "https://github.com/stablyai/orca"
+  },
+  "import": {
+    "input": "stablyai/orca",
+    "flags": [],
+    "warnings": [
+      {
+        "path": "skills",
+        "message": "10 SKILL.md outside every imported plugin, not imported"
+      },
+      {
+        "path": "config/agent-plugins/orca-typescript/.lsp.json/orca-typescript",
+        "message": "Claude Code starts this language server for .cjs, .cts, .js, .jsx, .mjs, .mts, .ts, .tsx files: node ${CLAUDE_PROJECT_DIR}/config/scripts/agent-typescript-lsp.mjs"
+      }
+    ]
+  }
+}
