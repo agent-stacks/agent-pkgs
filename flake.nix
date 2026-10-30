@@ -759,7 +759,7 @@
             if missing != [ ] then
               throw ("buildAgentPlugin declares no formal for: "
                 + builtins.concatStringsSep ", " missing
-                + "; agent-stacks import writes these keys into source.json")
+                + "; agent-stacks import writes these keys into default.json")
             else
               pkgs.runCommand "call-keys-declared" { } ''
                 touch $out

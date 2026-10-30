@@ -11,14 +11,26 @@ trap 'rm -rf "$root"' EXIT
 
 pkgs="$root/pkgs"
 mkdir -p "$pkgs/agent-plugin-demo" "$pkgs/agent-plugin-blocked" \
-  "$pkgs/agent-plugin-new" "$pkgs/agent-plugin-gone" "$pkgs/agent-stacks"
-for p in demo blocked new; do echo '{}' > "$pkgs/agent-plugin-$p/default.nix"; done
+  "$pkgs/agent-plugin-new" "$pkgs/agent-plugin-gone" "$pkgs/agent-plugin-old" "$pkgs/agent-stacks"
+for p in demo blocked new old; do echo '{}' > "$pkgs/agent-plugin-$p/default.nix"; done
 
-cat > "$pkgs/agent-plugin-demo/source.json" <<'EOF'
+# The call file is default.json since agent-stacks ADR 0085, and a
+# package not yet replayed still holds source.json. demo holds both,
+# and default.json wins; blocked holds only default.json; old only
+# source.json.
+cat > "$pkgs/agent-plugin-demo/default.json" <<'EOF'
 { "version": "1.0.0",
   "src": { "owner": "acme", "repo": "skills", "rev": "abc123" },
   "skills": { "lint": "plugins/demo/skills/lint" } }
 EOF
+cat > "$pkgs/agent-plugin-demo/source.json" <<'EOF'
+{ "version": "0.0.0-stale",
+  "src": { "owner": "stale", "repo": "stale", "rev": "000000" },
+  "skills": {} }
+EOF
+echo '{ "version": "2.0.0" }' > "$pkgs/agent-plugin-blocked/default.json"
+echo '{ "version": "0.9.0" }' > "$pkgs/agent-plugin-old/source.json"
+echo '{ "target": "./result", "score": 90, "status": "install", "plugins": [] }' > "$pkgs/agent-plugin-old/audit.json"
 cat > "$pkgs/agent-plugin-demo/audit.json" <<'EOF'
 { "target": "./result", "score": 12, "status": "do not install",
   "tool": { "name": "skillspector", "version": "2.12.0", "osv": { "checkedAt": "2026-10-19T00:00:00Z" } },
@@ -65,7 +77,10 @@ check() {
   jq -e "$filter" "$data" > /dev/null 2>&1 || fail "$what ($filter)"
 }
 check "the commit is recorded" '.rev == "deadbeef" and .revDate == "2026-10-20T00:00:00Z"'
-check "only packages with a default.nix and an audit are listed" '[.plugins[].p] == ["agent-plugin-blocked", "agent-plugin-demo"]'
+check "only packages with a default.nix and an audit are listed" '[.plugins[].p] == ["agent-plugin-blocked", "agent-plugin-demo", "agent-plugin-old"]'
+check "default.json is read when it is the only call file" '.plugins[0].v == "2.0.0"'
+check "default.json wins over a stale source.json" '.plugins[1].v == "1.0.0"'
+check "source.json is read when a package has no default.json" '.plugins[2].v == "0.9.0"'
 check "a package with no audit is listed as not audited" '.unaudited == ["agent-plugin-new"]'
 check "a could-not-audit package keeps its reason" '.plugins[0].why == "nothing to audit" and .plugins[0].s == null'
 check "the upstream is named" '.plugins[1].gh == "acme/skills" and .plugins[1].rev == "abc123"'

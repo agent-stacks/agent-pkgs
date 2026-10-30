@@ -1,6 +1,6 @@
 name: "Update agent plugins"
 
-# Replays the import recorded in every package's source.json, so an
+# Replays the import recorded in every package's default.json, so an
 # upstream that moved is picked back up without anyone reconstructing the
 # import by hand. `--replay` applies the flags the package records and
 # refuses any other (agent-stacks ADR 0048), so the invocation here is the
@@ -83,8 +83,21 @@ jobs:
           # so, at the upstream it happens on, in the words it already
           # uses for it — this only names them here so the run summary
           # does not make it look like an unexplained import failure.
+          # A package's call file: default.json since agent-stacks ADR
+          # 0085, else the source.json of one no such binary has replayed
+          # yet. Each package once, by the importer's own precedence.
+          call_files() {
+            local d
+            for d in pkgs/agent-plugin-*/; do
+              d="${d%/}"
+              if [ -f "$d/default.json" ]; then echo "$d/default.json"
+              elif [ -f "$d/source.json" ]; then echo "$d/source.json"
+              fi
+            done
+          }
+          mapfile -t calls < <(call_files)
           jq -r '[.import.input, (.import.flags // [] | sort | join(" "))] | @tsv' \
-            pkgs/agent-plugin-*/source.json | sort -u > all.tsv
+            "${calls[@]}" | sort -u > all.tsv
 
           cut -f1 all.tsv | uniq -d > disagree.txt
           if [ -s disagree.txt ]; then
@@ -156,7 +169,7 @@ jobs:
           printf '%s\n' "${inputs[@]}" > out/inputs.txt
           for input in "${inputs[@]}"; do
             echo "::group::$input"
-            if ! nix run .#agent-stacks -- import "$input" --replay --out pkgs; then
+            if ! nix run .#agent-stacks -- import "$input" --replay --pkgs-dir pkgs; then
               echo "$input" >> out/failed.txt
             fi
             echo "::endgroup::"

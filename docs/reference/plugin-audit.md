@@ -1,7 +1,7 @@
 # Plugin audits: `audit.json`
 
 Every plugin package under `pkgs/` may carry an `audit.json` beside
-its `default.nix` and `source.json`. It is the latest security audit
+its `default.nix` and `default.json`. It is the latest security audit
 of the built package by `agent-stacks audit`, which is a scan by
 NVIDIA SkillSpector. Why it is kept here is
 [ADR 0022](../decisions/0022-plugins-are-audited-in-ci-and-the-result-is-kept-beside-the-package.md).
@@ -43,7 +43,7 @@ under it. A package with no `audit.json` has not been audited yet.
 
 | Trigger | Packages audited |
 | ------- | ---------------- |
-| Push to main changing `pkgs/agent-plugin-*/source.json` | The packages whose `source.json` changed |
+| Push to main changing `pkgs/agent-plugin-*/default.json` | The packages whose `default.json` changed |
 | Push to main changing `pkgs/skillspector/`, the `skillspector-src` input or `pkgs/agent-stacks/default.json` | Every package |
 | Nightly | Every package |
 | Manual dispatch | The named package, or every package |
@@ -111,7 +111,7 @@ python3 scripts/audit-dashboard.py pkgs scripts/audit-dashboard.html \
 ## What it is not
 
 The build never reads it: a package's `default.nix` reads only
-`source.json`, so writing `audit.json` rebuilds nothing. The hourly
+`default.json`, so writing `audit.json` rebuilds nothing. The hourly
 replay of each package's import leaves it alone. It gates nothing: a
 low score does not stop a package from building or being published.
 It is a record for readers, of what the scanner found at the last

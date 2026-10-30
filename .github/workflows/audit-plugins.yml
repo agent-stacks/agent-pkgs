@@ -7,8 +7,8 @@ name: "Audit plugins"
 #
 # Which packages a run audits:
 #
-#   push to main      the packages whose source.json changed, and a
-#                     package with no source.json whose default.nix
+#   push to main      the packages whose call file changed, and a
+#                     package with no call file whose default.nix
 #                     changed; every package when the scoring changed:
 #                     SkillSpector (pkgs/skillspector or the
 #                     skillspector-src input in flake.lock) or the
@@ -29,6 +29,7 @@ on:
   push:
     branches: [main]
     paths:
+      - "pkgs/agent-plugin-*/default.json"
       - "pkgs/agent-plugin-*/source.json"
       - "pkgs/agent-plugin-*/default.nix"
       - "pkgs/skillspector/**"
@@ -152,11 +153,12 @@ jobs:
               elif git diff --quiet "$BEFORE" HEAD -- pkgs/skillspector pkgs/agent-stacks/default.json \
                 && [ "$(skillspector_rev "$BEFORE")" = "$(skillspector_rev HEAD)" ]; then
                 {
-                  git diff --name-only "$BEFORE" HEAD -- 'pkgs/agent-plugin-*/source.json'
-                  # A hand-written package has no source.json to change (ADR 0027).
+                  git diff --name-only "$BEFORE" HEAD -- 'pkgs/agent-plugin-*/default.json' 'pkgs/agent-plugin-*/source.json'
+                  # A hand-written package has no call file to change (ADR 0027).
                   git diff --name-only "$BEFORE" HEAD -- 'pkgs/agent-plugin-*/default.nix' \
                     | while read -r f; do
-                        [ -f "$(dirname "$f")/source.json" ] || echo "$f"
+                        d="$(dirname "$f")"
+                        [ -f "$d/default.json" ] || [ -f "$d/source.json" ] || echo "$f"
                       done
                 } | cut -d/ -f2 | sort -u \
                   | while read -r p; do
@@ -272,7 +274,7 @@ jobs:
 
       # Each audit.json the shard wrote, whole, and beside it what the
       # package was audited from: a hash of its default.nix and
-      # source.json, which a hand-written package lacks (ADR 0027).
+      # call file, which a hand-written package lacks (ADR 0027).
       # record puts an audit back only on a main where that hash still
       # holds.
       - name: "Record what this shard wrote"
@@ -285,7 +287,7 @@ jobs:
             | while read -r f; do
                 p="$(basename "$(dirname "$f")")"
                 cp "$f" "out/audits/$p.json"
-                src="pkgs/$p/source.json"; [ -f "$src" ] || src=/dev/null
+                src="pkgs/$p/default.json"; [ -f "$src" ] || src="pkgs/$p/source.json"; [ -f "$src" ] || src=/dev/null
                 key="$(cat "pkgs/$p/default.nix" "$src" | sha256sum | cut -d' ' -f1)"
                 printf '%s\t%s\n' "$p" "$key" >> out/audited.tsv
               done
@@ -425,7 +427,7 @@ jobs:
       # conflict, or merge two JSON documents hunk by hunk. Each attempt
       # instead starts from the current main and puts this run's files
       # back whole, but only for a package whose default.nix and
-      # source.json are still what was audited: when the hourly update
+      # call file are still what was audited: when the hourly update
       # bumped it meanwhile, this run's result is of the old source, and
       # the push run that bump started audits the new one. Otherwise
       # both runs' results are fresh, and the later push winning is
@@ -452,7 +454,7 @@ jobs:
           stage_and_commit() {
             while IFS=$'\t' read -r p key; do
               [ -f "pkgs/$p/default.nix" ] || continue
-              src="pkgs/$p/source.json"; [ -f "$src" ] || src=/dev/null
+              src="pkgs/$p/default.json"; [ -f "$src" ] || src="pkgs/$p/source.json"; [ -f "$src" ] || src=/dev/null
               now="$(cat "pkgs/$p/default.nix" "$src" | sha256sum | cut -d' ' -f1)"
               if [ "$now" != "$key" ]; then
                 echo "::notice::$p changed on main after it was audited; its audit is left to a later run"
