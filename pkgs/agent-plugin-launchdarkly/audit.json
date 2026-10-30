@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "launchdarkly",
-      "dir": "/nix/store/d4s2aj9gq2bix2nld0vxcbnsf103sikv-agent-plugin-launchdarkly-1.0.2/share/agent-plugins/launchdarkly",
+      "dir": "/nix/store/9d0mm01ggl1nvjdzr9s4ji6s60av7lr5-agent-plugin-launchdarkly-1.0.3/share/agent-plugins/launchdarkly",
       "spec": "1.1.0",
       "score": 15,
       "status": "do not install",
@@ -52,6 +52,7 @@
           "skills/launchdarkly-metric-choose",
           "skills/launchdarkly-metric-create",
           "skills/launchdarkly-metric-instrument",
+          "skills/launchdarkly-release-autopilot-onboarding",
           "skills/launchdarkly-release-autopilot-settings",
           "skills/migrate",
           "skills/onboarding",
@@ -1052,6 +1053,49 @@
           "findings": []
         },
         {
+          "path": "skills/launchdarkly-release-autopilot-onboarding",
+          "score": 65,
+          "risk": 35,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/launchdarkly-release-autopilot-onboarding/SKILL.md",
+              "line": 36
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/launchdarkly-release-autopilot-onboarding/SKILL.md",
+              "line": 63
+            }
+          ],
+          "findings": [
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "skills/launchdarkly-release-autopilot-onboarding/SKILL.md",
+              "line": 204
+            },
+            {
+              "id": "P4",
+              "severity": "MEDIUM",
+              "message": "Behavior Manipulation",
+              "file": "skills/launchdarkly-release-autopilot-onboarding/SKILL.md",
+              "line": 126
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/launchdarkly-release-autopilot-onboarding/references/modes.md",
+              "line": 7
+            }
+          ]
+        },
+        {
           "path": "skills/launchdarkly-release-autopilot-settings",
           "score": 100,
           "risk": 0,
@@ -1072,17 +1116,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/launchdarkly-release-autopilot-settings/SKILL.md",
-              "line": 85
+              "line": 88
             },
             {
               "reason": "reference_missing",
               "path": "skills/launchdarkly-release-autopilot-settings/SKILL.md",
-              "line": 115
+              "line": 118
             },
             {
               "reason": "reference_missing",
               "path": "skills/launchdarkly-release-autopilot-settings/SKILL.md",
-              "line": 116
+              "line": 119
             }
           ],
           "findings": []
@@ -2171,7 +2215,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-29T17:35:56Z"
+      "checkedAt": "2026-10-30T20:39:53Z"
     }
   },
   "agentStacks": {
