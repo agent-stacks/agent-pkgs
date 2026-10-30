@@ -200,8 +200,8 @@ name.
 | `pkgs/<name>/` | One package per plugin; auto-discovered, no central list |
 
 Add a package by dropping a directory into `pkgs/`. You can accomplish
-this by running `agent-stacks import <repo> --out pkgs`. In this
-example, `--out` is the output root and the importer appends
+this by running `agent-stacks import <repo> --pkgs-dir pkgs`. In this
+example, `--pkgs-dir` is the output root and the importer appends
 `agent-plugin-<name>/` to it. See
 [Create an agent-plugin package](docs/guides/create-agent-plugin.md)
 for more details.

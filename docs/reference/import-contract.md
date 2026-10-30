@@ -1,6 +1,6 @@
 # The import → builder contract
 
-This is the call shape `agent-stacks import --out pkgs/` generates into
+This is the call shape `agent-stacks import --pkgs-dir pkgs/` generates into
 `pkgs/agent-plugin-<name>/`, and the passthru schema consumers can
 rely on. `agent-stacks import` (agent-stacks repo) codes against this file;
 `buildAgentPlugin` (this repo) implements it. Change either side only
@@ -169,9 +169,9 @@ and Claude components that are not packaged). `warnings` is omitted
 when empty.
 
 `input` and `flags` are replayed by `agent-stacks import <input>
---replay --out pkgs`: the importer finds every package under `pkgs/`
+--replay --pkgs-dir pkgs`: the importer finds every package under `pkgs/`
 whose `input` names that upstream and applies the `flags` they
-record, refusing any other flag beside `--out` and any disagreement
+record, refusing any other flag beside `--pkgs-dir` and any disagreement
 between those packages. That is the whole of the hourly workflow's
 invocation. Nothing in this repository reads `flags` itself, and the
 `--flag=value` shape is the importer's own: it is what Go's flag

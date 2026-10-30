@@ -13,7 +13,9 @@ flake discovers it with no central list to edit.
 walks through the commands. This skill covers what that guide does not: how
 to start, how to finish, and what to do when the import or the build refuses.
 
-Never hand-edit a generated `source.json` or `default.nix`. A later re-import
+Never hand-edit a generated `default.json` or `default.nix`. (A package
+no agent-stacks binary with ADR 0085 has replayed yet still holds the
+same call as `source.json`; it is moved on its next replay.) A later re-import
 erases the edit, and the hourly replay job is what re-imports.
 
 ## Usage
@@ -45,16 +47,16 @@ when a plugin is installed, and a relative path would not resolve there.
    open the pull request.
 
    One thing the guide does not say: **read the import's stderr.** Discovery
-   drops are printed there and never reach `source.json`. A file not named
+   drops are printed there and never reach `default.json`. A file not named
    exactly `SKILL.md`, or a skill left out because another directory already
    claimed its name, is a warning on the terminal and nothing else. The
    generated package looks clean in review even though something was dropped.
-   Compare the skill count in `source.json` against what you expected from the
+   Compare the skill count in `default.json` against what you expected from the
    upstream repository before you open the pull request.
 
    An upstream that declares several plugins writes several packages in one
    run. **They land together or not at all.** The replay job reads
-   `.import.input` from every `pkgs/agent-plugin-*/source.json` and re-imports
+   `.import.input` from every `pkgs/agent-plugin-*/default.json` and re-imports
    that whole upstream, so a sibling left behind is regenerated within the
    hour by any one of the packages you did commit. If it does not build, the
    scheduled run goes red against a repository nobody touched. When one plugin
@@ -138,7 +140,7 @@ named `<tok>`. There is no table to add a row to (ADR
    the token: `uvx` ships in `uv`, `pwsh` in `powershell`, `Rscript` in `R`,
    `dnx` in `dotnet-sdk_10`.
 2. Re-import with `--dependency <attr>`. The flag is recorded in
-   `source.json`, so a replay keeps it, and it applies to every plugin the
+   `default.json`, so a replay keeps it, and it applies to every plugin the
    import writes. Do not add `dependencies` to `default.nix` by hand: the next
    re-import erases it.
 3. Rebuild. An attribute nixpkgs lacks, or one that does not evaluate on the
