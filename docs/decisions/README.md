@@ -54,4 +54,5 @@ on one of those links to it rather than restating it.
 | [0023](0023-the-plugin-declares-packages-and-the-build-finds-binaries-in-them.md) | The plugin declares packages, and the build finds binaries in them |
 | [0024](0024-a-re-exported-package-can-carry-a-patch.md) | A re-exported package can carry a patch |
 | [0025](0025-a-skills-own-engine-is-built-from-the-skills-source.md) | A skill's own engine is built from the skill's source |
+| [0026](0026-a-servers-dependencies-are-their-own-package.md) | A server's dependencies are their own package |
 | [0027](0027-a-plugin-import-cannot-read-is-written-by-hand.md) | A plugin import cannot read is written by hand |
