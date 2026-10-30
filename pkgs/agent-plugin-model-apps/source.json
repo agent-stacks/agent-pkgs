@@ -1,11 +1,11 @@
 {
   "name": "model-apps",
-  "version": "2.20.5",
+  "version": "2.20.6",
   "src": {
     "owner": "microsoft",
     "repo": "power-platform-skills",
-    "rev": "ad5576ff64c69ce0727027cad1a6f20d095277c0",
-    "hash": "sha256-DrmvNi5V7J7RJG25ZBFlJhRfmhiUE/2X4muzJnyis7w="
+    "rev": "0a55a88fa2855404029d1e5450faf92878baf763",
+    "hash": "sha256-p3FTY5gqtaHJM7807lipygiaP6AapaJ7i23oNeWLuSs="
   },
   "sourceUrl": "https://github.com/microsoft/power-platform-skills",
   "manifest": {
@@ -31,7 +31,7 @@
     "license": "MIT",
     "name": "model-apps",
     "repository": "https://github.com/microsoft/power-platform-skills/",
-    "version": "2.20.5"
+    "version": "2.20.6"
   },
   "skills": {
     "app-builder": "plugins/model-apps/skills/app-builder",
@@ -169,6 +169,10 @@
       {
         "path": "scripts/telemetry-config.js",
         "message": "this is named through ${PLUGIN_ROOT}, or sits at a plugin root a server runs from, and is not in the source; it resolves to nothing wherever the plugin is installed"
+      },
+      {
+        "path": "plugins/model-apps/scripts/vendor/cds-maker-sdk.cjs",
+        "message": "larger than 1MiB, so it was not read; a ${PLUGIN_ROOT} reference inside it ships nothing, and a script only it runs is not reported"
       },
       {
         "path": "scripts/_vendor-build/build-typescript.js",
