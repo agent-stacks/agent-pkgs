@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "mattpocock-skills",
-      "dir": "/nix/store/z1fdnp1y8d1wszc71wlp1i456k1nwc7w-agent-plugin-mattpocock-skills-1.3.2/share/agent-plugins/mattpocock-skills",
+      "dir": "/nix/store/gzxhfj7s5apym191q6z0m6rnxkf4296g-agent-plugin-mattpocock-skills-1.3.2/share/agent-plugins/mattpocock-skills",
       "spec": "1.1.0",
       "score": 38,
       "status": "do not install",
@@ -38,6 +38,7 @@
           "skills/setup-matt-pocock-skills",
           "skills/setup-pre-commit",
           "skills/setup-ts-deep-modules",
+          "skills/software-factory",
           "skills/tdd",
           "skills/teach",
           "skills/to-questionnaire",
@@ -815,6 +816,37 @@
           ]
         },
         {
+          "path": "skills/software-factory",
+          "score": 75,
+          "risk": 25,
+          "status": "caution",
+          "partial": true,
+          "coverage": 83.3,
+          "exceptions": [
+            {
+              "reason": "manifest_parse_error",
+              "path": "skills/software-factory/SKILL.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/software-factory/GIT-HOSTS.md",
+              "line": 83
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/software-factory/RUNNERS.md",
+              "line": 59
+            }
+          ]
+        },
+        {
           "path": "skills/tdd",
           "score": 100,
           "risk": 0,
@@ -1078,7 +1110,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-31T14:31:11Z"
+      "checkedAt": "2026-10-31T15:28:37Z"
     }
   },
   "agentStacks": {
