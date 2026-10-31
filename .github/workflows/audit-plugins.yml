@@ -11,8 +11,9 @@ name: "Audit plugins"
 #                     package with no source.json whose default.nix
 #                     changed; every package when the scoring changed:
 #                     SkillSpector (pkgs/skillspector or the
-#                     skillspector-src input in flake.lock) or the
+#                     skillspector-src input in flake.lock), the
 #                     pinned agent-stacks (pkgs/agent-stacks/source.json)
+#                     or the baseline (scripts/audit-baseline.yaml)
 #   schedule          every package, nightly: the CVE data SkillSpector
 #                     checks against moves without anything here moving
 #   workflow_dispatch one package, or every package when none is named
@@ -33,6 +34,7 @@ on:
       - "pkgs/agent-plugin-*/default.nix"
       - "pkgs/skillspector/**"
       - "pkgs/agent-stacks/source.json"
+      - "scripts/audit-baseline.yaml"
       # The dashboard: publish only, nothing is audited.
       - "scripts/audit-dashboard.py"
       - "scripts/audit-dashboard.html"
@@ -150,6 +152,7 @@ jobs:
               if ! git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
                 all > packages.txt
               elif git diff --quiet "$BEFORE" HEAD -- pkgs/skillspector pkgs/agent-stacks/source.json \
+                  scripts/audit-baseline.yaml \
                 && [ "$(skillspector_rev "$BEFORE")" = "$(skillspector_rev HEAD)" ]; then
                 {
                   git diff --name-only "$BEFORE" HEAD -- 'pkgs/agent-plugin-*/source.json'
@@ -163,7 +166,7 @@ jobs:
                       [ -f "pkgs/$p/default.nix" ] && echo "$p"
                     done > packages.txt || true
               else
-                echo "SkillSpector or agent-stacks changed; auditing every package"
+                echo "SkillSpector, agent-stacks or the baseline changed; auditing every package"
                 all > packages.txt
               fi
               ;;

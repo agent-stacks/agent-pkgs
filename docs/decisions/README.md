@@ -55,3 +55,4 @@ on one of those links to it rather than restating it.
 | [0024](0024-a-re-exported-package-can-carry-a-patch.md) | A re-exported package can carry a patch |
 | [0025](0025-a-skills-own-engine-is-built-from-the-skills-source.md) | A skill's own engine is built from the skill's source |
 | [0027](0027-a-plugin-import-cannot-read-is-written-by-hand.md) | A plugin import cannot read is written by hand |
+| [0028](0028-the-audit-leaves-out-what-a-reviewed-baseline-lists.md) | The audit leaves out what a reviewed baseline lists |

@@ -17,6 +17,14 @@ the agent-stacks repo, `docs/reference/audit-command.md`. The
 `{ "version": … }`, what `agent-stacks --version` printed for the CLI
 that audited.
 
+A component is a skill, or, with a CLI that carries
+agent-stacks-cli #212, anything else the plugin carries: an entry of
+`com.anthropic.claude-code/` (hooks, agents, commands, workflows),
+`scripts/`, upstream's own files in `bin/`. With such a CLI the score
+also leaves out what [the baseline](#the-baseline) lists: each
+component's `suppressed` holds those findings, with the baseline's
+reason, and `tool.baseline.sha256` names the baseline by its content.
+
 When the plugin could not be audited for a reason of its own (the
 CLI exited 3 with `nothing to audit`, `not an agent plugin…` or
 `cannot read the plugin: …`), the file says so instead:
@@ -44,7 +52,7 @@ under it. A package with no `audit.json` has not been audited yet.
 | Trigger | Packages audited |
 | ------- | ---------------- |
 | Push to main changing `pkgs/agent-plugin-*/source.json` | The packages whose `source.json` changed |
-| Push to main changing `pkgs/skillspector/`, the `skillspector-src` input or `pkgs/agent-stacks/source.json` | Every package |
+| Push to main changing `pkgs/skillspector/`, the `skillspector-src` input, `pkgs/agent-stacks/source.json` or `scripts/audit-baseline.yaml` | Every package |
 | Nightly | Every package |
 | Manual dispatch | The named package, or every package |
 
@@ -82,19 +90,51 @@ It is passed as `--scan-timeout` only when the pinned CLI lists that
 flag in `audit --help` (agent-stacks-cli #192); an older pin keeps
 its fixed 5 minutes.
 
+The scores leave out what `scripts/audit-baseline.yaml` lists
+(below). `AUDIT_BASELINE` names another file, or none when empty. It
+is passed as `--baseline` only when the pinned CLI lists that flag
+in `audit --help` (agent-stacks-cli #212); an older pin scores every
+finding. A baseline named but missing stops the script, exit 2.
+
 It prints `agent-plugin-humanizer: new|changed|unchanged (<score>)`.
 The pinned CLI has to carry agent-stacks-cli #186. With an older
 one the script finds no readable result, exits 2 and writes nothing.
+
+## The baseline
+
+`scripts/audit-baseline.yaml` lists the SkillSpector rules every
+plugin's score leaves out
+([ADR 0028](../decisions/0028-the-audit-leaves-out-what-a-reviewed-baseline-lists.md)).
+It is SkillSpector's baseline format; each rule carries the reason
+it is there. A matched finding is dropped before SkillSpector scores
+the component, and kept in `audit.json` under `suppressed`, so
+nothing it hides is lost.
+
+| Rule | Left out | Why |
+| ---- | -------- | --- |
+| AE1 | everywhere | One per `reference_missing` exception: version strings, dotted ids, example paths, sibling skills. The exceptions stay listed. |
+| P9 | in `*.md` | Aligned Markdown table columns. Code keeps the rule. |
+| LP3 | in `*SKILL.md` | No `allowed-tools` declared, on nearly every upstream skill. |
+
+A rule belongs here when, across the recorded audits, it matches
+ordinary text far more often than risk. A finding accepted in one
+plugin does not: SkillSpector matches a rule's `path` inside each
+component, so a rule cannot name one skill. Changing the file
+re-audits every package.
 
 ## Reading them: the dashboard
 
 <https://agent-stacks.github.io/agent-pkgs/> shows every `audit.json`
 on main in one page. Plugins are ranked by how affected they are
 (lowest score, then most critical and most high findings), with
-filters by status, rule and name. A plugin opens to its skills, worst
-first, with the findings grouped by rule. Each finding links to its
-file and line in the upstream repository, at the revision that was
-audited. Each plugin has its own address, `#agent-plugin-<name>`.
+filters by status, rule and name. A plugin opens to its components,
+worst first, with the findings grouped by rule. Each finding links
+to its file and line in the upstream repository, at the revision
+that was audited: a skill at its path in `source.json`'s `skills`,
+anything else at its path in `pluginRootPaths`. What the baseline
+left out is under each component, closed, with the baseline's
+reason, and counted apart from the scored findings. Each plugin has
+its own address, `#agent-plugin-<name>`.
 
 `audit-plugins.yml` publishes it to GitHub Pages in the same run that
 records the audits: once `record` has pushed, `page` builds it from
