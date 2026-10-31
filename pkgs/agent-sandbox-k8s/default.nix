@@ -127,12 +127,14 @@
 
     # <agent>-<project folder>-<5 random>, as a DNS label: two launches
     # from one folder never share a name.
-    dns() { tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]/-/g; s/--*/-/g; s/^-//; s/-$//'; }
+    # The labels take the same form, at most 63 characters.
+    dns() { tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]/-/g; s/--*/-/g; s/^-//; s/-$//' | cut -c1-63 | sed 's/-*$//'; }
     project=$(basename "$(pwd -P)" | dns)
+    agent_label=$(dns <<<"$agent")
     suffix=""
     alnum=abcdefghijklmnopqrstuvwxyz0123456789
     for _ in 1 2 3 4 5; do suffix+=''${alnum:RANDOM%36:1}; done
-    prefix=$(printf '%s-%s' "$(dns <<<"$agent")" "$project" | cut -c1-57 | sed 's/-*$//')
+    prefix=$(printf '%s-%s' "$agent_label" "$project" | cut -c1-57 | sed 's/-*$//')
     sandbox_name=$prefix-$suffix
 
     # What the session Secret holds, values in memory only. The Claude
@@ -170,7 +172,7 @@
         *s) secs=$n ;; *m) secs=$((n * 60)) ;; *h) secs=$((n * 3600)) ;; *d) secs=$((n * 86400)) ;;
       esac
       shutdown=$(date -u -d "@$(( $(date +%s) + secs ))" +%Y-%m-%dT%H:%M:%SZ)
-      jq -n --arg n "$sandbox_name" --arg ns "$namespace" --arg agent "$agent" \
+      jq -n --arg n "$sandbox_name" --arg ns "$namespace" --arg agent "$agent_label" \
         --arg project "$project" --arg env "$env_ref" --arg shutdown "$shutdown" \
         --argjson keys "$(jq -c keys <<<"$secret_data")" '
         ($keys - ["floxhub-token"]) as $login
@@ -232,42 +234,65 @@
 
     # Stage /workspace in a temporary folder, and only when all of it
     # arrived replace the project folder's contents with it, deletions
-    # included. .git is never copied either way.
+    # included. .git is never copied either way. Returns 0 when copied
+    # back; 1 when nothing was copied, the folder unchanged; 2 when the
+    # pod is not the session's (replaced, or gone at its ttl), the folder
+    # unchanged; 3 when the replace failed part way, the stage kept in
+    # $stage.
+    stage=""
     copy_workspace_back() {
-      local stage
+      local now
+      now=$("''${k[@]}" get pod "$sandbox_name" -o jsonpath='{.metadata.uid}' 2>/dev/null) || now=""
+      [ -n "$now" ] && [ "$now" = "$pod_uid" ] || return 2
       stage=$(mktemp -d)
-      if "''${k[@]}" exec "$sandbox_name" -c agent -- tar -C /workspace -cf - . >"$stage.tar" &&
-        tar -C "$stage" -xf "$stage.tar"; then
-        rm -rf "$stage/.git"
-        find "$here" -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
-        cp -a "$stage/." "$here/"
-        rm -rf "$stage" "$stage.tar"
-      else
+      if ! { "''${k[@]}" exec "$sandbox_name" -c agent -- tar -C /workspace -cf - . >"$stage.tar" &&
+        tar -C "$stage" -xf "$stage.tar"; }; then
         rm -rf "$stage" "$stage.tar"
         return 1
       fi
+      rm -rf "$stage/.git" "$stage.tar"
+      find "$here" -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} + &&
+        cp -a "$stage/." "$here/" || return 3
+      rm -rf "$stage"
     }
 
     # Runs once, on any exit: stops the agent, copies back, and deletes
-    # the Sandbox (Kubernetes deletes the Secret it owns). If the copy
-    # back fails the Sandbox holds the only copy, so it is kept, for its
-    # ttl, and how to recover is printed.
-    created="" copied_in="" agent_pid="" cleaned=""
+    # the Sandbox (Kubernetes deletes the Secret it owns). Signals are
+    # ignored from here, so a second Ctrl-C cannot stop a copy back half
+    # way. While the Sandbox holds the only copy it is kept, for its ttl,
+    # and how to recover is printed.
+    created="" copied_in="" agent_pid="" cleaned="" pod_uid=""
     cleanup() {
+      local rc=0
       [ -z "$cleaned" ] || return 0
       cleaned=1
+      trap "" INT TERM HUP
       [ -z "$agent_pid" ] || kill "$agent_pid" 2>/dev/null || true
       [ -n "$created" ] || return 0
-      if [ "$copy_back" = true ] && [ -n "$copied_in" ] && ! copy_workspace_back; then
-        {
-          echo "agent-sandbox-k8s: could not copy /workspace back; $here is unchanged and $sandbox_name is kept until its ttl. To fetch the files, then remove it:"
-          echo "  $show exec $sandbox_name -c agent -- tar -C /workspace -cf - . | tar -xf - -C <folder>"
-          echo "  $show delete sandbox $sandbox_name"
-        } >&2
-        return 1
+      if [ "$copy_back" = true ] && [ -n "$copied_in" ]; then
+        copy_workspace_back || rc=$?
       fi
+      case $rc in
+        2)
+          echo "agent-sandbox-k8s: the pod of $sandbox_name was replaced or is gone (its ttl may have passed), so its /workspace is not this session's; $here is unchanged" >&2
+          ;;
+        1 | 3)
+          {
+            if [ "$rc" = 1 ]; then
+              echo "agent-sandbox-k8s: could not copy /workspace back; $here is unchanged."
+            else
+              echo "agent-sandbox-k8s: could not replace the contents of $here, which may be partly replaced; the sandbox's /workspace is saved in $stage"
+            fi
+            echo "$sandbox_name is kept until its ttl. To fetch the files, then remove it:"
+            echo "  $show exec $sandbox_name -c agent -- tar -C /workspace -cf - . | tar -xf - -C <folder>"
+            echo "  $show delete sandbox $sandbox_name"
+          } >&2
+          return 1
+          ;;
+      esac
       "''${k[@]}" delete sandbox "$sandbox_name" --wait=false >/dev/null 2>&1 ||
         echo "agent-sandbox-k8s: could not delete $sandbox_name: $show delete sandbox $sandbox_name" >&2
+      [ "$rc" = 0 ]
     }
     on_exit() {
       local rc=$?
@@ -286,13 +311,17 @@
       secret_manifest base64 | jq -c --arg uid "$uid" '.metadata.ownerReferences = [{
           apiVersion: "agents.x-k8s.io/v1beta1", kind: "Sandbox",
           name: .metadata.name, uid: $uid, controller: true }]' |
-        "''${k[@]}" apply -f - >/dev/null ||
+        "''${k[@]}" create -f - >/dev/null ||
         die "could not create the Secret for $sandbox_name"
     fi
 
-    echo "agent-sandbox-k8s: starting $sandbox_name in $namespace with $env_ref (the first pull of an environment on a node can take a few minutes)" >&2
+    echo "agent-sandbox-k8s: starting $sandbox_name in $namespace with $env_ref (the first pull of an environment on a node can take a few minutes); it is removed at its ttl ($(jq -r .ttl <<<"$opts")), even while in use" >&2
     "''${k[@]}" wait --for=condition=Ready "sandbox/$sandbox_name" --timeout=10m >/dev/null ||
       die "$sandbox_name did not become ready; see: $show describe sandbox $sandbox_name"
+    # Copy back only from this pod: one that replaced it has a /workspace
+    # without the session's work.
+    pod_uid=$("''${k[@]}" get pod "$sandbox_name" -o jsonpath='{.metadata.uid}') && [ -n "$pod_uid" ] ||
+      die "cannot read the pod of $sandbox_name"
 
     if [ "$copy_in" = true ]; then
       "''${k[@]}" exec "$sandbox_name" -c agent -- tar --version >/dev/null 2>&1 ||

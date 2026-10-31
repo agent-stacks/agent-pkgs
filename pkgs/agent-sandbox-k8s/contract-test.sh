@@ -130,6 +130,11 @@ sandbox | jq -e '.metadata.name | test("^claude-my-project-2-[a-z0-9]{5}$")' >/d
 (cd "$root/$(printf 'a%.0s' {1..100})" && dry --options "$env_opt" -- claude) >out 2>err || fail "dry run: $(cat err)"
 sandbox | jq -e '.metadata.name | (length <= 63) and test("^[a-z0-9]([a-z0-9-]*[a-z0-9])?$")' >/dev/null ||
   fail "long name: $(sandbox | jq .metadata.name)"
+sandbox | jq -e '.metadata.labels["agent-sandbox-k8s/project"] | (length <= 63) and test("^[a-z0-9]([a-z0-9-]*[a-z0-9])?$")' >/dev/null ||
+  fail "long project label: $(sandbox | jq .metadata.labels)"
+dry --options "$env_opt" -- /x/Weird_Agent.SH >out 2>err || fail "dry run: $(cat err)"
+sandbox | jq -e '.metadata.labels["agent-sandbox-k8s/agent"] | test("^[a-z0-9]([a-z0-9-]*[a-z0-9])?$")' >/dev/null ||
+  fail "agent label: $(sandbox | jq .metadata.labels)"
 
 # Forwarded credentials go in the Secret, and never in the output.
 login='{"environment":"garbas/claude-sandbox","forwardLogin":true}'
@@ -165,16 +170,24 @@ sandbox | jq -e --arg n "$name" '.spec.podTemplate.spec
 
 # Logs each call, one line of argv, to $STUB_LOG. The pod's /workspace
 # is $STUB_POD. STUB_NO_TAR, STUB_BAD_BACK, STUB_HANG and
-# STUB_AGENT_EXIT change what it does; STUB_AGENT_HOOK runs as the agent.
+# STUB_AGENT_EXIT change what it does; STUB_AGENT_HOOK runs as the agent;
+# STUB_TERM_ON_BACK signals the launcher in the middle of the copy back.
 cat >"$root/bin/kubectl" <<'EOF'
 #!/usr/bin/env bash
 echo "$*" >>"$STUB_LOG"
 args=("$@")
 while [ "${args[0]}" = --context ] || [ "${args[0]}" = -n ]; do args=("${args[@]:2}"); done
 case "${args[0]}" in
-  get | wait | delete) exit 0 ;;
-  create) cat >"$STUB_POD.sandbox.json"; echo "uid-123"; exit 0 ;;
-  apply) cat >"$STUB_POD.secret.json"; exit 0 ;;
+  get)
+    # The pod's uid: what $STUB_POD.uid holds, as the agent may replace it.
+    [ "${args[1]}" != pod ] || cat "$STUB_POD.uid" 2>/dev/null || echo pod-1
+    exit 0 ;;
+  wait | delete) exit 0 ;;
+  create)
+    in=$(cat)
+    if [ "$(jq -r .kind <<<"$in")" = Secret ]; then echo "$in" >"$STUB_POD.secret.json"
+    else echo "$in" >"$STUB_POD.sandbox.json"; echo "uid-123"; fi
+    exit 0 ;;
   exec)
     while [ "${args[0]}" != -- ]; do args=("${args[@]:1}"); done
     remote="${args[*]:1}"
@@ -189,6 +202,7 @@ case "${args[0]}" in
         fi
         mkdir -p "$STUB_POD" && tar -C "$STUB_POD" -xf "$STUB_POD.in.tar" ;;
       "tar -C /workspace -cf - ."*)
+        [ -z "${STUB_TERM_ON_BACK:-}" ] || kill -TERM "$PPID"
         if [ -n "${STUB_BAD_BACK:-}" ]; then echo "not a tar"; else tar -C "$STUB_POD" -cf - .; fi ;;
       *)
         [ -z "${STUB_AGENT_HOOK:-}" ] || "$STUB_AGENT_HOOK"
@@ -204,6 +218,7 @@ export AGENT_SANDBOX_K8S_KUBECTL=$root/bin/kubectl
 
 # A fresh project and pod for each run.
 fresh() {
+  chmod -R u+w "$root/live" "$root"/pod* 2>/dev/null || true
   rm -rf "$root/live" "$root/pod" "$root/pod".*.json "$root/log"
   mkdir -p "$root/live/.git" "$root/live/sub"
   echo a >"$root/live/a.txt"
@@ -238,6 +253,8 @@ called 'exec -i [^ ]* -c agent -- env -C /workspace claude --version' || fail "a
 [ ! -e "$root/pod/.git" ] || fail ".git copied in"
 called 'tar -C /workspace -cf' && fail "copied back without copyWorkspaceBack"
 jq -e '.kind == "Sandbox"' "$root/pod.sandbox.json" >/dev/null || fail "no Sandbox created"
+# The ttl ends a session still in use too, so the user is told.
+grep -q 'removed at its ttl (4h)' err || fail "ttl not said at start: $(cat err)"
 
 # The Secret comes after the Sandbox, owned by it.
 fresh
@@ -247,6 +264,8 @@ jq -e '.data.ANTHROPIC_API_KEY == ("sk-test-value-123" | @base64)
   and .metadata.ownerReferences == [{apiVersion: "agents.x-k8s.io/v1beta1", kind: "Sandbox",
     name: .metadata.name, uid: "uid-123", controller: true}]' "$root/pod.secret.json" >/dev/null ||
   fail "session Secret: $(cat "$root/pod.secret.json")"
+# apply would keep the values in the last-applied-configuration annotation.
+called ' apply ' && fail "the Secret was applied, not created"
 
 # Copy back: additions and deletions arrive, .git is left alone.
 back='{"environment":"garbas/claude-sandbox","copyWorkspaceBack":true}'
@@ -290,6 +309,43 @@ until called '-- env -C /workspace claude'; do sleep 0.1; done
 kill -TERM "$pid"
 if wait "$pid"; then fail "TERM reported success"; else rc=$?; fi
 called 'delete sandbox' || fail "not deleted after TERM (exit $rc): $(cat err; cat "$root/log")"
+
+# A pod replaced during the session holds a /workspace that is not the
+# session's: nothing is copied back from it.
+cat >"$root/bin/agent-replaces-pod" <<'EOF2'
+#!/usr/bin/env bash
+echo pod-2 >"$STUB_POD.uid"; rm -rf "${STUB_POD:?}"/*
+EOF2
+chmod +x "$root/bin/agent-replaces-pod"
+fresh
+if STUB_AGENT_HOOK=$root/bin/agent-replaces-pod run --options "$back" -- claude >/dev/null 2>err; then
+  fail "copied back from a replaced pod"
+fi
+[ -f "$root/live/a.txt" ] && [ -f "$root/live/sub/gone.txt" ] || fail "folder emptied from a replaced pod"
+grep -q replaced err || fail "no reason for a replaced pod: $(cat err)"
+
+# A folder that cannot be replaced (a read-only folder in it) keeps the
+# sandbox, and the copy that arrived, and says where it is.
+cat >"$root/bin/agent-writes-ro" <<'EOF2'
+#!/usr/bin/env bash
+chmod u+w "$STUB_POD/ro"; echo new >"$STUB_POD/ro/new"
+EOF2
+chmod +x "$root/bin/agent-writes-ro"
+fresh
+mkdir "$root/live/ro" && echo f >"$root/live/ro/f" && chmod 555 "$root/live/ro"
+if STUB_AGENT_HOOK=$root/bin/agent-writes-ro run --options "$back" -- claude >/dev/null 2>err; then
+  fail "a failed replace reported success"
+fi
+called 'delete sandbox' && fail "deleted the sandbox after a failed replace"
+saved=$(sed -n 's/^.*saved in \(.*\)$/\1/p' err)
+[ -n "$saved" ] && [ "$(cat "$saved/ro/new" 2>/dev/null)" = new ] || fail "the copy back was not kept: $(cat err)"
+chmod -R u+w "$saved"
+
+# A signal during the copy back does not stop it halfway.
+fresh
+if STUB_TERM_ON_BACK=1 STUB_AGENT_HOOK=$root/bin/agent-edits run --options "$back" -- claude >/dev/null 2>err; then :; fi
+[ "$(cat "$root/live/new.txt" 2>/dev/null)" = new ] || fail "copy back stopped by a signal: $(cat err)"
+called 'delete sandbox' || fail "not deleted after a signal during copy back"
 
 # The project folder is copied, so / or ~ would copy everything.
 for top in / "$HOME"; do
