@@ -28,12 +28,16 @@
   gnutar,
   gnused,
   gnugrep,
+  findutils,
   kubectl,
 }:
 
 (writeShellApplication {
   name = "agent-sandbox-k8s";
-  runtimeInputs = [ jq coreutils gnutar gnused gnugrep ];
+  runtimeInputs = [ jq coreutils findutils gnutar gnused gnugrep ];
+  # The cleanup functions are called only from the EXIT trap, which
+  # ShellCheck does not follow.
+  excludeShellChecks = [ "SC2329" ];
   text = ''
     die() {
       echo "agent-sandbox-k8s: $*" >&2
@@ -80,6 +84,16 @@
       die "ttl must be a number and a unit (s, m, h, d), such as 30m or 8h"
     jq -e '.copyWorkspaceBack and (.copyWorkspace | not)' >/dev/null <<<"$opts" &&
       die "copyWorkspaceBack needs copyWorkspace: there is nothing to copy back"
+    copy_in=$(jq -r .copyWorkspace <<<"$opts")
+    copy_back=$(jq -r .copyWorkspaceBack <<<"$opts")
+
+    # The project folder is copied in (and back over), so starting at / or
+    # ~ would copy the whole disk or home folder.
+    here=$(pwd -P)
+    if [ "$copy_in" = true ] &&
+      { [ "$here" = / ] || [ "$here" = "$(cd "$HOME" 2>/dev/null && pwd -P)" ]; }; then
+      die "refusing to start in $here: the project folder is copied into the sandbox, so start from a project folder instead"
+    fi
 
     # The shim pulls the pod's environment from FloxHub by name, so the
     # launch environment must be pushed, and is pinned to the generation
@@ -197,13 +211,110 @@
         }'
     }
 
+    ctx=()
+    context=$(jq -r '.context // empty' <<<"$opts")
+    [ -z "$context" ] || ctx=(--context "$context")
+    k=("$kubectl" "''${ctx[@]}" -n "$namespace")
+    # kubectl as the user would type it, for messages.
+    show="kubectl''${context:+ --context $context} -n $namespace"
+
     if [ -n "''${AGENT_SANDBOX_K8S_DRY_RUN:-}" ]; then
       [ "$secret_data" = "{}" ] || secret_manifest redact
       sandbox_manifest
-      echo "would run: $kubectl … -- $*" >&2
+      echo "would run: $show create -f - (the Sandbox), then exec $sandbox_name -- env -C /workspace $agent ''${*:2}" >&2
       exit 0
     fi
-    die "not implemented yet"
+
+    "$kubectl" "''${ctx[@]}" get namespace "$namespace" -o name >/dev/null 2>&1 ||
+      die "namespace $namespace not found''${context:+ in $context}: create it, or name another with the namespace option"
+    "$kubectl" "''${ctx[@]}" get crd sandboxes.agents.x-k8s.io -o name >/dev/null 2>&1 ||
+      die "agent-sandbox is not installed in the cluster (no Sandbox resource): see https://agent-sandbox.sigs.k8s.io/"
+
+    # Stage /workspace in a temporary folder, and only when all of it
+    # arrived replace the project folder's contents with it, deletions
+    # included. .git is never copied either way.
+    copy_workspace_back() {
+      local stage
+      stage=$(mktemp -d)
+      if "''${k[@]}" exec "$sandbox_name" -c agent -- tar -C /workspace -cf - . >"$stage.tar" &&
+        tar -C "$stage" -xf "$stage.tar"; then
+        rm -rf "$stage/.git"
+        find "$here" -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+        cp -a "$stage/." "$here/"
+        rm -rf "$stage" "$stage.tar"
+      else
+        rm -rf "$stage" "$stage.tar"
+        return 1
+      fi
+    }
+
+    # Runs once, on any exit: stops the agent, copies back, and deletes
+    # the Sandbox (Kubernetes deletes the Secret it owns). If the copy
+    # back fails the Sandbox holds the only copy, so it is kept, for its
+    # ttl, and how to recover is printed.
+    created="" copied_in="" agent_pid="" cleaned=""
+    cleanup() {
+      [ -z "$cleaned" ] || return 0
+      cleaned=1
+      [ -z "$agent_pid" ] || kill "$agent_pid" 2>/dev/null || true
+      [ -n "$created" ] || return 0
+      if [ "$copy_back" = true ] && [ -n "$copied_in" ] && ! copy_workspace_back; then
+        {
+          echo "agent-sandbox-k8s: could not copy /workspace back; $here is unchanged and $sandbox_name is kept until its ttl. To fetch the files, then remove it:"
+          echo "  $show exec $sandbox_name -c agent -- tar -C /workspace -cf - . | tar -xf - -C <folder>"
+          echo "  $show delete sandbox $sandbox_name"
+        } >&2
+        return 1
+      fi
+      "''${k[@]}" delete sandbox "$sandbox_name" --wait=false >/dev/null 2>&1 ||
+        echo "agent-sandbox-k8s: could not delete $sandbox_name: $show delete sandbox $sandbox_name" >&2
+    }
+    on_exit() {
+      local rc=$?
+      cleanup || { [ "$rc" != 0 ] || rc=1; }
+      exit "$rc"
+    }
+    trap on_exit EXIT
+    trap 'exit 130' INT
+    trap 'exit 143' TERM
+    trap 'exit 129' HUP
+
+    uid=$(sandbox_manifest | "''${k[@]}" create -f - -o jsonpath='{.metadata.uid}') ||
+      die "could not create the Sandbox $sandbox_name in $namespace"
+    created=1
+    if [ "$secret_data" != "{}" ]; then
+      secret_manifest base64 | jq -c --arg uid "$uid" '.metadata.ownerReferences = [{
+          apiVersion: "agents.x-k8s.io/v1beta1", kind: "Sandbox",
+          name: .metadata.name, uid: $uid, controller: true }]' |
+        "''${k[@]}" apply -f - >/dev/null ||
+        die "could not create the Secret for $sandbox_name"
+    fi
+
+    echo "agent-sandbox-k8s: starting $sandbox_name in $namespace with $env_ref (the first pull of an environment on a node can take a few minutes)" >&2
+    "''${k[@]}" wait --for=condition=Ready "sandbox/$sandbox_name" --timeout=10m >/dev/null ||
+      die "$sandbox_name did not become ready; see: $show describe sandbox $sandbox_name"
+
+    if [ "$copy_in" = true ]; then
+      "''${k[@]}" exec "$sandbox_name" -c agent -- tar --version >/dev/null 2>&1 ||
+        die "$env_ref has no tar, which copying the project folder needs: add gnutar to it, or set copyWorkspace to false"
+      tar -C "$here" --exclude=./.git -cf - . |
+        "''${k[@]}" exec -i "$sandbox_name" -c agent -- tar -C /workspace -xf - ||
+        die "could not copy $here into $sandbox_name"
+      copied_in=1
+    fi
+
+    # Not exec'd, unlike the other sandboxes: this stays to copy back and
+    # clean up. In the background so a signal reaches the trap at once;
+    # stdin given explicitly, as a background job would get /dev/null.
+    it=-i
+    if [ -t 0 ] && [ -t 1 ]; then it=-it; fi
+    echo "agent-sandbox-k8s: running $agent in $sandbox_name" >&2
+    "''${k[@]}" exec "$it" "$sandbox_name" -c agent -- env -C /workspace "$agent" "''${@:2}" <&0 &
+    agent_pid=$!
+    status=0
+    wait "$agent_pid" || status=$?
+    agent_pid=""
+    exit "$status"
   '';
 }).overrideAttrs (old: {
   meta = (old.meta or { }) // {
