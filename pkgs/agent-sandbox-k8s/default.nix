@@ -297,7 +297,10 @@
     if [ "$copy_in" = true ]; then
       "''${k[@]}" exec "$sandbox_name" -c agent -- tar --version >/dev/null 2>&1 ||
         die "$env_ref has no tar, which copying the project folder needs: add gnutar to it, or set copyWorkspace to false"
-      tar -C "$here" --exclude=./.git -cf - . |
+      # The folder's entries, not the folder: /workspace is an emptyDir the
+      # pod's user does not own, so tar may not set its mode or times.
+      (cd "$here" && find . -mindepth 1 -maxdepth 1 ! -name .git -print0 |
+        tar --null -T - -cf -) |
         "''${k[@]}" exec -i "$sandbox_name" -c agent -- tar -C /workspace -xf - ||
         die "could not copy $here into $sandbox_name"
       copied_in=1

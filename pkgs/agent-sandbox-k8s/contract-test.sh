@@ -180,7 +180,14 @@ case "${args[0]}" in
     remote="${args[*]:1}"
     case "$remote" in
       "tar --version") [ -z "${STUB_NO_TAR:-}" ] ;;
-      "tar -C /workspace -xf -") mkdir -p "$STUB_POD" && tar -C "$STUB_POD" -xf - ;;
+      # As uid 1000, tar may not touch /workspace itself (an emptyDir it does
+      # not own), so an archive holding "./" fails there, as it does here.
+      "tar -C /workspace -xf -")
+        cat >"$STUB_POD.in.tar"
+        if tar -tf "$STUB_POD.in.tar" | grep -qx '\./'; then
+          echo "tar: .: Cannot change mode: Operation not permitted" >&2; exit 2
+        fi
+        mkdir -p "$STUB_POD" && tar -C "$STUB_POD" -xf "$STUB_POD.in.tar" ;;
       "tar -C /workspace -cf - ."*)
         if [ -n "${STUB_BAD_BACK:-}" ]; then echo "not a tar"; else tar -C "$STUB_POD" -cf - .; fi ;;
       *)
