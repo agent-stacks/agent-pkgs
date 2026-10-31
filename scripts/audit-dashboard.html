@@ -137,6 +137,10 @@ details.skill[open] > summary { border-bottom: 1px solid var(--line); background
 .locs a, .locs span { font-family: var(--mono); font-size: 0.78rem; overflow-wrap: anywhere; }
 .more { justify-self: start; border: 0; background: none; color: var(--accent); cursor: pointer; padding: 2px 0; font-size: 0.8rem; text-decoration: underline; }
 .exc { font-size: 0.8rem; color: var(--muted); display: grid; gap: 2px; }
+details.sup { display: grid; gap: 8px; border-top: 1px dashed var(--line); padding-top: 8px; }
+details.sup > summary { cursor: pointer; }
+details.sup .locs { --c: var(--line); }
+details.sup .group { opacity: 0.85; margin-top: 8px; }
 .empty { color: var(--muted); padding: 24px; text-align: center; }
 .why { border: 1px solid var(--line); border-left: 4px solid var(--low); border-radius: 8px; padding: 12px; }
 
@@ -229,8 +233,12 @@ for (const p of DATA.plugins) {
       p.rules.set(f[0], (p.rules.get(f[0]) || 0) + 1);
     }
     k.total = k.f.length;
+    // Findings a baseline dropped before scoring; absent in records
+    // written before the CLI took a baseline.
+    k.sup = k.sup || [];
   }
   p.total = p.k.reduce((a, k) => a + k.total, 0);
+  p.sup = p.k.reduce((a, k) => a + k.sup.length, 0);
   p.st = p.st || (p.why ? "could not audit" : "unknown");
   p.hay = (p.p + " " + p.k.map(k => k.n).join(" ")).toLowerCase();
 }
@@ -271,6 +279,7 @@ document.getElementById("kpis").innerHTML = [
   [fmt(totals.CRITICAL), "critical findings", "crit"],
   [fmt(totals.HIGH), "high findings", "high"],
   [fmt(totals.MEDIUM + totals.LOW), "medium and low", ""],
+  [fmt(DATA.plugins.reduce((a, p) => a + p.sup, 0)), "suppressed by the baseline", ""],
   [fmt(DATA.unaudited.length), "packages with no audit yet", ""]
 ].map(([v, l, c]) => `<div class="kpi ${c}"><b>${v}</b><span>${l}</span></div>`).join("");
 
@@ -340,7 +349,7 @@ function itemHtml(p) {
       <div class="imeta"><span style="color:${STATUSVAR[p.st] || "var(--muted)"}">${esc(p.st)}</span>
         ${p.c.CRITICAL ? `<span class="n-c tab">${p.c.CRITICAL} crit</span>` : ""}
         ${p.c.HIGH ? `<span class="n-h tab">${p.c.HIGH} high</span>` : ""}
-        <span class="tab">${fmt(p.total)} total</span><span>${p.k.length} skill${p.k.length === 1 ? "" : "s"}</span>${ruleN}</div>
+        <span class="tab">${fmt(p.total)} total</span><span>${p.k.length} component${p.k.length === 1 ? "" : "s"}</span>${ruleN}</div>
       ${sevBar(p.c, p.total)}
     </div></button>`;
 }
@@ -414,6 +423,7 @@ function renderDetail(keepOpen) {
           <a href="${ghAudit(p)}" target="_blank" rel="noopener">audit.json ↗</a>
           <a href="${ghHistory(p)}" target="_blank" rel="noopener">Audit history ↗</a>
           <a href="${ghPkg(p)}" target="_blank" rel="noopener">Package ↗</a>
+          ${p.base ? `<span class="mono" title="SHA-256 of the baseline the score was computed under">baseline ${esc(p.base.slice(0, 12))}</span>` : ""}
         </div>
         <div class="actions">
           <button class="btn${isRev ? " on" : ""}" data-review="${esc(p.p)}">${isRev ? "✓ Reviewed" : "Mark reviewed"}</button>
@@ -428,11 +438,11 @@ function renderDetail(keepOpen) {
         <span class="tab" style="font-size:.8rem">${SEVS.map(s => `<span class="n-${SEVKS(s)}">${fmt(p.c[s])} ${s.toLowerCase()}</span>`).join(" · ")}</span></div>
       ${sevBar(p.c, p.total)}
     </div>
-    ${rules.length ? `<div style="display:grid;gap:8px"><span class="sectiontitle">Rules in this plugin · click to filter the skills below</span>
+    ${rules.length ? `<div style="display:grid;gap:8px"><span class="sectiontitle">Rules in this plugin · click to filter the components below</span>
       <div class="rulesgrid">${rules.map(([ri, n]) => { const r = RULES[ri]; return `<button class="rbtn" data-drule="${ri}" aria-pressed="${state.detailRule === ri}" style="--c:${SEVVAR[r[1]]}" title="${esc(r[1])}"><b>${esc(r[0])}</b> ${esc(r[2] || "")} <span class="tab">${fmt(n)}</span></button>`; }).join("")}</div></div>` : ""}
     <div style="display:grid;gap:8px">
-      <span class="sectiontitle">Skills, worst first${state.detailRule != null ? ` · only those with ${esc(RULES[state.detailRule][0])}` : ""}</span>
-      <div class="skills">${skills.map(k => skillHtml(p, k, open ? open.has(k.n) : k.n === firstOpen)).join("") || `<div class="empty">No skills recorded.</div>`}</div>
+      <span class="sectiontitle">Components, worst first${state.detailRule != null ? ` · only those with ${esc(RULES[state.detailRule][0])}` : ""}</span>
+      <div class="skills">${skills.map(k => skillHtml(p, k, open ? open.has(k.n) : k.n === firstOpen)).join("") || `<div class="empty">No components recorded.</div>`}</div>
     </div>`;
 }
 const SEVKS = s => SEVK[s];
@@ -442,7 +452,7 @@ function skillHtml(p, k, isOpen) {
     <summary>
       <div class="sscore" style="--sc:${scoreColor(k.s)}">${k.s ?? "–"}</div>
       <div style="min-width:0"><div class="sname">${esc(k.n)}</div>
-        <div class="smeta"><span style="color:${STATUSVAR[k.st] || "var(--muted)"}">${esc(k.st || "")}</span>${k.cov != null ? `<span>coverage ${k.cov}%</span>` : ""}${k.part ? `<span>partly scanned</span>` : ""}${k.up ? `<span class="mono">${esc(k.up)}</span>` : ""}</div>
+        <div class="smeta"><span style="color:${STATUSVAR[k.st] || "var(--muted)"}">${esc(k.st || "")}</span>${k.cov != null ? `<span>coverage ${k.cov}%</span>` : ""}${k.part ? `<span>partly scanned</span>` : ""}${k.sup.length ? `<span>${fmt(k.sup.length)} suppressed</span>` : ""}${k.up ? `<span class="mono">${esc(k.up)}</span>` : ""}</div>
         ${sevBar(k.c, k.total)}</div>
       <div class="scount tab">${SEVS.filter(s => k.c[s]).map(s => `<span class="n-${SEVK[s]}">${k.c[s]} ${s[0]}</span>`).join("") || `<span style="color:var(--safe)">clean</span>`}</div>
     </summary>
@@ -454,7 +464,7 @@ function skillBody(p, k) {
   const link = ghSkill(p, k);
   const groups = new Map();
   for (const f of fs) { if (!groups.has(f[0])) groups.set(f[0], []); groups.get(f[0]).push(f); }
-  let html = link ? `<a href="${link}" target="_blank" rel="noopener" style="font-size:.82rem">Open this skill on GitHub ↗</a>` : "";
+  let html = link ? `<a href="${link}" target="_blank" rel="noopener" style="font-size:.82rem">Open on GitHub ↗</a>` : "";
   for (const [ri, list] of groups) {
     const r = RULES[ri];
     html += `<div class="group" data-g="${ri}" data-k="${esc(k.n)}">
@@ -465,7 +475,24 @@ function skillBody(p, k) {
   }
   if (k.x.length) html += `<div class="exc"><span class="sectiontitle">Not fully scanned</span>${k.x.map(x => `<span>${esc(x[0])} · <span class="mono">${esc(x[1])}${x[2] ? ":" + x[2] : ""}</span></span>`).join("")}</div>`;
   if (!fs.length && !k.x.length) html += `<span style="color:var(--safe)">No findings.</span>`;
+  if (k.sup.length) html += supHtml(p, k);
   return html;
+}
+// What the baseline dropped before scoring, grouped by rule with the
+// baseline's reason. Closed by default: it is not part of the score.
+function supHtml(p, k) {
+  const groups = new Map();
+  for (const f of k.sup) { if (!groups.has(f[0])) groups.set(f[0], []); groups.get(f[0]).push(f); }
+  let body = "";
+  for (const [ri, list] of groups) {
+    const r = RULES[ri];
+    body += `<div class="group">
+      <div class="ghead"><span class="pill" style="--c:var(--muted)">${esc(r[1].toLowerCase())}</span><b>${esc(r[0])}</b><span>${esc(r[2] || "(no message)")}</span><span class="tab" style="color:var(--muted)">×${list.length}</span></div>
+      ${list[0][3] ? `<div class="help">${esc(list[0][3])}</div>` : ""}
+      <div class="locs">${list.slice(0, LIMIT).map(f => locHtml(p, k, f)).join("")}${list.length > LIMIT ? `<span>… and ${list.length - LIMIT} more</span>` : ""}</div>
+    </div>`;
+  }
+  return `<details class="sup"><summary class="sectiontitle">Suppressed by the baseline, not scored · ${fmt(k.sup.length)}</summary>${body}</details>`;
 }
 function locHtml(p, k, f) {
   const label = `${f[1]}${f[2] > 0 ? ":" + f[2] : ""}`;
