@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "claude-blog",
-      "dir": "/nix/store/b4ydwbbwyx850v2nxwdbjm10vj2y17ys-agent-plugin-claude-blog-2.3.1/share/agent-plugins/claude-blog",
+      "dir": "/nix/store/2achkq6fpz6pcml3pfz0d1yl2pfm7dvj-agent-plugin-claude-blog-2.3.1/share/agent-plugins/claude-blog",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -349,8 +349,8 @@
         },
         {
           "path": "skills/blog-audio",
-          "score": 18,
-          "risk": 82,
+          "score": 8,
+          "risk": 92,
           "status": "do not install",
           "partial": true,
           "coverage": 100,
@@ -413,6 +413,13 @@
               "message": "Known Vulnerable Dependency: certifi==2026.7.22 — 2 advisory(ies): GHSA-6q48-6c7w-9gw2 (certifi bundles emSign root CAs with compromised intermediate CA keys); PYSEC-2026-4320 (certifi bundles emSign root CAs with compromised intermediate CA keys)",
               "file": "skills/blog-audio/scripts/requirements.lock",
               "line": 13
+            },
+            {
+              "id": "SC4",
+              "severity": "HIGH",
+              "message": "Known Vulnerable Dependency: pyasn1==0.6.4 — 4 advisory(ies): CVE-2026-119196 (pyasn1 has quadratic CPU consumption in constructed BIT STRING decoding); CVE-2026-119195 (pyasn1 has quadratic-time denial of service in constructed string and indefinite); CVE-2026-119194 (pyasn1 has quadratic CPU use in schemaless BER/CER/DER container decoding) +1 more",
+              "file": "skills/blog-audio/scripts/requirements.lock",
+              "line": 388
             },
             {
               "id": "LP3",
@@ -1307,6 +1314,13 @@
               "message": "Credential Access",
               "file": "skills/blog-google/scripts/google_auth.py",
               "line": 632
+            },
+            {
+              "id": "SC4",
+              "severity": "HIGH",
+              "message": "Known Vulnerable Dependency: pyasn1==0.6.4 — 4 advisory(ies): CVE-2026-119196 (pyasn1 has quadratic CPU consumption in constructed BIT STRING decoding); CVE-2026-119195 (pyasn1 has quadratic-time denial of service in constructed string and indefinite); CVE-2026-119194 (pyasn1 has quadratic CPU use in schemaless BER/CER/DER container decoding) +1 more",
+              "file": "skills/blog-google/scripts/requirements.lock",
+              "line": 1141
             },
             {
               "id": "LP3",
@@ -5082,7 +5096,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-25T03:11:42Z"
+      "checkedAt": "2026-10-31T03:04:46Z"
     }
   },
   "agentStacks": {

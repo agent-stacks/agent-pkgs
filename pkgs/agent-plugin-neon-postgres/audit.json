@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "neon-postgres",
-      "dir": "/nix/store/cv1sx5s2ghrqkradyy7scp19fg6k3lwc-agent-plugin-neon-postgres-2.3.0/share/agent-plugins/neon-postgres",
+      "dir": "/nix/store/5q0anlfzbzgdav8jg2plwla95h2rx3sc-agent-plugin-neon-postgres-2.3.0/share/agent-plugins/neon-postgres",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -444,36 +444,31 @@
         },
         {
           "path": "skills/neon-auth",
-          "score": 80,
-          "risk": 20,
-          "status": "safe",
+          "score": 55,
+          "risk": 45,
+          "status": "caution",
           "partial": true,
           "coverage": 100,
           "exceptions": [
             {
               "reason": "reference_missing",
               "path": "skills/neon-auth/SKILL.md",
-              "line": 28
+              "line": 29
             },
             {
               "reason": "reference_missing",
               "path": "skills/neon-auth/SKILL.md",
-              "line": 66
+              "line": 67
             },
             {
               "reason": "reference_missing",
               "path": "skills/neon-auth/SKILL.md",
-              "line": 81
+              "line": 82
             },
             {
               "reason": "reference_missing",
               "path": "skills/neon-auth/SKILL.md",
-              "line": 91
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/neon-auth/SKILL.md",
-              "line": 115
+              "line": 92
             },
             {
               "reason": "reference_missing",
@@ -483,7 +478,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/neon-auth/SKILL.md",
-              "line": 118
+              "line": 117
             },
             {
               "reason": "reference_missing",
@@ -493,41 +488,48 @@
             {
               "reason": "reference_missing",
               "path": "skills/neon-auth/SKILL.md",
-              "line": 121
+              "line": 120
             },
             {
               "reason": "reference_missing",
               "path": "skills/neon-auth/SKILL.md",
-              "line": 123
+              "line": 122
             },
             {
               "reason": "reference_missing",
               "path": "skills/neon-auth/SKILL.md",
-              "line": 126
+              "line": 124
             },
             {
               "reason": "reference_missing",
               "path": "skills/neon-auth/SKILL.md",
-              "line": 129
+              "line": 130
             },
             {
               "reason": "reference_missing",
               "path": "skills/neon-auth/SKILL.md",
-              "line": 153
+              "line": 154
             },
             {
               "reason": "reference_missing",
               "path": "skills/neon-auth/SKILL.md",
-              "line": 161
+              "line": 162
             }
           ],
           "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/neon-auth/references/oauth-server.md",
+              "line": 144
+            },
             {
               "id": "AS3",
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
               "file": "skills/neon-auth/SKILL.md",
-              "line": 20
+              "line": 21
             },
             {
               "id": "RP1",
@@ -563,6 +565,27 @@
               "message": "",
               "file": "skills/neon-auth/references/managed-auth.md",
               "line": 187
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/neon-auth/references/oauth-server.md",
+              "line": 23
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/neon-auth/references/oauth-server.md",
+              "line": 42
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/neon-auth/references/oauth-server.md",
+              "line": 151
             }
           ]
         },
@@ -783,6 +806,13 @@
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
+              "file": "skills/neon-functions/references/mcp.md",
+              "line": 92
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
               "file": "skills/neon-functions/references/native-binaries.md",
               "line": 82
             },
@@ -826,7 +856,7 @@
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/neon-functions/references/mcp.md",
-              "line": 146
+              "line": 155
             },
             {
               "id": "P9",
@@ -1345,7 +1375,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-30T16:31:18Z"
+      "checkedAt": "2026-10-31T03:30:51Z"
     }
   },
   "agentStacks": {
