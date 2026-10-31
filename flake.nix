@@ -521,6 +521,19 @@
               touch $out
             '';
 
+          # agent-sandbox-k8s runs the agent in an agent-sandbox Sandbox on
+          # Kubernetes. Its options, the manifests its dry run prints, and
+          # the live run against a stub kubectl are checked here; a real
+          # cluster is checked by hand with flox-kind-demo.
+          agent-sandbox-k8s-contract =
+            let k8s = "${(mkPackages pkgs).agent-sandbox-k8s}/bin/agent-sandbox-k8s"; in
+            pkgs.runCommand "agent-sandbox-k8s-contract"
+              { nativeBuildInputs = [ pkgs.bash pkgs.coreutils pkgs.gnugrep pkgs.gnutar pkgs.jq ]; }
+              ''
+                bash ${./pkgs/agent-sandbox-k8s/contract-test.sh} ${k8s}
+                touch $out
+              '';
+
           # A plugin built the way a generated source.json calls the
           # builder: src as a pin rather than a derivation, an import
           # record that only reaches passthru, and skills as plain
