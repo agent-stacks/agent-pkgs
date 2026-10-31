@@ -1,0 +1,34 @@
+# What every plugin audit leaves out of the score, passed as
+# `agent-stacks audit --baseline` by scripts/record-plugin-audit.sh.
+# SkillSpector's baseline format (version 2): a matched finding is
+# dropped before scoring and recorded under the component's
+# `suppressed`, with the reason given here. ADR 0028, described in
+# docs/reference/plugin-audit.md.
+#
+# A rule here applies to every plugin. Each one is a rule that, across
+# the recorded audits, matched ordinary text far more often than risk.
+# A finding to accept in one plugin is not a rule here: SkillSpector
+# matches a rule's `path` inside each component, so it cannot name one
+# skill.
+#
+# Changing this file re-audits every package.
+version: 2
+rules:
+  - id: "AE1"
+    reason: >-
+      One finding per reference_missing exception. Sampled across the
+      recorded audits, those are version strings (version: "1.0.0"),
+      dotted ids, example and runtime paths, and sibling skills named
+      as other-skill/SKILL.md; the rare real broken link is not a
+      security finding. The exceptions stay listed.
+  - id: "P9"
+    path: "*.md"
+    reason: >-
+      Whitespace padding in Markdown is aligned table columns. Code
+      files keep the rule.
+  - id: "LP3"
+    path: "*SKILL.md"
+    reason: >-
+      A SKILL.md with no allowed-tools, on line 1 of nearly every
+      upstream skill. It says the author did not declare tools, which
+      this set cannot change, not that a tool is misused.

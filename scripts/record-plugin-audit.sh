@@ -19,6 +19,11 @@
 # runner. It is passed as --scan-timeout only to a CLI whose
 # `audit --help` lists that flag (agent-stacks-cli #192); an older one
 # keeps its fixed 5 minutes.
+# AUDIT_BASELINE names the SkillSpector baseline the scores leave out
+# (default: scripts/audit-baseline.yaml beside this script; empty for
+# none). It is passed as --baseline only to a CLI whose `audit --help`
+# lists that flag (agent-stacks-cli #212); an older one scores every
+# finding. ADR 0028.
 #
 # What is written, each with an `agentStacks.version` field naming the
 # CLI that audited (`agent-stacks --version`):
@@ -95,6 +100,19 @@ args=(audit ./result --json)
 usage=$("$agent_stacks" audit --help 2>&1 || true)
 if grep -q -- '-scan-timeout' <<< "$usage"; then
   args+=(--scan-timeout "${AUDIT_SCAN_TIMEOUT:-20m}")
+fi
+baseline=${AUDIT_BASELINE-$(cd "$(dirname "$0")" && pwd)/audit-baseline.yaml}
+if [ -n "$baseline" ] && grep -q -- '-baseline' <<< "$usage"; then
+  if [ ! -f "$baseline" ]; then
+    echo "$package: baseline $baseline does not exist" >&2
+    exit 2
+  fi
+  # The CLI runs from $work, below.
+  case "$baseline" in
+    /*) ;;
+    *) baseline="$PWD/$baseline" ;;
+  esac
+  args+=(--baseline "$baseline")
 fi
 
 rc=0
