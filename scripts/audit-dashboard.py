@@ -17,10 +17,13 @@ docs/reference/plugin-audit.md.
 
 A package is a directory named agent-plugin-* holding a default.nix.
 One with no audit.json is listed as not audited yet. Each finding
-keeps its file relative to its skill's directory, so the page can
-link it at the skill's upstream path (source.json's `skills`) in the
-upstream repository at the audited revision. Rules are kept once, as
-(id, severity, message): one id can carry several of each.
+keeps its file relative to its component's directory, so the page can
+link it at the component's upstream path in the upstream repository
+at the audited revision: source.json's `skills` for a skill, its
+`pluginRootPaths` for anything else (hooks, agents, scripts, bin).
+Rules are kept once, as (id, severity, message): one id can carry
+several of each. Findings a baseline suppressed are kept apart from
+the scored ones, with the baseline's reason (ADR 0028).
 """
 import argparse
 import json
@@ -71,36 +74,46 @@ def main():
             "rev": s.get("rev"),
             "tool": tool.get("version"),
             "osv": (tool.get("osv") or {}).get("checkedAt"),
+            "base": (tool.get("baseline") or {}).get("sha256"),
             "k": [],
         }
         if audit.get("audited") is False:
             p["why"] = audit.get("reason")
         skills = src.get("skills") or {}
+        roots = src.get("pluginRootPaths") or {}
         for plugin in audit.get("plugins") or []:
             for c in plugin.get("components") or []:
                 path = (c.get("path") or "").rstrip("/")
-                name = path.split("/", 1)[1] if path.startswith("skills/") else path
+                is_skill = path.startswith("skills/")
+                name = path.split("/", 1)[1] if is_skill else path
                 prefix = path + "/"
-                findings = []
-                for fd in c.get("findings") or []:
+
+                def entry(fd):
                     key = (fd.get("id"), fd.get("severity"), fd.get("message") or "")
                     if key not in rule_ix:
                         rule_ix[key] = len(rules)
                         rules.append(list(key))
                     file = fd.get("file") or ""
-                    # A leading / marks a file outside the skill, which
-                    # the page shows without a link.
+                    # A leading / marks a file outside the component,
+                    # which the page shows without a link.
                     rel = file[len(prefix):] if file.startswith(prefix) else "/" + file
-                    findings.append([rule_ix[key], rel, fd.get("line") or 0])
-                findings.sort(key=lambda f: (SEV.get(rules[f[0]][1], 9), rules[f[0]][0], f[1], f[2]))
+                    return [rule_ix[key], rel, fd.get("line") or 0]
+
+                def order(f):
+                    return (SEV.get(rules[f[0]][1], 9), rules[f[0]][0], f[1], f[2])
+
+                findings = sorted((entry(fd) for fd in c.get("findings") or []), key=order)
+                suppressed = sorted((entry(fd) + [fd.get("reason") or ""]
+                                     for fd in c.get("suppressed") or []), key=order)
                 p["k"].append({
                     "n": name,
-                    "up": skills.get(name),
+                    "up": skills.get(name) if is_skill else roots.get(path),
                     "s": c.get("score"),
                     "st": c.get("status"),
                     "cov": c.get("coverage"),
                     "part": bool(c.get("partial")),
                     "f": findings,
+                    "sup": suppressed,
                     "x": [[e.get("reason"), e.get("path"), e.get("line") or 0]
                           for e in c.get("exceptions") or []],
                 })
@@ -126,7 +139,8 @@ def main():
     with open(args.out, "w") as f:
         f.write(html)
     n = sum(len(k["f"]) for p in plugins for k in p["k"])
-    print(f"{len(plugins)} plugins, {n} findings, {len(rules)} rules, "
+    sup = sum(len(k["sup"]) for p in plugins for k in p["k"])
+    print(f"{len(plugins)} plugins, {n} findings, {sup} suppressed, {len(rules)} rules, "
           f"{len(unaudited)} not audited yet; {len(html) // 1024} KiB written to {args.out}")
 
 
