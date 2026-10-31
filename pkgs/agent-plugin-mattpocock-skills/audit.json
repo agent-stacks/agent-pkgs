@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "mattpocock-skills",
-      "dir": "/nix/store/hsy9qaf0k9rwsf964lyw3hjp49ip7506-agent-plugin-mattpocock-skills-1.3.1/share/agent-plugins/mattpocock-skills",
+      "dir": "/nix/store/z1fdnp1y8d1wszc71wlp1i456k1nwc7w-agent-plugin-mattpocock-skills-1.3.2/share/agent-plugins/mattpocock-skills",
       "spec": "1.1.0",
       "score": 38,
       "status": "do not install",
@@ -96,9 +96,9 @@
         },
         {
           "path": "skills/chief-of-staff",
-          "score": 100,
-          "risk": 0,
-          "status": "safe",
+          "score": 75,
+          "risk": 25,
+          "status": "caution",
           "partial": true,
           "coverage": 100,
           "exceptions": [
@@ -113,7 +113,15 @@
               "line": 37
             }
           ],
-          "findings": []
+          "findings": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/chief-of-staff/SKILL.md",
+              "line": 51
+            }
+          ]
         },
         {
           "path": "skills/claude-handoff",
@@ -1070,7 +1078,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-27T08:45:56Z"
+      "checkedAt": "2026-10-31T14:31:11Z"
     }
   },
   "agentStacks": {
