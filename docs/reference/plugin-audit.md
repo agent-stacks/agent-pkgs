@@ -127,8 +127,11 @@ re-audits every package.
 <https://agent-stacks.github.io/agent-pkgs/> shows every `audit.json`
 on main in one page. Plugins are ranked by how affected they are
 (lowest score, then most critical and most high findings), with
-filters by status, rule and name. A plugin opens to its components,
-worst first, with the findings grouped by rule. Each finding links
+filters by status, rule and name. A plugin scores its worst
+component; next to that status the list says how many components
+share it ("2 of 57"), and a plugin's header counts its components by
+status. A plugin opens to its components, worst first, with the
+findings grouped by rule. Each finding links
 to its file and line in the upstream repository, at the revision
 that was audited: a skill at its path in `source.json`'s `skills`,
 anything else at its path in `pluginRootPaths`. What the baseline
