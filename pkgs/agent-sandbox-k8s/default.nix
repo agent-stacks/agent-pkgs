@@ -108,9 +108,98 @@
       echo "$owner/$name:$gen"
     }
     env_ref=$(resolve_environment)
+    namespace=$(jq -r .namespace <<<"$opts")
+    agent=''${1##*/}
+
+    # <agent>-<project folder>-<5 random>, as a DNS label: two launches
+    # from one folder never share a name.
+    dns() { tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]/-/g; s/--*/-/g; s/^-//; s/-$//'; }
+    project=$(basename "$(pwd -P)" | dns)
+    suffix=""
+    alnum=abcdefghijklmnopqrstuvwxyz0123456789
+    for _ in 1 2 3 4 5; do suffix+=''${alnum:RANDOM%36:1}; done
+    prefix=$(printf '%s-%s' "$(dns <<<"$agent")" "$project" | cut -c1-57 | sed 's/-*$//')
+    sandbox_name=$prefix-$suffix
+
+    # What the session Secret holds, values in memory only. The Claude
+    # login is forwarded only to Claude.
+    secret_data="{}"
+    if [ "$agent" = claude ] && jq -e .forwardLogin >/dev/null <<<"$opts"; then
+      for v in CLAUDE_CODE_OAUTH_TOKEN ANTHROPIC_API_KEY; do
+        [ -z "''${!v:-}" ] || secret_data=$(jq -c --arg k "$v" --arg v "''${!v}" '. + {($k): $v}' <<<"$secret_data")
+      done
+      [ "$secret_data" != "{}" ] ||
+        die "forwardLogin is on, but neither CLAUDE_CODE_OAUTH_TOKEN nor ANTHROPIC_API_KEY is set (make one with 'claude setup-token')"
+    fi
+    if jq -e .forwardFloxhubToken >/dev/null <<<"$opts"; then
+      token=$(flox auth token 2>/dev/null) && [ -n "$token" ] ||
+        die "forwardFloxhubToken is on, but 'flox auth token' gives no token: run 'flox auth login'"
+      secret_data=$(jq -c --arg v "$token" '. + {"floxhub-token": $v}' <<<"$secret_data")
+      unset token
+    fi
+
+    # The Secret, with its values as given (`redact`) or base64.
+    secret_manifest() {
+      jq -c --arg n "$sandbox_name" --arg ns "$namespace" --arg mode "$1" '{
+        apiVersion: "v1", kind: "Secret",
+        metadata: { name: $n, namespace: $ns,
+                    labels: { "app.kubernetes.io/managed-by": "agent-sandbox-k8s" } },
+        type: "Opaque",
+        data: (map_values(if $mode == "redact" then "<redacted>" else @base64 end))
+      }' <<<"$secret_data"
+    }
+
+    sandbox_manifest() {
+      ttl=$(jq -r .ttl <<<"$opts")
+      n=''${ttl%?}
+      case $ttl in
+        *s) secs=$n ;; *m) secs=$((n * 60)) ;; *h) secs=$((n * 3600)) ;; *d) secs=$((n * 86400)) ;;
+      esac
+      shutdown=$(date -u -d "@$(( $(date +%s) + secs ))" +%Y-%m-%dT%H:%M:%SZ)
+      jq -n --arg n "$sandbox_name" --arg ns "$namespace" --arg agent "$agent" \
+        --arg project "$project" --arg env "$env_ref" --arg shutdown "$shutdown" \
+        --argjson keys "$(jq -c keys <<<"$secret_data")" '
+        ($keys - ["floxhub-token"]) as $login
+        | ($keys | index("floxhub-token") != null) as $hub
+        | {
+          apiVersion: "agents.x-k8s.io/v1beta1", kind: "Sandbox",
+          metadata: { name: $n, namespace: $ns, labels: {
+            "app.kubernetes.io/managed-by": "agent-sandbox-k8s",
+            "agent-sandbox-k8s/agent": $agent,
+            "agent-sandbox-k8s/project": $project } },
+          spec: {
+            service: false,
+            shutdownTime: $shutdown,
+            shutdownPolicy: "Delete",
+            podTemplate: {
+              metadata: { annotations: { "flox.dev/environment": $env } },
+              spec: {
+                runtimeClassName: "flox",
+                automountServiceAccountToken: false,
+                securityContext: { runAsUser: 1000, runAsGroup: 1000, fsGroup: 1000, runAsNonRoot: true },
+                containers: [{
+                  name: "agent",
+                  image: "flox/empty:1.0.0",
+                  command: ["sleep", "infinity"],
+                  workingDir: "/workspace",
+                  env: ([{ name: "HOME", value: "/home/agent" }, { name: "IS_SANDBOX", value: "1" }]
+                    + [ $login[] | { name: ., valueFrom: { secretKeyRef: { name: $n, key: . } } } ]),
+                  volumeMounts: ([{ name: "workspace", mountPath: "/workspace" },
+                                  { name: "home", mountPath: "/home/agent" }]
+                    + if $hub then [{ name: "floxhub-token", mountPath: "/var/run/secrets/flox.dev", readOnly: true }] else [] end)
+                }],
+                volumes: ([{ name: "workspace", emptyDir: {} }, { name: "home", emptyDir: {} }]
+                  + if $hub then [{ name: "floxhub-token", secret: { secretName: $n,
+                      items: [{ key: "floxhub-token", path: "floxhub-token" }] } }] else [] end)
+              }
+            }
+          }
+        }'
+    }
 
     if [ -n "''${AGENT_SANDBOX_K8S_DRY_RUN:-}" ]; then
-      jq -n --arg e "$env_ref" '{"flox.dev/environment": $e}'
+      [ "$secret_data" = "{}" ] || secret_manifest redact
+      sandbox_manifest
       echo "would run: $kubectl … -- $*" >&2
       exit 0
     fi
