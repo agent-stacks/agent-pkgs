@@ -239,6 +239,10 @@ for (const p of DATA.plugins) {
   }
   p.total = p.k.reduce((a, k) => a + k.total, 0);
   p.sup = p.k.reduce((a, k) => a + k.sup.length, 0);
+  // How far the worst reaches: a plugin scores its worst component,
+  // which reads the same for one bad component of many as for all.
+  p.byst = {};
+  for (const k of p.k) p.byst[k.st] = (p.byst[k.st] || 0) + 1;
   p.st = p.st || (p.why ? "could not audit" : "unknown");
   p.hay = (p.p + " " + p.k.map(k => k.n).join(" ")).toLowerCase();
 }
@@ -346,7 +350,7 @@ function itemHtml(p) {
     ${sc}
     <div style="min-width:0">
       <div class="iname">${esc(short(p.p))}</div>
-      <div class="imeta"><span style="color:${STATUSVAR[p.st] || "var(--muted)"}">${esc(p.st)}</span>
+      <div class="imeta"><span style="color:${STATUSVAR[p.st] || "var(--muted)"}">${esc(p.st)}${p.k.length > 1 && p.byst[p.st] ? ` · ${p.byst[p.st]} of ${p.k.length}` : ""}</span>
         ${p.c.CRITICAL ? `<span class="n-c tab">${p.c.CRITICAL} crit</span>` : ""}
         ${p.c.HIGH ? `<span class="n-h tab">${p.c.HIGH} high</span>` : ""}
         <span class="tab">${fmt(p.total)} total</span><span>${p.k.length} component${p.k.length === 1 ? "" : "s"}</span>${ruleN}</div>
@@ -418,6 +422,7 @@ function renderDetail(keepOpen) {
           <span class="pill" style="--c:${STATUSVAR[p.st] || "var(--muted)"}">${esc(p.st)}</span>
           <span class="mono" style="color:var(--muted)">${esc(p.p)}${p.v ? " · " + esc(p.v) : ""}</span>
         </div>
+        ${p.k.length > 1 ? `<div class="help" style="margin-top:6px">${p.k.length} components: ${STATUS.map(([s]) => s).filter(s => p.byst[s]).map(s => `<span style="color:${STATUSVAR[s]}">${p.byst[s]} ${esc(s)}</span>`).join(", ")}</div>` : ""}
         <div class="links">
           ${ghRepo(p) ? `<a href="${ghRepo(p)}" target="_blank" rel="noopener">Upstream ${esc(p.gh)} @ ${esc((p.rev || "").slice(0, 7))} ↗</a>` : ""}
           <a href="${ghAudit(p)}" target="_blank" rel="noopener">audit.json ↗</a>
