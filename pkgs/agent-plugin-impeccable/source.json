@@ -4,8 +4,8 @@
   "src": {
     "owner": "pbakaus",
     "repo": "impeccable",
-    "rev": "f5c80432f883a0ee437735305eafc2a9e1bdb7a0",
-    "hash": "sha256-E/zLwVvzr9bhoHnyq1PzfxQCoAaVbY5NcxoGxJMqY4c="
+    "rev": "e89e3ada3e875a89ac2c5d33d11e65ebef6fe285",
+    "hash": "sha256-LIwnGeC3k2/bqIJoPmnjIa6HzFBdgjUKP5F2tYSFa1I="
   },
   "sourceUrl": "https://github.com/pbakaus/impeccable",
   "manifest": {
@@ -35,10 +35,14 @@
       {
         "hooks": [
           {
-            "command": "[ ! -f \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" ] || \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" hook",
+            "command": "[ ! -f \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" ] || sh \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" hook",
+            "env": {
+              "IMPECCABLE_HOOK_HARNESS": "vscode"
+            },
             "statusMessage": "Checking UI changes",
             "timeout": 5,
-            "type": "command"
+            "type": "command",
+            "windows": "cmd /c if exist ${CLAUDE_PLUGIN_ROOT}\\skills\\impeccable\\scripts\\impeccable.cmd ${CLAUDE_PLUGIN_ROOT}\\skills\\impeccable\\scripts\\impeccable.cmd hook"
           }
         ],
         "matcher": "Edit|Write"
@@ -48,10 +52,14 @@
       {
         "hooks": [
           {
-            "command": "[ ! -f \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" ] || \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" hook",
+            "command": "[ ! -f \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" ] || sh \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" hook",
+            "env": {
+              "IMPECCABLE_HOOK_HARNESS": "vscode"
+            },
             "statusMessage": "Preparing build session",
             "timeout": 5,
-            "type": "command"
+            "type": "command",
+            "windows": "cmd /c if exist ${CLAUDE_PLUGIN_ROOT}\\skills\\impeccable\\scripts\\impeccable.cmd ${CLAUDE_PLUGIN_ROOT}\\skills\\impeccable\\scripts\\impeccable.cmd hook"
           }
         ]
       }
@@ -60,10 +68,14 @@
       {
         "hooks": [
           {
-            "command": "[ ! -f \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" ] || \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" hook",
+            "command": "[ ! -f \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" ] || sh \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" hook",
+            "env": {
+              "IMPECCABLE_HOOK_HARNESS": "vscode"
+            },
             "statusMessage": "Design deep pass",
             "timeout": 30,
-            "type": "command"
+            "type": "command",
+            "windows": "cmd /c if exist ${CLAUDE_PLUGIN_ROOT}\\skills\\impeccable\\scripts\\impeccable.cmd ${CLAUDE_PLUGIN_ROOT}\\skills\\impeccable\\scripts\\impeccable.cmd hook"
           }
         ]
       }
@@ -171,15 +183,15 @@
       },
       {
         "path": "plugin/hooks/hooks.json",
-        "message": "Claude Code runs this on PostToolUse: [ ! -f \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" ] || \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" hook"
+        "message": "Claude Code runs this on PostToolUse: [ ! -f \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" ] || sh \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" hook"
       },
       {
         "path": "plugin/hooks/hooks.json",
-        "message": "Claude Code runs this on SessionStart: [ ! -f \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" ] || \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" hook"
+        "message": "Claude Code runs this on SessionStart: [ ! -f \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" ] || sh \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" hook"
       },
       {
         "path": "plugin/hooks/hooks.json",
-        "message": "Claude Code runs this on Stop: [ ! -f \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" ] || \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" hook"
+        "message": "Claude Code runs this on Stop: [ ! -f \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" ] || sh \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" hook"
       },
       {
         "path": "plugin/skills/impeccable/scripts/data/font-index.json",
