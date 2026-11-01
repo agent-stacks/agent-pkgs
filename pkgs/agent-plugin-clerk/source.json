@@ -71,6 +71,11 @@
   "requiredRuntimes": [
     "bash"
   ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
   "mcpServers": {
     "clerk": {
       "type": "streamable-http",
@@ -84,7 +89,8 @@
   "import": {
     "input": "clerk/skills",
     "flags": [
-      "--path-ignore=.agents/**"
+      "--path-ignore=.agents/**",
+      "--pkgs-dir=pkgs"
     ],
     "warnings": [
       {

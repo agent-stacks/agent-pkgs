@@ -39,6 +39,11 @@
   "dependencies": [
     "powershell"
   ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
   "pluginRootPaths": {
     "com.anthropic.claude-code/hooks": ".github/plugins/azure-advisor/hooks"
   },
@@ -83,7 +88,8 @@
   "import": {
     "input": "microsoft/skills",
     "flags": [
-      "--dependency=powershell"
+      "--dependency=powershell",
+      "--pkgs-dir=pkgs"
     ],
     "warnings": [
       {

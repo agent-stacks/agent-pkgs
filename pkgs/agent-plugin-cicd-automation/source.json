@@ -27,6 +27,11 @@
     "secrets-management": "plugins/cicd-automation/skills/secrets-management"
   },
   "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
   "pluginRootPaths": {
     "com.anthropic.claude-code/agents": "plugins/cicd-automation/agents",
     "com.anthropic.claude-code/commands": "plugins/cicd-automation/commands"
@@ -38,7 +43,8 @@
   "import": {
     "input": "wshobson/agents",
     "flags": [
-      "--path-ignore=plugins/avoid-ai-writing"
+      "--path-ignore=plugins/avoid-ai-writing",
+      "--pkgs-dir=pkgs"
     ]
   }
 }

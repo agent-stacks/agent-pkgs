@@ -28,6 +28,11 @@
     "team-composition-analysis": "plugins/startup-business-analyst/skills/team-composition-analysis"
   },
   "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
   "pluginRootPaths": {
     "com.anthropic.claude-code/agents": "plugins/startup-business-analyst/agents",
     "com.anthropic.claude-code/commands": "plugins/startup-business-analyst/commands"
@@ -39,7 +44,8 @@
   "import": {
     "input": "wshobson/agents",
     "flags": [
-      "--path-ignore=plugins/avoid-ai-writing"
+      "--path-ignore=plugins/avoid-ai-writing",
+      "--pkgs-dir=pkgs"
     ],
     "warnings": [
       {

@@ -46,6 +46,11 @@
     "paypal-routing": "skills/paypal-routing"
   },
   "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
   "pluginRootPaths": {
     "com.anthropic.claude-code/commands": "commands",
     "com.anthropic.claude-code/hooks": "hooks"
@@ -78,7 +83,9 @@
   },
   "import": {
     "input": "paypal/AI-Toolkit",
-    "flags": [],
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
     "warnings": [
       {
         "path": ".mcp.json/mcpServers/paypal-sandbox",

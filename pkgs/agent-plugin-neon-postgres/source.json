@@ -41,6 +41,11 @@
     "neon-realtime": "plugins/neon-postgres/skills/neon-realtime"
   },
   "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
   "mcpServers": {
     "neon": {
       "type": "streamable-http",
@@ -53,7 +58,9 @@
   },
   "import": {
     "input": "neondatabase/agent-skills",
-    "flags": [],
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
     "warnings": [
       {
         "path": "evals/neon-postgres-egress-optimizer/.claude/skills/score-eval/SKILL.md",

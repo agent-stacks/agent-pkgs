@@ -25,6 +25,11 @@
     "recsys-pipeline-architect": "plugins/machine-learning-ops/skills/recsys-pipeline-architect"
   },
   "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
   "pluginRootPaths": {
     "com.anthropic.claude-code/agents": "plugins/machine-learning-ops/agents",
     "com.anthropic.claude-code/commands": "plugins/machine-learning-ops/commands"
@@ -36,7 +41,8 @@
   "import": {
     "input": "wshobson/agents",
     "flags": [
-      "--path-ignore=plugins/avoid-ai-writing"
+      "--path-ignore=plugins/avoid-ai-writing",
+      "--pkgs-dir=pkgs"
     ]
   }
 }

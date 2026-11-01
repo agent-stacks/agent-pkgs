@@ -34,12 +34,19 @@
     "windows-builder": "plugins/packer/skills/windows-builder"
   },
   "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
   "meta": {
     "description": "Packer skills for image building and HCP Packer registry workflows",
     "homepage": "https://github.com/hashicorp/agent-skills"
   },
   "import": {
     "input": "hashicorp/agent-skills",
-    "flags": []
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ]
   }
 }

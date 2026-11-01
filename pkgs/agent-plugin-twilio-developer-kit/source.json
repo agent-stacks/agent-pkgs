@@ -95,6 +95,11 @@
     "twilio-whatsapp-send-message": "skills/twilio/twilio-whatsapp-send-message"
   },
   "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
   "mcpServers": {
     "twilio-docs": {
       "type": "streamable-http",
@@ -107,7 +112,9 @@
   },
   "import": {
     "input": "twilio/ai",
-    "flags": [],
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
     "warnings": [
       {
         "path": "skills/sendgrid/twilio-sendgrid-deliverability-advisor/SKILL.md",

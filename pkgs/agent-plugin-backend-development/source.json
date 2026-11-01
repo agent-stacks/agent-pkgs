@@ -32,6 +32,11 @@
     "workflow-orchestration-patterns": "plugins/backend-development/skills/workflow-orchestration-patterns"
   },
   "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
   "pluginRootPaths": {
     "com.anthropic.claude-code/agents": "plugins/backend-development/agents",
     "com.anthropic.claude-code/commands": "plugins/backend-development/commands"
@@ -43,7 +48,8 @@
   "import": {
     "input": "wshobson/agents",
     "flags": [
-      "--path-ignore=plugins/avoid-ai-writing"
+      "--path-ignore=plugins/avoid-ai-writing",
+      "--pkgs-dir=pkgs"
     ]
   }
 }

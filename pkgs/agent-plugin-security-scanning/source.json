@@ -28,6 +28,11 @@
     "threat-mitigation-mapping": "plugins/security-scanning/skills/threat-mitigation-mapping"
   },
   "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
   "pluginRootPaths": {
     "com.anthropic.claude-code/agents": "plugins/security-scanning/agents",
     "com.anthropic.claude-code/commands": "plugins/security-scanning/commands"
@@ -39,7 +44,8 @@
   "import": {
     "input": "wshobson/agents",
     "flags": [
-      "--path-ignore=plugins/avoid-ai-writing"
+      "--path-ignore=plugins/avoid-ai-writing",
+      "--pkgs-dir=pkgs"
     ]
   }
 }

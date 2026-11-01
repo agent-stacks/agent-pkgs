@@ -22,6 +22,11 @@
     "evaluation-methodology": "plugins/plugin-eval/skills/evaluation-methodology"
   },
   "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
   "pluginRootPaths": {
     "com.anthropic.claude-code/agents": "plugins/plugin-eval/agents",
     "com.anthropic.claude-code/commands": "plugins/plugin-eval/commands"
@@ -33,7 +38,8 @@
   "import": {
     "input": "wshobson/agents",
     "flags": [
-      "--path-ignore=plugins/avoid-ai-writing"
+      "--path-ignore=plugins/avoid-ai-writing",
+      "--pkgs-dir=pkgs"
     ],
     "warnings": [
       {

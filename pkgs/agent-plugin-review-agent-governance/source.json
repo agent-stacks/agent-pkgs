@@ -36,6 +36,11 @@
   "requiredRuntimes": [
     "bash"
   ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
   "pluginRootPaths": {
     "com.anthropic.claude-code/agents": "plugins/review-agent-governance/agents",
     "com.anthropic.claude-code/commands": "plugins/review-agent-governance/commands",
@@ -72,7 +77,8 @@
   "import": {
     "input": "wshobson/agents",
     "flags": [
-      "--path-ignore=plugins/avoid-ai-writing"
+      "--path-ignore=plugins/avoid-ai-writing",
+      "--pkgs-dir=pkgs"
     ],
     "warnings": [
       {

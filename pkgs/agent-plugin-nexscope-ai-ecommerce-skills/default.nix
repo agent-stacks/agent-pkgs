@@ -2,7 +2,7 @@
 #
 # Everything outside the custom markers is rewritten on every import, so
 # changes there are lost. Everything between them is left alone.
-{ buildAgentPlugin, pkgs }:
+{ buildAgentPlugin ? callPackage ../../lib/build-agent-plugin.nix { }, callPackage, pkgs }:
 
 let
   source = builtins.fromJSON (builtins.readFile ./source.json);

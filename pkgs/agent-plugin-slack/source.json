@@ -47,6 +47,11 @@
   "requiredRuntimes": [
     "bash"
   ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
   "pluginRootPaths": {
     "com.anthropic.claude-code/commands": "commands"
   },
@@ -62,7 +67,9 @@
   },
   "import": {
     "input": "slackapi/slack-skills-plugin",
-    "flags": [],
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
     "warnings": [
       {
         "path": ".mcp.json/mcpServers/slack",

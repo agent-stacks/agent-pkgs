@@ -51,6 +51,11 @@
     "netlify-mcp-servers": "agent-plugin/skills/netlify-mcp-servers"
   },
   "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
   "mcpServers": {
     "netlify": {
       "type": "streamable-http",
@@ -64,6 +69,7 @@
   "import": {
     "input": "netlify/context-and-tools",
     "flags": [
+      "--pkgs-dir=pkgs",
       "--plugin=agent-plugin"
     ],
     "warnings": [

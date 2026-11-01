@@ -35,6 +35,11 @@
     "signed-audit-trails-recipe": "plugins/signed-audit-trails/skills/signed-audit-trails-recipe"
   },
   "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
   "meta": {
     "description": "Teaching skill: cookbook-style walkthrough for signed audit trails on every Claude Code tool call",
     "homepage": "https://github.com/wshobson/agents"
@@ -42,7 +47,8 @@
   "import": {
     "input": "wshobson/agents",
     "flags": [
-      "--path-ignore=plugins/avoid-ai-writing"
+      "--path-ignore=plugins/avoid-ai-writing",
+      "--pkgs-dir=pkgs"
     ]
   }
 }

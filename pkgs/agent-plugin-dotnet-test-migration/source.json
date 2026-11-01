@@ -33,6 +33,11 @@
   "dependencies": [
     "dotnet-sdk_10"
   ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
   "pluginRootPaths": {
     "com.anthropic.claude-code/agents": "plugins/dotnet-test-migration/agents"
   },
@@ -43,7 +48,8 @@
   "import": {
     "input": "dotnet/skills",
     "flags": [
-      "--dependency=dotnet-sdk_10"
+      "--dependency=dotnet-sdk_10",
+      "--pkgs-dir=pkgs"
     ],
     "warnings": [
       {
