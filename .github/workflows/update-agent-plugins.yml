@@ -166,9 +166,23 @@ jobs:
       # deleted is carried over too, and so that two shards writing
       # the same path is refused in prepare instead of one silently
       # winning.
+      #
+      # Every import also rewrites pkgs/agent-stacks and
+      # lib/build-agent-plugin.nix for the binary that ran it (agent-stacks
+      # ADR 0082). Run as the pinned binary, that rewrite is the files as
+      # they are; any other binary would rewrite them identically in every
+      # shard, and the second shard's patch would be refused. They are
+      # update-agent-stacks' to move, so they are left out here, and a run
+      # that changed them says so.
       - name: "Record what this shard wrote"
         run: |
           set -euo pipefail
+          if [ -n "$(git status --porcelain -- pkgs/agent-stacks lib)" ]; then
+            echo "::warning::this replay rewrote pkgs/agent-stacks or lib, so its binary is not the pinned one; those are left to update-agent-stacks"
+            git status --short -- pkgs/agent-stacks lib
+            git checkout -- pkgs/agent-stacks lib
+            git clean -fdq -- pkgs/agent-stacks lib
+          fi
           git add -A pkgs
           git diff --cached --binary HEAD -- pkgs > out/pkgs.patch
           wc -c < out/pkgs.patch | xargs echo "patch bytes:"

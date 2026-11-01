@@ -13,7 +13,7 @@ its `source.json`, and `lib/runtime-defaults.nix`, the default runtime
 packages, which agent-stacks mirrored in Go.
 
 That made a generated package buildable only here (AI-928): anywhere
-else `buildAgentPlugin` was missing. agent-stacks ADR 0079 moves all
+else `buildAgentPlugin` was missing. agent-stacks ADR 0082 moves all
 three into `agent-stacks import`, which now writes the builder into
 `lib/`, the binary that ran it into `pkgs/agent-stacks/` (pinned from
 that build's `hashes.json`), and the default packages into every
@@ -37,6 +37,12 @@ import, and stop maintaining our own.
   runs that binary's `import --replay` on one recorded input; every
   import rewrites the shared files for the binary that ran it.
 - `audit-plugins` keys on `pkgs/agent-stacks/default.json`.
+- `update-agent-plugins` leaves `pkgs/agent-stacks` and `lib/` out of
+  each shard's patch. The hourly replay runs the pinned binary, which
+  rewrites them as they are; a binary that is not the pin would
+  rewrite them the same way in every shard, and every shard after the
+  first would be refused as a collision. Only `update-agent-stacks`
+  moves them, and a shard that changed them warns.
 
 ## Consequences
 
@@ -45,12 +51,12 @@ import, and stop maintaining our own.
 - `+` The pin, the builder and the runtime list change together, in
   the commit that moves the binary.
 - `-` This lands together with the first pin to a binary carrying
-  agent-stacks ADR 0079: such a binary refuses the hand-written
+  agent-stacks ADR 0082: such a binary refuses the hand-written
   `pkgs/agent-stacks`, and its builder takes formals the old flake did
   not pass. `update-agent-stacks` is paused while agent-stacks-cli
   releases that binary; this change is then regenerated with it, every
   package replayed in the same commit, and landed before the workflow
-  runs again (the order is spelled out in agent-stacks ADR 0079).
+  runs again (the order is spelled out in agent-stacks ADR 0082).
 - `-` Every package needs one replay with such a binary before it
   builds: a generated `source.json` without `defaultDependencies`
   fails, saying to re-import.

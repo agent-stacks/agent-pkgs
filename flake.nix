@@ -198,7 +198,7 @@
         #
         # lib/build-agent-plugin.nix and pkgs/agent-stacks are written by
         # `agent-stacks import`, which pins the binary that ran it; edit
-        # them in agent-stacks-cli (its ADR 0079). The builder takes the
+        # them in agent-stacks-cli (its ADR 0082). The builder takes the
         # package and builds with its bare binary, passthru.unwrapped:
         # a plugin build assembles and checks, never audits, so it must
         # not depend on SkillSpector.
@@ -293,7 +293,7 @@
                 skills.one = "skills/one";
                 requiredRuntimes = [ "nodejs" "python3" "ruby" ];
                 # What import records; a hand-written call gets no
-                # defaults unless it names them (agent-stacks ADR 0079).
+                # defaults unless it names them (agent-stacks ADR 0082).
                 defaultDependencies = [ "bash" "python3" "nodejs" ];
               } // args);
               pinned = mk { dependencies = [ "python312" ]; };
@@ -540,7 +540,7 @@
               # always writes the key.
               requiredRuntimes = [ ];
               # Written into every generated source.json too: the
-              # builder holds no list of its own (agent-stacks ADR 0079).
+              # builder holds no list of its own (agent-stacks ADR 0082).
               defaultDependencies = [ "bash" "python3" "nodejs" ];
               meta = {
                 description = "Ultra-compressed communication mode";

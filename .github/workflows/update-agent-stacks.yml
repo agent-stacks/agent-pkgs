@@ -18,7 +18,7 @@ on:
         description: >-
           git describe --tags --always in that commit, e.g. 0.9.0-3-gabc1234.
           Unused: the package version now comes from the commit's hashes.json
-          (agent-stacks ADR 0079). Kept so the dispatch that sends it still
+          (agent-stacks ADR 0082). Kept so the dispatch that sends it still
           validates.
         type: string
         required: false
@@ -137,7 +137,7 @@ jobs:
       # Nothing to do when pkgs/agent-stacks already pins this commit: a
       # rerun of the same dispatch, or a dispatch racing one that already
       # landed. default.json is that commit's hashes.json, written by
-      # import (agent-stacks ADR 0079).
+      # import (agent-stacks ADR 0082).
       - name: "Stop if this commit is already the one packaged"
         id: current
         env:
