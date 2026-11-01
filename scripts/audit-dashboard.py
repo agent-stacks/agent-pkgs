@@ -59,7 +59,7 @@ def main():
         if audit is None:
             unaudited.append(pkg)
             continue
-        # The call file is default.json since agent-stacks ADR 0085; a
+        # The call file is default.json since agent-stacks ADR 0086; a
         # package not yet replayed by such a binary still holds
         # source.json.
         call = os.path.join(d, "default.json")

@@ -10,7 +10,7 @@
 }:
 
 let
-  # The plugin's call file: default.json since agent-stacks ADR 0085,
+  # The plugin's call file: default.json since agent-stacks ADR 0086,
   # else the source.json of a plugin no such binary has replayed yet.
   plugin = ../agent-plugin-impeccable;
   callFile =

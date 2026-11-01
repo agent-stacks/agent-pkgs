@@ -56,4 +56,4 @@ on one of those links to it rather than restating it.
 | [0025](0025-a-skills-own-engine-is-built-from-the-skills-source.md) | A skill's own engine is built from the skill's source |
 | [0026](0026-the-builder-and-the-binary-come-from-import.md) | The builder and the binary come from import |
 | [0027](0027-a-plugin-import-cannot-read-is-written-by-hand.md) | A plugin import cannot read is written by hand |
-| [0027](0027-the-call-file-is-default-json.md) | The call file is default.json, and imports pass --pkgs-dir |
+| [0028](0028-the-call-file-is-default-json.md) | The call file is default.json, and imports pass --pkgs-dir |

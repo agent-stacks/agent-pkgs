@@ -10,8 +10,8 @@ together with this document.
 
 `agent-stacks import` writes two files into `pkgs/agent-plugin-<name>/`:
 
-**The call file is `default.json` since agent-stacks ADR 0085**
-(this repository's [ADR 0027](../decisions/0027-the-call-file-is-default-json.md)).
+**The call file is `default.json` since agent-stacks ADR 0086**
+(this repository's [ADR 0028](../decisions/0028-the-call-file-is-default-json.md)).
 A package no such binary has replayed yet still holds `source.json`,
 with the same content. Every reader here takes `default.json` when it
 exists, else `source.json`: the workflows, the audit dashboard and

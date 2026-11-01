@@ -14,7 +14,7 @@ mkdir -p "$pkgs/agent-plugin-demo" "$pkgs/agent-plugin-blocked" \
   "$pkgs/agent-plugin-new" "$pkgs/agent-plugin-gone" "$pkgs/agent-plugin-old" "$pkgs/agent-stacks"
 for p in demo blocked new old; do echo '{}' > "$pkgs/agent-plugin-$p/default.nix"; done
 
-# The call file is default.json since agent-stacks ADR 0085, and a
+# The call file is default.json since agent-stacks ADR 0086, and a
 # package not yet replayed still holds source.json. demo holds both,
 # and default.json wins; blocked holds only default.json; old only
 # source.json.

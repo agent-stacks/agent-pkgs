@@ -14,7 +14,7 @@ walks through the commands. This skill covers what that guide does not: how
 to start, how to finish, and what to do when the import or the build refuses.
 
 Never hand-edit a generated `default.json` or `default.nix`. (A package
-no agent-stacks binary with ADR 0085 has replayed yet still holds the
+no agent-stacks binary with ADR 0086 has replayed yet still holds the
 same call as `source.json`; it is moved on its next replay.) A later re-import
 erases the edit, and the hourly replay job is what re-imports.
 
