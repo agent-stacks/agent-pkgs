@@ -7,9 +7,9 @@
   "plugins": [
     {
       "name": "stripe",
-      "dir": "/nix/store/w9zj84rhqfbphq2h73rv3gc6rwgdpizc-agent-plugin-stripe-0.11.27/share/agent-plugins/stripe",
+      "dir": "/nix/store/jz5xfrxx6j6g220rsbairxg73nmw07n8-agent-plugin-stripe-0.11.41/share/agent-plugins/stripe",
       "spec": "1.1.0",
-      "score": 43,
+      "score": 12,
       "status": "do not install",
       "coverage": {
         "scanned": [
@@ -286,7 +286,7 @@
               "severity": "LOW",
               "message": "Excessive Permissions",
               "file": "skills/stripe-apps/references/workflow.md",
-              "line": 202
+              "line": 198
             }
           ]
         },
@@ -333,9 +333,9 @@
         },
         {
           "path": "skills/stripe-directory",
-          "score": 90,
-          "risk": 10,
-          "status": "incomplete",
+          "score": 39,
+          "risk": 61,
+          "status": "do not install",
           "partial": true,
           "coverage": 0,
           "exceptions": [
@@ -346,6 +346,27 @@
             }
           ],
           "findings": [
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/stripe-directory/SKILL.md",
+              "line": 20
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/stripe-directory/SKILL.md",
+              "line": 55
+            },
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "skills/stripe-directory/SKILL.md",
+              "line": 55
+            },
             {
               "id": "RP1",
               "severity": "MEDIUM",
@@ -358,7 +379,7 @@
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/stripe-directory/SKILL.md",
-              "line": 22
+              "line": 21
             }
           ]
         },
@@ -390,9 +411,9 @@
         },
         {
           "path": "skills/stripe-projects",
-          "score": 63,
-          "risk": 37,
-          "status": "caution",
+          "score": 12,
+          "risk": 88,
+          "status": "do not install",
           "partial": true,
           "coverage": 0,
           "exceptions": [
@@ -404,19 +425,47 @@
             {
               "reason": "reference_missing",
               "path": "skills/stripe-projects/SKILL.md",
-              "line": 81
+              "line": 83
             },
             {
               "reason": "reference_missing",
               "path": "skills/stripe-projects/SKILL.md",
-              "line": 88
+              "line": 90
             }
           ],
           "findings": [
             {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/stripe-projects/SKILL.md",
+              "line": 19
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/stripe-projects/SKILL.md",
+              "line": 42
+            },
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "skills/stripe-projects/SKILL.md",
+              "line": 42
+            },
+            {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
+              "file": "skills/stripe-projects/SKILL.md",
+              "line": 92
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
               "file": "skills/stripe-projects/SKILL.md",
               "line": 90
             },
@@ -425,14 +474,7 @@
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
               "file": "skills/stripe-projects/SKILL.md",
-              "line": 88
-            },
-            {
-              "id": "AS3",
-              "severity": "MEDIUM",
-              "message": "Skill Enumeration",
-              "file": "skills/stripe-projects/SKILL.md",
-              "line": 88
+              "line": 90
             }
           ]
         },
@@ -508,7 +550,7 @@
       ]
     }
   ],
-  "score": 43,
+  "score": 12,
   "status": "do not install",
   "tool": {
     "name": "skillspector",
@@ -516,7 +558,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-23T04:25:17Z"
+      "checkedAt": "2026-11-04T18:21:37Z"
     }
   },
   "agentStacks": {
