@@ -7,8 +7,10 @@
 let
   source = builtins.fromJSON (builtins.readFile ./source.json);
   # BEGIN custom — kept as it is when this file is regenerated
+  # why: the server's start script runs `bun install` into the plugin
+  # root, which is read-only here (ADR 0026).
   args = { };
-  hooks = old: { };
+  hooks = pkgs.callPackage ../../lib/bun-server-hooks.nix { } (pkgs.callPackage ../imessage-node-modules { });
   # END custom — anything outside these markers is overwritten
 in
 (buildAgentPlugin (source // args)).overrideAttrs hooks
