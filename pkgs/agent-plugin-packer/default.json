@@ -1,0 +1,69 @@
+{
+  "name": "packer",
+  "version": "1.0.0",
+  "src": {
+    "owner": "hashicorp",
+    "repo": "agent-skills",
+    "rev": "5e30fa5c867ba6777c37e4206babfd08049c396f",
+    "hash": "sha256-xypoVCxhxgQdoUcy7HyD27r80JZsMqJOfrKhDizT+/k="
+  },
+  "sourceUrl": "https://github.com/hashicorp/agent-skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "HashiCorp",
+      "url": "https://github.com/hashicorp"
+    },
+    "description": "Packer skills for image building and HCP Packer registry workflows.",
+    "extensions": {
+      "com.openai": {
+        "interface": {
+          "capabilities": [
+            "Read",
+            "Write"
+          ],
+          "category": "Developer Tools",
+          "defaultPrompt": "Help me complete this Packer task using the relevant HashiCorp skill.",
+          "developerName": "HashiCorp",
+          "displayName": "Packer",
+          "longDescription": "HashiCorp Packer skills for AWS, Azure, and Windows image building plus HCP Packer registry workflows.",
+          "shortDescription": "Build and publish machine images."
+        }
+      }
+    },
+    "homepage": "https://developer.hashicorp.com/packer",
+    "keywords": [
+      "packer",
+      "images",
+      "aws",
+      "azure",
+      "hcp-packer"
+    ],
+    "license": "MPL-2.0",
+    "name": "packer",
+    "repository": "https://github.com/hashicorp/agent-skills",
+    "version": "1.0.0"
+  },
+  "skills": {
+    "aws-ami-builder": "plugins/packer/skills/aws-ami-builder",
+    "azure-image-builder": "plugins/packer/skills/azure-image-builder",
+    "push-to-registry": "plugins/packer/skills/push-to-registry",
+    "windows-builder": "plugins/packer/skills/windows-builder"
+  },
+  "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "meta": {
+    "description": "Packer skills for image building and HCP Packer registry workflows",
+    "homepage": "https://github.com/hashicorp/agent-skills"
+  },
+  "import": {
+    "input": "hashicorp/agent-skills",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ]
+  }
+}

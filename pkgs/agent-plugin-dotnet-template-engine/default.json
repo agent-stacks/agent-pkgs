@@ -1,0 +1,69 @@
+{
+  "name": "dotnet-template-engine",
+  "version": "0.1.5",
+  "src": {
+    "owner": "dotnet",
+    "repo": "skills",
+    "rev": "9837da685079d576feb27f9dd4f87631d3d94107",
+    "hash": "sha256-hAV0Duw1TE/G7eMafIpJOmXY7DCFx8i/P5+VXs/YxHg="
+  },
+  "sourceUrl": "https://github.com/dotnet/skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "description": ".NET Template Engine skills: template discovery, project scaffolding, and template authoring.",
+    "extensions": {
+      "com.anthropic.claude-code": {
+        "agents": [
+          "./agents/template-engine.agent.md"
+        ]
+      }
+    },
+    "name": "dotnet-template-engine",
+    "version": "0.1.5"
+  },
+  "skills": {
+    "template-authoring": "plugins/dotnet-template-engine/skills/template-authoring",
+    "template-comparison": "plugins/dotnet-template-engine/skills/template-comparison",
+    "template-discovery": "plugins/dotnet-template-engine/skills/template-discovery",
+    "template-instantiation": "plugins/dotnet-template-engine/skills/template-instantiation",
+    "template-smart-defaults": "plugins/dotnet-template-engine/skills/template-smart-defaults",
+    "template-validation": "plugins/dotnet-template-engine/skills/template-validation"
+  },
+  "requiredRuntimes": [],
+  "dependencies": [
+    "dotnet-sdk_10"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/agents": "plugins/dotnet-template-engine/agents"
+  },
+  "meta": {
+    "description": ".NET Template Engine skills",
+    "homepage": "https://github.com/dotnet/skills"
+  },
+  "import": {
+    "input": "dotnet/skills",
+    "flags": [
+      "--dependency=dotnet-sdk_10",
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": ".agents",
+        "message": "5 SKILL.md outside every imported plugin, not imported"
+      },
+      {
+        "path": ".github/skills/agentic-workflows/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .github/skills/agentic-workflows=NAME imports it"
+      },
+      {
+        "path": "eng",
+        "message": "2 SKILL.md outside every imported plugin, not imported"
+      }
+    ]
+  }
+}

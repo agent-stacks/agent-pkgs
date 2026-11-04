@@ -1,0 +1,129 @@
+{
+  "name": "launchdarkly",
+  "version": "1.0.3",
+  "src": {
+    "owner": "launchdarkly",
+    "repo": "ai-tooling",
+    "rev": "b583340d6ea1d3be1daa666c4272e6cc817e5812",
+    "hash": "sha256-1jFMof0Mtnse2iCg/keF9wzIc055GgRGyrmXh3+7A20="
+  },
+  "sourceUrl": "https://github.com/launchdarkly/ai-tooling",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "email": "support@launchdarkly.com",
+      "name": "LaunchDarkly"
+    },
+    "description": "LaunchDarkly agent skills and MCP servers for feature flag management, AgentControl, and metrics",
+    "homepage": "https://launchdarkly.com",
+    "keywords": [
+      "launchdarkly",
+      "feature-flags",
+      "feature-management",
+      "ai-config",
+      "targeting",
+      "rollout",
+      "cleanup",
+      "mcp"
+    ],
+    "license": "Apache-2.0",
+    "name": "launchdarkly",
+    "repository": "https://github.com/launchdarkly/ai-tooling",
+    "version": "1.0.3"
+  },
+  "skills": {
+    "agent-graphs": "skills/agentcontrol/agent-graphs",
+    "aiconfig-agent-graphs": "skills/agentcontrol/aiconfig-agent-graphs",
+    "aiconfig-ai-metrics": "skills/agentcontrol/aiconfig-ai-metrics",
+    "aiconfig-create": "skills/agentcontrol/aiconfig-create",
+    "aiconfig-custom-metrics": "skills/agentcontrol/aiconfig-custom-metrics",
+    "aiconfig-migrate": "skills/agentcontrol/aiconfig-migrate",
+    "aiconfig-online-evals": "skills/agentcontrol/aiconfig-online-evals",
+    "aiconfig-projects": "skills/agentcontrol/aiconfig-projects",
+    "aiconfig-snippets": "skills/agentcontrol/aiconfig-snippets",
+    "aiconfig-targeting": "skills/agentcontrol/aiconfig-targeting",
+    "aiconfig-tools": "skills/agentcontrol/aiconfig-tools",
+    "aiconfig-update": "skills/agentcontrol/aiconfig-update",
+    "aiconfig-variations": "skills/agentcontrol/aiconfig-variations",
+    "alert-investigation": "skills/observability/alert-investigation",
+    "built-in-metrics": "skills/agentcontrol/built-in-metrics",
+    "configs-create": "skills/agentcontrol/configs-create",
+    "configs-targeting": "skills/agentcontrol/configs-targeting",
+    "configs-update": "skills/agentcontrol/configs-update",
+    "configs-variations": "skills/agentcontrol/configs-variations",
+    "create-fix-pr": "skills/observability/create-fix-pr",
+    "create-graph": "skills/observability/create-graph",
+    "custom-metrics": "skills/agentcontrol/custom-metrics",
+    "experiment-orchestration": "skills/aws-devops-agent/experiment-orchestration",
+    "flag-and-release-change": "skills/feature-flags/flag-and-release-change",
+    "flag-release": "skills/feature-flags/flag-release",
+    "investigate": "skills/observability/investigate",
+    "launchdarkly-experiment-guide": "skills/experiments/launchdarkly-experiment-guide",
+    "launchdarkly-experiment-setup": "skills/experiments/launchdarkly-experiment-setup",
+    "launchdarkly-flag-cleanup": "skills/feature-flags/launchdarkly-flag-cleanup",
+    "launchdarkly-flag-command": "skills/feature-flags/launchdarkly-flag-command",
+    "launchdarkly-flag-create": "skills/feature-flags/launchdarkly-flag-create",
+    "launchdarkly-flag-discovery": "skills/feature-flags/launchdarkly-flag-discovery",
+    "launchdarkly-flag-drift": "skills/feature-flags/launchdarkly-flag-drift",
+    "launchdarkly-flag-qualitative-feedback-setup": "skills/feature-flags/launchdarkly-flag-qualitative-feedback-setup",
+    "launchdarkly-flag-targeting": "skills/feature-flags/launchdarkly-flag-targeting",
+    "launchdarkly-guarded-rollout": "skills/feature-flags/launchdarkly-guarded-rollout",
+    "launchdarkly-metric-choose": "skills/metrics/launchdarkly-metric-choose",
+    "launchdarkly-metric-create": "skills/metrics/launchdarkly-metric-create",
+    "launchdarkly-metric-instrument": "skills/metrics/launchdarkly-metric-instrument",
+    "launchdarkly-release-autopilot-onboarding": "skills/release-autopilot/launchdarkly-release-autopilot-onboarding",
+    "launchdarkly-release-autopilot-settings": "skills/release-autopilot/launchdarkly-release-autopilot-settings",
+    "migrate": "skills/agentcontrol/migrate",
+    "onboarding": "skills/onboarding",
+    "online-evals": "skills/agentcontrol/online-evals",
+    "projects": "skills/agentcontrol/projects",
+    "should-flag-change": "skills/feature-flags/should-flag-change",
+    "snippets": "skills/agentcontrol/snippets",
+    "tools": "skills/agentcontrol/tools"
+  },
+  "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "mcpServers": {
+    "LaunchDarkly": {
+      "headers": {},
+      "type": "streamable-http",
+      "url": "https://mcp.launchdarkly.com/mcp/launchdarkly"
+    }
+  },
+  "meta": {
+    "description": "LaunchDarkly agent skills and MCP servers for feature flag management, AgentControl, and metrics",
+    "homepage": "https://github.com/launchdarkly/ai-tooling"
+  },
+  "import": {
+    "input": "launchdarkly/ai-tooling",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "skills/onboarding/mcp-configure/SKILL.md",
+        "message": "inside skill \"onboarding\" (skills/onboarding/SKILL.md), packaged with it; Claude Code loads that skill, not this file"
+      },
+      {
+        "path": "skills/onboarding/sdk-install/SKILL.md",
+        "message": "inside skill \"onboarding\" (skills/onboarding/SKILL.md), packaged with it; Claude Code loads that skill, not this file"
+      },
+      {
+        "path": "skills/onboarding/sdk-install/apply/SKILL.md",
+        "message": "inside skill \"onboarding\" (skills/onboarding/SKILL.md), packaged with it; Claude Code loads that skill, not this file"
+      },
+      {
+        "path": "skills/onboarding/sdk-install/detect/SKILL.md",
+        "message": "inside skill \"onboarding\" (skills/onboarding/SKILL.md), packaged with it; Claude Code loads that skill, not this file"
+      },
+      {
+        "path": "skills/onboarding/sdk-install/plan/SKILL.md",
+        "message": "inside skill \"onboarding\" (skills/onboarding/SKILL.md), packaged with it; Claude Code loads that skill, not this file"
+      }
+    ]
+  }
+}

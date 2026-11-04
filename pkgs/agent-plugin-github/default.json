@@ -1,0 +1,43 @@
+{
+  "name": "github",
+  "version": "0.0.0-unstable.2026-11-02.g45685aa",
+  "src": {
+    "owner": "posit-dev",
+    "repo": "skills",
+    "rev": "45685aaf10e1e9915adc74768ebb67d0f3f8e9ab",
+    "hash": "sha256-reW5MBmcRKqIC+u3Q5P+PCYVJWSGTEU8n3nlY197Lj4="
+  },
+  "sourceUrl": "https://github.com/posit-dev/skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "description": "Skills for GitHub pull request workflows — creating PRs, addressing review feedback, and resolving threads",
+    "name": "github"
+  },
+  "skills": {
+    "pr-create": "github/pr-create",
+    "pr-threads-address": "github/pr-threads-address",
+    "pr-threads-resolve": "github/pr-threads-resolve"
+  },
+  "requiredRuntimes": [
+    "bash"
+  ],
+  "dependencies": [
+    "R"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "meta": {
+    "description": "Skills for GitHub pull request workflows",
+    "homepage": "https://github.com/posit-dev/skills"
+  },
+  "import": {
+    "input": "posit-dev/skills",
+    "flags": [
+      "--dependency=R",
+      "--pkgs-dir=pkgs"
+    ]
+  }
+}

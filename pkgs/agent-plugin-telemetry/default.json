@@ -1,0 +1,52 @@
+{
+  "name": "telemetry",
+  "version": "0.1.0",
+  "src": {
+    "owner": "anthropics",
+    "repo": "claude-code",
+    "rev": "26382c08758260c9f5deb2019d8fe851f89fa9ae",
+    "hash": "sha256-XOxHQpYQRuLXhVU7CtPtr57Wzvydh+8L6dxjCi74dqI="
+  },
+  "sourceUrl": "https://github.com/anthropics/claude-code",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Anthropic"
+    },
+    "description": "Plugin analytics: hooks $.telemetry's two events, so a plugin logs an event or marks a feature's use as a first-party row, sent in batches with the session's own credential.",
+    "extensions": {
+      "com.anthropic.claude-code": {
+        "types": "./types/index.d.ts"
+      }
+    },
+    "name": "telemetry",
+    "version": "0.1.0"
+  },
+  "skills": {},
+  "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/hooks": "mods/telemetry/hooks",
+    "com.anthropic.claude-code/types": "mods/telemetry/types"
+  },
+  "meta": {
+    "description": "Plugin analytics: hooks $.telemetry's two events, so a plugin logs an event or marks a feature's use as a first-party row, sent in batches with the session's own credential",
+    "homepage": "https://github.com/anthropics/claude-code"
+  },
+  "import": {
+    "input": "anthropics/claude-code",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "mods/telemetry/hooks/hooks.json",
+        "message": "Claude Code loads this module into its own process whenever the plugin is enabled: ./register.ts"
+      }
+    ]
+  }
+}

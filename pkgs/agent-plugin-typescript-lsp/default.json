@@ -1,0 +1,69 @@
+{
+  "name": "typescript-lsp",
+  "version": "1.0.0",
+  "src": {
+    "owner": "anthropics",
+    "repo": "claude-plugins-official",
+    "rev": "fa4eb54397ee2faccb6940512a19c017cb1337f3",
+    "hash": "sha256-FqB+THQsn//s7PIFITa/k9RWOsYytrH50scCuuLgsYw="
+  },
+  "sourceUrl": "https://github.com/anthropics/claude-plugins-official",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "email": "support@anthropic.com",
+      "name": "Anthropic"
+    },
+    "description": "TypeScript/JavaScript language server for enhanced code intelligence",
+    "extensions": {
+      "com.anthropic.claude-code": {
+        "lspServers": {
+          "typescript": {
+            "args": [
+              "--stdio"
+            ],
+            "command": "typescript-language-server",
+            "extensionToLanguage": {
+              ".cjs": "javascript",
+              ".cts": "typescript",
+              ".js": "javascript",
+              ".jsx": "javascriptreact",
+              ".mjs": "javascript",
+              ".mts": "typescript",
+              ".ts": "typescript",
+              ".tsx": "typescriptreact"
+            }
+          }
+        }
+      }
+    },
+    "name": "typescript-lsp",
+    "version": "1.0.0"
+  },
+  "skills": {},
+  "requiredRuntimes": [
+    "typescript-language-server"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "meta": {
+    "description": "TypeScript/JavaScript language server for enhanced code intelligence",
+    "homepage": "https://github.com/anthropics/claude-plugins-official"
+  },
+  "import": {
+    "input": "anthropics/claude-plugins-official",
+    "flags": [
+      "--path-ignore=external_plugins/context7",
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": ".claude-plugin/marketplace.json/lspServers/typescript",
+        "message": "Claude Code starts this language server for .cjs, .cts, .js, .jsx, .mjs, .mts, .ts, .tsx files: typescript-language-server --stdio"
+      }
+    ]
+  }
+}

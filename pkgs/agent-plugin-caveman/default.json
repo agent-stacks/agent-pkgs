@@ -1,0 +1,211 @@
+{
+  "name": "caveman",
+  "version": "4.0.1",
+  "src": {
+    "owner": "juliusbrussee",
+    "repo": "caveman",
+    "rev": "2e068f735253cce28256744804785f01887d9646",
+    "hash": "sha256-DFS9Xp9msSFF4WwdPd9RdghjBzc0x4yVomM6nxQWPKw="
+  },
+  "sourceUrl": "https://github.com/juliusbrussee/caveman",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Julius Brussee",
+      "url": "https://github.com/JuliusBrussee"
+    },
+    "description": "Talk like caveman. Cut filler. Keep technical details explicit.",
+    "name": "caveman",
+    "version": "4.0.1"
+  },
+  "skills": {
+    "cavecrew": "plugins/caveman/skills/cavecrew",
+    "caveman": "plugins/caveman/skills/caveman",
+    "caveman-commit": "skills/caveman-commit",
+    "caveman-compress": "plugins/caveman/skills/caveman-compress",
+    "caveman-discover": "skills/caveman-discover",
+    "caveman-evidence-review": "skills/caveman-evidence-review",
+    "caveman-explore": "skills/caveman-explore",
+    "caveman-help": "skills/caveman-help",
+    "caveman-learn": "skills/caveman-learn",
+    "caveman-manage": "skills/caveman-manage",
+    "caveman-optimize": "skills/caveman-optimize",
+    "caveman-review": "skills/caveman-review",
+    "caveman-setup": "skills/caveman-setup",
+    "caveman-stats": "plugins/caveman/skills/caveman-stats",
+    "investigate-first": "skills/investigate-first",
+    "lean-build": "skills/lean-build",
+    "megacave": "plugins/caveman/skills/megacave",
+    "migration": "skills/migration",
+    "safe-refactor": "skills/safe-refactor",
+    "surgical-patch": "skills/surgical-patch",
+    "ultracave": "plugins/caveman/skills/ultracave",
+    "verify-and-stop": "skills/verify-and-stop"
+  },
+  "requiredRuntimes": [
+    "bash",
+    "node",
+    "python3"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/agents": "agents",
+    "com.anthropic.claude-code/commands": "commands",
+    "com.anthropic.claude-code/hooks": "hooks",
+    "src": "src"
+  },
+  "hooks": {
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "command": "command -v node >/dev/null 2>&1 || exit 0; HOOK_ROOT=$(printf %s \"${CLAUDE_PLUGIN_ROOT}\" | sed 's|^/\\([a-zA-Z]\\)/|\\1:/|'); node \"$HOOK_ROOT/src/hooks/caveman-stats.js\" --record",
+            "statusMessage": "Recording caveman stats...",
+            "timeout": 5,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "command -v node >/dev/null 2>&1 || exit 0; HOOK_ROOT=$(printf %s \"${CLAUDE_PLUGIN_ROOT}\" | sed 's|^/\\([a-zA-Z]\\)/|\\1:/|'); node \"$HOOK_ROOT/src/hooks/caveman-activate.js\"",
+            "statusMessage": "Loading caveman mode...",
+            "timeout": 30,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "command": "command -v node >/dev/null 2>&1 || exit 0; HOOK_ROOT=$(printf %s \"${CLAUDE_PLUGIN_ROOT}\" | sed 's|^/\\([a-zA-Z]\\)/|\\1:/|'); node \"$HOOK_ROOT/src/hooks/caveman-activate.js\" --subagent",
+            "statusMessage": "Loading caveman mode for subagent...",
+            "timeout": 30,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "command": "command -v node >/dev/null 2>&1 || exit 0; HOOK_ROOT=$(printf %s \"${CLAUDE_PLUGIN_ROOT}\" | sed 's|^/\\([a-zA-Z]\\)/|\\1:/|'); node \"$HOOK_ROOT/src/hooks/caveman-mode-tracker.js\"",
+            "statusMessage": "Tracking caveman mode...",
+            "timeout": 30,
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "description": "Talk like caveman",
+    "homepage": "https://github.com/juliusbrussee/caveman"
+  },
+  "import": {
+    "input": "juliusbrussee/caveman",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "plugins/caveman/skills/megacave/SKILL.md",
+        "message": "unknown frontmatter fields: disable-model-invocation"
+      },
+      {
+        "path": "plugins/caveman/skills/ultracave/SKILL.md",
+        "message": "unknown frontmatter fields: disable-model-invocation"
+      },
+      {
+        "path": "skills/cavecrew",
+        "message": "skill \"cavecrew\" already found at plugins/caveman/skills/cavecrew, not imported"
+      },
+      {
+        "path": "skills/caveman",
+        "message": "skill \"caveman\" already found at plugins/caveman/skills/caveman, not imported"
+      },
+      {
+        "path": "skills/caveman-compress",
+        "message": "skill \"caveman-compress\" already found at plugins/caveman/skills/caveman-compress, not imported"
+      },
+      {
+        "path": "skills/caveman-explore/SKILL.md",
+        "message": "unknown frontmatter fields: model, tools"
+      },
+      {
+        "path": "skills/caveman-stats",
+        "message": "skill \"caveman-stats\" already found at plugins/caveman/skills/caveman-stats, not imported"
+      },
+      {
+        "path": "skills/megacave",
+        "message": "skill \"megacave\" already found at plugins/caveman/skills/megacave, not imported"
+      },
+      {
+        "path": "skills/ultracave",
+        "message": "skill \"ultracave\" already found at plugins/caveman/skills/ultracave, not imported"
+      },
+      {
+        "path": ".claude-plugin/plugin.json",
+        "message": "Claude Code runs this on SessionEnd: command -v node >/dev/null 2>&1 || exit 0; HOOK_ROOT=$(printf %s \"${CLAUDE_PLUGIN_ROOT}\" | sed 's|^/\\([a-zA-Z]\\)/|\\1:/|'); node \"$HOOK_ROOT/src/hooks/caveman-stats.js\" --record"
+      },
+      {
+        "path": ".claude-plugin/plugin.json",
+        "message": "Claude Code runs this on SessionStart: command -v node >/dev/null 2>&1 || exit 0; HOOK_ROOT=$(printf %s \"${CLAUDE_PLUGIN_ROOT}\" | sed 's|^/\\([a-zA-Z]\\)/|\\1:/|'); node \"$HOOK_ROOT/src/hooks/caveman-activate.js\""
+      },
+      {
+        "path": ".claude-plugin/plugin.json",
+        "message": "Claude Code runs this on SubagentStart: command -v node >/dev/null 2>&1 || exit 0; HOOK_ROOT=$(printf %s \"${CLAUDE_PLUGIN_ROOT}\" | sed 's|^/\\([a-zA-Z]\\)/|\\1:/|'); node \"$HOOK_ROOT/src/hooks/caveman-activate.js\" --subagent"
+      },
+      {
+        "path": ".claude-plugin/plugin.json",
+        "message": "Claude Code runs this on UserPromptSubmit: command -v node >/dev/null 2>&1 || exit 0; HOOK_ROOT=$(printf %s \"${CLAUDE_PLUGIN_ROOT}\" | sed 's|^/\\([a-zA-Z]\\)/|\\1:/|'); node \"$HOOK_ROOT/src/hooks/caveman-mode-tracker.js\""
+      },
+      {
+        "path": "com.anthropic.claude-code/agents/compile.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/caveman-compress/scripts/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/caveman-compress/scripts/__main__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "package.json",
+        "message": "declares dependencies import does not package; package them in this package's custom block, using pnpm.fetchDeps for its pnpm-lock.yaml"
+      },
+      {
+        "path": "skills/caveman-explore/package.json",
+        "message": "declares dependencies import does not package; package them in this package's custom block; with no lockfile beside it, nothing pins the versions"
+      },
+      {
+        "path": "skills/caveman-learn/package.json",
+        "message": "declares dependencies import does not package; package them in this package's custom block; with no lockfile beside it, nothing pins the versions"
+      },
+      {
+        "path": "src/hooks/package.json",
+        "message": "declares dependencies import does not package; package them in this package's custom block; with no lockfile beside it, nothing pins the versions"
+      },
+      {
+        "path": "src/mcp-servers/caveman-shrink/package.json",
+        "message": "declares dependencies import does not package; package them in this package's custom block; with no lockfile beside it, nothing pins the versions"
+      },
+      {
+        "path": "src/plugins/opencode/package.json",
+        "message": "declares dependencies import does not package; package them in this package's custom block; with no lockfile beside it, nothing pins the versions"
+      }
+    ]
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "name": "okf",
+  "version": "0.12.0",
+  "src": {
+    "owner": "scaccogatto",
+    "repo": "okf-skills",
+    "rev": "c6591ece20f35299b0d483168b376d550787c735",
+    "hash": "sha256-aunVXep/KYX1iWu30tSnZ1sotJ4LGg5o9hl+7oofI90="
+  },
+  "sourceUrl": "https://github.com/scaccogatto/okf-skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "email": "chat@marcoboffo.me",
+      "name": "Marco Boffo",
+      "url": "https://github.com/scaccogatto"
+    },
+    "description": "Author, maintain, backfill, validate, visualize and serve (MCP) Open Knowledge Format (OKF) bundles.",
+    "homepage": "https://github.com/scaccogatto/okf-skills",
+    "keywords": [
+      "okf",
+      "knowledge",
+      "markdown",
+      "agents"
+    ],
+    "license": "MIT",
+    "name": "okf",
+    "repository": "https://github.com/scaccogatto/okf-skills",
+    "version": "0.12.0"
+  },
+  "skills": {
+    "backfill": "skills/backfill",
+    "okf": "skills/okf",
+    "validate": "skills/validate",
+    "visualize": "skills/visualize"
+  },
+  "requiredRuntimes": [
+    "bash",
+    "python3",
+    "uv"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/agents": "agents",
+    "com.anthropic.claude-code/hooks": "hooks",
+    "servers": "servers"
+  },
+  "mcpServers": {
+    "bundle": {
+      "args": [
+        "run",
+        "${PLUGIN_ROOT}/servers/okf_mcp.py"
+      ],
+      "command": "uv",
+      "type": "stdio"
+    }
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/okf-stop-check.sh\"",
+            "statusMessage": "Checking OKF bundle...",
+            "timeout": 15,
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "description": "Author, maintain, backfill, validate, visualize and serve (MCP) Open Knowledge Format (OKF) bundles",
+    "homepage": "https://github.com/scaccogatto/okf-skills"
+  },
+  "import": {
+    "input": "scaccogatto/okf-skills",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "skills/backfill/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, user-invocable"
+      },
+      {
+        "path": "skills/okf/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, user-invocable"
+      },
+      {
+        "path": "skills/validate/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, user-invocable"
+      },
+      {
+        "path": "skills/visualize/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, user-invocable"
+      },
+      {
+        "path": "hooks/hooks.json",
+        "message": "Claude Code runs this on Stop: bash \"${CLAUDE_PLUGIN_ROOT}/hooks/okf-stop-check.sh\""
+      }
+    ]
+  }
+}

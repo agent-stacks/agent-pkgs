@@ -1,0 +1,57 @@
+{
+  "name": "math-proof",
+  "version": "0.0.0-unstable.2026-11-03.gfa4eb54",
+  "src": {
+    "owner": "anthropics",
+    "repo": "claude-plugins-official",
+    "rev": "fa4eb54397ee2faccb6940512a19c017cb1337f3",
+    "hash": "sha256-FqB+THQsn//s7PIFITa/k9RWOsYytrH50scCuuLgsYw="
+  },
+  "sourceUrl": "https://github.com/anthropics/claude-plugins-official",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "email": "support@anthropic.com",
+      "name": "Anthropic"
+    },
+    "description": "Two skills for hard mathematics problems, each ending in a self-contained proof.md: /math-proof:solo has the session work the problem itself in stages with a notes file; /math-proof:siege works on it for hours in rounds of judge and worker sub-agents and says plainly what is and is not proved.",
+    "homepage": "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/math-proof",
+    "name": "math-proof"
+  },
+  "skills": {
+    "siege": "plugins/math-proof/skills/siege",
+    "solo": "plugins/math-proof/skills/solo"
+  },
+  "requiredRuntimes": [
+    "python3"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/agents": "plugins/math-proof/agents"
+  },
+  "meta": {
+    "description": "Two skills for hard mathematics problems, each ending in a self-contained proof.md",
+    "homepage": "https://github.com/anthropics/claude-plugins-official"
+  },
+  "import": {
+    "input": "anthropics/claude-plugins-official",
+    "flags": [
+      "--path-ignore=external_plugins/context7",
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "plugins/math-proof/skills/siege/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, disable-model-invocation, disallowed-tools"
+      },
+      {
+        "path": "plugins/math-proof/skills/solo/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, disable-model-invocation, disallowed-tools"
+      }
+    ]
+  }
+}

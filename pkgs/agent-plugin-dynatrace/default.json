@@ -1,0 +1,711 @@
+{
+  "name": "dynatrace",
+  "version": "10.0.0",
+  "src": {
+    "owner": "Dynatrace",
+    "repo": "dynatrace-for-ai",
+    "rev": "5dbfd574ab59524aed68a4314dc383d73bdf7e9c",
+    "hash": "sha256-LP9rBj8L0PNXtEv6bOTCnzvt1D1L5wRyW4e8zC8HtZg="
+  },
+  "sourceUrl": "https://github.com/Dynatrace/dynatrace-for-ai",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Dynatrace"
+    },
+    "description": "Dynatrace observability skills and knowledge packages for AI coding agents.",
+    "homepage": "https://www.dynatrace.com",
+    "license": "Apache-2.0",
+    "name": "dynatrace",
+    "repository": "https://github.com/Dynatrace/dynatrace-for-ai",
+    "version": "10.0.0"
+  },
+  "skills": {
+    "dt-alerting": "skills/dt-alerting",
+    "dt-app-dashboards": "skills/dt-app-dashboards",
+    "dt-app-notebooks": "skills/dt-app-notebooks",
+    "dt-dql-essentials": "skills/dt-dql-essentials",
+    "dt-js-runtime": "skills/dt-js-runtime",
+    "dt-migration": "skills/dt-migration",
+    "dt-obs-analytics": "skills/dt-obs-analytics",
+    "dt-obs-aws": "skills/dt-obs-aws",
+    "dt-obs-azure": "skills/dt-obs-azure",
+    "dt-obs-compliance-assistant": "skills/dt-obs-compliance-assistant",
+    "dt-obs-ext-monitors": "skills/dt-obs-ext-monitors",
+    "dt-obs-extensions": "skills/dt-obs-extensions",
+    "dt-obs-frontends": "skills/dt-obs-frontends",
+    "dt-obs-gcp": "skills/dt-obs-gcp",
+    "dt-obs-genai": "skills/dt-obs-genai",
+    "dt-obs-hosts": "skills/dt-obs-hosts",
+    "dt-obs-kubernetes": "skills/dt-obs-kubernetes",
+    "dt-obs-log-semantic-mapping": "skills/dt-obs-log-semantic-mapping",
+    "dt-obs-logs": "skills/dt-obs-logs",
+    "dt-obs-network-devices": "skills/dt-obs-network-devices",
+    "dt-obs-network-flows": "skills/dt-obs-network-flows",
+    "dt-obs-predictive-analytics": "skills/dt-obs-predictive-analytics",
+    "dt-obs-problems": "skills/dt-obs-problems",
+    "dt-obs-services": "skills/dt-obs-services",
+    "dt-obs-tracing": "skills/dt-obs-tracing",
+    "dt-platform-costs": "skills/dt-platform-costs",
+    "dt-sec-contextualization": "skills/dt-sec-contextualization",
+    "dt-sec-insights": "skills/dt-sec-insights",
+    "dt-sec-ioc-hunting": "skills/dt-sec-ioc-hunting",
+    "dt-sec-semantic-mapping": "skills/dt-sec-semantic-mapping",
+    "dt-setup-android": "skills/dt-setup-android",
+    "dt-setup-flutter": "skills/dt-setup-flutter",
+    "dt-setup-genai": "skills/dt-setup-genai",
+    "dt-setup-ios": "skills/dt-setup-ios",
+    "dt-setup-oneagent": "skills/dt-setup-oneagent",
+    "dt-setup-openinference-migration": "skills/dt-setup-openinference-migration",
+    "dt-setup-react-native": "skills/dt-setup-react-native",
+    "dt-upgrade": "skills/dt-upgrade"
+  },
+  "requiredRuntimes": [
+    "bash",
+    "python3",
+    "ruby"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "mcpServers": {
+    "dynatrace": {
+      "headers": {
+        "Authorization": "Bearer ${DT_PLATFORM_TOKEN}",
+        "Dt-External-Source": "dynatrace-for-ai/10.0.0"
+      },
+      "type": "streamable-http",
+      "url": "${DT_ENVIRONMENT}/platform-reserved/mcp-gateway/v0.1/servers/dynatrace-mcp/mcp"
+    }
+  },
+  "meta": {
+    "description": "Dynatrace observability skills and knowledge packages for AI coding agents",
+    "homepage": "https://github.com/Dynatrace/dynatrace-for-ai"
+  },
+  "import": {
+    "input": "Dynatrace/dynatrace-for-ai",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": ".mcp.json/mcpServers/dynatrace",
+        "message": "url or headers carry ${DT_ENVIRONMENT}, ${DT_PLATFORM_TOKEN}; a conforming client does not expand them and sends the text as written"
+      },
+      {
+        "path": "skills/dt-setup-ios/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint"
+      },
+      {
+        "path": "skills/dt-upgrade/references/edge-data-platform/classic-cloud-integrations/dac-aws-to-2ndgen-metrics.json",
+        "message": "larger than 1MiB, so it was not read; a ${PLUGIN_ROOT} reference inside it ships nothing, and a script only it runs is not reported"
+      },
+      {
+        "path": "skills/dt-upgrade/references/edge-data-platform/classic-cloud-integrations/dac-azure-to-2ndgen-metrics.json",
+        "message": "larger than 1MiB, so it was not read; a ${PLUGIN_ROOT} reference inside it ships nothing, and a script only it runs is not reported"
+      },
+      {
+        "path": "skills/dt-upgrade/references/edge-data-platform/classic-cloud-integrations/per-key-mappings.json",
+        "message": "larger than 1MiB, so it was not read; a ${PLUGIN_ROOT} reference inside it ships nothing, and a script only it runs is not reported"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/calculated-service-metrics/scanner/src/calculated_service_metric_scanner/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/calculated-service-metrics/scanner/src/calculated_service_metric_scanner/__main__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/calculated-service-metrics/scanner/src/calculated_service_metric_scanner/cli.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/calculated-service-metrics/scanner/src/calculated_service_metric_scanner/config.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/calculated-service-metrics/scanner/src/calculated_service_metric_scanner/inventory.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/calculated-service-metrics/scanner/src/calculated_service_metric_scanner/migration/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/calculated-service-metrics/scanner/src/calculated_service_metric_scanner/migration/assess.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/calculated-service-metrics/scanner/src/calculated_service_metric_scanner/migration/catalog.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/calculated-service-metrics/scanner/src/calculated_service_metric_scanner/migration/definitions.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/calculated-service-metrics/scanner/src/calculated_service_metric_scanner/migration/processor.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/calculated-service-metrics/scanner/src/calculated_service_metric_scanner/migration/traffic.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/calculated-service-metrics/scanner/src/calculated_service_metric_scanner/report.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/calculated-service-metrics/scanner/src/calculated_service_metric_scanner/scan.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/calculated-service-metrics/scanner/src/calculated_service_metric_scanner/shared.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/classic-service-detection-rules/migrator/src/sdr_migrator/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/classic-service-detection-rules/migrator/src/sdr_migrator/cache.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/classic-service-detection-rules/migrator/src/sdr_migrator/candidates.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/classic-service-detection-rules/migrator/src/sdr_migrator/cli.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/classic-service-detection-rules/migrator/src/sdr_migrator/clients/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/classic-service-detection-rules/migrator/src/sdr_migrator/clients/config_v1.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/classic-service-detection-rules/migrator/src/sdr_migrator/clients/dql.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/classic-service-detection-rules/migrator/src/sdr_migrator/clients/utils.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/classic-service-detection-rules/migrator/src/sdr_migrator/conditions.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/classic-service-detection-rules/migrator/src/sdr_migrator/config.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/classic-service-detection-rules/migrator/src/sdr_migrator/orchestrator.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/classic-service-detection-rules/migrator/src/sdr_migrator/query_builder.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/classic-service-detection-rules/migrator/src/sdr_migrator/report_builder.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/classic-service-detection-rules/migrator/src/sdr_migrator/verifier.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/classic-service-detection-rules/migrator/src/sdr_migrator/windowing.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/classic-service-detection-rules/migrator/vulture_whitelist.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/cache.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/checks.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/cli.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/clients/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/clients/dql.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/clients/settings.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/clients/utils.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/config.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/dql/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/dql/queries.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/dql/translation.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/dql/windowing.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/emission/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/emission/artifacts.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/migrator.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/reconstruction/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/reconstruction/candidates.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/reconstruction/replacement.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/reconstruction/resolution.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/reporting/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/reporting/html.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/reporting/outcomes.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/reporting/summary.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/rules/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/rules/classification.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/rules/tags.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/run_result.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/workdir.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/vulture_whitelist.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/analysis/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/analysis/candidates.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/analysis/overselect_loop.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/analysis/substring_candidate_rescue.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/auth/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/auth/api_token.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/cache.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/cli.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/clients/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/clients/config_v1.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/clients/dql.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/clients/utils.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/config.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/orchestrator.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/queries/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/queries/entity.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/queries/span.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/queries/verification.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/query_executor.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/report/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/report/builder.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/report/html.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/rules/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/rules/classifier.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/rules/mapping.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/rules/models.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/rules/tags.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/rules/translator.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/upload_replacements.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/vulture_whitelist.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/messaging-queues/scanner/src/messaging_queue_scanner/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/messaging-queues/scanner/src/messaging_queue_scanner/__main__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/messaging-queues/scanner/src/messaging_queue_scanner/cli.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/messaging-queues/scanner/src/messaging_queue_scanner/config.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/messaging-queues/scanner/src/messaging_queue_scanner/enrich.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/messaging-queues/scanner/src/messaging_queue_scanner/report.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/messaging-queues/scanner/src/messaging_queue_scanner/scan.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/messaging-queues/scanner/src/messaging_queue_scanner/shared.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/attributes/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/attributes/classification.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/attributes/reading.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/attributes/tags.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/attributes/technologies.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/cache.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/checks.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/cli.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/clients/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/clients/config_v1.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/clients/dql.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/clients/transports.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/clients/utils.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/config.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/dql/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/dql/queries.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/dql/windowing.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/emission/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/emission/artifact.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/migrator.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/reconstruction/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/reconstruction/candidate_search.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/reconstruction/harvest.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/reconstruction/resolution.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/reconstruction/verdict.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/reporting/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/reporting/outcomes.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/reporting/outputs.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/reporting/report.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/reporting/summary.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/run_result.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/src/ra_migrator/workdir.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/vulture_whitelist.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/digital-experience/ext-monitors-migration/migrator/migrate_monitors.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/digital-experience/rum-anomaly-detection/migrator/actors.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/digital-experience/rum-anomaly-detection/migrator/apply.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/digital-experience/rum-anomaly-detection/migrator/client.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/digital-experience/rum-anomaly-detection/migrator/dedup.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/digital-experience/rum-anomaly-detection/migrator/fetch.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/digital-experience/rum-anomaly-detection/migrator/migrate.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/digital-experience/rum-anomaly-detection/migrator/models.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/digital-experience/rum-anomaly-detection/migrator/report.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/digital-experience/rum-anomaly-detection/migrator/schema_ids.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/digital-experience/rum-anomaly-detection/migrator/translate.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/digital-experience/rum-anomaly-detection/migrator/validate.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/classic-service-detection-rules/migrator/pyproject.toml",
+        "message": "declares dependencies import does not package; package them in this package's custom block, using python3.withPackages"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/pyproject.toml",
+        "message": "declares dependencies import does not package; package them in this package's custom block, using python3.withPackages"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/pyproject.toml",
+        "message": "declares dependencies import does not package; package them in this package's custom block, using python3.withPackages"
+      },
+      {
+        "path": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/pyproject.toml",
+        "message": "declares dependencies import does not package; package them in this package's custom block, using python3.withPackages"
+      }
+    ]
+  }
+}

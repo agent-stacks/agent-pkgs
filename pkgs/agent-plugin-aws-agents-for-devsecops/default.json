@@ -1,0 +1,119 @@
+{
+  "name": "aws-agents-for-devsecops",
+  "version": "1.1.0",
+  "src": {
+    "owner": "aws",
+    "repo": "agent-toolkit-for-aws",
+    "rev": "b2a94d85e6673f54511df0b5d78b82b0e716d73b",
+    "hash": "sha256-pCFqu5U7PaorSVn2lDXVbAsSVOeJA6CXay6q9wZEepo="
+  },
+  "sourceUrl": "https://github.com/aws/agent-toolkit-for-aws",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Amazon Web Services"
+    },
+    "description": "Investigate incidents, review code and execute UAT for release readiness, scan code for vulnerabilities, and run penetration tests with AWS DevOps Agent and AWS Security Agent.",
+    "extensions": {
+      "com.anthropic.claude-code": {
+        "mcpServerFields": {
+          "aws-devops-agent": {
+            "timeout": 120000
+          }
+        }
+      }
+    },
+    "homepage": "https://aws.amazon.com/products/developer-tools/agent-toolkit-for-aws/",
+    "keywords": [
+      "aws",
+      "devops",
+      "devsecops",
+      "security",
+      "security-scan",
+      "pentest",
+      "penetration-test",
+      "incident",
+      "investigation",
+      "code-review",
+      "release-readiness",
+      "release-testing",
+      "threat-model",
+      "remediation",
+      "observability",
+      "cloudwatch",
+      "mcp",
+      "qa",
+      "uat"
+    ],
+    "license": "Apache-2.0",
+    "name": "aws-agents-for-devsecops",
+    "repository": "https://github.com/aws/agent-toolkit-for-aws",
+    "version": "1.1.0"
+  },
+  "skills": {
+    "analyzing-release-readiness": "plugins/aws-agents-for-devsecops/skills/analyzing-release-readiness",
+    "chatting-with-aws-devops-agent": "plugins/aws-agents-for-devsecops/skills/chatting-with-aws-devops-agent",
+    "coordinating-multi-space-devops-agent": "plugins/aws-agents-for-devsecops/skills/coordinating-multi-space-devops-agent",
+    "diff-scanning-with-aws-security-agent": "plugins/aws-agents-for-devsecops/skills/diff-scanning-with-aws-security-agent",
+    "investigating-incidents-with-aws-devops-agent": "plugins/aws-agents-for-devsecops/skills/investigating-incidents-with-aws-devops-agent",
+    "pentesting-with-aws-security-agent": "plugins/aws-agents-for-devsecops/skills/pentesting-with-aws-security-agent",
+    "remediating-with-aws-security-agent": "plugins/aws-agents-for-devsecops/skills/remediating-with-aws-security-agent",
+    "running-release-tests": "plugins/aws-agents-for-devsecops/skills/running-release-tests",
+    "scanning-with-aws-security-agent": "plugins/aws-agents-for-devsecops/skills/scanning-with-aws-security-agent",
+    "setup": "plugins/aws-agents-for-devsecops/skills/setup",
+    "setup-devops-agent": "plugins/aws-agents-for-devsecops/skills/setup-devops-agent",
+    "setup-security-agent": "plugins/aws-agents-for-devsecops/skills/setup-security-agent",
+    "threat-modeling-with-aws-security-agent": "plugins/aws-agents-for-devsecops/skills/threat-modeling-with-aws-security-agent"
+  },
+  "requiredRuntimes": [],
+  "dependencies": [
+    "uv"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "README.md": "plugins/aws-agents-for-devsecops/README.md",
+    "com.anthropic.claude-code/commands": "plugins/aws-agents-for-devsecops/commands"
+  },
+  "mcpServers": {
+    "aws-devops-agent": {
+      "headers": {
+        "Authorization": "Bearer ${DEVOPS_AGENT_TOKEN}"
+      },
+      "type": "streamable-http",
+      "url": "https://connect.aidevops.us-east-1.api.aws/mcp"
+    }
+  },
+  "meta": {
+    "description": "Investigate incidents, review code and execute UAT for release readiness, scan code for vulnerabilities, and run penetration tests with AWS DevOps Agent and AWS Security Agent",
+    "homepage": "https://github.com/aws/agent-toolkit-for-aws"
+  },
+  "import": {
+    "input": "aws/agent-toolkit-for-aws",
+    "flags": [
+      "--dependency=uv",
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "plugins/aws-agents-for-devsecops/.mcp.json/mcpServers/aws-devops-agent",
+        "message": "Claude Code reads timeout here; carried in the manifest's extensions block, since mcp.json cannot hold them"
+      },
+      {
+        "path": "plugins/aws-agents-for-devsecops/.mcp.json/mcpServers/aws-devops-agent",
+        "message": "url or headers carry ${DEVOPS_AGENT_TOKEN}; a conforming client does not expand them and sends the text as written"
+      },
+      {
+        "path": "skills",
+        "message": "118 SKILL.md outside every imported plugin, not imported"
+      },
+      {
+        "path": ".mcp.json",
+        "message": "Claude's own server file, which launch generates from mcp.json; not carried"
+      }
+    ]
+  }
+}

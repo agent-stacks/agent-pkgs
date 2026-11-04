@@ -1,0 +1,94 @@
+{
+  "name": "telegram",
+  "version": "0.0.7",
+  "src": {
+    "owner": "anthropics",
+    "repo": "claude-plugins-official",
+    "rev": "fa4eb54397ee2faccb6940512a19c017cb1337f3",
+    "hash": "sha256-FqB+THQsn//s7PIFITa/k9RWOsYytrH50scCuuLgsYw="
+  },
+  "sourceUrl": "https://github.com/anthropics/claude-plugins-official",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "description": "Telegram messaging bridge with built-in access control. Manage pairing, allowlists, and policy via /telegram:access.",
+    "keywords": [
+      "telegram",
+      "messaging",
+      "channel",
+      "mcp"
+    ],
+    "name": "telegram",
+    "version": "0.0.7"
+  },
+  "skills": {
+    "access": "external_plugins/telegram/skills/access",
+    "configure": "external_plugins/telegram/skills/configure"
+  },
+  "requiredRuntimes": [
+    "bun"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "ACCESS.md": "external_plugins/telegram/ACCESS.md",
+    "LICENSE": "external_plugins/telegram/LICENSE",
+    "README.md": "external_plugins/telegram/README.md",
+    "bun.lock": "external_plugins/telegram/bun.lock",
+    "package.json": "external_plugins/telegram/package.json",
+    "server.ts": "external_plugins/telegram/server.ts"
+  },
+  "mcpServers": {
+    "telegram": {
+      "args": [
+        "run",
+        "--cwd",
+        "${PLUGIN_ROOT}",
+        "--shell=bun",
+        "--silent",
+        "start"
+      ],
+      "command": "bun",
+      "type": "stdio"
+    }
+  },
+  "meta": {
+    "description": "Telegram messaging bridge with built-in access control",
+    "homepage": "https://github.com/anthropics/claude-plugins-official"
+  },
+  "import": {
+    "input": "anthropics/claude-plugins-official",
+    "flags": [
+      "--path-ignore=external_plugins/context7",
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "external_plugins/telegram/skills/access/SKILL.md",
+        "message": "unknown frontmatter fields: user-invocable"
+      },
+      {
+        "path": "external_plugins/telegram/skills/access/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Read Write Bash(ls *) Bash(mkdir *) Bash(echo *))"
+      },
+      {
+        "path": "external_plugins/telegram/skills/configure/SKILL.md",
+        "message": "unknown frontmatter fields: user-invocable"
+      },
+      {
+        "path": "external_plugins/telegram/skills/configure/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Read Write Bash(ls *) Bash(mkdir *) Bash(echo *) Bash(chmod *))"
+      },
+      {
+        "path": "external_plugins/telegram",
+        "message": "a server declared in external_plugins/telegram/.mcp.json runs from the plugin root, so the root's files ship: ACCESS.md, LICENSE, README.md, bun.lock, package.json, server.ts"
+      },
+      {
+        "path": "package.json",
+        "message": "declares dependencies import does not package; package them in this package's custom block, using bun2nix for its bun.lock"
+      }
+    ]
+  }
+}

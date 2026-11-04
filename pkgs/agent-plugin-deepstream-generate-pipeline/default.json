@@ -1,0 +1,44 @@
+{
+  "name": "deepstream-generate-pipeline",
+  "version": "0.0.0-unstable.2026-11-04.gade68cb",
+  "src": {
+    "owner": "NVIDIA",
+    "repo": "skills",
+    "rev": "ade68cb2399281c40fa665406f53a28f1ab52ec1",
+    "hash": "sha256-gXrxK5Zr37zK3XAVkX8wBDKuaM0CIA3lLlOVZg80WsY="
+  },
+  "sourceUrl": "https://github.com/NVIDIA/skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "description": "Build DeepStream GStreamer pipelines interactively. Collects input source, inference, tracker, and output preferences, then assembles a ready-to-run gst-launch-1.0 pipeline using BM25 retrieval over 270+ verified pipelines (zero external dependencies).",
+    "name": "deepstream-generate-pipeline"
+  },
+  "skills": {
+    "deepstream-generate-pipeline": "skills/deepstream-generate-pipeline"
+  },
+  "requiredRuntimes": [
+    "python3"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "meta": {
+    "description": "Build DeepStream GStreamer pipelines interactively",
+    "homepage": "https://github.com/NVIDIA/skills"
+  },
+  "import": {
+    "input": "NVIDIA/skills",
+    "flags": [
+      "--pkgs-dir=pkgs",
+      "--plugin=skills=nvidia-skill-library"
+    ],
+    "warnings": [
+      {
+        "path": "skills/deepstream-generate-pipeline/SKILL.md",
+        "message": "unknown frontmatter fields: owner, reviewed, service, version"
+      }
+    ]
+  }
+}

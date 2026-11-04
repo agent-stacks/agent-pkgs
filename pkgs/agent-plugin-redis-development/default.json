@@ -1,0 +1,69 @@
+{
+  "name": "redis-development",
+  "version": "1.5.0",
+  "src": {
+    "owner": "redis",
+    "repo": "agent-skills",
+    "rev": "0a2cec406570eb1f1a05eb7bcebae0da984307f2",
+    "hash": "sha256-7yjOmQ7IZaXbk4BjnnDOg2EZx9VqNEr0NrQnLdj93oY="
+  },
+  "sourceUrl": "https://github.com/redis/agent-skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Redis",
+      "url": "https://redis.io"
+    },
+    "description": "Redis development best practices — data structures, Redis Search (lexical + vector + hybrid retrieval), caching, and performance optimization, plus Redis Iris (Agent Memory, Agent Playbooks, Context Gateway, Intent Router, Lens).",
+    "homepage": "https://redis.io",
+    "keywords": [
+      "redis",
+      "database",
+      "caching",
+      "vector-search",
+      "performance",
+      "best-practices"
+    ],
+    "license": "MIT",
+    "name": "redis-development",
+    "repository": "https://github.com/redis/agent-skills",
+    "version": "1.5.0"
+  },
+  "skills": {
+    "add-agent-memory": "plugins/redis-development/skills/add-agent-memory",
+    "add-agent-playbooks": "plugins/redis-development/skills/add-agent-playbooks",
+    "add-context-gateway": "plugins/redis-development/skills/add-context-gateway",
+    "add-intent-router": "plugins/redis-development/skills/add-intent-router",
+    "add-lens": "plugins/redis-development/skills/add-lens",
+    "add-redis-iris": "plugins/redis-development/skills/add-redis-iris",
+    "redis-clustering": "plugins/redis-development/skills/redis-clustering",
+    "redis-connections": "plugins/redis-development/skills/redis-connections",
+    "redis-core": "plugins/redis-development/skills/redis-core",
+    "redis-observability": "plugins/redis-development/skills/redis-observability",
+    "redis-search": "plugins/redis-development/skills/redis-search",
+    "redis-security": "plugins/redis-development/skills/redis-security",
+    "redis-semantic-cache": "plugins/redis-development/skills/redis-semantic-cache"
+  },
+  "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "meta": {
+    "description": "Redis development best practices",
+    "homepage": "https://github.com/redis/agent-skills"
+  },
+  "import": {
+    "input": "redis/agent-skills",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "skills",
+        "message": "13 SKILL.md outside every imported plugin, not imported"
+      }
+    ]
+  }
+}

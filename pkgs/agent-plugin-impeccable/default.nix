@@ -5,7 +5,7 @@
 { buildAgentPlugin ? callPackage ../../lib/build-agent-plugin.nix { }, callPackage, pkgs }:
 
 let
-  source = builtins.fromJSON (builtins.readFile ./source.json);
+  source = builtins.fromJSON (builtins.readFile ./default.json);
   # BEGIN custom — kept as it is when this file is regenerated
   # why: every skill verb runs a Rust engine the launcher otherwise
   # downloads into ~/.impeccable at run time. Ship the one built from

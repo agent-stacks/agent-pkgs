@@ -1,0 +1,53 @@
+{
+  "name": "skill-creator",
+  "version": "0.0.0-unstable.2026-11-03.gfa4eb54",
+  "src": {
+    "owner": "anthropics",
+    "repo": "claude-plugins-official",
+    "rev": "fa4eb54397ee2faccb6940512a19c017cb1337f3",
+    "hash": "sha256-FqB+THQsn//s7PIFITa/k9RWOsYytrH50scCuuLgsYw="
+  },
+  "sourceUrl": "https://github.com/anthropics/claude-plugins-official",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "email": "support@anthropic.com",
+      "name": "Anthropic"
+    },
+    "description": "Create new skills, improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, update or optimize an existing skill, run evals to test a skill, or benchmark skill performance with variance analysis.",
+    "homepage": "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/skill-creator",
+    "name": "skill-creator"
+  },
+  "skills": {
+    "skill-creator": "plugins/skill-creator/skills/skill-creator"
+  },
+  "requiredRuntimes": [
+    "python3"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "meta": {
+    "description": "Create new skills, improve existing skills, and measure skill performance",
+    "homepage": "https://github.com/anthropics/claude-plugins-official"
+  },
+  "import": {
+    "input": "anthropics/claude-plugins-official",
+    "flags": [
+      "--path-ignore=external_plugins/context7",
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "skills/skill-creator/scripts/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/skill-creator/scripts/utils.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      }
+    ]
+  }
+}

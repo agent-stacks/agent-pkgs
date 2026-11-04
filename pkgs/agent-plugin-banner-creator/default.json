@@ -1,0 +1,91 @@
+{
+  "name": "banner-creator",
+  "version": "1.0.0",
+  "src": {
+    "owner": "resciencelab",
+    "repo": "opc-skills",
+    "rev": "451ffabfa4b6f3cf7a4c0f40dbc4463497eded04",
+    "hash": "sha256-TlNWtHRQ7R8u1TCZbauXB8tZAPAqrRs1UpJVcz0Rpi8="
+  },
+  "sourceUrl": "https://github.com/resciencelab/opc-skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "ReScienceLab"
+    },
+    "description": "Create banners using AI image generation. Discuss format/style, generate variations, iterate with user feedback, crop to target ratio for GitHub, Twitter, LinkedIn, etc.",
+    "extensions": {
+      "com.anthropic.claude-code": {
+        "commands": [
+          "./scripts/"
+        ]
+      }
+    },
+    "homepage": "https://opc.dev/skills/banner-creator",
+    "keywords": [
+      "banner",
+      "header",
+      "social-media",
+      "ai-image-generation"
+    ],
+    "license": "MIT",
+    "name": "banner-creator",
+    "repository": "https://github.com/ReScienceLab/opc-skills",
+    "version": "1.0.0"
+  },
+  "skills": {
+    "banner-creator": "skills/banner-creator"
+  },
+  "requiredRuntimes": [
+    "python3"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "meta": {
+    "description": "Create banners using AI image generation",
+    "homepage": "https://github.com/resciencelab/opc-skills"
+  },
+  "import": {
+    "input": "resciencelab/opc-skills",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": ".agents/skills/seo-geo/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .agents/skills/seo-geo=NAME imports it"
+      },
+      {
+        "path": ".factory/skills/add-new-opc-skill/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .factory/skills/add-new-opc-skill=NAME imports it"
+      },
+      {
+        "path": "skills/archive/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin skills/archive=NAME imports it"
+      },
+      {
+        "path": "skills/banner-creator/.claude-plugin/plugin.json",
+        "message": "commands: \"./scripts/\" holds no .md file, so Claude Code loads no commands from it; not packaged"
+      },
+      {
+        "path": "template/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin template=NAME imports it"
+      },
+      {
+        "path": "skills/banner-creator/examples/images/github-banner-01.png",
+        "message": "larger than 1MiB, so it was not read; a ${PLUGIN_ROOT} reference inside it ships nothing, and a script only it runs is not reported"
+      },
+      {
+        "path": "skills/banner-creator/examples/images/github-banner-02.png",
+        "message": "larger than 1MiB, so it was not read; a ${PLUGIN_ROOT} reference inside it ships nothing, and a script only it runs is not reported"
+      },
+      {
+        "path": "skills/banner-creator/examples/images/github-banner-03.png",
+        "message": "larger than 1MiB, so it was not read; a ${PLUGIN_ROOT} reference inside it ships nothing, and a script only it runs is not reported"
+      }
+    ]
+  }
+}

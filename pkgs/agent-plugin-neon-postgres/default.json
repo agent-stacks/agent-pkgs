@@ -1,0 +1,77 @@
+{
+  "name": "neon-postgres",
+  "version": "3.0.0",
+  "src": {
+    "owner": "neondatabase",
+    "repo": "agent-skills",
+    "rev": "ae9babbf804e90bf42e9444ebbc9278dfcb105eb",
+    "hash": "sha256-/C3ZMwY6akupzIVyqylyTGyOXGRxcUqUeIpxMIROw0Y="
+  },
+  "sourceUrl": "https://github.com/neondatabase/agent-skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Neon",
+      "url": "https://neon.com"
+    },
+    "description": "Manage your Neon backend with the Neon agent skills and the Neon MCP Server: Lakebase Postgres, Managed Better Auth, Realtime, Object Storage, Functions, the Data API, and AI Gateway",
+    "homepage": "https://neon.com",
+    "keywords": [
+      "neon",
+      "lakebase",
+      "postgres",
+      "serverless",
+      "database",
+      "mcp"
+    ],
+    "license": "Apache-2.0",
+    "name": "neon-postgres",
+    "repository": "https://github.com/neondatabase/agent-skills",
+    "version": "3.0.0"
+  },
+  "skills": {
+    "neon": "plugins/neon-postgres/skills/neon",
+    "neon-ai-gateway": "plugins/neon-postgres/skills/neon-ai-gateway",
+    "neon-auth": "plugins/neon-postgres/skills/neon-auth",
+    "neon-functions": "plugins/neon-postgres/skills/neon-functions",
+    "neon-object-storage": "plugins/neon-postgres/skills/neon-object-storage",
+    "neon-postgres": "plugins/neon-postgres/skills/neon-postgres",
+    "neon-realtime": "plugins/neon-postgres/skills/neon-realtime"
+  },
+  "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "mcpServers": {
+    "neon": {
+      "type": "streamable-http",
+      "url": "https://mcp.neon.tech/mcp"
+    }
+  },
+  "meta": {
+    "description": "Manage your Neon backend with the Neon agent skills and the Neon MCP Server",
+    "homepage": "https://github.com/neondatabase/agent-skills"
+  },
+  "import": {
+    "input": "neondatabase/agent-skills",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "evals/neon-postgres-egress-optimizer/.claude/skills/score-eval/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin evals/neon-postgres-egress-optimizer/.claude/skills/score-eval=NAME imports it"
+      },
+      {
+        "path": "skills",
+        "message": "7 SKILL.md outside every imported plugin, not imported"
+      },
+      {
+        "path": "plugin.json",
+        "message": "plugin \"neon-postgres\" is imported from plugins/neon-postgres/, where .claude-plugin/marketplace.json lists it, not imported"
+      }
+    ]
+  }
+}

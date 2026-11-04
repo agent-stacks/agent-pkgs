@@ -1,0 +1,210 @@
+{
+  "name": "impeccable",
+  "version": "4.8.0",
+  "src": {
+    "owner": "pbakaus",
+    "repo": "impeccable",
+    "rev": "5af4319c4e7a7ee3e5e2b9fe899bcfb21c6190cb",
+    "hash": "sha256-tHG+MWtlN7nBSbqwGQBKNZJQVAQYDh4mJC7yAjToohs="
+  },
+  "sourceUrl": "https://github.com/pbakaus/impeccable",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "email": "paul@paulbakaus.com",
+      "name": "Paul Bakaus"
+    },
+    "description": "Design fluency for frontend development. 1 skill with 24 commands (/impeccable polish, /impeccable audit, /impeccable critique, etc.) and curated anti-pattern detection.",
+    "homepage": "https://impeccable.style",
+    "name": "impeccable",
+    "repository": "https://github.com/pbakaus/impeccable",
+    "version": "4.8.0"
+  },
+  "skills": {
+    "impeccable": "plugin/skills/impeccable"
+  },
+  "requiredRuntimes": [
+    "sh"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/agents": "plugin/agents",
+    "com.anthropic.claude-code/hooks": "plugin/hooks"
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "[ ! -f \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" ] || sh \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" hook",
+            "env": {
+              "IMPECCABLE_HOOK_HARNESS": "vscode"
+            },
+            "statusMessage": "Checking UI changes",
+            "timeout": 5,
+            "type": "command",
+            "windows": "cmd /c if exist ${CLAUDE_PLUGIN_ROOT}\\skills\\impeccable\\scripts\\impeccable.cmd ${CLAUDE_PLUGIN_ROOT}\\skills\\impeccable\\scripts\\impeccable.cmd hook"
+          }
+        ],
+        "matcher": "Edit|Write"
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "[ ! -f \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" ] || sh \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" hook",
+            "env": {
+              "IMPECCABLE_HOOK_HARNESS": "vscode"
+            },
+            "statusMessage": "Preparing build session",
+            "timeout": 5,
+            "type": "command",
+            "windows": "cmd /c if exist ${CLAUDE_PLUGIN_ROOT}\\skills\\impeccable\\scripts\\impeccable.cmd ${CLAUDE_PLUGIN_ROOT}\\skills\\impeccable\\scripts\\impeccable.cmd hook"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "command": "[ ! -f \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" ] || sh \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" hook",
+            "env": {
+              "IMPECCABLE_HOOK_HARNESS": "vscode"
+            },
+            "statusMessage": "Design deep pass",
+            "timeout": 30,
+            "type": "command",
+            "windows": "cmd /c if exist ${CLAUDE_PLUGIN_ROOT}\\skills\\impeccable\\scripts\\impeccable.cmd ${CLAUDE_PLUGIN_ROOT}\\skills\\impeccable\\scripts\\impeccable.cmd hook"
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "description": "Design fluency for frontend development",
+    "homepage": "https://github.com/pbakaus/impeccable"
+  },
+  "import": {
+    "input": "pbakaus/impeccable",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": ".agent/skills/impeccable/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .agent/skills/impeccable=NAME imports it"
+      },
+      {
+        "path": ".agents/skills/impeccable/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .agents/skills/impeccable=NAME imports it"
+      },
+      {
+        "path": ".claude/skills/impeccable/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .claude/skills/impeccable=NAME imports it"
+      },
+      {
+        "path": ".cursor/skills/impeccable/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .cursor/skills/impeccable=NAME imports it"
+      },
+      {
+        "path": ".devin/skills/impeccable/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .devin/skills/impeccable=NAME imports it"
+      },
+      {
+        "path": ".dsh/skills/impeccable/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .dsh/skills/impeccable=NAME imports it"
+      },
+      {
+        "path": ".gemini/skills/impeccable/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .gemini/skills/impeccable=NAME imports it"
+      },
+      {
+        "path": ".github/skills/impeccable/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .github/skills/impeccable=NAME imports it"
+      },
+      {
+        "path": ".grok/skills/impeccable/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .grok/skills/impeccable=NAME imports it"
+      },
+      {
+        "path": ".hermes/skills/impeccable/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .hermes/skills/impeccable=NAME imports it"
+      },
+      {
+        "path": ".kiro/skills/impeccable/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .kiro/skills/impeccable=NAME imports it"
+      },
+      {
+        "path": ".omp/skills/impeccable/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .omp/skills/impeccable=NAME imports it"
+      },
+      {
+        "path": ".opencode/skills/impeccable/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .opencode/skills/impeccable=NAME imports it"
+      },
+      {
+        "path": ".pi/skills/impeccable/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .pi/skills/impeccable=NAME imports it"
+      },
+      {
+        "path": ".qoder/skills/impeccable/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .qoder/skills/impeccable=NAME imports it"
+      },
+      {
+        "path": ".rovodev/skills/impeccable/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .rovodev/skills/impeccable=NAME imports it"
+      },
+      {
+        "path": ".trae-cn/skills/impeccable/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .trae-cn/skills/impeccable=NAME imports it"
+      },
+      {
+        "path": ".trae/skills/impeccable/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .trae/skills/impeccable=NAME imports it"
+      },
+      {
+        "path": ".veto/skills/impeccable/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .veto/skills/impeccable=NAME imports it"
+      },
+      {
+        "path": ".vibe/skills/impeccable/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .vibe/skills/impeccable=NAME imports it"
+      },
+      {
+        "path": "cursor-plugin/skills/impeccable/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin cursor-plugin/skills/impeccable=NAME imports it"
+      },
+      {
+        "path": "plugin/skills/impeccable/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, user-invocable, version"
+      },
+      {
+        "path": "tests",
+        "message": "4 SKILL.md outside every imported plugin, not imported"
+      },
+      {
+        "path": "plugin/hooks/hooks.json",
+        "message": "Claude Code runs this on PostToolUse: [ ! -f \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" ] || sh \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" hook"
+      },
+      {
+        "path": "plugin/hooks/hooks.json",
+        "message": "Claude Code runs this on SessionStart: [ ! -f \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" ] || sh \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" hook"
+      },
+      {
+        "path": "plugin/hooks/hooks.json",
+        "message": "Claude Code runs this on Stop: [ ! -f \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" ] || sh \"${CLAUDE_PLUGIN_ROOT}/skills/impeccable/scripts/impeccable\" hook"
+      },
+      {
+        "path": "plugin/skills/impeccable/scripts/data/font-index.json",
+        "message": "larger than 1MiB, so it was not read; a ${PLUGIN_ROOT} reference inside it ships nothing, and a script only it runs is not reported"
+      }
+    ],
+    "custom": true
+  }
+}

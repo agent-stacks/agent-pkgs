@@ -1,0 +1,52 @@
+{
+  "name": "agent-deck",
+  "version": "0.0.0-unstable.2026-11-02.g2e897f2",
+  "src": {
+    "owner": "asheshgoplani",
+    "repo": "agent-deck",
+    "rev": "2e897f2a62f6dd570628d2021a0994a3a7db1f4f",
+    "hash": "sha256-D6PF5KWhiTwI+1M4XiT6KFv0+uO2PrdSWm9cjdSQofg="
+  },
+  "sourceUrl": "https://github.com/asheshgoplani/agent-deck",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "description": "Complete guide for managing AI coding agent sessions via agent-deck CLI - session lifecycle, MCP management, groups, profiles, and automation",
+    "name": "agent-deck"
+  },
+  "skills": {
+    "agent-deck": "skills/agent-deck"
+  },
+  "requiredRuntimes": [
+    "bash",
+    "python3",
+    "sh"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "bin": "bin"
+  },
+  "meta": {
+    "description": "Complete guide for managing AI coding agent sessions via agent-deck CLI",
+    "homepage": "https://github.com/asheshgoplani/agent-deck"
+  },
+  "import": {
+    "input": "asheshgoplani/agent-deck",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "cmd/agent-deck/assets/skills/watcher-creator/SKILL.md",
+        "message": "not listed by .claude-plugin/marketplace.json: entry \"agent-deck\" skills, not imported; --plugin cmd/agent-deck/assets/skills/watcher-creator=NAME imports it"
+      },
+      {
+        "path": "bin",
+        "message": "Claude Code puts these on the Bash tool's PATH: stress-matrix.sh"
+      }
+    ]
+  }
+}

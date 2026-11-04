@@ -1,0 +1,64 @@
+{
+  "name": "explanatory-output-style",
+  "version": "1.0.1",
+  "src": {
+    "owner": "anthropics",
+    "repo": "claude-plugins-official",
+    "rev": "fa4eb54397ee2faccb6940512a19c017cb1337f3",
+    "hash": "sha256-FqB+THQsn//s7PIFITa/k9RWOsYytrH50scCuuLgsYw="
+  },
+  "sourceUrl": "https://github.com/anthropics/claude-plugins-official",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "email": "support@anthropic.com",
+      "name": "Anthropic"
+    },
+    "description": "Adds educational insights about implementation choices and codebase patterns (mimics the deprecated Explanatory output style)",
+    "homepage": "https://github.com/anthropics/claude-plugins-public/tree/main/plugins/explanatory-output-style",
+    "name": "explanatory-output-style",
+    "version": "1.0.1"
+  },
+  "skills": {},
+  "requiredRuntimes": [
+    "bash"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/hooks": "plugins/explanatory-output-style/hooks",
+    "hooks-handlers": "plugins/explanatory-output-style/hooks-handlers"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.sh\"",
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "description": "Adds educational insights about implementation choices and codebase patterns (mimics the deprecated Explanatory output style)",
+    "homepage": "https://github.com/anthropics/claude-plugins-official"
+  },
+  "import": {
+    "input": "anthropics/claude-plugins-official",
+    "flags": [
+      "--path-ignore=external_plugins/context7",
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "plugins/explanatory-output-style/hooks/hooks.json",
+        "message": "Claude Code runs this on SessionStart: bash \"${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.sh\""
+      }
+    ]
+  }
+}

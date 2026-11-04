@@ -1,0 +1,115 @@
+{
+  "name": "azure-kusto-graph-skills",
+  "version": "1.0.34",
+  "src": {
+    "owner": "microsoft",
+    "repo": "skills",
+    "rev": "db273d02235f048331ca1597c0a98d529da1cabc",
+    "hash": "sha256-JR1SWZLz8otlx29aAcmBlqAkGnTyNX+c4v24gBEJN8I="
+  },
+  "sourceUrl": "https://github.com/microsoft/skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Microsoft",
+      "url": "https://www.microsoft.com"
+    },
+    "description": "Kusto graph analysis, IRQL security hunting pipelines, and graph visualization skills for Azure Data Explorer.",
+    "homepage": "https://github.com/microsoft/github-copilot-for-azure",
+    "keywords": [
+      "azure",
+      "kusto",
+      "graph",
+      "irql",
+      "security",
+      "kql"
+    ],
+    "license": "MIT",
+    "name": "azure-kusto-graph-skills",
+    "repository": "https://github.com/microsoft/GitHub-Copilot-for-Azure",
+    "version": "1.0.34"
+  },
+  "skills": {
+    "azure-kusto-graph": ".github/plugins/azure-kusto-graph-skills/skills/azure-kusto-graph",
+    "azure-kusto-irql": ".github/plugins/azure-kusto-graph-skills/skills/azure-kusto-irql",
+    "azure-kusto-irql-graph": ".github/plugins/azure-kusto-graph-skills/skills/azure-kusto-irql-graph"
+  },
+  "requiredRuntimes": [
+    "bash",
+    "npx"
+  ],
+  "dependencies": [
+    "powershell"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/hooks": ".github/plugins/azure-kusto-graph-skills/hooks"
+  },
+  "mcpServers": {
+    "azure": {
+      "args": [
+        "-y",
+        "@azure/mcp@4.0.0-beta.4",
+        "server",
+        "start"
+      ],
+      "command": "npx",
+      "type": "stdio"
+    }
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\"",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\"",
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "description": "Kusto graph analysis, IRQL security hunting pipelines, and graph visualization skills for Azure Data Explorer",
+    "homepage": "https://github.com/microsoft/skills"
+  },
+  "import": {
+    "input": "microsoft/skills",
+    "flags": [
+      "--dependency=powershell",
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": ".github/skills",
+        "message": "13 SKILL.md outside every imported plugin, not imported"
+      },
+      {
+        "path": ".github/plugins/azure-kusto-graph-skills/hooks/claude-hooks.json",
+        "message": "Claude Code runs this on PostToolUse: bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\""
+      },
+      {
+        "path": ".github/plugins/azure-kusto-graph-skills/hooks/claude-hooks.json",
+        "message": "Claude Code runs this on SessionStart: bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\""
+      },
+      {
+        "path": "com.anthropic.claude-code/hooks/scripts/pluginPathAllowPattern.sh",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      }
+    ]
+  }
+}

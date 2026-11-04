@@ -1,0 +1,80 @@
+{
+  "name": "seo-geo",
+  "version": "1.0.0",
+  "src": {
+    "owner": "resciencelab",
+    "repo": "opc-skills",
+    "rev": "451ffabfa4b6f3cf7a4c0f40dbc4463497eded04",
+    "hash": "sha256-TlNWtHRQ7R8u1TCZbauXB8tZAPAqrRs1UpJVcz0Rpi8="
+  },
+  "sourceUrl": "https://github.com/resciencelab/opc-skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "ReScienceLab"
+    },
+    "description": "SEO & GEO (Generative Engine Optimization) for websites. Optimize for AI search engines (ChatGPT, Perplexity, Gemini, Copilot, Claude) and traditional search (Google, Bing).",
+    "extensions": {
+      "com.anthropic.claude-code": {
+        "commands": [
+          "./scripts/"
+        ]
+      }
+    },
+    "homepage": "https://opc.dev/skills/seo-geo",
+    "keywords": [
+      "seo",
+      "geo",
+      "optimization",
+      "schema-markup",
+      "ai-visibility"
+    ],
+    "license": "MIT",
+    "name": "seo-geo",
+    "repository": "https://github.com/ReScienceLab/opc-skills",
+    "version": "1.0.0"
+  },
+  "skills": {
+    "seo-geo": "skills/seo-geo"
+  },
+  "requiredRuntimes": [
+    "python3"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "meta": {
+    "description": "SEO & GEO (Generative Engine Optimization) for websites",
+    "homepage": "https://github.com/resciencelab/opc-skills"
+  },
+  "import": {
+    "input": "resciencelab/opc-skills",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": ".agents/skills/seo-geo/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .agents/skills/seo-geo=NAME imports it"
+      },
+      {
+        "path": ".factory/skills/add-new-opc-skill/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin .factory/skills/add-new-opc-skill=NAME imports it"
+      },
+      {
+        "path": "skills/archive/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin skills/archive=NAME imports it"
+      },
+      {
+        "path": "skills/seo-geo/.claude-plugin/plugin.json",
+        "message": "commands: \"./scripts/\" holds no .md file, so Claude Code loads no commands from it; not packaged"
+      },
+      {
+        "path": "template/SKILL.md",
+        "message": "outside every imported plugin, not imported; --plugin template=NAME imports it"
+      }
+    ]
+  }
+}

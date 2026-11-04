@@ -1,0 +1,46 @@
+{
+  "name": "diff",
+  "version": "0.1.0",
+  "src": {
+    "owner": "anthropics",
+    "repo": "claude-code",
+    "rev": "26382c08758260c9f5deb2019d8fe851f89fa9ae",
+    "hash": "sha256-XOxHQpYQRuLXhVU7CtPtr57Wzvydh+8L6dxjCi74dqI="
+  },
+  "sourceUrl": "https://github.com/anthropics/claude-code",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Anthropic"
+    },
+    "description": "The diff pane as a plugin: /diff opens the session's uncommitted changes beside the transcript, file by file with their hunks, refreshed as Claude edits and runs commands; the first edit opens it where the terminal is wide enough, and a file's ask button rides its hunks on the next prompt.",
+    "name": "diff",
+    "version": "0.1.0"
+  },
+  "skills": {},
+  "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/hooks": "mods/diff/hooks"
+  },
+  "meta": {
+    "description": "The diff pane as a plugin",
+    "homepage": "https://github.com/anthropics/claude-code"
+  },
+  "import": {
+    "input": "anthropics/claude-code",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "mods/diff/hooks/hooks.json",
+        "message": "Claude Code loads this module into its own process whenever the plugin is enabled: ./register.ts"
+      }
+    ]
+  }
+}

@@ -1,0 +1,242 @@
+{
+  "name": "stripe",
+  "version": "0.11.41",
+  "src": {
+    "owner": "stripe",
+    "repo": "ai",
+    "rev": "8f4c6295246b771bdfbffd4a50171f75a03507c8",
+    "hash": "sha256-+3LwouHMMZatDkIlWLVGGnxkX87mRbOspgHVk2dejtw="
+  },
+  "sourceUrl": "https://github.com/stripe/ai",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Stripe"
+    },
+    "description": "Stripe",
+    "homepage": "https://docs.stripe.com",
+    "keywords": [
+      "stripe",
+      "payments",
+      "webhooks",
+      "api",
+      "security",
+      "subscriptions",
+      "billing",
+      "cards"
+    ],
+    "license": "MIT",
+    "name": "stripe",
+    "repository": "https://github.com/stripe/ai",
+    "version": "0.11.41"
+  },
+  "skills": {
+    "connect-recommend": "providers/claude/plugin/skills/connect-recommend",
+    "connect-required-verification-information": "providers/claude/plugin/skills/connect-required-verification-information",
+    "metronome": "providers/claude/plugin/skills/metronome",
+    "stripe-apps": "providers/claude/plugin/skills/stripe-apps",
+    "stripe-best-practices": "providers/claude/plugin/skills/stripe-best-practices",
+    "stripe-directory": "providers/claude/plugin/skills/stripe-directory",
+    "stripe-docs": "providers/claude/plugin/skills/stripe-docs",
+    "stripe-pay": "providers/claude/plugin/skills/stripe-pay",
+    "stripe-projects": "providers/claude/plugin/skills/stripe-projects",
+    "upgrade-stripe": "providers/claude/plugin/skills/upgrade-stripe"
+  },
+  "requiredRuntimes": [
+    "node"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/commands": "providers/claude/plugin/commands",
+    "com.anthropic.claude-code/hooks": "providers/claude/plugin/hooks",
+    "scripts": "providers/claude/plugin/scripts"
+  },
+  "mcpServers": {
+    "stripe": {
+      "type": "streamable-http",
+      "url": "https://mcp.stripe.com"
+    }
+  },
+  "hooks": {
+    "PostToolBatch": [
+      {
+        "hooks": [
+          {
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/scripts/lifecycle/postToolBatch.mjs"
+            ],
+            "command": "node",
+            "timeout": 5,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/scripts/lifecycle/postToolUse.mjs"
+            ],
+            "command": "node",
+            "timeout": 5,
+            "type": "command"
+          }
+        ],
+        "matcher": "Skill"
+      },
+      {
+        "hooks": [
+          {
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/scripts/lifecycle/postToolUse.mjs"
+            ],
+            "command": "node",
+            "timeout": 5,
+            "type": "command"
+          }
+        ],
+        "matcher": "Agent"
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "hooks": [
+          {
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/scripts/lifecycle/postToolUseFailure.mjs"
+            ],
+            "command": "node",
+            "timeout": 5,
+            "type": "command"
+          }
+        ],
+        "matcher": "Skill"
+      },
+      {
+        "hooks": [
+          {
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/scripts/lifecycle/postToolUseFailure.mjs"
+            ],
+            "command": "node",
+            "timeout": 5,
+            "type": "command"
+          }
+        ],
+        "matcher": "^mcp__(?:plugin_stripe_stripe|stripe)__.*$"
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/scripts/lifecycle/sessionStart.mjs"
+            ],
+            "command": "node",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "startup"
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/scripts/lifecycle/userPromptSubmit.mjs"
+            ],
+            "command": "node",
+            "timeout": 5,
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "description": "Stripe",
+    "homepage": "https://github.com/stripe/ai"
+  },
+  "import": {
+    "input": "stripe/ai",
+    "flags": [
+      "--path-ignore=providers/antigravity",
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "providers/agent-plugins",
+        "message": "10 SKILL.md outside every imported plugin, not imported"
+      },
+      {
+        "path": "providers/claude/plugin/skills/stripe-directory/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list of 6 tools"
+      },
+      {
+        "path": "providers/claude/plugin/skills/stripe-docs/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash(stripe docs *) Bash(stripe login) Bash(stripe version))"
+      },
+      {
+        "path": "providers/claude/plugin/skills/stripe-pay/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Bash(stripe directory *) Bash(stripe pay *) Bash(stripe whoami *))"
+      },
+      {
+        "path": "providers/claude/plugin/skills/stripe-projects/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list of 5 tools"
+      },
+      {
+        "path": "providers/cursor",
+        "message": "10 SKILL.md outside every imported plugin, not imported"
+      },
+      {
+        "path": "providers/grok",
+        "message": "10 SKILL.md outside every imported plugin, not imported"
+      },
+      {
+        "path": "skills",
+        "message": "10 SKILL.md outside every imported plugin, not imported"
+      },
+      {
+        "path": "providers/agent-plugins/plugin/plugin.json",
+        "message": "plugin \"stripe\" is imported from providers/claude/plugin/, where .claude-plugin/marketplace.json lists it, not imported"
+      },
+      {
+        "path": "providers/claude/plugin/hooks/hooks.json",
+        "message": "Claude Code runs this on PostToolBatch: node ${CLAUDE_PLUGIN_ROOT}/scripts/lifecycle/postToolBatch.mjs"
+      },
+      {
+        "path": "providers/claude/plugin/hooks/hooks.json",
+        "message": "Claude Code runs this on PostToolUse: node ${CLAUDE_PLUGIN_ROOT}/scripts/lifecycle/postToolUse.mjs"
+      },
+      {
+        "path": "providers/claude/plugin/hooks/hooks.json",
+        "message": "Claude Code runs this on PostToolUse: node ${CLAUDE_PLUGIN_ROOT}/scripts/lifecycle/postToolUse.mjs"
+      },
+      {
+        "path": "providers/claude/plugin/hooks/hooks.json",
+        "message": "Claude Code runs this on PostToolUseFailure: node ${CLAUDE_PLUGIN_ROOT}/scripts/lifecycle/postToolUseFailure.mjs"
+      },
+      {
+        "path": "providers/claude/plugin/hooks/hooks.json",
+        "message": "Claude Code runs this on PostToolUseFailure: node ${CLAUDE_PLUGIN_ROOT}/scripts/lifecycle/postToolUseFailure.mjs"
+      },
+      {
+        "path": "providers/claude/plugin/hooks/hooks.json",
+        "message": "Claude Code runs this on SessionStart: node ${CLAUDE_PLUGIN_ROOT}/scripts/lifecycle/sessionStart.mjs"
+      },
+      {
+        "path": "providers/claude/plugin/hooks/hooks.json",
+        "message": "Claude Code runs this on UserPromptSubmit: node ${CLAUDE_PLUGIN_ROOT}/scripts/lifecycle/userPromptSubmit.mjs"
+      }
+    ]
+  }
+}
