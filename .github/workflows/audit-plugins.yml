@@ -68,9 +68,10 @@ permissions:
 # one pending run per group and replaces it with the next, so the
 # nightly run has a group of its own: otherwise an hourly push run
 # queued behind it would replace a pending nightly run, and the full
-# audit would be lost for a day. A push run that is replaced loses only
-# its packages, until the nightly run audits them. A nightly and a push
-# run can therefore overlap; record puts its own files back on top
+# audit would be lost for a day. A push run that is replaced, or fails,
+# loses nothing: the next push run diffs from the last run that
+# succeeded, not from its own push. A nightly and a push run can
+# therefore overlap; record puts its own files back on top
 # of whatever the other landed, unless the package moved since.
 concurrency:
   group: audit-plugins-${{ github.event_name == 'schedule' && 'nightly' || 'changes' }}
@@ -94,6 +95,10 @@ jobs:
   gather:
     name: "Choose the packages to audit"
     runs-on: ubuntu-24.04
+    # actions: to list this workflow's earlier runs.
+    permissions:
+      contents: read
+      actions: read
     outputs:
       matrix: ${{ steps.plan.outputs.matrix }}
       any: ${{ steps.plan.outputs.any }}
@@ -111,8 +116,32 @@ jobs:
           EVENT: ${{ github.event_name }}
           BEFORE: ${{ github.event.before }}
           PACKAGE: ${{ inputs.package }}
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
         run: |
           set -euo pipefail
+
+          # A push is diffed from the head of the last run that covered
+          # main up to it: a push or nightly run that succeeded, whose
+          # head HEAD descends from. Not the push's own before: a push
+          # whose run was replaced while pending, or failed, would lose
+          # its changes, the pin or the baseline included, until the
+          # nightly run. Without such a run, the push's own before.
+          if [ "$EVENT" = push ]; then
+            gh api --method GET \
+              "repos/$REPO/actions/workflows/audit-plugins.yml/runs?branch=main&status=success&per_page=50" \
+              --jq '.workflow_runs[] | select(.event == "push" or .event == "schedule") | .head_sha' \
+              > covered.txt 2>/dev/null || : > covered.txt
+            while read -r sha; do
+              if git merge-base --is-ancestor "$sha" HEAD 2>/dev/null; then
+                if [ "$sha" != "$BEFORE" ]; then
+                  echo "Diffing from $sha, the last run that covered main, not the push's $BEFORE"
+                fi
+                BEFORE="$sha"
+                break
+              fi
+            done < covered.txt
+          fi
 
           # Every plugin package that still has a default.nix.
           all() {

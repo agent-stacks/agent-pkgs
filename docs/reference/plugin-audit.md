@@ -56,6 +56,11 @@ under it. A package with no `audit.json` has not been audited yet.
 | Nightly | Every package |
 | Manual dispatch | The named package, or every package |
 
+A push run looks at what changed since the last push or nightly run
+that succeeded, not since the push before it. GitHub drops a queued
+run when a newer push queues behind it; the next run audits what the
+dropped one would have, a new pin or baseline included.
+
 Each package is built and audited with the pinned `agent-stacks`
 package, which carries this set's `skillspector`. The new document
 is compared with the committed one without `tool.osv.checkedAt` and
