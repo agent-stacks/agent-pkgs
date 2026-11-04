@@ -17,6 +17,9 @@
 #     or the FloxHub token, into the pod;
 #   - ttl (4h): when the cluster deletes a Sandbox left behind.
 #
+# When the environment has flox-agent, the agent runs through
+# `flox-agent launch`, which gives it the stack's plugins.
+#
 # AGENT_SANDBOX_K8S_DRY_RUN=1 prints the manifests and the commands
 # instead of running them. AGENT_SANDBOX_K8S_KUBECTL names another
 # kubectl, for the contract check's stub.
@@ -223,7 +226,7 @@
     if [ -n "''${AGENT_SANDBOX_K8S_DRY_RUN:-}" ]; then
       [ "$secret_data" = "{}" ] || secret_manifest redact
       sandbox_manifest
-      echo "would run: $show create -f - (the Sandbox), then exec $sandbox_name -- env -C /workspace $agent ''${*:2}" >&2
+      echo "would run: $show create -f - (the Sandbox), then exec $sandbox_name -- env -C /workspace $agent ''${*:2}, through flox-agent launch when the environment has it" >&2
       exit 0
     fi
 
@@ -340,8 +343,12 @@
     # stdin given explicitly, as a background job would get /dev/null.
     it=-i
     if [ -t 0 ] && [ -t 1 ]; then it=-it; fi
+    agent_cmd=("$agent" "''${@:2}")
+    if "''${k[@]}" exec "$sandbox_name" -c agent -- flox-agent version >/dev/null 2>&1; then
+      agent_cmd=(flox-agent --config-dir /tmp/agent-stacks launch "$agent" -- "''${@:2}")
+    fi
     echo "agent-sandbox-k8s: running $agent in $sandbox_name" >&2
-    "''${k[@]}" exec "$it" "$sandbox_name" -c agent -- env -C /workspace "$agent" "''${@:2}" <&0 &
+    "''${k[@]}" exec "$it" "$sandbox_name" -c agent -- env -C /workspace "''${agent_cmd[@]}" <&0 &
     agent_pid=$!
     status=0
     wait "$agent_pid" || status=$?

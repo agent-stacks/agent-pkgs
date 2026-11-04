@@ -171,7 +171,8 @@ sandbox | jq -e --arg n "$name" '.spec.podTemplate.spec
 # Logs each call, one line of argv, to $STUB_LOG. The pod's /workspace
 # is $STUB_POD. STUB_NO_TAR, STUB_BAD_BACK, STUB_HANG and
 # STUB_AGENT_EXIT change what it does; STUB_AGENT_HOOK runs as the agent;
-# STUB_TERM_ON_BACK signals the launcher in the middle of the copy back.
+# STUB_TERM_ON_BACK signals the launcher in the middle of the copy back;
+# STUB_FLOX_AGENT puts flox-agent in the pod.
 { echo "#!$(command -v bash)"; cat <<'EOF'
 echo "$*" >>"$STUB_LOG"
 args=("$@")
@@ -192,6 +193,7 @@ case "${args[0]}" in
     remote="${args[*]:1}"
     case "$remote" in
       "tar --version") [ -z "${STUB_NO_TAR:-}" ] ;;
+      "flox-agent version") [ -n "${STUB_FLOX_AGENT:-}" ] ;;
       # As uid 1000, tar may not touch /workspace itself (an emptyDir it does
       # not own), so an archive holding "./" fails there, as it does here.
       "tar -C /workspace -xf -")
@@ -255,6 +257,13 @@ called 'tar -C /workspace -cf' && fail "copied back without copyWorkspaceBack"
 jq -e '.kind == "Sandbox"' "$root/pod.sandbox.json" >/dev/null || fail "no Sandbox created"
 # The ttl ends a session still in use too, so the user is told.
 grep -q 'removed at its ttl (4h)' err || fail "ttl not said at start: $(cat err)"
+
+# With flox-agent in the environment, the agent runs through its launch.
+fresh
+(cd "$root/live" && STUB_FLOX_AGENT=1 exec "$k8s" --options "$env_opt" -- claude --version) >out 2>err ||
+  fail "live run with flox-agent: $(cat err)"
+called '-- env -C /workspace flox-agent --config-dir /tmp/agent-stacks launch claude -- --version' ||
+  fail "agent not run through flox-agent launch"
 
 # The Secret comes after the Sandbox, owned by it.
 fresh
