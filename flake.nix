@@ -180,7 +180,7 @@
           (nixpkgs.lib.filterAttrs keep pkgs.llm-agents);
 
       # Every subdirectory of pkgs/ with a default.nix is a package.
-      # `agent-stacks import --out pkgs/<name>` drops packages here; no
+      # `agent-stacks import --pkgs-dir pkgs` drops packages here; no
       # central list to edit.
       pluginDirs = pkgs:
         let
@@ -759,7 +759,7 @@
             if missing != [ ] then
               throw ("buildAgentPlugin declares no formal for: "
                 + builtins.concatStringsSep ", " missing
-                + "; agent-stacks import writes these keys into source.json")
+                + "; agent-stacks import writes these keys into default.json")
             else
               pkgs.runCommand "call-keys-declared" { } ''
                 touch $out

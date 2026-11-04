@@ -1,7 +1,7 @@
 # impeccable-engine — the Rust binary every impeccable skill verb runs.
 #
 # Built from the commit agent-plugin-impeccable pins, read from its
-# source.json, so the hourly replay moves the plugin and its engine
+# call file, so the hourly replay moves the plugin and its engine
 # together. The plugin ships it in the slot upstream's launcher tries
 # before downloading one (ADR 0025).
 {
@@ -10,7 +10,12 @@
 }:
 
 let
-  source = builtins.fromJSON (builtins.readFile ../agent-plugin-impeccable/source.json);
+  # The plugin's call file: default.json since agent-stacks ADR 0086,
+  # else the source.json of a plugin no such binary has replayed yet.
+  plugin = ../agent-plugin-impeccable;
+  callFile =
+    if builtins.pathExists (plugin + "/default.json") then plugin + "/default.json" else plugin + "/source.json";
+  source = builtins.fromJSON (builtins.readFile callFile);
 
   # Fetched at evaluation, not as a derivation, so Cargo.lock and
   # Cargo.toml can be read without import-from-derivation and no

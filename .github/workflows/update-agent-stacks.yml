@@ -183,8 +183,21 @@ jobs:
           REV: ${{ inputs.rev }}
         run: |
           set -euo pipefail
-          for input in $(jq -r .import.input pkgs/agent-plugin-*/source.json | sort -u); do
-            if "$RUNNER_TEMP/bin/agent-stacks" import "$input" --replay --out pkgs; then
+          # A package's call file: default.json since agent-stacks ADR
+          # 0086, else the source.json of one no such binary has replayed
+          # yet. Each package once, by the importer's own precedence.
+          call_files() {
+            local d
+            for d in pkgs/agent-plugin-*/; do
+              d="${d%/}"
+              if [ -f "$d/default.json" ]; then echo "$d/default.json"
+              elif [ -f "$d/source.json" ]; then echo "$d/source.json"
+              fi
+            done
+          }
+          mapfile -t calls < <(call_files)
+          for input in $(jq -r .import.input "${calls[@]}" | sort -u); do
+            if "$RUNNER_TEMP/bin/agent-stacks" import "$input" --replay --pkgs-dir pkgs; then
               test "$(jq -r .rev pkgs/agent-stacks/default.json)" = "$REV"
               exit 0
             fi

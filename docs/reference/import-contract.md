@@ -1,6 +1,6 @@
 # The import → builder contract
 
-This is the call shape `agent-stacks import --out pkgs/` generates into
+This is the call shape `agent-stacks import --pkgs-dir pkgs/` generates into
 `pkgs/agent-plugin-<name>/`, and the passthru schema consumers can
 rely on. `agent-stacks import` (agent-stacks repo) codes against this file;
 `buildAgentPlugin` (this repo) implements it. Change either side only
@@ -10,7 +10,15 @@ together with this document.
 
 `agent-stacks import` writes two files into `pkgs/agent-plugin-<name>/`:
 
-`default.nix` is a fixed template. It reads `source.json`, merges the
+**The call file is `default.json` since agent-stacks ADR 0086**
+(this repository's [ADR 0028](../decisions/0028-the-call-file-is-default-json.md)).
+A package no such binary has replayed yet still holds `source.json`,
+with the same content. Every reader here takes `default.json` when it
+exists, else `source.json`: the workflows, the audit dashboard and
+`pkgs/impeccable-engine`. The next replay moves the package and
+removes its `source.json`.
+
+`default.nix` is a fixed template. It reads `default.json`, merges the
 package's own `args` over it, hands the result to `buildAgentPlugin`,
 and applies `hooks` through `overrideAttrs`. `buildAgentPlugin`
 defaults to the builder import writes into `lib/`, so the package
@@ -26,7 +34,7 @@ marked region:
 { buildAgentPlugin ? callPackage ../../lib/build-agent-plugin.nix { }, callPackage, pkgs }:
 
 let
-  source = builtins.fromJSON (builtins.readFile ./source.json);
+  source = builtins.fromJSON (builtins.readFile ./default.json);
   # BEGIN custom — kept as it is when this file is regenerated
   args = { };
   hooks = old: { };
@@ -45,7 +53,7 @@ belongs in them, and the rules a block must follow, is in
 [Per-repository
 workarounds](../guides/create-agent-plugin.md#per-repository-workarounds).
 
-`source.json`'s top level is exactly `buildAgentPlugin`'s argument
+`default.json`'s top level is exactly `buildAgentPlugin`'s argument
 set — every key is a declared formal, and the formals carry no `...`,
 so an undeclared key is a build error by design:
 
@@ -135,7 +143,7 @@ writes it under Claude's `hooks` key as
 at the root when `pluginRootPaths` ships `hooks/` there, replacing any
 hooks file that directory brought. An agent-stacks older than the key
 ignores it, and the build fails rather than ship a plugin without its
-hooks. A `source.json` from an earlier importer has no key and keeps
+hooks. A `default.json` from an earlier importer has no key and keeps
 the copied file. The `hooks` a generated `default.nix` binds is the
 `overrideAttrs` function, not this argument.
 
@@ -161,9 +169,9 @@ and Claude components that are not packaged). `warnings` is omitted
 when empty.
 
 `input` and `flags` are replayed by `agent-stacks import <input>
---replay --out pkgs`: the importer finds every package under `pkgs/`
+--replay --pkgs-dir pkgs`: the importer finds every package under `pkgs/`
 whose `input` names that upstream and applies the `flags` they
-record, refusing any other flag beside `--out` and any disagreement
+record, refusing any other flag beside `--pkgs-dir` and any disagreement
 between those packages. That is the whole of the hourly workflow's
 invocation. Nothing in this repository reads `flags` itself, and the
 `--flag=value` shape is the importer's own: it is what Go's flag
@@ -216,7 +224,7 @@ the tree, which means an agent-stacks older than the field
 `requiredRuntimes` is a flat array of the interpreter tokens the
 scanner found in the package's files: shebangs, bare `mcp.json`
 commands, and hook interpreters. It is required for a generated package: a
-`source.json` carrying `import` must also carry `requiredRuntimes`,
+`default.json` carrying `import` must also carry `requiredRuntimes`,
 and `buildAgentPlugin` throws, naming the fix, if it does not. A
 hand-written `buildAgentPlugin` call omits both `import` and
 `requiredRuntimes`, and gets only the default packages and what it
@@ -233,7 +241,7 @@ A package imported without the flag reads exactly as before.
 
 `defaultDependencies` is the packages a build may link a runtime from
 when nothing names one, `["bash", "python3", "nodejs"]`, written into
-every generated `source.json`. agent-stacks owns the list and the
+every generated `default.json`. agent-stacks owns the list and the
 builder holds none, so a generated package without the key fails to
 build, saying to re-import; a hand-written call gets no defaults
 unless it passes them
@@ -296,7 +304,7 @@ Two further consequences bind the builder:
   directory left empty goes too. Any other skill is copied whole. The
   importer stages the same tree for its check phase and records what
   the copy left out in `import.warnings`. `.` may be spelled `./`. A
-  `source.json` written before this rule with a skill at `.` builds
+  `default.json` written before this rule with a skill at `.` builds
   the same way (agent-stacks ADR 0021).
 - **The manifest carries the spec version.** A generated `mcp.json`
   declares the same version the manifest does, because a client must

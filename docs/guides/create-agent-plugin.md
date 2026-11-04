@@ -66,7 +66,7 @@ carries the same skill twice; import kept the copy under
 `plugins/caveman/` and skipped the one under `skills/`. Spec
 deviations outside a plugin's own `SKILL.md` errors are recorded
 rather than fatal, and the ones import attributes to a file land in
-the generated `source.json` under `import.warnings`, so a reviewer
+the generated `default.json` under `import.warnings`, so a reviewer
 sees them without re-running the command.
 
 The final summary line explains the outcome:
@@ -89,7 +89,7 @@ update path: there is no `upgrade` verb.
 ls pkgs/agent-plugin-caveman/
 ```
 
-Two files, and `source.json` is the one to read first. It is the
+Two files, and `default.json` is the one to read first. It is the
 `buildAgentPlugin` call, serialized: its top level is exactly the
 builder's argument set, key for key. The formals carry no `...`, so a
 key the builder does not declare fails the build rather than being
@@ -114,7 +114,7 @@ keys:
 
 caveman declares no MCP servers, so it has no `mcpServers` and its
 build produces no `mcp.json`.
-`pkgs/agent-plugin-agentmemory/source.json` is one that does.
+`pkgs/agent-plugin-agentmemory/default.json` is one that does.
 
 ### `skills` names paths in the upstream tree
 
@@ -142,7 +142,7 @@ identical in every package a current importer has generated:
 { buildAgentPlugin ? callPackage ../../lib/build-agent-plugin.nix { }, callPackage, pkgs }:
 
 let
-  source = builtins.fromJSON (builtins.readFile ./source.json);
+  source = builtins.fromJSON (builtins.readFile ./default.json);
   # BEGIN custom — kept as it is when this file is regenerated
   args = { };
   hooks = old: { };
@@ -151,7 +151,7 @@ in
 (buildAgentPlugin (source // args)).overrideAttrs hooks
 ```
 
-`source.json` is never edited by hand: to move a package, re-import
+`default.json` is never edited by hand: to move a package, re-import
 it. In `default.nix` only the region between the custom markers is
 yours, and re-import carries it across — see [Per-repository
 workarounds](#per-repository-workarounds).
@@ -293,7 +293,7 @@ are two places to put it, and which one depends on what it changes:
 if it decides what gets imported, it is a flag; if it changes the
 built package, it is the block in `default.nix`.
 
-A flag is recorded in `source.json` under `import.flags` and replayed
+A flag is recorded in `default.json` under `import.flags` and replayed
 by CI, so it is written once at import:
 
 ```sh

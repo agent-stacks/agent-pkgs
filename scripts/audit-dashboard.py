@@ -18,7 +18,7 @@ docs/reference/plugin-audit.md.
 A package is a directory named agent-plugin-* holding a default.nix.
 One with no audit.json is listed as not audited yet. Each finding
 keeps its file relative to its skill's directory, so the page can
-link it at the skill's upstream path (source.json's `skills`) in the
+link it at the skill's upstream path (default.json's `skills`) in the
 upstream repository at the audited revision. Rules are kept once, as
 (id, severity, message): one id can carry several of each.
 """
@@ -59,7 +59,13 @@ def main():
         if audit is None:
             unaudited.append(pkg)
             continue
-        src = read_json(os.path.join(d, "source.json"), {})
+        # The call file is default.json since agent-stacks ADR 0086; a
+        # package not yet replayed by such a binary still holds
+        # source.json.
+        call = os.path.join(d, "default.json")
+        if not os.path.isfile(call):
+            call = os.path.join(d, "source.json")
+        src = read_json(call, {})
         s = src.get("src") or {}
         tool = audit.get("tool") or {}
         p = {
