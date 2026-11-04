@@ -4,8 +4,8 @@
   "src": {
     "owner": "rohitg00",
     "repo": "agentmemory",
-    "rev": "0639d880375fb2a36ca8d5893aa30dec1d866896",
-    "hash": "sha256-Uivu4RLIz26LPWYgNgVQ40q0FWF8PIlZyMDbBEsNSlI="
+    "rev": "a78401f3de29ada76c614aa624f85071e7b50009",
+    "hash": "sha256-L2T2jxnH90Kp0xNFc3u520ox9k385rZor4pbWO0pT/k="
   },
   "sourceUrl": "https://github.com/rohitg00/agentmemory",
   "manifest": {
@@ -59,8 +59,8 @@
       ],
       "command": "node",
       "env": {
-        "AGENTMEMORY_SECRET": "${user_config.agentmemory_secret}",
-        "AGENTMEMORY_URL": "${user_config.agentmemory_url}"
+        "CLAUDE_PLUGIN_OPTION_AGENTMEMORY_SECRET": "${user_config.agentmemory_secret}",
+        "CLAUDE_PLUGIN_OPTION_AGENTMEMORY_URL": "${user_config.agentmemory_url}"
       },
       "type": "stdio"
     }
@@ -70,7 +70,10 @@
       {
         "hooks": [
           {
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/notification.mjs\"",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/scripts/notification.mjs"
+            ],
+            "command": "node",
             "type": "command"
           }
         ]
@@ -80,7 +83,10 @@
       {
         "hooks": [
           {
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/post-tool-use.mjs\"",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/scripts/post-tool-use.mjs"
+            ],
+            "command": "node",
             "type": "command"
           }
         ]
@@ -90,7 +96,10 @@
       {
         "hooks": [
           {
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/post-tool-failure.mjs\"",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/scripts/post-tool-failure.mjs"
+            ],
+            "command": "node",
             "type": "command"
           }
         ]
@@ -100,7 +109,10 @@
       {
         "hooks": [
           {
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/pre-compact.mjs\"",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/scripts/pre-compact.mjs"
+            ],
+            "command": "node",
             "type": "command"
           }
         ]
@@ -110,7 +122,10 @@
       {
         "hooks": [
           {
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/pre-tool-use.mjs\"",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/scripts/pre-tool-use.mjs"
+            ],
+            "command": "node",
             "type": "command"
           }
         ],
@@ -121,7 +136,10 @@
       {
         "hooks": [
           {
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/session-end.mjs\"",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/scripts/session-end.mjs"
+            ],
+            "command": "node",
             "type": "command"
           }
         ]
@@ -131,7 +149,10 @@
       {
         "hooks": [
           {
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/session-start.mjs\"",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/scripts/session-start.mjs"
+            ],
+            "command": "node",
             "type": "command"
           }
         ]
@@ -141,7 +162,10 @@
       {
         "hooks": [
           {
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/stop.mjs\"",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/scripts/stop.mjs"
+            ],
+            "command": "node",
             "type": "command"
           }
         ]
@@ -151,7 +175,10 @@
       {
         "hooks": [
           {
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/subagent-start.mjs\"",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/scripts/subagent-start.mjs"
+            ],
+            "command": "node",
             "type": "command"
           }
         ]
@@ -161,7 +188,10 @@
       {
         "hooks": [
           {
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/subagent-stop.mjs\"",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/scripts/subagent-stop.mjs"
+            ],
+            "command": "node",
             "type": "command"
           }
         ]
@@ -171,7 +201,10 @@
       {
         "hooks": [
           {
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/task-completed.mjs\"",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/scripts/task-completed.mjs"
+            ],
+            "command": "node",
             "type": "command"
           }
         ]
@@ -181,7 +214,10 @@
       {
         "hooks": [
           {
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/prompt-submit.mjs\"",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/scripts/prompt-submit.mjs"
+            ],
+            "command": "node",
             "type": "command"
           }
         ]
@@ -268,51 +304,51 @@
       },
       {
         "path": "plugin/hooks/hooks.json",
-        "message": "Claude Code runs this on Notification: node \"${CLAUDE_PLUGIN_ROOT}/scripts/notification.mjs\""
+        "message": "Claude Code runs this on Notification: node ${CLAUDE_PLUGIN_ROOT}/scripts/notification.mjs"
       },
       {
         "path": "plugin/hooks/hooks.json",
-        "message": "Claude Code runs this on PostToolUse: node \"${CLAUDE_PLUGIN_ROOT}/scripts/post-tool-use.mjs\""
+        "message": "Claude Code runs this on PostToolUse: node ${CLAUDE_PLUGIN_ROOT}/scripts/post-tool-use.mjs"
       },
       {
         "path": "plugin/hooks/hooks.json",
-        "message": "Claude Code runs this on PostToolUseFailure: node \"${CLAUDE_PLUGIN_ROOT}/scripts/post-tool-failure.mjs\""
+        "message": "Claude Code runs this on PostToolUseFailure: node ${CLAUDE_PLUGIN_ROOT}/scripts/post-tool-failure.mjs"
       },
       {
         "path": "plugin/hooks/hooks.json",
-        "message": "Claude Code runs this on PreCompact: node \"${CLAUDE_PLUGIN_ROOT}/scripts/pre-compact.mjs\""
+        "message": "Claude Code runs this on PreCompact: node ${CLAUDE_PLUGIN_ROOT}/scripts/pre-compact.mjs"
       },
       {
         "path": "plugin/hooks/hooks.json",
-        "message": "Claude Code runs this on PreToolUse: node \"${CLAUDE_PLUGIN_ROOT}/scripts/pre-tool-use.mjs\""
+        "message": "Claude Code runs this on PreToolUse: node ${CLAUDE_PLUGIN_ROOT}/scripts/pre-tool-use.mjs"
       },
       {
         "path": "plugin/hooks/hooks.json",
-        "message": "Claude Code runs this on SessionEnd: node \"${CLAUDE_PLUGIN_ROOT}/scripts/session-end.mjs\""
+        "message": "Claude Code runs this on SessionEnd: node ${CLAUDE_PLUGIN_ROOT}/scripts/session-end.mjs"
       },
       {
         "path": "plugin/hooks/hooks.json",
-        "message": "Claude Code runs this on SessionStart: node \"${CLAUDE_PLUGIN_ROOT}/scripts/session-start.mjs\""
+        "message": "Claude Code runs this on SessionStart: node ${CLAUDE_PLUGIN_ROOT}/scripts/session-start.mjs"
       },
       {
         "path": "plugin/hooks/hooks.json",
-        "message": "Claude Code runs this on Stop: node \"${CLAUDE_PLUGIN_ROOT}/scripts/stop.mjs\""
+        "message": "Claude Code runs this on Stop: node ${CLAUDE_PLUGIN_ROOT}/scripts/stop.mjs"
       },
       {
         "path": "plugin/hooks/hooks.json",
-        "message": "Claude Code runs this on SubagentStart: node \"${CLAUDE_PLUGIN_ROOT}/scripts/subagent-start.mjs\""
+        "message": "Claude Code runs this on SubagentStart: node ${CLAUDE_PLUGIN_ROOT}/scripts/subagent-start.mjs"
       },
       {
         "path": "plugin/hooks/hooks.json",
-        "message": "Claude Code runs this on SubagentStop: node \"${CLAUDE_PLUGIN_ROOT}/scripts/subagent-stop.mjs\""
+        "message": "Claude Code runs this on SubagentStop: node ${CLAUDE_PLUGIN_ROOT}/scripts/subagent-stop.mjs"
       },
       {
         "path": "plugin/hooks/hooks.json",
-        "message": "Claude Code runs this on TaskCompleted: node \"${CLAUDE_PLUGIN_ROOT}/scripts/task-completed.mjs\""
+        "message": "Claude Code runs this on TaskCompleted: node ${CLAUDE_PLUGIN_ROOT}/scripts/task-completed.mjs"
       },
       {
         "path": "plugin/hooks/hooks.json",
-        "message": "Claude Code runs this on UserPromptSubmit: node \"${CLAUDE_PLUGIN_ROOT}/scripts/prompt-submit.mjs\""
+        "message": "Claude Code runs this on UserPromptSubmit: node ${CLAUDE_PLUGIN_ROOT}/scripts/prompt-submit.mjs"
       }
     ]
   }
