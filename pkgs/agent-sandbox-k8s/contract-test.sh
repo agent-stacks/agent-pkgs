@@ -46,14 +46,14 @@ grep -q 'garbas/claude-sandbox:7"' out || fail "generation not kept: $(cat out)"
 
 # A stub flox: `flox list -a` prints what FLOX_STUB_LIST names.
 mkdir -p "$root/bin"
-cat >"$root/bin/flox" <<'EOF'
-#!/usr/bin/env bash
+{ echo "#!$(command -v bash)"; cat <<'EOF'
 case "$1 $2" in
   "list -a") cat "$FLOX_STUB_LIST" ;;
   "auth token") echo "floxhub-secret-value" ;;
   *) echo "stub flox: $*" >&2; exit 1 ;;
 esac
 EOF
+} >"$root/bin/flox"
 chmod +x "$root/bin/flox"
 export PATH=$root/bin:$PATH
 
@@ -172,8 +172,7 @@ sandbox | jq -e --arg n "$name" '.spec.podTemplate.spec
 # is $STUB_POD. STUB_NO_TAR, STUB_BAD_BACK, STUB_HANG and
 # STUB_AGENT_EXIT change what it does; STUB_AGENT_HOOK runs as the agent;
 # STUB_TERM_ON_BACK signals the launcher in the middle of the copy back.
-cat >"$root/bin/kubectl" <<'EOF'
-#!/usr/bin/env bash
+{ echo "#!$(command -v bash)"; cat <<'EOF'
 echo "$*" >>"$STUB_LOG"
 args=("$@")
 while [ "${args[0]}" = --context ] || [ "${args[0]}" = -n ]; do args=("${args[@]:2}"); done
@@ -213,6 +212,7 @@ case "${args[0]}" in
   *) echo "stub kubectl: $*" >&2; exit 1 ;;
 esac
 EOF
+} >"$root/bin/kubectl"
 chmod +x "$root/bin/kubectl"
 export AGENT_SANDBOX_K8S_KUBECTL=$root/bin/kubectl
 
@@ -270,10 +270,10 @@ called ' apply ' && fail "the Secret was applied, not created"
 # Copy back: additions and deletions arrive, .git is left alone.
 back='{"environment":"garbas/claude-sandbox","copyWorkspaceBack":true}'
 fresh
-cat >"$root/bin/agent-edits" <<'EOF'
-#!/usr/bin/env bash
+{ echo "#!$(command -v bash)"; cat <<'EOF'
 echo new >"$STUB_POD/new.txt"; rm "$STUB_POD/sub/gone.txt"
 EOF
+} >"$root/bin/agent-edits"
 chmod +x "$root/bin/agent-edits"
 STUB_AGENT_HOOK=$root/bin/agent-edits run --options "$back" -- claude >out 2>err || fail "live run with copy back: $(cat err)"
 [ "$(cat "$root/live/new.txt" 2>/dev/null)" = new ] || fail "new file not copied back"
@@ -312,10 +312,10 @@ called 'delete sandbox' || fail "not deleted after TERM (exit $rc): $(cat err; c
 
 # A pod replaced during the session holds a /workspace that is not the
 # session's: nothing is copied back from it.
-cat >"$root/bin/agent-replaces-pod" <<'EOF2'
-#!/usr/bin/env bash
+{ echo "#!$(command -v bash)"; cat <<'EOF2'
 echo pod-2 >"$STUB_POD.uid"; rm -rf "${STUB_POD:?}"/*
 EOF2
+} >"$root/bin/agent-replaces-pod"
 chmod +x "$root/bin/agent-replaces-pod"
 fresh
 if STUB_AGENT_HOOK=$root/bin/agent-replaces-pod run --options "$back" -- claude >/dev/null 2>err; then
@@ -326,10 +326,10 @@ grep -q replaced err || fail "no reason for a replaced pod: $(cat err)"
 
 # A folder that cannot be replaced (a read-only folder in it) keeps the
 # sandbox, and the copy that arrived, and says where it is.
-cat >"$root/bin/agent-writes-ro" <<'EOF2'
-#!/usr/bin/env bash
+{ echo "#!$(command -v bash)"; cat <<'EOF2'
 chmod u+w "$STUB_POD/ro"; echo new >"$STUB_POD/ro/new"
 EOF2
+} >"$root/bin/agent-writes-ro"
 chmod +x "$root/bin/agent-writes-ro"
 fresh
 mkdir "$root/live/ro" && echo f >"$root/live/ro/f" && chmod 555 "$root/live/ro"
