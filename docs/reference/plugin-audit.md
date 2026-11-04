@@ -130,7 +130,7 @@ on main in one page. Plugins are ranked by how affected they are
 filters by status, rule and name. A plugin opens to its components,
 worst first, with the findings grouped by rule. Each finding links
 to its file and line in the upstream repository, at the revision
-that was audited: a skill at its path in `source.json`'s `skills`,
+that was audited: a skill at its path in `default.json`'s `skills`,
 anything else at its path in `pluginRootPaths`. What the baseline
 left out is under each component, closed, with the baseline's
 reason, and counted apart from the scored findings. Each plugin has
