@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "azure",
-      "dir": "/nix/store/k7liwjpv2n7nsqyhkw7sv4dxafh6vaz5-agent-plugin-azure-1.0.0/share/agent-plugins/azure",
+      "dir": "/nix/store/mrz7g6gygsdv3n8miyk9hlvmnms3vr0l-agent-plugin-azure-1.2.113/share/agent-plugins/azure",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -177,19 +177,32 @@
         },
         {
           "path": "skills/azure-ai",
-          "score": 100,
-          "risk": 0,
-          "status": "safe",
+          "score": 93,
+          "risk": 7,
+          "status": "incomplete",
           "partial": true,
-          "coverage": 100,
+          "coverage": 96.3,
           "exceptions": [
             {
               "reason": "reference_missing",
               "path": "skills/azure-ai/SKILL.md",
               "line": 7
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/azure-ai/scripts/analyze-speech-sdk-log.mjs",
+              "line": 0
             }
           ],
-          "findings": []
+          "findings": [
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/azure-ai/references/speech/logging-apis.md",
+              "line": 71
+            }
+          ]
         },
         {
           "path": "skills/azure-aigateway",
@@ -469,13 +482,6 @@
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
-              "file": "skills/azure-app-onboard/deploy/references/code-deployment-swa.md",
-              "line": 7
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "",
               "file": "skills/azure-app-onboard/deploy/references/database-post-deploy.md",
               "line": 21
             },
@@ -512,7 +518,7 @@
               "severity": "MEDIUM",
               "message": "Unrestricted Tool Access",
               "file": "skills/azure-app-onboard/references/approval-gates.md",
-              "line": 37
+              "line": 39
             },
             {
               "id": "EA2",
@@ -659,21 +665,21 @@
               "severity": "MEDIUM",
               "message": "",
               "file": "skills/azure-app-onboard-prereq/references/dependency-compatibility.md",
-              "line": 122
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/azure-app-onboard-prereq/references/dependency-compatibility.md",
-              "line": 123
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/azure-app-onboard-prereq/references/dependency-compatibility.md",
               "line": 124
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/azure-app-onboard-prereq/references/dependency-compatibility.md",
+              "line": 125
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "",
+              "file": "skills/azure-app-onboard-prereq/references/dependency-compatibility.md",
+              "line": 126
             },
             {
               "id": "EA2",
@@ -2582,20 +2588,6 @@
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "",
-              "file": "skills/azure-prepare/references/recipes/azd/iac-rules.md",
-              "line": 25
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/azure-prepare/references/recipes/azd/terraform.md",
-              "line": 328
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "",
               "file": "skills/azure-prepare/references/services/app-service/templates/recipes/sql/source/nodejs.md",
               "line": 10
             },
@@ -3273,8 +3265,8 @@
         },
         {
           "path": "skills/discover-azure-skills",
-          "score": 86,
-          "risk": 14,
+          "score": 93,
+          "risk": 7,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -3304,13 +3296,6 @@
               "message": "External Transmission",
               "file": "skills/discover-azure-skills/SKILL.md",
               "line": 20
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/discover-azure-skills/references/install/other.md",
-              "line": 6
             }
           ]
         },
@@ -4107,6 +4092,11 @@
               "line": 0
             },
             {
+              "reason": "runtime_limit",
+              "path": "skills/microsoft-foundry/models/deploy-model/customize/references",
+              "line": 0
+            },
+            {
               "reason": "static_parse_limit",
               "path": "skills/microsoft-foundry/models/deploy-model/customize/references/customize-workflow.md",
               "line": 0
@@ -4129,11 +4119,6 @@
             {
               "reason": "static_parse_limit",
               "path": "skills/microsoft-foundry/quota/references/optimization.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/microsoft-foundry/rbac",
               "line": 0
             }
           ],
@@ -4955,7 +4940,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-04T02:52:32Z"
+      "checkedAt": "2026-11-04T19:15:28Z"
     }
   },
   "agentStacks": {
