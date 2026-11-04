@@ -7,10 +7,10 @@
   "plugins": [
     {
       "name": "deepstream-generate-pipeline",
-      "dir": "/nix/store/602hnsx1f9g34p67g8c9csps4zw8jh29-agent-plugin-deepstream-generate-pipeline-0.0.0-unstable.2026-10-19.g1bcf44b/share/agent-plugins/deepstream-generate-pipeline",
+      "dir": "/nix/store/j6khbrmmfc8zcfhx9z0g9g6ppk1252dv-agent-plugin-deepstream-generate-pipeline-0.0.0-unstable.2026-11-04.gd6d52f6/share/agent-plugins/deepstream-generate-pipeline",
       "spec": "1.1.0",
-      "score": 12,
-      "status": "do not install",
+      "score": 63,
+      "status": "caution",
       "coverage": {
         "scanned": [
           "skills/deepstream-generate-pipeline"
@@ -28,9 +28,9 @@
       "components": [
         {
           "path": "skills/deepstream-generate-pipeline",
-          "score": 12,
-          "risk": 88,
-          "status": "do not install",
+          "score": 63,
+          "risk": 37,
+          "status": "caution",
           "partial": true,
           "coverage": 92.3,
           "exceptions": [
@@ -71,34 +71,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/deepstream-generate-pipeline/SKILL.md",
-              "line": 58
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/deepstream-generate-pipeline/SKILL.md",
-              "line": 66
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/deepstream-generate-pipeline/SKILL.md",
-              "line": 71
-            },
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/deepstream-generate-pipeline/SKILL.md",
-              "line": 1
-            },
             {
               "id": "EA2",
               "severity": "MEDIUM",
@@ -141,20 +113,57 @@
               "file": "skills/deepstream-generate-pipeline/scripts/validate_pipeline.py",
               "line": 643
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/deepstream-generate-pipeline/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/deepstream-generate-pipeline/SKILL.md",
+              "line": 58,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/deepstream-generate-pipeline/SKILL.md",
+              "line": 66,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/deepstream-generate-pipeline/SKILL.md",
+              "line": 71,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         }
       ]
     }
   ],
-  "score": 12,
-  "status": "do not install",
+  "score": 63,
+  "status": "caution",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-20T03:15:18Z"
+      "checkedAt": "2026-11-04T21:31:02Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {
