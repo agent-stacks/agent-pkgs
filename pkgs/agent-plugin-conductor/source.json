@@ -26,6 +26,11 @@
     "workflow-patterns": "plugins/conductor/skills/workflow-patterns"
   },
   "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
   "pluginRootPaths": {
     "com.anthropic.claude-code/agents": "plugins/conductor/agents",
     "com.anthropic.claude-code/commands": "plugins/conductor/commands",
@@ -38,7 +43,8 @@
   "import": {
     "input": "wshobson/agents",
     "flags": [
-      "--path-ignore=plugins/avoid-ai-writing"
+      "--path-ignore=plugins/avoid-ai-writing",
+      "--pkgs-dir=pkgs"
     ],
     "warnings": [
       {

@@ -29,6 +29,11 @@
     "team-composition-patterns": "plugins/agent-teams/skills/team-composition-patterns"
   },
   "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
   "pluginRootPaths": {
     "com.anthropic.claude-code/agents": "plugins/agent-teams/agents",
     "com.anthropic.claude-code/commands": "plugins/agent-teams/commands"
@@ -40,7 +45,8 @@
   "import": {
     "input": "wshobson/agents",
     "flags": [
-      "--path-ignore=plugins/avoid-ai-writing"
+      "--path-ignore=plugins/avoid-ai-writing",
+      "--pkgs-dir=pkgs"
     ],
     "warnings": [
       {

@@ -23,6 +23,11 @@
   "requiredRuntimes": [
     "bash"
   ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
   "pluginRootPaths": {
     "com.anthropic.claude-code/commands": "plugins/ralph-loop/commands",
     "com.anthropic.claude-code/hooks": "plugins/ralph-loop/hooks",
@@ -47,7 +52,8 @@
   "import": {
     "input": "anthropics/claude-plugins-official",
     "flags": [
-      "--path-ignore=external_plugins/context7"
+      "--path-ignore=external_plugins/context7",
+      "--pkgs-dir=pkgs"
     ],
     "warnings": [
       {

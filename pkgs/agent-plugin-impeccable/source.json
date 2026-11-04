@@ -26,6 +26,11 @@
   "requiredRuntimes": [
     "sh"
   ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
   "pluginRootPaths": {
     "com.anthropic.claude-code/agents": "plugin/agents",
     "com.anthropic.claude-code/hooks": "plugin/hooks"
@@ -87,7 +92,9 @@
   },
   "import": {
     "input": "pbakaus/impeccable",
-    "flags": [],
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
     "warnings": [
       {
         "path": ".agent/skills/impeccable/SKILL.md",

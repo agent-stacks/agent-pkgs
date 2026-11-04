@@ -195,11 +195,15 @@
         # Every plugin is validated by the agent-stacks CLI from this set.
         # The reference is lazy: pkgs/agent-stacks is not built by
         # buildAgentPlugin, so naming it here does not recurse.
+        #
+        # lib/build-agent-plugin.nix and pkgs/agent-stacks are written by
+        # `agent-stacks import`, which pins the binary that ran it; edit
+        # them in agent-stacks-cli (its ADR 0082). The builder takes the
+        # package and builds with its bare binary, passthru.unwrapped:
+        # a plugin build assembles and checks, never audits, so it must
+        # not depend on SkillSpector.
         buildAgentPlugin = pkgs.callPackage ./lib/build-agent-plugin.nix {
-          # The bare binary, not the package wrapped with skillspector on
-          # its PATH: a plugin build assembles and checks, never audits,
-          # and the wrapper would make every plugin depend on SkillSpector.
-          defaultAgentStacks = (mkPackages pkgs).agent-stacks.unwrapped;
+          agent-stacks = (mkPackages pkgs).agent-stacks;
         };
         mkAgentStack = pkgs.callPackage ./lib/mk-agent-stack.nix {
           # Every stack runs the agent-stacks CLI from this set. Taken from
@@ -260,23 +264,6 @@
 
       mkChecks = pkgs:
         mkPackages pkgs // {
-          # The default runtime packages are this repository's choice,
-          # so this repository checks they exist; what the search does
-          # with them is asserted in agent-stacks (ADR 0017).
-          runtime-defaults-resolve =
-            let
-              missing = builtins.filter
-                (a: !(pkgs ? ${a}) || !(nixpkgs.lib.isDerivation pkgs.${a}))
-                (import ./lib/runtime-defaults.nix);
-            in
-            if missing != [ ] then
-              throw ("the default runtime packages are not nixpkgs attributes: "
-                + builtins.concatStringsSep ", " missing)
-            else
-              pkgs.runCommand "runtime-defaults-resolve" { } ''
-                touch $out
-              '';
-
           # The list handed to assemble-plugin: a declared dependency
           # ahead of the defaults, a token's own package when nothing
           # was declared, its main program when the binary is not its
@@ -305,6 +292,9 @@
                 };
                 skills.one = "skills/one";
                 requiredRuntimes = [ "nodejs" "python3" "ruby" ];
+                # What import records; a hand-written call gets no
+                # defaults unless it names them (agent-stacks ADR 0082).
+                defaultDependencies = [ "bash" "python3" "nodejs" ];
               } // args);
               pinned = mk { dependencies = [ "python312" ]; };
               named = mk { };
@@ -549,6 +539,9 @@
               # closure. Present because a generated source.json
               # always writes the key.
               requiredRuntimes = [ ];
+              # Written into every generated source.json too: the
+              # builder holds no list of its own (agent-stacks ADR 0082).
+              defaultDependencies = [ "bash" "python3" "nodejs" ];
               meta = {
                 description = "Ultra-compressed communication mode";
                 homepage = "https://github.com/juliusbrussee/caveman";
@@ -754,10 +747,12 @@
               formals = builtins.functionArgs (import ./lib/build-agent-plugin.nix {
                 inherit (pkgs) lib stdenvNoCC;
                 inherit pkgs;
+                agent-stacks = null;
               });
               written = [
                 "name" "version" "src" "sourceUrl" "manifest" "skills" "requiredRuntimes"
-                "dependencies" "pluginRootPaths" "ignoredPaths" "mcpServers" "hooks" "meta" "import"
+                "dependencies" "defaultDependencies" "pluginRootPaths" "ignoredPaths" "mcpServers"
+                "hooks" "meta" "import"
               ];
               missing = builtins.filter (k: !(formals ? ${k})) written;
             in

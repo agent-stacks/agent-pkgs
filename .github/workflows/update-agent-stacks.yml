@@ -17,9 +17,9 @@ on:
       describe:
         description: >-
           git describe --tags --always in that commit, e.g. 0.9.0-3-gabc1234.
-          Becomes the package version. Optional: without it the version falls
-          back to <version>-unstable-<today>, which cannot tell two commits
-          from the same day apart.
+          Unused: the package version now comes from the commit's hashes.json
+          (agent-stacks ADR 0082). Kept so the dispatch that sends it still
+          validates.
         type: string
         required: false
 
@@ -97,7 +97,7 @@ jobs:
       # frozen when the run is dispatched. A run queued behind another
       # (see the concurrency group) would otherwise stage its bump on a
       # main that lacks the bump the earlier run landed, and every bump
-      # rewrites all of source.json, so land's rebase would always conflict.
+      # rewrites all of pkgs/agent-stacks, so land's rebase would always conflict.
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           token: ${{ steps.app-token.outputs.token }}
@@ -134,14 +134,16 @@ jobs:
             exit 1
           fi
 
-      # Nothing to do when source.json already names this commit: a rerun of
-      # the same dispatch, or a dispatch racing one that already landed.
+      # Nothing to do when pkgs/agent-stacks already pins this commit: a
+      # rerun of the same dispatch, or a dispatch racing one that already
+      # landed. default.json is that commit's hashes.json, written by
+      # import (agent-stacks ADR 0082).
       - name: "Stop if this commit is already the one packaged"
         id: current
         env:
           REV: ${{ inputs.rev }}
         run: |
-          have="$(jq -r .rev pkgs/agent-stacks/source.json)"
+          have="$(jq -r .rev pkgs/agent-stacks/default.json)"
           if [ "$have" = "$REV" ]; then
             echo "pkgs/agent-stacks already points at $REV"
             echo "same=true" >> "$GITHUB_OUTPUT"
@@ -149,56 +151,51 @@ jobs:
             echo "same=false" >> "$GITHUB_OUTPUT"
           fi
 
-      # One prefetch per system. Each also proves the object is really there:
-      # the upload that raised this dispatch is the only thing that puts it
-      # in the bucket, and a missing one fails here rather than in a build.
-      - name: "Prefetch the uploaded binaries"
+      # The new binary, for this runner, checked against the hash its
+      # hashes.json records. A missing upload fails here rather than in a
+      # build: the upload that raised this dispatch is the only thing that
+      # puts either file in the bucket.
+      - name: "Fetch the uploaded binary"
         if: ${{ steps.current.outputs.same == 'false' }}
-        id: prefetch
         env:
           REV: ${{ inputs.rev }}
-          VERSION: ${{ inputs.version }}
         run: |
           set -euo pipefail
-          short="${REV:0:7}"
-          hashes="{}"
-          for system in x86_64-linux aarch64-linux aarch64-darwin; do
-            url="https://downloads.agent-stacks.org/agent-stacks/by-commit/$REV/agent-stacks-$VERSION-$short-$system"
-            echo "prefetching $system"
-            hash="$(nix store prefetch-file --json "$url" | jq -r .hash)"
-            hashes="$(jq --arg s "$system" --arg h "$hash" '.[$s] = $h' <<<"$hashes")"
-          done
-          {
-            echo "hashes<<EOF"
-            echo "$hashes"
-            echo "EOF"
-          } >> "$GITHUB_OUTPUT"
+          hashes="$(curl -fsS "https://downloads.agent-stacks.org/agent-stacks/by-commit/$REV/hashes.json")"
+          url="$(jq -r '.binaries."x86_64-linux".url' <<<"$hashes")"
+          want="$(jq -r '.binaries."x86_64-linux".hash' <<<"$hashes")"
+          got="$(nix store prefetch-file --json "$url")"
+          if [ "$(jq -r .hash <<<"$got")" != "$want" ]; then
+            echo "$url hashes to $(jq -r .hash <<<"$got"), hashes.json records $want" >&2
+            exit 1
+          fi
+          install -Dm755 "$(jq -r .storePath <<<"$got")" "$RUNNER_TEMP/bin/agent-stacks"
 
-      # The date is the day this ran, not the commit's own date: the dispatch
-      # arrives within minutes of the upload, and reading the commit date
-      # would mean handing this workflow a token for a private repository.
-      - name: "Rewrite pkgs/agent-stacks/source.json"
+      # The new binary's own import re-pins the set: every import rewrites
+      # lib/build-agent-plugin.nix and pkgs/agent-stacks for the binary
+      # that ran it, so one replay is enough. The first recorded input
+      # that replays cleanly is used; its package may move with its
+      # upstream, as on any replay. The hourly update-agent-plugins
+      # replays the rest with this binary once it is pinned.
+      - name: "Re-pin with the new binary's import"
         if: ${{ steps.current.outputs.same == 'false' }}
         env:
           REV: ${{ inputs.rev }}
-          VERSION: ${{ inputs.version }}
-          DESCRIBE: ${{ inputs.describe }}
-          HASHES: ${{ steps.prefetch.outputs.hashes }}
         run: |
           set -euo pipefail
-          # version is what the package is published as; baseVersion
-          # stays what the binary reports and what the uploaded object's
-          # name embeds, which are not the same thing. An empty describe
-          # writes no version field, and the expression falls back.
-          jq -n \
-            --arg baseVersion "$VERSION" \
-            --arg version "$DESCRIBE" \
-            --arg rev "$REV" \
-            --arg date "$(date -u +%Y-%m-%d)" \
-            --argjson hashes "$HASHES" \
-            '{ $baseVersion, $rev, $date, $hashes }
-             + (if $version == "" then {} else { $version } end)' \
-            > pkgs/agent-stacks/source.json
+          for input in $(jq -r .import.input pkgs/agent-plugin-*/source.json | sort -u); do
+            if "$RUNNER_TEMP/bin/agent-stacks" import "$input" --replay --out pkgs; then
+              test "$(jq -r .rev pkgs/agent-stacks/default.json)" = "$REV"
+              exit 0
+            fi
+            # A failed replay can have written the plugins that succeeded,
+            # new directories among them; drop all of it, or the next
+            # input's commit would carry a half-imported upstream.
+            git checkout -- pkgs lib
+            git clean -fdq -- pkgs lib
+          done
+          echo "no recorded input replayed with $REV" >&2
+          exit 1
 
       - name: "Stage the commit"
         if: ${{ steps.current.outputs.same == 'false' }}
@@ -210,8 +207,9 @@ jobs:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           set -euo pipefail
-          if git diff --quiet -- pkgs/agent-stacks/source.json; then
-            echo "source.json is unchanged"
+          git add -A lib pkgs
+          if git diff --cached --quiet; then
+            echo "nothing changed"
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -226,8 +224,7 @@ jobs:
           id="$(gh api "/users/${slug}%5Bbot%5D" --jq .id 2>/dev/null || true)"
           git config user.email "${id:+$id+}${slug}[bot]@users.noreply.github.com"
           git commit -q -m "chore(agent-stacks): ${VERSION} at ${REV:0:7}" \
-            -m "Binaries uploaded by agent-stacks/agent-stacks-cli for commit ${REV}." \
-            -- pkgs/agent-stacks/source.json
+            -m "Binaries uploaded by agent-stacks/agent-stacks-cli for commit ${REV}, pinned by that binary's own import --replay."
           git push --force origin "HEAD:refs/heads/$STAGING_BRANCH"
           echo "changed=true" >> "$GITHUB_OUTPUT"
           echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
@@ -379,8 +376,8 @@ jobs:
               git rebase --abort || true
               echo "the staged commit conflicts with main; nothing was pushed." >&2
               echo "main already carries a different agent-stacks bump:" >&2
-              echo "  main:   $(git show origin/main:pkgs/agent-stacks/source.json | jq -r .rev)" >&2
-              echo "  staged: $(jq -r .rev pkgs/agent-stacks/source.json)" >&2
+              echo "  main:   $(git show origin/main:pkgs/agent-stacks/default.json | jq -r .rev)" >&2
+              echo "  staged: $(jq -r .rev pkgs/agent-stacks/default.json)" >&2
               echo "Check which rev is newer before dispatching again;" >&2
               echo "dispatching the older one downgrades main." >&2
               exit 1

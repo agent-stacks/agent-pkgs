@@ -194,7 +194,8 @@ name.
 
 | Path | Contents |
 | ---------------------------- | -------- |
-| `lib/build-agent-plugin.nix` | `buildAgentPlugin` — one plugin per upstream repo |
+| `lib/build-agent-plugin.nix` | `buildAgentPlugin` — one plugin per upstream repo; written by `agent-stacks import` (ADR 0026) |
+| `pkgs/agent-stacks/` | The binary that ran the last import, pinned from its `hashes.json`; written by `agent-stacks import` |
 | `lib/mk-agent-stack.nix` | `mkAgentStack` — compose plugins into a stack |
 | `pkgs/<name>/` | One package per plugin; auto-discovered, no central list |
 

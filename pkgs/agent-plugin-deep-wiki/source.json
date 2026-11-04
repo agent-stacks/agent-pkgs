@@ -56,6 +56,11 @@
   "dependencies": [
     "powershell"
   ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
   "pluginRootPaths": {
     "com.anthropic.claude-code/agents": ".github/plugins/deep-wiki/agents",
     "com.anthropic.claude-code/commands": ".github/plugins/deep-wiki/commands"
@@ -67,7 +72,8 @@
   "import": {
     "input": "microsoft/skills",
     "flags": [
-      "--dependency=powershell"
+      "--dependency=powershell",
+      "--pkgs-dir=pkgs"
     ],
     "warnings": [
       {

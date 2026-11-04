@@ -26,6 +26,11 @@
     "openapi-spec-generation": "plugins/documentation-generation/skills/openapi-spec-generation"
   },
   "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
   "pluginRootPaths": {
     "com.anthropic.claude-code/agents": "plugins/documentation-generation/agents",
     "com.anthropic.claude-code/commands": "plugins/documentation-generation/commands"
@@ -37,7 +42,8 @@
   "import": {
     "input": "wshobson/agents",
     "flags": [
-      "--path-ignore=plugins/avoid-ai-writing"
+      "--path-ignore=plugins/avoid-ai-writing",
+      "--pkgs-dir=pkgs"
     ]
   }
 }

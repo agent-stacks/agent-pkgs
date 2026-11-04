@@ -33,6 +33,11 @@
   "requiredRuntimes": [
     "python3"
   ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
   "pluginRootPaths": {
     "com.anthropic.claude-code/commands": "commands"
   },
@@ -42,7 +47,9 @@
   },
   "import": {
     "input": "weaviate/agent-skills",
-    "flags": [],
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
     "warnings": [
       {
         "path": "skills/engram_memory",

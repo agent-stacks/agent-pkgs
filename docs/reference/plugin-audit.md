@@ -44,7 +44,7 @@ under it. A package with no `audit.json` has not been audited yet.
 | Trigger | Packages audited |
 | ------- | ---------------- |
 | Push to main changing `pkgs/agent-plugin-*/source.json` | The packages whose `source.json` changed |
-| Push to main changing `pkgs/skillspector/`, the `skillspector-src` input or `pkgs/agent-stacks/source.json` | Every package |
+| Push to main changing `pkgs/skillspector/`, the `skillspector-src` input or `pkgs/agent-stacks/default.json` | Every package |
 | Nightly | Every package |
 | Manual dispatch | The named package, or every package |
 

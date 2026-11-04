@@ -52,6 +52,11 @@
   "dependencies": [
     "dotnet-sdk_10"
   ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
   "pluginRootPaths": {
     ".plugin": "plugins/code-apps/.plugin",
     "com.anthropic.claude-code/agents": "plugins/code-apps/agents",
@@ -64,7 +69,8 @@
   "import": {
     "input": "microsoft/power-platform-skills",
     "flags": [
-      "--dependency=dotnet-sdk_10"
+      "--dependency=dotnet-sdk_10",
+      "--pkgs-dir=pkgs"
     ],
     "warnings": [
       {
