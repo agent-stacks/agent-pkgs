@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "aws-core",
-      "dir": "/nix/store/p915r1dxvbn9w4lbffqnvki7s67q8r0h-agent-plugin-aws-core-1.2.0/share/agent-plugins/aws-core",
+      "dir": "/nix/store/rsilvf6v29lmy995i8jfkwrk720ny6n4-agent-plugin-aws-core-1.2.0/share/agent-plugins/aws-core",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -26,6 +26,7 @@
           "skills/aws-database",
           "skills/aws-deployment",
           "skills/aws-iam",
+          "skills/aws-investigation",
           "skills/aws-messaging-and-streaming",
           "skills/aws-networking",
           "skills/aws-observability",
@@ -1992,6 +1993,17 @@
           ]
         },
         {
+          "path": "skills/aws-investigation",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
           "path": "skills/aws-messaging-and-streaming",
           "score": 100,
           "risk": 0,
@@ -2025,7 +2037,7 @@
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 90.7,
+          "coverage": 90.6,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -2100,7 +2112,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/aws-observability/SKILL.md",
+              "line": 236
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-observability/SKILL.md",
               "line": 249
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-observability/SKILL.md",
+              "line": 263
             },
             {
               "reason": "reference_missing",
@@ -2145,6 +2167,11 @@
             {
               "reason": "reference_missing",
               "path": "skills/aws-observability/SKILL.md",
+              "line": 326
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-observability/SKILL.md",
               "line": 327
             },
             {
@@ -2156,11 +2183,6 @@
               "reason": "reference_missing",
               "path": "skills/aws-observability/SKILL.md",
               "line": 329
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/aws-observability/SKILL.md",
-              "line": 330
             },
             {
               "reason": "obfuscated_instruction_text",
@@ -2515,6 +2537,14 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/aws-observability/SKILL.md",
+              "line": 326,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
               "line": 327,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
@@ -2523,7 +2553,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/aws-observability/SKILL.md",
-              "line": 328,
+              "line": 330,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
@@ -2531,15 +2561,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/aws-observability/SKILL.md",
-              "line": 331,
-              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-observability/SKILL.md",
-              "line": 333,
+              "line": 332,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
@@ -3284,7 +3306,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-05T02:54:08Z"
+      "checkedAt": "2026-11-05T11:30:38Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
