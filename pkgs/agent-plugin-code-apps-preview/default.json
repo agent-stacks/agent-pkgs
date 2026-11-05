@@ -1,11 +1,11 @@
 {
   "name": "code-apps-preview",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "src": {
     "owner": "microsoft",
     "repo": "power-platform-skills",
-    "rev": "22f9137d636b1a694e9dd1ca5af4ecd9c300ca87",
-    "hash": "sha256-ZSRseuKtpv61+kz1VGkGVCMVrOTO7CTnsO8jESxTEmU="
+    "rev": "4076781a3c6862896ad98bd51f32e180d9ddd4fd",
+    "hash": "sha256-+tGQgWSAeb5iBEJSeXtSqGBkdzx5iqZoR6Y8M2EV89k="
   },
   "sourceUrl": "https://github.com/microsoft/power-platform-skills",
   "manifest": {
@@ -29,7 +29,7 @@
     "license": "MIT",
     "name": "code-apps-preview",
     "repository": "https://github.com/microsoft/power-platform-skills/",
-    "version": "1.1.0"
+    "version": "1.1.1"
   },
   "skills": {
     "add-azuredevops": "plugins/code-apps/skills/add-azuredevops",
@@ -60,7 +60,22 @@
   "pluginRootPaths": {
     ".plugin": "plugins/code-apps/.plugin",
     "com.anthropic.claude-code/agents": "plugins/code-apps/agents",
+    "com.anthropic.claude-code/hooks": "plugins/code-apps/hooks",
     "shared": "plugins/code-apps/shared"
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "node -e \"try { const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root) throw new Error('Plugin root is not set'); require(path.resolve(root,'hooks','set-cli-origin.js')); } catch(error) { console.error('[code-apps] CLI attribution was not applied: '+error.message); }\"",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "Bash|bash|sh|powershell|PowerShell|pwsh"
+      }
+    ]
   },
   "meta": {
     "description": "Build and deploy Power Apps code apps using React, Vite, and Power Platform connectors",
@@ -132,6 +147,10 @@
       {
         "path": "plugins/code-apps/skills/report-issue/SKILL.md",
         "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
+      },
+      {
+        "path": "plugins/code-apps/hooks/hooks.json",
+        "message": "Claude Code runs this on PreToolUse: node -e \"try { const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root) throw new Error('Plugin root is not set'); require(path.resolve(root,'hooks','set-cli-origin.js')); } catch(error) { console.error('[code-apps] CLI attribution was not applied: '+error.message); }\""
       }
     ]
   }
