@@ -7,10 +7,10 @@
   "plugins": [
     {
       "name": "momentic",
-      "dir": "/nix/store/wqyndm5a7zgnch66hyw5xpm9lcbbdlzs-agent-plugin-momentic-1.0.0/share/agent-plugins/momentic",
+      "dir": "/nix/store/m46604wfwcr22q7jykv2amaac82dlgi4-agent-plugin-momentic-1.0.0/share/agent-plugins/momentic",
       "spec": "1.1.0",
-      "score": 48,
-      "status": "do not install",
+      "score": 60,
+      "status": "caution",
       "coverage": {
         "scanned": [
           "skills/mo-qa",
@@ -18,7 +18,8 @@
           "skills/momentic-mobile-test",
           "skills/momentic-result-classification",
           "skills/momentic-spec",
-          "skills/momentic-test"
+          "skills/momentic-test",
+          "skills/run-qa"
         ],
         "validated": [
           "plugin.json"
@@ -37,16 +38,16 @@
       "components": [
         {
           "path": "skills/mo-qa",
-          "score": 48,
-          "risk": 52,
-          "status": "do not install",
+          "score": 60,
+          "risk": 40,
+          "status": "caution",
           "partial": true,
           "coverage": 100,
           "exceptions": [
             {
               "reason": "reference_missing",
               "path": "skills/mo-qa/SKILL.md",
-              "line": 81
+              "line": 77
             }
           ],
           "findings": [
@@ -63,48 +64,56 @@
               "message": "Chaining Abuse",
               "file": "skills/mo-qa/references/installation.md",
               "line": 22
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/mo-qa/references/browser-settings.md",
+              "line": 10,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/mo-qa/references/browser-settings.md",
-              "line": 8
+              "line": 18,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/mo-qa/references/browser-settings.md",
-              "line": 16
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/mo-qa/references/browser-settings.md",
-              "line": 20
+              "line": 22,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/mo-qa/references/session-control.md",
-              "line": 18
+              "line": 18,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/mo-qa/references/session-control.md",
-              "line": 20
+              "line": 20,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/mo-qa/references/session-control.md",
-              "line": 26
+              "line": 26,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             }
           ]
         },
@@ -141,63 +150,63 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/momentic-maintain/SKILL.md",
               "line": 152
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/momentic-maintain/SKILL.md",
               "line": 153
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/momentic-maintain/SKILL.md",
               "line": 154
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/momentic-maintain/SKILL.md",
               "line": 171
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/momentic-maintain/SKILL.md",
               "line": 214
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/momentic-maintain/SKILL.md",
               "line": 237
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/momentic-maintain/SKILL.md",
               "line": 238
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/momentic-maintain/SKILL.md",
               "line": 247
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/momentic-maintain/SKILL.md",
               "line": 277
             },
@@ -208,7 +217,8 @@
               "file": "skills/momentic-maintain/SKILL.md",
               "line": 316
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/momentic-mobile-test",
@@ -258,18 +268,19 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/momentic-mobile-test/SKILL.md",
               "line": 66
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/momentic-mobile-test/SKILL.md",
               "line": 214
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/momentic-result-classification",
@@ -285,7 +296,8 @@
               "line": 169
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/momentic-spec",
@@ -316,7 +328,8 @@
               "file": "skills/momentic-spec/SKILL.md",
               "line": 133
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/momentic-test",
@@ -361,24 +374,53 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/momentic-test/SKILL.md",
               "line": 192
             }
-          ]
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/run-qa",
+          "score": 85,
+          "risk": 15,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/run-qa/SKILL.md",
+              "line": 50
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/run-qa/SKILL.md",
+              "line": 38
+            }
+          ],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 48,
-  "status": "do not install",
+  "score": 60,
+  "status": "caution",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-28T11:44:22Z"
+      "checkedAt": "2026-11-05T04:48:41Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

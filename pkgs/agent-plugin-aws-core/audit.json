@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "aws-core",
-      "dir": "/nix/store/pr1nql7vrd4qfs6mqi00bcz4fmrj3y63-agent-plugin-aws-core-1.2.0/share/agent-plugins/aws-core",
+      "dir": "/nix/store/p915r1dxvbn9w4lbffqnvki7s67q8r0h-agent-plugin-aws-core-1.2.0/share/agent-plugins/aws-core",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/hooks",
           "skills/amazon-bedrock",
           "skills/aws-ai-ml",
           "skills/aws-auth",
@@ -48,16 +49,23 @@
             "reason": "interpreter links into /nix/store"
           },
           {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          },
-          {
             "path": "mcp.json",
             "reason": "SkillSpector does not analyse this layout as an MCP manifest"
           }
         ]
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/amazon-bedrock",
           "score": 0,
@@ -103,41 +111,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/amazon-bedrock/SKILL.md",
-              "line": 111
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/amazon-bedrock/SKILL.md",
-              "line": 123
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/amazon-bedrock/SKILL.md",
-              "line": 243
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/amazon-bedrock/SKILL.md",
-              "line": 353
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/amazon-bedrock/SKILL.md",
-              "line": 356
-            },
             {
               "id": "PE3",
               "severity": "HIGH",
@@ -202,13 +175,6 @@
               "line": 23
             },
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/amazon-bedrock/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "E5",
               "severity": "MEDIUM",
               "message": "Cloud Storage Exfiltration",
@@ -239,7 +205,7 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/amazon-bedrock/references/agentcore-runtime-container-build.md",
               "line": 224
             },
@@ -319,6 +285,56 @@
               "message": "Excessive Permissions",
               "file": "skills/amazon-bedrock/references/agentcore-harness.md",
               "line": 223
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/amazon-bedrock/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/amazon-bedrock/SKILL.md",
+              "line": 111,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/amazon-bedrock/SKILL.md",
+              "line": 123,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/amazon-bedrock/SKILL.md",
+              "line": 243,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/amazon-bedrock/SKILL.md",
+              "line": 353,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/amazon-bedrock/SKILL.md",
+              "line": 356,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -518,13 +534,6 @@
               "line": 3
             },
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/aws-ai-ml/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "P4",
               "severity": "MEDIUM",
               "message": "Behavior Manipulation",
@@ -532,86 +541,16 @@
               "line": 36
             },
             {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/aws-ai-ml/references/finetuning/references/eula_links.md",
-              "line": 3
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/aws-ai-ml/references/model-selection/references/model-licenses.md",
-              "line": 3
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/aws-ai-ml/references/finetuning/references/eula_links.md",
-              "line": 27
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/aws-ai-ml/references/finetuning/references/eula_links.md",
-              "line": 28
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/aws-ai-ml/references/finetuning/references/eula_links.md",
-              "line": 29
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/aws-ai-ml/references/finetuning/references/eula_links.md",
-              "line": 30
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/aws-ai-ml/references/model-selection/references/model-licenses.md",
-              "line": 27
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/aws-ai-ml/references/model-selection/references/model-licenses.md",
-              "line": 28
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/aws-ai-ml/references/model-selection/references/model-licenses.md",
-              "line": 29
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/aws-ai-ml/references/model-selection/references/model-licenses.md",
-              "line": 30
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-ai-ml/references/manage-mlflow/overview.md",
               "line": 43
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-ai-ml/references/manage-mlflow/overview.md",
               "line": 75
             },
@@ -672,20 +611,6 @@
               "line": 9
             },
             {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/aws-ai-ml/references/model-deployment/overview.md",
-              "line": 21
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/aws-ai-ml/references/model-evaluation/references/llmaaj-builtin-evaluation.md",
-              "line": 39
-            },
-            {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
@@ -728,13 +653,6 @@
               "line": 219
             },
             {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/aws-ai-ml/references/model-deployment/references/model-licenses.md",
-              "line": 15
-            },
-            {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
@@ -756,34 +674,6 @@
               "line": 69
             },
             {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/aws-ai-ml/references/model-evaluation/references/evaluation-type-guide.md",
-              "line": 7
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/aws-ai-ml/references/model-evaluation/references/llmaaj-builtin-evaluation.md",
-              "line": 31
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/aws-ai-ml/references/model-evaluation/references/llmaaj-builtin-evaluation.md",
-              "line": 38
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/aws-ai-ml/references/model-evaluation/references/llmaaj-builtin-evaluation.md",
-              "line": 44
-            },
-            {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
@@ -793,21 +683,21 @@
             {
               "id": "AE4",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "analysis-evasion",
               "file": "skills/aws-ai-ml/references/model-selection/references/benchmarks/agentic-index.md",
               "line": 1
             },
             {
               "id": "AE4",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "analysis-evasion",
               "file": "skills/aws-ai-ml/references/model-selection/references/benchmarks/tau2.md",
               "line": 1
             },
             {
               "id": "AE4",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "analysis-evasion",
               "file": "skills/aws-ai-ml/references/model-selection/references/model-selection.md",
               "line": 1
             },
@@ -831,6 +721,152 @@
               "message": "Autonomous Decision Making",
               "file": "skills/aws-ai-ml/references/training-jobs/overview.md",
               "line": 79
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/aws-ai-ml/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/finetuning/references/eula_links.md",
+              "line": 3,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/finetuning/references/eula_links.md",
+              "line": 27,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/finetuning/references/eula_links.md",
+              "line": 28,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/finetuning/references/eula_links.md",
+              "line": 29,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/finetuning/references/eula_links.md",
+              "line": 30,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/model-deployment/overview.md",
+              "line": 21,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/model-deployment/references/model-licenses.md",
+              "line": 15,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/model-evaluation/references/evaluation-type-guide.md",
+              "line": 7,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/model-evaluation/references/llmaaj-builtin-evaluation.md",
+              "line": 31,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/model-evaluation/references/llmaaj-builtin-evaluation.md",
+              "line": 38,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/model-evaluation/references/llmaaj-builtin-evaluation.md",
+              "line": 39,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/model-evaluation/references/llmaaj-builtin-evaluation.md",
+              "line": 44,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/model-selection/references/model-licenses.md",
+              "line": 3,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/model-selection/references/model-licenses.md",
+              "line": 27,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/model-selection/references/model-licenses.md",
+              "line": 28,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/model-selection/references/model-licenses.md",
+              "line": 29,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-ai-ml/references/model-selection/references/model-licenses.md",
+              "line": 30,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             }
           ]
         },
@@ -1060,28 +1096,28 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-auth/SKILL.md",
               "line": 1
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-auth/SKILL.md",
               "line": 13
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-auth/SKILL.md",
               "line": 27
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-auth/SKILL.md",
               "line": 125
             },
@@ -1127,13 +1163,14 @@
               "file": "skills/aws-auth/references/managed-login-oauth.md",
               "line": 166
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/aws-billing-and-cost-management",
-          "score": 68,
-          "risk": 32,
-          "status": "caution",
+          "score": 93,
+          "risk": 7,
+          "status": "incomplete",
           "partial": true,
           "coverage": 93.8,
           "exceptions": [
@@ -1150,18 +1187,21 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-billing-and-cost-management/SKILL.md",
-              "line": 67
-            },
-            {
               "id": "P4",
               "severity": "MEDIUM",
               "message": "Behavior Manipulation",
               "file": "skills/aws-billing-and-cost-management/references/ebs-optimization.md",
               "line": 15
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-billing-and-cost-management/SKILL.md",
+              "line": 67,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -1193,37 +1233,38 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-blocks/SKILL.md",
               "line": 24
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-blocks/SKILL.md",
               "line": 31
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-blocks/SKILL.md",
               "line": 39
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-blocks/SKILL.md",
               "line": 47
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/aws-cdk",
-          "score": 5,
-          "risk": 95,
+          "score": 30,
+          "risk": 70,
           "status": "do not install",
           "partial": true,
           "coverage": 90.9,
@@ -1266,13 +1307,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-cdk/SKILL.md",
-              "line": 74
-            },
-            {
               "id": "MP3",
               "severity": "HIGH",
               "message": "Memory Manipulation",
@@ -1289,105 +1323,105 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-cdk/SKILL.md",
               "line": 57
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-cdk/references/bootstrap-and-project-setup.md",
               "line": 142
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-cdk/references/troubleshooting-synth.md",
               "line": 48
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-cdk/references/troubleshooting-synth.md",
               "line": 52
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-cdk/references/troubleshooting-synth.md",
               "line": 136
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-cdk/SKILL.md",
               "line": 64
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-cdk/references/troubleshooting-synth.md",
               "line": 31
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-cdk/references/troubleshooting-synth.md",
               "line": 46
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-cdk/references/bootstrap-and-project-setup.md",
               "line": 238
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-cdk/references/bootstrap-and-project-setup.md",
               "line": 249
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-cdk/references/bootstrap-and-project-setup.md",
               "line": 250
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-cdk/references/compliance-and-drift.md",
               "line": 152
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-cdk/references/compliance-and-drift.md",
               "line": 153
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-cdk/references/troubleshooting-credentials.md",
               "line": 115
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-cdk/references/troubleshooting-synth.md",
               "line": 75
             },
@@ -1401,7 +1435,7 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-cdk/references/troubleshooting-synth.md",
               "line": 52
             },
@@ -1412,12 +1446,22 @@
               "file": "skills/aws-cdk/references/troubleshooting-synth.md",
               "line": 116
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-cdk/SKILL.md",
+              "line": 74,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
           "path": "skills/aws-cloudformation",
-          "score": 10,
-          "risk": 90,
+          "score": 35,
+          "risk": 65,
           "status": "do not install",
           "partial": true,
           "coverage": 93.8,
@@ -1439,13 +1483,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-cloudformation/SKILL.md",
-              "line": 134
-            },
             {
               "id": "PE3",
               "severity": "HIGH",
@@ -1523,6 +1560,16 @@
               "file": "skills/aws-cloudformation/references/validate-with-cfn-lint.script.md",
               "line": 36
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-cloudformation/SKILL.md",
+              "line": 134,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
@@ -1562,12 +1609,13 @@
               "file": "skills/aws-compute/references/troubleshooting.md",
               "line": 13
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/aws-containers",
-          "score": 56,
-          "risk": 44,
+          "score": 68,
+          "risk": 32,
           "status": "caution",
           "partial": false,
           "coverage": 100,
@@ -1593,69 +1641,80 @@
               "message": "Cloud Storage Exfiltration",
               "file": "skills/aws-containers/references/action-logs.md",
               "line": 170
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-containers/references/ecs-workloads.md",
+              "line": 9,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/aws-containers/references/ecs-workloads.md",
-              "line": 9
+              "line": 11,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/aws-containers/references/ecs-workloads.md",
-              "line": 11
+              "line": 12,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/aws-containers/references/ecs-workloads.md",
-              "line": 12
+              "line": 13,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/aws-containers/references/ecs-workloads.md",
-              "line": 13
+              "line": 18,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/aws-containers/references/ecs-workloads.md",
-              "line": 18
+              "line": 21,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/aws-containers/references/ecs-workloads.md",
-              "line": 23
+              "line": 22,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/aws-containers/references/ecs-workloads.md",
-              "line": 21
+              "line": 23,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/aws-containers/references/ecs-workloads.md",
-              "line": 22
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/aws-containers/references/ecs-workloads.md",
-              "line": 24
+              "line": 24,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             }
           ]
         },
@@ -1678,12 +1737,13 @@
               "line": 34
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/aws-deployment",
-          "score": 0,
-          "risk": 100,
+          "score": 28,
+          "risk": 72,
           "status": "do not install",
           "partial": true,
           "coverage": 85.7,
@@ -1695,34 +1755,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-deployment/SKILL.md",
-              "line": 48
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-deployment/SKILL.md",
-              "line": 56
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-deployment/SKILL.md",
-              "line": 60
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-deployment/SKILL.md",
-              "line": 61
-            },
             {
               "id": "PE3",
               "severity": "HIGH",
@@ -1779,13 +1811,47 @@
               "file": "skills/aws-deployment/references/codebuild.md",
               "line": 9
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-deployment/SKILL.md",
+              "line": 48,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-deployment/SKILL.md",
+              "line": 56,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-deployment/SKILL.md",
+              "line": 60,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-deployment/SKILL.md",
+              "line": 61,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
           "path": "skills/aws-iam",
-          "score": 39,
-          "risk": 61,
-          "status": "do not install",
+          "score": 64,
+          "risk": 36,
+          "status": "caution",
           "partial": true,
           "coverage": 80,
           "exceptions": [
@@ -1802,86 +1868,79 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-iam/SKILL.md",
-              "line": 32
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-iam/references/aws-iam-policy-generation.md",
               "line": 6
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-iam/references/aws-iam-policy-generation.md",
               "line": 25
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-iam/references/aws-iam-policy-generation.md",
               "line": 36
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-iam/references/aws-iam-policy-generation.md",
               "line": 43
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-iam/references/aws-iam-policy-generation.md",
               "line": 47
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-iam/references/aws-iam-policy-generation.md",
               "line": 57
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-iam/references/aws-iam-policy-generation.md",
               "line": 69
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-iam/references/aws-iam-policy-generation.md",
               "line": 81
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-iam/references/aws-iam-policy-generation.md",
               "line": 125
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-iam/references/aws-iam-policy-generation.md",
               "line": 190
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-iam/references/aws-iam-policy-generation.md",
               "line": 487
             },
@@ -1920,6 +1979,16 @@
               "file": "skills/aws-iam/references/aws-iam-policy-generation.md",
               "line": 370
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-iam/SKILL.md",
+              "line": 32,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
@@ -1936,7 +2005,8 @@
               "line": 139
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/aws-networking",
@@ -1946,7 +2016,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/aws-observability",
@@ -2124,160 +2195,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-observability/SKILL.md",
-              "line": 110
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-observability/SKILL.md",
-              "line": 115
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-observability/SKILL.md",
-              "line": 230
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-observability/SKILL.md",
-              "line": 279
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-observability/SKILL.md",
-              "line": 280
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-observability/SKILL.md",
-              "line": 281
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-observability/SKILL.md",
-              "line": 288
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-observability/SKILL.md",
-              "line": 327
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-observability/SKILL.md",
-              "line": 130
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-observability/SKILL.md",
-              "line": 257
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-observability/SKILL.md",
-              "line": 302
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-observability/SKILL.md",
-              "line": 174
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-observability/SKILL.md",
-              "line": 250
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-observability/SKILL.md",
-              "line": 284
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-observability/SKILL.md",
-              "line": 331
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-observability/SKILL.md",
-              "line": 200
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-observability/SKILL.md",
-              "line": 282
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-observability/SKILL.md",
-              "line": 288
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-observability/SKILL.md",
-              "line": 328
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-observability/SKILL.md",
-              "line": 248
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-observability/SKILL.md",
-              "line": 289
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-observability/SKILL.md",
-              "line": 333
-            },
-            {
               "id": "AR2",
               "severity": "HIGH",
               "message": "Anti-Refusal Statement",
@@ -2311,13 +2228,6 @@
               "message": "Self-Modification",
               "file": "skills/aws-observability/references/cloudwatch-omni/alerts.md",
               "line": 455
-            },
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/aws-observability/SKILL.md",
-              "line": 1
             },
             {
               "id": "EA2",
@@ -2425,13 +2335,6 @@
               "line": 73
             },
             {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/aws-observability/references/cloudwatch/dynamic-instrumentation.md",
-              "line": 392
-            },
-            {
               "id": "MP2",
               "severity": "MEDIUM",
               "message": "Context Window Stuffing",
@@ -2444,6 +2347,200 @@
               "message": "Unsafe Defaults",
               "file": "skills/aws-observability/references/cloudwatch/dynamic-instrumentation/snapshot-parsing.md",
               "line": 61
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/aws-observability/references/cloudwatch/dynamic-instrumentation.md",
+              "line": 392,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 110,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 115,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 130,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 174,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 200,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 230,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 248,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 250,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 257,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 279,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 280,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 281,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 282,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 284,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 288,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 288,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 289,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 302,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 327,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 328,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 331,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-observability/SKILL.md",
+              "line": 333,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -2481,7 +2578,8 @@
               "file": "skills/aws-sdk-js-v3-usage/references/credentials.md",
               "line": 11
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/aws-sdk-python-usage",
@@ -2608,7 +2706,8 @@
               "file": "skills/aws-sdk-python-usage/references/s3.md",
               "line": 58
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/aws-sdk-swift-usage",
@@ -2634,12 +2733,13 @@
               "line": 161
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/aws-secrets-manager",
-          "score": 38,
-          "risk": 62,
+          "score": 45,
+          "risk": 55,
           "status": "do not install",
           "partial": true,
           "coverage": 100,
@@ -2681,13 +2781,6 @@
               "line": 422
             },
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/aws-secrets-manager/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
@@ -2697,9 +2790,19 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/aws-secrets-manager/SKILL.md",
               "line": 138
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/aws-secrets-manager/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
@@ -2747,13 +2850,14 @@
               "file": "skills/aws-security/references/service-recommendations/enablement-checks.md",
               "line": 174
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/aws-serverless",
-          "score": 18,
-          "risk": 82,
-          "status": "do not install",
+          "score": 62,
+          "risk": 38,
+          "status": "caution",
           "partial": true,
           "coverage": 83.3,
           "exceptions": [
@@ -2785,69 +2889,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-serverless/SKILL.md",
-              "line": 16
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-serverless/SKILL.md",
-              "line": 55
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-serverless/SKILL.md",
-              "line": 147
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-serverless/SKILL.md",
-              "line": 151
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-serverless/SKILL.md",
-              "line": 188
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-serverless/SKILL.md",
-              "line": 42
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-serverless/SKILL.md",
-              "line": 113
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-serverless/SKILL.md",
-              "line": 133
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/aws-serverless/SKILL.md",
-              "line": 186
-            },
-            {
               "id": "TM1",
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
@@ -2868,6 +2909,80 @@
               "file": "skills/aws-serverless/references/api-gateway.md",
               "line": 3
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-serverless/SKILL.md",
+              "line": 16,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-serverless/SKILL.md",
+              "line": 42,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-serverless/SKILL.md",
+              "line": 55,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-serverless/SKILL.md",
+              "line": 113,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-serverless/SKILL.md",
+              "line": 133,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-serverless/SKILL.md",
+              "line": 147,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-serverless/SKILL.md",
+              "line": 151,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-serverless/SKILL.md",
+              "line": 186,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-serverless/SKILL.md",
+              "line": 188,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
@@ -2878,7 +2993,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/aws-well-architected-review",
@@ -2933,7 +3049,8 @@
               "file": "skills/aws-well-architected-review/references/review-modes.md",
               "line": 53
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/launch-with-aws",
@@ -2970,13 +3087,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/launch-with-aws/SKILL.md",
-              "line": 24
-            },
             {
               "id": "PE3",
               "severity": "HIGH",
@@ -3076,13 +3186,6 @@
               "line": 312
             },
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/launch-with-aws/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
@@ -3092,14 +3195,14 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/launch-with-aws/SKILL.md",
               "line": 260
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/launch-with-aws/SKILL.md",
               "line": 261
             },
@@ -3131,6 +3234,24 @@
               "file": "skills/launch-with-aws/scripts/auth_callback_server.py",
               "line": 96
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/launch-with-aws/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/launch-with-aws/SKILL.md",
+              "line": 24,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
@@ -3149,7 +3270,8 @@
               "file": "skills/signing-in-to-aws/SKILL.md",
               "line": 74
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
@@ -3162,7 +3284,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-29T10:30:14Z"
+      "checkedAt": "2026-11-05T02:54:08Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

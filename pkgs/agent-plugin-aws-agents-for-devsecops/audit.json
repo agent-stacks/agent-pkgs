@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "aws-agents-for-devsecops",
-      "dir": "/nix/store/q240lv02vpqiz62z67c4h6j7hi74j08g-agent-plugin-aws-agents-for-devsecops-1.1.0/share/agent-plugins/aws-agents-for-devsecops",
+      "dir": "/nix/store/rxac7hrw0h3630addv1f0h16fbkkik03-agent-plugin-aws-agents-for-devsecops-1.1.0/share/agent-plugins/aws-agents-for-devsecops",
       "spec": "1.1.0",
       "score": 1,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/commands",
           "skills/analyzing-release-readiness",
           "skills/chatting-with-aws-devops-agent",
           "skills/coordinating-multi-space-devops-agent",
@@ -36,16 +37,34 @@
             "reason": "outside the spec"
           },
           {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          },
-          {
             "path": "mcp.json",
             "reason": "SkillSpector does not analyse this layout as an MCP manifest"
           }
         ]
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 77.8,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/commands/cost.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/commands/release-readiness.md",
+              "line": 0
+            }
+          ],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/analyzing-release-readiness",
           "score": 100,
@@ -90,7 +109,8 @@
               "line": 183
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/chatting-with-aws-devops-agent",
@@ -114,7 +134,8 @@
               "file": "skills/chatting-with-aws-devops-agent/SKILL.md",
               "line": 133
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/coordinating-multi-space-devops-agent",
@@ -140,7 +161,8 @@
               "line": 132
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/diff-scanning-with-aws-security-agent",
@@ -186,7 +208,8 @@
               "file": "skills/diff-scanning-with-aws-security-agent/SKILL.md",
               "line": 67
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/investigating-incidents-with-aws-devops-agent",
@@ -215,7 +238,8 @@
               "file": "skills/investigating-incidents-with-aws-devops-agent/SKILL.md",
               "line": 142
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/pentesting-with-aws-security-agent",
@@ -269,7 +293,8 @@
               "file": "skills/pentesting-with-aws-security-agent/SKILL.md",
               "line": 39
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/remediating-with-aws-security-agent",
@@ -295,7 +320,8 @@
               "line": 183
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/running-release-tests",
@@ -319,7 +345,8 @@
               "file": "skills/running-release-tests/SKILL.md",
               "line": 17
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/scanning-with-aws-security-agent",
@@ -418,7 +445,8 @@
               "file": "skills/scanning-with-aws-security-agent/SKILL.md",
               "line": 101
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/setup",
@@ -428,7 +456,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/setup-devops-agent",
@@ -535,7 +564,7 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/setup-devops-agent/SKILL.md",
               "line": 118
             },
@@ -553,7 +582,8 @@
               "file": "skills/setup-devops-agent/SKILL.md",
               "line": 261
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/setup-security-agent",
@@ -624,7 +654,8 @@
               "line": 208
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/threat-modeling-with-aws-security-agent",
@@ -687,7 +718,8 @@
               "file": "skills/threat-modeling-with-aws-security-agent/SKILL.md",
               "line": 56
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
@@ -700,7 +732,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-20T01:07:02Z"
+      "checkedAt": "2026-11-05T02:54:18Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

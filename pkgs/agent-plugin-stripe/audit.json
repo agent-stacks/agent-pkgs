@@ -7,12 +7,15 @@
   "plugins": [
     {
       "name": "stripe",
-      "dir": "/nix/store/jz5xfrxx6j6g220rsbairxg73nmw07n8-agent-plugin-stripe-0.11.41/share/agent-plugins/stripe",
+      "dir": "/nix/store/s1ibvycz3i178ymdk9k8cnjnspia0x2p-agent-plugin-stripe-0.11.42/share/agent-plugins/stripe",
       "spec": "1.1.0",
-      "score": 12,
+      "score": 37,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/commands",
+          "com.anthropic.claude-code/hooks",
+          "scripts",
           "skills/connect-recommend",
           "skills/connect-required-verification-information",
           "skills/metronome",
@@ -33,25 +36,61 @@
             "reason": "interpreter links into /nix/store"
           },
           {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          },
-          {
             "path": "mcp.json",
             "reason": "SkillSpector does not analyse this layout as an MCP manifest"
-          },
-          {
-            "path": "scripts/",
-            "reason": "outside the spec"
           }
         ]
       },
       "components": [
         {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "scripts",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 80,
+          "exceptions": [
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/cli.mjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/transcriptHelpers.mjs",
+              "line": 0
+            }
+          ],
+          "findings": [],
+          "suppressed": []
+        },
+        {
           "path": "skills/connect-recommend",
-          "score": 47,
-          "risk": 53,
-          "status": "do not install",
+          "score": 72,
+          "risk": 28,
+          "status": "caution",
           "partial": true,
           "coverage": 88.9,
           "exceptions": [
@@ -88,13 +127,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/connect-recommend/SKILL.md",
-              "line": 314
-            },
-            {
               "id": "P6",
               "severity": "HIGH",
               "message": "Direct Prompt Extraction",
@@ -107,6 +139,16 @@
               "message": "Behavior Manipulation",
               "file": "skills/connect-recommend/references/terminology-rules.md",
               "line": 23
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/connect-recommend/SKILL.md",
+              "line": 314,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -162,7 +204,8 @@
               "file": "skills/connect-required-verification-information/SKILL.md",
               "line": 34
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/metronome",
@@ -236,13 +279,14 @@
               "file": "skills/metronome/SKILL.md",
               "line": 49
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/stripe-apps",
-          "score": 43,
-          "risk": 57,
-          "status": "do not install",
+          "score": 68,
+          "risk": 32,
+          "status": "caution",
           "partial": true,
           "coverage": 92.3,
           "exceptions": [
@@ -253,13 +297,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/stripe-apps/SKILL.md",
-              "line": 59
-            },
             {
               "id": "PE3",
               "severity": "HIGH",
@@ -287,6 +324,16 @@
               "message": "Excessive Permissions",
               "file": "skills/stripe-apps/references/workflow.md",
               "line": 198
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/stripe-apps/SKILL.md",
+              "line": 59,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -329,7 +376,8 @@
               "file": "skills/stripe-best-practices/references/tax.md",
               "line": 163
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/stripe-directory",
@@ -370,18 +418,19 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/stripe-directory/SKILL.md",
               "line": 1
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/stripe-directory/SKILL.md",
               "line": 21
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/stripe-docs",
@@ -391,7 +440,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/stripe-pay",
@@ -407,12 +457,13 @@
               "line": 0
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/stripe-projects",
-          "score": 12,
-          "risk": 88,
+          "score": 37,
+          "risk": 63,
           "status": "do not install",
           "partial": true,
           "coverage": 0,
@@ -456,25 +507,28 @@
               "line": 42
             },
             {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/stripe-projects/SKILL.md",
+              "line": 90
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/stripe-projects/SKILL.md",
+              "line": 90
+            }
+          ],
+          "suppressed": [
+            {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/stripe-projects/SKILL.md",
-              "line": 92
-            },
-            {
-              "id": "AS3",
-              "severity": "MEDIUM",
-              "message": "Skill Enumeration",
-              "file": "skills/stripe-projects/SKILL.md",
-              "line": 90
-            },
-            {
-              "id": "AS3",
-              "severity": "MEDIUM",
-              "message": "Skill Enumeration",
-              "file": "skills/stripe-projects/SKILL.md",
-              "line": 90
+              "line": 92,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -545,12 +599,13 @@
               "file": "skills/upgrade-stripe/SKILL.md",
               "line": 179
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 12,
+  "score": 37,
   "status": "do not install",
   "tool": {
     "name": "skillspector",
@@ -558,7 +613,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-04T18:21:37Z"
+      "checkedAt": "2026-11-05T05:03:30Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

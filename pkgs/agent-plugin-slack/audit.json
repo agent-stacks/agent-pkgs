@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "slack",
-      "dir": "/nix/store/hrzbanfiyscsqz0pwiw1yq9i9m2imhz0-agent-plugin-slack-1.5.0/share/agent-plugins/slack",
+      "dir": "/nix/store/0fsghmgv6phlnpf53as5vqk3xafqrqk9-agent-plugin-slack-1.7.0/share/agent-plugins/slack",
       "spec": "1.1.0",
       "score": 53,
       "status": "caution",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/commands",
           "skills/block-kit",
           "skills/create-slack-app",
           "skills/deploy-slack-app",
@@ -32,16 +33,23 @@
             "reason": "interpreter links into /nix/store"
           },
           {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          },
-          {
             "path": "mcp.json",
             "reason": "SkillSpector does not analyse this layout as an MCP manifest"
           }
         ]
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/block-kit",
           "score": 94,
@@ -134,7 +142,8 @@
               "file": "skills/block-kit/SKILL.md",
               "line": 196
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/create-slack-app",
@@ -166,7 +175,8 @@
               "file": "skills/create-slack-app/SKILL.md",
               "line": 96
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/deploy-slack-app",
@@ -272,7 +282,8 @@
               "line": 198
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/slack-api",
@@ -365,7 +376,8 @@
               "file": "skills/slack-api/SKILL.md",
               "line": 119
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/slack-cli",
@@ -378,7 +390,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/slack-cli/SKILL.md",
-              "line": 251
+              "line": 253
             }
           ],
           "findings": [
@@ -403,7 +415,8 @@
               "file": "skills/slack-cli/SKILL.md",
               "line": 18
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/slack-docs",
@@ -434,7 +447,8 @@
               "line": 99
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/slack-messaging",
@@ -465,7 +479,8 @@
               "line": 84
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/slack-search",
@@ -475,7 +490,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/test-slack-app",
@@ -485,7 +501,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
@@ -498,7 +515,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-30T18:46:01Z"
+      "checkedAt": "2026-11-05T05:28:31Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

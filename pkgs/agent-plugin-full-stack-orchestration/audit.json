@@ -1,13 +1,73 @@
 {
   "target": "./result",
-  "audited": false,
-  "score": null,
-  "status": "could not audit",
-  "reason": "nothing to audit",
-  "hints": [],
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "full-stack-orchestration",
+      "dir": "/nix/store/37zb4sqbcqjrg0n1z5wm0wwcwcy13zpd-agent-plugin-full-stack-orchestration-1.3.2/share/agent-plugins/full-stack-orchestration",
+      "spec": "1.1.0",
+      "score": 80,
+      "status": "safe",
+      "coverage": {
+        "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/commands"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": []
+      },
+      "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 80,
+          "risk": 20,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "YR4",
+              "severity": "HIGH",
+              "message": "YARA rule 'agent_skill_prompt_injection_hidden_instructions': Prompt injection or hidden instructions embedded in AI agent skill text [agent_skills]",
+              "file": "com.anthropic.claude-code/commands/full-stack-feature.md",
+              "line": 10
+            }
+          ],
+          "suppressed": []
+        }
+      ]
+    }
+  ],
+  "score": 80,
+  "status": "safe",
   "tool": {
     "name": "skillspector",
-    "version": "2.12.0"
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-11-05T03:26:40Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
+    }
   },
   "agentStacks": {
     "version": "0.9.0"
