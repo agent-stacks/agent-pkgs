@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "mengto-skills",
-      "dir": "/nix/store/vw5v7p67bvcrj8kakw6bb8rm42phmdyp-agent-plugin-mengto-skills-0.0.0-unstable.2026-11-03.g1de14e2/share/agent-plugins/mengto-skills",
+      "dir": "/nix/store/n4w1z0613jyjymbf0ngdadnkq7qza9cf-agent-plugin-mengto-skills-0.0.0-unstable.2026-11-05.g5ea1661/share/agent-plugins/mengto-skills",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -180,6 +180,7 @@
           "skills/tune-enemy-ai",
           "skills/unicorn-studio",
           "skills/unsplash-asset-images",
+          "skills/url-to-motion-design",
           "skills/vantajs",
           "skills/video-to-superprompt",
           "skills/water-crystal-skill-vfx",
@@ -7734,6 +7735,173 @@
           "suppressed": []
         },
         {
+          "path": "skills/url-to-motion-design",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 68.4,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/url-to-motion-design/SKILL.md",
+              "line": 19
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/url-to-motion-design/SKILL.md",
+              "line": 25
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/url-to-motion-design/SKILL.md",
+              "line": 32
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/url-to-motion-design/SKILL.md",
+              "line": 36
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/url-to-motion-design/SKILL.md",
+              "line": 80
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/url-to-motion-design/SKILL.md",
+              "line": 84
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/url-to-motion-design/lab/screening.html",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/url-to-motion-design/lab/server.mjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/url-to-motion-design/references/lab.md",
+              "line": 0
+            },
+            {
+              "reason": "excluded_executable_content",
+              "path": "skills/url-to-motion-design/scripts/__pycache__/panel.cpython-314.pyc",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/url-to-motion-design/scripts/fetch-source.mjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/url-to-motion-design/scripts/publish-list.mjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/url-to-motion-design/scripts/video.mjs",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/url-to-motion-design/references/lab.md",
+              "line": 15
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/url-to-motion-design/references/lab.md",
+              "line": 15
+            },
+            {
+              "id": "SC8",
+              "severity": "HIGH",
+              "message": "Skill ships a __pycache__ directory that normal discovery skips",
+              "file": "skills/url-to-motion-design/scripts/__pycache__/",
+              "line": 1
+            },
+            {
+              "id": "SC8",
+              "severity": "HIGH",
+              "message": "Skill ships Python bytecode (.pyc/.pyo) that normal analysis skips",
+              "file": "skills/url-to-motion-design/scripts/__pycache__/panel.cpython-314.pyc",
+              "line": 1
+            },
+            {
+              "id": "SC9",
+              "severity": "HIGH",
+              "message": "Concealed Executable Artifact",
+              "file": "skills/url-to-motion-design/scripts/__pycache__/panel.cpython-314.pyc",
+              "line": 1
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/url-to-motion-design/SKILL.md",
+              "line": 32
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/url-to-motion-design/SKILL.md",
+              "line": 32
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/url-to-motion-design/scripts/fetch-source.mjs",
+              "line": 16
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/url-to-motion-design/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/url-to-motion-design/SKILL.md",
+              "line": 45,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/url-to-motion-design/SKILL.md",
+              "line": 45,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/url-to-motion-design/SKILL.md",
+              "line": 75,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
+          ]
+        },
+        {
           "path": "skills/vantajs",
           "score": 100,
           "risk": 0,
@@ -8391,7 +8559,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-04T23:39:27Z"
+      "checkedAt": "2026-11-05T16:37:16Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"

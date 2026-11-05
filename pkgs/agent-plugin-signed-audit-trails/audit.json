@@ -7,9 +7,9 @@
   "plugins": [
     {
       "name": "signed-audit-trails",
-      "dir": "/nix/store/m6h5dsp5spbnby9vskyc6assn9yhmas1-agent-plugin-signed-audit-trails-0.1.4/share/agent-plugins/signed-audit-trails",
+      "dir": "/nix/store/d89aa6w06i9pp02yym2lm1a3q2nvw9i8-agent-plugin-signed-audit-trails-0.1.5/share/agent-plugins/signed-audit-trails",
       "spec": "1.1.0",
-      "score": 92,
+      "score": 84,
       "status": "incomplete",
       "coverage": {
         "scanned": [
@@ -23,8 +23,8 @@
       "components": [
         {
           "path": "skills/signed-audit-trails-recipe",
-          "score": 92,
-          "risk": 8,
+          "score": 84,
+          "risk": 16,
           "status": "incomplete",
           "partial": true,
           "coverage": 80,
@@ -52,37 +52,37 @@
             {
               "reason": "reference_missing",
               "path": "skills/signed-audit-trails-recipe/SKILL.md",
-              "line": 66
+              "line": 52
             },
             {
               "reason": "reference_missing",
               "path": "skills/signed-audit-trails-recipe/SKILL.md",
-              "line": 79
+              "line": 67
             },
             {
               "reason": "reference_missing",
               "path": "skills/signed-audit-trails-recipe/SKILL.md",
-              "line": 86
+              "line": 80
             },
             {
               "reason": "reference_missing",
               "path": "skills/signed-audit-trails-recipe/SKILL.md",
-              "line": 91
+              "line": 87
             },
             {
               "reason": "reference_missing",
               "path": "skills/signed-audit-trails-recipe/SKILL.md",
-              "line": 94
+              "line": 92
             },
             {
               "reason": "reference_missing",
               "path": "skills/signed-audit-trails-recipe/SKILL.md",
-              "line": 103
+              "line": 95
             },
             {
               "reason": "reference_missing",
               "path": "skills/signed-audit-trails-recipe/SKILL.md",
-              "line": 106
+              "line": 104
             },
             {
               "reason": "reference_missing",
@@ -92,27 +92,32 @@
             {
               "reason": "reference_missing",
               "path": "skills/signed-audit-trails-recipe/SKILL.md",
-              "line": 125
+              "line": 108
             },
             {
               "reason": "reference_missing",
               "path": "skills/signed-audit-trails-recipe/SKILL.md",
-              "line": 133
+              "line": 126
             },
             {
               "reason": "reference_missing",
               "path": "skills/signed-audit-trails-recipe/SKILL.md",
-              "line": 216
+              "line": 134
             },
             {
               "reason": "reference_missing",
               "path": "skills/signed-audit-trails-recipe/SKILL.md",
-              "line": 219
+              "line": 217
             },
             {
               "reason": "reference_missing",
               "path": "skills/signed-audit-trails-recipe/SKILL.md",
-              "line": 230
+              "line": 220
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/signed-audit-trails-recipe/SKILL.md",
+              "line": 231
             },
             {
               "reason": "static_parse_limit",
@@ -121,6 +126,13 @@
             }
           ],
           "findings": [
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/signed-audit-trails-recipe/SKILL.md",
+              "line": 52
+            },
             {
               "id": "EA1",
               "severity": "MEDIUM",
@@ -135,7 +147,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/signed-audit-trails-recipe/SKILL.md",
-              "line": 67,
+              "line": 68,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
@@ -143,7 +155,7 @@
       ]
     }
   ],
-  "score": 92,
+  "score": 84,
   "status": "incomplete",
   "tool": {
     "name": "skillspector",
@@ -151,7 +163,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-04T23:46:31Z"
+      "checkedAt": "2026-11-05T17:32:33Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
