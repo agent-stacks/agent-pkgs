@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "redis-development",
-      "dir": "/nix/store/zm2argqa0pj92rb0x17agmm2zadymyr1-agent-plugin-redis-development-1.5.0/share/agent-plugins/redis-development",
+      "dir": "/nix/store/cp76nrxxjj35hf1j2b51fb3jdmc20sf1-agent-plugin-redis-development-1.7.0/share/agent-plugins/redis-development",
       "spec": "1.1.0",
       "score": 55,
       "status": "caution",
@@ -22,6 +22,7 @@
           "skills/redis-clustering",
           "skills/redis-connections",
           "skills/redis-core",
+          "skills/redis-docs-mcp",
           "skills/redis-observability",
           "skills/redis-search",
           "skills/redis-security",
@@ -30,7 +31,12 @@
         "validated": [
           "plugin.json"
         ],
-        "notChecked": []
+        "notChecked": [
+          {
+            "path": "mcp.json",
+            "reason": "SkillSpector does not analyse this layout as an MCP manifest"
+          }
+        ]
       },
       "components": [
         {
@@ -657,6 +663,38 @@
           "suppressed": []
         },
         {
+          "path": "skills/redis-docs-mcp",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/redis-docs-mcp/SKILL.md",
+              "line": 13
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/redis-docs-mcp/SKILL.md",
+              "line": 49
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/redis-docs-mcp/SKILL.md",
+              "line": 51
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/redis-docs-mcp/SKILL.md",
+              "line": 53
+            }
+          ],
+          "findings": [],
+          "suppressed": []
+        },
+        {
           "path": "skills/redis-observability",
           "score": 88,
           "risk": 12,
@@ -881,7 +919,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-05T00:40:27Z"
+      "checkedAt": "2026-11-05T15:34:28Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
