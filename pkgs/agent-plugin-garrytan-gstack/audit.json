@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "garrytan-gstack",
-      "dir": "/nix/store/lcfrmbir1jg7fdfyn0d6wn0abpzlmcj5-agent-plugin-garrytan-gstack-1.2.0/share/agent-plugins/garrytan-gstack",
+      "dir": "/nix/store/a3402bzxz8fnrz70qw8mq033i45hqwy3-agent-plugin-garrytan-gstack-1.2.0/share/agent-plugins/garrytan-gstack",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -292,7 +292,7 @@
             {
               "id": "LP1",
               "severity": "HIGH",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/autoplan/bin/owned-read.ts",
               "line": 1
             },
@@ -401,7 +401,8 @@
               "file": "skills/autoplan/sections/preamble.md",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/benchmark",
@@ -508,7 +509,8 @@
               "file": "skills/benchmark/SKILL.md.tmpl",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/benchmark-models",
@@ -577,7 +579,8 @@
               "file": "skills/benchmark-models/SKILL.md",
               "line": 185
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/browse",
@@ -1592,20 +1595,6 @@
               "line": 22
             },
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/browse/SKILL.md",
-              "line": 242
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/browse/SKILL.md",
-              "line": 391
-            },
-            {
               "id": "TM2",
               "severity": "HIGH",
               "message": "Chaining Abuse",
@@ -1629,14 +1618,14 @@
             {
               "id": "LP1",
               "severity": "HIGH",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/browse/src/browse-client.ts",
               "line": 1
             },
             {
               "id": "LP1",
               "severity": "HIGH",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/browse/src/browse-client.ts",
               "line": 1
             },
@@ -2574,7 +2563,7 @@
             {
               "id": "LP1",
               "severity": "HIGH",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/browse/test/cookie-picker-binding.test.ts",
               "line": 1
             },
@@ -3376,6 +3365,24 @@
               "file": "skills/browse/src/cli.ts",
               "line": 1579
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/browse/SKILL.md",
+              "line": 242,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/browse/SKILL.md",
+              "line": 391,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
@@ -3525,7 +3532,8 @@
               "file": "skills/canary/sections/preamble.md",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/captain",
@@ -3722,7 +3730,8 @@
               "file": "skills/captain/sections/preamble.md",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/careful",
@@ -4089,12 +4098,13 @@
               "file": "skills/careful/bin/check-careful.sh",
               "line": 365
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/codex",
-          "score": 0,
-          "risk": 100,
+          "score": 14,
+          "risk": 86,
           "status": "do not install",
           "partial": true,
           "coverage": 60,
@@ -4217,13 +4227,6 @@
               "line": 41
             },
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/codex/SKILL.md",
-              "line": 637
-            },
-            {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
@@ -4300,13 +4303,23 @@
               "file": "skills/codex/sections/review-mode.md.tmpl",
               "line": 93
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/codex/SKILL.md",
+              "line": 637,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
           "path": "skills/context-restore",
-          "score": 42,
-          "risk": 58,
-          "status": "do not install",
+          "score": 67,
+          "risk": 33,
+          "status": "caution",
           "partial": true,
           "coverage": 50,
           "exceptions": [
@@ -4360,13 +4373,6 @@
               "line": 29
             },
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/context-restore/SKILL.md",
-              "line": 142
-            },
-            {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
@@ -4400,6 +4406,16 @@
               "message": "Session Persistence",
               "file": "skills/context-restore/sections/preamble.md",
               "line": 22
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/context-restore/SKILL.md",
+              "line": 142,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -4547,7 +4563,8 @@
               "file": "skills/context-save/sections/preamble.md",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/cso",
@@ -4588,7 +4605,8 @@
               "file": "skills/cso/sections/audit-phases.md.tmpl",
               "line": 104
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/design-consultation",
@@ -4723,13 +4741,6 @@
               "line": 53
             },
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/design-consultation/SKILL.md",
-              "line": 381
-            },
-            {
               "id": "TM2",
               "severity": "HIGH",
               "message": "Chaining Abuse",
@@ -4840,6 +4851,16 @@
               "message": "External Transmission",
               "file": "skills/design-consultation/sections/proposal-and-preview.md",
               "line": 381
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/design-consultation/SKILL.md",
+              "line": 381,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -4995,20 +5016,6 @@
               "line": 30
             },
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/design-html/SKILL.md",
-              "line": 118
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/design-html/SKILL.md",
-              "line": 383
-            },
-            {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
@@ -5074,14 +5081,14 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/design-html/SKILL.md",
               "line": 171
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/design-html/sections/detector-install-offer.md",
               "line": 40
             },
@@ -5175,6 +5182,24 @@
               "message": "Context Window Stuffing",
               "file": "skills/design-html/vendor/pretext.js",
               "line": 1
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/design-html/SKILL.md",
+              "line": 118,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/design-html/SKILL.md",
+              "line": 383,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -5351,7 +5376,8 @@
               "file": "skills/design-motion/sections/preamble.md",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/design-review",
@@ -5633,14 +5659,14 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/design-review/SKILL.md",
               "line": 323
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/design-review/SKILL.md",
               "line": 363
             },
@@ -5686,7 +5712,8 @@
               "file": "skills/design-review/sections/preamble.md",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/design-shotgun",
@@ -6038,7 +6065,8 @@
               "file": "skills/design-shotgun/sections/preamble.md",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/deslop-shared-libs",
@@ -6056,7 +6084,8 @@
               "file": "skills/deslop-shared-libs/SKILL.md",
               "line": 34
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/devex-review",
@@ -6256,7 +6285,8 @@
               "file": "skills/devex-review/sections/preamble.md",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/diagram",
@@ -6333,7 +6363,8 @@
               "file": "skills/diagram/SKILL.md.tmpl",
               "line": 47
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/document-generate",
@@ -6439,7 +6470,8 @@
               "file": "skills/document-generate/sections/preamble.md",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/document-release",
@@ -6576,7 +6608,8 @@
               "file": "skills/document-release/sections/release-body.md.tmpl",
               "line": 95
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/eval-plan",
@@ -6732,7 +6765,8 @@
               "file": "skills/eval-plan/sections/preamble.md",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/freeze",
@@ -6803,7 +6837,8 @@
               "file": "skills/freeze/SKILL.md.tmpl",
               "line": 6
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/gstack",
@@ -6813,6 +6848,21 @@
           "partial": true,
           "coverage": 0,
           "exceptions": [
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/gstack/ARCHITECTURE.md",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/gstack/CHANGELOG.md",
+              "line": 0
+            },
+            {
+              "reason": "output_limit",
+              "path": "skills/gstack/LICENSE",
+              "line": 0
+            },
             {
               "reason": "runtime_limit",
               "path": "skills/gstack/lib/diagram-render/dist/diagram-render.html",
@@ -7550,6 +7600,11 @@
             },
             {
               "reason": "runtime_limit",
+              "path": "skills/gstack/lib/review-fetch.ts",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
               "path": "skills/gstack/lib/review-ledger.ts",
               "line": 0
             },
@@ -7661,6 +7716,16 @@
             {
               "reason": "runtime_limit",
               "path": "skills/gstack/lib/ship-policy-at.ts",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "skills/gstack/lib/ship-policy-keys.ts",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "skills/gstack/lib/ship-policy-readers.ts",
               "line": 0
             },
             {
@@ -7886,6 +7951,16 @@
             {
               "reason": "runtime_limit",
               "path": "skills/gstack/lib/tasks-prior.ts",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "skills/gstack/lib/test-impact/key.ts",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "skills/gstack/lib/test-impact/trace.ts",
               "line": 0
             },
             {
@@ -8600,11 +8675,6 @@
             },
             {
               "reason": "runtime_limit",
-              "path": "skills/gstack/scripts/judge-controls.ts",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
               "path": "skills/gstack/scripts/lib/ci-history.ts",
               "line": 0
             },
@@ -9170,6 +9240,11 @@
             },
             {
               "reason": "runtime_limit",
+              "path": "skills/gstack/scripts/test-impact.ts",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
               "path": "skills/gstack/scripts/test-paid-shards.ts",
               "line": 0
             },
@@ -9721,6 +9796,11 @@
             {
               "reason": "runtime_limit",
               "path": "skills/gstack/test/base-red.test.ts",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "skills/gstack/test/bash32-case-in-substitution.test.ts",
               "line": 0
             },
             {
@@ -10280,6 +10360,11 @@
             },
             {
               "reason": "runtime_limit",
+              "path": "skills/gstack/test/codex-host-safety-arm.test.ts",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/codex-host.test.ts",
               "line": 0
             },
@@ -10386,16 +10471,6 @@
             {
               "reason": "runtime_limit",
               "path": "skills/gstack/test/context-save-hardening.test.ts",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/cookie-workflow-judge-input.test.ts",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/cookie-workflow-manual-review.test.ts",
               "line": 0
             },
             {
@@ -11655,11 +11730,6 @@
             },
             {
               "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/browse-judge/panel-means.json",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
               "path": "skills/gstack/test/fixtures/carve-existing-repository/README.md",
               "line": 0
             },
@@ -12171,11 +12241,6 @@
             {
               "reason": "runtime_limit",
               "path": "skills/gstack/test/fixtures/context-restore-transcript.jsonl",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/cookie-judge-train42-replies.json",
               "line": 0
             },
             {
@@ -13040,6 +13105,11 @@
             },
             {
               "reason": "runtime_limit",
+              "path": "skills/gstack/test/fixtures/docsync-private-mkdir-public.json",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/fixtures/docsync-read-help-public.json",
               "line": 0
             },
@@ -13311,11 +13381,6 @@
             {
               "reason": "runtime_limit",
               "path": "skills/gstack/test/fixtures/eng-test-plan-edit-dacc.json",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/eval-baselines.json",
               "line": 0
             },
             {
@@ -14135,407 +14200,7 @@
             },
             {
               "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/cross-skill/corpus.json",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/cross-skill/inputs/a01.collected.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/cross-skill/inputs/a02.collected.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/cross-skill/inputs/a03.collected.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/cross-skill/inputs/a04.collected.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/cross-skill/inputs/a05.collected.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/cross-skill/inputs/a06.collected.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/cross-skill/inputs/a07.collected.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/cross-skill/inputs/a08.collected.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/cross-skill/inputs/f01.collected.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/cross-skill/inputs/f02.collected.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/cross-skill/inputs/f03.collected.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/cross-skill/inputs/f04.collected.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/cross-skill/inputs/f05.collected.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/cross-skill/inputs/f06.collected.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/cross-skill/inputs/f07.collected.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/cross-skill/inputs/f08.collected.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/cross-skill/inputs/p01.collected.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/cross-skill/inputs/p02.collected.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/cross-skill/inputs/p03.collected.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/cross-skill/inputs/p04.collected.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/cross-skill/inputs/p05.collected.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/cross-skill/inputs/p06.collected.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/cross-skill/inputs/p07.collected.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/cross-skill/inputs/p08.collected.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/cross-skill/runs/comparison-1.result.json",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/cross-skill/runs/comparison-1.samples.jsonl",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/cross-skill/runs/comparison-1.stop.json",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
               "path": "skills/gstack/test/fixtures/judge-calibration/manifest.json",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/corpus.json",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/a01.diffAwareSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/a01.rulesSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/a02.diffAwareSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/a02.rulesSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/a03.diffAwareSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/a03.rulesSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/a04.diffAwareSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/a04.rulesSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/a05.diffAwareSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/a05.rulesSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/a06.diffAwareSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/a06.rulesSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/a07.diffAwareSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/a07.rulesSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/a08.diffAwareSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/a08.rulesSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/f01.diffAwareSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/f01.rulesSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/f02.diffAwareSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/f02.rulesSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/f03.diffAwareSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/f03.rulesSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/f04.diffAwareSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/f04.rulesSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/f05.diffAwareSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/f05.rulesSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/f06.diffAwareSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/f06.rulesSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/f07.diffAwareSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/f07.rulesSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/f08.diffAwareSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/f08.rulesSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/p01.diffAwareSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/p01.rulesSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/p02.diffAwareSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/p02.rulesSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/p03.diffAwareSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/p03.rulesSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/p04.diffAwareSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/p04.rulesSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/p05.diffAwareSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/p05.rulesSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/p06.diffAwareSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/p06.rulesSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/p07.diffAwareSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/p07.rulesSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/p08.diffAwareSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/inputs/p08.rulesSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/runs/comparison-1.result.json",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/runs/comparison-1.samples.jsonl",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/qa-anti-refusal/runs/comparison-1.stop.json",
               "line": 0
             },
             {
@@ -14820,146 +14485,6 @@
             },
             {
               "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/voice/corpus.json",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/voice/inputs/a01.voiceSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/voice/inputs/a02.voiceSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/voice/inputs/a03.voiceSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/voice/inputs/a04.voiceSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/voice/inputs/a05.voiceSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/voice/inputs/a06.voiceSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/voice/inputs/a07.voiceSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/voice/inputs/a08.voiceSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/voice/inputs/f01.voiceSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/voice/inputs/f02.voiceSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/voice/inputs/f03.voiceSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/voice/inputs/f04.voiceSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/voice/inputs/f05.voiceSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/voice/inputs/f06.voiceSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/voice/inputs/f07.voiceSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/voice/inputs/f08.voiceSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/voice/inputs/p01.voiceSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/voice/inputs/p02.voiceSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/voice/inputs/p03.voiceSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/voice/inputs/p04.voiceSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/voice/inputs/p05.voiceSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/voice/inputs/p06.voiceSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/voice/inputs/p07.voiceSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/voice/inputs/p08.voiceSection.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/voice/runs/comparison-1.result.json",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/voice/runs/comparison-1.samples.jsonl",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/judge-calibration/voice/runs/comparison-1.stop.json",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
               "path": "skills/gstack/test/fixtures/judge-calibration/workflow-default/corpus.json",
               "line": 0
             },
@@ -15131,6 +14656,11 @@
             {
               "reason": "runtime_limit",
               "path": "skills/gstack/test/fixtures/launch-env-echo/negative-control.sh",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "skills/gstack/test/fixtures/manual-judge-review-entry.json",
               "line": 0
             },
             {
@@ -16150,6 +15680,11 @@
             },
             {
               "reason": "runtime_limit",
+              "path": "skills/gstack/test/fixtures/review-fetch/pr362-reader-events.jsonl",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/fixtures/review-gate-integrity-opus-reports.json",
               "line": 0
             },
@@ -16376,6 +15911,16 @@
             {
               "reason": "runtime_limit",
               "path": "skills/gstack/test/fixtures/review-pins/replays/GEVA-223.json",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "skills/gstack/test/fixtures/review-pins/replays/GST-1346.json",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "skills/gstack/test/fixtures/review-pins/replays/GST-1350.json",
               "line": 0
             },
             {
@@ -17031,6 +16576,11 @@
             {
               "reason": "runtime_limit",
               "path": "skills/gstack/test/fixtures/state-matrix-6792/head/test/proposals.test.ts.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "skills/gstack/test/fixtures/test-impact/capture.strace",
               "line": 0
             },
             {
@@ -18040,6 +17590,11 @@
             },
             {
               "reason": "runtime_limit",
+              "path": "skills/gstack/test/helpers/bash32-case-scan.ts",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/helpers/benchmark-judge.ts",
               "line": 0
             },
@@ -18225,11 +17780,6 @@
             },
             {
               "reason": "runtime_limit",
-              "path": "skills/gstack/test/helpers/cookie-workflow-judge-input.ts",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
               "path": "skills/gstack/test/helpers/cookie-workflow-manual-review.ts",
               "line": 0
             },
@@ -18406,6 +17956,11 @@
             {
               "reason": "runtime_limit",
               "path": "skills/gstack/test/helpers/fake-plan-seed.ts",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "skills/gstack/test/helpers/flaky-git.ts",
               "line": 0
             },
             {
@@ -19241,11 +18796,6 @@
             {
               "reason": "runtime_limit",
               "path": "skills/gstack/test/helpers/workflow-excerpt.ts",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/helpers/workflow-judge-cache.ts",
               "line": 0
             },
             {
@@ -20634,11 +20184,6 @@
               "line": 0
             },
             {
-              "reason": "output_limit",
-              "path": "skills/gstack/test/pty-upgrade-isolation.test.ts",
-              "line": 0
-            },
-            {
               "reason": "runtime_limit",
               "path": "skills/gstack/test/pty-workspace-trust.test.ts",
               "line": 0
@@ -20924,368 +20469,378 @@
               "line": 0
             },
             {
-              "reason": "total_bytes_limit",
-              "path": "skills/gstack/test/redact-prepush-target.test.ts",
-              "line": 0
-            },
-            {
-              "reason": "excluded_executable_content",
-              "path": "skills/gstack/test/redact-prepush-target.test.ts",
-              "line": 0
-            },
-            {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/redact-semantic-pass.eval.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/redact-span-binding.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/redact-unicode-offsets.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/regression-1539-review-self-verify.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/regression-1611-gbrain-sync-resume.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/regression-1624-retro-stale-base.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/regression-1834-retro-recommendations.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/regression-2922-memory-ingest-sources.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/regression-3749-retro-history-worktree.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/regression-3799-sync-gbrain-artifacts-source.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/regression-dot-leading-slug.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/regression-issue2091-bsd-mktemp.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/regression-issue3024-zsh-sourced-helpers.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/regression-issue3680-ubicloud-bsd-userland.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/regression-pr1169-build-app-sed.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/regression-pr1169-mktemp-fallbacks.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/regression-transcript-frontmatter-fence.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/regression-transcript-slug-collision.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/release-cut.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/release-gate-workflow.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/release-gate.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/release-stamp.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/relink-disabled-router.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/relink.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/remote-identity-vectors.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/render-sections-provenance.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/replay-pr-selection.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/resolver-ask-user-format.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/resolvers-gbrain-put-rewrite.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/resolvers-gbrain-save-results.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/restamp-base-merge.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/restamp-command-boundary.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/restamp-foreign-version.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/restamp-four-part-manifest.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/restamp-gate-ahead-changelog.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/restamp-mentions.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/retired-commands.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/retro-friction.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-army-budget.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-base-refresh.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
+              "path": "skills/gstack/test/review-bot-history-facts.test.ts",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-bots.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-checklist-pr-type.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-checklists.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-closing-summary.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-collect.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-consensus-lifecycle.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-count-markdown.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-declared-risk.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-depth-lean.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-depth.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-dispatch-compare.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-dispatch-counters.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-dispatch-origin-base.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-dispatch.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-entry-and-design-clarity-au.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-enum-lifecycle.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-exclude.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
+              "path": "skills/gstack/test/review-fetch.test.ts",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-finalization-budget.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-fix-range.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-fixable-class.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-gst1031.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-ledger-invariant.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-ledger-verdict-line.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-log-findings.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-log.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-loop-binding.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-loop-budget-wording.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-n-plus-one-contract.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-notes-only-pass.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-packets-removed.test.ts",
               "line": 0
             },
             {
-              "reason": "excluded_executable_content",
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/review-pass.test.ts",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "skills/gstack/test/review-plan-cli.test.ts",
+              "line": 0
+            },
+            {
+              "reason": "total_bytes_limit",
+              "path": "skills/gstack/test/review-plan-cli.test.ts",
               "line": 0
             },
             {
@@ -21321,6 +20876,11 @@
             {
               "reason": "excluded_executable_content",
               "path": "skills/gstack/test/review-risk-routing.test.ts",
+              "line": 0
+            },
+            {
+              "reason": "excluded_executable_content",
+              "path": "skills/gstack/test/review-risk-token-paths.test.ts",
               "line": 0
             },
             {
@@ -22965,11 +22525,6 @@
             },
             {
               "reason": "excluded_executable_content",
-              "path": "skills/gstack/test/skill-llm-eval.test.ts",
-              "line": 0
-            },
-            {
-              "reason": "excluded_executable_content",
               "path": "skills/gstack/test/skill-md-size-guard.test.ts",
               "line": 0
             },
@@ -23236,6 +22791,16 @@
             {
               "reason": "excluded_executable_content",
               "path": "skills/gstack/test/test-health-workflow.test.ts",
+              "line": 0
+            },
+            {
+              "reason": "excluded_executable_content",
+              "path": "skills/gstack/test/test-impact-key.test.ts",
+              "line": 0
+            },
+            {
+              "reason": "excluded_executable_content",
+              "path": "skills/gstack/test/test-impact-trace.test.ts",
               "line": 0
             },
             {
@@ -23540,11 +23105,6 @@
             },
             {
               "reason": "excluded_executable_content",
-              "path": "skills/gstack/test/workflow-judge-cache.test.ts",
-              "line": 0
-            },
-            {
-              "reason": "excluded_executable_content",
               "path": "skills/gstack/test/workflow-judge-input.test.ts",
               "line": 0
             },
@@ -23588,7 +23148,7 @@
             {
               "id": "AE5",
               "severity": "HIGH",
-              "message": "",
+              "message": "analysis-evasion",
               "file": "skills/gstack/CHANGELOG.md",
               "line": 1
             },
@@ -23702,7 +23262,7 @@
               "severity": "HIGH",
               "message": "Agent Config Directory Access",
               "file": "skills/gstack/CONTRIBUTING.md",
-              "line": 830
+              "line": 824
             },
             {
               "id": "AS1",
@@ -23761,41 +23321,6 @@
               "line": 29
             },
             {
-              "id": "AS1",
-              "severity": "HIGH",
-              "message": "Agent Config Directory Access",
-              "file": "skills/gstack/docs/memorable-workflow-memory.md",
-              "line": 148
-            },
-            {
-              "id": "AS1",
-              "severity": "HIGH",
-              "message": "Agent Config Directory Access",
-              "file": "skills/gstack/docs/skill-routing-and-contracts.md",
-              "line": 30
-            },
-            {
-              "id": "AS1",
-              "severity": "HIGH",
-              "message": "Agent Config Directory Access",
-              "file": "skills/gstack/docs/spikes/claude-code-hook-mutation.md",
-              "line": 69
-            },
-            {
-              "id": "AS1",
-              "severity": "HIGH",
-              "message": "Agent Config Directory Access",
-              "file": "skills/gstack/docs/troubleshooting.md",
-              "line": 2502
-            },
-            {
-              "id": "AS1",
-              "severity": "HIGH",
-              "message": "Agent Config Directory Access",
-              "file": "skills/gstack/docs/uninstall.md",
-              "line": 67
-            },
-            {
               "id": "AR2",
               "severity": "HIGH",
               "message": "Anti-Refusal Statement",
@@ -23831,30 +23356,23 @@
               "line": 22
             },
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/gstack/SKILL.md",
-              "line": 31
-            },
-            {
               "id": "MP3",
               "severity": "HIGH",
               "message": "Memory Manipulation",
               "file": "skills/gstack/TODOS.md",
-              "line": 5230
+              "line": 5195
             },
             {
               "id": "LP1",
               "severity": "HIGH",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/gstack/bin/gstack-approvals",
               "line": 1
             },
             {
               "id": "LP1",
               "severity": "HIGH",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/gstack/bin/gstack-brain-sync",
               "line": 1
             },
@@ -23917,7 +23435,7 @@
             {
               "id": "LP1",
               "severity": "HIGH",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/gstack/bin/gstack-codex-probe",
               "line": 1
             },
@@ -23964,25 +23482,11 @@
               "line": 5
             },
             {
-              "id": "MP3",
-              "severity": "HIGH",
-              "message": "Memory Manipulation",
-              "file": "skills/gstack/design/test/daemon.test.ts",
-              "line": 393
-            },
-            {
               "id": "AS1",
               "severity": "HIGH",
               "message": "Agent Config Directory Access",
               "file": "skills/gstack/docs/designs/FIX_WAVE_2026_10_06.md",
               "line": 166
-            },
-            {
-              "id": "EA5",
-              "severity": "HIGH",
-              "message": "External Model or Provider Selection",
-              "file": "skills/gstack/docs/designs/FIX_WAVE_2026_10_06.md",
-              "line": 403
             },
             {
               "id": "AS1",
@@ -23997,20 +23501,6 @@
               "message": "Agent Config Directory Access",
               "file": "skills/gstack/docs/hosts.md",
               "line": 221
-            },
-            {
-              "id": "AS1",
-              "severity": "HIGH",
-              "message": "Agent Config Directory Access",
-              "file": "skills/gstack/docs/loadouts.md",
-              "line": 67
-            },
-            {
-              "id": "AS1",
-              "severity": "HIGH",
-              "message": "Agent Config Directory Access",
-              "file": "skills/gstack/docs/uninstall.md",
-              "line": 23
             },
             {
               "id": "E4",
@@ -24118,13 +23608,6 @@
               "line": 64
             },
             {
-              "id": "OH1",
-              "severity": "HIGH",
-              "message": "Unvalidated Output Injection",
-              "file": "skills/gstack/test/fixtures/ceo-handoff-y-call.json",
-              "line": 216
-            },
-            {
               "id": "E4",
               "severity": "HIGH",
               "message": "Context Leakage",
@@ -24165,510 +23648,6 @@
               "message": "Context Leakage",
               "file": "skills/gstack/test/helpers/codex-session-runner.ts",
               "line": 107
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/redact-prepush-target.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/redact-semantic-pass.eval.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/redact-span-binding.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/redact-unicode-offsets.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/regression-1539-review-self-verify.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/regression-1611-gbrain-sync-resume.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/regression-1624-retro-stale-base.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/regression-1834-retro-recommendations.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/regression-2922-memory-ingest-sources.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/regression-3749-retro-history-worktree.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/regression-3799-sync-gbrain-artifacts-source.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/regression-dot-leading-slug.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/regression-issue2091-bsd-mktemp.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/regression-issue3024-zsh-sourced-helpers.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/regression-issue3680-ubicloud-bsd-userland.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/regression-pr1169-build-app-sed.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/regression-pr1169-mktemp-fallbacks.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/regression-transcript-frontmatter-fence.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/regression-transcript-slug-collision.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/release-cut.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/release-gate-workflow.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/release-gate.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/release-stamp.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/relink-disabled-router.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/relink.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/remote-identity-vectors.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/render-sections-provenance.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/replay-pr-selection.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/resolver-ask-user-format.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/resolvers-gbrain-put-rewrite.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/resolvers-gbrain-save-results.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/restamp-base-merge.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/restamp-command-boundary.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/restamp-foreign-version.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/restamp-four-part-manifest.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/restamp-gate-ahead-changelog.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/restamp-mentions.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/retired-commands.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/retro-friction.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-army-budget.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-base-refresh.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-bots.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-checklist-pr-type.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-checklists.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-closing-summary.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-collect.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-consensus-lifecycle.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-count-markdown.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-declared-risk.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-depth-lean.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-depth.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-dispatch-compare.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-dispatch-counters.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-dispatch-origin-base.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-dispatch.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-entry-and-design-clarity-au.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-enum-lifecycle.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-exclude.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-finalization-budget.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-fix-range.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-fixable-class.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-gst1031.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-ledger-invariant.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-ledger-verdict-line.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-log-findings.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-log.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-loop-binding.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-loop-budget-wording.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-n-plus-one-contract.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-notes-only-pass.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-packets-removed.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/review-pass.test.ts",
-              "line": 1
             },
             {
               "id": "SC9",
@@ -24717,6 +23696,13 @@
               "severity": "HIGH",
               "message": "Concealed Executable Artifact",
               "file": "skills/gstack/test/review-risk-routing.test.ts",
+              "line": 1
+            },
+            {
+              "id": "SC9",
+              "severity": "HIGH",
+              "message": "Concealed Executable Artifact",
+              "file": "skills/gstack/test/review-risk-token-paths.test.ts",
               "line": 1
             },
             {
@@ -27019,13 +26005,6 @@
               "id": "SC9",
               "severity": "HIGH",
               "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/skill-llm-eval.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
               "file": "skills/gstack/test/skill-md-size-guard.test.ts",
               "line": 1
             },
@@ -27398,6 +26377,20 @@
               "severity": "HIGH",
               "message": "Concealed Executable Artifact",
               "file": "skills/gstack/test/test-health-workflow.test.ts",
+              "line": 1
+            },
+            {
+              "id": "SC9",
+              "severity": "HIGH",
+              "message": "Concealed Executable Artifact",
+              "file": "skills/gstack/test/test-impact-key.test.ts",
+              "line": 1
+            },
+            {
+              "id": "SC9",
+              "severity": "HIGH",
+              "message": "Concealed Executable Artifact",
+              "file": "skills/gstack/test/test-impact-trace.test.ts",
               "line": 1
             },
             {
@@ -27824,13 +26817,6 @@
               "id": "SC9",
               "severity": "HIGH",
               "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/workflow-judge-cache.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
               "file": "skills/gstack/test/workflow-judge-input.test.ts",
               "line": 1
             },
@@ -27907,112 +26893,112 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/CHANGELOG.md",
               "line": 772
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/docs/flaky.md",
               "line": 29
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/docs/flaky.md",
               "line": 44
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/docs/flaky.md",
               "line": 118
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/docs/troubleshooting.md",
-              "line": 4163
+              "line": 4170
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/lib/pregate/checks/lanes.ts",
               "line": 581
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/dom-dump-hygiene.test.ts",
               "line": 8
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/free-tests-workflow-wiring.test.ts",
-              "line": 156
+              "line": 186
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/pregate-environment.test.ts",
               "line": 234
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/pregate-environment.test.ts",
               "line": 245
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/pregate-selection.test.ts",
               "line": 401
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/pregate-selection.test.ts",
               "line": 402
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/pregate-selection.test.ts",
               "line": 403
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/pregate-selection.test.ts",
               "line": 404
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/pregate-selection.test.ts",
               "line": 406
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/pregate-selection.test.ts",
               "line": 988
             },
@@ -28073,86 +27059,79 @@
               "line": 33
             },
             {
-              "id": "EA2",
-              "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "skills/gstack/docs/designs/FIX_WAVE_2026_10_15.md",
-              "line": 18
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/CHANGELOG.md",
               "line": 4736
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/docs/pregate.md",
               "line": 77
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/lib/pregate/checks/lanes.ts",
               "line": 59
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/fixtures/judge-calibration/arm/inputs/p07.task.md",
               "line": 4
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/pregate-selection.test.ts",
               "line": 923
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/pregate-selection.test.ts",
               "line": 962
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/pregate-selection.test.ts",
               "line": 965
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/pregate-selection.test.ts",
               "line": 986
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/pregate-selection.test.ts",
               "line": 999
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/pregate-selection.test.ts",
               "line": 1010
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/pregate-supervise.test.ts",
               "line": 140
             },
@@ -28238,7 +27217,7 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/gstack/TODOS.md",
-              "line": 3160
+              "line": 3125
             },
             {
               "id": "EA2",
@@ -28255,114 +27234,107 @@
               "line": 22
             },
             {
-              "id": "EA2",
-              "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "skills/gstack/docs/designs/FOLLOWUP_WAVE_2026_10_07.md",
-              "line": 1102
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/CHANGELOG.md",
               "line": 8585
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/bin/gstack-design-detect.ts",
               "line": 565
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/bin/gstack-design-detect.ts",
               "line": 566
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/scripts/resolvers/design-checklist.ts",
               "line": 78
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/scripts/resolvers/design.ts",
               "line": 60
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/scripts/resolvers/design.ts",
               "line": 880
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/scripts/resolvers/design.ts",
               "line": 901
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/design-detector-source-fixture.test.ts",
               "line": 126
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/fixtures/impeccable-captures.meta.json",
               "line": 7
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/gen-skill-docs.test.ts",
               "line": 2736
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/gen-skill-docs.test.ts",
               "line": 2739
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/gstack-design-detect.test.ts",
               "line": 118
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/gstack-design-detect.test.ts",
               "line": 195
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/gstack-design-detect.test.ts",
               "line": 213
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/gstack-design-detect.test.ts",
               "line": 705
             },
@@ -28386,6 +27358,13 @@
               "message": "Autonomous Decision Making",
               "file": "skills/gstack/bin/gstack-code-intelligence",
               "line": 224
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/gstack/changelog.d/capy-gst-1346-ship-judge-repair-2.md",
+              "line": 1
             },
             {
               "id": "AS3",
@@ -28509,28 +27488,28 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/CLAUDE.md",
               "line": 326
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/CLAUDE.md",
               "line": 327
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/docs/designs/SLOP_SCAN_FOR_REVIEW_SHIP.md",
               "line": 73
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/package.json",
               "line": 63
             },
@@ -28546,21 +27525,21 @@
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
               "file": "skills/gstack/CONTRIBUTING.md",
-              "line": 830
+              "line": 824
             },
             {
               "id": "AS3",
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
               "file": "skills/gstack/CONTRIBUTING.md",
-              "line": 841
+              "line": 835
             },
             {
               "id": "AS3",
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
               "file": "skills/gstack/CONTRIBUTING.md",
-              "line": 884
+              "line": 878
             },
             {
               "id": "AS3",
@@ -28588,7 +27567,7 @@
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/gstack/TODOS.md",
-              "line": 3598
+              "line": 3563
             },
             {
               "id": "E1",
@@ -28609,7 +27588,7 @@
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
               "file": "skills/gstack/TODOS.md",
-              "line": 4662
+              "line": 4627
             },
             {
               "id": "EA2",
@@ -28617,13 +27596,6 @@
               "message": "Autonomous Decision Making",
               "file": "skills/gstack/USING_GBRAIN_WITH_GSTACK.md",
               "line": 387
-            },
-            {
-              "id": "EA2",
-              "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "skills/gstack/docs/designs/CODE_INTELLIGENCE_PROVIDER_CONTRACT.md",
-              "line": 298
             },
             {
               "id": "AS3",
@@ -28684,21 +27656,21 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/bin/gstack-node-runtime.sh",
               "line": 100
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/bin/gstack-node-runtime.sh",
               "line": 110
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/bin/gstack-node-runtime.sh",
               "line": 115
             },
@@ -28784,7 +27756,7 @@
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/gstack/test/helpers/pregate-fixture.ts",
-              "line": 206
+              "line": 208
             },
             {
               "id": "E1",
@@ -28799,6 +27771,13 @@
               "message": "Unbounded Resource Access",
               "file": "skills/gstack/bin/gstack-verify-gate",
               "line": 148
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/gstack/changelog.d/garrytan-gsta-211-codex-removed-arm.md",
+              "line": 1
             },
             {
               "id": "E1",
@@ -28934,27 +27913,6 @@
               "line": 954
             },
             {
-              "id": "EA2",
-              "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "skills/gstack/docs/designs/FOLLOWUP_WAVE_2026_10_07.md",
-              "line": 237
-            },
-            {
-              "id": "EA2",
-              "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "skills/gstack/docs/designs/FOLLOWUP_WAVE_2026_10_07.md",
-              "line": 345
-            },
-            {
-              "id": "EA2",
-              "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "skills/gstack/docs/designs/FOLLOWUP_WAVE_2026_10_07.md",
-              "line": 622
-            },
-            {
               "id": "AS3",
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
@@ -28985,21 +27943,21 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/docs/designs/fork-port-residual-2026-09/refuters.json",
               "line": 257
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/docs/designs/fork-port-residual-2026-09/refuters.json",
               "line": 271
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/docs/designs/fork-port-residual-2026-09/residual-index-lite.json",
               "line": 1
             },
@@ -29032,86 +27990,37 @@
               "line": 170
             },
             {
-              "id": "AS3",
-              "severity": "MEDIUM",
-              "message": "Skill Enumeration",
-              "file": "skills/gstack/docs/loadouts.md",
-              "line": 65
-            },
-            {
-              "id": "AS3",
-              "severity": "MEDIUM",
-              "message": "Skill Enumeration",
-              "file": "skills/gstack/docs/loadouts.md",
-              "line": 67
-            },
-            {
-              "id": "AS3",
-              "severity": "MEDIUM",
-              "message": "Skill Enumeration",
-              "file": "skills/gstack/docs/loadouts.md",
-              "line": 74
-            },
-            {
-              "id": "AS3",
-              "severity": "MEDIUM",
-              "message": "Skill Enumeration",
-              "file": "skills/gstack/docs/loadouts.md",
-              "line": 75
-            },
-            {
-              "id": "AS3",
-              "severity": "MEDIUM",
-              "message": "Skill Enumeration",
-              "file": "skills/gstack/docs/test-value-bar.md",
-              "line": 11
-            },
-            {
-              "id": "AS3",
-              "severity": "MEDIUM",
-              "message": "Skill Enumeration",
-              "file": "skills/gstack/docs/troubleshooting.md",
-              "line": 6661
-            },
-            {
-              "id": "AS3",
-              "severity": "MEDIUM",
-              "message": "Skill Enumeration",
-              "file": "skills/gstack/docs/uninstall.md",
-              "line": 23
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/lib/checks.ts",
               "line": 164
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/fixtures/health-detect-legacy.sh",
               "line": 22
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/fixtures/judge-calibration/workflow-default/inputs/a07.bundle.txt",
               "line": 46
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/fixtures/judge-calibration/workflow-default/inputs/f02.bundle.txt",
               "line": 46
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/lib/pregate/checks/lanes.ts",
               "line": 60
             },
@@ -29167,28 +28076,28 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/arm-setup-smoke-workflow.test.ts",
               "line": 60
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/arm-setup-smoke-workflow.test.ts",
               "line": 92
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/evals-workflow-wiring.test.ts",
               "line": 312
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/codex-ci-access.test.ts",
               "line": 200
             },
@@ -29221,23 +28130,9 @@
               "line": 82
             },
             {
-              "id": "OH3",
-              "severity": "MEDIUM",
-              "message": "Unbounded Output",
-              "file": "skills/gstack/test/fixtures/ceo-mode-posture-ad.json",
-              "line": 167
-            },
-            {
-              "id": "OH3",
-              "severity": "MEDIUM",
-              "message": "Unbounded Output",
-              "file": "skills/gstack/test/fixtures/ceo-mode-posture-ad.json",
-              "line": 213
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/fixtures/codex-sandbox/README.md",
               "line": 23
             },
@@ -29251,14 +28146,14 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/gen-skill-docs.test.ts",
               "line": 2664
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/gstack-design-detect.test.ts",
               "line": 186
             },
@@ -29279,14 +28174,14 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/pregate-bats-nested.test.ts",
               "line": 57
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/gstack/test/pregate-non-js.test.ts",
               "line": 145
             },
@@ -29303,6 +28198,16 @@
               "message": "Scope Creep",
               "file": "skills/gstack/docs/askuserquestion-split.md",
               "line": 16
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/gstack/SKILL.md",
+              "line": 31,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -29322,7 +28227,8 @@
               "file": "skills/gstack-openclaw-ceo-review/SKILL.md",
               "line": 87
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/gstack-openclaw-investigate",
@@ -29332,7 +28238,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/gstack-openclaw-office-hours",
@@ -29350,7 +28257,8 @@
               "file": "skills/gstack-openclaw-office-hours/SKILL.md",
               "line": 229
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/gstack-openclaw-retro",
@@ -29366,7 +28274,8 @@
               "line": 250
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/gstack-upgrade",
@@ -29534,13 +28443,6 @@
               "message": "Tool Parameter Abuse",
               "file": "skills/gstack-upgrade/SKILL.md.tmpl",
               "line": 210
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/gstack-upgrade/SKILL.md",
-              "line": 202
             },
             {
               "id": "TM2",
@@ -29822,6 +28724,16 @@
               "file": "skills/gstack-upgrade/migrations/v1.65.0.0.sh",
               "line": 95
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/gstack-upgrade/SKILL.md",
+              "line": 202,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
@@ -29873,12 +28785,13 @@
               "line": 0
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/hackernews-frontpage",
-          "score": 93,
-          "risk": 7,
+          "score": 100,
+          "risk": 0,
           "status": "incomplete",
           "partial": true,
           "coverage": 80,
@@ -29899,13 +28812,15 @@
               "line": 0
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "LP3",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/hackernews-frontpage/SKILL.md",
-              "line": 1
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
@@ -30041,7 +28956,8 @@
               "file": "skills/health/sections/preamble.md",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/investigate",
@@ -30185,7 +29101,8 @@
               "file": "skills/investigate/sections/preamble.md",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ios-clean",
@@ -30285,7 +29202,8 @@
               "file": "skills/ios-clean/sections/preamble.md",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ios-design-review",
@@ -30352,7 +29270,8 @@
               "file": "skills/ios-design-review/sections/preamble.md",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ios-fix",
@@ -30414,7 +29333,8 @@
               "file": "skills/ios-fix/sections/preamble.md",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ios-qa",
@@ -30566,14 +29486,14 @@
             {
               "id": "LP1",
               "severity": "HIGH",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/ios-qa/daemon/src/allowlist.ts",
               "line": 1
             },
             {
               "id": "LP1",
               "severity": "HIGH",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/ios-qa/daemon/src/index.ts",
               "line": 1
             },
@@ -30668,7 +29588,8 @@
               "file": "skills/ios-qa/sections/preamble.md",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ios-sync",
@@ -30747,7 +29668,8 @@
               "file": "skills/ios-sync/sections/preamble.md",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/land-and-deploy",
@@ -30997,7 +29919,8 @@
               "file": "skills/land-and-deploy/sections/preamble.md",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/landing-report",
@@ -31064,7 +29987,8 @@
               "file": "skills/landing-report/sections/preamble.md",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/learn",
@@ -31164,7 +30088,8 @@
               "file": "skills/learn/sections/preamble.md",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/make-pdf",
@@ -31361,14 +30286,14 @@
             {
               "id": "LP1",
               "severity": "HIGH",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/make-pdf/src/diagram-prepass.ts",
               "line": 1
             },
             {
               "id": "LP1",
               "severity": "HIGH",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/make-pdf/src/diagram-prepass.ts",
               "line": 1
             },
@@ -31393,7 +30318,8 @@
               "file": "skills/make-pdf/src/setup.ts",
               "line": 68
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/modernize",
@@ -31437,14 +30363,14 @@
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
               "file": "skills/modernize/SKILL.md",
-              "line": 219
+              "line": 221
             },
             {
               "id": "TM1",
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
               "file": "skills/modernize/SKILL.md.tmpl",
-              "line": 148
+              "line": 150
             },
             {
               "id": "RA2",
@@ -31467,7 +30393,8 @@
               "file": "skills/modernize/sections/preamble.md",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/office-hours",
@@ -31768,7 +30695,8 @@
               "file": "skills/office-hours/sections/visual-design.md",
               "line": 106
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/open-gstack-browser",
@@ -31841,7 +30769,8 @@
               "file": "skills/open-gstack-browser/SKILL.md.tmpl",
               "line": 57
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/pair-agent",
@@ -31934,7 +30863,8 @@
               "file": "skills/pair-agent/sections/preamble.md",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/plan-ceo-review",
@@ -32239,7 +31169,8 @@
               "file": "skills/plan-ceo-review/SKILL.md.tmpl",
               "line": 24
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/plan-design-review",
@@ -32445,20 +31376,6 @@
               "line": 366
             },
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/plan-design-review/SKILL.md",
-              "line": 387
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/plan-design-review/SKILL.md",
-              "line": 836
-            },
-            {
               "id": "TM1",
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
@@ -32654,6 +31571,24 @@
               "file": "skills/plan-design-review/sections/review-sections.md.tmpl",
               "line": 231
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/plan-design-review/SKILL.md",
+              "line": 387,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/plan-design-review/SKILL.md",
+              "line": 836,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
@@ -32801,7 +31736,7 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/plan-devex-review/dx-hall-of-fame.md",
               "line": 164
             },
@@ -32861,7 +31796,8 @@
               "file": "skills/plan-devex-review/sections/review-sections.md.tmpl",
               "line": 405
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/plan-eng-review",
@@ -33125,7 +32061,8 @@
               "file": "skills/plan-eng-review/sections/review-sections.md.tmpl",
               "line": 607
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/plan-tune",
@@ -33415,7 +32352,8 @@
               "file": "skills/plan-tune/sections/preamble.md",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/qa",
@@ -33508,34 +32446,6 @@
               "message": "External Model or Provider Selection",
               "file": "skills/qa/SKILL.md",
               "line": 30
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/qa/SKILL.md",
-              "line": 183
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/qa/SKILL.md",
-              "line": 246
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/qa/SKILL.md",
-              "line": 187
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/qa/SKILL.md",
-              "line": 254
             },
             {
               "id": "AR1",
@@ -33641,6 +32551,40 @@
               "message": "Sudo/Root Execution",
               "file": "skills/qa/sections/test-bootstrap.md",
               "line": 39
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/qa/SKILL.md",
+              "line": 183,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/qa/SKILL.md",
+              "line": 187,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/qa/SKILL.md",
+              "line": 246,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/qa/SKILL.md",
+              "line": 254,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -33782,12 +32726,13 @@
               "file": "skills/qa-only/sections/reporting.md.tmpl",
               "line": 68
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/retro",
-          "score": 12,
-          "risk": 88,
+          "score": 37,
+          "risk": 63,
           "status": "do not install",
           "partial": true,
           "coverage": 83.3,
@@ -33872,13 +32817,6 @@
               "line": 47
             },
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/retro/SKILL.md",
-              "line": 488
-            },
-            {
               "id": "AR2",
               "severity": "HIGH",
               "message": "Anti-Refusal Statement",
@@ -33961,6 +32899,16 @@
               "message": "Session Persistence",
               "file": "skills/retro/sections/preamble.md",
               "line": 22
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/retro/SKILL.md",
+              "line": 488,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -34206,7 +33154,7 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/review/design-checklist.md",
               "line": 25
             },
@@ -34273,7 +33221,8 @@
               "file": "skills/review/specialists/testing.md",
               "line": 100
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/runaway-stopper",
@@ -34364,7 +33313,8 @@
               "file": "skills/runaway-stopper/SKILL.md.tmpl",
               "line": 94
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/scrape",
@@ -34473,7 +33423,8 @@
               "file": "skills/scrape/SKILL.md",
               "line": 362
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/setup-browser-cookies",
@@ -34538,7 +33489,8 @@
               "file": "skills/setup-browser-cookies/SKILL.md.tmpl",
               "line": 82
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/setup-deploy",
@@ -34648,7 +33600,8 @@
               "file": "skills/setup-deploy/sections/preamble.md",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/setup-gbrain",
@@ -34781,20 +33734,6 @@
               "message": "External Model or Provider Selection",
               "file": "skills/setup-gbrain/SKILL.md",
               "line": 31
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/setup-gbrain/SKILL.md",
-              "line": 139
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/setup-gbrain/SKILL.md",
-              "line": 141
             },
             {
               "id": "PE3",
@@ -35069,6 +34008,24 @@
               "file": "skills/setup-gbrain/sections/preamble.md",
               "line": 22
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/setup-gbrain/SKILL.md",
+              "line": 139,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/setup-gbrain/SKILL.md",
+              "line": 141,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
@@ -35132,52 +34089,52 @@
             {
               "reason": "reference_missing",
               "path": "skills/ship/SKILL.md",
-              "line": 338
+              "line": 339
             },
             {
               "reason": "reference_missing",
               "path": "skills/ship/SKILL.md",
-              "line": 378
+              "line": 379
             },
             {
               "reason": "reference_missing",
               "path": "skills/ship/SKILL.md",
-              "line": 397
+              "line": 398
             },
             {
               "reason": "reference_missing",
               "path": "skills/ship/SKILL.md",
-              "line": 439
+              "line": 440
             },
             {
               "reason": "reference_missing",
               "path": "skills/ship/SKILL.md",
-              "line": 464
+              "line": 465
             },
             {
               "reason": "reference_missing",
               "path": "skills/ship/SKILL.md",
-              "line": 501
+              "line": 502
             },
             {
               "reason": "reference_missing",
               "path": "skills/ship/SKILL.md",
-              "line": 545
+              "line": 547
             },
             {
               "reason": "reference_missing",
               "path": "skills/ship/SKILL.md",
-              "line": 586
+              "line": 588
             },
             {
               "reason": "reference_missing",
               "path": "skills/ship/SKILL.md",
-              "line": 587
+              "line": 589
             },
             {
               "reason": "reference_missing",
               "path": "skills/ship/SKILL.md",
-              "line": 602
+              "line": 604
             },
             {
               "reason": "reference_missing",
@@ -35187,32 +34144,37 @@
             {
               "reason": "reference_missing",
               "path": "skills/ship/SKILL.md",
-              "line": 745
+              "line": 741
             },
             {
               "reason": "reference_missing",
               "path": "skills/ship/SKILL.md",
-              "line": 808
+              "line": 805
             },
             {
               "reason": "reference_missing",
               "path": "skills/ship/SKILL.md",
-              "line": 822
+              "line": 819
             },
             {
               "reason": "reference_missing",
               "path": "skills/ship/SKILL.md",
-              "line": 826
+              "line": 823
             },
             {
               "reason": "reference_missing",
               "path": "skills/ship/SKILL.md",
-              "line": 846
+              "line": 843
             },
             {
               "reason": "reference_missing",
               "path": "skills/ship/SKILL.md",
-              "line": 937
+              "line": 934
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/ship/SKILL.md",
+              "line": 949
             },
             {
               "reason": "reference_missing",
@@ -35222,12 +34184,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/ship/SKILL.md",
-              "line": 955
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/ship/SKILL.md",
-              "line": 968
+              "line": 965
             },
             {
               "reason": "static_parse_limit",
@@ -35322,62 +34279,6 @@
               "message": "External Model or Provider Selection",
               "file": "skills/ship/SKILL.md",
               "line": 32
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/ship/SKILL.md",
-              "line": 250
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/ship/SKILL.md",
-              "line": 253
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/ship/SKILL.md",
-              "line": 254
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/ship/SKILL.md",
-              "line": 255
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/ship/SKILL.md",
-              "line": 256
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/ship/SKILL.md",
-              "line": 258
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/ship/SKILL.md",
-              "line": 261
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/ship/SKILL.md",
-              "line": 262
             },
             {
               "id": "PE3",
@@ -35545,7 +34446,7 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/ship/SKILL.md",
-              "line": 428
+              "line": 429
             },
             {
               "id": "EA2",
@@ -35559,7 +34460,7 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/ship/SKILL.md.tmpl",
-              "line": 158
+              "line": 159
             },
             {
               "id": "EA2",
@@ -35594,103 +34495,103 @@
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/ship/SKILL.md",
-              "line": 542
+              "line": 544
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/ship/SKILL.md.tmpl",
-              "line": 265
+              "line": 267
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/ship/SKILL.md",
-              "line": 578
+              "line": 580
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/ship/SKILL.md",
-              "line": 768
+              "line": 764
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/ship/SKILL.md.tmpl",
-              "line": 489
+              "line": 485
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/ship/SKILL.md",
-              "line": 827
+              "line": 824
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/ship/SKILL.md",
-              "line": 928
+              "line": 925
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/ship/SKILL.md.tmpl",
-              "line": 647
+              "line": 644
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/ship/SKILL.md",
-              "line": 942
+              "line": 939
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/ship/SKILL.md.tmpl",
-              "line": 661
+              "line": 658
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/ship/SKILL.md.tmpl",
-              "line": 301
+              "line": 303
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/ship/SKILL.md.tmpl",
-              "line": 548
+              "line": 545
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/ship/sections/adversarial.md",
-              "line": 265
+              "line": 266
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ship/sections/apple-release.md",
               "line": 51
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ship/sections/apple-release.md.tmpl",
               "line": 49
             },
@@ -35942,7 +34843,7 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ship/sections/review-army.md",
               "line": 191
             },
@@ -35996,6 +34897,20 @@
               "line": 140
             },
             {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/ship/sections/tests.md",
+              "line": 233
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/ship/sections/tests.md.tmpl",
+              "line": 29
+            },
+            {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
@@ -36016,13 +34931,79 @@
               "file": "skills/ship/sections/tests.md.tmpl",
               "line": 30
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/ship/SKILL.md",
+              "line": 250,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/ship/SKILL.md",
+              "line": 253,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/ship/SKILL.md",
+              "line": 254,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/ship/SKILL.md",
+              "line": 255,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/ship/SKILL.md",
+              "line": 256,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/ship/SKILL.md",
+              "line": 258,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/ship/SKILL.md",
+              "line": 261,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/ship/SKILL.md",
+              "line": 262,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
           "path": "skills/skillify",
-          "score": 21,
-          "risk": 79,
-          "status": "do not install",
+          "score": 59,
+          "risk": 41,
+          "status": "caution",
           "partial": true,
           "coverage": 33.3,
           "exceptions": [
@@ -36156,20 +35137,6 @@
               "line": 27
             },
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/skillify/SKILL.md",
-              "line": 343
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/skillify/SKILL.md",
-              "line": 436
-            },
-            {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
@@ -36224,6 +35191,24 @@
               "message": "Session Persistence",
               "file": "skills/skillify/sections/preamble.md",
               "line": 22
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/skillify/SKILL.md",
+              "line": 343,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/skillify/SKILL.md",
+              "line": 436,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -36423,7 +35408,8 @@
               "file": "skills/spec/sections/preamble.md",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/sync-gbrain",
@@ -36575,7 +35561,8 @@
               "file": "skills/sync-gbrain/sections/preamble.md",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/test-audit",
@@ -36659,7 +35646,8 @@
               "file": "skills/test-audit/sections/preamble.md",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ubicloud",
@@ -36800,7 +35788,8 @@
               "file": "skills/ubicloud/sections/preamble.md",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/unfreeze",
@@ -36836,7 +35825,8 @@
               "file": "skills/unfreeze/SKILL.md.tmpl",
               "line": 35
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/verify",
@@ -36865,13 +35855,14 @@
               "file": "skills/verify/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/write-skill",
-          "score": 42,
-          "risk": 58,
-          "status": "do not install",
+          "score": 67,
+          "risk": 33,
+          "status": "caution",
           "partial": true,
           "coverage": 100,
           "exceptions": [
@@ -36913,13 +35904,6 @@
               "message": "External Model or Provider Selection",
               "file": "skills/write-skill/SKILL.md",
               "line": 30
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/write-skill/SKILL.md",
-              "line": 111
             },
             {
               "id": "RA2",
@@ -36970,6 +35954,16 @@
               "file": "skills/write-skill/sections/preamble.md",
               "line": 22
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/write-skill/SKILL.md",
+              "line": 111,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         }
       ]
@@ -36983,7 +35977,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-04T17:52:17Z"
+      "checkedAt": "2026-11-05T03:36:20Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {
