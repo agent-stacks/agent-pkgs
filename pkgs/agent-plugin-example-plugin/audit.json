@@ -7,26 +7,41 @@
   "plugins": [
     {
       "name": "example-plugin",
-      "dir": "/nix/store/rclg13x688m7wwk3xvwfarrry9xq3blb-agent-plugin-example-plugin-0.0.0-unstable.2026-10-19.ga0b04d9/share/agent-plugins/example-plugin",
+      "dir": "/nix/store/v8xjshlrzw6n0hr3swl81z5mh13dcz2k-agent-plugin-example-plugin-0.0.0-unstable.2026-11-03.gfa4eb54/share/agent-plugins/example-plugin",
       "spec": "1.1.0",
-      "score": 100,
+      "score": 92,
       "status": "safe",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/commands",
           "skills/example-command",
           "skills/example-skill"
         ],
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 92,
+          "risk": 8,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "com.anthropic.claude-code/commands/example-command.md",
+              "line": 9
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/example-command",
           "score": 100,
@@ -41,7 +56,8 @@
               "line": 10
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/example-skill",
@@ -51,12 +67,13 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 100,
+  "score": 92,
   "status": "safe",
   "tool": {
     "name": "skillspector",
@@ -64,7 +81,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-20T04:26:24Z"
+      "checkedAt": "2026-11-04T23:34:50Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

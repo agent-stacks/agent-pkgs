@@ -7,25 +7,40 @@
   "plugins": [
     {
       "name": "social-publishing",
-      "dir": "/nix/store/nsg4jn3bzh09n6z9pb4cwf57xznp6pwp-agent-plugin-social-publishing-1.0.0/share/agent-plugins/social-publishing",
+      "dir": "/nix/store/028f95a8qxsan4fdx25z4j1yzvi6y5j2-agent-plugin-social-publishing-1.0.0/share/agent-plugins/social-publishing",
       "spec": "1.1.0",
       "score": 93,
       "status": "safe",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
           "skills/social-publishing"
         ],
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 93,
+          "risk": 7,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "com.anthropic.claude-code/agents/social-publishing-publisher.md",
+              "line": 55
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/social-publishing",
           "score": 93,
@@ -44,11 +59,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/social-publishing/SKILL.md",
               "line": 47
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
@@ -61,7 +77,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-20T00:31:53Z"
+      "checkedAt": "2026-11-05T00:10:27Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

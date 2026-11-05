@@ -7,12 +7,15 @@
   "plugins": [
     {
       "name": "okf",
-      "dir": "/nix/store/2v2r55641yai2f73194j63s6ss6jwqhm-agent-plugin-okf-0.12.0/share/agent-plugins/okf",
+      "dir": "/nix/store/kpifh8gsgsdvivqv84js3r8h20gl2r4s-agent-plugin-okf-0.12.0/share/agent-plugins/okf",
       "spec": "1.1.0",
       "score": 16,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/hooks",
+          "servers",
           "skills/backfill",
           "skills/okf",
           "skills/validate",
@@ -27,20 +30,72 @@
             "reason": "interpreter links into /nix/store"
           },
           {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          },
-          {
             "path": "mcp.json",
             "reason": "SkillSpector does not analyse this layout as an MCP manifest"
-          },
-          {
-            "path": "servers/",
-            "reason": "outside the spec"
           }
         ]
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 59,
+          "risk": 41,
+          "status": "caution",
+          "partial": true,
+          "coverage": 50,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/okf-stop-check.sh",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "com.anthropic.claude-code/hooks/okf-stop-check.sh",
+              "line": 27
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "com.anthropic.claude-code/hooks/okf-stop-check.sh",
+              "line": 81
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "servers",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 0,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "servers/okf_mcp.py",
+              "line": 0
+            }
+          ],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/backfill",
           "score": 16,
@@ -274,7 +329,8 @@
               "file": "skills/backfill/scripts/okf_backfill_events.py",
               "line": 820
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/okf",
@@ -334,7 +390,8 @@
               "file": "skills/okf/reference/APACHE-2.0.txt",
               "line": 161
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/validate",
@@ -374,25 +431,26 @@
             {
               "id": "LP1",
               "severity": "HIGH",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/validate/scripts/okf_validate.py",
               "line": 1
             },
             {
               "id": "LP1",
               "severity": "HIGH",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/validate/scripts/okf_validate.py",
               "line": 1
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/validate/SKILL.md",
               "line": 30
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/visualize",
@@ -417,18 +475,19 @@
             {
               "id": "LP1",
               "severity": "HIGH",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/visualize/scripts/okf_visualize.py",
               "line": 1
             },
             {
               "id": "LP1",
               "severity": "HIGH",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/visualize/scripts/okf_visualize.py",
               "line": 1
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
@@ -441,7 +500,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-21T10:39:37Z"
+      "checkedAt": "2026-11-05T00:37:51Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

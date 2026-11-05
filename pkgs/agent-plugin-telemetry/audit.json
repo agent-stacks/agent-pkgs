@@ -1,13 +1,99 @@
 {
   "target": "./result",
-  "audited": false,
-  "score": null,
-  "status": "could not audit",
-  "reason": "nothing to audit",
-  "hints": [],
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "telemetry",
+      "dir": "/nix/store/vdh0b8vrvi6989rp68z2i752jy97lbbq-agent-plugin-telemetry-0.1.0/share/agent-plugins/telemetry",
+      "spec": "1.1.0",
+      "score": 94,
+      "status": "incomplete",
+      "coverage": {
+        "scanned": [
+          "com.anthropic.claude-code/hooks",
+          "com.anthropic.claude-code/types"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": []
+      },
+      "components": [
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 94,
+          "risk": 6,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 97.6,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/context/identity/global-config-path/global-config-path.ts",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/context/terminal-of/terminal-of.ts",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/entries/checked-mark.ts",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/entries/wire-of/wire-of.ts",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/register.ts",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "com.anthropic.claude-code/hooks/entries/ingest-url.ts",
+              "line": 9
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/types",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        }
+      ]
+    }
+  ],
+  "score": 94,
+  "status": "incomplete",
   "tool": {
     "name": "skillspector",
-    "version": "2.12.0"
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-11-05T00:10:55Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
+    }
   },
   "agentStacks": {
     "version": "0.9.0"

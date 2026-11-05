@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "blockchain-web3",
-      "dir": "/nix/store/1x9jrz8l9rl7vf3yalrhlhwqzslwybmf-agent-plugin-blockchain-web3-1.2.3/share/agent-plugins/blockchain-web3",
+      "dir": "/nix/store/ff02y45bjxcw1v8hqm6wzdqzhkk90g0v-agent-plugin-blockchain-web3-1.2.4/share/agent-plugins/blockchain-web3",
       "spec": "1.1.0",
       "score": 88,
       "status": "safe",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
           "skills/defi-protocol-templates",
           "skills/nft-standards",
           "skills/solidity-security",
@@ -21,14 +22,20 @@
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/defi-protocol-templates",
           "score": 100,
@@ -58,7 +65,8 @@
               "line": 113
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/nft-standards",
@@ -104,7 +112,8 @@
               "line": 223
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/solidity-security",
@@ -114,7 +123,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/web3-testing",
@@ -139,39 +149,40 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/web3-testing/references/details.md",
               "line": 37
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/web3-testing/references/details.md",
               "line": 57
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/web3-testing/references/details.md",
               "line": 79
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/web3-testing/references/details.md",
               "line": 80
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/web3-testing/references/details.md",
               "line": 81
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
@@ -184,7 +195,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:17:05Z"
+      "checkedAt": "2026-11-04T23:10:44Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

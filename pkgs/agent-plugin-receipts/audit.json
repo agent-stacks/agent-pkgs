@@ -7,9 +7,9 @@
   "plugins": [
     {
       "name": "receipts",
-      "dir": "/nix/store/hpnf855jly445ywdkgzjzkcs8rpjbhcc-agent-plugin-receipts-0.0.0-unstable.2026-10-19.ga0b04d9/share/agent-plugins/receipts",
+      "dir": "/nix/store/z6gdnhgz1v7y5sja66qn0ih3zrv055kf-agent-plugin-receipts-0.0.0-unstable.2026-11-03.gfa4eb54/share/agent-plugins/receipts",
       "spec": "1.1.0",
-      "score": 0,
+      "score": 25,
       "status": "do not install",
       "coverage": {
         "scanned": [
@@ -28,8 +28,8 @@
       "components": [
         {
           "path": "skills/receipts",
-          "score": 0,
-          "risk": 100,
+          "score": 25,
+          "risk": 75,
           "status": "do not install",
           "partial": true,
           "coverage": 50,
@@ -61,13 +61,6 @@
               "line": 121
             },
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/receipts/SKILL.md",
-              "line": 30
-            },
-            {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
@@ -82,25 +75,36 @@
               "line": 347
             },
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/receipts/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "TM3",
               "severity": "MEDIUM",
               "message": "Unsafe Defaults",
               "file": "skills/receipts/scripts/mine-transcripts.mjs",
               "line": 1098
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/receipts/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/receipts/SKILL.md",
+              "line": 30,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         }
       ]
     }
   ],
-  "score": 0,
+  "score": 25,
   "status": "do not install",
   "tool": {
     "name": "skillspector",
@@ -108,7 +112,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-20T04:49:09Z"
+      "checkedAt": "2026-11-05T01:12:51Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

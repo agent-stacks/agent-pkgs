@@ -7,12 +7,14 @@
   "plugins": [
     {
       "name": "startup-business-analyst",
-      "dir": "/nix/store/7ny8g5hnq31jnbj2n0fv8dsd8b6zaplc-agent-plugin-startup-business-analyst-1.0.6/share/agent-plugins/startup-business-analyst",
+      "dir": "/nix/store/hn3x9d3zskdqpcv2q0vg68w3f5b6kyk2-agent-plugin-startup-business-analyst-1.0.7/share/agent-plugins/startup-business-analyst",
       "spec": "1.1.0",
       "score": 100,
       "status": "safe",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/commands",
           "skills/competitive-landscape",
           "skills/market-sizing-analysis",
           "skills/startup-financial-modeling",
@@ -22,14 +24,31 @@
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/competitive-landscape",
           "score": 100,
@@ -38,7 +57,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/market-sizing-analysis",
@@ -48,7 +68,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/startup-financial-modeling",
@@ -58,7 +79,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/startup-metrics-framework",
@@ -68,7 +90,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/team-composition-analysis",
@@ -78,7 +101,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
@@ -91,7 +115,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-20T00:07:49Z"
+      "checkedAt": "2026-11-04T23:35:13Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

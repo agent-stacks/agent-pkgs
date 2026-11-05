@@ -7,14 +7,16 @@
   "plugins": [
     {
       "name": "firebase",
-      "dir": "/nix/store/4iizcxdcycwqh7a229gjh2pcbrprv0ax-agent-plugin-firebase-1.1.0/share/agent-plugins/firebase",
+      "dir": "/nix/store/ql0n6j25h9y9brbmai15kww0scpfiija-agent-plugin-firebase-1.1.0/share/agent-plugins/firebase",
       "spec": "1.1.0",
-      "score": 8,
+      "score": 21,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
           "skills/extension-to-functions-codebase",
           "skills/firebase-ai-logic-basics",
+          "skills/firebase-analytics",
           "skills/firebase-app-hosting-basics",
           "skills/firebase-auth-basics",
           "skills/firebase-basics",
@@ -36,16 +38,23 @@
             "reason": "interpreter links into /nix/store"
           },
           {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          },
-          {
             "path": "mcp.json",
             "reason": "SkillSpector does not analyse this layout as an MCP manifest"
           }
         ]
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/extension-to-functions-codebase",
           "score": 100,
@@ -100,7 +109,8 @@
               "line": 0
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/firebase-ai-logic-basics",
@@ -137,42 +147,42 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-ai-logic-basics/SKILL.md",
               "line": 61
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-ai-logic-basics/SKILL.md",
               "line": 68
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-ai-logic-basics/SKILL.md",
               "line": 74
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-ai-logic-basics/SKILL.md",
               "line": 81
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-ai-logic-basics/SKILL.md",
               "line": 94
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-ai-logic-basics/references/usage_patterns_android.md",
               "line": 12
             },
@@ -193,9 +203,278 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-ai-logic-basics/references/flutter_setup.md",
               "line": 12
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/firebase-analytics",
+          "score": 21,
+          "risk": 79,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 80,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/firebase-analytics/SKILL.md",
+              "line": 31
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/firebase-analytics/SKILL.md",
+              "line": 32
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/firebase-analytics/references/android_setup.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "P1",
+              "severity": "HIGH",
+              "message": "Instruction Override",
+              "file": "skills/firebase-analytics/references/android_screen_views.md",
+              "line": 304
+            },
+            {
+              "id": "P1",
+              "severity": "HIGH",
+              "message": "Instruction Override",
+              "file": "skills/firebase-analytics/references/android_setup.md",
+              "line": 386
+            },
+            {
+              "id": "P1",
+              "severity": "HIGH",
+              "message": "Instruction Override",
+              "file": "skills/firebase-analytics/references/android_setup.md",
+              "line": 396
+            },
+            {
+              "id": "P1",
+              "severity": "HIGH",
+              "message": "Instruction Override",
+              "file": "skills/firebase-analytics/references/ios_screen_views.md",
+              "line": 242
+            },
+            {
+              "id": "P1",
+              "severity": "HIGH",
+              "message": "Instruction Override",
+              "file": "skills/firebase-analytics/references/ios_setup.md",
+              "line": 321
+            },
+            {
+              "id": "P1",
+              "severity": "HIGH",
+              "message": "Instruction Override",
+              "file": "skills/firebase-analytics/references/ios_setup.md",
+              "line": 332
+            },
+            {
+              "id": "AR3",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "skills/firebase-analytics/references/android_screen_views.md",
+              "line": 306
+            },
+            {
+              "id": "P1",
+              "severity": "HIGH",
+              "message": "Instruction Override",
+              "file": "skills/firebase-analytics/references/android_setup.md",
+              "line": 386
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/firebase-analytics/SKILL.md",
+              "line": 12
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/firebase-analytics/references/android_setup.md",
+              "line": 68
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/firebase-analytics/references/android_setup.md",
+              "line": 207
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/firebase-analytics/references/ios_setup.md",
+              "line": 67
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/firebase-analytics/references/ios_setup.md",
+              "line": 174
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/firebase-analytics/SKILL.md",
+              "line": 32
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/firebase-analytics/references/ios_screen_views.md",
+              "line": 17
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/firebase-analytics/references/ios_screen_views.md",
+              "line": 166
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/firebase-analytics/references/ios_screen_views.md",
+              "line": 261
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/firebase-analytics/references/ios_setup.md",
+              "line": 65
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/firebase-analytics/references/ios_setup.md",
+              "line": 68
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/firebase-analytics/references/ios_setup.md",
+              "line": 172
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/firebase-analytics/references/ios_setup.md",
+              "line": 175
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/firebase-analytics/references/ios_setup.md",
+              "line": 176
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/firebase-analytics/references/ios_setup.md",
+              "line": 197
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/firebase-analytics/references/ios_setup.md",
+              "line": 240
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/firebase-analytics/references/ios_setup.md",
+              "line": 402
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/firebase-analytics/references/ios_setup.md",
+              "line": 425
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/firebase-analytics/references/ios_setup.md",
+              "line": 428
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/firebase-analytics/references/ios_setup.md",
+              "line": 431
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/firebase-analytics/references/ios_setup.md",
+              "line": 440
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/firebase-analytics/references/ios_setup.md",
+              "line": 443
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/firebase-analytics/references/ios_setup.md",
+              "line": 445
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/firebase-analytics/references/ios_setup.md",
+              "line": 468
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/firebase-analytics/references/ios_setup.md",
+              "line": 99
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/firebase-analytics/SKILL.md",
+              "line": 39,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -227,67 +506,68 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-app-hosting-basics/SKILL.md",
               "line": 70
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-app-hosting-basics/SKILL.md",
               "line": 77
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-app-hosting-basics/SKILL.md",
               "line": 78
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-app-hosting-basics/SKILL.md",
               "line": 81
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-app-hosting-basics/SKILL.md",
               "line": 87
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-app-hosting-basics/SKILL.md",
               "line": 91
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-app-hosting-basics/references/configuration.md",
-              "line": 56
+              "line": 57
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-app-hosting-basics/references/emulation.md",
               "line": 30
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-app-hosting-basics/references/emulation.md",
               "line": 36
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/firebase-auth-basics",
@@ -336,37 +616,38 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-auth-basics/SKILL.md",
               "line": 4
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-auth-basics/SKILL.md",
               "line": 13
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-auth-basics/SKILL.md",
               "line": 104
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-auth-basics/references/client_sdk_android.md",
               "line": 26
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/firebase-basics",
-          "score": 8,
-          "risk": 92,
+          "score": 33,
+          "risk": 67,
           "status": "do not install",
           "partial": true,
           "coverage": 90,
@@ -413,13 +694,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/firebase-basics/SKILL.md",
-              "line": 142
-            },
             {
               "id": "RA1",
               "severity": "HIGH",
@@ -479,546 +753,546 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/SKILL.md",
               "line": 18
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/SKILL.md",
               "line": 43
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/SKILL.md",
               "line": 44
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/SKILL.md",
               "line": 46
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/SKILL.md",
               "line": 62
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/SKILL.md",
               "line": 72
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/SKILL.md",
               "line": 78
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/SKILL.md",
               "line": 89
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/SKILL.md",
               "line": 91
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/SKILL.md",
               "line": 126
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/SKILL.md",
               "line": 128
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/SKILL.md",
               "line": 149
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/android_setup.md",
               "line": 16
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/android_setup.md",
               "line": 24
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/android_setup.md",
               "line": 30
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/android_setup.md",
               "line": 70
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/android_setup.md",
               "line": 82
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/android_setup.md",
               "line": 88
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/android_setup.md",
               "line": 99
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/android_setup.md",
               "line": 105
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/android_setup.md",
               "line": 121
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/android_setup.md",
               "line": 243
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/android_setup.md",
               "line": 244
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/firebase-cli-guide.md",
               "line": 8
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/firebase-cli-guide.md",
               "line": 14
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/firebase-cli-guide.md",
               "line": 16
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/firebase-cli-guide.md",
               "line": 17
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/firebase-service-init.md",
               "line": 13
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/flutter_setup.md",
               "line": 29
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/flutter_setup.md",
               "line": 30
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/ios_setup.md",
               "line": 38
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/ios_setup.md",
               "line": 42
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/ios_setup.md",
               "line": 43
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/local-env-setup.md",
               "line": 60
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/local-env-setup.md",
               "line": 67
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/local-env-setup.md",
               "line": 69
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/setup/gemini_cli.md",
               "line": 45
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/web_setup.md",
               "line": 8
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/web_setup.md",
               "line": 11
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/web_setup.md",
               "line": 15
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/web_setup.md",
               "line": 34
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/SKILL.md",
               "line": 88
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/SKILL.md",
               "line": 154
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/refresh/antigravity.md",
               "line": 6
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/refresh/other-agents.md",
               "line": 6
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/setup/antigravity.md",
               "line": 16
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/setup/antigravity.md",
               "line": 23
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/setup/claude_code.md",
               "line": 15
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/setup/claude_code.md",
               "line": 16
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/setup/cursor.md",
               "line": 10
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/setup/cursor.md",
               "line": 15
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/setup/cursor.md",
               "line": 22
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/setup/github_copilot.md",
               "line": 15
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/setup/github_copilot.md",
               "line": 20
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/setup/github_copilot.md",
               "line": 27
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/setup/other_agents.md",
               "line": 15
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/setup/other_agents.md",
               "line": 22
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/setup/other_agents.md",
               "line": 29
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/refresh/android_studio.md",
               "line": 12
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/refresh/android_studio.md",
               "line": 26
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/refresh/android_studio.md",
               "line": 36
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/refresh/antigravity.md",
               "line": 13
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/refresh/antigravity.md",
               "line": 21
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/refresh/antigravity.md",
               "line": 24
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/refresh/antigravity.md",
               "line": 38
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/refresh/antigravity.md",
               "line": 45
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/refresh/antigravity.md",
               "line": 52
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/refresh/antigravity.md",
               "line": 60
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/refresh/antigravity.md",
               "line": 63
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/refresh/other-agents.md",
               "line": 16
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/refresh/other-agents.md",
               "line": 24
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/refresh/other-agents.md",
               "line": 27
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/refresh/other-agents.md",
               "line": 41
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/refresh/other-agents.md",
               "line": 48
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/refresh/other-agents.md",
               "line": 55
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/refresh/other-agents.md",
               "line": 63
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/refresh/other-agents.md",
               "line": 66
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-basics/references/setup/android_studio.md",
               "line": 13
             },
@@ -1028,6 +1302,16 @@
               "message": "File System Enumeration",
               "file": "skills/firebase-basics/references/refresh/android_studio.md",
               "line": 19
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/firebase-basics/SKILL.md",
+              "line": 142,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -1043,21 +1327,21 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-crashlytics/SKILL.md",
               "line": 4
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-crashlytics/references/ios_setup.md",
               "line": 17
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-crashlytics/references/ios_setup.md",
               "line": 19
             },
@@ -1082,13 +1366,14 @@
               "file": "skills/firebase-crashlytics/references/ios_setup.md",
               "line": 56
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/firebase-data-connect-basics",
-          "score": 51,
-          "risk": 49,
-          "status": "caution",
+          "score": 88,
+          "risk": 12,
+          "status": "incomplete",
           "partial": true,
           "coverage": 88.2,
           "exceptions": [
@@ -1140,277 +1425,283 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/firebase-data-connect-basics/SKILL.md",
-              "line": 155
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/SKILL.md",
               "line": 41
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/SKILL.md",
               "line": 127
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/SKILL.md",
               "line": 171
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/SKILL.md",
               "line": 177
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/SKILL.md",
               "line": 181
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/SKILL.md",
               "line": 182
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/SKILL.md",
               "line": 187
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/reference/config.md",
               "line": 108
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/reference/config.md",
               "line": 111
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/reference/config.md",
               "line": 118
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/reference/config.md",
               "line": 121
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/reference/config.md",
               "line": 124
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/reference/config.md",
               "line": 127
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/reference/config.md",
               "line": 134
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/reference/config.md",
               "line": 138
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/reference/config.md",
               "line": 145
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/reference/config.md",
               "line": 148
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/reference/config.md",
               "line": 151
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/reference/config.md",
               "line": 161
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/reference/config.md",
               "line": 203
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/reference/config.md",
               "line": 206
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/reference/config.md",
               "line": 216
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/reference/config.md",
               "line": 218
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/reference/config.md",
               "line": 226
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/reference/config.md",
               "line": 229
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/reference/config.md",
               "line": 232
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/reference/config.md",
               "line": 251
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/reference/sdk_admin_node.md",
               "line": 45
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/templates.md",
               "line": 217
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/templates.md",
               "line": 220
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/templates.md",
               "line": 221
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/templates.md",
               "line": 224
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/templates.md",
               "line": 227
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-data-connect-basics/templates.md",
               "line": 230
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/firebase-data-connect-basics/SKILL.md",
+              "line": 49,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/firebase-data-connect-basics/SKILL.md",
-              "line": 49
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/firebase-data-connect-basics/SKILL.md",
-              "line": 49
+              "line": 49,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/firebase-data-connect-basics/reference/schema.md",
-              "line": 78
+              "line": 78,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/firebase-data-connect-basics/SKILL.md",
+              "line": 155,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
         {
           "path": "skills/firebase-firestore",
-          "score": 50,
-          "risk": 50,
+          "score": 75,
+          "risk": 25,
           "status": "caution",
           "partial": true,
           "coverage": 86.7,
@@ -1433,17 +1724,27 @@
             {
               "reason": "reference_missing",
               "path": "skills/firebase-firestore/SKILL.md",
-              "line": 17
+              "line": 15
             },
             {
               "reason": "reference_missing",
               "path": "skills/firebase-firestore/SKILL.md",
-              "line": 18
+              "line": 16
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/firebase-firestore/SKILL.md",
+              "line": 21
             },
             {
               "reason": "reference_missing",
               "path": "skills/firebase-firestore/SKILL.md",
               "line": 22
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/firebase-firestore/SKILL.md",
+              "line": 26
             },
             {
               "reason": "static_parse_limit",
@@ -1453,128 +1754,128 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/firebase-firestore/SKILL.md",
-              "line": 80
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-firestore/SKILL.md",
               "line": 5
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-firestore/SKILL.md",
-              "line": 32
+              "line": 17
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-firestore/SKILL.md",
-              "line": 40
+              "line": 36
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-firestore/SKILL.md",
-              "line": 57
+              "line": 44
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-firestore/SKILL.md",
-              "line": 63
+              "line": 61
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
+              "file": "skills/firebase-firestore/SKILL.md",
+              "line": 67
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-firestore/references/enterprise/indexes.md",
               "line": 133
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-firestore/references/enterprise/provisioning.md",
               "line": 6
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-firestore/references/enterprise/provisioning.md",
               "line": 19
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-firestore/references/standard/indexes.md",
               "line": 111
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-firestore/references/standard/provisioning.md",
               "line": 6
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-firestore/references/standard/provisioning.md",
               "line": 30
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-firestore/references/standard/provisioning.md",
               "line": 36
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-firestore/references/standard/provisioning.md",
               "line": 92
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-firestore/references/standard/provisioning.md",
               "line": 95
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-firestore/references/standard/provisioning.md",
               "line": 98
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-firestore/references/standard/provisioning.md",
               "line": 106
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-firestore/references/standard/web_sdk_usage.md",
               "line": 16
             },
@@ -1627,6 +1928,16 @@
               "file": "skills/firebase-firestore/references/standard/ios_setup.md",
               "line": 169
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/firebase-firestore/SKILL.md",
+              "line": 84,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
@@ -1647,46 +1958,47 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-hosting-basics/SKILL.md",
               "line": 65
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-hosting-basics/references/deploying.md",
               "line": 8
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-hosting-basics/references/deploying.md",
               "line": 21
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-hosting-basics/references/deploying.md",
               "line": 32
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-hosting-basics/references/deploying.md",
               "line": 41
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-hosting-basics/references/deploying.md",
               "line": 47
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/firebase-remote-config-basics",
@@ -1711,63 +2023,63 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-remote-config-basics/SKILL.md",
               "line": 5
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-remote-config-basics/SKILL.md",
               "line": 29
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-remote-config-basics/SKILL.md",
               "line": 40
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-remote-config-basics/SKILL.md",
               "line": 79
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-remote-config-basics/SKILL.md",
               "line": 106
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-remote-config-basics/SKILL.md",
               "line": 113
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-remote-config-basics/references/ios_setup.md",
               "line": 17
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-remote-config-basics/references/ios_setup.md",
               "line": 19
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/firebase-remote-config-basics/SKILL.md",
               "line": 31
             },
@@ -1827,7 +2139,8 @@
               "file": "skills/firebase-remote-config-basics/references/ios_setup.md",
               "line": 65
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/firebase-security-rules-auditor",
@@ -1837,7 +2150,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/firestore-rules-creation",
@@ -1878,7 +2192,8 @@
               "line": 574
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/xcode-project-setup",
@@ -2133,12 +2448,13 @@
               "file": "skills/xcode-project-setup/scripts/xcode_spm_setup/Sources/main.swift",
               "line": 125
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 8,
+  "score": 21,
   "status": "do not install",
   "tool": {
     "name": "skillspector",
@@ -2146,7 +2462,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-27T19:19:57Z"
+      "checkedAt": "2026-11-04T23:20:33Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

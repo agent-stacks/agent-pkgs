@@ -7,12 +7,15 @@
   "plugins": [
     {
       "name": "caveman",
-      "dir": "/nix/store/0kcfc9nwsd25vacxcphwnhdz166x02b6-agent-plugin-caveman-4.0.1/share/agent-plugins/caveman",
+      "dir": "/nix/store/5047dwnsbn1kax3wacc0qnpv8rqdfq3f-agent-plugin-caveman-4.0.1/share/agent-plugins/caveman",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/commands",
+          "com.anthropic.claude-code/hooks",
           "skills/cavecrew",
           "skills/caveman",
           "skills/caveman-commit",
@@ -34,7 +37,8 @@
           "skills/safe-refactor",
           "skills/surgical-patch",
           "skills/ultracave",
-          "skills/verify-and-stop"
+          "skills/verify-and-stop",
+          "src"
         ],
         "validated": [
           "plugin.json"
@@ -43,18 +47,155 @@
           {
             "path": "bin/",
             "reason": "interpreter links into /nix/store"
-          },
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          },
-          {
-            "path": "src/",
-            "reason": "outside the spec"
           }
         ]
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 15,
+          "risk": 85,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 75,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/agents/check-profile-scope.mjs",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "com.anthropic.claude-code/agents/compile.mjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/agents/compile.mjs",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "com.anthropic.claude-code/agents/delegate/caveman-delegate-mcp.mjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/agents/delegate/caveman-delegate-mcp.mjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/agents/delegate/portable-process.mjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/agents/drift-report.mjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/agents/probe-installed.mjs",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "com.anthropic.claude-code/agents/agents.json",
+              "line": 156
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "com.anthropic.claude-code/agents/profiles/hermes.json",
+              "line": 9
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "com.anthropic.claude-code/agents/delegate/caveman-delegate-mcp.mjs",
+              "line": 9
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "com.anthropic.claude-code/agents/profiles/schema.json",
+              "line": 133
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "com.anthropic.claude-code/agents/profiles/schema.json",
+              "line": 185
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "com.anthropic.claude-code/agents/profiles/schema.json",
+              "line": 146
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/agents/profiles/schema.json",
+              "line": 140
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 99,
+          "risk": 1,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "SC2",
+              "severity": "LOW",
+              "message": "External Script Fetching",
+              "file": "com.anthropic.claude-code/commands/caveman-init.md",
+              "line": 11
+            },
+            {
+              "id": "SC2",
+              "severity": "LOW",
+              "message": "External Script Fetching",
+              "file": "com.anthropic.claude-code/commands/caveman-init.toml",
+              "line": 2
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 50,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/hooks.json",
+              "line": 0
+            }
+          ],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/cavecrew",
           "score": 100,
@@ -63,7 +204,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/caveman",
@@ -73,7 +215,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/caveman-commit",
@@ -91,7 +234,8 @@
               "file": "skills/caveman-commit/SKILL.md",
               "line": 1
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/caveman-compress",
@@ -119,13 +263,6 @@
               "message": "Tainted flow: 'request' from os.environ.get (line 703, credential/environment) → urllib.request.urlopen (network output)",
               "file": "skills/caveman-compress/scripts/compress.py",
               "line": 714
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/caveman-compress/SKILL.md",
-              "line": 13
             },
             {
               "id": "PE3",
@@ -184,13 +321,6 @@
               "line": 93
             },
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/caveman-compress/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "AST4",
               "severity": "MEDIUM",
               "message": "subprocess module call",
@@ -203,6 +333,24 @@
               "message": "Indirect Prompt Extraction",
               "file": "skills/caveman-compress/scripts/compress.py",
               "line": 688
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/caveman-compress/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/caveman-compress/SKILL.md",
+              "line": 13,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -245,7 +393,8 @@
               "line": 104
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/caveman-evidence-review",
@@ -255,7 +404,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/caveman-explore",
@@ -289,7 +439,8 @@
               "file": "skills/caveman-explore/SKILL.md",
               "line": 5
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/caveman-help",
@@ -307,7 +458,8 @@
               "file": "skills/caveman-help/SKILL.md",
               "line": 21
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/caveman-learn",
@@ -345,7 +497,8 @@
               "file": "skills/caveman-learn/README.md",
               "line": 10
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/caveman-manage",
@@ -355,7 +508,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/caveman-optimize",
@@ -365,7 +519,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/caveman-review",
@@ -375,7 +530,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/caveman-setup",
@@ -424,7 +580,8 @@
               "file": "skills/caveman-setup/SKILL.md",
               "line": 153
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/caveman-stats",
@@ -445,7 +602,8 @@
               "line": 17
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/investigate-first",
@@ -455,7 +613,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/lean-build",
@@ -465,7 +624,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/megacave",
@@ -475,7 +635,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/migration",
@@ -485,7 +646,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/safe-refactor",
@@ -495,7 +657,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/surgical-patch",
@@ -505,7 +668,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/ultracave",
@@ -515,7 +679,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/verify-and-stop",
@@ -525,7 +690,313 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "src",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 79.5,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "src/hooks/caveman-activate.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "src/hooks/caveman-config.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "src/hooks/caveman-mode-tracker.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "src/hooks/caveman-stats.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "src/mcp-servers/caveman-shrink/index.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "src/mcp-servers/caveman-shrink/spawn-options.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "src/plugins/opencode/plugin.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "src/tools/caveman-init.js",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "src/hooks/README.md",
+              "line": 96
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "src/hooks/caveman-statusline.sh",
+              "line": 5
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "src/hooks/install.sh",
+              "line": 30
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "src/hooks/caveman-activate.js",
+              "line": 387
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "src/hooks/caveman-host-session-start.js",
+              "line": 50
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "src/plugins/opencode/plugin.js",
+              "line": 193
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "src/hooks/caveman-config.js",
+              "line": 402
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "src/hooks/caveman-mode-tracker.js",
+              "line": 342
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "src/hooks/caveman-statusline.sh",
+              "line": 48
+            },
+            {
+              "id": "P3",
+              "severity": "HIGH",
+              "message": "Exfiltration Commands",
+              "file": "src/hooks/install.sh",
+              "line": 234
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "src/hooks/uninstall.sh",
+              "line": 171
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "src/hooks/uninstall.sh",
+              "line": 197
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "src/hooks/uninstall.sh",
+              "line": 204
+            },
+            {
+              "id": "AE3",
+              "severity": "HIGH",
+              "message": "analysis-evasion",
+              "file": "src/mcp-servers/caveman-shrink/compress.js",
+              "line": 124
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "src/tools/caveman-init.js",
+              "line": 133
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "src/tools/caveman-init.js",
+              "line": 311
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "src/tools/caveman-init.js",
+              "line": 311
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "src/hooks/README.md",
+              "line": 5
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "src/hooks/README.md",
+              "line": 199
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "src/hooks/uninstall.ps1",
+              "line": 87
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "src/hooks/uninstall.sh",
+              "line": 81
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "src/tools/caveman-init.js",
+              "line": 219
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "src/hooks/README.md",
+              "line": 44
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "src/hooks/caveman-config.js",
+              "line": 344
+            },
+            {
+              "id": "OH3",
+              "severity": "MEDIUM",
+              "message": "Unbounded Output",
+              "file": "src/hooks/caveman-config.js",
+              "line": 595
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "src/hooks/caveman-host-session-start.js",
+              "line": 40
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "src/hooks/uninstall.ps1",
+              "line": 286
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "src/hooks/uninstall.sh",
+              "line": 214
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "src/hooks/uninstall.sh",
+              "line": 5
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "src/mcp-servers/caveman-shrink/README.md",
+              "line": 13
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "src/plugins/opencode/README.md",
+              "line": 16
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "src/plugins/opencode/plugin.js",
+              "line": 9
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "src/rules/caveman-openclaw-bootstrap.md",
+              "line": 8
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "src/tools/caveman-init.js",
+              "line": 17
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "src/tools/caveman-init.js",
+              "line": 279
+            },
+            {
+              "id": "SC2",
+              "severity": "LOW",
+              "message": "External Script Fetching",
+              "file": "src/tools/caveman-init.js",
+              "line": 7
+            }
+          ],
+          "suppressed": []
         }
       ]
     }
@@ -538,7 +1009,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-25T05:35:33Z"
+      "checkedAt": "2026-11-04T23:15:25Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

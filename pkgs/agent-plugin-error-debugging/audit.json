@@ -1,13 +1,84 @@
 {
   "target": "./result",
-  "audited": false,
-  "score": null,
-  "status": "could not audit",
-  "reason": "nothing to audit",
-  "hints": [],
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "error-debugging",
+      "dir": "/nix/store/1a4h8xf98k0ir2x4dqb9rbn8ib48h2vv-agent-plugin-error-debugging-1.2.2/share/agent-plugins/error-debugging",
+      "spec": "1.1.0",
+      "score": 95,
+      "status": "incomplete",
+      "coverage": {
+        "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/commands"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": []
+      },
+      "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 95,
+          "risk": 5,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 66.7,
+          "exceptions": [
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "com.anthropic.claude-code/commands/error-trace.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/commands/error-trace.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "com.anthropic.claude-code/commands/error-analysis.md",
+              "line": 749
+            }
+          ],
+          "suppressed": []
+        }
+      ]
+    }
+  ],
+  "score": 95,
+  "status": "incomplete",
   "tool": {
     "name": "skillspector",
-    "version": "2.12.0"
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-11-04T23:20:20Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
+    }
   },
   "agentStacks": {
     "version": "0.9.0"

@@ -7,10 +7,10 @@
   "plugins": [
     {
       "name": "squirrelscan",
-      "dir": "/nix/store/79wlrdbkx7yaabxzm1jd860xlalw998p-agent-plugin-squirrelscan-1.22.0/share/agent-plugins/squirrelscan",
+      "dir": "/nix/store/kh5y7pzzr001gnbm9wpd9zgzidlgm4j4-agent-plugin-squirrelscan-1.23.0/share/agent-plugins/squirrelscan",
       "spec": "1.1.0",
-      "score": 31,
-      "status": "do not install",
+      "score": 69,
+      "status": "caution",
       "coverage": {
         "scanned": [
           "skills/audit-website",
@@ -44,15 +44,21 @@
               "reason": "reference_missing",
               "path": "skills/audit-website/SKILL.md",
               "line": 33
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/audit-website/SKILL.md",
+              "line": 66
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/squirrelscan",
-          "score": 31,
-          "risk": 69,
-          "status": "do not install",
+          "score": 69,
+          "risk": 31,
+          "status": "caution",
           "partial": true,
           "coverage": 75,
           "exceptions": [
@@ -109,17 +115,42 @@
             {
               "reason": "reference_missing",
               "path": "skills/squirrelscan/SKILL.md",
-              "line": 437
+              "line": 431
             },
             {
               "reason": "reference_missing",
               "path": "skills/squirrelscan/SKILL.md",
-              "line": 468
+              "line": 433
             },
             {
               "reason": "reference_missing",
               "path": "skills/squirrelscan/SKILL.md",
-              "line": 471
+              "line": 464
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/squirrelscan/SKILL.md",
+              "line": 467
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/squirrelscan/SKILL.md",
+              "line": 470
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/squirrelscan/SKILL.md",
+              "line": 493
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/squirrelscan/SKILL.md",
+              "line": 524
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/squirrelscan/SKILL.md",
+              "line": 527
             },
             {
               "reason": "static_parse_limit",
@@ -128,20 +159,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/squirrelscan/SKILL.md",
-              "line": 257
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/squirrelscan/SKILL.md",
-              "line": 346
-            },
             {
               "id": "OH1",
               "severity": "HIGH",
@@ -159,24 +176,45 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/squirrelscan/SKILL.md",
-              "line": 446
+              "line": 502
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/squirrelscan/SKILL.md",
+              "line": 257,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/squirrelscan/SKILL.md",
+              "line": 346,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         }
       ]
     }
   ],
-  "score": 31,
-  "status": "do not install",
+  "score": 69,
+  "status": "caution",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-30T19:30:17Z"
+      "checkedAt": "2026-11-04T23:53:58Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

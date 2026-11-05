@@ -7,10 +7,10 @@
   "plugins": [
     {
       "name": "swift-concurrency",
-      "dir": "/nix/store/vg02fgy4f2b0cw249nm6y4k57fgkh8yi-agent-plugin-swift-concurrency-2.3.0/share/agent-plugins/swift-concurrency",
+      "dir": "/nix/store/97ys8rfk8c8jfdqwadbxgz8rizmrwibc-agent-plugin-swift-concurrency-2.3.0/share/agent-plugins/swift-concurrency",
       "spec": "1.1.0",
-      "score": 17,
-      "status": "do not install",
+      "score": 61,
+      "status": "caution",
       "coverage": {
         "scanned": [
           "skills/swift-concurrency"
@@ -23,9 +23,9 @@
       "components": [
         {
           "path": "skills/swift-concurrency",
-          "score": 17,
-          "risk": 83,
-          "status": "do not install",
+          "score": 61,
+          "risk": 39,
+          "status": "caution",
           "partial": true,
           "coverage": 88.9,
           "exceptions": [
@@ -77,27 +77,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/swift-concurrency/SKILL.md",
-              "line": 60
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/swift-concurrency/SKILL.md",
-              "line": 186
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/swift-concurrency/SKILL.md",
-              "line": 187
-            },
-            {
               "id": "AR2",
               "severity": "HIGH",
               "message": "Anti-Refusal Statement",
@@ -132,20 +111,49 @@
               "file": "skills/swift-concurrency/references/sendable.md",
               "line": 297
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/swift-concurrency/SKILL.md",
+              "line": 60,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/swift-concurrency/SKILL.md",
+              "line": 186,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/swift-concurrency/SKILL.md",
+              "line": 187,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         }
       ]
     }
   ],
-  "score": 17,
-  "status": "do not install",
+  "score": 61,
+  "status": "caution",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:40:45Z"
+      "checkedAt": "2026-11-04T23:54:12Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

@@ -1,13 +1,79 @@
 {
   "target": "./result",
-  "audited": false,
-  "score": null,
-  "status": "could not audit",
-  "reason": "nothing to audit",
-  "hints": [],
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "api-testing-observability",
+      "dir": "/nix/store/fdnabh8i6mjkcwba1pjz7xs7021zpfzi-agent-plugin-api-testing-observability-1.2.2/share/agent-plugins/api-testing-observability",
+      "spec": "1.1.0",
+      "score": 93,
+      "status": "incomplete",
+      "coverage": {
+        "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/commands"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": []
+      },
+      "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 93,
+          "risk": 7,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 0,
+          "exceptions": [
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "com.anthropic.claude-code/commands/api-mock.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "SSRF2",
+              "severity": "MEDIUM",
+              "message": "Internal Network Request",
+              "file": "com.anthropic.claude-code/commands/api-mock.md",
+              "line": 1061
+            }
+          ],
+          "suppressed": []
+        }
+      ]
+    }
+  ],
+  "score": 93,
+  "status": "incomplete",
   "tool": {
     "name": "skillspector",
-    "version": "2.12.0"
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-11-04T23:06:09Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
+    }
   },
   "agentStacks": {
     "version": "0.9.0"

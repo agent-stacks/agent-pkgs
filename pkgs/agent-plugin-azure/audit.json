@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "azure",
-      "dir": "/nix/store/mrz7g6gygsdv3n8miyk9hlvmnms3vr0l-agent-plugin-azure-1.2.113/share/agent-plugins/azure",
+      "dir": "/nix/store/hqgydpi5bbz0qh2cwhk18h96fdbqk32q-agent-plugin-azure-1.2.113/share/agent-plugins/azure",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/hooks",
           "skills/airunway-aks-setup",
           "skills/appinsights-instrumentation",
           "skills/azure-ai",
@@ -51,10 +52,6 @@
             "reason": "interpreter links into /nix/store"
           },
           {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          },
-          {
             "path": "mcp.json",
             "reason": "SkillSpector does not analyse this layout as an MCP manifest"
           }
@@ -62,10 +59,52 @@
       },
       "components": [
         {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 85,
+          "risk": 15,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 78.6,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/scripts/install-telemetry.ps1",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/scripts/install-telemetry.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/scripts/track-telemetry.ps1",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "com.anthropic.claude-code/hooks/scripts/install-telemetry.ps1",
+              "line": 253
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "com.anthropic.claude-code/hooks/scripts/install-telemetry.sh",
+              "line": 420
+            }
+          ],
+          "suppressed": []
+        },
+        {
           "path": "skills/airunway-aks-setup",
-          "score": 34,
-          "risk": 66,
-          "status": "do not install",
+          "score": 59,
+          "risk": 41,
+          "status": "caution",
           "partial": true,
           "coverage": 83.3,
           "exceptions": [
@@ -86,13 +125,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/airunway-aks-setup/SKILL.md",
-              "line": 67
-            },
             {
               "id": "PE3",
               "severity": "HIGH",
@@ -149,6 +181,16 @@
               "file": "skills/airunway-aks-setup/references/steps/step-6-summary.md",
               "line": 24
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/airunway-aks-setup/SKILL.md",
+              "line": 67,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
@@ -173,7 +215,8 @@
               "file": "skills/appinsights-instrumentation/SKILL.md",
               "line": 44
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/azure-ai",
@@ -202,7 +245,8 @@
               "file": "skills/azure-ai/references/speech/logging-apis.md",
               "line": 71
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/azure-aigateway",
@@ -275,7 +319,8 @@
               "file": "skills/azure-aigateway/references/troubleshooting.md",
               "line": 257
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/azure-app-onboard",
@@ -388,41 +433,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/azure-app-onboard/SKILL.md",
-              "line": 55
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/azure-app-onboard/SKILL.md",
-              "line": 69
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/azure-app-onboard/SKILL.md",
-              "line": 57
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/azure-app-onboard/SKILL.md",
-              "line": 66
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/azure-app-onboard/SKILL.md",
-              "line": 68
-            },
-            {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
@@ -481,14 +491,14 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/azure-app-onboard/deploy/references/database-post-deploy.md",
               "line": 21
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/azure-app-onboard/deploy/references/database-post-deploy.md",
               "line": 24
             },
@@ -541,12 +551,54 @@
               "file": "skills/azure-app-onboard/references/pipeline-rules.md",
               "line": 63
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/azure-app-onboard/SKILL.md",
+              "line": 55,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/azure-app-onboard/SKILL.md",
+              "line": 57,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/azure-app-onboard/SKILL.md",
+              "line": 66,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/azure-app-onboard/SKILL.md",
+              "line": 68,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/azure-app-onboard/SKILL.md",
+              "line": 69,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
           "path": "skills/azure-app-onboard-prereq",
-          "score": 3,
-          "risk": 97,
+          "score": 35,
+          "risk": 65,
           "status": "do not install",
           "partial": true,
           "coverage": 93.8,
@@ -619,13 +671,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/azure-app-onboard-prereq/SKILL.md",
-              "line": 69
-            },
-            {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
@@ -640,44 +685,37 @@
               "line": 23
             },
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/azure-app-onboard-prereq/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/azure-app-onboard-prereq/SKILL.md",
               "line": 29
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/azure-app-onboard-prereq/SKILL.md",
               "line": 30
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/azure-app-onboard-prereq/references/dependency-compatibility.md",
               "line": 124
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/azure-app-onboard-prereq/references/dependency-compatibility.md",
               "line": 125
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/azure-app-onboard-prereq/references/dependency-compatibility.md",
               "line": 126
             },
@@ -688,12 +726,30 @@
               "file": "skills/azure-app-onboard-prereq/references/prereq-schemas.ts",
               "line": 59
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/azure-app-onboard-prereq/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/azure-app-onboard-prereq/SKILL.md",
+              "line": 69,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
           "path": "skills/azure-cloud-migrate",
-          "score": 0,
-          "risk": 100,
+          "score": 16,
+          "risk": 84,
           "status": "do not install",
           "partial": true,
           "coverage": 71,
@@ -756,20 +812,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/azure-cloud-migrate/SKILL.md",
-              "line": 31
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/azure-cloud-migrate/SKILL.md",
-              "line": 33
-            },
-            {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
@@ -807,28 +849,28 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/azure-cloud-migrate/references/services/container-apps/cloudrun-deployment-guide.md",
               "line": 20
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/azure-cloud-migrate/references/services/container-apps/cloudrun-deployment-guide.md",
               "line": 36
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/azure-cloud-migrate/references/services/container-apps/fargate-deployment-guide.md",
               "line": 14
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/azure-cloud-migrate/references/services/container-apps/fargate-deployment-guide.md",
               "line": 24
             },
@@ -845,6 +887,24 @@
               "message": "Behavior Manipulation",
               "file": "skills/azure-cloud-migrate/references/services/functions/global-rules.md",
               "line": 27
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/azure-cloud-migrate/SKILL.md",
+              "line": 31,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/azure-cloud-migrate/SKILL.md",
+              "line": 33,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -867,12 +927,13 @@
               "line": 0
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-compute",
-          "score": 0,
-          "risk": 100,
+          "score": 18,
+          "risk": 82,
           "status": "do not install",
           "partial": true,
           "coverage": 92.7,
@@ -899,13 +960,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/azure-compute/SKILL.md",
-              "line": 30
-            },
             {
               "id": "TM1",
               "severity": "HIGH",
@@ -1061,88 +1115,109 @@
               "line": 51
             },
             {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/azure-compute/workflows/capacity-reservation/capacity-reservation.md",
-              "line": 30
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/azure-compute/workflows/capacity-reservation/capacity-reservation.md",
-              "line": 43
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/azure-compute/workflows/capacity-reservation/capacity-reservation.md",
-              "line": 45
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/azure-compute/workflows/capacity-reservation/capacity-reservation.md",
-              "line": 46
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/azure-compute/workflows/capacity-reservation/capacity-reservation.md",
-              "line": 47
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/azure-compute/workflows/capacity-reservation/capacity-reservation.md",
-              "line": 49
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/azure-compute/workflows/capacity-reservation/capacity-reservation.md",
-              "line": 107
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/azure-compute/workflows/capacity-reservation/capacity-reservation.md",
-              "line": 110
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/azure-compute/workflows/capacity-reservation/capacity-reservation.md",
-              "line": 111
-            },
-            {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/azure-compute/workflows/capacity-reservation/references/association-disassociation.md",
               "line": 92
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/azure-compute/workflows/capacity-reservation/capacity-reservation.md",
+              "line": 30,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/azure-compute/workflows/capacity-reservation/capacity-reservation.md",
+              "line": 43,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/azure-compute/workflows/capacity-reservation/capacity-reservation.md",
+              "line": 45,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/azure-compute/workflows/capacity-reservation/capacity-reservation.md",
+              "line": 46,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/azure-compute/workflows/capacity-reservation/capacity-reservation.md",
+              "line": 47,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/azure-compute/workflows/capacity-reservation/capacity-reservation.md",
+              "line": 49,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/azure-compute/workflows/capacity-reservation/capacity-reservation.md",
+              "line": 107,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/azure-compute/workflows/capacity-reservation/capacity-reservation.md",
+              "line": 110,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/azure-compute/workflows/capacity-reservation/capacity-reservation.md",
+              "line": 111,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/azure-compute/workflows/capacity-reservation/references/capacity-reservation-overview.md",
-              "line": 11
+              "line": 11,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/azure-compute/workflows/capacity-reservation/references/capacity-reservation-overview.md",
-              "line": 25
+              "line": 25,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/azure-compute/SKILL.md",
+              "line": 30,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -1360,41 +1435,6 @@
               "line": 19
             },
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/azure-deploy/SKILL.md",
-              "line": 51
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/azure-deploy/SKILL.md",
-              "line": 62
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/azure-deploy/SKILL.md",
-              "line": 64
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/azure-deploy/SKILL.md",
-              "line": 68
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/azure-deploy/SKILL.md",
-              "line": 70
-            },
-            {
               "id": "RA1",
               "severity": "HIGH",
               "message": "Self-Modification",
@@ -1478,12 +1518,54 @@
               "file": "skills/azure-deploy/references/recipes/terraform/errors.md",
               "line": 15
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/azure-deploy/SKILL.md",
+              "line": 51,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/azure-deploy/SKILL.md",
+              "line": 62,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/azure-deploy/SKILL.md",
+              "line": 64,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/azure-deploy/SKILL.md",
+              "line": 68,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/azure-deploy/SKILL.md",
+              "line": 70,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
           "path": "skills/azure-diagnostics",
-          "score": 14,
-          "risk": 86,
+          "score": 33,
+          "risk": 67,
           "status": "do not install",
           "partial": true,
           "coverage": 94.4,
@@ -1532,13 +1614,6 @@
               "line": 16
             },
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/azure-diagnostics/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
@@ -1546,53 +1621,69 @@
               "line": 180
             },
             {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/azure-diagnostics/troubleshooting/aks/networking.md",
-              "line": 66
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/azure-diagnostics/troubleshooting/aks/networking.md",
-              "line": 69
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/azure-diagnostics/troubleshooting/aks/networking.md",
-              "line": 70
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/azure-diagnostics/troubleshooting/aks/networking.md",
-              "line": 71
-            },
-            {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/azure-diagnostics/troubleshooting/compute/references/credential-auth-errors.md",
               "line": 16
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/azure-diagnostics/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/azure-diagnostics/troubleshooting/aks/networking.md",
+              "line": 66,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/azure-diagnostics/troubleshooting/aks/networking.md",
+              "line": 69,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/azure-diagnostics/troubleshooting/aks/networking.md",
+              "line": 70,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/azure-diagnostics/troubleshooting/aks/networking.md",
+              "line": 71,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/azure-diagnostics/troubleshooting/compute/references/rdp-service-config.md",
-              "line": 7
+              "line": 7,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/azure-diagnostics/troubleshooting/compute/references/vm-agent-not-responding.md",
-              "line": 9
+              "line": 9,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             }
           ]
         },
@@ -1743,7 +1834,8 @@
               "file": "skills/azure-enterprise-infra-planner/references/workflow.md",
               "line": 51
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/azure-kubernetes",
@@ -2008,7 +2100,7 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/azure-kubernetes/azure-kubernetes-app-deploy/knowledge-packs/frameworks/nestjs.md",
               "line": 172
             },
@@ -2061,7 +2153,8 @@
               "file": "skills/azure-kubernetes/azure-kubernetes-app-deploy/templates/dockerfiles/rust.Dockerfile",
               "line": 30
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/azure-kusto",
@@ -2082,7 +2175,8 @@
               "line": 205
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-messaging",
@@ -2098,7 +2192,8 @@
               "line": 7
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-prepare",
@@ -2571,51 +2666,37 @@
               "line": 118
             },
             {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/azure-prepare/references/architecture.md",
-              "line": 93
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/azure-prepare/references/architecture.md",
-              "line": 96
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/azure-prepare/references/services/app-service/templates/recipes/sql/source/nodejs.md",
               "line": 10
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/azure-prepare/references/services/app-service/templates/recipes/sql/source/nodejs.md",
               "line": 106
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/azure-prepare/references/services/app-service/templates/recipes/sql/source/nodejs.md",
               "line": 122
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/azure-prepare/references/services/durable-task-scheduler/README.md",
               "line": 29
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/azure-prepare/references/services/durable-task-scheduler/README.md",
               "line": 30
             },
@@ -2703,6 +2784,24 @@
               "file": "skills/azure-prepare/references/services/service-bus/patterns.md",
               "line": 99
             }
+          ],
+          "suppressed": [
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/azure-prepare/references/architecture.md",
+              "line": 93,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/azure-prepare/references/architecture.md",
+              "line": 96,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            }
           ]
         },
         {
@@ -2749,13 +2848,14 @@
               "file": "skills/azure-quotas/SKILL.md",
               "line": 202
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/azure-reliability",
-          "score": 67,
-          "risk": 33,
-          "status": "caution",
+          "score": 92,
+          "risk": 8,
+          "status": "incomplete",
           "partial": true,
           "coverage": 92.3,
           "exceptions": [
@@ -2782,18 +2882,21 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/azure-reliability/SKILL.md",
-              "line": 80
-            },
-            {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/azure-reliability/SKILL.md",
               "line": 286
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/azure-reliability/SKILL.md",
+              "line": 80,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -2819,7 +2922,8 @@
               "file": "skills/azure-resource-lookup/SKILL.md",
               "line": 85
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/azure-resource-visualizer",
@@ -2850,7 +2954,8 @@
               "file": "skills/azure-resource-visualizer/SKILL.md",
               "line": 139
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/azure-storage",
@@ -2881,12 +2986,13 @@
               "file": "skills/azure-storage/references/sdk-usage.md",
               "line": 39
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/azure-upgrade",
-          "score": 0,
-          "risk": 100,
+          "score": 8,
+          "risk": 92,
           "status": "do not install",
           "partial": true,
           "coverage": 86,
@@ -2949,20 +3055,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/azure-upgrade/SKILL.md",
-              "line": 96
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/azure-upgrade/SKILL.md",
-              "line": 97
-            },
-            {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
@@ -3012,13 +3104,6 @@
               "line": 117
             },
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/azure-upgrade/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "P4",
               "severity": "MEDIUM",
               "message": "Behavior Manipulation",
@@ -3060,12 +3145,38 @@
               "file": "skills/azure-upgrade/references/services/functions/consumption-to-flex/windows/workflow.md",
               "line": 244
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/azure-upgrade/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/azure-upgrade/SKILL.md",
+              "line": 96,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/azure-upgrade/SKILL.md",
+              "line": 97,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
           "path": "skills/azure-validate",
-          "score": 11,
-          "risk": 89,
+          "score": 49,
+          "risk": 51,
           "status": "do not install",
           "partial": true,
           "coverage": 85.2,
@@ -3241,25 +3352,29 @@
               "line": 131
             },
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/azure-validate/SKILL.md",
-              "line": 41
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/azure-validate/SKILL.md",
-              "line": 47
-            },
-            {
               "id": "RA1",
               "severity": "HIGH",
               "message": "Self-Modification",
               "file": "skills/azure-validate/references/global-rules.md",
               "line": 14
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/azure-validate/SKILL.md",
+              "line": 41,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/azure-validate/SKILL.md",
+              "line": 47,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -3297,13 +3412,14 @@
               "file": "skills/discover-azure-skills/SKILL.md",
               "line": 20
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/entra-agent-id",
-          "score": 44,
-          "risk": 56,
-          "status": "do not install",
+          "score": 88,
+          "risk": 12,
+          "status": "incomplete",
           "partial": true,
           "coverage": 71.4,
           "exceptions": [
@@ -3410,27 +3526,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/entra-agent-id/SKILL.md",
-              "line": 211
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/entra-agent-id/SKILL.md",
-              "line": 343
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/entra-agent-id/SKILL.md",
-              "line": 346
-            },
-            {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
@@ -3486,12 +3581,38 @@
               "file": "skills/entra-agent-id/references/oauth2-token-flow.md",
               "line": 111
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/entra-agent-id/SKILL.md",
+              "line": 211,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/entra-agent-id/SKILL.md",
+              "line": 343,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/entra-agent-id/SKILL.md",
+              "line": 346,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
           "path": "skills/entra-app-registration",
-          "score": 0,
-          "risk": 100,
+          "score": 19,
+          "risk": 81,
           "status": "do not install",
           "partial": true,
           "coverage": 94.1,
@@ -3538,34 +3659,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/entra-app-registration/SKILL.md",
-              "line": 93
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/entra-app-registration/SKILL.md",
-              "line": 118
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/entra-app-registration/SKILL.md",
-              "line": 155
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/entra-app-registration/SKILL.md",
-              "line": 181
-            },
             {
               "id": "PE3",
               "severity": "HIGH",
@@ -3810,6 +3903,40 @@
               "message": "Excessive Permissions",
               "file": "skills/entra-app-registration/references/api-permissions.md",
               "line": 275
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/entra-app-registration/SKILL.md",
+              "line": 93,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/entra-app-registration/SKILL.md",
+              "line": 118,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/entra-app-registration/SKILL.md",
+              "line": 155,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/entra-app-registration/SKILL.md",
+              "line": 181,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -4092,11 +4219,6 @@
               "line": 0
             },
             {
-              "reason": "runtime_limit",
-              "path": "skills/microsoft-foundry/models/deploy-model/customize/references",
-              "line": 0
-            },
-            {
               "reason": "static_parse_limit",
               "path": "skills/microsoft-foundry/models/deploy-model/customize/references/customize-workflow.md",
               "line": 0
@@ -4152,102 +4274,11 @@
               "line": 178
             },
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/microsoft-foundry/SKILL.md",
-              "line": 51
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/microsoft-foundry/SKILL.md",
-              "line": 99
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/microsoft-foundry/SKILL.md",
-              "line": 100
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/microsoft-foundry/SKILL.md",
-              "line": 102
-            },
-            {
               "id": "P3",
               "severity": "HIGH",
               "message": "Exfiltration Commands",
               "file": "skills/microsoft-foundry/SKILL.md",
               "line": 51
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/microsoft-foundry/SKILL.md",
-              "line": 54
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/microsoft-foundry/SKILL.md",
-              "line": 80
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/microsoft-foundry/SKILL.md",
-              "line": 57
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/microsoft-foundry/SKILL.md",
-              "line": 60
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/microsoft-foundry/SKILL.md",
-              "line": 102
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/microsoft-foundry/SKILL.md",
-              "line": 138
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/microsoft-foundry/SKILL.md",
-              "line": 65
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/microsoft-foundry/SKILL.md",
-              "line": 88
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/microsoft-foundry/SKILL.md",
-              "line": 90
             },
             {
               "id": "PE3",
@@ -4388,13 +4419,6 @@
               "message": "MCP Config Access",
               "file": "skills/microsoft-foundry/models/deploy-model/SKILL.md",
               "line": 3
-            },
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/microsoft-foundry/SKILL.md",
-              "line": 1
             },
             {
               "id": "EA2",
@@ -4816,13 +4840,127 @@
               "file": "skills/microsoft-foundry/project/create/create-foundry-project.md",
               "line": 34
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/microsoft-foundry/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/microsoft-foundry/SKILL.md",
+              "line": 51,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/microsoft-foundry/SKILL.md",
+              "line": 54,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/microsoft-foundry/SKILL.md",
+              "line": 57,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/microsoft-foundry/SKILL.md",
+              "line": 60,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/microsoft-foundry/SKILL.md",
+              "line": 65,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/microsoft-foundry/SKILL.md",
+              "line": 80,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/microsoft-foundry/SKILL.md",
+              "line": 88,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/microsoft-foundry/SKILL.md",
+              "line": 90,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/microsoft-foundry/SKILL.md",
+              "line": 99,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/microsoft-foundry/SKILL.md",
+              "line": 100,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/microsoft-foundry/SKILL.md",
+              "line": 102,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/microsoft-foundry/SKILL.md",
+              "line": 102,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/microsoft-foundry/SKILL.md",
+              "line": 138,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
           "path": "skills/python-appservice-deploy",
-          "score": 42,
-          "risk": 58,
-          "status": "do not install",
+          "score": 85,
+          "risk": 15,
+          "status": "incomplete",
           "partial": true,
           "coverage": 46.2,
           "exceptions": [
@@ -4879,53 +5017,61 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/python-appservice-deploy/SKILL.md",
-              "line": 18
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/python-appservice-deploy/SKILL.md",
-              "line": 21
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/python-appservice-deploy/SKILL.md",
-              "line": 19
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/python-appservice-deploy/SKILL.md",
-              "line": 20
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/python-appservice-deploy/SKILL.md",
-              "line": 25
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/python-appservice-deploy/SKILL.md",
-              "line": 36
-            },
-            {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/python-appservice-deploy/references/deploy-azcli.md",
               "line": 55
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/python-appservice-deploy/SKILL.md",
+              "line": 18,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/python-appservice-deploy/SKILL.md",
+              "line": 19,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/python-appservice-deploy/SKILL.md",
+              "line": 20,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/python-appservice-deploy/SKILL.md",
+              "line": 21,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/python-appservice-deploy/SKILL.md",
+              "line": 25,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/python-appservice-deploy/SKILL.md",
+              "line": 36,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         }
@@ -4940,7 +5086,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-04T19:15:28Z"
+      "checkedAt": "2026-11-04T23:07:13Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

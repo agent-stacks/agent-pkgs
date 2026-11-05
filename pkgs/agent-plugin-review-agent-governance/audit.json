@@ -7,12 +7,15 @@
   "plugins": [
     {
       "name": "review-agent-governance",
-      "dir": "/nix/store/k44k5bzlfn9bm84m06kjsxnnnwysjqaw-agent-plugin-review-agent-governance-0.1.5/share/agent-plugins/review-agent-governance",
+      "dir": "/nix/store/pb7q5s3phnkf6n4vqp073lyqz6z1pyw3-agent-plugin-review-agent-governance-0.1.5/share/agent-plugins/review-agent-governance",
       "spec": "1.1.0",
-      "score": 61,
+      "score": 56,
       "status": "caution",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/commands",
+          "com.anthropic.claude-code/hooks",
           "skills/review-agent-setup"
         ],
         "validated": [
@@ -22,14 +25,106 @@
           {
             "path": "bin/",
             "reason": "interpreter links into /nix/store"
-          },
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
           }
         ]
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 56,
+          "risk": 44,
+          "status": "caution",
+          "partial": true,
+          "coverage": 50,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/commands/approve-review.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "com.anthropic.claude-code/commands/approve-review.md",
+              "line": 10
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "com.anthropic.claude-code/commands/approve-review.md",
+              "line": 25
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "com.anthropic.claude-code/commands/approve-review.md",
+              "line": 107
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "com.anthropic.claude-code/commands/approve-review.md",
+              "line": 80
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "com.anthropic.claude-code/commands/approve-review.md",
+              "line": 96
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "com.anthropic.claude-code/commands/list-pending.md",
+              "line": 47
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 91,
+          "risk": 9,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 66.7,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/evaluate.sh",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "com.anthropic.claude-code/hooks/evaluate.sh",
+              "line": 43
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/review-agent-setup",
           "score": 61,
@@ -166,12 +261,13 @@
               "file": "skills/review-agent-setup/SKILL.md",
               "line": 96
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 61,
+  "score": 56,
   "status": "caution",
   "tool": {
     "name": "skillspector",
@@ -179,7 +275,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T23:06:27Z"
+      "checkedAt": "2026-11-04T23:33:10Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

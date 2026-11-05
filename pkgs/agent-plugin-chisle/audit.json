@@ -7,12 +7,14 @@
   "plugins": [
     {
       "name": "chisle",
-      "dir": "/nix/store/m9bv2jfrfw22fwrkgi0fcf4sands9al5-agent-plugin-chisle-3.8.1/share/agent-plugins/chisle",
+      "dir": "/nix/store/wvwzq1dj84wy7x7rdyrhx3nb9smzqdhq-agent-plugin-chisle-3.8.1/share/agent-plugins/chisle",
       "spec": "1.1.0",
-      "score": 93,
-      "status": "safe",
+      "score": 8,
+      "status": "do not install",
       "coverage": {
         "scanned": [
+          "bin",
+          "com.anthropic.claude-code/hooks",
           "skills/chisle",
           "skills/chisle-audit",
           "skills/chisle-help",
@@ -21,18 +23,338 @@
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "bin/",
-            "reason": "interpreter links into /nix/store"
-          },
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
+        {
+          "path": "bin",
+          "score": 71,
+          "risk": 29,
+          "status": "caution",
+          "partial": true,
+          "coverage": 33.3,
+          "exceptions": [
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "bin/install.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "bin/install.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "bin/lib/settings.js",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "bin/install.js",
+              "line": 16
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "bin/install.js",
+              "line": 17
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "bin/install.js",
+              "line": 18
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "bin/install.js",
+              "line": 19
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "bin/install.js",
+              "line": 20
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "bin/install.js",
+              "line": 21
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "bin/install.js",
+              "line": 22
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "bin/install.js",
+              "line": 101
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "bin/install.js",
+              "line": 106
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "bin/install.js",
+              "line": 208
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "bin/install.js",
+              "line": 828
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "bin/install.js",
+              "line": 850
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "bin/install.js",
+              "line": 867
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "bin/install.js",
+              "line": 868
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "bin/install.js",
+              "line": 869
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "bin/install.js",
+              "line": 874
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "bin/install.js",
+              "line": 875
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "bin/install.js",
+              "line": 876
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "bin/install.js",
+              "line": 877
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "bin/install.js",
+              "line": 878
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "bin/install.js",
+              "line": 879
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "bin/install.js",
+              "line": 909
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "bin/install.js",
+              "line": 933
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "bin/install.js",
+              "line": 963
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "bin/install.js",
+              "line": 969
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "bin/lib/mcp.js",
+              "line": 1
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "bin/lib/mcp.js",
+              "line": 119
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "bin/install.js",
+              "line": 88
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "bin/install.js",
+              "line": 484
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "bin/install.js",
+              "line": 592
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "bin/install.js",
+              "line": 651
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "bin/install.js",
+              "line": 858
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 8,
+          "risk": 92,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 70,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/chisle-compress-output.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/chisle-config.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/chisle-statusline.sh",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "com.anthropic.claude-code/hooks/chisle-statusline.sh",
+              "line": 4
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/hooks/chisle-statusline.sh",
+              "line": 13
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "com.anthropic.claude-code/hooks/chisle-activate.js",
+              "line": 28
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "com.anthropic.claude-code/hooks/chisle-mcp-proxy.js",
+              "line": 16
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "com.anthropic.claude-code/hooks/chisle-config.js",
+              "line": 109
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/hooks/chisle-mcp-proxy.js",
+              "line": 4
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "com.anthropic.claude-code/hooks/chisle-mcp-proxy.js",
+              "line": 138
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/chisle",
           "score": 93,
@@ -49,7 +371,8 @@
               "file": "skills/chisle/SKILL.md",
               "line": 47
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/chisle-audit",
@@ -59,7 +382,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/chisle-help",
@@ -75,7 +399,8 @@
               "line": 31
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/chisle-review",
@@ -85,20 +410,24 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 93,
-  "status": "safe",
+  "score": 8,
+  "status": "do not install",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:16:45Z"
+      "checkedAt": "2026-11-04T23:30:05Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

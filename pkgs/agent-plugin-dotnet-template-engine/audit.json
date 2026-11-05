@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "dotnet-template-engine",
-      "dir": "/nix/store/n8j27fpdyjkyhzml7ywvxr64kb2iba4f-agent-plugin-dotnet-template-engine-0.1.5/share/agent-plugins/dotnet-template-engine",
+      "dir": "/nix/store/zp2fdb3w11hpzyv0rjcnp42s0chilqal-agent-plugin-dotnet-template-engine-0.1.5/share/agent-plugins/dotnet-template-engine",
       "spec": "1.1.0",
-      "score": 49,
-      "status": "do not install",
+      "score": 74,
+      "status": "caution",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
           "skills/template-authoring",
           "skills/template-comparison",
           "skills/template-discovery",
@@ -23,19 +24,25 @@
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
         {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
           "path": "skills/template-authoring",
-          "score": 49,
-          "risk": 51,
-          "status": "do not install",
+          "score": 74,
+          "risk": 26,
+          "status": "caution",
           "partial": true,
           "coverage": 100,
           "exceptions": [
@@ -197,13 +204,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/template-authoring/SKILL.md",
-              "line": 51
-            },
-            {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
@@ -217,6 +217,16 @@
               "file": "skills/template-authoring/SKILL.md",
               "line": 126
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/template-authoring/SKILL.md",
+              "line": 51,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
@@ -227,7 +237,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/template-discovery",
@@ -266,7 +277,8 @@
               "file": "skills/template-discovery/SKILL.md",
               "line": 118
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/template-instantiation",
@@ -357,7 +369,8 @@
               "line": 171
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/template-smart-defaults",
@@ -386,7 +399,8 @@
               "file": "skills/template-smart-defaults/SKILL.md",
               "line": 1
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/template-validation",
@@ -437,20 +451,24 @@
               "line": 190
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 49,
-  "status": "do not install",
+  "score": 74,
+  "status": "caution",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-21T03:01:31Z"
+      "checkedAt": "2026-11-05T00:19:42Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

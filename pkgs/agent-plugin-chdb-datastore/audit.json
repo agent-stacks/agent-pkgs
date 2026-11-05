@@ -7,10 +7,10 @@
   "plugins": [
     {
       "name": "chdb-datastore",
-      "dir": "/nix/store/wd67rkbc6g7flb5mblz9r1vqb322imw3-agent-plugin-chdb-datastore-4.1.0/share/agent-plugins/chdb-datastore",
+      "dir": "/nix/store/izg6jvj92bnasajpfjb82v68ai70ahl8-agent-plugin-chdb-datastore-4.1.0/share/agent-plugins/chdb-datastore",
       "spec": "1.1.0",
-      "score": 50,
-      "status": "caution",
+      "score": 93,
+      "status": "incomplete",
       "coverage": {
         "scanned": [
           "skills/chdb-datastore"
@@ -28,9 +28,9 @@
       "components": [
         {
           "path": "skills/chdb-datastore",
-          "score": 50,
-          "risk": 50,
-          "status": "caution",
+          "score": 93,
+          "risk": 7,
+          "status": "incomplete",
           "partial": true,
           "coverage": 85.7,
           "exceptions": [
@@ -67,47 +67,55 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/chdb-datastore/SKILL.md",
-              "line": 50
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/chdb-datastore/SKILL.md",
-              "line": 112
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/chdb-datastore/SKILL.md",
-              "line": 140
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/chdb-datastore/README.md",
               "line": 8
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/chdb-datastore/SKILL.md",
+              "line": 50,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/chdb-datastore/SKILL.md",
+              "line": 112,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/chdb-datastore/SKILL.md",
+              "line": 140,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         }
       ]
     }
   ],
-  "score": 50,
-  "status": "caution",
+  "score": 93,
+  "status": "incomplete",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:29:21Z"
+      "checkedAt": "2026-11-04T23:23:19Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

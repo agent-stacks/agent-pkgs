@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "azure-cost",
-      "dir": "/nix/store/8dwkrmx684qc3pbwp91qr1kxbxkm7b5h-agent-plugin-azure-cost-1.0.13/share/agent-plugins/azure-cost",
+      "dir": "/nix/store/8w471x22kx1rb7q6hnznfv9p89s9lzcd-agent-plugin-azure-cost-1.0.18/share/agent-plugins/azure-cost",
       "spec": "1.1.0",
       "score": 83,
-      "status": "safe",
+      "status": "incomplete",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/hooks",
           "skills/cost-analysis",
           "skills/cost-estimation",
           "skills/cost-governance",
@@ -27,16 +28,54 @@
             "reason": "interpreter links into /nix/store"
           },
           {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          },
-          {
             "path": "mcp.json",
             "reason": "SkillSpector does not analyse this layout as an MCP manifest"
           }
         ]
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 85,
+          "risk": 15,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 78.6,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/scripts/install-telemetry.ps1",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/scripts/install-telemetry.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/scripts/track-telemetry.ps1",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "com.anthropic.claude-code/hooks/scripts/install-telemetry.ps1",
+              "line": 253
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "com.anthropic.claude-code/hooks/scripts/install-telemetry.sh",
+              "line": 420
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/cost-analysis",
           "score": 83,
@@ -59,7 +98,8 @@
               "file": "skills/cost-analysis/references/tools-and-safety.md",
               "line": 23
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/cost-estimation",
@@ -83,7 +123,8 @@
               "file": "skills/cost-estimation/references/tool-fallback.md",
               "line": 15
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/cost-governance",
@@ -107,7 +148,8 @@
               "file": "skills/cost-governance/references/tool-fallback.md",
               "line": 17
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/cost-optimization",
@@ -123,20 +165,24 @@
               "line": 7
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
   ],
   "score": 83,
-  "status": "safe",
+  "status": "incomplete",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:20:21Z"
+      "checkedAt": "2026-11-04T23:06:45Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

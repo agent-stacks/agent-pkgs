@@ -7,10 +7,10 @@
   "plugins": [
     {
       "name": "documentation-standards",
-      "dir": "/nix/store/ayi6vi6dw2xbrmaq9qaxsizkfa3k4yrz-agent-plugin-documentation-standards-1.1.0/share/agent-plugins/documentation-standards",
+      "dir": "/nix/store/kc4c5y9cg2fxrknqbv8aij09hbyv6vmf-agent-plugin-documentation-standards-1.1.0/share/agent-plugins/documentation-standards",
       "spec": "1.1.0",
-      "score": 56,
-      "status": "caution",
+      "score": 93,
+      "status": "incomplete",
       "coverage": {
         "scanned": [
           "skills/grounded-vault",
@@ -24,9 +24,9 @@
       "components": [
         {
           "path": "skills/grounded-vault",
-          "score": 56,
-          "risk": 44,
-          "status": "caution",
+          "score": 93,
+          "risk": 7,
+          "status": "incomplete",
           "partial": true,
           "coverage": 50,
           "exceptions": [
@@ -83,25 +83,29 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/grounded-vault/SKILL.md",
-              "line": 63
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/grounded-vault/SKILL.md",
-              "line": 102
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/grounded-vault/references/details.md",
               "line": 204
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/grounded-vault/SKILL.md",
+              "line": 63,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/grounded-vault/SKILL.md",
+              "line": 102,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -113,20 +117,24 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 56,
-  "status": "caution",
+  "score": 93,
+  "status": "incomplete",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:20:14Z"
+      "checkedAt": "2026-11-04T23:18:47Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

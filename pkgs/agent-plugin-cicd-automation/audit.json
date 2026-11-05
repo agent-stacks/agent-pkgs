@@ -7,12 +7,14 @@
   "plugins": [
     {
       "name": "cicd-automation",
-      "dir": "/nix/store/znwlj5d212pzrm9rxi52kdrzrr6lhgvl-agent-plugin-cicd-automation-1.2.4/share/agent-plugins/cicd-automation",
+      "dir": "/nix/store/18gf6wqapalfi9gr5h8xdfhxqm6lm4yk-agent-plugin-cicd-automation-1.2.4/share/agent-plugins/cicd-automation",
       "spec": "1.1.0",
-      "score": 33,
-      "status": "do not install",
+      "score": 58,
+      "status": "caution",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/commands",
           "skills/deployment-pipeline-design",
           "skills/github-actions-templates",
           "skills/gitlab-ci-patterns",
@@ -21,19 +23,120 @@
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
         {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 62,
+          "risk": 38,
+          "status": "caution",
+          "partial": true,
+          "coverage": 0,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/commands/workflow-automate.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/commands/workflow-automate.md",
+              "line": 675
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/commands/workflow-automate.md",
+              "line": 676
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/commands/workflow-automate.md",
+              "line": 677
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/commands/workflow-automate.md",
+              "line": 678
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/commands/workflow-automate.md",
+              "line": 693
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/commands/workflow-automate.md",
+              "line": 830
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/commands/workflow-automate.md",
+              "line": 831
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/commands/workflow-automate.md",
+              "line": 831
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "com.anthropic.claude-code/commands/workflow-automate.md",
+              "line": 242
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "com.anthropic.claude-code/commands/workflow-automate.md",
+              "line": 245
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "com.anthropic.claude-code/commands/workflow-automate.md",
+              "line": 479
+            }
+          ],
+          "suppressed": []
+        },
+        {
           "path": "skills/deployment-pipeline-design",
-          "score": 33,
-          "risk": 67,
-          "status": "do not install",
+          "score": 58,
+          "risk": 42,
+          "status": "caution",
           "partial": true,
           "coverage": 66.7,
           "exceptions": [
@@ -54,13 +157,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/deployment-pipeline-design/SKILL.md",
-              "line": 44
-            },
             {
               "id": "PE3",
               "severity": "HIGH",
@@ -92,7 +188,7 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/deployment-pipeline-design/references/advanced-strategies.md",
               "line": 125
             },
@@ -109,6 +205,16 @@
               "message": "External Transmission",
               "file": "skills/deployment-pipeline-design/references/details.md",
               "line": 268
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/deployment-pipeline-design/SKILL.md",
+              "line": 44,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -171,7 +277,8 @@
               "file": "skills/github-actions-templates/SKILL.md",
               "line": 145
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/gitlab-ci-patterns",
@@ -215,7 +322,8 @@
               "file": "skills/gitlab-ci-patterns/SKILL.md",
               "line": 178
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/secrets-management",
@@ -255,7 +363,7 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/secrets-management/SKILL.md",
               "line": 324
             },
@@ -266,20 +374,24 @@
               "file": "skills/secrets-management/SKILL.md",
               "line": 324
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 33,
-  "status": "do not install",
+  "score": 58,
+  "status": "caution",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-31T00:55:58Z"
+      "checkedAt": "2026-11-04T23:15:20Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

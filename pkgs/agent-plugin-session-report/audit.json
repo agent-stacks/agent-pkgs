@@ -7,10 +7,10 @@
   "plugins": [
     {
       "name": "session-report",
-      "dir": "/nix/store/hv4yr7l2an5mqk7z36hjjkx4lxc998nc-agent-plugin-session-report-0.0.0-unstable.2026-10-19.ga0b04d9/share/agent-plugins/session-report",
+      "dir": "/nix/store/aqnhwsyzkw3dpcza7h37xlybplk0a16b-agent-plugin-session-report-0.0.0-unstable.2026-11-03.gfa4eb54/share/agent-plugins/session-report",
       "spec": "1.1.0",
-      "score": 75,
-      "status": "caution",
+      "score": 100,
+      "status": "incomplete",
       "coverage": {
         "scanned": [
           "skills/session-report"
@@ -28,9 +28,9 @@
       "components": [
         {
           "path": "skills/session-report",
-          "score": 75,
-          "risk": 25,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
           "partial": true,
           "coverage": 33.3,
           "exceptions": [
@@ -50,28 +50,33 @@
               "line": 0
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/session-report/SKILL.md",
-              "line": 12
+              "line": 12,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         }
       ]
     }
   ],
-  "score": 75,
-  "status": "caution",
+  "score": 100,
+  "status": "incomplete",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-20T03:59:50Z"
+      "checkedAt": "2026-11-04T23:34:36Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

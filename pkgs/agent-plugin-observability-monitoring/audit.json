@@ -7,12 +7,14 @@
   "plugins": [
     {
       "name": "observability-monitoring",
-      "dir": "/nix/store/am7bli9r1vpslvkr6rbffm3gmiipf1bs-agent-plugin-observability-monitoring-1.2.3/share/agent-plugins/observability-monitoring",
+      "dir": "/nix/store/1k537d63f1a8i8fy3m9gmi5k7qf7yhmb-agent-plugin-observability-monitoring-1.2.4/share/agent-plugins/observability-monitoring",
       "spec": "1.1.0",
       "score": 100,
       "status": "safe",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/commands",
           "skills/distributed-tracing",
           "skills/grafana-dashboards",
           "skills/prometheus-configuration",
@@ -21,14 +23,31 @@
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/distributed-tracing",
           "score": 100,
@@ -37,7 +56,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/grafana-dashboards",
@@ -47,7 +67,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/prometheus-configuration",
@@ -57,7 +78,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/slo-implementation",
@@ -83,7 +105,8 @@
               "line": 155
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
@@ -96,7 +119,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:34:47Z"
+      "checkedAt": "2026-11-05T00:20:09Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

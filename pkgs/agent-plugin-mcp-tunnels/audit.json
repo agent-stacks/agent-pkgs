@@ -1,13 +1,138 @@
 {
   "target": "./result",
-  "audited": false,
-  "score": null,
-  "status": "could not audit",
-  "reason": "nothing to audit",
-  "hints": [],
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "mcp-tunnels",
+      "dir": "/nix/store/lb0w1g8ad22c5lm3z2s452rlbjylmmca-agent-plugin-mcp-tunnels-0.0.0-unstable.2026-11-03.gfa4eb54/share/agent-plugins/mcp-tunnels",
+      "spec": "1.1.0",
+      "score": 49,
+      "status": "do not install",
+      "coverage": {
+        "scanned": [
+          "com.anthropic.claude-code/commands"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": []
+      },
+      "components": [
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 49,
+          "risk": 51,
+          "status": "do not install",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/commands/create-docker-mcp-tunnel.md",
+              "line": 102
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/commands/create-docker-mcp-tunnel.md",
+              "line": 110
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/commands/create-docker-mcp-tunnel.md",
+              "line": 110
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/commands/create-docker-mcp-tunnel.md",
+              "line": 116
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "com.anthropic.claude-code/commands/create-docker-mcp-tunnel.md",
+              "line": 102
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "com.anthropic.claude-code/commands/create-docker-mcp-tunnel.md",
+              "line": 149
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "com.anthropic.claude-code/commands/create-docker-mcp-tunnel.md",
+              "line": 157
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "com.anthropic.claude-code/commands/create-docker-mcp-tunnel.md",
+              "line": 333
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "com.anthropic.claude-code/commands/create-docker-mcp-tunnel.md",
+              "line": 309
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "com.anthropic.claude-code/commands/create-docker-mcp-tunnel.md",
+              "line": 309
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "com.anthropic.claude-code/commands/create-docker-mcp-tunnel.md",
+              "line": 365
+            },
+            {
+              "id": "RP1",
+              "severity": "LOW",
+              "message": "MCP Rug Pull",
+              "file": "com.anthropic.claude-code/commands/create-docker-mcp-tunnel.md",
+              "line": 268
+            }
+          ],
+          "suppressed": []
+        }
+      ]
+    }
+  ],
+  "score": 49,
+  "status": "do not install",
   "tool": {
     "name": "skillspector",
-    "version": "2.12.0"
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-11-05T00:16:38Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
+    }
   },
   "agentStacks": {
     "version": "0.9.0"

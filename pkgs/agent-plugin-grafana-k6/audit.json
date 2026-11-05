@@ -7,9 +7,9 @@
   "plugins": [
     {
       "name": "grafana-k6",
-      "dir": "/nix/store/pgj2i38y7g9i1h7m9ns1qhcxvabyxka9-agent-plugin-grafana-k6-0.1.0/share/agent-plugins/grafana-k6",
+      "dir": "/nix/store/lscdkmis8nby6yswfk75cncp50gfamdk-agent-plugin-grafana-k6-0.1.0/share/agent-plugins/grafana-k6",
       "spec": "1.1.0",
-      "score": 0,
+      "score": 42,
       "status": "do not install",
       "coverage": {
         "scanned": [
@@ -35,9 +35,9 @@
       "components": [
         {
           "path": "skills/k6",
-          "score": 50,
-          "risk": 50,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
           "partial": true,
           "coverage": 81.8,
           "exceptions": [
@@ -97,69 +97,78 @@
               "line": 0
             }
           ],
-          "findings": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/k6/SKILL.md",
-              "line": 21
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/k6/SKILL.md",
-              "line": 23
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/k6/SKILL.md",
-              "line": 155
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/k6/SKILL.md",
-              "line": 28
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/k6/SKILL.md",
-              "line": 166
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/k6/SKILL.md",
-              "line": 32
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/k6/SKILL.md",
-              "line": 41
-            },
+          "findings": [],
+          "suppressed": [
             {
               "id": "LP3",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/k6/SKILL.md",
-              "line": 1
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/k6/SKILL.md",
+              "line": 21,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/k6/SKILL.md",
+              "line": 23,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/k6/SKILL.md",
+              "line": 28,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/k6/SKILL.md",
+              "line": 32,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/k6/SKILL.md",
+              "line": 41,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/k6/SKILL.md",
+              "line": 155,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/k6/SKILL.md",
+              "line": 166,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
         {
           "path": "skills/k6-browser-test",
-          "score": 0,
-          "risk": 100,
+          "score": 42,
+          "risk": 58,
           "status": "do not install",
           "partial": true,
           "coverage": 50,
@@ -194,34 +203,6 @@
               "line": 85
             },
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/k6-browser-test/SKILL.md",
-              "line": 122
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/k6-browser-test/SKILL.md",
-              "line": 212
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/k6-browser-test/SKILL.md",
-              "line": 293
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/k6-browser-test/SKILL.md",
-              "line": 303
-            },
-            {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
@@ -236,18 +217,53 @@
               "line": 101
             },
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/k6-browser-test/SKILL.md",
-              "line": 157
-            },
-            {
               "id": "MP2",
               "severity": "MEDIUM",
               "message": "Context Window Stuffing",
               "file": "skills/k6-browser-test/references/explore.md",
               "line": 229
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/k6-browser-test/SKILL.md",
+              "line": 122,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/k6-browser-test/SKILL.md",
+              "line": 157,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/k6-browser-test/SKILL.md",
+              "line": 212,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/k6-browser-test/SKILL.md",
+              "line": 293,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/k6-browser-test/SKILL.md",
+              "line": 303,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -298,12 +314,13 @@
               "file": "skills/k6-cloud-investigate-test/SKILL.md",
               "line": 1
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/k6-docs",
-          "score": 67,
-          "risk": 33,
+          "score": 74,
+          "risk": 26,
           "status": "caution",
           "partial": true,
           "coverage": 95.2,
@@ -323,18 +340,21 @@
               "line": 9
             },
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/k6-docs/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/k6-docs/references/troubleshooting.md",
               "line": 171
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/k6-docs/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
@@ -498,13 +518,14 @@
               "file": "skills/k6-manage/SKILL.md",
               "line": 298
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/k6-perf-test-website",
-          "score": 30,
-          "risk": 70,
-          "status": "do not install",
+          "score": 88,
+          "risk": 12,
+          "status": "incomplete",
           "partial": true,
           "coverage": 77.8,
           "exceptions": [
@@ -581,137 +602,146 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/k6-perf-test-website/SKILL.md",
-              "line": 193
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/k6-perf-test-website/SKILL.md",
-              "line": 331
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/k6-perf-test-website/SKILL.md",
-              "line": 244
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/k6-perf-test-website/SKILL.md",
-              "line": 326
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/k6-perf-test-website/SKILL.md",
-              "line": 273
-            },
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/k6-perf-test-website/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/k6-perf-test-website/SKILL.md",
               "line": 59
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/k6-perf-test-website/SKILL.md",
               "line": 175
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/k6-perf-test-website/assets/README.md",
               "line": 38
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/k6-perf-test-website/SKILL.md",
               "line": 188
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/k6-perf-test-website/assets/README.md",
               "line": 42
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/k6-perf-test-website/assets/README.md",
               "line": 90
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/k6-perf-test-website/assets/recordings/README.md",
               "line": 11
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/k6-perf-test-website/assets/recordings/README.md",
               "line": 34
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/k6-perf-test-website/references/recording-with-playwright.md",
               "line": 94
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/k6-perf-test-website/references/recording-with-playwright.md",
               "line": 116
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/k6-perf-test-website/references/recording-with-playwright.md",
               "line": 144
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/k6-perf-test-website/references/workflow-elicitation.md",
               "line": 153
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/k6-perf-test-website/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/k6-perf-test-website/references/gotchas.md",
-              "line": 124
+              "line": 124,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/k6-perf-test-website/SKILL.md",
+              "line": 193,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/k6-perf-test-website/SKILL.md",
+              "line": 244,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/k6-perf-test-website/SKILL.md",
+              "line": 273,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/k6-perf-test-website/SKILL.md",
+              "line": 326,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/k6-perf-test-website/SKILL.md",
+              "line": 331,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -729,7 +759,8 @@
               "line": 77
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/k6-trend-analysis",
@@ -745,12 +776,13 @@
               "line": 91
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 0,
+  "score": 42,
   "status": "do not install",
   "tool": {
     "name": "skillspector",
@@ -758,7 +790,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:35:37Z"
+      "checkedAt": "2026-11-05T00:30:46Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "azure-advisor",
-      "dir": "/nix/store/3gc3w4695cfqgkcagcvjnbnfi3l6wr0y-agent-plugin-azure-advisor-1.0.2/share/agent-plugins/azure-advisor",
+      "dir": "/nix/store/sgf7m4cbanv4bq8fzpr9z9aqxhr7xmh7-agent-plugin-azure-advisor-1.0.7/share/agent-plugins/azure-advisor",
       "spec": "1.1.0",
-      "score": 100,
-      "status": "safe",
+      "score": 85,
+      "status": "incomplete",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/hooks",
           "skills/azure-advisor",
           "skills/azure-advisor-actionability"
         ],
@@ -25,16 +26,54 @@
             "reason": "interpreter links into /nix/store"
           },
           {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          },
-          {
             "path": "mcp.json",
             "reason": "SkillSpector does not analyse this layout as an MCP manifest"
           }
         ]
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 85,
+          "risk": 15,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 78.6,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/scripts/install-telemetry.ps1",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/scripts/install-telemetry.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/scripts/track-telemetry.ps1",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "com.anthropic.claude-code/hooks/scripts/install-telemetry.ps1",
+              "line": 253
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "com.anthropic.claude-code/hooks/scripts/install-telemetry.sh",
+              "line": 420
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/azure-advisor",
           "score": 100,
@@ -49,7 +88,8 @@
               "line": 7
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-advisor-actionability",
@@ -70,20 +110,24 @@
               "line": 30
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 100,
-  "status": "safe",
+  "score": 85,
+  "status": "incomplete",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:18:20Z"
+      "checkedAt": "2026-11-04T23:09:12Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

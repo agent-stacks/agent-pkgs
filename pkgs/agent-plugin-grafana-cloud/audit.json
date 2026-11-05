@@ -7,9 +7,9 @@
   "plugins": [
     {
       "name": "grafana-cloud",
-      "dir": "/nix/store/90vcsqappk6kb7fwxwnl0xacvq8iwl8r-agent-plugin-grafana-cloud-0.1.0/share/agent-plugins/grafana-cloud",
+      "dir": "/nix/store/hhzgman0xsnz86mb6bpy0wcn1k7zr8x4-agent-plugin-grafana-cloud-0.1.0/share/agent-plugins/grafana-cloud",
       "spec": "1.1.0",
-      "score": 0,
+      "score": 39,
       "status": "do not install",
       "coverage": {
         "scanned": [
@@ -74,7 +74,8 @@
               "file": "skills/adaptive-metrics/references/api.md",
               "line": 24
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/admin",
@@ -134,13 +135,14 @@
               "file": "skills/admin/references/sso.md",
               "line": 51
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/app-observability",
-          "score": 18,
-          "risk": 82,
-          "status": "do not install",
+          "score": 55,
+          "risk": 45,
+          "status": "caution",
           "partial": true,
           "coverage": 50,
           "exceptions": [
@@ -177,20 +179,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/app-observability/SKILL.md",
-              "line": 135
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/app-observability/SKILL.md",
-              "line": 137
-            },
-            {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
@@ -207,7 +195,7 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/app-observability/references/apm-setup.md",
               "line": 217
             },
@@ -224,6 +212,24 @@
               "message": "External Transmission",
               "file": "skills/app-observability/references/frontend-observability.md",
               "line": 457
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/app-observability/SKILL.md",
+              "line": 135,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/app-observability/SKILL.md",
+              "line": 137,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -263,7 +269,8 @@
               "file": "skills/assistant-mcp/SKILL.md",
               "line": 26
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/cloud-integrations",
@@ -294,7 +301,8 @@
               "file": "skills/cloud-integrations/SKILL.md",
               "line": 140
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/cost-management",
@@ -312,7 +320,8 @@
               "file": "skills/cost-management/SKILL.md",
               "line": 58
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/database-observability",
@@ -338,7 +347,8 @@
               "line": 73
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/dpm-finder",
@@ -372,11 +382,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/dpm-finder/references/cli.md",
               "line": 38
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/fleet-management",
@@ -435,7 +446,8 @@
               "file": "skills/fleet-management/references/api.md",
               "line": 99
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/frontend-session-rca",
@@ -461,7 +473,8 @@
               "line": 155
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/infrastructure",
@@ -509,13 +522,14 @@
               "file": "skills/infrastructure/references/clouds-and-hosts.md",
               "line": 94
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/loki-label-analyzer",
-          "score": 49,
-          "risk": 51,
-          "status": "do not install",
+          "score": 93,
+          "risk": 7,
+          "status": "incomplete",
           "partial": true,
           "coverage": 80,
           "exceptions": [
@@ -572,39 +586,45 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/loki-label-analyzer/SKILL.md",
-              "line": 77
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/loki-label-analyzer/SKILL.md",
-              "line": 79
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/loki-label-analyzer/SKILL.md",
-              "line": 108
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/loki-label-analyzer/SKILL.md",
-              "line": 488
-            },
-            {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/loki-label-analyzer/references/cost-impact.md",
               "line": 53
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/loki-label-analyzer/SKILL.md",
+              "line": 77,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/loki-label-analyzer/SKILL.md",
+              "line": 79,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/loki-label-analyzer/SKILL.md",
+              "line": 108,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/loki-label-analyzer/SKILL.md",
+              "line": 488,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -651,7 +671,8 @@
               "file": "skills/ml-ai/references/sift.md",
               "line": 29
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/oncall-irm",
@@ -683,7 +704,8 @@
               "file": "skills/oncall-irm/references/templates-schedules.md",
               "line": 60
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/private-connectivity",
@@ -693,7 +715,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/prometheus-cardinality-troubleshooter",
@@ -714,7 +737,8 @@
               "line": 392
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/prometheus-label-strategy",
@@ -745,7 +769,8 @@
               "line": 291
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/send-data",
@@ -776,12 +801,13 @@
               "file": "skills/send-data/SKILL.md",
               "line": 143
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/synthetic-monitoring-checks",
-          "score": 0,
-          "risk": 100,
+          "score": 39,
+          "risk": 61,
           "status": "do not install",
           "partial": true,
           "coverage": 0,
@@ -823,27 +849,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/synthetic-monitoring-checks/SKILL.md",
-              "line": 99
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/synthetic-monitoring-checks/SKILL.md",
-              "line": 309
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/synthetic-monitoring-checks/SKILL.md",
-              "line": 369
-            },
             {
               "id": "PE3",
               "severity": "HIGH",
@@ -949,13 +954,39 @@
               "file": "skills/synthetic-monitoring-checks/references/api-and-terraform.md",
               "line": 123
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/synthetic-monitoring-checks/SKILL.md",
+              "line": 99,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/synthetic-monitoring-checks/SKILL.md",
+              "line": 309,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/synthetic-monitoring-checks/SKILL.md",
+              "line": 369,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
           "path": "skills/testing",
-          "score": 28,
-          "risk": 72,
-          "status": "do not install",
+          "score": 53,
+          "risk": 47,
+          "status": "caution",
           "partial": true,
           "coverage": 80,
           "exceptions": [
@@ -979,13 +1010,6 @@
               "message": "Tool Parameter Abuse",
               "file": "skills/testing/SKILL.md",
               "line": 41
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/testing/SKILL.md",
-              "line": 98
             },
             {
               "id": "E1",
@@ -1057,12 +1081,22 @@
               "file": "skills/testing/references/synthetic.md",
               "line": 18
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/testing/SKILL.md",
+              "line": 98,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         }
       ]
     }
   ],
-  "score": 0,
+  "score": 39,
   "status": "do not install",
   "tool": {
     "name": "skillspector",
@@ -1070,7 +1104,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:28:26Z"
+      "checkedAt": "2026-11-04T23:39:24Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

@@ -7,10 +7,10 @@
   "plugins": [
     {
       "name": "getsentry-xcodebuildmcp",
-      "dir": "/nix/store/8bpnch302l4919sd34ydr7insk4fxzaz-agent-plugin-getsentry-xcodebuildmcp-0.0.0-unstable.2026-09-23.gd13ff0c/share/agent-plugins/getsentry-xcodebuildmcp",
+      "dir": "/nix/store/2706bzcy06qdcn426r7x3wj78bx4ga5z-agent-plugin-getsentry-xcodebuildmcp-0.0.0-unstable.2026-10-22.g2998ac7/share/agent-plugins/getsentry-xcodebuildmcp",
       "spec": "1.1.0",
-      "score": 22,
-      "status": "do not install",
+      "score": 54,
+      "status": "caution",
       "coverage": {
         "scanned": [
           "skills/mobilebuildmcp",
@@ -56,7 +56,8 @@
               "line": 36
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/mobilebuildmcp-cli",
@@ -66,7 +67,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/mobilebuildmcp-docs-command-review",
@@ -82,7 +84,8 @@
               "line": 13
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/mobilebuildmcp-docs-release-review",
@@ -132,11 +135,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/mobilebuildmcp-docs-release-review/SKILL.md",
               "line": 42
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/mobilebuildmcp-packaging-resource-review",
@@ -183,11 +187,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/mobilebuildmcp-packaging-resource-review/SKILL.md",
               "line": 43
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/mobilebuildmcp-rendering-streaming-review",
@@ -247,11 +252,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/mobilebuildmcp-rendering-streaming-review/SKILL.md",
               "line": 42
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/mobilebuildmcp-runtime-boundary-review",
@@ -301,11 +307,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/mobilebuildmcp-runtime-boundary-review/SKILL.md",
               "line": 41
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/mobilebuildmcp-snapshot-fixture-review",
@@ -346,7 +353,8 @@
               "line": 23
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/mobilebuildmcp-structured-output-review",
@@ -396,11 +404,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/mobilebuildmcp-structured-output-review/SKILL.md",
               "line": 40
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/mobilebuildmcp-test-boundary-review",
@@ -430,11 +439,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/mobilebuildmcp-test-boundary-review/SKILL.md",
               "line": 41
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/mobilebuildmcp-tool-contract-review",
@@ -499,11 +509,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/mobilebuildmcp-tool-contract-review/SKILL.md",
               "line": 43
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/warden",
@@ -539,13 +550,14 @@
               "file": "skills/warden/references/configuration.md",
               "line": 16
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/warden-sweep",
-          "score": 22,
-          "risk": 78,
-          "status": "do not install",
+          "score": 54,
+          "risk": 46,
+          "status": "caution",
           "partial": true,
           "coverage": 81.8,
           "exceptions": [
@@ -642,25 +654,11 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/warden-sweep/SKILL.md",
-              "line": 58
-            },
-            {
               "id": "OH1",
               "severity": "HIGH",
               "message": "Unvalidated Output Injection",
               "file": "skills/warden-sweep/scripts/scan.py",
               "line": 329
-            },
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/warden-sweep/SKILL.md",
-              "line": 1
             },
             {
               "id": "AST4",
@@ -725,20 +723,41 @@
               "file": "skills/warden-sweep/scripts/scan.py",
               "line": 329
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/warden-sweep/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/warden-sweep/SKILL.md",
+              "line": 58,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         }
       ]
     }
   ],
-  "score": 22,
-  "status": "do not install",
+  "score": 54,
+  "status": "caution",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:22:13Z"
+      "checkedAt": "2026-11-05T00:28:42Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

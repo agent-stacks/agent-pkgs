@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "reverse-engineering",
-      "dir": "/nix/store/phgsx8fmrh0b28y3aip92iwdnp0cvnxd-agent-plugin-reverse-engineering-1.0.1/share/agent-plugins/reverse-engineering",
+      "dir": "/nix/store/2z2hix2pzshn81lcjd52q0dwn2q9jgn2-agent-plugin-reverse-engineering-1.0.2/share/agent-plugins/reverse-engineering",
       "spec": "1.1.0",
       "score": 42,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
           "skills/anti-reversing-techniques",
           "skills/binary-analysis-patterns",
           "skills/memory-forensics",
@@ -21,14 +22,42 @@
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 75,
+          "risk": 25,
+          "status": "caution",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/agents/firmware-analyst.md",
+              "line": 180
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "com.anthropic.claude-code/agents/firmware-analyst.md",
+              "line": 259
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "com.anthropic.claude-code/agents/firmware-analyst.md",
+              "line": 262
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/anti-reversing-techniques",
           "score": 42,
@@ -66,7 +95,8 @@
               "file": "skills/anti-reversing-techniques/references/details.md",
               "line": 182
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/binary-analysis-patterns",
@@ -76,7 +106,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/memory-forensics",
@@ -128,7 +159,8 @@
               "file": "skills/memory-forensics/SKILL.md",
               "line": 45
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/protocol-reverse-engineering",
@@ -159,7 +191,8 @@
               "line": 203
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
@@ -172,7 +205,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T23:11:48Z"
+      "checkedAt": "2026-11-04T23:50:06Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

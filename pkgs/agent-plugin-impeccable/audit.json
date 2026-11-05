@@ -7,12 +7,14 @@
   "plugins": [
     {
       "name": "impeccable",
-      "dir": "/nix/store/7gw08papcy38c4i8k9p5kdifagdmpdr9-agent-plugin-impeccable-4.8.0/share/agent-plugins/impeccable",
+      "dir": "/nix/store/7cjxpzvs87q8vxqgflrgs5rycc6jfm0v-agent-plugin-impeccable-4.8.0/share/agent-plugins/impeccable",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/hooks",
           "skills/impeccable"
         ],
         "validated": [
@@ -22,14 +24,68 @@
           {
             "path": "bin/",
             "reason": "interpreter links into /nix/store"
-          },
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
           }
         ]
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 67,
+          "risk": 33,
+          "status": "caution",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "com.anthropic.claude-code/agents/impeccable-finish-reviewer.md",
+              "line": 15
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "com.anthropic.claude-code/agents/impeccable-finish-reviewer.md",
+              "line": 24
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "com.anthropic.claude-code/agents/impeccable-finish-reviewer.md",
+              "line": 25
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "com.anthropic.claude-code/agents/impeccable-finish-reviewer.md",
+              "line": 25
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "com.anthropic.claude-code/agents/impeccable-finish-reviewer.md",
+              "line": 39
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/impeccable",
           "score": 0,
@@ -95,20 +151,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/impeccable/SKILL.md",
-              "line": 58
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/impeccable/SKILL.md",
-              "line": 69
-            },
             {
               "id": "MP3",
               "severity": "HIGH",
@@ -184,14 +226,7 @@
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
               "file": "skills/impeccable/scripts/live-browser.js",
-              "line": 8372
-            },
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/impeccable/SKILL.md",
-              "line": 1
+              "line": 8375
             },
             {
               "id": "EA2",
@@ -266,14 +301,14 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/impeccable/reference/doctor.md",
               "line": 9
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/impeccable/reference/hooks.md",
               "line": 49
             },
@@ -366,14 +401,14 @@
               "severity": "MEDIUM",
               "message": "Internal Network Request",
               "file": "skills/impeccable/scripts/live-browser.js",
-              "line": 11885
+              "line": 11888
             },
             {
               "id": "SSRF2",
               "severity": "MEDIUM",
               "message": "Internal Network Request",
               "file": "skills/impeccable/scripts/live-browser.js",
-              "line": 11897
+              "line": 11900
             },
             {
               "id": "SSRF2",
@@ -422,7 +457,7 @@
               "severity": "MEDIUM",
               "message": "Internal Network Request",
               "file": "skills/impeccable/scripts/live-browser.js",
-              "line": 9026
+              "line": 9029
             },
             {
               "id": "E1",
@@ -438,6 +473,32 @@
               "file": "skills/impeccable/scripts/live-browser.js",
               "line": 7553
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/impeccable/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/impeccable/SKILL.md",
+              "line": 58,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/impeccable/SKILL.md",
+              "line": 69,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         }
       ]
@@ -451,7 +512,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-30T10:39:11Z"
+      "checkedAt": "2026-11-05T00:02:34Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

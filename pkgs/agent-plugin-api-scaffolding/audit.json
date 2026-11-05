@@ -7,25 +7,32 @@
   "plugins": [
     {
       "name": "api-scaffolding",
-      "dir": "/nix/store/1iyv9vkcqdazp2970kghp2jlmr17ws6w-agent-plugin-api-scaffolding-1.2.3/share/agent-plugins/api-scaffolding",
+      "dir": "/nix/store/717frm31bww01ycjlgz0sjbsfkh6v7gm-agent-plugin-api-scaffolding-1.2.4/share/agent-plugins/api-scaffolding",
       "spec": "1.1.0",
       "score": 77,
       "status": "caution",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
           "skills/fastapi-templates"
         ],
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/fastapi-templates",
           "score": 77,
@@ -60,7 +67,8 @@
               "file": "skills/fastapi-templates/references/details.md",
               "line": 372
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
@@ -73,7 +81,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:14:31Z"
+      "checkedAt": "2026-11-04T23:08:50Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "google-deepmind-science-skills",
-      "dir": "/nix/store/3dsm1b9w23y76f9wh8d3vqpidk7xx6pz-agent-plugin-google-deepmind-science-skills-0.0.0-unstable.2026-10-23.g4de6786/share/agent-plugins/google-deepmind-science-skills",
+      "dir": "/nix/store/03vclafvyn1sqwp84hk0ip4llfd1z7rm-agent-plugin-google-deepmind-science-skills-0.0.0-unstable.2026-10-23.g4de6786/share/agent-plugins/google-deepmind-science-skills",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -62,8 +62,8 @@
       "components": [
         {
           "path": "skills/alphafold-database-fetch-and-analyze",
-          "score": 93,
-          "risk": 7,
+          "score": 100,
+          "risk": 0,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -94,20 +94,22 @@
               "line": 86
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "LP3",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/alphafold-database-fetch-and-analyze/SKILL.md",
-              "line": 1
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
         {
           "path": "skills/alphagenome-atlas-website-links",
-          "score": 61,
-          "risk": 39,
+          "score": 68,
+          "risk": 32,
           "status": "caution",
           "partial": true,
           "coverage": 66.7,
@@ -144,13 +146,6 @@
               "line": 403
             },
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/alphagenome-atlas-website-links/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "SC4",
               "severity": "LOW",
               "message": "Unverifiable Dependency: numpy has 16 known advisory(ies) (CVE-2014-1859 (Numpy arbitrary file write via symlink attack); CVE-2021-41495 (NumPy NULL Pointer Dereference); CVE-2021-33430 (NumPy Buffer Overflow (Disputed)) +13 more), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
@@ -178,12 +173,22 @@
               "file": "skills/alphagenome-atlas-website-links/pyproject.toml",
               "line": 10
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/alphagenome-atlas-website-links/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
           ]
         },
         {
           "path": "skills/alphagenome-single-variant-analysis",
-          "score": 51,
-          "risk": 49,
+          "score": 58,
+          "risk": 42,
           "status": "caution",
           "partial": true,
           "coverage": 100,
@@ -341,13 +346,6 @@
               "line": 125
             },
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/alphagenome-single-variant-analysis/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
@@ -403,13 +401,23 @@
               "file": "skills/alphagenome-single-variant-analysis/scripts/interpret_splicing.py",
               "line": 64
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/alphagenome-single-variant-analysis/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
           ]
         },
         {
           "path": "skills/alphagenome-variant-impact-score",
-          "score": 14,
-          "risk": 86,
-          "status": "do not install",
+          "score": 64,
+          "risk": 36,
+          "status": "caution",
           "partial": true,
           "coverage": 66.7,
           "exceptions": [
@@ -451,125 +459,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
-              "line": 13
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
-              "line": 37
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
-              "line": 40
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
-              "line": 49
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
-              "line": 53
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
-              "line": 68
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
-              "line": 71
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
-              "line": 74
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
-              "line": 91
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
-              "line": 115
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
-              "line": 137
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
-              "line": 140
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
-              "line": 143
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
-              "line": 146
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
-              "line": 164
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
-              "line": 167
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
-              "line": 170
-            },
-            {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
@@ -582,13 +471,6 @@
               "message": "Credential Access",
               "file": "skills/alphagenome-variant-impact-score/scripts/alphagenome_atlas_avi.py",
               "line": 2017
-            },
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
-              "line": 1
             },
             {
               "id": "RA2",
@@ -625,12 +507,158 @@
               "file": "skills/alphagenome-variant-impact-score/pyproject.toml",
               "line": 14
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
+              "line": 13,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
+              "line": 37,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
+              "line": 40,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
+              "line": 49,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
+              "line": 53,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
+              "line": 68,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
+              "line": 71,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
+              "line": 74,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
+              "line": 91,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
+              "line": 115,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
+              "line": 137,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
+              "line": 140,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
+              "line": 143,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
+              "line": 146,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
+              "line": 164,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
+              "line": 167,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/alphagenome-variant-impact-score/SKILL.md",
+              "line": 170,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
           "path": "skills/chembl-database",
-          "score": 93,
-          "risk": 7,
+          "score": 100,
+          "risk": 0,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -641,20 +669,22 @@
               "line": 15
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "LP3",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/chembl-database/SKILL.md",
-              "line": 1
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
         {
           "path": "skills/clinical-trials-database",
-          "score": 93,
-          "risk": 7,
+          "score": 100,
+          "risk": 0,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -685,21 +715,23 @@
               "line": 86
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "LP3",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/clinical-trials-database/SKILL.md",
-              "line": 1
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
         {
           "path": "skills/clinvar-database",
-          "score": 74,
-          "risk": 26,
-          "status": "caution",
+          "score": 81,
+          "risk": 19,
+          "status": "safe",
           "partial": true,
           "coverage": 100,
           "exceptions": [
@@ -726,13 +758,16 @@
               "message": "Credential Access",
               "file": "skills/clinvar-database/scripts/clinvar_api.py",
               "line": 648
-            },
+            }
+          ],
+          "suppressed": [
             {
               "id": "LP3",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/clinvar-database/SKILL.md",
-              "line": 1
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
@@ -773,12 +808,13 @@
               "file": "skills/credentials/SKILL.md",
               "line": 52
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/dbsnp-database",
-          "score": 61,
-          "risk": 39,
+          "score": 68,
+          "risk": 32,
           "status": "caution",
           "partial": true,
           "coverage": 100,
@@ -838,13 +874,6 @@
               "line": 554
             },
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/dbsnp-database/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
@@ -858,12 +887,22 @@
               "file": "skills/dbsnp-database/scripts/dbsnp_cli.py",
               "line": 170
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/dbsnp-database/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
           ]
         },
         {
           "path": "skills/embl-ebi-ols",
-          "score": 93,
-          "risk": 7,
+          "score": 100,
+          "risk": 0,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -874,20 +913,22 @@
               "line": 18
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "LP3",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/embl-ebi-ols/SKILL.md",
-              "line": 1
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
         {
           "path": "skills/encode-ccres-database",
-          "score": 93,
-          "risk": 7,
+          "score": 100,
+          "risk": 0,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -898,20 +939,22 @@
               "line": 21
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "LP3",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/encode-ccres-database/SKILL.md",
-              "line": 1
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
         {
           "path": "skills/ensembl-database",
-          "score": 93,
-          "risk": 7,
+          "score": 100,
+          "risk": 0,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -922,21 +965,23 @@
               "line": 17
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "LP3",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/ensembl-database/SKILL.md",
-              "line": 1
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
         {
           "path": "skills/foldseek-structural-search",
-          "score": 56,
-          "risk": 44,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
           "partial": true,
           "coverage": 66.7,
           "exceptions": [
@@ -956,34 +1001,38 @@
               "line": 0
             }
           ],
-          "findings": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/foldseek-structural-search/SKILL.md",
-              "line": 66
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/foldseek-structural-search/SKILL.md",
-              "line": 68
-            },
+          "findings": [],
+          "suppressed": [
             {
               "id": "LP3",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/foldseek-structural-search/SKILL.md",
-              "line": 1
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/foldseek-structural-search/SKILL.md",
+              "line": 66,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/foldseek-structural-search/SKILL.md",
+              "line": 68,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
         {
           "path": "skills/gnomad-database",
-          "score": 93,
-          "risk": 7,
+          "score": 100,
+          "risk": 0,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -994,20 +1043,22 @@
               "line": 18
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "LP3",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/gnomad-database/SKILL.md",
-              "line": 1
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
         {
           "path": "skills/gtex-database",
-          "score": 93,
-          "risk": 7,
+          "score": 100,
+          "risk": 0,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -1018,20 +1069,22 @@
               "line": 20
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "LP3",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/gtex-database/SKILL.md",
-              "line": 1
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
         {
           "path": "skills/human-protein-atlas-database",
-          "score": 93,
-          "risk": 7,
+          "score": 100,
+          "risk": 0,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -1062,20 +1115,22 @@
               "line": 170
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "LP3",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/human-protein-atlas-database/SKILL.md",
-              "line": 1
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
         {
           "path": "skills/interpro-database",
-          "score": 93,
-          "risk": 7,
+          "score": 100,
+          "risk": 0,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -1086,20 +1141,22 @@
               "line": 18
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "LP3",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/interpro-database/SKILL.md",
-              "line": 1
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
         {
           "path": "skills/jaspar-database",
-          "score": 93,
-          "risk": 7,
+          "score": 100,
+          "risk": 0,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -1150,20 +1207,22 @@
               "line": 107
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "LP3",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/jaspar-database/SKILL.md",
-              "line": 1
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
         {
           "path": "skills/literature-search-arxiv",
-          "score": 86,
-          "risk": 14,
+          "score": 93,
+          "risk": 7,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -1191,18 +1250,21 @@
           ],
           "findings": [
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/literature-search-arxiv/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "P4",
               "severity": "MEDIUM",
               "message": "Behavior Manipulation",
               "file": "skills/literature-search-arxiv/SKILL.md",
               "line": 27
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/literature-search-arxiv/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
@@ -1261,12 +1323,13 @@
               "file": "skills/literature-search-biorxiv/scripts/search_by_doi.py",
               "line": 36
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/literature-search-europepmc",
-          "score": 86,
-          "risk": 14,
+          "score": 93,
+          "risk": 7,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -1279,26 +1342,29 @@
           ],
           "findings": [
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/literature-search-europepmc/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "P4",
               "severity": "MEDIUM",
               "message": "Behavior Manipulation",
               "file": "skills/literature-search-europepmc/SKILL.md",
               "line": 34
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/literature-search-europepmc/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
           ]
         },
         {
           "path": "skills/literature-search-openalex",
-          "score": 47,
-          "risk": 53,
-          "status": "do not install",
+          "score": 54,
+          "risk": 46,
+          "status": "caution",
           "partial": true,
           "coverage": 100,
           "exceptions": [
@@ -1320,13 +1386,6 @@
               "message": "Credential Access",
               "file": "skills/literature-search-openalex/scripts/openalex_cli.py",
               "line": 622
-            },
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/literature-search-openalex/SKILL.md",
-              "line": 1
             },
             {
               "id": "EA4",
@@ -1363,13 +1422,23 @@
               "file": "skills/literature-search-openalex/scripts/openalex_cli.py",
               "line": 549
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/literature-search-openalex/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
           ]
         },
         {
           "path": "skills/ncbi-sequence-fetch",
-          "score": 74,
-          "risk": 26,
-          "status": "caution",
+          "score": 81,
+          "risk": 19,
+          "status": "safe",
           "partial": true,
           "coverage": 100,
           "exceptions": [
@@ -1386,20 +1455,23 @@
               "message": "Credential Access",
               "file": "skills/ncbi-sequence-fetch/scripts/ncbi_fetch.py",
               "line": 1083
-            },
+            }
+          ],
+          "suppressed": [
             {
               "id": "LP3",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/ncbi-sequence-fetch/SKILL.md",
-              "line": 1
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
         {
           "path": "skills/openfda-database",
-          "score": 69,
-          "risk": 31,
+          "score": 76,
+          "risk": 24,
           "status": "caution",
           "partial": true,
           "coverage": 100,
@@ -1429,25 +1501,28 @@
               "line": 501
             },
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/openfda-database/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/openfda-database/references/api_endpoints.md",
               "line": 5
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/openfda-database/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
           ]
         },
         {
           "path": "skills/opentargets-database",
-          "score": 86,
-          "risk": 14,
+          "score": 93,
+          "risk": 7,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -1465,26 +1540,29 @@
           ],
           "findings": [
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/opentargets-database/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/opentargets-database/scripts/query_opentargets.py",
               "line": 37
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/opentargets-database/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
           ]
         },
         {
           "path": "skills/pdb-database",
-          "score": 28,
-          "risk": 72,
-          "status": "do not install",
+          "score": 79,
+          "risk": 21,
+          "status": "caution",
           "partial": true,
           "coverage": 83.3,
           "exceptions": [
@@ -1510,34 +1588,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/pdb-database/SKILL.md",
-              "line": 41
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/pdb-database/SKILL.md",
-              "line": 43
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/pdb-database/SKILL.md",
-              "line": 149
-            },
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/pdb-database/SKILL.md",
-              "line": 1
-            },
             {
               "id": "E1",
               "severity": "MEDIUM",
@@ -1615,6 +1665,40 @@
               "file": "skills/pdb-database/scripts/fetch_schema.py",
               "line": 206
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/pdb-database/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/pdb-database/SKILL.md",
+              "line": 41,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/pdb-database/SKILL.md",
+              "line": 43,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/pdb-database/SKILL.md",
+              "line": 149,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
@@ -1664,13 +1748,6 @@
               "message": "Context Leakage",
               "file": "skills/predictingthepast/SKILL.md",
               "line": 278
-            },
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/predictingthepast/SKILL.md",
-              "line": 1
             },
             {
               "id": "EA2",
@@ -1756,13 +1833,23 @@
               "file": "skills/predictingthepast/scripts/run_inference.py",
               "line": 140
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/predictingthepast/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
           ]
         },
         {
           "path": "skills/protein-sequence-msa",
-          "score": 74,
-          "risk": 26,
-          "status": "caution",
+          "score": 81,
+          "risk": 19,
+          "status": "safe",
           "partial": true,
           "coverage": 100,
           "exceptions": [
@@ -1779,21 +1866,24 @@
               "message": "Credential Access",
               "file": "skills/protein-sequence-msa/scripts/msa_align.py",
               "line": 150
-            },
+            }
+          ],
+          "suppressed": [
             {
               "id": "LP3",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/protein-sequence-msa/SKILL.md",
-              "line": 1
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
         {
           "path": "skills/protein-sequence-similarity-search",
-          "score": 22,
-          "risk": 78,
-          "status": "do not install",
+          "score": 73,
+          "risk": 27,
+          "status": "caution",
           "partial": true,
           "coverage": 75,
           "exceptions": [
@@ -1830,39 +1920,11 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/protein-sequence-similarity-search/SKILL.md",
-              "line": 63
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/protein-sequence-similarity-search/SKILL.md",
-              "line": 123
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/protein-sequence-similarity-search/SKILL.md",
-              "line": 129
-            },
-            {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/protein-sequence-similarity-search/scripts/uniprot_blast.py",
               "line": 269
-            },
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/protein-sequence-similarity-search/SKILL.md",
-              "line": 1
             },
             {
               "id": "OH3",
@@ -1871,12 +1933,46 @@
               "file": "skills/protein-sequence-similarity-search/scripts/uniprot_blast.py",
               "line": 264
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/protein-sequence-similarity-search/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/protein-sequence-similarity-search/SKILL.md",
+              "line": 63,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/protein-sequence-similarity-search/SKILL.md",
+              "line": 123,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/protein-sequence-similarity-search/SKILL.md",
+              "line": 129,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
           "path": "skills/pubchem-database",
-          "score": 93,
-          "risk": 7,
+          "score": 100,
+          "risk": 0,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -1887,21 +1983,23 @@
               "line": 15
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "LP3",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/pubchem-database/SKILL.md",
-              "line": 1
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
         {
           "path": "skills/pubmed-database",
-          "score": 49,
-          "risk": 51,
-          "status": "do not install",
+          "score": 81,
+          "risk": 19,
+          "status": "incomplete",
           "partial": true,
           "coverage": 90.9,
           "exceptions": [
@@ -1953,25 +2051,29 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/pubmed-database/SKILL.md",
-              "line": 62
-            },
-            {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/pubmed-database/scripts/pubmed_api.py",
               "line": 636
-            },
+            }
+          ],
+          "suppressed": [
             {
               "id": "LP3",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/pubmed-database/SKILL.md",
-              "line": 1
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/pubmed-database/SKILL.md",
+              "line": 62,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -2014,12 +2116,13 @@
               "line": 110
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/quickgo-database",
-          "score": 93,
-          "risk": 7,
+          "score": 100,
+          "risk": 0,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -2030,20 +2133,22 @@
               "line": 28
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "LP3",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/quickgo-database/SKILL.md",
-              "line": 1
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
         {
           "path": "skills/reactome-database",
-          "score": 88,
-          "risk": 12,
+          "score": 95,
+          "risk": 5,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -2055,13 +2160,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/reactome-database/SKILL.md",
-              "line": 1
-            },
             {
               "id": "AST7",
               "severity": "LOW",
@@ -2083,12 +2181,22 @@
               "file": "skills/reactome-database/scripts/reactome_analysis.py",
               "line": 908
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/reactome-database/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
           ]
         },
         {
           "path": "skills/string-database",
-          "score": 93,
-          "risk": 7,
+          "score": 100,
+          "risk": 0,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -2099,20 +2207,22 @@
               "line": 19
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "LP3",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/string-database/SKILL.md",
-              "line": 1
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
         {
           "path": "skills/ucsc-conservation-and-tfbs",
-          "score": 80,
-          "risk": 20,
+          "score": 87,
+          "risk": 13,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -2124,13 +2234,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/ucsc-conservation-and-tfbs/SKILL.md",
-              "line": 1
-            },
             {
               "id": "E1",
               "severity": "MEDIUM",
@@ -2173,13 +2276,23 @@
               "file": "skills/ucsc-conservation-and-tfbs/scripts/list_tracks.py",
               "line": 33
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/ucsc-conservation-and-tfbs/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
           ]
         },
         {
           "path": "skills/unibind-database",
-          "score": 79,
-          "risk": 21,
-          "status": "caution",
+          "score": 86,
+          "risk": 14,
+          "status": "safe",
           "partial": true,
           "coverage": 100,
           "exceptions": [
@@ -2201,30 +2314,23 @@
           ],
           "findings": [
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/unibind-database/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/unibind-database/SKILL.md",
               "line": 79
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/unibind-database/SKILL.md",
               "line": 83
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/unibind-database/SKILL.md",
               "line": 84
             },
@@ -2235,13 +2341,23 @@
               "file": "skills/unibind-database/scripts/unibind_api.py",
               "line": 193
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/unibind-database/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
           ]
         },
         {
           "path": "skills/uniprot-database",
-          "score": 78,
-          "risk": 22,
-          "status": "caution",
+          "score": 85,
+          "risk": 15,
+          "status": "safe",
           "partial": true,
           "coverage": 100,
           "exceptions": [
@@ -2263,13 +2379,6 @@
           ],
           "findings": [
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/uniprot-database/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "EA4",
               "severity": "MEDIUM",
               "message": "Unbounded Resource Access",
@@ -2282,6 +2391,16 @@
               "message": "Unbounded Output",
               "file": "skills/uniprot-database/scripts/uniprot_tools.py",
               "line": 164
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/uniprot-database/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
@@ -2301,12 +2420,13 @@
               "file": "skills/uv/SKILL.md",
               "line": 37
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/workflow-skill-creator",
-          "score": 57,
-          "risk": 43,
+          "score": 64,
+          "risk": 36,
           "status": "caution",
           "partial": true,
           "coverage": 100,
@@ -2326,13 +2446,6 @@
               "line": 274
             },
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/workflow-skill-creator/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
@@ -2345,6 +2458,16 @@
               "message": "External Transmission",
               "file": "skills/workflow-skill-creator/references/cli_script_template.py",
               "line": 49
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/workflow-skill-creator/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         }
@@ -2359,7 +2482,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-23T13:45:01Z"
+      "checkedAt": "2026-11-04T23:52:41Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

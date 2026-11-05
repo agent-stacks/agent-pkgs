@@ -7,9 +7,9 @@
   "plugins": [
     {
       "name": "block-agent-skills",
-      "dir": "/nix/store/8ljqbaw7i54vq2rhm4vxf7wqvvlv0x8l-agent-plugin-block-agent-skills-0.0.0-unstable.2026-06-26.g329a55d/share/agent-plugins/block-agent-skills",
+      "dir": "/nix/store/mc29f84j770pvqqj4wks9cl6iivska4c-agent-plugin-block-agent-skills-0.0.0-unstable.2026-06-26.g329a55d/share/agent-plugins/block-agent-skills",
       "spec": "1.1.0",
-      "score": 55,
+      "score": 62,
       "status": "caution",
       "coverage": {
         "scanned": [
@@ -54,7 +54,8 @@
               "file": "skills/api-setup/templates/config.template.json",
               "line": 3
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/beads",
@@ -99,11 +100,12 @@
             {
               "id": "RP1",
               "severity": "LOW",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/beads/SKILL.md",
               "line": 202
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/code-review",
@@ -119,7 +121,8 @@
               "line": 5
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/frontend-design",
@@ -135,7 +138,8 @@
               "line": 5
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/goose-blog-post",
@@ -254,23 +258,24 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/goose-blog-post/README.md",
               "line": 8
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/goose-blog-post/SKILL.md",
               "line": 310
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/rp-why",
-          "score": 55,
-          "risk": 45,
+          "score": 62,
+          "risk": 38,
           "status": "caution",
           "partial": true,
           "coverage": 100,
@@ -292,23 +297,26 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/rp-why/README.md",
               "line": 10
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/rp-why/SKILL.md",
               "line": 35
-            },
+            }
+          ],
+          "suppressed": [
             {
               "id": "LP3",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/rp-why/SKILL.md",
-              "line": 1
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
@@ -326,12 +334,13 @@
               "line": 5
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 55,
+  "score": 62,
   "status": "caution",
   "tool": {
     "name": "skillspector",
@@ -339,7 +348,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:19:58Z"
+      "checkedAt": "2026-11-04T23:14:40Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

@@ -7,18 +7,22 @@
   "plugins": [
     {
       "name": "planning-with-files",
-      "dir": "/nix/store/6cj1zhdzs28bs539ds2pl81c1ym2g3dj-agent-plugin-planning-with-files-3.28.0/share/agent-plugins/planning-with-files",
+      "dir": "/nix/store/a28jgw3pcq4jnw65zxd4f3g89w9fkivd-agent-plugin-planning-with-files-3.28.0/share/agent-plugins/planning-with-files",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/commands",
+          "com.anthropic.claude-code/hooks",
+          "scripts",
           "skills/planning-with-files",
           "skills/planning-with-files-ar",
           "skills/planning-with-files-de",
           "skills/planning-with-files-es",
           "skills/planning-with-files-zh",
-          "skills/planning-with-files-zht"
+          "skills/planning-with-files-zht",
+          "templates"
         ],
         "validated": [
           "plugin.json"
@@ -31,22 +35,436 @@
           {
             "path": "bin/",
             "reason": "interpreter links into /nix/store"
-          },
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          },
-          {
-            "path": "scripts/",
-            "reason": "outside the spec"
-          },
-          {
-            "path": "templates/",
-            "reason": "outside the spec"
           }
         ]
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 86,
+          "risk": 14,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "com.anthropic.claude-code/commands/plan-ar.md",
+              "line": 7
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "com.anthropic.claude-code/commands/plan-de.md",
+              "line": 7
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "com.anthropic.claude-code/commands/plan-es.md",
+              "line": 7
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "com.anthropic.claude-code/commands/plan-zh.md",
+              "line": 7
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "com.anthropic.claude-code/commands/plan-zht.md",
+              "line": 7
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 80,
+          "risk": 20,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 75,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/claude-hook.sh",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "YR4",
+              "severity": "HIGH",
+              "message": "YARA rule 'agent_skill_mcp_tool_poisoning_metadata': MCP/tool metadata poisoning indicators in tool schemas or skill manifests [agent_skills]",
+              "file": "com.anthropic.claude-code/hooks/codex-hooks.json",
+              "line": 2
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "scripts",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 44.4,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/_v240_update_hook_bodies.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/attest-plan.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/check-complete.ps1",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/check-complete.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/init-session.ps1",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/init-session.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/inject-plan.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/inject-plan.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/ledger-append.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/ledger-summary.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/phase-status.ps1",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/resolve-plan-dir.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/set-active-plan.ps1",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/set-active-plan.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/skill-hook.sh",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "scripts/attest-plan.sh",
+              "line": 262
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "scripts/init-session.sh",
+              "line": 201
+            },
+            {
+              "id": "E4",
+              "severity": "HIGH",
+              "message": "Context Leakage",
+              "file": "scripts/session-catchup.py",
+              "line": 371
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/_v240_update_hook_bodies.py",
+              "line": 34
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/_v240_update_hook_bodies.py",
+              "line": 40
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/_v240_update_hook_bodies.py",
+              "line": 41
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/_v240_update_hook_bodies.py",
+              "line": 42
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/_v240_update_hook_bodies.py",
+              "line": 43
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/_v240_update_hook_bodies.py",
+              "line": 44
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/_v240_update_hook_bodies.py",
+              "line": 45
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/_v240_update_hook_bodies.py",
+              "line": 46
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/bump-version.py",
+              "line": 15
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/bump-version.py",
+              "line": 17
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/bump-version.py",
+              "line": 18
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/bump-version.py",
+              "line": 19
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/bump-version.py",
+              "line": 46
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/bump-version.py",
+              "line": 52
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/bump-version.py",
+              "line": 53
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/bump-version.py",
+              "line": 54
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/bump-version.py",
+              "line": 55
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/bump-version.py",
+              "line": 56
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/bump-version.py",
+              "line": 57
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/bump-version.py",
+              "line": 58
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/bump-version.py",
+              "line": 59
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/bump-version.py",
+              "line": 60
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/bump-version.py",
+              "line": 85
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/bump-version.py",
+              "line": 86
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/bump-version.py",
+              "line": 87
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/check-continue.sh",
+              "line": 16
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/_v240_update_hook_bodies.py",
+              "line": 168
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/_v240_update_hook_bodies.py",
+              "line": 169
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/build-clawhub-upload.py",
+              "line": 45
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/gate-stop.sh",
+              "line": 25
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/inject-plan.py",
+              "line": 1435
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/inject-plan.py",
+              "line": 1681
+            },
+            {
+              "id": "OH3",
+              "severity": "MEDIUM",
+              "message": "Unbounded Output",
+              "file": "scripts/inject-plan.sh",
+              "line": 684
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "scripts/inject-plan.sh",
+              "line": 920
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "scripts/sync-ide-folders.py",
+              "line": 184
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/planning-with-files",
           "score": 0,
@@ -203,181 +621,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files/SKILL.md",
-              "line": 42
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files/SKILL.md",
-              "line": 240
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files/SKILL.md",
-              "line": 349
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files/SKILL.md",
-              "line": 70
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files/SKILL.md",
-              "line": 99
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files/SKILL.md",
-              "line": 238
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files/SKILL.md",
-              "line": 262
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files/SKILL.md",
-              "line": 267
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files/SKILL.md",
-              "line": 455
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files/SKILL.md",
-              "line": 458
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files/SKILL.md",
-              "line": 239
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files/SKILL.md",
-              "line": 274
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files/SKILL.md",
-              "line": 241
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files/SKILL.md",
-              "line": 360
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files/SKILL.md",
-              "line": 390
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files/SKILL.md",
-              "line": 243
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files/SKILL.md",
-              "line": 481
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files/SKILL.md",
-              "line": 485
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files/SKILL.md",
-              "line": 308
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files/SKILL.md",
-              "line": 390
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files/SKILL.md",
-              "line": 406
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files/SKILL.md",
-              "line": 447
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files/SKILL.md",
-              "line": 449
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files/SKILL.md",
-              "line": 493
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files/SKILL.md",
-              "line": 449
-            },
-            {
               "id": "TM1",
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
@@ -394,14 +637,14 @@
             {
               "id": "LP1",
               "severity": "HIGH",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/planning-with-files/scripts/inject-plan.py",
               "line": 1
             },
             {
               "id": "LP1",
               "severity": "HIGH",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/planning-with-files/scripts/session-catchup.py",
               "line": 1
             },
@@ -457,7 +700,7 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/planning-with-files/SKILL.md",
               "line": 304
             },
@@ -516,6 +759,208 @@
               "message": "Sudo/Root Execution",
               "file": "skills/planning-with-files/scripts/inject-plan.sh",
               "line": 920
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files/SKILL.md",
+              "line": 42,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files/SKILL.md",
+              "line": 70,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files/SKILL.md",
+              "line": 99,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files/SKILL.md",
+              "line": 238,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files/SKILL.md",
+              "line": 239,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files/SKILL.md",
+              "line": 240,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files/SKILL.md",
+              "line": 241,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files/SKILL.md",
+              "line": 243,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files/SKILL.md",
+              "line": 262,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files/SKILL.md",
+              "line": 267,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files/SKILL.md",
+              "line": 274,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files/SKILL.md",
+              "line": 308,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files/SKILL.md",
+              "line": 349,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files/SKILL.md",
+              "line": 360,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files/SKILL.md",
+              "line": 390,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files/SKILL.md",
+              "line": 390,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files/SKILL.md",
+              "line": 406,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files/SKILL.md",
+              "line": 447,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files/SKILL.md",
+              "line": 449,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files/SKILL.md",
+              "line": 449,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files/SKILL.md",
+              "line": 455,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files/SKILL.md",
+              "line": 458,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files/SKILL.md",
+              "line": 481,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files/SKILL.md",
+              "line": 485,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files/SKILL.md",
+              "line": 493,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -630,13 +1075,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files-ar/SKILL.md",
-              "line": 50
-            },
-            {
               "id": "TM1",
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
@@ -646,7 +1084,7 @@
             {
               "id": "LP1",
               "severity": "HIGH",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/planning-with-files-ar/scripts/inject-plan.py",
               "line": 1
             },
@@ -691,6 +1129,16 @@
               "message": "Sudo/Root Execution",
               "file": "skills/planning-with-files-ar/scripts/inject-plan.sh",
               "line": 920
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files-ar/SKILL.md",
+              "line": 50,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -800,13 +1248,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files-de/SKILL.md",
-              "line": 50
-            },
-            {
               "id": "TM1",
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
@@ -816,7 +1257,7 @@
             {
               "id": "LP1",
               "severity": "HIGH",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/planning-with-files-de/scripts/inject-plan.py",
               "line": 1
             },
@@ -861,6 +1302,16 @@
               "message": "Sudo/Root Execution",
               "file": "skills/planning-with-files-de/scripts/inject-plan.sh",
               "line": 920
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files-de/SKILL.md",
+              "line": 50,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -975,13 +1426,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files-es/SKILL.md",
-              "line": 50
-            },
-            {
               "id": "TM1",
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
@@ -991,7 +1435,7 @@
             {
               "id": "LP1",
               "severity": "HIGH",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/planning-with-files-es/scripts/inject-plan.py",
               "line": 1
             },
@@ -1036,6 +1480,16 @@
               "message": "Sudo/Root Execution",
               "file": "skills/planning-with-files-es/scripts/inject-plan.sh",
               "line": 920
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files-es/SKILL.md",
+              "line": 50,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -1150,13 +1604,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files-zh/SKILL.md",
-              "line": 52
-            },
-            {
               "id": "TM1",
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
@@ -1166,7 +1613,7 @@
             {
               "id": "LP1",
               "severity": "HIGH",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/planning-with-files-zh/scripts/inject-plan.py",
               "line": 1
             },
@@ -1211,6 +1658,16 @@
               "message": "Sudo/Root Execution",
               "file": "skills/planning-with-files-zh/scripts/inject-plan.sh",
               "line": 920
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files-zh/SKILL.md",
+              "line": 52,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -1325,13 +1782,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/planning-with-files-zht/SKILL.md",
-              "line": 52
-            },
-            {
               "id": "TM1",
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
@@ -1341,7 +1791,7 @@
             {
               "id": "LP1",
               "severity": "HIGH",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/planning-with-files-zht/scripts/inject-plan.py",
               "line": 1
             },
@@ -1387,7 +1837,28 @@
               "file": "skills/planning-with-files-zht/scripts/inject-plan.sh",
               "line": 920
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/planning-with-files-zht/SKILL.md",
+              "line": 52,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
+        },
+        {
+          "path": "templates",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
@@ -1400,7 +1871,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-04T19:42:19Z"
+      "checkedAt": "2026-11-05T00:07:19Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

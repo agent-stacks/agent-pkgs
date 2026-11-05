@@ -7,12 +7,14 @@
   "plugins": [
     {
       "name": "systems-programming",
-      "dir": "/nix/store/xkvasdhx9xivkrybsgd5j5wsj75bj9js-agent-plugin-systems-programming-1.2.3/share/agent-plugins/systems-programming",
+      "dir": "/nix/store/4z4bfdbjq65k96m7w4idqp5v0ganydqq-agent-plugin-systems-programming-1.2.4/share/agent-plugins/systems-programming",
       "spec": "1.1.0",
-      "score": 75,
-      "status": "caution",
+      "score": 80,
+      "status": "incomplete",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/commands",
           "skills/go-concurrency-patterns",
           "skills/memory-safety-patterns",
           "skills/rust-async-patterns"
@@ -20,19 +22,52 @@
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
         {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 80,
+          "risk": 20,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "MP3",
+              "severity": "HIGH",
+              "message": "Memory Manipulation",
+              "file": "com.anthropic.claude-code/agents/c-pro.md",
+              "line": 28
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 93,
+          "risk": 7,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/commands/rust-project.md",
+              "line": 388
+            }
+          ],
+          "suppressed": []
+        },
+        {
           "path": "skills/go-concurrency-patterns",
-          "score": 75,
-          "risk": 25,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
           "partial": true,
           "coverage": 50,
           "exceptions": [
@@ -57,21 +92,23 @@
               "line": 0
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/go-concurrency-patterns/SKILL.md",
-              "line": 89
+              "line": 89,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
         {
           "path": "skills/memory-safety-patterns",
-          "score": 75,
-          "risk": 25,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
           "partial": true,
           "coverage": 50,
           "exceptions": [
@@ -86,21 +123,23 @@
               "line": 0
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/memory-safety-patterns/SKILL.md",
-              "line": 42
+              "line": 42,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
         {
           "path": "skills/rust-async-patterns",
-          "score": 75,
-          "risk": 25,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
           "partial": true,
           "coverage": 50,
           "exceptions": [
@@ -135,28 +174,33 @@
               "line": 0
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/rust-async-patterns/SKILL.md",
-              "line": 77
+              "line": 77,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         }
       ]
     }
   ],
-  "score": 75,
-  "status": "caution",
+  "score": 80,
+  "status": "incomplete",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T23:37:56Z"
+      "checkedAt": "2026-11-05T02:35:24Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

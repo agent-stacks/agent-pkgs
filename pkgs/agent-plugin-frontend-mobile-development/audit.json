@@ -7,12 +7,14 @@
   "plugins": [
     {
       "name": "frontend-mobile-development",
-      "dir": "/nix/store/mgykbpjiwi37airvkzs01nbfdpvzzs30-agent-plugin-frontend-mobile-development-1.2.3/share/agent-plugins/frontend-mobile-development",
+      "dir": "/nix/store/3p2kfxph7ss2p3q85sj57ng5ha7ksanz-agent-plugin-frontend-mobile-development-1.2.4/share/agent-plugins/frontend-mobile-development",
       "spec": "1.1.0",
-      "score": 70,
-      "status": "caution",
+      "score": 88,
+      "status": "incomplete",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/commands",
           "skills/nextjs-app-router-patterns",
           "skills/react-native-architecture",
           "skills/react-state-management",
@@ -21,19 +23,42 @@
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
         {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 0,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/commands/component-scaffold.md",
+              "line": 0
+            }
+          ],
+          "findings": [],
+          "suppressed": []
+        },
+        {
           "path": "skills/nextjs-app-router-patterns",
-          "score": 70,
-          "risk": 30,
-          "status": "caution",
+          "score": 95,
+          "risk": 5,
+          "status": "incomplete",
           "partial": true,
           "coverage": 50,
           "exceptions": [
@@ -60,18 +85,21 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/nextjs-app-router-patterns/SKILL.md",
-              "line": 96
-            },
-            {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/nextjs-app-router-patterns/SKILL.md",
               "line": 76
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/nextjs-app-router-patterns/SKILL.md",
+              "line": 96,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -93,38 +121,39 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/react-native-architecture/SKILL.md",
               "line": 53
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/react-native-architecture/SKILL.md",
               "line": 56
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/react-native-architecture/SKILL.md",
               "line": 57
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/react-native-architecture/SKILL.md",
               "line": 58
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/react-state-management",
-          "score": 75,
-          "risk": 25,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
           "partial": true,
           "coverage": 50,
           "exceptions": [
@@ -139,21 +168,23 @@
               "line": 0
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/react-state-management/SKILL.md",
-              "line": 86
+              "line": 86,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
         {
           "path": "skills/tailwind-design-system",
-          "score": 75,
-          "risk": 25,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
           "partial": true,
           "coverage": 66.7,
           "exceptions": [
@@ -173,28 +204,33 @@
               "line": 0
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/tailwind-design-system/SKILL.md",
-              "line": 185
+              "line": 185,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         }
       ]
     }
   ],
-  "score": 70,
-  "status": "caution",
+  "score": 88,
+  "status": "incomplete",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:36:46Z"
+      "checkedAt": "2026-11-04T23:36:54Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

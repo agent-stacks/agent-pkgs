@@ -7,12 +7,14 @@
   "plugins": [
     {
       "name": "agentmemory",
-      "dir": "/nix/store/fxs2s9d9r09398ljdcslfmkn6mfi67ai-agent-plugin-agentmemory-0.9.31/share/agent-plugins/agentmemory",
+      "dir": "/nix/store/58ch12clgq3xk46ki7x3z26pj9xmggxl-agent-plugin-agentmemory-0.9.32/share/agent-plugins/agentmemory",
       "spec": "1.1.0",
-      "score": 20,
+      "score": 18,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/hooks",
+          "scripts",
           "skills/agentmemory-agents",
           "skills/agentmemory-architecture",
           "skills/agentmemory-config",
@@ -40,20 +42,187 @@
             "reason": "interpreter links into /nix/store"
           },
           {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          },
-          {
             "path": "mcp.json",
             "reason": "SkillSpector does not analyse this layout as an MCP manifest"
-          },
-          {
-            "path": "scripts/",
-            "reason": "outside the spec"
           }
         ]
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "scripts",
+          "score": 18,
+          "risk": 82,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 44.4,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/_capture.mjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/antigravity-bridge.mjs",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/cursor/run-detached.mjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/cursor/run-detached.mjs",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/cursor/run-hook.mjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/cursor/run-hook.mjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/diagnostics.mjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/plugin-bridge.mjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/post-tool-failure.mjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/post-tool-use.mjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/session-start.mjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/stop.mjs",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/_capture.mjs",
+              "line": 33
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/plugin-bridge.mjs",
+              "line": 35
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/pre-compact.mjs",
+              "line": 42
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/pre-tool-use.mjs",
+              "line": 32
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/session-start.mjs",
+              "line": 33
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/_capture.mjs",
+              "line": 109
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/plugin-bridge.mjs",
+              "line": 110
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/pre-compact.mjs",
+              "line": 118
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/pre-tool-use.mjs",
+              "line": 108
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/session-start.mjs",
+              "line": 109
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "scripts/session-end.mjs",
+              "line": 92
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "scripts/session-end.mjs",
+              "line": 103
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "scripts/session-end.mjs",
+              "line": 111
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/agentmemory-agents",
           "score": 20,
@@ -126,7 +295,8 @@
               "file": "skills/agentmemory-agents/TROUBLESHOOTING.md",
               "line": 35
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/agentmemory-architecture",
@@ -151,7 +321,8 @@
               "file": "skills/agentmemory-architecture/TROUBLESHOOTING.md",
               "line": 35
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/agentmemory-config",
@@ -194,7 +365,8 @@
               "file": "skills/agentmemory-config/TROUBLESHOOTING.md",
               "line": 35
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/agentmemory-hooks",
@@ -207,7 +379,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/agentmemory-hooks/SKILL.md",
-              "line": 49
+              "line": 60
             }
           ],
           "findings": [
@@ -232,7 +404,8 @@
               "file": "skills/agentmemory-hooks/TROUBLESHOOTING.md",
               "line": 35
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/agentmemory-mcp-tools",
@@ -264,7 +437,8 @@
               "file": "skills/agentmemory-mcp-tools/TROUBLESHOOTING.md",
               "line": 35
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/agentmemory-rest-api",
@@ -314,7 +488,8 @@
               "file": "skills/agentmemory-rest-api/TROUBLESHOOTING.md",
               "line": 35
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/commit-context",
@@ -345,7 +520,8 @@
               "file": "skills/commit-context/TROUBLESHOOTING.md",
               "line": 35
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/commit-history",
@@ -370,7 +546,8 @@
               "file": "skills/commit-history/TROUBLESHOOTING.md",
               "line": 35
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/forget",
@@ -402,7 +579,8 @@
               "file": "skills/forget/TROUBLESHOOTING.md",
               "line": 35
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/handoff",
@@ -427,7 +605,8 @@
               "file": "skills/handoff/TROUBLESHOOTING.md",
               "line": 35
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/lesson",
@@ -452,7 +631,8 @@
               "file": "skills/lesson/TROUBLESHOOTING.md",
               "line": 35
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/memory-discipline",
@@ -483,7 +663,8 @@
               "file": "skills/memory-discipline/TROUBLESHOOTING.md",
               "line": 35
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/recall",
@@ -508,7 +689,8 @@
               "file": "skills/recall/TROUBLESHOOTING.md",
               "line": 35
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/recap",
@@ -533,7 +715,8 @@
               "file": "skills/recap/TROUBLESHOOTING.md",
               "line": 35
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/remember",
@@ -564,7 +747,8 @@
               "file": "skills/remember/TROUBLESHOOTING.md",
               "line": 35
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/session-history",
@@ -589,7 +773,8 @@
               "file": "skills/session-history/TROUBLESHOOTING.md",
               "line": 35
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/write-agentmemory-skill",
@@ -614,12 +799,13 @@
               "file": "skills/write-agentmemory-skill/TROUBLESHOOTING.md",
               "line": 35
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 20,
+  "score": 18,
   "status": "do not install",
   "tool": {
     "name": "skillspector",
@@ -627,7 +813,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-25T12:43:24Z"
+      "checkedAt": "2026-11-04T23:07:40Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

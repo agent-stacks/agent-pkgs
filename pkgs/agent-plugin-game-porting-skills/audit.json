@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "game-porting-skills",
-      "dir": "/nix/store/w34fa96741ibsav7xrag4xvvyr8nlh44-agent-plugin-game-porting-skills-1.0.0-beta.1/share/agent-plugins/game-porting-skills",
+      "dir": "/nix/store/ccp0lmqhcgwp8pm75k66f3z4cqir6hvh-agent-plugin-game-porting-skills-1.0.0-beta.1/share/agent-plugins/game-porting-skills",
       "spec": "1.1.0",
-      "score": 63,
+      "score": 65,
       "status": "caution",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
           "skills/compiling-with-metal-shaderconverter",
           "skills/creating-metal4-shader-pipelines",
           "skills/debugging-rendering-issues",
@@ -41,14 +42,20 @@
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/compiling-with-metal-shaderconverter",
           "score": 100,
@@ -73,7 +80,8 @@
               "line": 99
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/creating-metal4-shader-pipelines",
@@ -114,7 +122,8 @@
               "line": 129
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/debugging-rendering-issues",
@@ -130,7 +139,8 @@
               "line": 41
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/integrating-metal-shaderconverter-shaders",
@@ -166,7 +176,8 @@
               "line": 136
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/managing-metal-cpp-lifetimes",
@@ -182,7 +193,8 @@
               "line": 101
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/managing-metal4-resources",
@@ -223,7 +235,8 @@
               "line": 49
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/managing-metal4-synchronization",
@@ -239,7 +252,8 @@
               "line": 18
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/porting-discover",
@@ -285,7 +299,8 @@
               "file": "skills/porting-discover/SKILL.md",
               "line": 26
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/porting-execute",
@@ -331,7 +346,8 @@
               "file": "skills/porting-execute/SKILL.md",
               "line": 44
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/porting-handoff",
@@ -352,7 +368,8 @@
               "line": 39
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/porting-methodology",
@@ -413,7 +430,8 @@
               "file": "skills/porting-methodology/SKILL.md",
               "line": 207
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/porting-plan-goal",
@@ -469,7 +487,8 @@
               "file": "skills/porting-plan-goal/SKILL.md",
               "line": 24
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/porting-start-milestone",
@@ -487,7 +506,8 @@
               "file": "skills/porting-start-milestone/SKILL.md",
               "line": 30
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/porting-status",
@@ -503,7 +523,8 @@
               "line": 21
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/porting-validate",
@@ -524,7 +545,8 @@
               "line": 72
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/presenting-metal-drawables",
@@ -545,7 +567,8 @@
               "line": 309
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/setting-up-macos-window",
@@ -601,13 +624,14 @@
               "file": "skills/setting-up-macos-window/SKILL.md",
               "line": 49
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/translating-to-metal4-api",
-          "score": 63,
-          "risk": 37,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
           "partial": true,
           "coverage": 75,
           "exceptions": [
@@ -627,20 +651,23 @@
               "line": 0
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/translating-to-metal4-api/SKILL.md",
-              "line": 469
+              "line": 469,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/translating-to-metal4-api/SKILL.md",
-              "line": 535
+              "line": 535,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -733,7 +760,8 @@
               "file": "skills/using-game-controller/SKILL.md",
               "line": 119
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/using-gpucapture",
@@ -743,7 +771,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/using-gpudebug",
@@ -753,7 +782,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/using-metal-validation",
@@ -771,13 +801,14 @@
               "file": "skills/using-metal-validation/SKILL.md",
               "line": 3
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/using-metalfx-frame-interpolation",
-          "score": 63,
-          "risk": 37,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
           "partial": true,
           "coverage": 50,
           "exceptions": [
@@ -807,20 +838,23 @@
               "line": 0
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/using-metalfx-frame-interpolation/SKILL.md",
-              "line": 44
+              "line": 44,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/using-metalfx-frame-interpolation/SKILL.md",
-              "line": 60
+              "line": 60,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -848,12 +882,13 @@
               "line": 188
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 63,
+  "score": 65,
   "status": "caution",
   "tool": {
     "name": "skillspector",
@@ -861,7 +896,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T23:25:55Z"
+      "checkedAt": "2026-11-04T23:22:07Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

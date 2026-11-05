@@ -7,12 +7,15 @@
   "plugins": [
     {
       "name": "protect-mcp",
-      "dir": "/nix/store/vvha3v6620vhakxf5n1jdlsblma2b42n-agent-plugin-protect-mcp-0.1.5/share/agent-plugins/protect-mcp",
+      "dir": "/nix/store/9baj0p7fwnzkxzz9dd2ibnm4p3h4p9bz-agent-plugin-protect-mcp-0.1.5/share/agent-plugins/protect-mcp",
       "spec": "1.1.0",
-      "score": 93,
-      "status": "safe",
+      "score": 57,
+      "status": "caution",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/commands",
+          "com.anthropic.claude-code/hooks",
           "skills/protect-mcp-setup"
         ],
         "validated": [
@@ -22,14 +25,93 @@
           {
             "path": "bin/",
             "reason": "interpreter links into /nix/store"
-          },
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
           }
         ]
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 57,
+          "risk": 43,
+          "status": "caution",
+          "partial": true,
+          "coverage": 50,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/agents/policy-enforcer.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "com.anthropic.claude-code/agents/policy-enforcer.md",
+              "line": 59
+            },
+            {
+              "id": "EA1",
+              "severity": "MEDIUM",
+              "message": "Unrestricted Tool Access",
+              "file": "com.anthropic.claude-code/agents/policy-enforcer.md",
+              "line": 70
+            },
+            {
+              "id": "EA1",
+              "severity": "MEDIUM",
+              "message": "Unrestricted Tool Access",
+              "file": "com.anthropic.claude-code/agents/policy-enforcer.md",
+              "line": 144
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "com.anthropic.claude-code/agents/policy-enforcer.md",
+              "line": 242
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "com.anthropic.claude-code/agents/policy-enforcer.md",
+              "line": 269
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 91,
+          "risk": 9,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "com.anthropic.claude-code/hooks/evaluate.sh",
+              "line": 38
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/protect-mcp-setup",
           "score": 93,
@@ -108,24 +190,28 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/protect-mcp-setup/SKILL.md",
               "line": 22
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 93,
-  "status": "safe",
+  "score": 57,
+  "status": "caution",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:49:20Z"
+      "checkedAt": "2026-11-04T23:32:43Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

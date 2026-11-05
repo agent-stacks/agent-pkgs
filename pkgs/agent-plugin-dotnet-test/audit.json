@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "dotnet-test",
-      "dir": "/nix/store/zf185krn3c5wryw1ynhs2477ks9c1bz0-agent-plugin-dotnet-test-1.0.0/share/agent-plugins/dotnet-test",
+      "dir": "/nix/store/gjc525pn3gf4f4z4vnl2fg6n86fm1h76-agent-plugin-dotnet-test-1.0.0/share/agent-plugins/dotnet-test",
       "spec": "1.1.0",
-      "score": 30,
+      "score": 48,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
           "skills/assertion-quality",
           "skills/code-testing",
           "skills/code-testing-agent",
@@ -41,14 +42,70 @@
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 80,
+          "risk": 20,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "com.anthropic.claude-code/agents/code-testing-builder.agent.md",
+              "line": 57
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "com.anthropic.claude-code/agents/code-testing-builder.agent.md",
+              "line": 100
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "com.anthropic.claude-code/agents/code-testing-implementer.agent.md",
+              "line": 155
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "com.anthropic.claude-code/agents/code-testing-linter.agent.md",
+              "line": 37
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "com.anthropic.claude-code/agents/code-testing-linter.agent.md",
+              "line": 38
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "com.anthropic.claude-code/agents/code-testing-linter.agent.md",
+              "line": 49
+            },
+            {
+              "id": "E3",
+              "severity": "MEDIUM",
+              "message": "File System Enumeration",
+              "file": "com.anthropic.claude-code/agents/code-testing-researcher.agent.md",
+              "line": 36
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/assertion-quality",
           "score": 100,
@@ -123,12 +180,13 @@
               "line": 209
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/code-testing",
-          "score": 82,
-          "risk": 18,
+          "score": 92,
+          "risk": 8,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -161,25 +219,29 @@
           ],
           "findings": [
             {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/code-testing/unit-test-generation.prompt.md",
-              "line": 45
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/code-testing/unit-test-generation.prompt.md",
-              "line": 47
-            },
-            {
               "id": "EA4",
               "severity": "MEDIUM",
               "message": "Unbounded Resource Access",
               "file": "skills/code-testing/unit-test-generation.prompt.md",
               "line": 86
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/code-testing/unit-test-generation.prompt.md",
+              "line": 45,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/code-testing/unit-test-generation.prompt.md",
+              "line": 47,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             }
           ]
         },
@@ -199,13 +261,14 @@
               "file": "skills/code-testing-agent/SKILL.md",
               "line": 1
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/code-testing-extensions",
-          "score": 30,
-          "risk": 70,
-          "status": "do not install",
+          "score": 74,
+          "risk": 26,
+          "status": "caution",
           "partial": true,
           "coverage": 81.8,
           "exceptions": [
@@ -232,27 +295,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/code-testing-extensions/SKILL.md",
-              "line": 26
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/code-testing-extensions/SKILL.md",
-              "line": 31
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/code-testing-extensions/SKILL.md",
-              "line": 37
-            },
-            {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
@@ -269,101 +311,127 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/code-testing-extensions/extensions/typescript-examples.md",
               "line": 93
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/code-testing-extensions/extensions/typescript-examples.md",
               "line": 141
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/code-testing-extensions/extensions/typescript-examples.md",
               "line": 183
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/code-testing-extensions/extensions/typescript-examples.md",
               "line": 417
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/code-testing-extensions/extensions/typescript-examples.md",
               "line": 94
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/code-testing-extensions/extensions/typescript-examples.md",
               "line": 142
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/code-testing-extensions/extensions/typescript-examples.md",
               "line": 143
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/code-testing-extensions/extensions/typescript-examples.md",
               "line": 184
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/code-testing-extensions/extensions/typescript-examples.md",
               "line": 332
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/code-testing-extensions/extensions/typescript-examples.md",
               "line": 338
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/code-testing-extensions/extensions/typescript-examples.md",
               "line": 341
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/code-testing-extensions/extensions/typescript-examples.md",
               "line": 358
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/code-testing-extensions/extensions/typescript-examples.md",
               "line": 418
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/code-testing-extensions/SKILL.md",
+              "line": 26,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/code-testing-extensions/SKILL.md",
+              "line": 31,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/code-testing-extensions/SKILL.md",
+              "line": 37,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
         {
           "path": "skills/coverage-analysis",
-          "score": 49,
-          "risk": 51,
-          "status": "do not install",
+          "score": 92,
+          "risk": 8,
+          "status": "incomplete",
           "partial": true,
           "coverage": 37.5,
           "exceptions": [
@@ -405,46 +473,53 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/coverage-analysis/SKILL.md",
-              "line": 65
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/coverage-analysis/SKILL.md",
-              "line": 79
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/coverage-analysis/SKILL.md",
-              "line": 176
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/coverage-analysis/SKILL.md",
-              "line": 79
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/coverage-analysis/SKILL.md",
-              "line": 100
-            },
-            {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/coverage-analysis/SKILL.md",
               "line": 108
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/coverage-analysis/SKILL.md",
+              "line": 65,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/coverage-analysis/SKILL.md",
+              "line": 79,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/coverage-analysis/SKILL.md",
+              "line": 79,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/coverage-analysis/SKILL.md",
+              "line": 100,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/coverage-analysis/SKILL.md",
+              "line": 176,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -482,7 +557,8 @@
               "line": 143
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/detect-static-dependencies",
@@ -556,7 +632,8 @@
               "file": "skills/detect-static-dependencies/SKILL.md",
               "line": 36
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/filter-syntax",
@@ -587,13 +664,14 @@
               "line": 164
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/find-untested-sources",
-          "score": 50,
-          "risk": 50,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
           "partial": true,
           "coverage": 66.7,
           "exceptions": [
@@ -733,34 +811,39 @@
               "line": 0
             }
           ],
-          "findings": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/find-untested-sources/SKILL.md",
-              "line": 37
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/find-untested-sources/SKILL.md",
-              "line": 97
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/find-untested-sources/SKILL.md",
-              "line": 100
-            },
+          "findings": [],
+          "suppressed": [
             {
               "id": "LP3",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/find-untested-sources/SKILL.md",
-              "line": 1
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/find-untested-sources/SKILL.md",
+              "line": 37,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/find-untested-sources/SKILL.md",
+              "line": 97,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/find-untested-sources/SKILL.md",
+              "line": 100,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -818,7 +901,8 @@
               "line": 350
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/grade-tests",
@@ -884,7 +968,8 @@
               "line": 314
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/migrate-static-to-wrapper",
@@ -1003,7 +1088,8 @@
               "file": "skills/migrate-static-to-wrapper/SKILL.md",
               "line": 82
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/mtp-hot-reload",
@@ -1049,7 +1135,8 @@
               "line": 206
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/platform-detection",
@@ -1195,7 +1282,8 @@
               "line": 204
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/run-tests",
@@ -1316,7 +1404,8 @@
               "line": 248
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/scaffold-dotnet-test-project",
@@ -1357,13 +1446,14 @@
               "line": 130
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/test-analysis-extensions",
-          "score": 68,
-          "risk": 32,
-          "status": "caution",
+          "score": 93,
+          "risk": 7,
+          "status": "incomplete",
           "partial": true,
           "coverage": 91.7,
           "exceptions": [
@@ -1375,18 +1465,21 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/test-analysis-extensions/SKILL.md",
-              "line": 39
-            },
-            {
               "id": "TR2",
               "severity": "MEDIUM",
               "message": "Shadow Command Trigger",
               "file": "skills/test-analysis-extensions/SKILL.md",
               "line": 1
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/test-analysis-extensions/SKILL.md",
+              "line": 39,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -1488,7 +1581,8 @@
               "file": "skills/test-anti-patterns/SKILL.md",
               "line": 146
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/test-gap-analysis",
@@ -1513,7 +1607,8 @@
               "file": "skills/test-gap-analysis/references/mutation-catalog.md",
               "line": 29
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/test-smell-detection",
@@ -1531,7 +1626,8 @@
               "file": "skills/test-smell-detection/references/test-smell-catalog.md",
               "line": 112
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/test-tagging",
@@ -1580,7 +1676,8 @@
               "file": "skills/test-tagging/SKILL.md",
               "line": 89
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/test-value-evidence",
@@ -1590,7 +1687,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/testability-obstacle",
@@ -1656,7 +1754,8 @@
               "line": 266
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/writing-mstest-tests",
@@ -1815,12 +1914,13 @@
               "file": "skills/writing-mstest-tests/SKILL.md",
               "line": 143
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 30,
+  "score": 48,
   "status": "do not install",
   "tool": {
     "name": "skillspector",
@@ -1828,7 +1928,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-21T03:06:04Z"
+      "checkedAt": "2026-11-04T23:14:26Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

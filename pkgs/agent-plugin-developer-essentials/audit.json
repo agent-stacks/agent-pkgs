@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "developer-essentials",
-      "dir": "/nix/store/rqn9x822p22yginp7wlqna73bn6n7af1-agent-plugin-developer-essentials-1.0.5/share/agent-plugins/developer-essentials",
+      "dir": "/nix/store/0daggfjf712p57hhrmrvd210nf00xh8k-agent-plugin-developer-essentials-1.0.5/share/agent-plugins/developer-essentials",
       "spec": "1.1.0",
-      "score": 14,
+      "score": 47,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
           "skills/auth-implementation-patterns",
           "skills/bazel-build-optimization",
           "skills/code-review-excellence",
@@ -28,19 +29,25 @@
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
         {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
           "path": "skills/auth-implementation-patterns",
-          "score": 45,
-          "risk": 55,
-          "status": "do not install",
+          "score": 70,
+          "risk": 30,
+          "status": "caution",
           "partial": true,
           "coverage": 50,
           "exceptions": [
@@ -51,13 +58,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/auth-implementation-patterns/SKILL.md",
-              "line": 60
-            },
             {
               "id": "PE3",
               "severity": "HIGH",
@@ -79,6 +79,16 @@
               "file": "skills/auth-implementation-patterns/references/details.md",
               "line": 130
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/auth-implementation-patterns/SKILL.md",
+              "line": 60,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
@@ -89,7 +99,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/code-review-excellence",
@@ -99,7 +110,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/debugging-strategies",
@@ -109,13 +121,14 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/e2e-testing-patterns",
-          "score": 63,
-          "risk": 37,
-          "status": "caution",
+          "score": 88,
+          "risk": 12,
+          "status": "incomplete",
           "partial": true,
           "coverage": 50,
           "exceptions": [
@@ -137,54 +150,57 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/e2e-testing-patterns/SKILL.md",
-              "line": 64
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/e2e-testing-patterns/SKILL.md",
               "line": 104
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/e2e-testing-patterns/SKILL.md",
               "line": 107
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/e2e-testing-patterns/SKILL.md",
               "line": 110
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/e2e-testing-patterns/references/details.md",
               "line": 375
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/e2e-testing-patterns/references/details.md",
               "line": 376
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/e2e-testing-patterns/SKILL.md",
+              "line": 64,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
         {
           "path": "skills/error-handling-patterns",
-          "score": 67,
-          "risk": 33,
-          "status": "caution",
+          "score": 92,
+          "risk": 8,
+          "status": "incomplete",
           "partial": true,
           "coverage": 50,
           "exceptions": [
@@ -196,18 +212,21 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/error-handling-patterns/SKILL.md",
-              "line": 55
-            },
-            {
               "id": "OH3",
               "severity": "MEDIUM",
               "message": "Unbounded Output",
               "file": "skills/error-handling-patterns/SKILL.md",
               "line": 62
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/error-handling-patterns/SKILL.md",
+              "line": 55,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -273,13 +292,14 @@
               "file": "skills/git-advanced-workflows/references/details.md",
               "line": 106
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/monorepo-management",
-          "score": 14,
-          "risk": 86,
-          "status": "do not install",
+          "score": 52,
+          "risk": 48,
+          "status": "caution",
           "partial": true,
           "coverage": 0,
           "exceptions": [
@@ -368,20 +388,6 @@
               "line": 118
             },
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/monorepo-management/SKILL.md",
-              "line": 129
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/monorepo-management/SKILL.md",
-              "line": 170
-            },
-            {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
@@ -391,44 +397,62 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/monorepo-management/SKILL.md",
               "line": 61
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/monorepo-management/SKILL.md",
               "line": 129
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/monorepo-management/references/details.md",
               "line": 73
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/monorepo-management/references/details.md",
               "line": 331
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/monorepo-management/references/details.md",
               "line": 332
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/monorepo-management/references/details.md",
               "line": 394
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/monorepo-management/SKILL.md",
+              "line": 129,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/monorepo-management/SKILL.md",
+              "line": 170,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -444,32 +468,33 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/nx-workspace-patterns/references/details.md",
               "line": 319
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/nx-workspace-patterns/references/details.md",
               "line": 322
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/nx-workspace-patterns/references/details.md",
               "line": 325
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/nx-workspace-patterns/references/details.md",
               "line": 328
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/sql-optimization-patterns",
@@ -479,7 +504,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/turborepo-caching",
@@ -550,37 +576,38 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/turborepo-caching/SKILL.md",
               "line": 112
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/turborepo-caching/SKILL.md",
               "line": 115
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/turborepo-caching/SKILL.md",
               "line": 153
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/turborepo-caching/SKILL.md",
               "line": 156
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 14,
+  "score": 47,
   "status": "do not install",
   "tool": {
     "name": "skillspector",
@@ -588,7 +615,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-31T00:56:25Z"
+      "checkedAt": "2026-11-04T23:31:38Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

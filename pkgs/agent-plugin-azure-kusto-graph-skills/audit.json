@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "azure-kusto-graph-skills",
-      "dir": "/nix/store/96g3dfm2z7b13nand39dpx7f2gjhb95b-agent-plugin-azure-kusto-graph-skills-1.0.29/share/agent-plugins/azure-kusto-graph-skills",
+      "dir": "/nix/store/zgpxd18s6m27q1h2jyqdzx2ahhlqmkvg-agent-plugin-azure-kusto-graph-skills-1.0.34/share/agent-plugins/azure-kusto-graph-skills",
       "spec": "1.1.0",
-      "score": 100,
-      "status": "safe",
+      "score": 85,
+      "status": "incomplete",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/hooks",
           "skills/azure-kusto-graph",
           "skills/azure-kusto-irql",
           "skills/azure-kusto-irql-graph"
@@ -26,16 +27,54 @@
             "reason": "interpreter links into /nix/store"
           },
           {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          },
-          {
             "path": "mcp.json",
             "reason": "SkillSpector does not analyse this layout as an MCP manifest"
           }
         ]
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 85,
+          "risk": 15,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 78.6,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/scripts/install-telemetry.ps1",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/scripts/install-telemetry.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/scripts/track-telemetry.ps1",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "com.anthropic.claude-code/hooks/scripts/install-telemetry.ps1",
+              "line": 253
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "com.anthropic.claude-code/hooks/scripts/install-telemetry.sh",
+              "line": 420
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/azure-kusto-graph",
           "score": 100,
@@ -65,7 +104,8 @@
               "line": 442
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-kusto-irql",
@@ -86,7 +126,8 @@
               "line": 225
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-kusto-irql-graph",
@@ -147,20 +188,24 @@
               "line": 286
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 100,
-  "status": "safe",
+  "score": 85,
+  "status": "incomplete",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:16:19Z"
+      "checkedAt": "2026-11-04T23:08:05Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

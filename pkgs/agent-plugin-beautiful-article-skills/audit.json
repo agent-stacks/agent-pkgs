@@ -7,9 +7,9 @@
   "plugins": [
     {
       "name": "beautiful-article-skills",
-      "dir": "/nix/store/s3hpqhkyg5kmgcjiv2zb0ga0bl5f8r5r-agent-plugin-beautiful-article-skills-0.0.0-unstable.2026-10-11.g7a6d5a7/share/agent-plugins/beautiful-article-skills",
+      "dir": "/nix/store/1h6ikkxx2q68j7i343a47ibb36fnld58-agent-plugin-beautiful-article-skills-0.0.0-unstable.2026-10-25.g2b9a893/share/agent-plugins/beautiful-article-skills",
       "spec": "1.1.0",
-      "score": 55,
+      "score": 62,
       "status": "caution",
       "coverage": {
         "scanned": [
@@ -28,8 +28,8 @@
       "components": [
         {
           "path": "skills/beautiful-article",
-          "score": 55,
-          "risk": 45,
+          "score": 62,
+          "risk": 38,
           "status": "caution",
           "partial": true,
           "coverage": 98.2,
@@ -259,16 +259,9 @@
               "line": 284
             },
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/beautiful-article/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/beautiful-article/scripts/scaffold.sh",
               "line": 142
             },
@@ -363,12 +356,22 @@
               "file": "skills/beautiful-article/scripts/source-to-markdown-markitdown.py",
               "line": 48
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/beautiful-article/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
           ]
         }
       ]
     }
   ],
-  "score": 55,
+  "score": 62,
   "status": "caution",
   "tool": {
     "name": "skillspector",
@@ -376,7 +379,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:17:31Z"
+      "checkedAt": "2026-11-04T23:22:38Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

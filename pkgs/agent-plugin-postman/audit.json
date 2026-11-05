@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "postman",
-      "dir": "/nix/store/59zbb815c50nfzba33wnmbfdc0i5dp5a-agent-plugin-postman-2.2.0/share/agent-plugins/postman",
+      "dir": "/nix/store/239jml6d0l06gz19sa6byjrh2498a7q0-agent-plugin-postman-2.3.0/share/agent-plugins/postman",
       "spec": "1.1.0",
       "score": 49,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/hooks",
           "skills/ai-readiness",
           "skills/api-discovery",
           "skills/api-documentation",
@@ -22,15 +23,16 @@
           "skills/api-simulation",
           "skills/api-testing",
           "skills/application-testing",
-          "skills/bootstrap",
           "skills/ci-integration",
+          "skills/cli-install",
           "skills/collection-schema-v3",
           "skills/datasets",
           "skills/flows",
           "skills/performance-testing",
           "skills/postman-mcp-server",
           "skills/variables",
-          "skills/webhook-testing"
+          "skills/webhook-testing",
+          "skills/workspaces"
         ],
         "validated": [
           "plugin.json"
@@ -41,16 +43,23 @@
             "reason": "interpreter links into /nix/store"
           },
           {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          },
-          {
             "path": "mcp.json",
             "reason": "SkillSpector does not analyse this layout as an MCP manifest"
           }
         ]
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/ai-readiness",
           "score": 100,
@@ -59,7 +68,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/api-discovery",
@@ -72,7 +82,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/api-discovery/SKILL.md",
-              "line": 56
+              "line": 61
             }
           ],
           "findings": [
@@ -81,7 +91,7 @@
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/api-discovery/SKILL.md",
-              "line": 28
+              "line": 33
             },
             {
               "id": "E1",
@@ -104,7 +114,8 @@
               "file": "skills/api-discovery/reference/orbit.md",
               "line": 19
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/api-documentation",
@@ -114,7 +125,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/api-engineer",
@@ -130,9 +142,10 @@
               "severity": "HIGH",
               "message": "Context Leakage",
               "file": "skills/api-engineer/SKILL.md",
-              "line": 57
+              "line": 54
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/api-mocking",
@@ -150,32 +163,32 @@
             {
               "reason": "reference_missing",
               "path": "skills/api-mocking/SKILL.md",
-              "line": 40
+              "line": 42
             },
             {
               "reason": "reference_missing",
               "path": "skills/api-mocking/SKILL.md",
-              "line": 61
+              "line": 63
             },
             {
               "reason": "reference_missing",
               "path": "skills/api-mocking/SKILL.md",
-              "line": 62
+              "line": 64
             },
             {
               "reason": "reference_missing",
               "path": "skills/api-mocking/SKILL.md",
-              "line": 65
+              "line": 67
             },
             {
               "reason": "reference_missing",
               "path": "skills/api-mocking/SKILL.md",
-              "line": 73
+              "line": 75
             },
             {
               "reason": "reference_missing",
               "path": "skills/api-mocking/SKILL.md",
-              "line": 112
+              "line": 114
             }
           ],
           "findings": [
@@ -184,9 +197,10 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/api-mocking/SKILL.md",
-              "line": 106
+              "line": 108
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/api-monitoring",
@@ -196,7 +210,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/api-simulation",
@@ -209,60 +224,61 @@
             {
               "reason": "reference_missing",
               "path": "skills/api-simulation/SKILL.md",
-              "line": 65
+              "line": 67
             },
             {
               "reason": "reference_missing",
               "path": "skills/api-simulation/SKILL.md",
-              "line": 68
+              "line": 70
             },
             {
               "reason": "reference_missing",
               "path": "skills/api-simulation/SKILL.md",
-              "line": 78
+              "line": 80
             },
             {
               "reason": "reference_missing",
               "path": "skills/api-simulation/SKILL.md",
-              "line": 86
+              "line": 88
             },
             {
               "reason": "reference_missing",
               "path": "skills/api-simulation/SKILL.md",
-              "line": 87
+              "line": 89
             },
             {
               "reason": "reference_missing",
               "path": "skills/api-simulation/SKILL.md",
-              "line": 97
+              "line": 99
             },
             {
               "reason": "reference_missing",
               "path": "skills/api-simulation/SKILL.md",
-              "line": 113
+              "line": 115
             },
             {
               "reason": "reference_missing",
               "path": "skills/api-simulation/SKILL.md",
-              "line": 147
+              "line": 149
             },
             {
               "reason": "reference_missing",
               "path": "skills/api-simulation/SKILL.md",
-              "line": 161
+              "line": 163
             },
             {
               "reason": "reference_missing",
               "path": "skills/api-simulation/SKILL.md",
-              "line": 178
+              "line": 180
             },
             {
               "reason": "reference_missing",
               "path": "skills/api-simulation/SKILL.md",
-              "line": 182
+              "line": 184
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/api-testing",
@@ -282,11 +298,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/api-testing/SKILL.md",
               "line": 42
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/application-testing",
@@ -371,66 +388,19 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/application-testing/SKILL.md",
               "line": 13
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/application-testing/SKILL.md",
               "line": 75
             }
-          ]
-        },
-        {
-          "path": "skills/bootstrap",
-          "score": 60,
-          "risk": 40,
-          "status": "caution",
-          "partial": true,
-          "coverage": 100,
-          "exceptions": [
-            {
-              "reason": "reference_missing",
-              "path": "skills/bootstrap/SKILL.md",
-              "line": 27
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/bootstrap/SKILL.md",
-              "line": 58
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/bootstrap/SKILL.md",
-              "line": 92
-            }
           ],
-          "findings": [
-            {
-              "id": "TM2",
-              "severity": "HIGH",
-              "message": "Chaining Abuse",
-              "file": "skills/bootstrap/reference/cli_installation.md",
-              "line": 20
-            },
-            {
-              "id": "RA1",
-              "severity": "HIGH",
-              "message": "Self-Modification",
-              "file": "skills/bootstrap/reference/cli_installation.md",
-              "line": 43
-            },
-            {
-              "id": "SC2",
-              "severity": "LOW",
-              "message": "External Script Fetching",
-              "file": "skills/bootstrap/reference/cli_installation.md",
-              "line": 3
-            }
-          ]
+          "suppressed": []
         },
         {
           "path": "skills/ci-integration",
@@ -440,7 +410,34 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "skills/cli-install",
+          "score": 60,
+          "risk": 40,
+          "status": "caution",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/cli-install/SKILL.md",
+              "line": 16
+            },
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "skills/cli-install/SKILL.md",
+              "line": 16
+            }
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/collection-schema-v3",
@@ -474,11 +471,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/collection-schema-v3/reference/other_protocols.md",
               "line": 134
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/datasets",
@@ -504,7 +502,8 @@
               "line": 74
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/flows",
@@ -520,17 +519,25 @@
               "line": 23
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/performance-testing",
           "score": 100,
           "risk": 0,
           "status": "safe",
-          "partial": false,
+          "partial": true,
           "coverage": 100,
-          "exceptions": [],
-          "findings": []
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/performance-testing/SKILL.md",
+              "line": 55
+            }
+          ],
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/postman-mcp-server",
@@ -569,7 +576,8 @@
               "file": "skills/postman-mcp-server/references/mock.md",
               "line": 67
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/variables",
@@ -600,7 +608,8 @@
               "line": 45
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/webhook-testing",
@@ -616,7 +625,25 @@
               "line": 100
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "skills/workspaces",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/workspaces/SKILL.md",
+              "line": 24
+            }
+          ],
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
@@ -629,7 +656,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-30T15:33:00Z"
+      "checkedAt": "2026-11-05T00:12:44Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

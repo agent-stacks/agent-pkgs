@@ -7,9 +7,9 @@
   "plugins": [
     {
       "name": "vercel-labs-agent-skills",
-      "dir": "/nix/store/laa9067vh0in9np2ngsywclfcyky1bjv-agent-plugin-vercel-labs-agent-skills-0.0.0-unstable.2026-10-27.g1a2c79d/share/agent-plugins/vercel-labs-agent-skills",
+      "dir": "/nix/store/dgqs9rvkyc2b2q8wfa2p3p172lxk73md-agent-plugin-vercel-labs-agent-skills-0.0.0-unstable.2026-10-27.g1a2c79d/share/agent-plugins/vercel-labs-agent-skills",
       "spec": "1.1.0",
-      "score": 0,
+      "score": 15,
       "status": "do not install",
       "coverage": {
         "scanned": [
@@ -56,7 +56,8 @@
               "file": "skills/composition-patterns/README.md",
               "line": 28
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/deploy-to-vercel",
@@ -106,17 +107,18 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/deploy-to-vercel/SKILL.md",
               "line": 167
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/react-best-practices",
-          "score": 41,
-          "risk": 59,
-          "status": "do not install",
+          "score": 66,
+          "risk": 34,
+          "status": "caution",
           "partial": true,
           "coverage": 97.4,
           "exceptions": [
@@ -162,32 +164,35 @@
               "line": 63
             },
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/react-best-practices/SKILL.md",
-              "line": 149
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/react-best-practices/AGENTS.md",
               "line": 2477
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/react-best-practices/rules/rendering-svg-precision.md",
               "line": 27
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/react-best-practices/SKILL.md",
+              "line": 149,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
         {
           "path": "skills/react-native-skills",
-          "score": 54,
-          "risk": 46,
+          "score": 79,
+          "risk": 21,
           "status": "caution",
           "partial": true,
           "coverage": 92.9,
@@ -215,13 +220,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/react-native-skills/SKILL.md",
-              "line": 121
-            },
-            {
               "id": "P4",
               "severity": "MEDIUM",
               "message": "Behavior Manipulation",
@@ -238,16 +236,26 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/react-native-skills/AGENTS.md",
               "line": 2882
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/react-native-skills/rules/fonts-config-plugin.md",
               "line": 67
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/react-native-skills/SKILL.md",
+              "line": 121,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -269,11 +277,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/react-view-transitions/README.md",
               "line": 35
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/vercel-cli-with-tokens",
@@ -412,12 +421,13 @@
               "file": "skills/vercel-cli-with-tokens/SKILL.md",
               "line": 244
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/vercel-optimize",
-          "score": 0,
-          "risk": 100,
+          "score": 15,
+          "risk": 85,
           "status": "do not install",
           "partial": true,
           "coverage": 63.5,
@@ -895,125 +905,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/vercel-optimize/SKILL.md",
-              "line": 15
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/vercel-optimize/SKILL.md",
-              "line": 127
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/vercel-optimize/SKILL.md",
-              "line": 140
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/vercel-optimize/SKILL.md",
-              "line": 141
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/vercel-optimize/SKILL.md",
-              "line": 68
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/vercel-optimize/SKILL.md",
-              "line": 77
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/vercel-optimize/SKILL.md",
-              "line": 119
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/vercel-optimize/SKILL.md",
-              "line": 71
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/vercel-optimize/SKILL.md",
-              "line": 72
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/vercel-optimize/SKILL.md",
-              "line": 167
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/vercel-optimize/SKILL.md",
-              "line": 188
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/vercel-optimize/SKILL.md",
-              "line": 195
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/vercel-optimize/SKILL.md",
-              "line": 211
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/vercel-optimize/SKILL.md",
-              "line": 241
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/vercel-optimize/SKILL.md",
-              "line": 222
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/vercel-optimize/SKILL.md",
-              "line": 233
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/vercel-optimize/SKILL.md",
-              "line": 248
-            },
-            {
               "id": "YR1",
               "severity": "HIGH",
               "message": "YARA rule 'info_stealer': Information stealer patterns (credential harvesting, browser data theft) [malware]",
@@ -1037,23 +928,16 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/vercel-optimize/AGENTS.md",
               "line": 32
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/vercel-optimize/README.md",
               "line": 14
-            },
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/vercel-optimize/SKILL.md",
-              "line": 1
             },
             {
               "id": "EA2",
@@ -1076,6 +960,152 @@
               "file": "skills/vercel-optimize/references/support-topics/next-image-lcp-preload-sizes.md",
               "line": 20
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/vercel-optimize/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/vercel-optimize/SKILL.md",
+              "line": 15,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/vercel-optimize/SKILL.md",
+              "line": 68,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/vercel-optimize/SKILL.md",
+              "line": 71,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/vercel-optimize/SKILL.md",
+              "line": 72,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/vercel-optimize/SKILL.md",
+              "line": 77,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/vercel-optimize/SKILL.md",
+              "line": 119,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/vercel-optimize/SKILL.md",
+              "line": 127,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/vercel-optimize/SKILL.md",
+              "line": 140,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/vercel-optimize/SKILL.md",
+              "line": 141,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/vercel-optimize/SKILL.md",
+              "line": 167,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/vercel-optimize/SKILL.md",
+              "line": 188,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/vercel-optimize/SKILL.md",
+              "line": 195,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/vercel-optimize/SKILL.md",
+              "line": 211,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/vercel-optimize/SKILL.md",
+              "line": 222,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/vercel-optimize/SKILL.md",
+              "line": 233,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/vercel-optimize/SKILL.md",
+              "line": 241,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/vercel-optimize/SKILL.md",
+              "line": 248,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
@@ -1092,7 +1122,8 @@
               "line": 6
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/writing-guidelines",
@@ -1108,12 +1139,13 @@
               "line": 6
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 0,
+  "score": 15,
   "status": "do not install",
   "tool": {
     "name": "skillspector",
@@ -1121,7 +1153,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-27T22:30:47Z"
+      "checkedAt": "2026-11-05T00:17:37Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

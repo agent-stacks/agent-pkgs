@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "dotnet-test-migration",
-      "dir": "/nix/store/nfrawi5b4277zyyisrpdknvgrnfv28ld-agent-plugin-dotnet-test-migration-0.1.11/share/agent-plugins/dotnet-test-migration",
+      "dir": "/nix/store/jzq2kn6hgp2d30ib4b73q4l77lh6gdz1-agent-plugin-dotnet-test-migration-0.1.11/share/agent-plugins/dotnet-test-migration",
       "spec": "1.1.0",
-      "score": 50,
+      "score": 71,
       "status": "caution",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
           "skills/migrate-mstest-v1v2-to-v3",
           "skills/migrate-mstest-v3-to-v4",
           "skills/migrate-nunit-to-mstest",
@@ -23,19 +24,25 @@
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
         {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
           "path": "skills/migrate-mstest-v1v2-to-v3",
-          "score": 75,
-          "risk": 25,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
           "partial": true,
           "coverage": 100,
           "exceptions": [
@@ -140,13 +147,15 @@
               "line": 281
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/migrate-mstest-v1v2-to-v3/SKILL.md",
-              "line": 69
+              "line": 69,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -386,7 +395,8 @@
               "file": "skills/migrate-mstest-v3-to-v4/SKILL.md",
               "line": 68
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/migrate-nunit-to-mstest",
@@ -462,7 +472,8 @@
               "line": 143
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/migrate-vstest-to-mtp",
@@ -713,12 +724,13 @@
               "line": 406
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/migrate-xunit-to-mstest",
-          "score": 50,
-          "risk": 50,
+          "score": 75,
+          "risk": 25,
           "status": "caution",
           "partial": true,
           "coverage": 50,
@@ -841,13 +853,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/migrate-xunit-to-mstest/SKILL.md",
-              "line": 57
-            },
-            {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
@@ -860,6 +865,16 @@
               "message": "Autonomous Decision Making",
               "file": "skills/migrate-xunit-to-mstest/SKILL.md",
               "line": 30
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/migrate-xunit-to-mstest/SKILL.md",
+              "line": 57,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -1075,12 +1090,13 @@
               "file": "skills/migrate-xunit-to-xunit-v3/SKILL.md",
               "line": 52
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 50,
+  "score": 71,
   "status": "caution",
   "tool": {
     "name": "skillspector",
@@ -1088,7 +1104,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-21T04:12:01Z"
+      "checkedAt": "2026-11-04T23:23:22Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

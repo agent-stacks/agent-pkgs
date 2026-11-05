@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "forge-skills",
-      "dir": "/nix/store/xbdqdvz4mglfx4qvalyp7yn6a5f4hr2d-agent-plugin-forge-skills-0.1.0/share/agent-plugins/forge-skills",
+      "dir": "/nix/store/dwzq7wz2mi6nzdjpbixzvxx7xh5hcc4m-agent-plugin-forge-skills-0.1.0/share/agent-plugins/forge-skills",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -38,8 +38,8 @@
       "components": [
         {
           "path": "skills/forge-app-builder",
-          "score": 23,
-          "risk": 77,
+          "score": 42,
+          "risk": 58,
           "status": "do not install",
           "partial": false,
           "coverage": 100,
@@ -51,41 +51,6 @@
               "message": "Tool Parameter Abuse",
               "file": "skills/forge-app-builder/scripts/deploy_forge_app.py",
               "line": 68
-            },
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/forge-app-builder/SKILL.md",
-              "line": 1
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/forge-app-builder/SKILL.md",
-              "line": 53
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/forge-app-builder/SKILL.md",
-              "line": 53
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/forge-app-builder/SKILL.md",
-              "line": 56
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/forge-app-builder/SKILL.md",
-              "line": 57
             },
             {
               "id": "EA2",
@@ -178,6 +143,48 @@
               "file": "skills/forge-app-builder/package.json",
               "line": 3
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/forge-app-builder/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/forge-app-builder/SKILL.md",
+              "line": 53,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/forge-app-builder/SKILL.md",
+              "line": 53,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/forge-app-builder/SKILL.md",
+              "line": 56,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/forge-app-builder/SKILL.md",
+              "line": 57,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            }
           ]
         },
         {
@@ -219,13 +226,14 @@
               "line": 130
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/forge-connector",
-          "score": 20,
-          "risk": 80,
-          "status": "do not install",
+          "score": 71,
+          "risk": 29,
+          "status": "caution",
           "partial": true,
           "coverage": 60,
           "exceptions": [
@@ -412,34 +420,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/forge-connector/SKILL.md",
-              "line": 27
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/forge-connector/SKILL.md",
-              "line": 962
-            },
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/forge-connector/SKILL.md",
-              "line": 1
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/forge-connector/SKILL.md",
-              "line": 960
-            },
-            {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
@@ -473,6 +453,40 @@
               "message": "subprocess module call",
               "file": "skills/forge-connector/scripts/scaffold_connector.py",
               "line": 346
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/forge-connector/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/forge-connector/SKILL.md",
+              "line": 960,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/forge-connector/SKILL.md",
+              "line": 27,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/forge-connector/SKILL.md",
+              "line": 962,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -520,7 +534,8 @@
               "line": 134
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/forge-debugger",
@@ -642,35 +657,35 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/forge-debugger/SKILL.md",
               "line": 22
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/forge-debugger/SKILL.md",
               "line": 31
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/forge-debugger/SKILL.md",
               "line": 188
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/forge-debugger/SKILL.md",
               "line": 22
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/forge-debugger/SKILL.md",
               "line": 31
             },
@@ -681,7 +696,8 @@
               "file": "skills/forge-debugger/SKILL.md",
               "line": 188
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/forge-onboarding",
@@ -697,7 +713,8 @@
               "line": 45
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/forge-security-review",
@@ -780,20 +797,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/forge-security-review/SKILL.md",
-              "line": 36
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/forge-security-review/SKILL.md",
-              "line": 90
-            },
-            {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
@@ -864,20 +867,6 @@
               "line": 138
             },
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/forge-security-review/SKILL.md",
-              "line": 1
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/forge-security-review/SKILL.md",
-              "line": 81
-            },
-            {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
@@ -898,6 +887,40 @@
               "file": "skills/forge-security-review/scripts/run_static_analysis.sh",
               "line": 109
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/forge-security-review/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/forge-security-review/SKILL.md",
+              "line": 81,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/forge-security-review/SKILL.md",
+              "line": 36,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/forge-security-review/SKILL.md",
+              "line": 90,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         }
       ]
@@ -911,7 +934,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-21T03:18:47Z"
+      "checkedAt": "2026-11-04T23:24:15Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

@@ -7,9 +7,9 @@
   "plugins": [
     {
       "name": "math-olympiad",
-      "dir": "/nix/store/yn4zj472cpwqz0bk3q3aw5bxbbzjl7bd-agent-plugin-math-olympiad-0.0.0-unstable.2026-10-19.ga0b04d9/share/agent-plugins/math-olympiad",
+      "dir": "/nix/store/p5zir4sl2h5fcb8n3g4wsymd1g1fyfrp-agent-plugin-math-olympiad-0.0.0-unstable.2026-11-03.gfa4eb54/share/agent-plugins/math-olympiad",
       "spec": "1.1.0",
-      "score": 85,
+      "score": 92,
       "status": "safe",
       "coverage": {
         "scanned": [
@@ -28,8 +28,8 @@
       "components": [
         {
           "path": "skills/math-olympiad",
-          "score": 85,
-          "risk": 15,
+          "score": 92,
+          "risk": 8,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -42,25 +42,28 @@
           ],
           "findings": [
             {
+              "id": "AE4",
+              "severity": "MEDIUM",
+              "message": "analysis-evasion",
+              "file": "skills/math-olympiad/references/verifier_patterns.md",
+              "line": 1
+            }
+          ],
+          "suppressed": [
+            {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/math-olympiad/SKILL.md",
-              "line": 165
-            },
-            {
-              "id": "AE4",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/math-olympiad/references/verifier_patterns.md",
-              "line": 1
+              "line": 165,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             }
           ]
         }
       ]
     }
   ],
-  "score": 85,
+  "score": 92,
   "status": "safe",
   "tool": {
     "name": "skillspector",
@@ -68,7 +71,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-20T03:45:19Z"
+      "checkedAt": "2026-11-04T23:39:06Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

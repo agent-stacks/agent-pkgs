@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "shopify-plugin",
-      "dir": "/nix/store/q7i3fdwj19ljys3ihwmch4d7mqv2mky3-agent-plugin-shopify-plugin-2.3.0/share/agent-plugins/shopify-plugin",
+      "dir": "/nix/store/0p1znli41y17mijim1x93gzpjhwizs0m-agent-plugin-shopify-plugin-2.3.0/share/agent-plugins/shopify-plugin",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/hooks",
           "skills/shopify",
           "skills/shopify-admin",
           "skills/shopify-app-pricing",
@@ -44,14 +45,77 @@
           {
             "path": "bin/",
             "reason": "interpreter links into /nix/store"
-          },
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
           }
         ]
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 43,
+          "risk": 57,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 83.3,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/scripts/track-telemetry.sh",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "com.anthropic.claude-code/hooks/README.md",
+              "line": 48
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "com.anthropic.claude-code/hooks/README.md",
+              "line": 189
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "com.anthropic.claude-code/hooks/scripts/track-telemetry.sh",
+              "line": 190
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "com.anthropic.claude-code/hooks/scripts/track-telemetry.sh",
+              "line": 311
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "com.anthropic.claude-code/hooks/scripts/track-telemetry.sh",
+              "line": 506
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "com.anthropic.claude-code/hooks/scripts/track-telemetry.sh",
+              "line": 623
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/hooks/scripts/track-telemetry.sh",
+              "line": 653
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/shopify",
           "score": 0,
@@ -148,41 +212,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/shopify/SKILL.md",
-              "line": 38
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/shopify/SKILL.md",
-              "line": 103
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/shopify/SKILL.md",
-              "line": 54
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/shopify/SKILL.md",
-              "line": 70
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/shopify/SKILL.md",
-              "line": 73
-            },
-            {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
@@ -211,13 +240,6 @@
               "line": 23
             },
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/shopify/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
@@ -234,44 +256,30 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify/references/hydrogen.md",
               "line": 54
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify/references/hydrogen.md",
               "line": 55
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify/references/hydrogen.md",
               "line": 56
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify/references/hydrogen.md",
               "line": 59
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/shopify/references/onboarding-dev.md",
-              "line": 43
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/shopify/references/onboarding-dev.md",
-              "line": 49
             },
             {
               "id": "EA2",
@@ -283,7 +291,7 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify/references/use-shopify-cli.md",
               "line": 111
             },
@@ -385,6 +393,72 @@
               "file": "skills/shopify/scripts/_validate_graphql.mjs",
               "line": 184
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/shopify/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/shopify/references/onboarding-dev.md",
+              "line": 43,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/shopify/references/onboarding-dev.md",
+              "line": 49,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/shopify/SKILL.md",
+              "line": 38,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/shopify/SKILL.md",
+              "line": 54,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/shopify/SKILL.md",
+              "line": 70,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/shopify/SKILL.md",
+              "line": 73,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/shopify/SKILL.md",
+              "line": 103,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
@@ -399,11 +473,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-admin/SKILL.md",
               "line": 8
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-app-pricing",
@@ -417,11 +492,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-app-pricing/SKILL.md",
               "line": 8
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-app-store-review",
@@ -435,11 +511,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-app-store-review/SKILL.md",
               "line": 8
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-custom-data",
@@ -453,11 +530,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-custom-data/SKILL.md",
               "line": 8
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-customer",
@@ -471,11 +549,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-customer/SKILL.md",
               "line": 8
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-dev",
@@ -489,11 +568,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-dev/SKILL.md",
               "line": 8
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-functions",
@@ -507,11 +587,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-functions/SKILL.md",
               "line": 8
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-hydrogen",
@@ -525,11 +606,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-hydrogen/SKILL.md",
               "line": 8
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-liquid",
@@ -543,11 +625,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-liquid/SKILL.md",
               "line": 8
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-onboarding-dev",
@@ -561,11 +644,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-onboarding-dev/SKILL.md",
               "line": 8
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-onboarding-merchant",
@@ -579,11 +663,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-onboarding-merchant/SKILL.md",
               "line": 8
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-partner",
@@ -597,11 +682,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-partner/SKILL.md",
               "line": 8
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-payments-apps",
@@ -615,11 +701,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-payments-apps/SKILL.md",
               "line": 8
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-polaris-admin-extensions",
@@ -639,11 +726,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-polaris-admin-extensions/SKILL.md",
               "line": 8
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-polaris-app-home",
@@ -663,11 +751,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-polaris-app-home/SKILL.md",
               "line": 8
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-polaris-checkout-extensions",
@@ -681,11 +770,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-polaris-checkout-extensions/SKILL.md",
               "line": 8
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-polaris-customer-account-extensions",
@@ -699,11 +789,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-polaris-customer-account-extensions/SKILL.md",
               "line": 8
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-pos-ui",
@@ -717,11 +808,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-pos-ui/SKILL.md",
               "line": 8
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-shopifyql",
@@ -735,7 +827,7 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-shopifyql/SKILL.md",
               "line": 8
             },
@@ -746,7 +838,8 @@
               "file": "skills/shopify-shopifyql/SKILL.md",
               "line": 3
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-storefront-graphql",
@@ -760,11 +853,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-storefront-graphql/SKILL.md",
               "line": 8
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-use-shopify-cli",
@@ -784,17 +878,18 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-use-shopify-cli/SKILL.md",
               "line": 8
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ucp",
-          "score": 0,
-          "risk": 100,
-          "status": "do not install",
+          "score": 51,
+          "risk": 49,
+          "status": "caution",
           "partial": true,
           "coverage": 62.5,
           "exceptions": [
@@ -896,83 +991,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/ucp/SKILL.md",
-              "line": 26
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/ucp/SKILL.md",
-              "line": 326
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/ucp/SKILL.md",
-              "line": 307
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/ucp/SKILL.md",
-              "line": 310
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/ucp/SKILL.md",
-              "line": 330
-            },
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/ucp/SKILL.md",
-              "line": 1
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/ucp/SKILL.md",
-              "line": 43
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/ucp/SKILL.md",
-              "line": 47
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/ucp/SKILL.md",
-              "line": 292
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/ucp/SKILL.md",
-              "line": 294
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/ucp/SKILL.md",
-              "line": 295
-            },
-            {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
@@ -1014,6 +1032,96 @@
               "file": "skills/ucp/scripts/track-telemetry.sh",
               "line": 653
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/ucp/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/ucp/SKILL.md",
+              "line": 43,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/ucp/SKILL.md",
+              "line": 47,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/ucp/SKILL.md",
+              "line": 292,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/ucp/SKILL.md",
+              "line": 294,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/ucp/SKILL.md",
+              "line": 295,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/ucp/SKILL.md",
+              "line": 26,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/ucp/SKILL.md",
+              "line": 307,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/ucp/SKILL.md",
+              "line": 310,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/ucp/SKILL.md",
+              "line": 326,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/ucp/SKILL.md",
+              "line": 330,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         }
       ]
@@ -1027,7 +1135,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-27T16:38:03Z"
+      "checkedAt": "2026-11-04T23:50:42Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

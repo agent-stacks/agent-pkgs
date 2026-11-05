@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "weaviate",
-      "dir": "/nix/store/w0cbc6lsdh4h6msp4q1r98zzdrv6jn9y-agent-plugin-weaviate-0.2.4/share/agent-plugins/weaviate",
+      "dir": "/nix/store/gf9nd2y010wbgjkx2611i7qpmn2mpaz2-agent-plugin-weaviate-0.2.4/share/agent-plugins/weaviate",
       "spec": "1.1.0",
-      "score": 0,
+      "score": 6,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/commands",
           "skills/engram-memory",
           "skills/weaviate",
           "skills/weaviate-cookbooks"
@@ -24,14 +25,70 @@
           {
             "path": "bin/",
             "reason": "interpreter links into /nix/store"
-          },
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
           }
         ]
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 52,
+          "risk": 48,
+          "status": "caution",
+          "partial": true,
+          "coverage": 88.9,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/commands/quickstart.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "com.anthropic.claude-code/commands/quickstart.md",
+              "line": 104
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "com.anthropic.claude-code/commands/import.md",
+              "line": 27
+            },
+            {
+              "id": "P4",
+              "severity": "MEDIUM",
+              "message": "Behavior Manipulation",
+              "file": "com.anthropic.claude-code/commands/import.md",
+              "line": 77
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "com.anthropic.claude-code/commands/import.md",
+              "line": 91
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "com.anthropic.claude-code/commands/quickstart.md",
+              "line": 49
+            },
+            {
+              "id": "SC2",
+              "severity": "LOW",
+              "message": "External Script Fetching",
+              "file": "com.anthropic.claude-code/commands/quickstart.md",
+              "line": 104
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/engram-memory",
           "score": 85,
@@ -76,13 +133,14 @@
               "file": "skills/engram-memory/reference/engram_memory.md",
               "line": 434
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/weaviate",
-          "score": 44,
-          "risk": 56,
-          "status": "do not install",
+          "score": 88,
+          "risk": 12,
+          "status": "incomplete",
           "partial": true,
           "coverage": 96.3,
           "exceptions": [
@@ -129,27 +187,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/weaviate/SKILL.md",
-              "line": 26
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/weaviate/SKILL.md",
-              "line": 60
-            },
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/weaviate/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
@@ -163,12 +200,38 @@
               "file": "skills/weaviate/scripts/explore_collection.py",
               "line": 143
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/weaviate/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/weaviate/SKILL.md",
+              "line": 26,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/weaviate/SKILL.md",
+              "line": 60,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
           "path": "skills/weaviate-cookbooks",
-          "score": 0,
-          "risk": 100,
+          "score": 6,
+          "risk": 94,
           "status": "do not install",
           "partial": false,
           "coverage": 100,
@@ -217,37 +280,23 @@
               "line": 374
             },
             {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/weaviate-cookbooks/references/frontend_interface.md",
-              "line": 5
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/weaviate-cookbooks/references/frontend_interface.md",
-              "line": 8
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/weaviate-cookbooks/references/frontend_interface.md",
               "line": 19
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/weaviate-cookbooks/references/frontend_interface.md",
               "line": 28
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/weaviate-cookbooks/references/frontend_interface.md",
               "line": 29
             },
@@ -265,12 +314,30 @@
               "file": "skills/weaviate-cookbooks/references/pdf_multimodal_rag.md",
               "line": 50
             }
+          ],
+          "suppressed": [
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/weaviate-cookbooks/references/frontend_interface.md",
+              "line": 5,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/weaviate-cookbooks/references/frontend_interface.md",
+              "line": 8,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            }
           ]
         }
       ]
     }
   ],
-  "score": 0,
+  "score": 6,
   "status": "do not install",
   "tool": {
     "name": "skillspector",
@@ -278,7 +345,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-20T14:39:21Z"
+      "checkedAt": "2026-11-04T23:56:45Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

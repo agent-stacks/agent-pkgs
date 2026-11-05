@@ -7,9 +7,9 @@
   "plugins": [
     {
       "name": "nexscope-ai-ecommerce-skills",
-      "dir": "/nix/store/l1r69c1d1kdbs20293m8l0ygrlvmkdqv-agent-plugin-nexscope-ai-ecommerce-skills-0.0.0-unstable.2026-08-26.gee0fb29/share/agent-plugins/nexscope-ai-ecommerce-skills",
+      "dir": "/nix/store/kwsiwfbck2ba2yry9ybz9p4cha2vf3fb-agent-plugin-nexscope-ai-ecommerce-skills-0.0.0-unstable.2026-08-26.gee0fb29/share/agent-plugins/nexscope-ai-ecommerce-skills",
       "spec": "1.1.0",
-      "score": 68,
+      "score": 71,
       "status": "caution",
       "coverage": {
         "scanned": [
@@ -199,34 +199,38 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/affiliate-marketing-strategy/SKILL.md",
               "line": 19
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/amazon-review-checker",
-          "score": 86,
-          "risk": 14,
+          "score": 93,
+          "risk": 7,
           "status": "safe",
           "partial": false,
           "coverage": 100,
           "exceptions": [],
           "findings": [
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/amazon-review-checker/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/amazon-review-checker/SKILL.md",
               "line": 15
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/amazon-review-checker/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
@@ -244,28 +248,22 @@
               "line": 5
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/brand-monitoring",
-          "score": 79,
-          "risk": 21,
-          "status": "caution",
+          "score": 86,
+          "risk": 14,
+          "status": "safe",
           "partial": false,
           "coverage": 100,
           "exceptions": [],
           "findings": [
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/brand-monitoring/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/brand-monitoring/SKILL.md",
               "line": 16
             },
@@ -276,13 +274,23 @@
               "file": "skills/brand-monitoring/scripts/scrapers.py",
               "line": 118
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/brand-monitoring/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
           ]
         },
         {
           "path": "skills/brand-protection-amazon",
-          "score": 68,
-          "risk": 32,
-          "status": "caution",
+          "score": 93,
+          "risk": 7,
+          "status": "incomplete",
           "partial": true,
           "coverage": 66.7,
           "exceptions": [
@@ -294,26 +302,29 @@
           ],
           "findings": [
             {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/brand-protection-amazon/SKILL.md",
+              "line": 15
+            }
+          ],
+          "suppressed": [
+            {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/brand-protection-amazon/SKILL.md",
-              "line": 62
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/brand-protection-amazon/SKILL.md",
-              "line": 15
+              "line": 62,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
         {
           "path": "skills/brand-protection-ebay",
-          "score": 68,
-          "risk": 32,
-          "status": "caution",
+          "score": 93,
+          "risk": 7,
+          "status": "incomplete",
           "partial": true,
           "coverage": 66.7,
           "exceptions": [
@@ -325,26 +336,29 @@
           ],
           "findings": [
             {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/brand-protection-ebay/SKILL.md",
+              "line": 15
+            }
+          ],
+          "suppressed": [
+            {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/brand-protection-ebay/SKILL.md",
-              "line": 62
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/brand-protection-ebay/SKILL.md",
-              "line": 15
+              "line": 62,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
         {
           "path": "skills/brand-protection-shopify",
-          "score": 68,
-          "risk": 32,
-          "status": "caution",
+          "score": 93,
+          "risk": 7,
+          "status": "incomplete",
           "partial": true,
           "coverage": 66.7,
           "exceptions": [
@@ -361,26 +375,29 @@
           ],
           "findings": [
             {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/brand-protection-shopify/SKILL.md",
+              "line": 16
+            }
+          ],
+          "suppressed": [
+            {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/brand-protection-shopify/SKILL.md",
-              "line": 66
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/brand-protection-shopify/SKILL.md",
-              "line": 16
+              "line": 66,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
         {
           "path": "skills/brand-protection-tiktok",
-          "score": 68,
-          "risk": 32,
-          "status": "caution",
+          "score": 93,
+          "risk": 7,
+          "status": "incomplete",
           "partial": true,
           "coverage": 66.7,
           "exceptions": [
@@ -392,26 +409,29 @@
           ],
           "findings": [
             {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/brand-protection-tiktok/SKILL.md",
+              "line": 16
+            }
+          ],
+          "suppressed": [
+            {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/brand-protection-tiktok/SKILL.md",
-              "line": 62
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/brand-protection-tiktok/SKILL.md",
-              "line": 16
+              "line": 62,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
         {
           "path": "skills/brand-protection-walmart",
-          "score": 68,
-          "risk": 32,
-          "status": "caution",
+          "score": 93,
+          "risk": 7,
+          "status": "incomplete",
           "partial": true,
           "coverage": 66.7,
           "exceptions": [
@@ -423,18 +443,21 @@
           ],
           "findings": [
             {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/brand-protection-walmart/SKILL.md",
+              "line": 16
+            }
+          ],
+          "suppressed": [
+            {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/brand-protection-walmart/SKILL.md",
-              "line": 63
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/brand-protection-walmart/SKILL.md",
-              "line": 16
+              "line": 63,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -450,11 +473,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/competitive-pricing-strategy/SKILL.md",
               "line": 13
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/competitor-price-analysis",
@@ -468,11 +492,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/competitor-price-analysis/SKILL.md",
               "line": 14
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/competitor-price-tracker",
@@ -486,11 +511,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/competitor-price-tracker/SKILL.md",
               "line": 21
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/conversion-rate-optimization",
@@ -504,11 +530,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/conversion-rate-optimization/SKILL.md",
               "line": 19
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/cross-border-ecommerce",
@@ -528,53 +555,54 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/cross-border-ecommerce/SKILL.md",
               "line": 17
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/cross-border-ecommerce/SKILL.md",
               "line": 27
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/cross-border-ecommerce/SKILL.md",
               "line": 670
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/cross-border-ecommerce/SKILL.md",
               "line": 675
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/cross-border-ecommerce/SKILL.md",
               "line": 680
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/cross-border-ecommerce/SKILL.md",
               "line": 685
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/cross-border-ecommerce/SKILL.md",
               "line": 690
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/customer-feedback-analysis",
@@ -590,7 +618,8 @@
               "line": 5
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/domain-monitoring",
@@ -606,7 +635,8 @@
               "line": 5
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/dropshipping-product-research",
@@ -620,11 +650,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/dropshipping-product-research/SKILL.md",
               "line": 21
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/dynamic-pricing-ecommerce",
@@ -638,11 +669,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/dynamic-pricing-ecommerce/SKILL.md",
               "line": 13
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ebay-advertising",
@@ -656,11 +688,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ebay-advertising/SKILL.md",
               "line": 19
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ebay-product-research",
@@ -674,34 +707,38 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ebay-product-research/SKILL.md",
               "line": 18
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ebay-review-checker",
-          "score": 86,
-          "risk": 14,
+          "score": 93,
+          "risk": 7,
           "status": "safe",
           "partial": false,
           "coverage": 100,
           "exceptions": [],
           "findings": [
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/ebay-review-checker/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ebay-review-checker/SKILL.md",
               "line": 15
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/ebay-review-checker/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
@@ -717,11 +754,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ebay-seller-guide/SKILL.md",
               "line": 19
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ebay-seller-tools",
@@ -735,11 +773,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ebay-seller-tools/SKILL.md",
               "line": 19
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ebay-seo",
@@ -753,11 +792,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ebay-seo/SKILL.md",
               "line": 19
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ecommerce-ab-testing",
@@ -771,11 +811,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ecommerce-ab-testing/SKILL.md",
               "line": 19
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ecommerce-branding",
@@ -789,11 +830,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ecommerce-branding/SKILL.md",
               "line": 21
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ecommerce-business-plan",
@@ -807,11 +849,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ecommerce-business-plan/SKILL.md",
               "line": 21
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ecommerce-checkout-optimization",
@@ -825,11 +868,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ecommerce-checkout-optimization/SKILL.md",
               "line": 21
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ecommerce-competitor-analysis",
@@ -843,11 +887,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ecommerce-competitor-analysis/SKILL.md",
               "line": 14
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ecommerce-content-marketing",
@@ -861,11 +906,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ecommerce-content-marketing/SKILL.md",
               "line": 14
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ecommerce-customer-retention",
@@ -879,11 +925,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ecommerce-customer-retention/SKILL.md",
               "line": 19
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ecommerce-email-marketing-builder",
@@ -897,25 +944,26 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ecommerce-email-marketing-builder/SKILL.md",
               "line": 21
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ecommerce-email-marketing-builder/SKILL.md",
               "line": 576
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ecommerce-email-marketing-builder/SKILL.md",
               "line": 581
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ecommerce-feed-management",
@@ -931,7 +979,8 @@
               "line": 5
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/ecommerce-growth-strategy",
@@ -945,46 +994,47 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ecommerce-growth-strategy/SKILL.md",
               "line": 17
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ecommerce-growth-strategy/SKILL.md",
               "line": 27
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ecommerce-growth-strategy/SKILL.md",
               "line": 504
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ecommerce-growth-strategy/SKILL.md",
               "line": 509
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ecommerce-growth-strategy/SKILL.md",
               "line": 514
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ecommerce-growth-strategy/SKILL.md",
               "line": 519
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ecommerce-keyword-research",
@@ -998,11 +1048,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ecommerce-keyword-research/SKILL.md",
               "line": 21
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ecommerce-landing-page",
@@ -1016,11 +1067,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ecommerce-landing-page/SKILL.md",
               "line": 21
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ecommerce-marketing-strategy-builder",
@@ -1034,18 +1086,19 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ecommerce-marketing-strategy-builder/SKILL.md",
               "line": 17
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ecommerce-marketing-strategy-builder/SKILL.md",
               "line": 420
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ecommerce-personalization",
@@ -1059,11 +1112,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ecommerce-personalization/SKILL.md",
               "line": 21
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ecommerce-ppc-strategy-planner",
@@ -1077,18 +1131,19 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ecommerce-ppc-strategy-planner/SKILL.md",
               "line": 14
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ecommerce-ppc-strategy-planner/SKILL.md",
               "line": 522
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ecommerce-returns-management",
@@ -1102,11 +1157,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ecommerce-returns-management/SKILL.md",
               "line": 21
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ecommerce-shipping-rates",
@@ -1120,11 +1176,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ecommerce-shipping-rates/SKILL.md",
               "line": 21
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ecommerce-social-media-marketing",
@@ -1138,11 +1195,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ecommerce-social-media-marketing/SKILL.md",
               "line": 14
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ecommerce-subscription-model",
@@ -1156,11 +1214,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ecommerce-subscription-model/SKILL.md",
               "line": 19
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ecommerce-video-marketing",
@@ -1174,11 +1233,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/ecommerce-video-marketing/SKILL.md",
               "line": 19
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/etsy-advertising",
@@ -1192,11 +1252,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/etsy-advertising/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/etsy-competitor-analysis",
@@ -1210,11 +1271,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/etsy-competitor-analysis/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/etsy-custom-orders",
@@ -1228,11 +1290,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/etsy-custom-orders/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/etsy-digital-products",
@@ -1246,11 +1309,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/etsy-digital-products/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/etsy-keyword-research",
@@ -1264,11 +1328,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/etsy-keyword-research/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/etsy-listing-photography",
@@ -1282,11 +1347,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/etsy-listing-photography/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/etsy-multi-shop",
@@ -1300,11 +1366,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/etsy-multi-shop/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/etsy-offsite-ads",
@@ -1318,11 +1385,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/etsy-offsite-ads/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/etsy-pricing-strategy",
@@ -1336,11 +1404,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/etsy-pricing-strategy/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/etsy-print-on-demand",
@@ -1354,11 +1423,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/etsy-print-on-demand/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/etsy-product-description",
@@ -1372,11 +1442,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/etsy-product-description/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/etsy-review-strategy",
@@ -1390,11 +1461,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/etsy-review-strategy/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/etsy-seasonal-strategy",
@@ -1408,11 +1480,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/etsy-seasonal-strategy/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/etsy-seller-guide",
@@ -1426,11 +1499,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/etsy-seller-guide/SKILL.md",
               "line": 19
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/etsy-seo",
@@ -1451,11 +1525,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/etsy-seo/SKILL.md",
               "line": 16
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/etsy-seo-tags",
@@ -1469,11 +1544,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/etsy-seo-tags/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/etsy-shipping-strategy",
@@ -1487,11 +1563,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/etsy-shipping-strategy/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/etsy-shop-analytics",
@@ -1505,11 +1582,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/etsy-shop-analytics/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/etsy-shop-branding",
@@ -1523,11 +1601,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/etsy-shop-branding/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/etsy-shop-setup",
@@ -1541,11 +1620,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/etsy-shop-setup/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/etsy-social-media-marketing",
@@ -1559,11 +1639,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/etsy-social-media-marketing/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/etsy-star-seller",
@@ -1577,11 +1658,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/etsy-star-seller/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/file-integrity-monitoring",
@@ -1597,7 +1679,8 @@
               "line": 5
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/google-shopping-optimization",
@@ -1611,11 +1694,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/google-shopping-optimization/SKILL.md",
               "line": 21
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/influencer-outreach",
@@ -1629,11 +1713,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/influencer-outreach/SKILL.md",
               "line": 19
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/inventory-tracking-software",
@@ -1649,7 +1734,8 @@
               "line": 5
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/localization-testing",
@@ -1665,7 +1751,8 @@
               "line": 5
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/market-gap-analysis",
@@ -1679,11 +1766,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/market-gap-analysis/SKILL.md",
               "line": 21
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/minimum-advertised-price",
@@ -1699,7 +1787,8 @@
               "line": 5
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/multichannel-ecommerce",
@@ -1713,11 +1802,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/multichannel-ecommerce/SKILL.md",
               "line": 19
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/omnichannel-ecommerce",
@@ -1731,11 +1821,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/omnichannel-ecommerce/SKILL.md",
               "line": 19
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/online-reputation-management",
@@ -1751,7 +1842,8 @@
               "line": 5
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/price-optimization-tool",
@@ -1765,11 +1857,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/price-optimization-tool/SKILL.md",
               "line": 13
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/product-description-generator",
@@ -1783,18 +1876,19 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/product-description-generator/SKILL.md",
               "line": 14
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/product-description-generator/SKILL.md",
               "line": 19
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/product-differentiation-amazon",
@@ -1808,11 +1902,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/product-differentiation-amazon/SKILL.md",
               "line": 16
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/product-differentiation-ebay",
@@ -1826,11 +1921,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/product-differentiation-ebay/SKILL.md",
               "line": 16
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/product-differentiation-shopify",
@@ -1855,11 +1951,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/product-differentiation-shopify/SKILL.md",
               "line": 16
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/product-differentiation-tiktok",
@@ -1879,11 +1976,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/product-differentiation-tiktok/SKILL.md",
               "line": 16
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/product-launch-strategy",
@@ -1897,11 +1995,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/product-launch-strategy/SKILL.md",
               "line": 21
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/product-page-seo",
@@ -1915,11 +2014,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/product-page-seo/SKILL.md",
               "line": 21
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/product-review-analysis",
@@ -1933,11 +2033,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/product-review-analysis/SKILL.md",
               "line": 14
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/product-title-optimization",
@@ -1951,11 +2052,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/product-title-optimization/SKILL.md",
               "line": 21
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/profit-margin-calculator-amazon",
@@ -1975,11 +2077,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/profit-margin-calculator-amazon/SKILL.md",
               "line": 14
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/profit-margin-calculator-shopify",
@@ -1993,11 +2096,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/profit-margin-calculator-shopify/SKILL.md",
               "line": 15
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/profit-margin-calculator-tiktok",
@@ -2011,11 +2115,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/profit-margin-calculator-tiktok/SKILL.md",
               "line": 15
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/profit-margin-calculator-walmart",
@@ -2029,11 +2134,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/profit-margin-calculator-walmart/SKILL.md",
               "line": 15
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/public-status-page",
@@ -2049,7 +2155,8 @@
               "line": 5
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/restock-alert",
@@ -2065,7 +2172,8 @@
               "line": 5
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/review-monitoring",
@@ -2079,11 +2187,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/review-monitoring/SKILL.md",
               "line": 21
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/sales-tracking-tool",
@@ -2097,11 +2206,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/sales-tracking-tool/SKILL.md",
               "line": 21
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/share-of-shelf",
@@ -2117,7 +2227,8 @@
               "line": 5
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-ab-testing",
@@ -2131,11 +2242,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-ab-testing/SKILL.md",
               "line": 19
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-analytics-guide",
@@ -2149,11 +2261,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-analytics-guide/SKILL.md",
               "line": 19
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-app-recommendations",
@@ -2167,11 +2280,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-app-recommendations/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-blog-strategy",
@@ -2185,11 +2299,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-blog-strategy/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-cart-abandonment",
@@ -2203,11 +2318,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-cart-abandonment/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-checkout-customization",
@@ -2221,11 +2337,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-checkout-customization/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-conversion-optimization",
@@ -2239,11 +2356,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-conversion-optimization/SKILL.md",
               "line": 19
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-dropshipping",
@@ -2257,11 +2375,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-dropshipping/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-email-flows",
@@ -2275,11 +2394,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-email-flows/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-facebook-instagram-shop",
@@ -2293,11 +2413,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-facebook-instagram-shop/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-google-channel",
@@ -2311,11 +2432,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-google-channel/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-international",
@@ -2329,11 +2451,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-international/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-inventory-management",
@@ -2347,11 +2470,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-inventory-management/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-landing-page-builder",
@@ -2365,11 +2489,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-landing-page-builder/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-loyalty-program",
@@ -2383,11 +2508,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-loyalty-program/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-marketing",
@@ -2401,11 +2527,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-marketing/SKILL.md",
               "line": 14
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-migration",
@@ -2419,11 +2546,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-migration/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-page-speed",
@@ -2439,7 +2567,8 @@
               "line": 5
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-product-photography-guide",
@@ -2453,11 +2582,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-product-photography-guide/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-seo",
@@ -2471,11 +2601,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-seo/SKILL.md",
               "line": 19
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-speed-optimization",
@@ -2489,11 +2620,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-speed-optimization/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-store-setup",
@@ -2507,11 +2639,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-store-setup/SKILL.md",
               "line": 19
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-subscription-setup",
@@ -2525,11 +2658,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-subscription-setup/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-tax-compliance",
@@ -2543,11 +2677,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-tax-compliance/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-theme-optimization",
@@ -2561,11 +2696,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-theme-optimization/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-upsell-cross-sell",
@@ -2579,11 +2715,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-upsell-cross-sell/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shopify-wholesale-channel",
@@ -2597,11 +2734,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shopify-wholesale-channel/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/shoppable-video",
@@ -2615,11 +2753,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/shoppable-video/SKILL.md",
               "line": 19
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/social-media-monitor",
@@ -2633,34 +2772,37 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/social-media-monitor/SKILL.md",
               "line": 21
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/supply-chain-optimization-amazon",
-          "score": 93,
-          "risk": 7,
+          "score": 100,
+          "risk": 0,
           "status": "safe",
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "LP3",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/supply-chain-optimization-amazon/SKILL.md",
-              "line": 1
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
         {
           "path": "skills/supply-chain-optimization-shopify",
-          "score": 86,
-          "risk": 14,
+          "score": 93,
+          "risk": 7,
           "status": "incomplete",
           "partial": true,
           "coverage": 75,
@@ -2678,68 +2820,77 @@
           ],
           "findings": [
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/supply-chain-optimization-shopify/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/supply-chain-optimization-shopify/SKILL.md",
               "line": 15
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/supply-chain-optimization-shopify/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
         {
           "path": "skills/supply-chain-optimization-tiktok",
-          "score": 86,
-          "risk": 14,
+          "score": 93,
+          "risk": 7,
           "status": "safe",
           "partial": false,
           "coverage": 100,
           "exceptions": [],
           "findings": [
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/supply-chain-optimization-tiktok/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/supply-chain-optimization-tiktok/SKILL.md",
               "line": 15
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/supply-chain-optimization-tiktok/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
         {
           "path": "skills/supply-chain-optimization-walmart",
-          "score": 86,
-          "risk": 14,
+          "score": 93,
+          "risk": 7,
           "status": "safe",
           "partial": false,
           "coverage": 100,
           "exceptions": [],
           "findings": [
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/supply-chain-optimization-walmart/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/supply-chain-optimization-walmart/SKILL.md",
               "line": 15
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/supply-chain-optimization-walmart/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
@@ -2757,7 +2908,8 @@
               "line": 5
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/tiktok-creator-marketplace",
@@ -2771,11 +2923,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/tiktok-creator-marketplace/SKILL.md",
               "line": 14
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/tiktok-influencer-marketing",
@@ -2795,11 +2948,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/tiktok-influencer-marketing/SKILL.md",
               "line": 14
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/tiktok-live-selling",
@@ -2813,11 +2967,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/tiktok-live-selling/SKILL.md",
               "line": 19
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/tiktok-shop-ads",
@@ -2837,11 +2992,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/tiktok-shop-ads/SKILL.md",
               "line": 14
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/tiktok-shop-affiliate-program",
@@ -2855,11 +3011,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/tiktok-shop-affiliate-program/SKILL.md",
               "line": 14
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/tiktok-shop-analytics",
@@ -2873,11 +3030,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/tiktok-shop-analytics/SKILL.md",
               "line": 14
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/tiktok-shop-branding",
@@ -2891,11 +3049,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/tiktok-shop-branding/SKILL.md",
               "line": 14
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/tiktok-shop-compliance",
@@ -2909,11 +3068,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/tiktok-shop-compliance/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/tiktok-shop-content-strategy",
@@ -2927,11 +3087,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/tiktok-shop-content-strategy/SKILL.md",
               "line": 14
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/tiktok-shop-conversion",
@@ -2945,11 +3106,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/tiktok-shop-conversion/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/tiktok-shop-creator-management",
@@ -2963,11 +3125,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/tiktok-shop-creator-management/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/tiktok-shop-cross-border",
@@ -2981,11 +3144,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/tiktok-shop-cross-border/SKILL.md",
               "line": 14
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/tiktok-shop-customer-service",
@@ -2999,11 +3163,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/tiktok-shop-customer-service/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/tiktok-shop-fulfillment",
@@ -3017,11 +3182,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/tiktok-shop-fulfillment/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/tiktok-shop-inventory",
@@ -3035,11 +3201,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/tiktok-shop-inventory/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/tiktok-shop-listing-optimization",
@@ -3053,11 +3220,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/tiktok-shop-listing-optimization/SKILL.md",
               "line": 14
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/tiktok-shop-pricing",
@@ -3071,11 +3239,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/tiktok-shop-pricing/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/tiktok-shop-product-research",
@@ -3089,11 +3258,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/tiktok-shop-product-research/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/tiktok-shop-promotions",
@@ -3107,11 +3277,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/tiktok-shop-promotions/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/tiktok-shop-returns",
@@ -3125,11 +3296,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/tiktok-shop-returns/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/tiktok-shop-reviews",
@@ -3143,11 +3315,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/tiktok-shop-reviews/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/tiktok-shop-seller-guide",
@@ -3161,11 +3334,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/tiktok-shop-seller-guide/SKILL.md",
               "line": 14
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/tiktok-shop-shipping",
@@ -3179,11 +3353,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/tiktok-shop-shipping/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/tiktok-shop-trending-products",
@@ -3197,11 +3372,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/tiktok-shop-trending-products/SKILL.md",
               "line": 27
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/visual-regression-testing",
@@ -3217,7 +3393,8 @@
               "line": 5
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/walmart-advertising-strategy",
@@ -3231,11 +3408,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/walmart-advertising-strategy/SKILL.md",
               "line": 19
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/walmart-listing-optimization",
@@ -3249,11 +3427,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/walmart-listing-optimization/SKILL.md",
               "line": 21
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/walmart-price-tracker",
@@ -3269,30 +3448,34 @@
               "line": 5
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/walmart-review-checker",
-          "score": 86,
-          "risk": 14,
+          "score": 93,
+          "risk": 7,
           "status": "safe",
           "partial": false,
           "coverage": 100,
           "exceptions": [],
           "findings": [
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/walmart-review-checker/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/walmart-review-checker/SKILL.md",
               "line": 15
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/walmart-review-checker/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
@@ -3308,11 +3491,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/walmart-seller-guide/SKILL.md",
               "line": 19
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/walmart-seller-tools",
@@ -3326,11 +3510,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/walmart-seller-tools/SKILL.md",
               "line": 19
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/warehouse-optimization",
@@ -3350,18 +3535,19 @@
             {
               "id": "AE4",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "analysis-evasion",
               "file": "skills/warehouse-optimization/SKILL.md",
               "line": 1
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/warehouse-optimization/SKILL.md",
               "line": 14
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/woocommerce-seo",
@@ -3375,16 +3561,17 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/woocommerce-seo/SKILL.md",
               "line": 19
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 68,
+  "score": 71,
   "status": "caution",
   "tool": {
     "name": "skillspector",
@@ -3392,7 +3579,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T23:04:07Z"
+      "checkedAt": "2026-11-04T23:55:22Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

@@ -7,12 +7,14 @@
   "plugins": [
     {
       "name": "python-development",
-      "dir": "/nix/store/mhzq4yy3g1vrjy6c4rhl20drdk5fjpxm-agent-plugin-python-development-1.2.4/share/agent-plugins/python-development",
+      "dir": "/nix/store/diiiky771aw72bffx5n62rphgiicmdm5-agent-plugin-python-development-1.2.4/share/agent-plugins/python-development",
       "spec": "1.1.0",
       "score": 74,
       "status": "caution",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/commands",
           "skills/async-python-patterns",
           "skills/python-anti-patterns",
           "skills/python-background-jobs",
@@ -33,14 +35,31 @@
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/async-python-patterns",
           "score": 92,
@@ -71,7 +90,8 @@
               "file": "skills/async-python-patterns/references/details.md",
               "line": 353
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/python-anti-patterns",
@@ -87,7 +107,8 @@
               "line": 65
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/python-background-jobs",
@@ -97,7 +118,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/python-code-style",
@@ -118,7 +140,8 @@
               "line": 112
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/python-configuration",
@@ -157,7 +180,8 @@
               "file": "skills/python-configuration/SKILL.md",
               "line": 162
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/python-design-patterns",
@@ -167,7 +191,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/python-error-handling",
@@ -191,7 +216,8 @@
               "file": "skills/python-error-handling/references/details.md",
               "line": 66
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/python-observability",
@@ -201,7 +227,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/python-packaging",
@@ -235,7 +262,8 @@
               "file": "skills/python-packaging/references/details.md",
               "line": 296
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/python-performance-optimization",
@@ -245,7 +273,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/python-project-structure",
@@ -291,7 +320,8 @@
               "line": 225
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/python-resilience",
@@ -309,7 +339,8 @@
               "file": "skills/python-resilience/SKILL.md",
               "line": 47
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/python-resource-management",
@@ -319,7 +350,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/python-testing-patterns",
@@ -351,7 +383,8 @@
               "file": "skills/python-testing-patterns/references/details.md",
               "line": 231
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/python-type-safety",
@@ -367,7 +400,8 @@
               "line": 180
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/uv-package-manager",
@@ -423,7 +457,8 @@
               "file": "skills/uv-package-manager/references/advanced-patterns.md",
               "line": 123
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
@@ -436,7 +471,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-31T00:57:03Z"
+      "checkedAt": "2026-11-05T00:14:52Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "emilkowalski-skills",
-      "dir": "/nix/store/l19126bpndaz5qpnrj2nrml5f803lr7w-agent-plugin-emilkowalski-skills-0.0.0-unstable.2026-10-28.ga81dbca/share/agent-plugins/emilkowalski-skills",
+      "dir": "/nix/store/n99g0k1h96w5k18h0da74ak2k7aymq2z-agent-plugin-emilkowalski-skills-0.0.0-unstable.2026-11-04.gc8a7962/share/agent-plugins/emilkowalski-skills",
       "spec": "1.1.0",
       "score": 34,
       "status": "do not install",
@@ -20,6 +20,7 @@
           "skills/apple-design",
           "skills/ask-sonner",
           "skills/break-ui",
+          "skills/choreograph",
           "skills/emil-design-eng",
           "skills/find-animation-opportunities",
           "skills/improve-animations",
@@ -50,7 +51,8 @@
               "line": 77
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/animate-expo",
@@ -75,28 +77,28 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/animate-expo/RECIPES.md",
               "line": 10
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/animate-expo/RECIPES.md",
               "line": 258
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/animate-expo/SKILL.md",
               "line": 84
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/animate-expo/SKILL.md",
               "line": 210
             },
@@ -107,7 +109,8 @@
               "file": "skills/animate-expo/SKILL.md",
               "line": 220
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/animation-performance",
@@ -123,7 +126,8 @@
               "line": 49
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/animation-vocabulary",
@@ -133,7 +137,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/apple-design",
@@ -179,7 +184,8 @@
               "line": 289
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/ask-sonner",
@@ -220,7 +226,8 @@
               "line": 85
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/break-ui",
@@ -284,6 +291,68 @@
               "file": "skills/break-ui/SKILL.md",
               "line": 36
             }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/choreograph",
+          "score": 52,
+          "risk": 48,
+          "status": "caution",
+          "partial": true,
+          "coverage": 0,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/choreograph/RECIPES.md",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/choreograph/SKILL.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "P1",
+              "severity": "HIGH",
+              "message": "Instruction Override",
+              "file": "skills/choreograph/SKILL.md",
+              "line": 31
+            },
+            {
+              "id": "YR4",
+              "severity": "HIGH",
+              "message": "YARA rule 'agent_skill_prompt_injection_hidden_instructions': Prompt injection or hidden instructions embedded in AI agent skill text [agent_skills]",
+              "file": "skills/choreograph/SKILL.md",
+              "line": 31
+            },
+            {
+              "id": "AE4",
+              "severity": "MEDIUM",
+              "message": "analysis-evasion",
+              "file": "skills/choreograph/SKILL.md",
+              "line": 1
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/choreograph/SKILL.md",
+              "line": 84,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/choreograph/SKILL.md",
+              "line": 132,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
@@ -300,7 +369,8 @@
               "line": 0
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/find-animation-opportunities",
@@ -318,7 +388,8 @@
               "file": "skills/find-animation-opportunities/SKILL.md",
               "line": 29
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/improve-animations",
@@ -382,7 +453,8 @@
               "file": "skills/improve-animations/SKILL.md",
               "line": 33
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/mobile-native",
@@ -398,7 +470,8 @@
               "line": 239
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/pick-ui-library",
@@ -414,7 +487,8 @@
               "line": 22
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/prototype",
@@ -432,7 +506,8 @@
               "file": "skills/prototype/SKILL.md",
               "line": 65
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/remove-animations",
@@ -456,13 +531,14 @@
               "file": "skills/remove-animations/SKILL.md",
               "line": 32
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/review-animations",
-          "score": 57,
-          "risk": 43,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
           "partial": true,
           "coverage": 50,
           "exceptions": [
@@ -472,34 +548,38 @@
               "line": 0
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/review-animations/SKILL.md",
-              "line": 25
+              "line": 25,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/review-animations/SKILL.md",
-              "line": 37
+              "line": 37,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/review-animations/SKILL.md",
-              "line": 115
+              "line": 115,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
         {
           "path": "skills/write-swift",
-          "score": 88,
-          "risk": 12,
+          "score": 100,
+          "risk": 0,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -540,34 +620,39 @@
               "line": 373
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/write-swift/SKILL.md",
-              "line": 328
+              "line": 328,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/write-swift/SKILL.md",
-              "line": 332
+              "line": 332,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/write-swift/SKILL.md",
-              "line": 337
+              "line": 337,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/write-swift/SKILL.md",
-              "line": 340
+              "line": 340,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             }
           ]
         }
@@ -582,7 +667,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-28T18:38:23Z"
+      "checkedAt": "2026-11-04T23:17:02Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

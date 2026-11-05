@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "browser-use-video-use",
-      "dir": "/nix/store/1dq1siw69q0x3ma4nwa3fwachbai5953-agent-plugin-browser-use-video-use-0.0.0-unstable.2026-10-08.g43cfc56/share/agent-plugins/browser-use-video-use",
+      "dir": "/nix/store/xlv5h527fmj30hgy2lqyn72y5pxlcjaa-agent-plugin-browser-use-video-use-0.0.0-unstable.2026-10-08.g43cfc56/share/agent-plugins/browser-use-video-use",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -66,7 +66,8 @@
               "line": 178
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/video-use",
@@ -226,13 +227,6 @@
               "line": 28
             },
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/video-use/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
@@ -242,42 +236,42 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/video-use/SKILL.md",
               "line": 67
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/video-use/SKILL.md",
               "line": 214
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/video-use/install.md",
               "line": 160
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/video-use/SKILL.md",
               "line": 67
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/video-use/SKILL.md",
               "line": 216
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/video-use/install.md",
               "line": 160
             },
@@ -505,6 +499,16 @@
               "file": "skills/video-use/pyproject.toml",
               "line": 19
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/video-use/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
           ]
         }
       ]
@@ -518,7 +522,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-24T03:01:44Z"
+      "checkedAt": "2026-11-04T23:29:23Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

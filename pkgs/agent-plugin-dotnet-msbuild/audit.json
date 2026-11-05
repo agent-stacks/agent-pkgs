@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "dotnet-msbuild",
-      "dir": "/nix/store/ckd24x4iqvdaa6iw03gwgsxcvhmvrazl-agent-plugin-dotnet-msbuild-0.1.11/share/agent-plugins/dotnet-msbuild",
+      "dir": "/nix/store/c712ilf1ds7giax2krxc7pd3b2rq8dby-agent-plugin-dotnet-msbuild-0.1.11/share/agent-plugins/dotnet-msbuild",
       "spec": "1.1.0",
-      "score": 2,
+      "score": 27,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
           "skills/binlog-failure-analysis",
           "skills/binlog-generation",
           "skills/build-parallelism",
@@ -43,16 +44,31 @@
             "reason": "interpreter links into /nix/store"
           },
           {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          },
-          {
             "path": "mcp.json",
             "reason": "SkillSpector does not analyse this layout as an MCP manifest"
           }
         ]
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 92,
+          "risk": 8,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "com.anthropic.claude-code/agents/msbuild-code-review.agent.md",
+              "line": 53
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/binlog-failure-analysis",
           "score": 100,
@@ -67,7 +83,8 @@
               "line": 10
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/binlog-generation",
@@ -98,7 +115,8 @@
               "file": "skills/binlog-generation/SKILL.md",
               "line": 122
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/build-parallelism",
@@ -129,7 +147,8 @@
               "line": 99
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/build-perf-baseline",
@@ -180,7 +199,8 @@
               "file": "skills/build-perf-baseline/SKILL.md",
               "line": 190
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/build-perf-diagnostics",
@@ -221,7 +241,8 @@
               "line": 112
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/check-bin-obj-clash",
@@ -303,7 +324,8 @@
               "file": "skills/check-bin-obj-clash/SKILL.md",
               "line": 247
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/copy-to-output-directory",
@@ -329,7 +351,8 @@
               "line": 92
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/directory-build-organization",
@@ -512,7 +535,8 @@
               "file": "skills/directory-build-organization/references/targetframework-props-pitfall.md",
               "line": 42
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/eliminate-redundant-restores",
@@ -586,7 +610,8 @@
               "file": "skills/eliminate-redundant-restores/SKILL.md",
               "line": 28
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/eval-performance",
@@ -610,7 +635,8 @@
               "file": "skills/eval-performance/SKILL.md",
               "line": 83
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/extension-points",
@@ -721,7 +747,8 @@
               "file": "skills/extension-points/SKILL.md",
               "line": 204
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/including-generated-files",
@@ -739,7 +766,8 @@
               "file": "skills/including-generated-files/SKILL.md",
               "line": 70
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/incremental-build",
@@ -821,7 +849,8 @@
               "file": "skills/incremental-build/SKILL.md",
               "line": 219
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/item-management",
@@ -877,12 +906,13 @@
               "file": "skills/item-management/SKILL.md",
               "line": 101
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/msbuild-antipatterns",
-          "score": 2,
-          "risk": 98,
+          "score": 27,
+          "risk": 73,
           "status": "do not install",
           "partial": true,
           "coverage": 75,
@@ -1085,13 +1115,6 @@
               "line": 336
             },
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/msbuild-antipatterns/SKILL.md",
-              "line": 418
-            },
-            {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
@@ -1202,6 +1225,16 @@
               "message": "Hidden Instructions",
               "file": "skills/msbuild-antipatterns/references/incremental-build-inputs-outputs.md",
               "line": 6
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/msbuild-antipatterns/SKILL.md",
+              "line": 418,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -1576,7 +1609,8 @@
               "file": "skills/msbuild-modernization/SKILL.md",
               "line": 397
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/property-patterns",
@@ -1636,7 +1670,8 @@
               "file": "skills/property-patterns/SKILL.md",
               "line": 119
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/resolve-project-references",
@@ -1646,7 +1681,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/target-authoring",
@@ -1712,7 +1748,8 @@
               "file": "skills/target-authoring/SKILL.md",
               "line": 142
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/troubleshoot-binlog-mcp",
@@ -1743,12 +1780,13 @@
               "line": 97
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 2,
+  "score": 27,
   "status": "do not install",
   "tool": {
     "name": "skillspector",
@@ -1756,7 +1794,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-21T03:21:03Z"
+      "checkedAt": "2026-11-04T23:25:21Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

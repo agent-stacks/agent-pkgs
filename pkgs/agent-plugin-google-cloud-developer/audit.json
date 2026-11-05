@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "google-cloud-developer",
-      "dir": "/nix/store/5bi2vajhw56x8fwyqwhp8wmfqaw4rzjy-agent-plugin-google-cloud-developer-1.1.14/share/agent-plugins/google-cloud-developer",
+      "dir": "/nix/store/jlvjhihg1qg2f22f503j7b780ijab5ic-agent-plugin-google-cloud-developer-1.1.16/share/agent-plugins/google-cloud-developer",
       "spec": "1.1.0",
       "score": 26,
       "status": "do not install",
@@ -32,8 +32,8 @@
       "components": [
         {
           "path": "skills/finding-google-skills",
-          "score": 54,
-          "risk": 46,
+          "score": 79,
+          "risk": 21,
           "status": "caution",
           "partial": true,
           "coverage": 100,
@@ -58,18 +58,21 @@
               "line": 45
             },
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/finding-google-skills/SKILL.md",
-              "line": 121
-            },
-            {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/finding-google-skills/SKILL.md",
               "line": 118
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/finding-google-skills/SKILL.md",
+              "line": 121,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -105,7 +108,8 @@
               "file": "skills/gcloud/SKILL.md",
               "line": 130
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/google-cloud-recipe-auth",
@@ -166,7 +170,8 @@
               "file": "skills/google-cloud-recipe-auth/SKILL.md",
               "line": 193
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/google-cloud-recipe-onboarding",
@@ -187,7 +192,8 @@
               "line": 4
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/retrieving-developer-knowledge",
@@ -251,7 +257,8 @@
               "file": "skills/retrieving-developer-knowledge/references/api-fallback.md",
               "line": 48
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
@@ -264,7 +271,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-26T19:01:16Z"
+      "checkedAt": "2026-11-04T23:29:53Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

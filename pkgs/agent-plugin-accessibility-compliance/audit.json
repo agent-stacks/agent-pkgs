@@ -7,26 +7,51 @@
   "plugins": [
     {
       "name": "accessibility-compliance",
-      "dir": "/nix/store/zxwxl1rm8chi9dnkw1lbfvqcbi737580-agent-plugin-accessibility-compliance-1.2.3/share/agent-plugins/accessibility-compliance",
+      "dir": "/nix/store/yx23l0ymb3qb098j1izjn4v7ncr9hqih-agent-plugin-accessibility-compliance-1.2.4/share/agent-plugins/accessibility-compliance",
       "spec": "1.1.0",
       "score": 64,
       "status": "caution",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/commands",
           "skills/screen-reader-testing",
           "skills/wcag-audit-patterns"
         ],
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 0,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/commands/accessibility-audit.md",
+              "line": 0
+            }
+          ],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/screen-reader-testing",
           "score": 100,
@@ -35,7 +60,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/wcag-audit-patterns",
@@ -63,18 +89,19 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/wcag-audit-patterns/references/details.md",
               "line": 396
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/wcag-audit-patterns/references/details.md",
               "line": 397
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
@@ -87,7 +114,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:14:24Z"
+      "checkedAt": "2026-11-04T23:05:41Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

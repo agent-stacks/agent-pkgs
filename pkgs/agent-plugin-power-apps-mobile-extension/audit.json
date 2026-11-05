@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "power-apps-mobile-extension",
-      "dir": "/nix/store/bndpqhdsbx6jlx1p3fy1j0kxghwcfmlf-agent-plugin-power-apps-mobile-extension-0.2.0/share/agent-plugins/power-apps-mobile-extension",
+      "dir": "/nix/store/nms6q3z37l41sf603lcjjm4jk11bksbi-agent-plugin-power-apps-mobile-extension-0.2.0/share/agent-plugins/power-apps-mobile-extension",
       "spec": "1.1.0",
       "score": 20,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/hooks",
           "skills/assemble-ppmplugin",
           "skills/audit-ppmplugin",
           "skills/build-android-binary",
@@ -30,14 +31,20 @@
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/assemble-ppmplugin",
           "score": 73,
@@ -171,7 +178,8 @@
               "file": "skills/assemble-ppmplugin/SKILL.md",
               "line": 111
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/audit-ppmplugin",
@@ -358,7 +366,8 @@
               "file": "skills/audit-ppmplugin/SKILL.md",
               "line": 129
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/build-android-binary",
@@ -516,7 +525,8 @@
               "file": "skills/build-android-binary/SKILL.md",
               "line": 126
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/build-ios-binary",
@@ -698,7 +708,8 @@
               "file": "skills/build-ios-binary/SKILL.md",
               "line": 141
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/debug-extension",
@@ -952,7 +963,8 @@
               "file": "skills/debug-extension/SKILL.md",
               "line": 5
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/design-native-extension-feature",
@@ -1303,7 +1315,8 @@
               "file": "skills/design-native-extension-feature/SKILL.md",
               "line": 708
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/generate-native-extension",
@@ -1757,7 +1770,8 @@
               "file": "skills/generate-native-extension/SKILL.md",
               "line": 605
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/generate-pcf-companion",
@@ -2285,7 +2299,8 @@
               "file": "skills/generate-pcf-companion/SKILL.md",
               "line": 5
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/generate-ppmplugin",
@@ -2364,7 +2379,8 @@
               "file": "skills/generate-ppmplugin/SKILL.md",
               "line": 5
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/generate-ppmplugin-manifest",
@@ -2543,7 +2559,8 @@
               "file": "skills/generate-ppmplugin-manifest/SKILL.md",
               "line": 5
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/publish-pcf-companion",
@@ -2658,7 +2675,8 @@
               "file": "skills/publish-pcf-companion/SKILL.md",
               "line": 314
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/telemetry",
@@ -2668,7 +2686,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/test-native-extension",
@@ -3073,7 +3092,8 @@
               "file": "skills/test-native-extension/SKILL.md",
               "line": 724
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
@@ -3086,7 +3106,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-22T05:37:38Z"
+      "checkedAt": "2026-11-05T00:38:43Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

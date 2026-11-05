@@ -7,12 +7,17 @@
   "plugins": [
     {
       "name": "model-apps",
-      "dir": "/nix/store/3piz6sgbv48n9j74xfgyr96mrldazrjy-agent-plugin-model-apps-2.20.6/share/agent-plugins/model-apps",
+      "dir": "/nix/store/p8gvacvr8hyv44qh2zzpwhs32zc79slz-agent-plugin-model-apps-2.22.0/share/agent-plugins/model-apps",
       "spec": "1.1.0",
-      "score": 52,
-      "status": "caution",
+      "score": 0,
+      "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/hooks",
+          "references",
+          "samples",
+          "scripts",
           "skills/app-builder",
           "skills/genpage",
           "skills/report-issue",
@@ -31,28 +36,2433 @@
             "reason": "interpreter links into /nix/store"
           },
           {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          },
-          {
             "path": "mcp.json",
             "reason": "SkillSpector does not analyse this layout as an MCP manifest"
-          },
-          {
-            "path": "references/",
-            "reason": "outside the spec"
-          },
-          {
-            "path": "samples/",
-            "reason": "outside the spec"
-          },
-          {
-            "path": "scripts/",
-            "reason": "outside the spec"
           }
         ]
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 50,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/agents/genpage-connector-builder.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/agents/genpage-entity-builder.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/agents/genpage-page-builder.md",
+              "line": 0
+            }
+          ],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 46,
+          "risk": 54,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 71.4,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/validate-icon-imports.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/validate-write-safety.js",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "com.anthropic.claude-code/hooks/validate-write-safety.js",
+              "line": 108
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/hooks/validate-write-safety.js",
+              "line": 4
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/hooks/validate-write-safety.js",
+              "line": 57
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "com.anthropic.claude-code/hooks/validate-write-safety.js",
+              "line": 102
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "com.anthropic.claude-code/hooks/validate-write-safety.js",
+              "line": 103
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "references",
+          "score": 67,
+          "risk": 33,
+          "status": "caution",
+          "partial": true,
+          "coverage": 66.7,
+          "exceptions": [
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "references/app-spec-schema-advanced.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "references/app-spec-schema.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "references/localization.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "references/page-telemetry.md",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "references/rules.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "references/rules.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "references/app-spec-schema-advanced.md",
+              "line": 58
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "references/app-spec-schema-advanced.md",
+              "line": 928
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "references/app-spec-schema-advanced.md",
+              "line": 1065
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "references/app-spec-schema-advanced.md",
+              "line": 1107
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "references/app-spec-schema-advanced.md",
+              "line": 574
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "references/app-spec-schema-advanced.md",
+              "line": 589
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "references/app-spec-schema.md",
+              "line": 455
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "references/authoring-flow.md",
+              "line": 4
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "references/verified-icons.txt",
+              "line": 2282
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "references/verified-icons.txt",
+              "line": 2283
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "samples",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 73.3,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "samples/11-kanban-with-dnd.tsx",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "samples/6-comprehensive-form.tsx",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "samples/7-responsive-cards.tsx",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "samples/8-dashboard-with-charts.tsx",
+              "line": 0
+            }
+          ],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "scripts",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 0,
+          "exceptions": [
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/SKILL.md",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/_vendor-build/build-typescript.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/_vendor-build/build.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/_vendor-build/package-lock.json",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/_vendor-build/package.json",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/add-page-to-solution.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/ai-preflight.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/apps.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/build-model-app.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/build-model-app.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/build-model-app.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/capture-fixture.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/check-auth.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/check-griffel-styles.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/check-page-files.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/check-version.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/connector.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/create-connection-reference.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/data-fix.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/dataverse-request.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/download-model-app.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/download-model-app.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/generate-page-manifest.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/generate-page-manifest.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/genpage-base.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/genpage-plan-provenance.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/genpage-plan-provenance.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/genpage-plan-provenance.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/genpage-upload.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/genpage-upload.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/genpage-worker-output.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/genpage.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/genpage.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/get-lookup-metadata.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/launch-playwright-mcp.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/launch-playwright-mcp.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/_graph.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/ai-app-settings.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/ai-candidates.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/ai-prompt.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/app-access.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/app-component-scope.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/lib/app-component-scope.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/app-component-scope.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/app-components.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/app-header-text.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/app-navigation.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/app-operation-lease.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/lib/app-operation-lease.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/app-operation-lease.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/app-pin-recovery.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/app-preview.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/app-publication-policy.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/app-roles.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/app-sitemap-dangling.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/app-source-path.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/app-spec-doc.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/app-spec.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/lib/app-spec.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/app-spec.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/app-theme-reads.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/app-theme.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/app-unique-name.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/apply-snapshot-index.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/apply-snapshot-store.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/apply-snapshot-store.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/apply-snapshot.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/artifact-intent.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/batch-request.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/bpf-settlement.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/bpf-stages.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/build-journal.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/changed-only-flow.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/chart-reconcile.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/classify-changes.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/cli-failure.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/collection-answers.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/command-reconcile.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/compare-text.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/compiler-refresh.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/lib/configuration-artifacts.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/configuration-artifacts.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/configuration-build.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/configuration-transport.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/content-hash.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/create-request-body.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/creates-capabilities.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/creates-catalog.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/creates-identity.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/creates-local.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/creates-passthrough.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/creates-port.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/creates-stable-build.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/custom-api-kinds.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/dashboard-creation-records.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/dashboard-reconcile.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/lib/dashboard-reconcile.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/dashboard-reconcile.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/dashboard-recovery-workspace.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/dashboard-tiles.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/data-fix-runner.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/dataverse-auth.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/dataverse-auth.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/dataverse-operations.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/date-behavior.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/declared-bpf-io.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/declared-dashboard-io.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/declared-features.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/declared-form-io.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/declared-rule-io.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/deferred-workflow-gate.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/deployed-baseline.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/detect-browser.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/detect-browser.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/download-column-options.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/entity-provision.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/entity-provision.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/exit-cleanup.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/feature-flags.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/feature-verify.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/field-security.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/field-security.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/form-caption-diagnostics.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/form-container-match.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/form-layout-reconcile.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/lib/form-layout-reconcile.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/form-layout-reconcile.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/form-occupancy.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/form-order.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/form-page-embeds.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/form-preview.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/form-subgrid-placement.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/form-timeline.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/formxml-layers.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/genpage-base.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/genpage-plan-semantics.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/genpage-sdk.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/lib/genpage-sdk.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/genpage-sdk.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/genpage-subarea.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/griffel-styles.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/hash.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/hydrate-spec.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/import-job-proof.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/interaction-mode.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/lcid-cultures.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/left-on-disk.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/lookup-cell-labels.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/lookup-labels.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/lookup-metadata.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/maker-sdk.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/maker-sdk.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/managed-bindings.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/managed-bindings.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/managed-create.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/managed-feature-contract.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/managed-fragments.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/managed-layer-readers.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/managed-scope-publisher.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/managed-scope-publisher.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/lib/managed-standalone-fence.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/managed-standalone-fence.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/modelapps-hook-utils.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/nearest-name.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/odata.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/op-diff.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/output-redaction.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/output-redaction.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/own-keys.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/lib/pac-fallback.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/pac-fallback.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/page-binding-targets.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/page-bindings.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/page-content.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/page-file-targets.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/page-manifest.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/page-nesting.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/page-ownership-records.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/page-plan.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/page-publish-records.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/lib/page-reference-guard.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/page-reference-guard.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/page-solution.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/page-structure.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/page-turn-intent.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/page-turn-store.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/lib/pageref-resolver.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/pageref-resolver.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/persona-restore.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/persona-restore.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/phase-diff.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/plan-sections.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/power-apps-service-client.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/power-apps-service-client.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/prepare-genpage.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/lib/private-folder.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/private-folder.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/process-owner.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/process-runner.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/lib/process-runner.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/process-runner.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/projection.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/promotion-plan.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/provision-input.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/publication-barrier.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/publish-xml.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/push-preview.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/push-preview.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/query-completeness.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/quick-find.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/readonly-operations.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/reconcile-common.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/record-lease.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/relationship-metadata.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/retry-policy.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/retry-policy.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/role-privileges.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/role-privileges.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/rule-settlement.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/safe-fs.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/safe-fs.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/savedquery-published.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/schema-facts.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/schema-feature-contract.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/lib/schema-feature-contract.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/schema-feature-contract.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/sdk-build.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/lib/sdk-build.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/sdk-build.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/sdk-first.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/sdk-http-client.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/lib/sdk-http-client.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/sdk-http-client.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/sdk-teardown.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/lib/sdk-teardown.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/sdk-teardown.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/sitemap-merge.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/sitemap-pages.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/solution-inventory.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/solution-membership.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/lib/source-literals.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/source-literals.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/spec-lint.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/spec-shape.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/stages.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/standalone-page-lease.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/status-reasons-keys.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/strict-xml.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/supported-dependencies.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/surface-resolver.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/system-solutions.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/systemform-published.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/table-publish.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/table-schema-metadata.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/telemetry/ikey.json",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/telemetry/lib/agent-info.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/telemetry/lib/emit-dispatcher.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/telemetry/lib/emit-from-prompt.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/telemetry/lib/emit-spawn.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/telemetry/lib/events.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/telemetry/lib/local-log.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/telemetry/lib/native-exec.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/telemetry/lib/pac-auth.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/telemetry/lib/prompt-detector.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/telemetry/lib/resolver-loader.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/telemetry/lib/scrubber.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/telemetry/lib/session.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/telemetry/lib/telemetry-config.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/telemetry/lib/user-config.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/telemetry/region/artemis-service.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/telemetry/region/region-cache.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/telemetry/region/region-resolver.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/telemetry/resolver.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/telemetry/skill-completed.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/telemetry/skill-completed.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/lib/temp-workspace.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/temp-workspace.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/throttle-budget.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/throwaway-sdk.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/translation-labels.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/typescript-compiler.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/typescript-provider.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/typescript-views.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/unique-keys.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/unsynced-edits.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/utf8-stream.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/lib/verify-spec.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/verify-spec.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/view-filter-labels.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/view-reconcile.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/web-resource-reconcile.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/web-resource-records.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/windows-folder-acl.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/workflow-drive.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/workflow-effect-context.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/workspace-binding.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/workspace-paths.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/workspace-storage-guard.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/zip-read.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/zip-read.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lint-app-spec.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/list-connections.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/list-custom-apis.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/list-dataverse-operations.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/list-languages.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/list-tables.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/plan-app-promotion.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/playwright-mcp-fullscreen.config.json",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/preview-app.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/preview-form.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/promote-intent-pages.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/provision-entities.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/provision-solution.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/regenerate-verified-icons.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/resolve-interaction-mode.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/run-tests.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/smoke-eval.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/solution-settings.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/solution-settings.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/solutions.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/teardown-model-app.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/vendor/PROVENANCE.json",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/vendor/cds-maker-sdk.cjs",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/vendor/cds-maker-sdk.cjs",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/vendor/cds-maker-sdk.cjs",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/vendor/typescript/LICENSE.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/vendor/typescript/PROVENANCE.json",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/vendor/typescript/ThirdPartyNoticeText.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/vendor/typescript/typescript.min.js.br",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/verify-model-app.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/write-app-spec-doc.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/write-page-plan.js",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "scripts/build-model-app.js",
+              "line": 1836
+            },
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "scripts/lib/app-component-scope.js",
+              "line": 12
+            },
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "scripts/lib/field-security.js",
+              "line": 296
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/download-model-app.js",
+              "line": 622
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/dataverse-auth.js",
+              "line": 13
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/dataverse-auth.js",
+              "line": 104
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/dataverse-auth.js",
+              "line": 352
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/dataverse-auth.js",
+              "line": 543
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/managed-bindings.js",
+              "line": 403
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/managed-bindings.js",
+              "line": 412
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/output-redaction.js",
+              "line": 2
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/output-redaction.js",
+              "line": 801
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/output-redaction.js",
+              "line": 802
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/output-redaction.js",
+              "line": 812
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/output-redaction.js",
+              "line": 837
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/output-redaction.js",
+              "line": 905
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/persona-restore.js",
+              "line": 57
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/role-privileges.js",
+              "line": 27
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/sdk-http-client.js",
+              "line": 14
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/sdk-http-client.js",
+              "line": 572
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/sdk-http-client.js",
+              "line": 579
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/sdk-http-client.js",
+              "line": 606
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/sdk-http-client.js",
+              "line": 610
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/sdk-http-client.js",
+              "line": 721
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/telemetry/skill-completed.js",
+              "line": 151
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/solution-settings.js",
+              "line": 73
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/solution-settings.js",
+              "line": 932
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/solution-settings.js",
+              "line": 1334
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/solution-settings.js",
+              "line": 1365
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/solution-settings.js",
+              "line": 1421
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/solution-settings.js",
+              "line": 1446
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/solution-settings.js",
+              "line": 1449
+            },
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "scripts/download-model-app.js",
+              "line": 1850
+            },
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "scripts/download-model-app.js",
+              "line": 2731
+            },
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "scripts/generate-page-manifest.js",
+              "line": 32
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/apply-snapshot-store.js",
+              "line": 28
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/dataverse-auth.js",
+              "line": 922
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/maker-sdk.js",
+              "line": 32
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/safe-fs.js",
+              "line": 29
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/safe-fs.js",
+              "line": 55
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/solution-settings.js",
+              "line": 976
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/solution-settings.js",
+              "line": 1156
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/solution-settings.js",
+              "line": 1443
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/solution-settings.js",
+              "line": 1474
+            },
+            {
+              "id": "MP3",
+              "severity": "HIGH",
+              "message": "Memory Manipulation",
+              "file": "scripts/lib/form-layout-reconcile.js",
+              "line": 1981
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/process-runner.js",
+              "line": 112
+            },
+            {
+              "id": "OH1",
+              "severity": "HIGH",
+              "message": "Unvalidated Output Injection",
+              "file": "scripts/lib/retry-policy.js",
+              "line": 295
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/role-privileges.js",
+              "line": 141
+            },
+            {
+              "id": "MP3",
+              "severity": "HIGH",
+              "message": "Memory Manipulation",
+              "file": "scripts/lib/sdk-build.js",
+              "line": 1644
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/genpage-plan-provenance.js",
+              "line": 254
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/solution-settings.js",
+              "line": 5
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "scripts/launch-playwright-mcp.js",
+              "line": 11
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "scripts/launch-playwright-mcp.js",
+              "line": 61
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "scripts/launch-playwright-mcp.js",
+              "line": 48
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "scripts/launch-playwright-mcp.js",
+              "line": 61
+            },
+            {
+              "id": "OH3",
+              "severity": "MEDIUM",
+              "message": "Unbounded Output",
+              "file": "scripts/lib/app-operation-lease.js",
+              "line": 44
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "scripts/lib/app-spec.js",
+              "line": 3135
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "scripts/lib/form-layout-reconcile.js",
+              "line": 2045
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "scripts/lib/dashboard-reconcile.js",
+              "line": 29
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "scripts/lib/detect-browser.js",
+              "line": 69
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "scripts/lib/entity-provision.js",
+              "line": 2233
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "scripts/lib/entity-provision.js",
+              "line": 2280
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "scripts/lib/field-security.js",
+              "line": 68
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "scripts/lib/genpage-sdk.js",
+              "line": 384
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "scripts/lib/managed-scope-publisher.js",
+              "line": 9
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "scripts/lib/power-apps-service-client.js",
+              "line": 10
+            },
+            {
+              "id": "EA4",
+              "severity": "MEDIUM",
+              "message": "Unbounded Resource Access",
+              "file": "scripts/lib/process-runner.js",
+              "line": 269
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "scripts/lib/push-preview.js",
+              "line": 378
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "scripts/lib/sdk-teardown.js",
+              "line": 415
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "scripts/lib/schema-feature-contract.js",
+              "line": 447
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "scripts/lib/zip-read.js",
+              "line": 35
+            },
+            {
+              "id": "EA4",
+              "severity": "MEDIUM",
+              "message": "Unbounded Resource Access",
+              "file": "scripts/vendor/cds-maker-sdk.cjs",
+              "line": 30
+            },
+            {
+              "id": "EA4",
+              "severity": "MEDIUM",
+              "message": "Unbounded Resource Access",
+              "file": "scripts/vendor/cds-maker-sdk.cjs",
+              "line": 367
+            },
+            {
+              "id": "EA4",
+              "severity": "MEDIUM",
+              "message": "Unbounded Resource Access",
+              "file": "scripts/vendor/cds-maker-sdk.cjs",
+              "line": 367
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/app-builder",
           "score": 100,
@@ -61,6 +2471,11 @@
           "partial": true,
           "coverage": 0,
           "exceptions": [
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 0
+            },
             {
               "reason": "static_parse_limit",
               "path": "skills/app-builder/SKILL.md",
@@ -84,37 +2499,57 @@
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 97
+              "line": 71
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 118
+              "line": 96
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 122
+              "line": 98
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 131
+              "line": 107
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 148
+              "line": 108
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 149
+              "line": 117
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 153
+              "line": 120
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 136
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 137
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 138
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 158
             },
             {
               "reason": "reference_missing",
@@ -124,62 +2559,92 @@
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 185
+              "line": 184
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 193
+              "line": 207
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 194
+              "line": 218
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 200
+              "line": 236
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 201
+              "line": 259
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 203
+              "line": 265
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 210
+              "line": 266
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 226
+              "line": 277
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 258
+              "line": 283
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 360
+              "line": 304
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 365
+              "line": 308
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 373
+              "line": 317
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 334
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 335
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 339
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 359
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 371
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 379
             },
             {
               "reason": "reference_missing",
@@ -189,12 +2654,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 381
+              "line": 386
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 385
+              "line": 387
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 389
             },
             {
               "reason": "reference_missing",
@@ -204,97 +2674,77 @@
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 408
+              "line": 412
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 430
+              "line": 446
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 514
+              "line": 548
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 521
+              "line": 553
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 527
+              "line": 561
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 540
+              "line": 568
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 578
+              "line": 569
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 642
+              "line": 573
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 665
+              "line": 584
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 685
+              "line": 596
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 688
+              "line": 618
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 690
+              "line": 714
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 694
+              "line": 721
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 749
+              "line": 727
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 750
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/app-builder/SKILL.md",
-              "line": 768
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/app-builder/SKILL.md",
-              "line": 777
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/app-builder/SKILL.md",
-              "line": 778
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/app-builder/SKILL.md",
-              "line": 781
+              "line": 740
             },
             {
               "reason": "reference_missing",
@@ -304,37 +2754,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 799
+              "line": 857
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 804
+              "line": 877
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 805
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/app-builder/SKILL.md",
-              "line": 811
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/app-builder/SKILL.md",
-              "line": 812
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/app-builder/SKILL.md",
-              "line": 867
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/app-builder/SKILL.md",
-              "line": 872
+              "line": 883
             },
             {
               "reason": "reference_missing",
@@ -344,30 +2774,126 @@
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 949
+              "line": 915
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 953
+              "line": 918
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 954
+              "line": 920
             },
             {
               "reason": "reference_missing",
               "path": "skills/app-builder/SKILL.md",
-              "line": 955
+              "line": 924
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 981
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 982
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 1000
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 1009
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 1010
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 1013
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 1022
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 1031
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 1036
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 1037
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 1043
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 1044
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 1156
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 1161
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 1186
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 1240
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 1244
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 1245
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/app-builder/SKILL.md",
+              "line": 1246
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/genpage",
-          "score": 52,
-          "risk": 48,
+          "score": 77,
+          "risk": 23,
           "status": "caution",
           "partial": true,
           "coverage": 33.3,
@@ -775,47 +3301,57 @@
             {
               "reason": "reference_missing",
               "path": "skills/genpage/SKILL.md",
-              "line": 1306
+              "line": 1264
             },
             {
               "reason": "reference_missing",
               "path": "skills/genpage/SKILL.md",
-              "line": 1310
+              "line": 1275
             },
             {
               "reason": "reference_missing",
               "path": "skills/genpage/SKILL.md",
-              "line": 1311
+              "line": 1339
             },
             {
               "reason": "reference_missing",
               "path": "skills/genpage/SKILL.md",
-              "line": 1328
+              "line": 1343
             },
             {
               "reason": "reference_missing",
               "path": "skills/genpage/SKILL.md",
-              "line": 1347
+              "line": 1344
             },
             {
               "reason": "reference_missing",
               "path": "skills/genpage/SKILL.md",
-              "line": 1351
+              "line": 1361
             },
             {
               "reason": "reference_missing",
               "path": "skills/genpage/SKILL.md",
-              "line": 1403
+              "line": 1380
             },
             {
               "reason": "reference_missing",
               "path": "skills/genpage/SKILL.md",
-              "line": 1425
+              "line": 1384
             },
             {
               "reason": "reference_missing",
               "path": "skills/genpage/SKILL.md",
-              "line": 1448
+              "line": 1436
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/genpage/SKILL.md",
+              "line": 1458
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/genpage/SKILL.md",
+              "line": 1481
             },
             {
               "reason": "obfuscated_instruction_text",
@@ -829,13 +3365,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/genpage/SKILL.md",
-              "line": 1472
-            },
             {
               "id": "EA5",
               "severity": "MEDIUM",
@@ -855,14 +3384,14 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/genpage/SKILL.md",
-              "line": 1414
+              "line": 1447
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/genpage/SKILL.md",
-              "line": 1416
+              "line": 1449
             },
             {
               "id": "EA2",
@@ -870,6 +3399,16 @@
               "message": "Autonomous Decision Making",
               "file": "skills/genpage/edit-flow.md",
               "line": 149
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/genpage/SKILL.md",
+              "line": 1505,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -895,7 +3434,8 @@
               "file": "skills/report-issue/SKILL.md",
               "line": 10
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/telemetry",
@@ -911,20 +3451,24 @@
               "line": 16
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 52,
-  "status": "caution",
+  "score": 0,
+  "status": "do not install",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-30T19:28:51Z"
+      "checkedAt": "2026-11-05T00:24:56Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "document-skills",
-      "dir": "/nix/store/vzgwbqj8rqb0187qqc3290ali56lrihr-agent-plugin-document-skills-0.0.0-unstable.2026-10-09.gdbd4588/share/agent-plugins/document-skills",
+      "dir": "/nix/store/zgh6grxnaa8gzpq5cfy2xx2r3gvhk1z9-agent-plugin-document-skills-0.0.0-unstable.2026-10-28.gca45fc4/share/agent-plugins/document-skills",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -192,13 +192,6 @@
               "line": 28
             },
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/docx/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "AST4",
               "severity": "MEDIUM",
               "message": "subprocess module call",
@@ -338,12 +331,22 @@
               "file": "skills/docx/SKILL.md",
               "line": 2
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/docx/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
           ]
         },
         {
           "path": "skills/pdf",
-          "score": 85,
-          "risk": 15,
+          "score": 92,
+          "risk": 8,
           "status": "incomplete",
           "partial": true,
           "coverage": 91.7,
@@ -451,18 +454,21 @@
           ],
           "findings": [
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/pdf/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "TR3",
               "severity": "MEDIUM",
               "message": "Keyword Baiting Trigger",
               "file": "skills/pdf/SKILL.md",
               "line": 1
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/pdf/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
@@ -639,13 +645,6 @@
               "line": 28
             },
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/pptx/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "TM3",
               "severity": "MEDIUM",
               "message": "Unsafe Defaults",
@@ -771,12 +770,22 @@
               "file": "skills/pptx/scripts/thumbnail.py",
               "line": 200
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/pptx/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
           ]
         },
         {
           "path": "skills/xlsx",
-          "score": 0,
-          "risk": 100,
+          "score": 15,
+          "risk": 85,
           "status": "do not install",
           "partial": true,
           "coverage": 75.5,
@@ -874,41 +883,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/xlsx/SKILL.md",
-              "line": 23
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/xlsx/SKILL.md",
-              "line": 37
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/xlsx/SKILL.md",
-              "line": 57
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/xlsx/SKILL.md",
-              "line": 68
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/xlsx/SKILL.md",
-              "line": 75
-            },
-            {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
@@ -935,13 +909,6 @@
               "message": "Env Variable Harvesting",
               "file": "skills/xlsx/scripts/office/soffice.py",
               "line": 28
-            },
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/xlsx/SKILL.md",
-              "line": 1
             },
             {
               "id": "TM3",
@@ -1076,6 +1043,56 @@
               "file": "skills/xlsx/scripts/recalc.py",
               "line": 191
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/xlsx/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/xlsx/SKILL.md",
+              "line": 23,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/xlsx/SKILL.md",
+              "line": 37,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/xlsx/SKILL.md",
+              "line": 57,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/xlsx/SKILL.md",
+              "line": 68,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/xlsx/SKILL.md",
+              "line": 75,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         }
       ]
@@ -1089,7 +1106,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T23:23:17Z"
+      "checkedAt": "2026-11-04T23:20:26Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

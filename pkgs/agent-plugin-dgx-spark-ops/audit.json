@@ -7,12 +7,14 @@
   "plugins": [
     {
       "name": "dgx-spark-ops",
-      "dir": "/nix/store/7j9gi15jgwvbz4i7qfikh8hcbgn75v08-agent-plugin-dgx-spark-ops-1.0.0/share/agent-plugins/dgx-spark-ops",
+      "dir": "/nix/store/ls8zr2iqqzzrp8manrhil48z487d63db-agent-plugin-dgx-spark-ops-1.0.1/share/agent-plugins/dgx-spark-ops",
       "spec": "1.1.0",
       "score": 52,
       "status": "caution",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/commands",
           "skills/spark-environment-setup",
           "skills/spark-memory-thermal-ops",
           "skills/spark-training-gotchas"
@@ -20,14 +22,31 @@
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/spark-environment-setup",
           "score": 52,
@@ -77,32 +96,33 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/spark-environment-setup/SKILL.md",
               "line": 47
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/spark-environment-setup/references/container-workflow.md",
               "line": 12
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/spark-environment-setup/references/container-workflow.md",
               "line": 39
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/spark-environment-setup/references/container-workflow.md",
               "line": 32
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/spark-memory-thermal-ops",
@@ -112,7 +132,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/spark-training-gotchas",
@@ -133,7 +154,8 @@
               "line": 136
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
@@ -146,7 +168,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:29:55Z"
+      "checkedAt": "2026-11-05T00:18:25Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

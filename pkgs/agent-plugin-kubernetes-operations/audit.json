@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "kubernetes-operations",
-      "dir": "/nix/store/m5z8lvwxbmqbqvsm04hj707fpzg6a6n1-agent-plugin-kubernetes-operations-1.2.3/share/agent-plugins/kubernetes-operations",
+      "dir": "/nix/store/3m7qxkmrcalkra4mqxwpss9wzhzds55m-agent-plugin-kubernetes-operations-1.2.4/share/agent-plugins/kubernetes-operations",
       "spec": "1.1.0",
       "score": 69,
       "status": "caution",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
           "skills/gitops-workflow",
           "skills/helm-chart-scaffolding",
           "skills/k8s-manifest-generator",
@@ -25,14 +26,21 @@
           {
             "path": "bin/",
             "reason": "interpreter links into /nix/store"
-          },
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
           }
         ]
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/gitops-workflow",
           "score": 70,
@@ -74,12 +82,13 @@
               "file": "skills/gitops-workflow/SKILL.md",
               "line": 258
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/helm-chart-scaffolding",
-          "score": 70,
-          "risk": 30,
+          "score": 77,
+          "risk": 23,
           "status": "caution",
           "partial": true,
           "coverage": 100,
@@ -104,18 +113,21 @@
               "line": 27
             },
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/helm-chart-scaffolding/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "E5",
               "severity": "MEDIUM",
               "message": "Cloud Storage Exfiltration",
               "file": "skills/helm-chart-scaffolding/references/details.md",
               "line": 340
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/helm-chart-scaffolding/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
@@ -148,7 +160,8 @@
               "file": "skills/k8s-manifest-generator/references/details.md",
               "line": 358
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/k8s-security-policies",
@@ -158,7 +171,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
@@ -171,7 +185,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T23:33:10Z"
+      "checkedAt": "2026-11-04T23:46:20Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

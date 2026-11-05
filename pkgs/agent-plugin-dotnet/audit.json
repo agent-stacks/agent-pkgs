@@ -7,14 +7,15 @@
   "plugins": [
     {
       "name": "dotnet",
-      "dir": "/nix/store/pyzi5kri63ysxsrsxhns8cvf3kri02vq-agent-plugin-dotnet-0.2.5/share/agent-plugins/dotnet",
+      "dir": "/nix/store/mwj6hggdygxqg4pmr7jx10lq6gcanmdy-agent-plugin-dotnet-0.2.5/share/agent-plugins/dotnet",
       "spec": "1.1.0",
-      "score": 26,
-      "status": "do not install",
+      "score": 53,
+      "status": "caution",
       "coverage": {
         "scanned": [
           "skills/csharp-expert",
           "skills/csharp-refactoring",
+          "skills/dotnet-breaking-changes",
           "skills/msbuild",
           "skills/setup-local-sdk"
         ],
@@ -50,7 +51,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/csharp-expert/SKILL.md",
-              "line": 339
+              "line": 343
             }
           ],
           "findings": [
@@ -59,9 +60,10 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/csharp-expert/SKILL.md",
-              "line": 172
+              "line": 176
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/csharp-refactoring",
@@ -79,16 +81,54 @@
             {
               "reason": "reference_missing",
               "path": "skills/csharp-refactoring/SKILL.md",
-              "line": 152
+              "line": 156
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "skills/dotnet-breaking-changes",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/dotnet-breaking-changes/SKILL.md",
+              "line": 5
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dotnet-breaking-changes/SKILL.md",
+              "line": 111
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dotnet-breaking-changes/SKILL.md",
+              "line": 112
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dotnet-breaking-changes/SKILL.md",
+              "line": 147
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dotnet-breaking-changes/SKILL.md",
+              "line": 174
+            }
+          ],
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/msbuild",
-          "score": 26,
-          "risk": 74,
-          "status": "do not install",
+          "score": 70,
+          "risk": 30,
+          "status": "caution",
           "partial": true,
           "coverage": 69.2,
           "exceptions": [
@@ -114,27 +154,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/msbuild/SKILL.md",
-              "line": 37
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/msbuild/SKILL.md",
-              "line": 77
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/msbuild/SKILL.md",
-              "line": 61
-            },
             {
               "id": "P2",
               "severity": "HIGH",
@@ -295,6 +314,32 @@
               "message": "Hidden Instructions",
               "file": "skills/msbuild/references/msbuild-antipatterns.md",
               "line": 321
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/msbuild/SKILL.md",
+              "line": 37,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/msbuild/SKILL.md",
+              "line": 61,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/msbuild/SKILL.md",
+              "line": 77,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -479,20 +524,24 @@
               "file": "skills/setup-local-sdk/SKILL.md",
               "line": 181
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 26,
-  "status": "do not install",
+  "score": 53,
+  "status": "caution",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-31T02:59:43Z"
+      "checkedAt": "2026-11-04T23:34:19Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

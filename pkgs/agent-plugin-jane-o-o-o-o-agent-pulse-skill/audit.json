@@ -7,9 +7,9 @@
   "plugins": [
     {
       "name": "jane-o-o-o-o-agent-pulse-skill",
-      "dir": "/nix/store/vpwyx1hi9l0vmqprvd94skhgbvhnyjwd-agent-plugin-jane-o-o-o-o-agent-pulse-skill-0.0.0-unstable.2026-05-28.gc1db7c4/share/agent-plugins/jane-o-o-o-o-agent-pulse-skill",
+      "dir": "/nix/store/wc494chbkrapcb7hi15kc1jbjb7mh9lb-agent-plugin-jane-o-o-o-o-agent-pulse-skill-0.0.0-unstable.2026-05-28.gc1db7c4/share/agent-plugins/jane-o-o-o-o-agent-pulse-skill",
       "spec": "1.1.0",
-      "score": 65,
+      "score": 72,
       "status": "caution",
       "coverage": {
         "scanned": [
@@ -23,8 +23,8 @@
       "components": [
         {
           "path": "skills/agent-pulse",
-          "score": 65,
-          "risk": 35,
+          "score": 72,
+          "risk": 28,
           "status": "caution",
           "partial": false,
           "coverage": 100,
@@ -38,25 +38,28 @@
               "line": 20
             },
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/agent-pulse/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "AST4",
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "skills/agent-pulse/scripts/run_agent_pulse_snapshot.py",
               "line": 25
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/agent-pulse/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
           ]
         }
       ]
     }
   ],
-  "score": 65,
+  "score": 72,
   "status": "caution",
   "tool": {
     "name": "skillspector",
@@ -64,7 +67,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:24:36Z"
+      "checkedAt": "2026-11-04T23:46:14Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

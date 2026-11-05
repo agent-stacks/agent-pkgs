@@ -7,9 +7,9 @@
   "plugins": [
     {
       "name": "r-lib",
-      "dir": "/nix/store/bhhb6j9ngmn9m3yb8cpcbgk0n0h52m4z-agent-plugin-r-lib-0.0.0-unstable.2026-10-15.g4400f97/share/agent-plugins/r-lib",
+      "dir": "/nix/store/n9am0jizyv07s4jvyx3x3wmsm1vxwlfp-agent-plugin-r-lib-0.0.0-unstable.2026-11-02.g45685aa/share/agent-plugins/r-lib",
       "spec": "1.1.0",
-      "score": 0,
+      "score": 16,
       "status": "do not install",
       "coverage": {
         "scanned": [
@@ -64,12 +64,13 @@
               "line": 69
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/r-cli",
-          "score": 0,
-          "risk": 100,
+          "score": 16,
+          "risk": 84,
           "status": "do not install",
           "partial": true,
           "coverage": 83.3,
@@ -91,27 +92,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/r-cli/SKILL.md",
-              "line": 120
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/r-cli/SKILL.md",
-              "line": 185
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/r-cli/SKILL.md",
-              "line": 456
-            },
             {
               "id": "MP3",
               "severity": "HIGH",
@@ -164,9 +144,35 @@
             {
               "id": "AE4",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "analysis-evasion",
               "file": "skills/r-cli/references/progress.md",
               "line": 1
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/r-cli/SKILL.md",
+              "line": 120,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/r-cli/SKILL.md",
+              "line": 185,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/r-cli/SKILL.md",
+              "line": 456,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -214,7 +220,8 @@
               "file": "skills/r-cli-app/references/advanced.md",
               "line": 31
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/r-cran-extrachecks",
@@ -260,7 +267,8 @@
               "line": 483
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/r-cran-status",
@@ -286,7 +294,8 @@
               "line": 228
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/r-lifecycle",
@@ -352,7 +361,8 @@
               "file": "skills/r-lifecycle/references/lifecycle-stages.md",
               "line": 62
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/r-mirai",
@@ -368,7 +378,8 @@
               "line": 6
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/r-package-development",
@@ -399,7 +410,8 @@
               "line": 68
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/r-testthat",
@@ -463,7 +475,8 @@
               "file": "skills/r-testthat/references/fixtures.md",
               "line": 197
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/r-tidyverse-style",
@@ -497,12 +510,13 @@
               "file": "skills/r-tidyverse-style/SKILL.md",
               "line": 39
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 0,
+  "score": 16,
   "status": "do not install",
   "tool": {
     "name": "skillspector",
@@ -510,7 +524,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-20T22:55:50Z"
+      "checkedAt": "2026-11-05T02:31:47Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

@@ -7,9 +7,9 @@
   "plugins": [
     {
       "name": "graphify-labs-graphify",
-      "dir": "/nix/store/5z34ac76csr3hw92lm01hab095fdr7n2-agent-plugin-graphify-labs-graphify-0.9.97/share/agent-plugins/graphify-labs-graphify",
+      "dir": "/nix/store/3640w7l8cdfk6qx4zk7bwvlfhvpms3xj-agent-plugin-graphify-labs-graphify-0.9.97/share/agent-plugins/graphify-labs-graphify",
       "spec": "1.1.0",
-      "score": 0,
+      "score": 2,
       "status": "do not install",
       "coverage": {
         "scanned": [
@@ -23,8 +23,8 @@
       "components": [
         {
           "path": "skills/graphify",
-          "score": 0,
-          "risk": 100,
+          "score": 2,
+          "risk": 98,
           "status": "do not install",
           "partial": true,
           "coverage": 88.9,
@@ -319,13 +319,6 @@
               "line": 417
             },
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/graphify/SKILL.md",
-              "line": 625
-            },
-            {
               "id": "TM1",
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
@@ -384,14 +377,14 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/graphify/SKILL.md",
               "line": 73
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/graphify/SKILL.md",
               "line": 89
             },
@@ -409,12 +402,22 @@
               "file": "skills/graphify/references/add-watch.md",
               "line": 27
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/graphify/SKILL.md",
+              "line": 625,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         }
       ]
     }
   ],
-  "score": 0,
+  "score": 2,
   "status": "do not install",
   "tool": {
     "name": "skillspector",
@@ -422,7 +425,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-30T21:58:02Z"
+      "checkedAt": "2026-11-04T23:24:20Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

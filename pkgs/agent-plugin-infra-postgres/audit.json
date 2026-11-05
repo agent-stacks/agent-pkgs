@@ -7,9 +7,9 @@
   "plugins": [
     {
       "name": "infra-postgres",
-      "dir": "/nix/store/8n0d4vj31mcp0w1xb4q9z852yrrvm2pk-agent-plugin-infra-postgres-0.1.0/share/agent-plugins/infra-postgres",
+      "dir": "/nix/store/46gvr528z428lzdzw9ngfk5sg3965wrx-agent-plugin-infra-postgres-0.3.0/share/agent-plugins/infra-postgres",
       "spec": "1.1.0",
-      "score": 37,
+      "score": 4,
       "status": "do not install",
       "coverage": {
         "scanned": [
@@ -23,8 +23,8 @@
       "components": [
         {
           "path": "skills/infra-postgres",
-          "score": 37,
-          "risk": 63,
+          "score": 4,
+          "risk": 96,
           "status": "do not install",
           "partial": true,
           "coverage": 100,
@@ -33,22 +33,34 @@
               "reason": "reference_missing",
               "path": "skills/infra-postgres/SKILL.md",
               "line": 7
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/infra-postgres/SKILL.md",
+              "line": 8
             }
           ],
           "findings": [
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/infra-postgres/SKILL.md",
+              "line": 11
+            },
             {
               "id": "SC2",
               "severity": "HIGH",
               "message": "External Script Fetching",
               "file": "skills/infra-postgres/SKILL.md",
-              "line": 42
+              "line": 45
             },
             {
               "id": "TM2",
               "severity": "HIGH",
               "message": "Chaining Abuse",
               "file": "skills/infra-postgres/SKILL.md",
-              "line": 42
+              "line": 45
             },
             {
               "id": "PE3",
@@ -60,9 +72,30 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
+              "file": "skills/infra-postgres/ref/cloud.md",
+              "line": 79
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
               "file": "skills/infra-postgres/ref/migrate.md",
               "line": 52
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/infra-postgres/ref/cloud.md",
+              "line": 134
+            },
+            {
+              "id": "TM1",
+              "severity": "LOW",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/infra-postgres/ref/cloud.md",
+              "line": 79
             },
             {
               "id": "TM1",
@@ -71,12 +104,13 @@
               "file": "skills/infra-postgres/ref/migrate.md",
               "line": 52
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 37,
+  "score": 4,
   "status": "do not install",
   "tool": {
     "name": "skillspector",
@@ -84,7 +118,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:58:21Z"
+      "checkedAt": "2026-11-05T00:48:12Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

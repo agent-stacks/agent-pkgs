@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "cloud-infrastructure",
-      "dir": "/nix/store/40h1flfyg781wk86vwavp0y8rm9d9c71-agent-plugin-cloud-infrastructure-1.3.2/share/agent-plugins/cloud-infrastructure",
+      "dir": "/nix/store/ihbkyiynimdp8qkyy0v536wg5lqbq96x-agent-plugin-cloud-infrastructure-1.3.3/share/agent-plugins/cloud-infrastructure",
       "spec": "1.1.0",
       "score": 78,
       "status": "caution",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
           "skills/cost-optimization",
           "skills/hybrid-cloud-networking",
           "skills/istio-traffic-management",
@@ -25,14 +26,20 @@
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/cost-optimization",
           "score": 100,
@@ -47,7 +54,8 @@
               "line": 189
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/hybrid-cloud-networking",
@@ -83,7 +91,8 @@
               "line": 206
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/istio-traffic-management",
@@ -99,7 +108,8 @@
               "line": 249
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/linkerd-patterns",
@@ -109,7 +119,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/mtls-configuration",
@@ -134,7 +145,8 @@
               "file": "skills/mtls-configuration/SKILL.md",
               "line": 73
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/multi-cloud-architecture",
@@ -144,7 +156,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/service-mesh-observability",
@@ -154,7 +167,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/terraform-module-library",
@@ -180,7 +194,8 @@
               "line": 226
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
@@ -193,7 +208,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:26:40Z"
+      "checkedAt": "2026-11-04T23:17:03Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

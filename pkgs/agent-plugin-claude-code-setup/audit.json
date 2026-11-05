@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "claude-code-setup",
-      "dir": "/nix/store/1c5zmyp2xv97ikrnivwb080w6zlaawaq-agent-plugin-claude-code-setup-1.0.0/share/agent-plugins/claude-code-setup",
+      "dir": "/nix/store/xi5hww0sjjac36myzl41lxw4d6aif0m1-agent-plugin-claude-code-setup-1.0.0/share/agent-plugins/claude-code-setup",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -57,13 +57,6 @@
               "message": "Direct Prompt Extraction",
               "file": "skills/claude-automation-recommender/SKILL.md",
               "line": 13
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/claude-automation-recommender/SKILL.md",
-              "line": 90
             },
             {
               "id": "EA5",
@@ -138,7 +131,7 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/claude-automation-recommender/references/mcp-servers.md",
               "line": 85
             },
@@ -166,9 +159,19 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/claude-automation-recommender/references/skills-reference.md",
               "line": 188
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/claude-automation-recommender/SKILL.md",
+              "line": 90,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         }
@@ -183,7 +186,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-20T03:10:55Z"
+      "checkedAt": "2026-11-04T23:13:47Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

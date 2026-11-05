@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "dynatrace",
-      "dir": "/nix/store/lvc3zi86bpvjx7iiwq3ywp6ch7f4m0qm-agent-plugin-dynatrace-9.0.0/share/agent-plugins/dynatrace",
+      "dir": "/nix/store/3kms18d21wvdsdzg053vbvasp02k949r-agent-plugin-dynatrace-10.0.0/share/agent-plugins/dynatrace",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -24,6 +24,7 @@
           "skills/dt-obs-azure",
           "skills/dt-obs-compliance-assistant",
           "skills/dt-obs-ext-monitors",
+          "skills/dt-obs-extensions",
           "skills/dt-obs-frontends",
           "skills/dt-obs-gcp",
           "skills/dt-obs-genai",
@@ -48,7 +49,8 @@
           "skills/dt-setup-ios",
           "skills/dt-setup-oneagent",
           "skills/dt-setup-openinference-migration",
-          "skills/dt-setup-react-native"
+          "skills/dt-setup-react-native",
+          "skills/dt-upgrade"
         ],
         "validated": [
           "plugin.json"
@@ -94,13 +96,14 @@
               "line": 169
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/dt-app-dashboards",
-          "score": 55,
-          "risk": 45,
-          "status": "caution",
+          "score": 93,
+          "risk": 7,
+          "status": "incomplete",
           "partial": true,
           "coverage": 71.4,
           "exceptions": [
@@ -122,25 +125,29 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-app-dashboards/SKILL.md",
-              "line": 44
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-app-dashboards/SKILL.md",
-              "line": 84
-            },
-            {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/dt-app-dashboards/references/create-update.md",
               "line": 140
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-app-dashboards/SKILL.md",
+              "line": 44,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-app-dashboards/SKILL.md",
+              "line": 84,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -176,13 +183,14 @@
               "file": "skills/dt-app-notebooks/references/create-update.md",
               "line": 143
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/dt-dql-essentials",
-          "score": 12,
-          "risk": 88,
-          "status": "do not install",
+          "score": 68,
+          "risk": 32,
+          "status": "caution",
           "partial": true,
           "coverage": 82.4,
           "exceptions": [
@@ -289,104 +297,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-dql-essentials/SKILL.md",
-              "line": 21
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-dql-essentials/SKILL.md",
-              "line": 449
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-dql-essentials/SKILL.md",
-              "line": 22
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-dql-essentials/SKILL.md",
-              "line": 278
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-dql-essentials/SKILL.md",
-              "line": 448
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-dql-essentials/SKILL.md",
-              "line": 24
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-dql-essentials/SKILL.md",
-              "line": 78
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-dql-essentials/SKILL.md",
-              "line": 93
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-dql-essentials/SKILL.md",
-              "line": 301
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-dql-essentials/SKILL.md",
-              "line": 386
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-dql-essentials/SKILL.md",
-              "line": 447
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-dql-essentials/SKILL.md",
-              "line": 39
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-dql-essentials/SKILL.md",
-              "line": 377
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-dql-essentials/SKILL.md",
-              "line": 58
-            },
-            {
               "id": "YR3",
               "severity": "HIGH",
               "message": "YARA rule 'crypto_stratum_protocol': Stratum mining protocol usage (stratum+tcp/ssl, mining.subscribe/authorize) [cryptominers]",
@@ -399,83 +309,207 @@
               "message": "YARA rule 'crypto_miner_software': References to known cryptocurrency mining software [cryptominers]",
               "file": "skills/dt-dql-essentials/references/string-matching.md",
               "line": 32
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-dql-essentials/references/operators.md",
+              "line": 67,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/dt-dql-essentials/references/operators.md",
-              "line": 67
+              "line": 68,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/dt-dql-essentials/references/operators.md",
-              "line": 68
+              "line": 69,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/dt-dql-essentials/references/operators.md",
-              "line": 69
+              "line": 70,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/dt-dql-essentials/references/operators.md",
-              "line": 75
+              "line": 73,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/dt-dql-essentials/references/operators.md",
-              "line": 70
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/dt-dql-essentials/references/operators.md",
-              "line": 73
+              "line": 75,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/dt-dql-essentials/references/smartscape-topology-navigation.md",
-              "line": 64
+              "line": 64,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/dt-dql-essentials/references/smartscape-topology-navigation.md",
-              "line": 65
+              "line": 65,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/dt-dql-essentials/references/smartscape-topology-navigation.md",
-              "line": 68
+              "line": 68,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/dt-dql-essentials/references/smartscape-topology-navigation.md",
-              "line": 69
+              "line": 69,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-dql-essentials/SKILL.md",
+              "line": 21,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-dql-essentials/SKILL.md",
+              "line": 22,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-dql-essentials/SKILL.md",
+              "line": 24,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-dql-essentials/SKILL.md",
+              "line": 39,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-dql-essentials/SKILL.md",
+              "line": 58,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-dql-essentials/SKILL.md",
+              "line": 78,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-dql-essentials/SKILL.md",
+              "line": 93,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-dql-essentials/SKILL.md",
+              "line": 278,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-dql-essentials/SKILL.md",
+              "line": 301,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-dql-essentials/SKILL.md",
+              "line": 377,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-dql-essentials/SKILL.md",
+              "line": 386,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-dql-essentials/SKILL.md",
+              "line": 447,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-dql-essentials/SKILL.md",
+              "line": 448,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-dql-essentials/SKILL.md",
+              "line": 449,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
         {
           "path": "skills/dt-js-runtime",
-          "score": 50,
-          "risk": 50,
+          "score": 75,
+          "risk": 25,
           "status": "caution",
           "partial": true,
           "coverage": 97.7,
@@ -503,13 +537,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-js-runtime/SKILL.md",
-              "line": 32
-            },
-            {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
@@ -530,13 +557,23 @@
               "file": "skills/dt-js-runtime/references/sdks/classic-environment-v2/credential-vault.md",
               "line": 28
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-js-runtime/SKILL.md",
+              "line": 32,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
           "path": "skills/dt-migration",
-          "score": 68,
-          "risk": 32,
-          "status": "caution",
+          "score": 93,
+          "risk": 7,
+          "status": "incomplete",
           "partial": true,
           "coverage": 94.4,
           "exceptions": [
@@ -573,18 +610,21 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-migration/SKILL.md",
-              "line": 128
-            },
-            {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/dt-migration/references/mass-data-filtering-strategy.md",
               "line": 129
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-migration/SKILL.md",
+              "line": 128,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -622,13 +662,14 @@
               "line": 168
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/dt-obs-aws",
-          "score": 51,
-          "risk": 49,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
           "partial": true,
           "coverage": 92.9,
           "exceptions": [
@@ -708,41 +749,47 @@
               "line": 0
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-obs-aws/references/metrics-performance.md",
+              "line": 155,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-obs-aws/references/metrics-performance.md",
+              "line": 157,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-obs-aws/references/metrics-performance.md",
+              "line": 158,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/dt-obs-aws/SKILL.md",
-              "line": 311
+              "line": 311,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/dt-obs-aws/SKILL.md",
-              "line": 466
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/dt-obs-aws/references/metrics-performance.md",
-              "line": 155
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/dt-obs-aws/references/metrics-performance.md",
-              "line": 157
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/dt-obs-aws/references/metrics-performance.md",
-              "line": 158
+              "line": 466,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -964,7 +1011,8 @@
               "file": "skills/dt-obs-azure/references/database-monitoring.md",
               "line": 120
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/dt-obs-compliance-assistant",
@@ -1130,7 +1178,8 @@
               "line": 292
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/dt-obs-ext-monitors",
@@ -1303,13 +1352,119 @@
               "file": "skills/dt-obs-ext-monitors/references/event-ingestion.md",
               "line": 233
             }
-          ]
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/dt-obs-extensions",
+          "score": 21,
+          "risk": 79,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/dt-obs-extensions/SKILL.md",
+              "line": 38
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dt-obs-extensions/SKILL.md",
+              "line": 39
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dt-obs-extensions/SKILL.md",
+              "line": 40
+            }
+          ],
+          "findings": [
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/dt-obs-extensions/references/extensions-error-codes.md",
+              "line": 380
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/dt-obs-extensions/references/extensions-error-codes.md",
+              "line": 380
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/dt-obs-extensions/references/extensions-error-codes.md",
+              "line": 393
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/dt-obs-extensions/references/extensions-error-codes.md",
+              "line": 599
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/dt-obs-extensions/references/extensions-error-codes.md",
+              "line": 809
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/dt-obs-extensions/references/extensions-error-codes.md",
+              "line": 817
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/dt-obs-extensions/references/extensions-error-codes.md",
+              "line": 618
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/dt-obs-extensions/references/extensions-error-codes.md",
+              "line": 25
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/dt-obs-extensions/references/extensions-error-codes.md",
+              "line": 380
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/dt-obs-extensions/references/extensions-error-codes.md",
+              "line": 504
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/dt-obs-extensions/SKILL.md",
+              "line": 18
+            }
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/dt-obs-frontends",
-          "score": 63,
-          "risk": 37,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
           "partial": true,
           "coverage": 84.6,
           "exceptions": [
@@ -1464,20 +1619,23 @@
               "line": 0
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/dt-obs-frontends/SKILL.md",
-              "line": 119
+              "line": 119,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/dt-obs-frontends/SKILL.md",
-              "line": 121
+              "line": 121,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -1575,13 +1733,14 @@
               "line": 163
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/dt-obs-genai",
-          "score": 57,
-          "risk": 43,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
           "partial": true,
           "coverage": 75,
           "exceptions": [
@@ -1626,97 +1785,111 @@
               "line": 0
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/dt-obs-genai/SKILL.md",
-              "line": 101
+              "line": 101,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/dt-obs-genai/SKILL.md",
-              "line": 232
+              "line": 120,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/dt-obs-genai/SKILL.md",
-              "line": 257
+              "line": 232,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/dt-obs-genai/SKILL.md",
-              "line": 258
+              "line": 257,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/dt-obs-genai/SKILL.md",
-              "line": 266
+              "line": 258,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/dt-obs-genai/SKILL.md",
-              "line": 267
+              "line": 259,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/dt-obs-genai/SKILL.md",
-              "line": 329
+              "line": 260,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/dt-obs-genai/SKILL.md",
-              "line": 120
+              "line": 261,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/dt-obs-genai/SKILL.md",
-              "line": 259
+              "line": 262,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/dt-obs-genai/SKILL.md",
-              "line": 260
+              "line": 266,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/dt-obs-genai/SKILL.md",
-              "line": 261
+              "line": 267,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/dt-obs-genai/SKILL.md",
-              "line": 262
+              "line": 329,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/dt-obs-genai/SKILL.md",
-              "line": 330
+              "line": 330,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -1804,7 +1977,8 @@
               "line": 459
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/dt-obs-kubernetes",
@@ -1945,7 +2119,8 @@
               "line": 611
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/dt-obs-log-semantic-mapping",
@@ -1971,7 +2146,8 @@
               "line": 42
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/dt-obs-logs",
@@ -2005,13 +2181,14 @@
               "file": "skills/dt-obs-logs/SKILL.md",
               "line": 255
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/dt-obs-network-devices",
-          "score": 57,
-          "risk": 43,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
           "partial": true,
           "coverage": 75,
           "exceptions": [
@@ -2036,27 +2213,31 @@
               "line": 0
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/dt-obs-network-devices/SKILL.md",
-              "line": 42
+              "line": 42,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/dt-obs-network-devices/SKILL.md",
-              "line": 62
+              "line": 62,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/dt-obs-network-devices/SKILL.md",
-              "line": 83
+              "line": 83,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -2089,7 +2270,8 @@
               "line": 81
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/dt-obs-predictive-analytics",
@@ -2099,13 +2281,14 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/dt-obs-problems",
-          "score": 63,
-          "risk": 37,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
           "partial": true,
           "coverage": 80,
           "exceptions": [
@@ -2180,20 +2363,23 @@
               "line": 0
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/dt-obs-problems/SKILL.md",
-              "line": 451
+              "line": 451,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/dt-obs-problems/SKILL.md",
-              "line": 464
+              "line": 464,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -2254,7 +2440,8 @@
               "file": "skills/dt-obs-services/SKILL.md",
               "line": 197
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/dt-obs-tracing",
@@ -2370,15 +2557,16 @@
               "line": 474
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/dt-platform-costs",
-          "score": 0,
-          "risk": 100,
+          "score": 11,
+          "risk": 89,
           "status": "do not install",
           "partial": true,
-          "coverage": 77.8,
+          "coverage": 66.7,
           "exceptions": [
             {
               "reason": "obfuscated_instruction_text",
@@ -2424,6 +2612,11 @@
               "reason": "obfuscated_instruction_text",
               "path": "skills/dt-platform-costs/references/metrics-ingest-optimization.md",
               "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/dt-platform-costs/references/workflow-total-cost.md",
+              "line": 0
             }
           ],
           "findings": [
@@ -2460,21 +2653,14 @@
               "severity": "HIGH",
               "message": "Direct Prompt Extraction",
               "file": "skills/dt-platform-costs/references/entity-cost-drilldown.md",
-              "line": 150
-            },
-            {
-              "id": "P6",
-              "severity": "HIGH",
-              "message": "Direct Prompt Extraction",
-              "file": "skills/dt-platform-costs/references/query-cost-attribution.md",
-              "line": 146
+              "line": 154
             },
             {
               "id": "P6",
               "severity": "HIGH",
               "message": "Direct Prompt Extraction",
               "file": "skills/dt-platform-costs/references/workflow-total-cost.md",
-              "line": 174
+              "line": 175
             },
             {
               "id": "P6",
@@ -2516,21 +2702,14 @@
               "severity": "HIGH",
               "message": "Direct Prompt Extraction",
               "file": "skills/dt-platform-costs/references/entity-cost-drilldown.md",
-              "line": 151
-            },
-            {
-              "id": "P6",
-              "severity": "HIGH",
-              "message": "Direct Prompt Extraction",
-              "file": "skills/dt-platform-costs/references/query-cost-attribution.md",
-              "line": 147
+              "line": 155
             },
             {
               "id": "P6",
               "severity": "HIGH",
               "message": "Direct Prompt Extraction",
               "file": "skills/dt-platform-costs/references/workflow-total-cost.md",
-              "line": 175
+              "line": 176
             },
             {
               "id": "AR2",
@@ -2538,13 +2717,6 @@
               "message": "Anti-Refusal Statement",
               "file": "skills/dt-platform-costs/SKILL.md",
               "line": 180
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-platform-costs/SKILL.md",
-              "line": 235
             },
             {
               "id": "AR2",
@@ -2557,71 +2729,22 @@
               "id": "P6",
               "severity": "HIGH",
               "message": "Direct Prompt Extraction",
+              "file": "skills/dt-platform-costs/references/query-cost-attribution.md",
+              "line": 188
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
               "file": "skills/dt-platform-costs/references/workflow-total-cost.md",
-              "line": 160
+              "line": 161
             },
             {
-              "id": "MP2",
+              "id": "EA2",
               "severity": "MEDIUM",
-              "message": "Context Window Stuffing",
+              "message": "Autonomous Decision Making",
               "file": "skills/dt-platform-costs/SKILL.md",
-              "line": 114
-            },
-            {
-              "id": "MP2",
-              "severity": "MEDIUM",
-              "message": "Context Window Stuffing",
-              "file": "skills/dt-platform-costs/SKILL.md",
-              "line": 118
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/dt-platform-costs/SKILL.md",
-              "line": 114
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/dt-platform-costs/SKILL.md",
-              "line": 116
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/dt-platform-costs/SKILL.md",
-              "line": 117
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/dt-platform-costs/SKILL.md",
-              "line": 118
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/dt-platform-costs/SKILL.md",
-              "line": 119
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/dt-platform-costs/SKILL.md",
-              "line": 120
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/dt-platform-costs/SKILL.md",
-              "line": 226
+              "line": 94
             },
             {
               "id": "EA2",
@@ -2644,6 +2767,40 @@
               "file": "skills/dt-platform-costs/references/metrics-ingest-optimization.md",
               "line": 806
             }
+          ],
+          "suppressed": [
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-platform-costs/SKILL.md",
+              "line": 226,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-platform-costs/SKILL.md",
+              "line": 233,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-platform-costs/SKILL.md",
+              "line": 235,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-platform-costs/SKILL.md",
+              "line": 266,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
@@ -2657,73 +2814,89 @@
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-contextualization/SKILL.md",
-              "line": 31
+              "line": 33
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-contextualization/SKILL.md",
-              "line": 32
+              "line": 40
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-contextualization/SKILL.md",
-              "line": 35
+              "line": 43
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-contextualization/SKILL.md",
-              "line": 37
+              "line": 45
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-contextualization/SKILL.md",
-              "line": 44
+              "line": 53
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-contextualization/SKILL.md",
-              "line": 99
+              "line": 75
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-contextualization/SKILL.md",
-              "line": 100
+              "line": 88
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-contextualization/SKILL.md",
-              "line": 112
+              "line": 89
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-contextualization/SKILL.md",
-              "line": 114
+              "line": 148
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-contextualization/SKILL.md",
-              "line": 116
+              "line": 149
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-contextualization/SKILL.md",
-              "line": 120
+              "line": 161
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-contextualization/SKILL.md",
-              "line": 127
+              "line": 163
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dt-sec-contextualization/SKILL.md",
+              "line": 166
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dt-sec-contextualization/SKILL.md",
+              "line": 170
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dt-sec-contextualization/SKILL.md",
+              "line": 194
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/dt-sec-insights",
-          "score": 50,
-          "risk": 50,
-          "status": "caution",
+          "score": 93,
+          "risk": 7,
+          "status": "incomplete",
           "partial": true,
-          "coverage": 88.2,
+          "coverage": 71.4,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -2733,32 +2906,42 @@
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-insights/SKILL.md",
-              "line": 72
+              "line": 57
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-insights/SKILL.md",
-              "line": 75
+              "line": 73
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-insights/SKILL.md",
-              "line": 76
+              "line": 74
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-insights/SKILL.md",
-              "line": 91
+              "line": 77
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-insights/SKILL.md",
-              "line": 92
+              "line": 78
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-insights/SKILL.md",
-              "line": 93
+              "line": 87
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dt-sec-insights/SKILL.md",
+              "line": 89
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dt-sec-insights/SKILL.md",
+              "line": 95
             },
             {
               "reason": "reference_missing",
@@ -2768,12 +2951,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-insights/SKILL.md",
-              "line": 101
+              "line": 97
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-insights/SKILL.md",
-              "line": 105
+              "line": 98
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dt-sec-insights/SKILL.md",
+              "line": 108
             },
             {
               "reason": "reference_missing",
@@ -2783,22 +2971,47 @@
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-insights/SKILL.md",
-              "line": 116
+              "line": 113
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-insights/SKILL.md",
-              "line": 136
+              "line": 124
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-insights/SKILL.md",
-              "line": 137
+              "line": 132
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-insights/SKILL.md",
-              "line": 138
+              "line": 133
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dt-sec-insights/SKILL.md",
+              "line": 134
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dt-sec-insights/SKILL.md",
+              "line": 135
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dt-sec-insights/SKILL.md",
+              "line": 144
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dt-sec-insights/SKILL.md",
+              "line": 145
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dt-sec-insights/SKILL.md",
+              "line": 146
             },
             {
               "reason": "reference_missing",
@@ -2808,7 +3021,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-insights/SKILL.md",
-              "line": 149
+              "line": 148
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dt-sec-insights/SKILL.md",
+              "line": 159
             },
             {
               "reason": "reference_missing",
@@ -2818,7 +3036,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-insights/SKILL.md",
-              "line": 165
+              "line": 163
             },
             {
               "reason": "reference_missing",
@@ -2828,42 +3046,57 @@
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-insights/SKILL.md",
-              "line": 169
+              "line": 167
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-insights/SKILL.md",
-              "line": 170
+              "line": 182
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-insights/SKILL.md",
-              "line": 188
+              "line": 183
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-insights/SKILL.md",
-              "line": 239
+              "line": 195
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-insights/SKILL.md",
-              "line": 252
+              "line": 196
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-insights/SKILL.md",
-              "line": 254
+              "line": 211
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-insights/SKILL.md",
-              "line": 258
+              "line": 213
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-insights/SKILL.md",
-              "line": 262
+              "line": 214
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dt-sec-insights/SKILL.md",
+              "line": 215
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dt-sec-insights/SKILL.md",
+              "line": 219
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dt-sec-insights/SKILL.md",
+              "line": 223
             },
             {
               "reason": "obfuscated_instruction_text",
@@ -2871,102 +3104,251 @@
               "line": 0
             },
             {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/dt-sec-insights/references/detections.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/dt-sec-insights/references/detections.md",
+              "line": 0
+            },
+            {
               "reason": "static_parse_limit",
               "path": "skills/dt-sec-insights/references/vulnerabilities-dynatrace.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/dt-sec-insights/references/vulnerabilities-lifecycle.md",
               "line": 0
             }
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-sec-insights/SKILL.md",
-              "line": 84
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-sec-insights/SKILL.md",
-              "line": 86
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-sec-insights/SKILL.md",
-              "line": 88
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-sec-insights/SKILL.md",
-              "line": 89
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-sec-insights/SKILL.md",
-              "line": 105
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-sec-insights/SKILL.md",
-              "line": 179
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-sec-insights/SKILL.md",
-              "line": 213
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-sec-insights/SKILL.md",
-              "line": 223
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-sec-insights/SKILL.md",
-              "line": 264
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-sec-insights/SKILL.md",
-              "line": 172
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-sec-insights/SKILL.md",
-              "line": 221
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-sec-insights/SKILL.md",
-              "line": 240
-            },
-            {
               "id": "P4",
               "severity": "MEDIUM",
               "message": "Behavior Manipulation",
               "file": "skills/dt-sec-insights/references/data-model.md",
-              "line": 205
+              "line": 241
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-insights/SKILL.md",
+              "line": 73,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-insights/SKILL.md",
+              "line": 86,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-insights/SKILL.md",
+              "line": 88,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-insights/SKILL.md",
+              "line": 89,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-insights/SKILL.md",
+              "line": 91,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-insights/SKILL.md",
+              "line": 91,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-insights/SKILL.md",
+              "line": 92,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-insights/SKILL.md",
+              "line": 101,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-insights/SKILL.md",
+              "line": 107,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-insights/SKILL.md",
+              "line": 108,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-insights/SKILL.md",
+              "line": 109,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-insights/SKILL.md",
+              "line": 110,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-insights/SKILL.md",
+              "line": 111,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-insights/SKILL.md",
+              "line": 112,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-insights/SKILL.md",
+              "line": 116,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-insights/SKILL.md",
+              "line": 169,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-insights/SKILL.md",
+              "line": 177,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-insights/SKILL.md",
+              "line": 180,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-insights/SKILL.md",
+              "line": 181,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-insights/SKILL.md",
+              "line": 186,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-insights/SKILL.md",
+              "line": 196,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-insights/SKILL.md",
+              "line": 201,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-insights/SKILL.md",
+              "line": 204,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-insights/SKILL.md",
+              "line": 207,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-insights/SKILL.md",
+              "line": 215,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-insights/SKILL.md",
+              "line": 225,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-insights/SKILL.md",
+              "line": 225,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -2976,7 +3358,7 @@
           "risk": 83,
           "status": "do not install",
           "partial": true,
-          "coverage": 87.5,
+          "coverage": 90.9,
           "exceptions": [
             {
               "reason": "obfuscated_instruction_text",
@@ -2986,92 +3368,102 @@
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-ioc-hunting/SKILL.md",
-              "line": 24
+              "line": 25
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-ioc-hunting/SKILL.md",
-              "line": 49
+              "line": 39
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-ioc-hunting/SKILL.md",
-              "line": 51
+              "line": 54
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-ioc-hunting/SKILL.md",
-              "line": 55
+              "line": 56
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-ioc-hunting/SKILL.md",
-              "line": 70
+              "line": 62
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-ioc-hunting/SKILL.md",
-              "line": 72
+              "line": 81
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-ioc-hunting/SKILL.md",
-              "line": 99
+              "line": 86
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-ioc-hunting/SKILL.md",
-              "line": 105
+              "line": 107
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-ioc-hunting/SKILL.md",
-              "line": 106
+              "line": 120
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-ioc-hunting/SKILL.md",
-              "line": 117
+              "line": 126
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-ioc-hunting/SKILL.md",
-              "line": 129
+              "line": 127
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-ioc-hunting/SKILL.md",
-              "line": 142
+              "line": 154
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-ioc-hunting/SKILL.md",
-              "line": 143
+              "line": 171
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-ioc-hunting/SKILL.md",
-              "line": 144
+              "line": 192
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-ioc-hunting/SKILL.md",
-              "line": 145
+              "line": 193
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-ioc-hunting/SKILL.md",
-              "line": 151
+              "line": 194
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-ioc-hunting/SKILL.md",
-              "line": 158
+              "line": 195
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-sec-ioc-hunting/SKILL.md",
-              "line": 159
+              "line": 201
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dt-sec-ioc-hunting/SKILL.md",
+              "line": 211
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dt-sec-ioc-hunting/SKILL.md",
+              "line": 212
             }
           ],
           "findings": [
@@ -3080,57 +3472,86 @@
               "severity": "HIGH",
               "message": "YARA rule 'agent_skill_prompt_injection_hidden_instructions': Prompt injection or hidden instructions embedded in AI agent skill text [agent_skills]",
               "file": "skills/dt-sec-ioc-hunting/SKILL.md",
-              "line": 60
+              "line": 67
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/dt-sec-ioc-hunting/SKILL.md",
-              "line": 77
+              "line": 94
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/dt-sec-ioc-hunting/references/ioc-intake.md",
-              "line": 44
+              "line": 56
             },
             {
               "id": "AR2",
               "severity": "HIGH",
               "message": "Anti-Refusal Statement",
               "file": "skills/dt-sec-ioc-hunting/references/exposure-scoring.md",
-              "line": 28
+              "line": 44
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/dt-sec-ioc-hunting/SKILL.md",
-              "line": 46
+              "line": 51
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/dt-sec-ioc-hunting/SKILL.md",
+              "line": 157
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/dt-sec-ioc-hunting/references/hunt-security-events.md",
+              "line": 81
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/dt-sec-ioc-hunting/references/hunt-security-events.md",
+              "line": 495
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/dt-sec-ioc-hunting/references/timeframe-gating.md",
-              "line": 97
+              "line": 22
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/dt-sec-ioc-hunting/references/timeframe-gating.md",
-              "line": 75
+              "line": 123
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/dt-sec-ioc-hunting/references/timeframe-gating.md",
+              "line": 101
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/dt-sec-semantic-mapping",
-          "score": 7,
-          "risk": 93,
-          "status": "do not install",
+          "score": 51,
+          "risk": 49,
+          "status": "caution",
           "partial": true,
           "coverage": 85.7,
           "exceptions": [
@@ -3182,69 +3603,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-sec-semantic-mapping/SKILL.md",
-              "line": 28
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-sec-semantic-mapping/SKILL.md",
-              "line": 37
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-sec-semantic-mapping/SKILL.md",
-              "line": 55
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-sec-semantic-mapping/SKILL.md",
-              "line": 82
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-sec-semantic-mapping/SKILL.md",
-              "line": 36
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-sec-semantic-mapping/SKILL.md",
-              "line": 43
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-sec-semantic-mapping/SKILL.md",
-              "line": 55
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-sec-semantic-mapping/SKILL.md",
-              "line": 59
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-sec-semantic-mapping/SKILL.md",
-              "line": 84
-            },
-            {
               "id": "YR4",
               "severity": "HIGH",
               "message": "YARA rule 'agent_skill_mcp_tool_poisoning_metadata': MCP/tool metadata poisoning indicators in tool schemas or skill manifests [agent_skills]",
@@ -3278,6 +3636,80 @@
               "message": "Excessive Permissions",
               "file": "skills/dt-sec-semantic-mapping/samples/external-vulnerabilities-code-artifact.json",
               "line": 153
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-semantic-mapping/SKILL.md",
+              "line": 28,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-semantic-mapping/SKILL.md",
+              "line": 36,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-semantic-mapping/SKILL.md",
+              "line": 37,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-semantic-mapping/SKILL.md",
+              "line": 43,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-semantic-mapping/SKILL.md",
+              "line": 55,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-semantic-mapping/SKILL.md",
+              "line": 55,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-semantic-mapping/SKILL.md",
+              "line": 59,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-semantic-mapping/SKILL.md",
+              "line": 82,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-sec-semantic-mapping/SKILL.md",
+              "line": 84,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -3375,7 +3807,8 @@
               "line": 294
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/dt-setup-flutter",
@@ -3478,7 +3911,8 @@
               "file": "skills/dt-setup-flutter/references/user-opt-in.md",
               "line": 59
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/dt-setup-genai",
@@ -3574,13 +4008,14 @@
               "line": 210
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/dt-setup-ios",
-          "score": 77,
-          "risk": 23,
-          "status": "caution",
+          "score": 87,
+          "risk": 13,
+          "status": "safe",
           "partial": true,
           "coverage": 100,
           "exceptions": [
@@ -3880,20 +4315,6 @@
               "line": 111
             },
             {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/dt-setup-ios/SKILL.md",
-              "line": 229
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/dt-setup-ios/SKILL.md",
-              "line": 231
-            },
-            {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
@@ -3921,12 +4342,30 @@
               "file": "skills/dt-setup-ios/scripts/verify-setup.sh",
               "line": 163
             }
+          ],
+          "suppressed": [
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-setup-ios/SKILL.md",
+              "line": 229,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-setup-ios/SKILL.md",
+              "line": 231,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            }
           ]
         },
         {
           "path": "skills/dt-setup-oneagent",
-          "score": 0,
-          "risk": 100,
+          "score": 25,
+          "risk": 75,
           "status": "do not install",
           "partial": true,
           "coverage": 33.3,
@@ -4023,97 +4462,6 @@
               "message": "Credential Access",
               "file": "skills/dt-setup-oneagent/SKILL.md",
               "line": 79
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-setup-oneagent/SKILL.md",
-              "line": 94
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-setup-oneagent/SKILL.md",
-              "line": 106
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-setup-oneagent/SKILL.md",
-              "line": 114
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-setup-oneagent/SKILL.md",
-              "line": 116
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-setup-oneagent/SKILL.md",
-              "line": 96
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-setup-oneagent/SKILL.md",
-              "line": 107
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-setup-oneagent/SKILL.md",
-              "line": 108
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-setup-oneagent/SKILL.md",
-              "line": 111
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-setup-oneagent/SKILL.md",
-              "line": 112
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-setup-oneagent/SKILL.md",
-              "line": 113
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-setup-oneagent/SKILL.md",
-              "line": 118
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-setup-oneagent/SKILL.md",
-              "line": 98
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-setup-oneagent/SKILL.md",
-              "line": 110
             },
             {
               "id": "TM2",
@@ -4213,13 +4561,119 @@
               "file": "skills/dt-setup-oneagent/references/remote-vm-ec2.md",
               "line": 37
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-setup-oneagent/SKILL.md",
+              "line": 94,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-setup-oneagent/SKILL.md",
+              "line": 96,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-setup-oneagent/SKILL.md",
+              "line": 98,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-setup-oneagent/SKILL.md",
+              "line": 106,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-setup-oneagent/SKILL.md",
+              "line": 107,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-setup-oneagent/SKILL.md",
+              "line": 108,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-setup-oneagent/SKILL.md",
+              "line": 110,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-setup-oneagent/SKILL.md",
+              "line": 111,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-setup-oneagent/SKILL.md",
+              "line": 112,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-setup-oneagent/SKILL.md",
+              "line": 113,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-setup-oneagent/SKILL.md",
+              "line": 114,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-setup-oneagent/SKILL.md",
+              "line": 116,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-setup-oneagent/SKILL.md",
+              "line": 118,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
           "path": "skills/dt-setup-openinference-migration",
-          "score": 68,
-          "risk": 32,
-          "status": "caution",
+          "score": 93,
+          "risk": 7,
+          "status": "safe",
           "partial": true,
           "coverage": 100,
           "exceptions": [
@@ -4251,18 +4705,21 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/dt-setup-openinference-migration/SKILL.md",
-              "line": 181
-            },
-            {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/dt-setup-openinference-migration/references/dual-write-cardinality.md",
               "line": 73
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-setup-openinference-migration/SKILL.md",
+              "line": 181,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -4272,77 +4729,62 @@
           "risk": 32,
           "status": "caution",
           "partial": true,
-          "coverage": 75,
+          "coverage": 100,
           "exceptions": [
             {
-              "reason": "static_parse_limit",
+              "reason": "reference_missing",
               "path": "skills/dt-setup-react-native/SKILL.md",
-              "line": 0
+              "line": 22
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-setup-react-native/SKILL.md",
-              "line": 21
+              "line": 26
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-setup-react-native/SKILL.md",
-              "line": 23
+              "line": 32
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-setup-react-native/SKILL.md",
-              "line": 29
+              "line": 34
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-setup-react-native/SKILL.md",
-              "line": 31
+              "line": 46
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-setup-react-native/SKILL.md",
-              "line": 43
+              "line": 56
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-setup-react-native/SKILL.md",
-              "line": 53
+              "line": 65
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-setup-react-native/SKILL.md",
-              "line": 62
+              "line": 74
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-setup-react-native/SKILL.md",
-              "line": 71
+              "line": 86
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-setup-react-native/SKILL.md",
-              "line": 83
+              "line": 88
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-setup-react-native/SKILL.md",
-              "line": 85
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/dt-setup-react-native/SKILL.md",
-              "line": 99
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/dt-setup-react-native/SKILL.md",
-              "line": 100
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/dt-setup-react-native/SKILL.md",
-              "line": 107
+              "line": 102
             },
             {
               "reason": "reference_missing",
@@ -4352,12 +4794,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/dt-setup-react-native/SKILL.md",
-              "line": 178
+              "line": 111
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-setup-react-native/SKILL.md",
-              "line": 182
+              "line": 180
             },
             {
               "reason": "reference_missing",
@@ -4367,12 +4809,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/dt-setup-react-native/SKILL.md",
-              "line": 189
+              "line": 186
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-setup-react-native/SKILL.md",
-              "line": 196
+              "line": 191
             },
             {
               "reason": "reference_missing",
@@ -4387,176 +4829,235 @@
             {
               "reason": "reference_missing",
               "path": "skills/dt-setup-react-native/SKILL.md",
-              "line": 211
+              "line": 238
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-setup-react-native/SKILL.md",
-              "line": 213
+              "line": 249
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-setup-react-native/SKILL.md",
-              "line": 219
+              "line": 251
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-setup-react-native/SKILL.md",
-              "line": 221
+              "line": 259
             },
             {
               "reason": "reference_missing",
               "path": "skills/dt-setup-react-native/SKILL.md",
-              "line": 272
+              "line": 261
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dt-setup-react-native/SKILL.md",
+              "line": 283
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dt-setup-react-native/SKILL.md",
+              "line": 321
             }
           ],
           "findings": [
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/dt-setup-react-native/SKILL.md",
               "line": 1
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/dt-setup-react-native/SKILL.md",
               "line": 6
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/dt-setup-react-native/SKILL.md",
-              "line": 22
+              "line": 23
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/dt-setup-react-native/SKILL.md",
-              "line": 192
+              "line": 194
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/dt-setup-react-native/SKILL.md",
-              "line": 169
+              "line": 171
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/dt-setup-react-native/references/config-js.md",
+              "line": 149
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/dt-setup-react-native/references/session-replay.md",
               "line": 142
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/dt-setup-react-native/references/verification.md",
-              "line": 29
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/dt-setup-react-native/SKILL.md",
-              "line": 172
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/dt-setup-react-native/SKILL.md",
-              "line": 175
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/dt-setup-react-native/SKILL.md",
-              "line": 189
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/dt-setup-react-native/SKILL.md",
-              "line": 192
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/dt-setup-react-native/SKILL.md",
-              "line": 213
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/dt-setup-react-native/SKILL.md",
-              "line": 235
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/dt-setup-react-native/references/config-js.md",
-              "line": 139
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/dt-setup-react-native/references/config-js.md",
-              "line": 142
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/dt-setup-react-native/references/verification.md",
-              "line": 21
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/dt-setup-react-native/references/verification.md",
               "line": 48
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/dt-setup-react-native/references/verification.md",
-              "line": 52
+              "message": "MCP Rug Pull",
+              "file": "skills/dt-setup-react-native/SKILL.md",
+              "line": 174
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
+              "file": "skills/dt-setup-react-native/SKILL.md",
+              "line": 177
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/dt-setup-react-native/SKILL.md",
+              "line": 191
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/dt-setup-react-native/SKILL.md",
+              "line": 194
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/dt-setup-react-native/SKILL.md",
+              "line": 202
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/dt-setup-react-native/SKILL.md",
+              "line": 236
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/dt-setup-react-native/SKILL.md",
+              "line": 275
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/dt-setup-react-native/references/config-js.md",
+              "line": 120
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/dt-setup-react-native/references/config-js.md",
+              "line": 146
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/dt-setup-react-native/references/config-js.md",
+              "line": 149
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/dt-setup-react-native/references/session-replay.md",
+              "line": 30
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/dt-setup-react-native/references/session-replay.md",
+              "line": 42
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/dt-setup-react-native/references/session-replay.md",
+              "line": 57
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/dt-setup-react-native/references/session-replay.md",
+              "line": 72
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
               "file": "skills/dt-setup-react-native/references/verification.md",
-              "line": 75
+              "line": 25
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/dt-setup-react-native/references/verification.md",
+              "line": 40
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/dt-setup-react-native/references/verification.md",
+              "line": 67
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/dt-setup-react-native/references/verification.md",
+              "line": 71
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/dt-setup-react-native/references/verification.md",
+              "line": 94
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/dt-setup-react-native/SKILL.md",
-              "line": 178
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "skills/dt-setup-react-native/SKILL.md",
-              "line": 184
+              "line": 180
             },
             {
               "id": "RA2",
@@ -4570,42 +5071,1277 @@
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/dt-setup-react-native/SKILL.md",
-              "line": 189
+              "line": 188
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/dt-setup-react-native/SKILL.md",
-              "line": 189
+              "line": 191
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/dt-setup-react-native/SKILL.md",
+              "line": 191
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/dt-setup-react-native/references/verification.md",
-              "line": 24
+              "line": 43
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/dt-setup-react-native/references/verification.md",
-              "line": 50
+              "line": 69
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/dt-setup-react-native/references/verification.md",
-              "line": 52
+              "line": 71
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/dt-setup-react-native/references/user-opt-in.md",
-              "line": 55
+              "line": 67
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/dt-upgrade",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 90.7,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/dt-upgrade/SKILL.md",
+              "line": 94
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dt-upgrade/SKILL.md",
+              "line": 96
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dt-upgrade/SKILL.md",
+              "line": 143
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dt-upgrade/SKILL.md",
+              "line": 211
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/dt-upgrade/references/application-observability/calculated-service-metrics/scanner/src/calculated_service_metric_scanner/cli.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/dt-upgrade/references/application-observability/calculated-service-metrics/scanner/src/calculated_service_metric_scanner/migration/processor.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/dt-upgrade/references/application-observability/calculated-service-metrics/scanner/src/calculated_service_metric_scanner/report.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/dt-upgrade/references/application-observability/classic-service-detection-rules/scripts/find-affected-rules.ts",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/dt-upgrade/references/application-observability/external-services/src/scan_external_services.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/reconstruction/candidates.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/DOCUMENTATION.html",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/analysis/candidates.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/analysis/overselect_loop.py",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/queries",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/report/html.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/scripts/find-affected-rules.ts",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/dt-upgrade/references/application-observability/messaging-queues/scanner/src/messaging_queue_scanner/cli.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/dt-upgrade/references/application-observability/messaging-queues/scanner/src/messaging_queue_scanner/report.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/dt-upgrade/references/application-observability/request-attributes/scripts/find-affected-rules.ts",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/dt-upgrade/references/application-observability/shared-scripts/config_scan.py",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/migrator/migrate_rum_properties.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/migrator/migrate_rum_properties.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/dt-upgrade/references/digital-experience/ext-monitors-migration/references/examples-node.md",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/dt-upgrade/references/digital-experience/rum-anomaly-detection/migrator/translate.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/dt-upgrade/references/digital-experience/rum-anomaly-detection/migrator/translate.py",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/dt-upgrade/references/edge-data-platform/classic-cloud-integrations/dac-azure-to-2ndgen-metrics.json",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/dt-upgrade/references/edge-data-platform/classic-cloud-integrations/per-key-mappings.json",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/dt-upgrade/references/edge-data-platform/classic-cloud-integrations/scripts/migration-lookup.ts",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/dt-upgrade/references/edge-data-platform/extensions/scripts/find-ef1-plugins.ts",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/dt-upgrade/references/edge-data-platform/extensions/scripts/inspect-ef2-artifact.ts",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/dt-upgrade/references/edge-data-platform/extensions/scripts/upgrade-ef2-extension.ts",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/dt-upgrade/references/infrastructure-observability/classic-maintenance-windows/classic-maintenance-windows-synthetic.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/dt-upgrade/references/platform/entity-queries/auto-tagging-field-mapping.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/dt-upgrade/references/platform/entity-queries/mass-data-filtering-strategy.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/dt-upgrade/references/platform/iam-2nd-gen-roles/scripts/extract-mz-permission-scopes.ts",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/dt-upgrade/references/shared/metric-transpiler/scripts/transpile.ts",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/dt-upgrade/references/shared/metric-transpiler/scripts/transpile.ts",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/dt-upgrade/SKILL.md",
+              "line": 94
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/dt-upgrade/SKILL.md",
+              "line": 96
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/dt-upgrade/references/platform/iam-2nd-gen-roles/.dtmigration.example",
+              "line": 7
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/dt-upgrade/references/platform/iam-2nd-gen-roles/scripts/extract-mz-permission-scopes.ts",
+              "line": 29
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/dt-upgrade/references/upgrade-workflow.md",
+              "line": 303
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/dt-upgrade/references/upgrade-workflow.md",
+              "line": 317
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "skills/dt-upgrade/references/application-observability/classic-service-detection-rules/migrator/src/sdr_migrator/orchestrator.py",
+              "line": 362
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "skills/dt-upgrade/references/application-observability/classic-service-detection-rules/migrator/src/sdr_migrator/orchestrator.py",
+              "line": 367
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "skills/dt-upgrade/references/application-observability/classic-service-detection-rules/migrator/src/sdr_migrator/orchestrator.py",
+              "line": 370
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "skills/dt-upgrade/references/application-observability/classic-service-detection-rules/migrator/src/sdr_migrator/orchestrator.py",
+              "line": 380
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "skills/dt-upgrade/references/application-observability/classic-service-detection-rules/migrator/src/sdr_migrator/orchestrator.py",
+              "line": 404
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "skills/dt-upgrade/references/application-observability/classic-service-detection-rules/migrator/src/sdr_migrator/orchestrator.py",
+              "line": 453
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "skills/dt-upgrade/references/application-observability/classic-service-detection-rules/migrator/src/sdr_migrator/orchestrator.py",
+              "line": 480
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/clients/settings.py",
+              "line": 117
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/orchestrator.py",
+              "line": 325
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/reporting/outcomes.py",
+              "line": 110
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/scripts/find-affected-rules.ts",
+              "line": 119
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/migrator/migrate_rum_properties.py",
+              "line": 3487
+            },
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/migrator/migrate_rum_properties.py",
+              "line": 5909
+            },
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/migrator/migrate_rum_properties.py",
+              "line": 6031
+            },
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/user-tagging.md",
+              "line": 114
+            },
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/verifying-the-migration.md",
+              "line": 148
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/dt-upgrade/references/digital-experience/enable-rum-on-grail/enable-rum-on-grail.md",
+              "line": 40
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/dt-upgrade/references/digital-experience/enable-rum-on-grail/enable-rum-on-grail.md",
+              "line": 50
+            },
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/dt-upgrade/references/digital-experience/enable-rum-on-grail/enable-rum-on-grail.md",
+              "line": 242
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/dt-upgrade/references/edge-data-platform/classic-cloud-integrations/.dtmigration.example",
+              "line": 11
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/dt-upgrade/references/infrastructure-observability/vmware-activegate-integration/vmware-activegate-integration.md",
+              "line": 13
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/dt-upgrade/references/platform/autotagging/autotagging.md",
+              "line": 3
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/dt-upgrade/references/platform/autotagging/autotagging.md",
+              "line": 3
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/dt-upgrade/references/platform/iam-2nd-gen-roles/.dtmigration.example",
+              "line": 9
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/dt-upgrade/references/platform/iam-2nd-gen-roles/scripts/extract-mz-permission-scopes.ts",
+              "line": 189
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/dt-upgrade/references/platform/iam-2nd-gen-roles/scripts/extract-mz-permission-scopes.ts",
+              "line": 201
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/dt-upgrade/references/shared/metric-transpiler/.dtmigration.example",
+              "line": 9
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/dt-upgrade/references/shared/metric-transpiler/scripts/transpile.ts",
+              "line": 148
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/dt-upgrade/references/shared/metric-transpiler/scripts/transpile.ts",
+              "line": 160
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/dt-upgrade/references/platform/management-zones/management-zones.md",
+              "line": 3
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/dt-upgrade/references/platform/management-zones/management-zones.md",
+              "line": 88
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/dt-upgrade/references/platform/management-zones/management-zones.md",
+              "line": 88
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/dt-upgrade/references/platform/management-zones/management-zones.md",
+              "line": 308
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/dt-upgrade/references/shared/metric-transpiler/.dtmigration.example",
+              "line": 27
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/dt-upgrade/references/shared/metric-transpiler/metric-transpiler.md",
+              "line": 41
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/dt-upgrade/references/shared/metric-transpiler/scripts/transpile.ts",
+              "line": 311
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/dt-upgrade/references/upgrade-workflow.md",
+              "line": 298
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/dt-upgrade/references/upgrade-workflow.md",
+              "line": 307
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/dt-upgrade/references/upgrade-workflow.md",
+              "line": 319
+            },
+            {
+              "id": "EA4",
+              "severity": "MEDIUM",
+              "message": "Unbounded Resource Access",
+              "file": "skills/dt-upgrade/references/application-observability/external-services/src/scan_external_services.py",
+              "line": 124
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/reconstruction/replacement.py",
+              "line": 180
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/src/fdr_migrator/reconstruction/replacement.py",
+              "line": 213
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/src/glob_name_migrator/orchestrator.py",
+              "line": 478
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/dt-upgrade/references/application-observability/shared-scripts/config_scan.py",
+              "line": 723
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/migrator/migrate_rum_properties.py",
+              "line": 9801
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/prerequisites-and-limits.md",
+              "line": 10
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/prerequisites-and-limits.md",
+              "line": 12
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/prerequisites-and-limits.md",
+              "line": 14
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/session-scoped-properties.md",
+              "line": 21
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/dt-upgrade/references/digital-experience/ext-monitors-migration/references/examples-python.md",
+              "line": 320
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/dt-upgrade/references/digital-experience/ext-monitors-migration/references/examples-python.md",
+              "line": 352
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/dt-upgrade/references/digital-experience/rum-anomaly-detection/migrator/client.py",
+              "line": 45
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/dt-upgrade/references/digital-experience/rum-anomaly-detection/migrator/client.py",
+              "line": 54
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/dt-upgrade/references/digital-experience/rum-anomaly-detection/migrator/client.py",
+              "line": 57
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/dt-upgrade/references/digital-experience/rum-anomaly-detection/migrator/client.py",
+              "line": 73
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/dt-upgrade/references/digital-experience/rum-anomaly-detection/migrator/client.py",
+              "line": 79
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/dt-upgrade/references/digital-experience/rum-anomaly-detection/migrator/client.py",
+              "line": 102
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/dt-upgrade/references/digital-experience/rum-anomaly-detection/migrator/client.py",
+              "line": 115
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/dt-upgrade/references/digital-experience/rum-anomaly-detection/rum-anomaly-detection.md",
+              "line": 78
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/dt-upgrade/references/edge-data-platform/dynatrace-operator/dynatrace-operator.md",
+              "line": 204
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/dt-upgrade/references/edge-data-platform/extensions/ef2-entity-extraction.md",
+              "line": 283
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/dt-upgrade/references/edge-data-platform/network-zones/network-zones.md",
+              "line": 103
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/dt-upgrade/references/infrastructure-observability/classic-maintenance-windows/classic-maintenance-windows.md",
+              "line": 447
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/dt-upgrade/references/platform/custom-devices/custom-devices-synthetic.md",
+              "line": 188
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/dt-upgrade/references/platform/entity-queries/mass-data-filtering-strategy.md",
+              "line": 145
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/dt-upgrade/references/platform/iam-2nd-gen-roles/mz-permission-scopes.md",
+              "line": 440
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/dt-upgrade/references/platform/iam-2nd-gen-roles/scripts/extract-mz-permission-scopes.ts",
+              "line": 47
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/dt-upgrade/references/platform/iam-2nd-gen-roles/scripts/extract-mz-permission-scopes.ts",
+              "line": 70
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/dt-upgrade/references/platform/iam-2nd-gen-roles/scripts/extract-mz-permission-scopes.ts",
+              "line": 868
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/dt-upgrade/references/platform/iam-2nd-gen-roles/scripts/extract-mz-permission-scopes.ts",
+              "line": 868
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/dt-upgrade/references/platform/iam-2nd-gen-roles/scripts/extract-mz-permission-scopes.ts",
+              "line": 869
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/dt-upgrade/references/platform/iam-2nd-gen-roles/scripts/extract-mz-permission-scopes.ts",
+              "line": 873
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/dt-upgrade/references/platform/iam-2nd-gen-roles/scripts/extract-mz-permission-scopes.ts",
+              "line": 873
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/dt-upgrade/references/platform/iam-2nd-gen-roles/scripts/extract-mz-permission-scopes.ts",
+              "line": 881
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/dt-upgrade/references/platform/iam-2nd-gen-roles/scripts/extract-mz-permission-scopes.ts",
+              "line": 881
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: httpx has 2 known advisory(ies) (CVE-2021-41945 (Improper Input Validation in httpx); CVE-2021-41945 (Encode OSS httpx <=1.0.0.beta0 is affected by improper input validation in `http)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/dt-upgrade/references/application-observability/classic-service-detection-rules/migrator/pyproject.toml",
+              "line": 12
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: httpx has 2 known advisory(ies) (CVE-2021-41945 (Improper Input Validation in httpx); CVE-2021-41945 (Encode OSS httpx <=1.0.0.beta0 is affected by improper input validation in `http)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/pyproject.toml",
+              "line": 12
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: httpx has 2 known advisory(ies) (CVE-2021-41945 (Improper Input Validation in httpx); CVE-2021-41945 (Encode OSS httpx <=1.0.0.beta0 is affected by improper input validation in `http)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/pyproject.toml",
+              "line": 12
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: httpx has 2 known advisory(ies) (CVE-2021-41945 (Improper Input Validation in httpx); CVE-2021-41945 (Encode OSS httpx <=1.0.0.beta0 is affected by improper input validation in `http)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/pyproject.toml",
+              "line": 12
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: pydantic has 4 known advisory(ies) (CVE-2021-29510 (Use of \"infinity\" as an input to datetime and date fields causes infinite loop i); CVE-2024-3772 (Pydantic regular expression denial of service); CVE-2021-29510 (Pydantic is a data validation and settings management using Python type hinting.) +1 more), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/dt-upgrade/references/application-observability/classic-service-detection-rules/migrator/pyproject.toml",
+              "line": 13
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: pydantic has 4 known advisory(ies) (CVE-2021-29510 (Use of \"infinity\" as an input to datetime and date fields causes infinite loop i); CVE-2024-3772 (Pydantic regular expression denial of service); CVE-2021-29510 (Pydantic is a data validation and settings management using Python type hinting.) +1 more), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/pyproject.toml",
+              "line": 13
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: pydantic has 4 known advisory(ies) (CVE-2021-29510 (Use of \"infinity\" as an input to datetime and date fields causes infinite loop i); CVE-2024-3772 (Pydantic regular expression denial of service); CVE-2021-29510 (Pydantic is a data validation and settings management using Python type hinting.) +1 more), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/pyproject.toml",
+              "line": 13
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: pydantic has 4 known advisory(ies) (CVE-2021-29510 (Use of \"infinity\" as an input to datetime and date fields causes infinite loop i); CVE-2024-3772 (Pydantic regular expression denial of service); CVE-2021-29510 (Pydantic is a data validation and settings management using Python type hinting.) +1 more), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/pyproject.toml",
+              "line": 13
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: pytest has 2 known advisory(ies) (CVE-2025-71176 (pytest has vulnerable tmpdir handling); CVE-2025-71176 (pytest has vulnerable tmpdir handling)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/dt-upgrade/references/application-observability/classic-service-detection-rules/migrator/pyproject.toml",
+              "line": 18
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: pytest has 2 known advisory(ies) (CVE-2025-71176 (pytest has vulnerable tmpdir handling); CVE-2025-71176 (pytest has vulnerable tmpdir handling)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/pyproject.toml",
+              "line": 18
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: pytest has 2 known advisory(ies) (CVE-2025-71176 (pytest has vulnerable tmpdir handling); CVE-2025-71176 (pytest has vulnerable tmpdir handling)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/dt-upgrade/references/application-observability/global-request-naming-rules/migrator/pyproject.toml",
+              "line": 18
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: pytest has 2 known advisory(ies) (CVE-2025-71176 (pytest has vulnerable tmpdir handling); CVE-2025-71176 (pytest has vulnerable tmpdir handling)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/pyproject.toml",
+              "line": 18
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: pylint has 1 known advisory(ies) (CVE-2026-114608 (Pylint: Arbitrary code execution via pickle deserialization of the stats cache i)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/dt-upgrade/references/application-observability/classic-service-detection-rules/migrator/pyproject.toml",
+              "line": 19
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: pylint has 1 known advisory(ies) (CVE-2026-114608 (Pylint: Arbitrary code execution via pickle deserialization of the stats cache i)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/dt-upgrade/references/application-observability/global-failure-detection-rules/migrator/pyproject.toml",
+              "line": 19
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: pylint has 1 known advisory(ies) (CVE-2026-114608 (Pylint: Arbitrary code execution via pickle deserialization of the stats cache i)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/dt-upgrade/references/application-observability/request-attributes/migrator/pyproject.toml",
+              "line": 19
+            },
+            {
+              "id": "AST7",
+              "severity": "LOW",
+              "message": "Dynamic attribute access via getattr()",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/migrator/migrate_rum_properties.py",
+              "line": 7127
+            },
+            {
+              "id": "AST7",
+              "severity": "LOW",
+              "message": "Dynamic attribute access via getattr()",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/migrator/migrate_rum_properties.py",
+              "line": 7181
+            },
+            {
+              "id": "PE1",
+              "severity": "LOW",
+              "message": "Excessive Permissions",
+              "file": "skills/dt-upgrade/references/edge-data-platform/classic-cloud-integrations/cutover-guide.md",
+              "line": 30
+            },
+            {
+              "id": "PE1",
+              "severity": "LOW",
+              "message": "Excessive Permissions",
+              "file": "skills/dt-upgrade/references/edge-data-platform/classic-cloud-integrations/cutover-guide.md",
+              "line": 51
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/dt-upgrade/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/classic-action-session-properties.md",
+              "line": 18,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/classic-action-session-properties.md",
+              "line": 58,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/classifying-properties.md",
+              "line": 14,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/classifying-properties.md",
+              "line": 14,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/classifying-properties.md",
+              "line": 16,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/classifying-properties.md",
+              "line": 18,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/classifying-properties.md",
+              "line": 20,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/classifying-properties.md",
+              "line": 20,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/prerequisites-and-limits.md",
+              "line": 10,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/prerequisites-and-limits.md",
+              "line": 12,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/prerequisites-and-limits.md",
+              "line": 14,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/prerequisites-and-limits.md",
+              "line": 16,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/prerequisites-and-limits.md",
+              "line": 17,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/prerequisites-and-limits.md",
+              "line": 21,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/prerequisites-and-limits.md",
+              "line": 23,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/prerequisites-and-limits.md",
+              "line": 24,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/prerequisites-and-limits.md",
+              "line": 41,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/prerequisites-and-limits.md",
+              "line": 46,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/prerequisites-and-limits.md",
+              "line": 47,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/prerequisites-and-limits.md",
+              "line": 48,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/prerequisites-and-limits.md",
+              "line": 49,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/replacing-the-classic-calls.md",
+              "line": 6,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/replacing-the-classic-calls.md",
+              "line": 10,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/running-the-migration.md",
+              "line": 41,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/session-scoped-properties.md",
+              "line": 10,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/session-scoped-properties.md",
+              "line": 10,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/session-scoped-properties.md",
+              "line": 12,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/session-scoped-properties.md",
+              "line": 13,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/session-scoped-properties.md",
+              "line": 50,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/digital-experience/classic-action-session-properties/references/session-scoped-properties.md",
+              "line": 54,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/platform/entity-queries/entity-queries.md",
+              "line": 130,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/shared/metric-transpiler/metric-transpiler.md",
+              "line": 77,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/shared/metric-transpiler/metric-transpiler.md",
+              "line": 79,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/shared/metric-transpiler/metric-transpiler.md",
+              "line": 81,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/shared/metric-transpiler/metric-transpiler.md",
+              "line": 82,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/shared/metric-transpiler/metric-transpiler.md",
+              "line": 83,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/shared/metric-transpiler/metric-transpiler.md",
+              "line": 84,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/shared/metric-transpiler/metric-transpiler.md",
+              "line": 85,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/dt-upgrade/references/shared/metric-transpiler/metric-transpiler.md",
+              "line": 86,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/dt-upgrade/SKILL.md",
+              "line": 184,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         }
@@ -4620,7 +6356,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-29T10:30:15Z"
+      "checkedAt": "2026-11-04T23:32:53Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

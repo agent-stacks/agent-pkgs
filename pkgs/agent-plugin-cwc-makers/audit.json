@@ -7,26 +7,33 @@
   "plugins": [
     {
       "name": "cwc-makers",
-      "dir": "/nix/store/d6ml17bzv99i8m6yaclspr3ygzwr17z4-agent-plugin-cwc-makers-1.0.0/share/agent-plugins/cwc-makers",
+      "dir": "/nix/store/rpd96p5f0s2x86kgd5r9ml7b4jyhi0q3-agent-plugin-cwc-makers-1.0.0/share/agent-plugins/cwc-makers",
       "spec": "1.1.0",
       "score": 36,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/commands",
           "skills/cardputer-buddy",
           "skills/m5-onboard"
         ],
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/cardputer-buddy",
           "score": 100,
@@ -71,7 +78,8 @@
               "line": 45
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/m5-onboard",
@@ -399,7 +407,8 @@
               "file": "skills/m5-onboard/SKILL.md",
               "line": 180
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
@@ -412,7 +421,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-20T03:27:08Z"
+      "checkedAt": "2026-11-04T23:31:17Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

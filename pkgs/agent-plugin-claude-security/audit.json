@@ -7,12 +7,16 @@
   "plugins": [
     {
       "name": "claude-security",
-      "dir": "/nix/store/lab2zdxa6zyq1x3xbpjwwjrzyr1bw5hj-agent-plugin-claude-security-0.12.0/share/agent-plugins/claude-security",
+      "dir": "/nix/store/vabzcbx6sn93djwj2g0icg97kc1j9p3s-agent-plugin-claude-security-0.12.0/share/agent-plugins/claude-security",
       "spec": "1.1.0",
-      "score": 47,
+      "score": 45,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/hooks",
+          "com.anthropic.claude-code/workflows",
+          "scripts",
           "skills/claude-security"
         ],
         "validated": [
@@ -22,23 +26,158 @@
           {
             "path": "bin/",
             "reason": "interpreter links into /nix/store"
-          },
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          },
-          {
-            "path": "scripts/",
-            "reason": "outside the spec"
           }
         ]
       },
       "components": [
         {
-          "path": "skills/claude-security",
-          "score": 47,
-          "risk": 53,
+          "path": "com.anthropic.claude-code/agents",
+          "score": 45,
+          "risk": 55,
           "status": "do not install",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "com.anthropic.claude-code/agents/patch-generator.md",
+              "line": 12
+            },
+            {
+              "id": "AR1",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "com.anthropic.claude-code/agents/scan-researcher.md",
+              "line": 51
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "com.anthropic.claude-code/agents/claude-security.md",
+              "line": 17
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "com.anthropic.claude-code/agents/scan-verifier.md",
+              "line": 48
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 91,
+          "risk": 9,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 66.7,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/hooks.py",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/hooks.py",
+              "line": 322
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/workflows",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 0,
+          "exceptions": [
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "com.anthropic.claude-code/workflows/scan.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/workflows/scan.js",
+              "line": 0
+            }
+          ],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "scripts",
+          "score": 57,
+          "risk": 43,
+          "status": "caution",
+          "partial": true,
+          "coverage": 85,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/finding.py",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/patch_artifacts.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/save_result.py",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "E2",
+              "severity": "HIGH",
+              "message": "Env Variable Harvesting",
+              "file": "scripts/lib/git.py",
+              "line": 9
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "scripts/lib/cwe-categories.json",
+              "line": 60
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/lib/git.py",
+              "line": 15
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/patch_artifacts.py",
+              "line": 535
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/claude-security",
+          "score": 54,
+          "risk": 46,
+          "status": "caution",
           "partial": true,
           "coverage": 85.7,
           "exceptions": [
@@ -111,25 +250,28 @@
               "line": 61
             },
             {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/claude-security/specs/patch-spec.md",
-              "line": 92
-            },
-            {
               "id": "EA3",
               "severity": "LOW",
               "message": "Scope Creep",
               "file": "skills/claude-security/jobs/suggest-patches.md",
               "line": 122
             }
+          ],
+          "suppressed": [
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/claude-security/specs/patch-spec.md",
+              "line": 92,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            }
           ]
         }
       ]
     }
   ],
-  "score": 47,
+  "score": 45,
   "status": "do not install",
   "tool": {
     "name": "skillspector",
@@ -137,7 +279,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-20T03:08:27Z"
+      "checkedAt": "2026-11-04T23:09:27Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

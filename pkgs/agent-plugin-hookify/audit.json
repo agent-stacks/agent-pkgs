@@ -7,12 +7,16 @@
   "plugins": [
     {
       "name": "hookify",
-      "dir": "/nix/store/mpffaql49pcfczzpi97vc2hyx7qbsbpj-agent-plugin-hookify-0.0.0-unstable.2026-10-19.ga0b04d9/share/agent-plugins/hookify",
+      "dir": "/nix/store/yiy3ccx59sn4h8fr7h518x21wmbpnf6j-agent-plugin-hookify-0.1.1/share/agent-plugins/hookify",
       "spec": "1.1.0",
-      "score": 27,
+      "score": 24,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/commands",
+          "com.anthropic.claude-code/hooks",
+          "examples",
           "skills/writing-rules"
         ],
         "validated": [
@@ -22,18 +26,152 @@
           {
             "path": "bin/",
             "reason": "interpreter links into /nix/store"
-          },
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          },
-          {
-            "path": "examples/",
-            "reason": "outside the spec"
           }
         ]
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 54,
+          "risk": 46,
+          "status": "caution",
+          "partial": true,
+          "coverage": 0,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/agents/conversation-analyzer.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "com.anthropic.claude-code/agents/conversation-analyzer.md",
+              "line": 91
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "com.anthropic.claude-code/agents/conversation-analyzer.md",
+              "line": 116
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "com.anthropic.claude-code/agents/conversation-analyzer.md",
+              "line": 91
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "com.anthropic.claude-code/agents/conversation-analyzer.md",
+              "line": 116
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 24,
+          "risk": 76,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 75,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/commands/list.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "com.anthropic.claude-code/commands/help.md",
+              "line": 88
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/commands/help.md",
+              "line": 130
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/commands/hookify.md",
+              "line": 149
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "com.anthropic.claude-code/commands/help.md",
+              "line": 168
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "com.anthropic.claude-code/commands/help.md",
+              "line": 168
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "com.anthropic.claude-code/commands/help.md",
+              "line": 168
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "com.anthropic.claude-code/commands/help.md",
+              "line": 88
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "com.anthropic.claude-code/commands/hookify.md",
+              "line": 181
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "examples",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/writing-rules",
           "score": 27,
@@ -158,12 +296,13 @@
               "file": "skills/writing-rules/SKILL.md",
               "line": 250
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 27,
+  "score": 24,
   "status": "do not install",
   "tool": {
     "name": "skillspector",
@@ -171,7 +310,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-20T03:11:06Z"
+      "checkedAt": "2026-11-04T23:24:34Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

@@ -7,10 +7,10 @@
   "plugins": [
     {
       "name": "terraform",
-      "dir": "/nix/store/29ks98abvmn4ds92gzha3xlfbyqdvdnz-agent-plugin-terraform-1.0.0/share/agent-plugins/terraform",
+      "dir": "/nix/store/bzcqnnrnyv0dzzp50m4n8br4y6h20wid-agent-plugin-terraform-1.0.0/share/agent-plugins/terraform",
       "spec": "1.1.0",
-      "score": 26,
-      "status": "do not install",
+      "score": 70,
+      "status": "caution",
       "coverage": {
         "scanned": [
           "skills/azure-verified-modules",
@@ -105,12 +105,13 @@
               "line": 590
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/new-terraform-provider",
-          "score": 93,
-          "risk": 7,
+          "score": 100,
+          "risk": 0,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -131,13 +132,15 @@
               "line": 34
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "LP3",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/new-terraform-provider/SKILL.md",
-              "line": 1
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
@@ -200,7 +203,8 @@
               "line": 515
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/provider-configuration",
@@ -248,7 +252,8 @@
               "file": "skills/provider-configuration/references/case-studies.md",
               "line": 94
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/provider-docs",
@@ -279,7 +284,8 @@
               "line": 54
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/provider-ephemeral-resources",
@@ -300,7 +306,8 @@
               "line": 59
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/provider-framework-migration",
@@ -341,7 +348,8 @@
               "line": 156
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/provider-resources",
@@ -402,7 +410,8 @@
               "line": 497
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/provider-test-patterns",
@@ -443,7 +452,8 @@
               "line": 303
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/refactor-module",
@@ -549,7 +559,8 @@
               "file": "skills/refactor-module/SKILL.md",
               "line": 550
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/run-acceptance-tests",
@@ -575,13 +586,14 @@
               "line": 30
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/terraform-policy",
-          "score": 26,
-          "risk": 74,
-          "status": "do not install",
+          "score": 70,
+          "risk": 30,
+          "status": "caution",
           "partial": true,
           "coverage": 92.6,
           "exceptions": [
@@ -668,90 +680,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/terraform-policy/SKILL.md",
-              "line": 13
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/terraform-policy/SKILL.md",
-              "line": 23
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/terraform-policy/SKILL.md",
-              "line": 24
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/terraform-policy/SKILL.md",
-              "line": 25
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/terraform-policy/SKILL.md",
-              "line": 37
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/terraform-policy/SKILL.md",
-              "line": 42
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/terraform-policy/SKILL.md",
-              "line": 43
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/terraform-policy/SKILL.md",
-              "line": 13
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/terraform-policy/SKILL.md",
-              "line": 23
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/terraform-policy/SKILL.md",
-              "line": 24
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/terraform-policy/SKILL.md",
-              "line": 38
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/terraform-policy/SKILL.md",
-              "line": 44
-            },
-            {
               "id": "AR2",
               "severity": "HIGH",
               "message": "Anti-Refusal Statement",
@@ -761,16 +689,114 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/terraform-policy/SKILL.md",
               "line": 51
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/terraform-policy/SKILL.md",
               "line": 52
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/terraform-policy/SKILL.md",
+              "line": 13,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/terraform-policy/SKILL.md",
+              "line": 13,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/terraform-policy/SKILL.md",
+              "line": 23,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/terraform-policy/SKILL.md",
+              "line": 23,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/terraform-policy/SKILL.md",
+              "line": 24,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/terraform-policy/SKILL.md",
+              "line": 24,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/terraform-policy/SKILL.md",
+              "line": 25,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/terraform-policy/SKILL.md",
+              "line": 37,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/terraform-policy/SKILL.md",
+              "line": 38,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/terraform-policy/SKILL.md",
+              "line": 42,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/terraform-policy/SKILL.md",
+              "line": 43,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/terraform-policy/SKILL.md",
+              "line": 44,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -818,7 +844,8 @@
               "line": 322
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/terraform-stacks",
@@ -1086,7 +1113,8 @@
               "file": "skills/terraform-stacks/references/troubleshooting.md",
               "line": 213
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/terraform-style-guide",
@@ -1157,7 +1185,8 @@
               "line": 286
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/terraform-test",
@@ -1223,20 +1252,24 @@
               "line": 417
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 26,
-  "status": "do not install",
+  "score": 70,
+  "status": "caution",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-28T18:39:53Z"
+      "checkedAt": "2026-11-04T23:54:59Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

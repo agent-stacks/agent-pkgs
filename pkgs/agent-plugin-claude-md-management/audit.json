@@ -7,25 +7,32 @@
   "plugins": [
     {
       "name": "claude-md-management",
-      "dir": "/nix/store/2nr5icb99kpny8pj5gy6cg0v433b2a6d-agent-plugin-claude-md-management-1.0.0/share/agent-plugins/claude-md-management",
+      "dir": "/nix/store/jninniak38mvkhqzl5vc152j3j8rjk6b-agent-plugin-claude-md-management-1.0.0/share/agent-plugins/claude-md-management",
       "spec": "1.1.0",
       "score": 100,
       "status": "safe",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/commands",
           "skills/claude-md-improver"
         ],
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/claude-md-improver",
           "score": 100,
@@ -70,7 +77,8 @@
               "line": 160
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
@@ -83,7 +91,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-20T03:01:33Z"
+      "checkedAt": "2026-11-04T23:30:40Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

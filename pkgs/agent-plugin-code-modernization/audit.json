@@ -1,13 +1,604 @@
 {
   "target": "./result",
-  "audited": false,
-  "score": null,
-  "status": "could not audit",
-  "reason": "nothing to audit",
-  "hints": [],
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "code-modernization",
+      "dir": "/nix/store/22jksi6151zh915yyzacz0j70h604cl6-agent-plugin-code-modernization-1.0.0/share/agent-plugins/code-modernization",
+      "spec": "1.1.0",
+      "score": 9,
+      "status": "do not install",
+      "coverage": {
+        "scanned": [
+          "assets",
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/commands",
+          "com.anthropic.claude-code/hooks",
+          "com.anthropic.claude-code/workflows",
+          "scripts"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "assets",
+          "score": 55,
+          "risk": 45,
+          "status": "caution",
+          "partial": true,
+          "coverage": 50,
+          "exceptions": [
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "assets/topology-viewer.html",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "assets/topology-viewer.html",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "assets/vendor/mermaid.min.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "assets/vendor/mermaid.min.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "assets/vendor/mermaid.min.js",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "assets/vendor/mermaid.min.js",
+              "line": 605
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "assets/vendor/mermaid.min.js",
+              "line": 605
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "assets/vendor/mermaid.min.js",
+              "line": 605
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "assets/vendor/mermaid.min.js",
+              "line": 605
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "assets/vendor/mermaid.min.js",
+              "line": 1294
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "assets/vendor/mermaid.min.js",
+              "line": 1296
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "assets/vendor/mermaid.min.js",
+              "line": 1296
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "assets/vendor/mermaid.min.js",
+              "line": 1347
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "assets/vendor/mermaid.min.js",
+              "line": 1347
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "assets/vendor/mermaid.min.js",
+              "line": 1353
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "assets/vendor/mermaid.min.js",
+              "line": 1353
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "assets/vendor/mermaid.min.js",
+              "line": 1353
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "assets/vendor/mermaid.min.js",
+              "line": 1353
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "assets/vendor/mermaid.min.js",
+              "line": 1353
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "assets/vendor/mermaid.min.js",
+              "line": 1353
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "assets/vendor/mermaid.min.js",
+              "line": 1353
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "assets/vendor/mermaid.min.js",
+              "line": 1353
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "assets/vendor/mermaid.min.js",
+              "line": 1354
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "assets/vendor/mermaid.min.js",
+              "line": 1895
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 65,
+          "risk": 35,
+          "status": "caution",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "P1",
+              "severity": "HIGH",
+              "message": "Instruction Override",
+              "file": "com.anthropic.claude-code/agents/architecture-critic.md",
+              "line": 48
+            },
+            {
+              "id": "P1",
+              "severity": "HIGH",
+              "message": "Instruction Override",
+              "file": "com.anthropic.claude-code/agents/business-rules-extractor.md",
+              "line": 61
+            },
+            {
+              "id": "P1",
+              "severity": "HIGH",
+              "message": "Instruction Override",
+              "file": "com.anthropic.claude-code/agents/legacy-analyst.md",
+              "line": 55
+            },
+            {
+              "id": "P1",
+              "severity": "HIGH",
+              "message": "Instruction Override",
+              "file": "com.anthropic.claude-code/agents/security-auditor.md",
+              "line": 85
+            },
+            {
+              "id": "P1",
+              "severity": "HIGH",
+              "message": "Instruction Override",
+              "file": "com.anthropic.claude-code/agents/test-engineer.md",
+              "line": 76
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 41,
+          "risk": 59,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 84.6,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/commands/modernize-review.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/commands/modernize-uplift.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/commands/modernize-preflight.md",
+              "line": 91
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "com.anthropic.claude-code/commands/modernize-preflight.md",
+              "line": 167
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/commands/modernize-assess.md",
+              "line": 115
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/commands/modernize-harden.md",
+              "line": 20
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/commands/modernize-preflight.md",
+              "line": 116
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "com.anthropic.claude-code/commands/modernize-uplift.md",
+              "line": 222
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 29,
+          "risk": 71,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 56.7,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/fleet/fleet.ts",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/map/estate.ts",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/paths.ts",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/reader/discover.ts",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/reader/fs.ts",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/reader/modernized.ts",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/reader/progress.ts",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/register.ts",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/review/deck.ts",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/sign.ts",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/views/deck.tsx",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/views/pane.tsx",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/xray/xray.ts",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "com.anthropic.claude-code/hooks/review/deck.ts",
+              "line": 23
+            },
+            {
+              "id": "OH1",
+              "severity": "HIGH",
+              "message": "Unvalidated Output Injection",
+              "file": "com.anthropic.claude-code/hooks/tests-run.ts",
+              "line": 59
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "com.anthropic.claude-code/hooks/reader/modernized.ts",
+              "line": 221
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "com.anthropic.claude-code/hooks/register.ts",
+              "line": 581
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/workflows",
+          "score": 9,
+          "risk": 91,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 0,
+          "exceptions": [
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "com.anthropic.claude-code/workflows/extract-rules.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/workflows/extract-rules.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "com.anthropic.claude-code/workflows/harden-scan.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/workflows/harden-scan.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/workflows/portfolio-assess.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/workflows/reimagine-scaffold.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "com.anthropic.claude-code/workflows/uplift-deltas.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/workflows/uplift-migrate.js",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "YR4",
+              "severity": "HIGH",
+              "message": "YARA rule 'agent_skill_prompt_injection_hidden_instructions': Prompt injection or hidden instructions embedded in AI agent skill text [agent_skills]",
+              "file": "com.anthropic.claude-code/workflows/extract-rules.js",
+              "line": 210
+            },
+            {
+              "id": "P1",
+              "severity": "HIGH",
+              "message": "Instruction Override",
+              "file": "com.anthropic.claude-code/workflows/extract-rules.js",
+              "line": 214
+            },
+            {
+              "id": "P1",
+              "severity": "HIGH",
+              "message": "Instruction Override",
+              "file": "com.anthropic.claude-code/workflows/harden-scan.js",
+              "line": 38
+            },
+            {
+              "id": "P1",
+              "severity": "HIGH",
+              "message": "Instruction Override",
+              "file": "com.anthropic.claude-code/workflows/portfolio-assess.js",
+              "line": 36
+            },
+            {
+              "id": "P1",
+              "severity": "HIGH",
+              "message": "Instruction Override",
+              "file": "com.anthropic.claude-code/workflows/uplift-deltas.js",
+              "line": 39
+            },
+            {
+              "id": "YR4",
+              "severity": "HIGH",
+              "message": "YARA rule 'exploit_framework': Exploit framework components and payloads [hacktools]",
+              "file": "com.anthropic.claude-code/workflows/harden-scan.js",
+              "line": 40
+            },
+            {
+              "id": "YR4",
+              "severity": "HIGH",
+              "message": "YARA rule 'agent_skill_prompt_injection_hidden_instructions': Prompt injection or hidden instructions embedded in AI agent skill text [agent_skills]",
+              "file": "com.anthropic.claude-code/workflows/uplift-deltas.js",
+              "line": 39
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "scripts",
+          "score": 51,
+          "risk": 49,
+          "status": "caution",
+          "partial": true,
+          "coverage": 60,
+          "exceptions": [
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/build_report.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/telemetry.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/telemetry.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/uplift_checks.py",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "scripts/trace_rules.py",
+              "line": 211
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "scripts/proof_pack.py",
+              "line": 911
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "scripts/proof_pack.py",
+              "line": 912
+            },
+            {
+              "id": "TT2",
+              "severity": "MEDIUM",
+              "message": "Tainted flow: 'tmp' from os.environ.get (line 590, credential/environment) → open (file write)",
+              "file": "scripts/telemetry.py",
+              "line": 591
+            }
+          ],
+          "suppressed": []
+        }
+      ]
+    }
+  ],
+  "score": 9,
+  "status": "do not install",
   "tool": {
     "name": "skillspector",
-    "version": "2.12.0"
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-11-04T23:15:27Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
+    }
   },
   "agentStacks": {
     "version": "0.9.0"

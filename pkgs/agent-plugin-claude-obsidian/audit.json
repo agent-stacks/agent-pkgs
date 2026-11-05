@@ -7,12 +7,15 @@
   "plugins": [
     {
       "name": "claude-obsidian",
-      "dir": "/nix/store/s1q5fg7vycf07w8c311nrln4j4wv9nzd-agent-plugin-claude-obsidian-3.0.1/share/agent-plugins/claude-obsidian",
+      "dir": "/nix/store/b4a84sskx7r99ajgmmmszl5m3xq88n17-agent-plugin-claude-obsidian-3.0.1/share/agent-plugins/claude-obsidian",
       "spec": "1.1.0",
-      "score": 48,
+      "score": 0,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/hooks",
+          "scripts",
           "skills/autoresearch",
           "skills/canvas",
           "skills/defuddle",
@@ -36,18 +39,155 @@
           {
             "path": "bin/",
             "reason": "interpreter links into /nix/store"
-          },
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          },
-          {
-            "path": "scripts/",
-            "reason": "outside the spec"
           }
         ]
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "scripts",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 55.6,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/boundary-score.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/contextual-prefix.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/detect-transport.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/setup-dragonscale.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/setup-multi-agent.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/setup-retrieve.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/setup-vault.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/wiki-mode.py",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "OH1",
+              "severity": "HIGH",
+              "message": "Unvalidated Output Injection",
+              "file": "scripts/detect-transport.sh",
+              "line": 243
+            },
+            {
+              "id": "E2",
+              "severity": "HIGH",
+              "message": "Env Variable Harvesting",
+              "file": "scripts/detect-transport.sh",
+              "line": 249
+            },
+            {
+              "id": "EA5",
+              "severity": "HIGH",
+              "message": "External Model or Provider Selection",
+              "file": "scripts/wiki-lock.sh",
+              "line": 18
+            },
+            {
+              "id": "EA4",
+              "severity": "MEDIUM",
+              "message": "Unbounded Resource Access",
+              "file": "scripts/bm25-index.py",
+              "line": 820
+            },
+            {
+              "id": "EA4",
+              "severity": "MEDIUM",
+              "message": "Unbounded Resource Access",
+              "file": "scripts/contextual-prefix.py",
+              "line": 1641
+            },
+            {
+              "id": "EA4",
+              "severity": "MEDIUM",
+              "message": "Unbounded Resource Access",
+              "file": "scripts/rerank.py",
+              "line": 503
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "scripts/contextual-prefix.py",
+              "line": 149
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/wiki-mode.py",
+              "line": 7
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/wiki-mode.py",
+              "line": 8
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/wiki-mode.py",
+              "line": 9
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/autoresearch",
           "score": 93,
@@ -85,7 +225,8 @@
               "file": "skills/autoresearch/SKILL.md",
               "line": 1
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/canvas",
@@ -116,7 +257,8 @@
               "line": 125
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/defuddle",
@@ -147,7 +289,8 @@
               "line": 78
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/obsidian-bases",
@@ -183,7 +326,8 @@
               "line": 195
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/obsidian-markdown",
@@ -204,7 +348,8 @@
               "line": 28
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/save",
@@ -278,7 +423,8 @@
               "file": "skills/save/SKILL.md",
               "line": 1
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/think",
@@ -288,7 +434,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/wiki",
@@ -338,7 +485,8 @@
               "file": "skills/wiki/references/rest-api.md",
               "line": 16
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/wiki-cli",
@@ -364,7 +512,8 @@
               "line": 38
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/wiki-fold",
@@ -405,7 +554,8 @@
               "line": 87
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/wiki-ingest",
@@ -466,7 +616,8 @@
               "line": 150
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/wiki-lint",
@@ -482,7 +633,8 @@
               "line": 16
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/wiki-mode",
@@ -528,7 +680,8 @@
               "line": 104
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/wiki-query",
@@ -579,7 +732,8 @@
               "line": 85
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/wiki-retrieve",
@@ -630,12 +784,13 @@
               "line": 132
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 48,
+  "score": 0,
   "status": "do not install",
   "tool": {
     "name": "skillspector",
@@ -643,7 +798,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-21T18:41:44Z"
+      "checkedAt": "2026-11-04T23:15:48Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

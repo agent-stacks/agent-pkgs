@@ -7,9 +7,9 @@
   "plugins": [
     {
       "name": "twitter",
-      "dir": "/nix/store/vx6b1v4szchsn719db8ph02shvcs6imi-agent-plugin-twitter-1.0.0/share/agent-plugins/twitter",
+      "dir": "/nix/store/ygaz8lr6s9g4z1n6nfpil7swp81nak8x-agent-plugin-twitter-1.0.0/share/agent-plugins/twitter",
       "spec": "1.1.0",
-      "score": 85,
+      "score": 92,
       "status": "safe",
       "coverage": {
         "scanned": [
@@ -28,20 +28,13 @@
       "components": [
         {
           "path": "skills/twitter",
-          "score": 85,
-          "risk": 15,
+          "score": 92,
+          "risk": 8,
           "status": "safe",
           "partial": false,
           "coverage": 100,
           "exceptions": [],
           "findings": [
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/twitter/SKILL.md",
-              "line": 1
-            },
             {
               "id": "E1",
               "severity": "MEDIUM",
@@ -56,12 +49,22 @@
               "file": "skills/twitter/scripts/twitter_api.py",
               "line": 11
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/twitter/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
           ]
         }
       ]
     }
   ],
-  "score": 85,
+  "score": 92,
   "status": "safe",
   "tool": {
     "name": "skillspector",
@@ -69,7 +72,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T23:38:12Z"
+      "checkedAt": "2026-11-05T00:17:29Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

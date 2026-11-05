@@ -7,9 +7,9 @@
   "plugins": [
     {
       "name": "azure-sdk-python",
-      "dir": "/nix/store/fc22fk1h759hp9zhi32qrpmbmrnxccy0-agent-plugin-azure-sdk-python-1.0.0/share/agent-plugins/azure-sdk-python",
+      "dir": "/nix/store/rkmwns223qc9l4d8sqqizmrqxpkx37xd-agent-plugin-azure-sdk-python-1.0.0/share/agent-plugins/azure-sdk-python",
       "spec": "1.1.0",
-      "score": 0,
+      "score": 32,
       "status": "do not install",
       "coverage": {
         "scanned": [
@@ -116,7 +116,8 @@
               "file": "skills/agent-framework-azure-ai-py/references/mcp.md",
               "line": 176
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/azure-ai-contentsafety-py",
@@ -152,7 +153,8 @@
               "line": 235
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-ai-contentunderstanding-py",
@@ -193,7 +195,8 @@
               "line": 292
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-ai-language-conversations-py",
@@ -224,7 +227,8 @@
               "line": 56
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-ai-ml-py",
@@ -275,12 +279,13 @@
               "line": 294
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-ai-projects-py",
-          "score": 0,
-          "risk": 100,
+          "score": 32,
+          "risk": 68,
           "status": "do not install",
           "partial": true,
           "coverage": 66.7,
@@ -363,34 +368,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/azure-ai-projects-py/SKILL.md",
-              "line": 161
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/azure-ai-projects-py/SKILL.md",
-              "line": 307
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/azure-ai-projects-py/SKILL.md",
-              "line": 309
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/azure-ai-projects-py/SKILL.md",
-              "line": 315
-            },
-            {
               "id": "AR1",
               "severity": "HIGH",
               "message": "Anti-Refusal Statement",
@@ -403,13 +380,6 @@
               "message": "Credential Access",
               "file": "skills/azure-ai-projects-py/references/connections.md",
               "line": 72
-            },
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/azure-ai-projects-py/SKILL.md",
-              "line": 1
             },
             {
               "id": "RA2",
@@ -453,6 +423,48 @@
               "file": "skills/azure-ai-projects-py/references/tools.md",
               "line": 177
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/azure-ai-projects-py/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/azure-ai-projects-py/SKILL.md",
+              "line": 161,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/azure-ai-projects-py/SKILL.md",
+              "line": 307,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/azure-ai-projects-py/SKILL.md",
+              "line": 309,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/azure-ai-projects-py/SKILL.md",
+              "line": 315,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
@@ -484,7 +496,8 @@
               "line": 249
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-ai-transcription-py",
@@ -515,7 +528,8 @@
               "line": 96
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-ai-translation-document-py",
@@ -566,7 +580,8 @@
               "line": 284
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-ai-translation-text-py",
@@ -597,7 +612,8 @@
               "line": 293
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-ai-vision-imageanalysis-py",
@@ -633,13 +649,14 @@
               "line": 286
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-ai-voicelive-py",
-          "score": 75,
-          "risk": 25,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
           "partial": true,
           "coverage": 75,
           "exceptions": [
@@ -744,13 +761,15 @@
               "line": 0
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/azure-ai-voicelive-py/SKILL.md",
-              "line": 339
+              "line": 339,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -788,7 +807,8 @@
               "line": 251
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-containerregistry-py",
@@ -824,12 +844,13 @@
               "line": 268
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-cosmos-db-py",
-          "score": 65,
-          "risk": 35,
+          "score": 72,
+          "risk": 28,
           "status": "caution",
           "partial": true,
           "coverage": 100,
@@ -874,13 +895,6 @@
               "line": 172
             },
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/azure-cosmos-db-py/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "TM3",
               "severity": "MEDIUM",
               "message": "Unsafe Defaults",
@@ -908,13 +922,23 @@
               "file": "skills/azure-cosmos-db-py/references/client-setup.md",
               "line": 32
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/azure-cosmos-db-py/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
           ]
         },
         {
           "path": "skills/azure-cosmos-py",
-          "score": 75,
-          "risk": 25,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
           "partial": true,
           "coverage": 66.7,
           "exceptions": [
@@ -949,13 +973,15 @@
               "line": 0
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/azure-cosmos-py/SKILL.md",
-              "line": 305
+              "line": 305,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -988,7 +1014,8 @@
               "line": 263
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-eventgrid-py",
@@ -1059,13 +1086,14 @@
               "line": 188
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-eventhub-py",
-          "score": 42,
-          "risk": 58,
-          "status": "do not install",
+          "score": 74,
+          "risk": 26,
+          "status": "caution",
           "partial": true,
           "coverage": 75,
           "exceptions": [
@@ -1097,25 +1125,29 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/azure-eventhub-py/SKILL.md",
-              "line": 260
-            },
-            {
               "id": "YR4",
               "severity": "HIGH",
               "message": "YARA rule 'agent_skill_mcp_tool_poisoning_metadata': MCP/tool metadata poisoning indicators in tool schemas or skill manifests [agent_skills]",
               "file": "skills/azure-eventhub-py/scripts/setup_consumer.py",
               "line": 268
-            },
+            }
+          ],
+          "suppressed": [
             {
               "id": "LP3",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/azure-eventhub-py/SKILL.md",
-              "line": 1
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/azure-eventhub-py/SKILL.md",
+              "line": 260,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -1173,7 +1205,8 @@
               "line": 518
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-keyvault-py",
@@ -1204,7 +1237,8 @@
               "line": 266
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-messaging-webpubsubservice-py",
@@ -1255,7 +1289,8 @@
               "file": "skills/azure-messaging-webpubsubservice-py/references/non-hero-scenarios.md",
               "line": 78
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/azure-mgmt-apicenter-py",
@@ -1291,7 +1326,8 @@
               "line": 273
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-mgmt-apimanagement-py",
@@ -1327,7 +1363,8 @@
               "line": 292
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-mgmt-botservice-py",
@@ -1383,7 +1420,8 @@
               "line": 337
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-mgmt-fabric-py",
@@ -1419,7 +1457,8 @@
               "line": 274
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-monitor-ingestion-py",
@@ -1455,7 +1494,8 @@
               "line": 223
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-monitor-opentelemetry-exporter-py",
@@ -1476,7 +1516,8 @@
               "line": 232
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-monitor-opentelemetry-py",
@@ -1502,7 +1543,8 @@
               "line": 256
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-monitor-query-py",
@@ -1533,12 +1575,13 @@
               "line": 261
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-search-documents-py",
-          "score": 93,
-          "risk": 7,
+          "score": 100,
+          "risk": 0,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -1599,20 +1642,22 @@
               "line": 534
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "LP3",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/azure-search-documents-py/SKILL.md",
-              "line": 1
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
         {
           "path": "skills/azure-servicebus-py",
-          "score": 93,
-          "risk": 7,
+          "score": 100,
+          "risk": 0,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -1638,13 +1683,15 @@
               "line": 276
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "LP3",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/azure-servicebus-py/SKILL.md",
-              "line": 1
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
@@ -1692,7 +1739,8 @@
               "file": "skills/azure-speech-to-text-rest-py/SKILL.md",
               "line": 373
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/azure-storage-blob-py",
@@ -1811,7 +1859,8 @@
               "file": "skills/azure-storage-blob-py/references/non-hero-scenarios.md",
               "line": 37
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/azure-storage-file-datalake-py",
@@ -1867,7 +1916,8 @@
               "line": 227
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/azure-storage-file-share-py",
@@ -1964,7 +2014,8 @@
               "file": "skills/azure-storage-file-share-py/references/non-hero-scenarios.md",
               "line": 36
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/azure-storage-queue-py",
@@ -1995,13 +2046,14 @@
               "line": 231
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/fastapi-router-py",
-          "score": 75,
-          "risk": 25,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
           "partial": true,
           "coverage": 66.7,
           "exceptions": [
@@ -2026,13 +2078,15 @@
               "line": 0
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/fastapi-router-py/SKILL.md",
-              "line": 16
+              "line": 16,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -2075,13 +2129,14 @@
               "file": "skills/m365-agents-py/references/capabilities.md",
               "line": 35
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/pydantic-models-py",
-          "score": 75,
-          "risk": 25,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
           "partial": true,
           "coverage": 66.7,
           "exceptions": [
@@ -2106,20 +2161,22 @@
               "line": 0
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/pydantic-models-py/SKILL.md",
-              "line": 16
+              "line": 16,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         }
       ]
     }
   ],
-  "score": 0,
+  "score": 32,
   "status": "do not install",
   "tool": {
     "name": "skillspector",
@@ -2127,7 +2184,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:17:45Z"
+      "checkedAt": "2026-11-04T23:10:45Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

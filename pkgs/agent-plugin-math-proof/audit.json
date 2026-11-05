@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "math-proof",
-      "dir": "/nix/store/lx0isvzh5adimlyrn6wb0nm1y5i18i7y-agent-plugin-math-proof-0.0.0-unstable.2026-10-19.ga0b04d9/share/agent-plugins/math-proof",
+      "dir": "/nix/store/bhbbyd45vaiy34f70qg8aimc8m0jc19l-agent-plugin-math-proof-0.0.0-unstable.2026-11-03.gfa4eb54/share/agent-plugins/math-proof",
       "spec": "1.1.0",
-      "score": 45,
-      "status": "do not install",
+      "score": 70,
+      "status": "caution",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
           "skills/siege",
           "skills/solo"
         ],
@@ -23,19 +24,26 @@
           {
             "path": "bin/",
             "reason": "interpreter links into /nix/store"
-          },
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
           }
         ]
       },
       "components": [
         {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
           "path": "skills/siege",
-          "score": 45,
-          "risk": 55,
-          "status": "do not install",
+          "score": 70,
+          "risk": 30,
+          "status": "caution",
           "partial": true,
           "coverage": 0,
           "exceptions": [
@@ -414,25 +422,28 @@
               "line": 31
             },
             {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/siege/SKILL.md",
+              "line": 7
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/siege/SKILL.md",
+              "line": 7
+            }
+          ],
+          "suppressed": [
+            {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/siege/SKILL.md",
-              "line": 71
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "skills/siege/SKILL.md",
-              "line": 7
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "skills/siege/SKILL.md",
-              "line": 7
+              "line": 71,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -510,20 +521,24 @@
               "line": 68
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 45,
-  "status": "do not install",
+  "score": 70,
+  "status": "caution",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-20T04:36:21Z"
+      "checkedAt": "2026-11-05T00:03:25Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

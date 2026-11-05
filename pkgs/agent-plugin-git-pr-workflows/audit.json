@@ -1,13 +1,93 @@
 {
   "target": "./result",
-  "audited": false,
-  "score": null,
-  "status": "could not audit",
-  "reason": "nothing to audit",
-  "hints": [],
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "git-pr-workflows",
+      "dir": "/nix/store/8q3mz57pcm0z5gppi4zfq7vms3qmqp1f-agent-plugin-git-pr-workflows-1.3.2/share/agent-plugins/git-pr-workflows",
+      "spec": "1.1.0",
+      "score": 70,
+      "status": "caution",
+      "coverage": {
+        "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/commands"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": []
+      },
+      "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 70,
+          "risk": 30,
+          "status": "caution",
+          "partial": true,
+          "coverage": 66.7,
+          "exceptions": [
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "com.anthropic.claude-code/commands/pr-enhance.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "com.anthropic.claude-code/commands/git-workflow.md",
+              "line": 3
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "com.anthropic.claude-code/commands/git-workflow.md",
+              "line": 177
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "com.anthropic.claude-code/commands/git-workflow.md",
+              "line": 190
+            }
+          ],
+          "suppressed": []
+        }
+      ]
+    }
+  ],
+  "score": 70,
+  "status": "caution",
   "tool": {
     "name": "skillspector",
-    "version": "2.12.0"
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-11-04T23:20:22Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
+    }
   },
   "agentStacks": {
     "version": "0.9.0"

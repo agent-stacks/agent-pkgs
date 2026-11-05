@@ -7,12 +7,14 @@
   "plugins": [
     {
       "name": "incident-response",
-      "dir": "/nix/store/jxhfkik3fgp6ng6v77nmibdw1akql8vk-agent-plugin-incident-response-1.4.0/share/agent-plugins/incident-response",
+      "dir": "/nix/store/pb7xfhgc2x27h7qndki8y1cl5wv4vlw0-agent-plugin-incident-response-1.4.1/share/agent-plugins/incident-response",
       "spec": "1.1.0",
       "score": 59,
       "status": "caution",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/commands",
           "skills/connectivity-triage",
           "skills/incident-runbook-templates",
           "skills/on-call-handoff-patterns",
@@ -21,14 +23,31 @@
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/connectivity-triage",
           "score": 100,
@@ -37,7 +56,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/incident-runbook-templates",
@@ -118,7 +138,8 @@
               "file": "skills/incident-runbook-templates/references/details.md",
               "line": 200
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/on-call-handoff-patterns",
@@ -128,7 +149,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/postmortem-writing",
@@ -138,7 +160,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
@@ -151,7 +174,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:24:20Z"
+      "checkedAt": "2026-11-04T23:45:45Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

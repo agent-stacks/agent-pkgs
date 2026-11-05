@@ -7,10 +7,10 @@
   "plugins": [
     {
       "name": "airtable",
-      "dir": "/nix/store/z02l5gx7h8bg1gmhq98914gay3mg8y6n-agent-plugin-airtable-0.1.0/share/agent-plugins/airtable",
+      "dir": "/nix/store/9nbx6g4axvxrh3y2hrmdnf92fd556r51-agent-plugin-airtable-0.1.0/share/agent-plugins/airtable",
       "spec": "1.1.0",
-      "score": 49,
-      "status": "do not install",
+      "score": 83,
+      "status": "incomplete",
       "coverage": {
         "scanned": [
           "skills/agent-activity-log",
@@ -42,7 +42,8 @@
               "line": 6
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/airtable-cli",
@@ -66,12 +67,13 @@
               "file": "skills/airtable-cli/SKILL.md",
               "line": 32
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/airtable-filters",
-          "score": 88,
-          "risk": 12,
+          "score": 100,
+          "risk": 0,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -82,69 +84,79 @@
               "line": 6
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/airtable-filters/SKILL.md",
-              "line": 37
+              "line": 37,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/airtable-filters/SKILL.md",
-              "line": 41
+              "line": 41,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/airtable-filters/SKILL.md",
-              "line": 42
+              "line": 42,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/airtable-filters/SKILL.md",
-              "line": 43
+              "line": 43,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/airtable-filters/SKILL.md",
-              "line": 44
+              "line": 44,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/airtable-filters/SKILL.md",
-              "line": 47
+              "line": 47,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/airtable-filters/SKILL.md",
-              "line": 48
+              "line": 48,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/airtable-filters/SKILL.md",
-              "line": 49
+              "line": 49,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/airtable-filters/SKILL.md",
-              "line": 50
+              "line": 50,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             }
           ]
         },
@@ -162,7 +174,8 @@
               "line": 6
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/marketing-ops",
@@ -196,13 +209,14 @@
               "file": "skills/marketing-ops/references/sub-workflows.md",
               "line": 21
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/product-ops",
-          "score": 75,
-          "risk": 25,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
           "partial": true,
           "coverage": 75,
           "exceptions": [
@@ -227,21 +241,23 @@
               "line": 0
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/product-ops/SKILL.md",
-              "line": 63
+              "line": 63,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
         {
           "path": "skills/sales-ops",
-          "score": 49,
-          "risk": 51,
-          "status": "do not install",
+          "score": 86,
+          "risk": 14,
+          "status": "incomplete",
           "partial": true,
           "coverage": 83.3,
           "exceptions": [
@@ -257,20 +273,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/sales-ops/SKILL.md",
-              "line": 106
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/sales-ops/SKILL.md",
-              "line": 125
-            },
             {
               "id": "EA2",
               "severity": "MEDIUM",
@@ -292,6 +294,24 @@
               "file": "skills/sales-ops/references/vertical-shapes.md",
               "line": 348
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/sales-ops/SKILL.md",
+              "line": 106,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/sales-ops/SKILL.md",
+              "line": 125,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
@@ -308,20 +328,24 @@
               "line": 6
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 49,
-  "status": "do not install",
+  "score": 83,
+  "status": "incomplete",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:14:15Z"
+      "checkedAt": "2026-11-04T23:05:48Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

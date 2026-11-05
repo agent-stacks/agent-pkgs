@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "pup",
-      "dir": "/nix/store/v5254cc0j3qavv63aswqckbn18lgkjwq-agent-plugin-pup-2.3.10/share/agent-plugins/pup",
+      "dir": "/nix/store/606ipnfnw8zr11dpkx0rmx86fbcgw11n-agent-plugin-pup-2.4.1/share/agent-plugins/pup",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
           "skills/dd-apm",
           "skills/dd-code-generation",
           "skills/dd-debugger",
@@ -34,14 +35,494 @@
           {
             "path": "bin/",
             "reason": "interpreter links into /nix/store"
-          },
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
           }
         ]
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 89.8,
+          "exceptions": [
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "com.anthropic.claude-code/agents/app-builder.md",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "com.anthropic.claude-code/agents/application-security.md",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "com.anthropic.claude-code/agents/audit-logs.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/agents/azure-integration.md",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "com.anthropic.claude-code/agents/data-deletion.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/agents/data-deletion.md",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "com.anthropic.claude-code/agents/fleet-automation.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "MP3",
+              "severity": "HIGH",
+              "message": "Memory Manipulation",
+              "file": "com.anthropic.claude-code/agents/_templates/EXAMPLE_logs_refactored.md",
+              "line": 135
+            },
+            {
+              "id": "MP3",
+              "severity": "HIGH",
+              "message": "Memory Manipulation",
+              "file": "com.anthropic.claude-code/agents/logs.md",
+              "line": 165
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "com.anthropic.claude-code/agents/application-security.md",
+              "line": 116
+            },
+            {
+              "id": "AR3",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "com.anthropic.claude-code/agents/application-security.md",
+              "line": 188
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "com.anthropic.claude-code/agents/application-security.md",
+              "line": 261
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "com.anthropic.claude-code/agents/cloud-cost.md",
+              "line": 309
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/agents/application-security.md",
+              "line": 498
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/agents/cloud-workload-security.md",
+              "line": 224
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/agents/cloud-workload-security.md",
+              "line": 547
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "com.anthropic.claude-code/agents/audience-management.md",
+              "line": 379
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "com.anthropic.claude-code/agents/audience-management.md",
+              "line": 383
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/agents/cloud-workload-security.md",
+              "line": 224
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/agents/cloud-workload-security.md",
+              "line": 547
+            },
+            {
+              "id": "YR3",
+              "severity": "HIGH",
+              "message": "YARA rule 'crypto_miner_software': References to known cryptocurrency mining software [cryptominers]",
+              "file": "com.anthropic.claude-code/agents/cloud-workload-security.md",
+              "line": 258
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "com.anthropic.claude-code/agents/cloud-workload-security.md",
+              "line": 397
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/agents/observability-pipelines.md",
+              "line": 316
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/agents/observability-pipelines.md",
+              "line": 602
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/agents/service-catalog.md",
+              "line": 126
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "com.anthropic.claude-code/agents/agentless-scanning.md",
+              "line": 73
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "com.anthropic.claude-code/agents/agentless-scanning.md",
+              "line": 750
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "com.anthropic.claude-code/agents/agentless-scanning.md",
+              "line": 815
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "com.anthropic.claude-code/agents/agentless-scanning.md",
+              "line": 1226
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "com.anthropic.claude-code/agents/audit-logs.md",
+              "line": 479
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "com.anthropic.claude-code/agents/audit-logs.md",
+              "line": 698
+            },
+            {
+              "id": "P4",
+              "severity": "MEDIUM",
+              "message": "Behavior Manipulation",
+              "file": "com.anthropic.claude-code/agents/aws-integration.md",
+              "line": 367
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "com.anthropic.claude-code/agents/cloud-workload-security.md",
+              "line": 576
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "com.anthropic.claude-code/agents/data-deletion.md",
+              "line": 79
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "com.anthropic.claude-code/agents/data-deletion.md",
+              "line": 639
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "com.anthropic.claude-code/agents/data-deletion.md",
+              "line": 1115
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "com.anthropic.claude-code/agents/data-governance.md",
+              "line": 120
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "com.anthropic.claude-code/agents/governance.md",
+              "line": 55
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "com.anthropic.claude-code/agents/service-catalog.md",
+              "line": 79
+            },
+            {
+              "id": "AE4",
+              "severity": "MEDIUM",
+              "message": "analysis-evasion",
+              "file": "com.anthropic.claude-code/agents/network-performance.md",
+              "line": 1
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/agents/notebooks.md",
+              "line": 20
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/agents/notebooks.md",
+              "line": 174
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/agents/notebooks.md",
+              "line": 322
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/agents/notebooks.md",
+              "line": 332
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/agents/notebooks.md",
+              "line": 589
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/agents/notebooks.md",
+              "line": 621
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/agents/notebooks.md",
+              "line": 631
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/agents/notebooks.md",
+              "line": 702
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/agents/notebooks.md",
+              "line": 729
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/agents/powerpacks.md",
+              "line": 237
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/agents/powerpacks.md",
+              "line": 527
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/agents/powerpacks.md",
+              "line": 667
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/agents/powerpacks.md",
+              "line": 682
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/agents/powerpacks.md",
+              "line": 765
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "com.anthropic.claude-code/agents/observability-pipelines.md",
+              "line": 115
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "com.anthropic.claude-code/agents/observability-pipelines.md",
+              "line": 115
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "com.anthropic.claude-code/agents/observability-pipelines.md",
+              "line": 120
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "com.anthropic.claude-code/agents/observability-pipelines.md",
+              "line": 131
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "com.anthropic.claude-code/agents/observability-pipelines.md",
+              "line": 140
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "com.anthropic.claude-code/agents/observability-pipelines.md",
+              "line": 191
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "com.anthropic.claude-code/agents/observability-pipelines.md",
+              "line": 215
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "com.anthropic.claude-code/agents/observability-pipelines.md",
+              "line": 239
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "com.anthropic.claude-code/agents/service-catalog.md",
+              "line": 79
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "com.anthropic.claude-code/agents/synthetics.md",
+              "line": 192
+            },
+            {
+              "id": "PE1",
+              "severity": "LOW",
+              "message": "Excessive Permissions",
+              "file": "com.anthropic.claude-code/agents/agentless-scanning.md",
+              "line": 46
+            },
+            {
+              "id": "PE1",
+              "severity": "LOW",
+              "message": "Excessive Permissions",
+              "file": "com.anthropic.claude-code/agents/data-deletion.md",
+              "line": 42
+            },
+            {
+              "id": "PE1",
+              "severity": "LOW",
+              "message": "Excessive Permissions",
+              "file": "com.anthropic.claude-code/agents/data-governance.md",
+              "line": 75
+            },
+            {
+              "id": "PE1",
+              "severity": "LOW",
+              "message": "Excessive Permissions",
+              "file": "com.anthropic.claude-code/agents/agentless-scanning.md",
+              "line": 1127
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "com.anthropic.claude-code/agents/aws-integration.md",
+              "line": 92,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            }
+          ]
+        },
         {
           "path": "skills/dd-apm",
           "score": 100,
@@ -76,7 +557,8 @@
               "line": 128
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/dd-code-generation",
@@ -127,7 +609,8 @@
               "line": 479
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/dd-debugger",
@@ -221,7 +704,8 @@
               "file": "skills/dd-debugger/SKILL.md",
               "line": 149
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/dd-docs",
@@ -242,7 +726,8 @@
               "line": 5
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/dd-file-issue",
@@ -268,13 +753,14 @@
               "line": 268
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/dd-idp",
-          "score": 57,
-          "risk": 43,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
           "partial": true,
           "coverage": 75,
           "exceptions": [
@@ -294,27 +780,31 @@
               "line": 0
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/dd-idp/SKILL.md",
-              "line": 76
+              "line": 76,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/dd-idp/SKILL.md",
-              "line": 82
+              "line": 82,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/dd-idp/SKILL.md",
-              "line": 100
+              "line": 100,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -337,7 +827,8 @@
               "line": 110
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/dd-monitors",
@@ -353,7 +844,8 @@
               "line": 5
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/dd-pup",
@@ -371,12 +863,22 @@
             {
               "reason": "reference_missing",
               "path": "skills/dd-pup/SKILL.md",
-              "line": 198
+              "line": 196
             },
             {
               "reason": "reference_missing",
               "path": "skills/dd-pup/SKILL.md",
-              "line": 204
+              "line": 202
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dd-pup/SKILL.md",
+              "line": 319
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dd-pup/SKILL.md",
+              "line": 320
             },
             {
               "reason": "reference_missing",
@@ -397,19 +899,10 @@
               "reason": "reference_missing",
               "path": "skills/dd-pup/SKILL.md",
               "line": 324
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/dd-pup/SKILL.md",
-              "line": 325
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/dd-pup/SKILL.md",
-              "line": 326
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/dd-symdb",
@@ -435,7 +928,8 @@
               "line": 66
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/dd-triage-flaky-test",
@@ -466,7 +960,8 @@
               "line": 157
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/dd-unblock-pr",
@@ -482,7 +977,8 @@
               "line": 5
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/pup",
@@ -490,7 +986,7 @@
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 80.5,
+          "coverage": 81.3,
           "exceptions": [
             {
               "reason": "static_parse_limit",
@@ -509,21 +1005,11 @@
             },
             {
               "reason": "obfuscated_instruction_text",
-              "path": "skills/pup/agents/api-management.md",
-              "line": 0
-            },
-            {
-              "reason": "obfuscated_instruction_text",
               "path": "skills/pup/agents/app-builder.md",
               "line": 0
             },
             {
               "reason": "obfuscated_instruction_text",
-              "path": "skills/pup/agents/application-security.md",
-              "line": 0
-            },
-            {
-              "reason": "static_parse_limit",
               "path": "skills/pup/agents/application-security.md",
               "line": 0
             },
@@ -550,21 +1036,6 @@
             {
               "reason": "obfuscated_instruction_text",
               "path": "skills/pup/agents/fleet-automation.md",
-              "line": 0
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/pup/agents/log-configuration.md",
-              "line": 0
-            },
-            {
-              "reason": "obfuscated_instruction_text",
-              "path": "skills/pup/agents/monitoring-alerting.md",
-              "line": 0
-            },
-            {
-              "reason": "obfuscated_instruction_text",
-              "path": "skills/pup/agents/powerpacks.md",
               "line": 0
             },
             {
@@ -608,11 +1079,6 @@
               "line": 0
             },
             {
-              "reason": "runtime_limit",
-              "path": "skills/pup/skills/extensions/dd-pup-pi",
-              "line": 0
-            },
-            {
               "reason": "static_parse_limit",
               "path": "skills/pup/skills/extensions/dd-pup-pi/index.ts",
               "line": 0
@@ -625,6 +1091,11 @@
             {
               "reason": "static_parse_limit",
               "path": "skills/pup/src/client.rs",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "skills/pup/src/commands",
               "line": 0
             },
             {
@@ -680,6 +1151,11 @@
             {
               "reason": "obfuscated_instruction_text",
               "path": "skills/pup/src/commands/experiments.rs",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/pup/src/commands/governance.rs",
               "line": 0
             },
             {
@@ -739,6 +1215,11 @@
             },
             {
               "reason": "static_parse_limit",
+              "path": "skills/pup/src/commands/statuspage.rs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
               "path": "skills/pup/src/commands/workflows.rs",
               "line": 0
             },
@@ -778,8 +1259,18 @@
               "line": 0
             },
             {
+              "reason": "static_parse_limit",
+              "path": "skills/pup/src/skills.rs",
+              "line": 0
+            },
+            {
               "reason": "obfuscated_instruction_text",
               "path": "skills/pup/src/test_commands.rs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/pup/src/tunnel.rs",
               "line": 0
             },
             {
@@ -806,21 +1297,21 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/pup/README.md",
-              "line": 269
+              "line": 281
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/pup/README.md",
-              "line": 341
+              "line": 353
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/pup/README.md",
-              "line": 390
+              "line": 402
             },
             {
               "id": "PE3",
@@ -918,49 +1409,49 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/pup/src/main.rs",
-              "line": 565
+              "line": 566
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/pup/src/main.rs",
-              "line": 594
+              "line": 595
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/pup/src/main.rs",
-              "line": 12890
+              "line": 13479
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/pup/src/main.rs",
-              "line": 12893
+              "line": 13482
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/pup/src/main.rs",
-              "line": 15633
+              "line": 16377
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/pup/src/settings.rs",
-              "line": 596
+              "line": 607
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/pup/src/settings.rs",
-              "line": 653
+              "line": 664
             },
             {
               "id": "PE3",
@@ -1317,7 +1808,7 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/pup/README.md",
-              "line": 361
+              "line": 373
             },
             {
               "id": "PE3",
@@ -1926,21 +2417,21 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/pup/src/settings.rs",
-              "line": 653
+              "line": 664
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/pup/src/settings.rs",
-              "line": 2154
+              "line": 2165
             },
             {
               "id": "TM2",
               "severity": "HIGH",
               "message": "Chaining Abuse",
               "file": "skills/pup/README.md",
-              "line": 198
+              "line": 210
             },
             {
               "id": "TM2",
@@ -1954,14 +2445,14 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/pup/README.md",
-              "line": 315
+              "line": 327
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/pup/agents/service-catalog.md",
-              "line": 127
+              "line": 126
             },
             {
               "id": "PE3",
@@ -1982,7 +2473,7 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/pup/src/main.rs",
-              "line": 542
+              "line": 543
             },
             {
               "id": "MP3",
@@ -1996,56 +2487,56 @@
               "severity": "HIGH",
               "message": "Memory Manipulation",
               "file": "skills/pup/agents/logs.md",
-              "line": 167
+              "line": 165
             },
             {
               "id": "TM1",
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
               "file": "skills/pup/agents/application-security.md",
-              "line": 117
+              "line": 116
             },
             {
               "id": "AR3",
               "severity": "HIGH",
               "message": "Anti-Refusal Statement",
               "file": "skills/pup/agents/application-security.md",
-              "line": 190
+              "line": 188
             },
             {
               "id": "P6",
               "severity": "HIGH",
               "message": "Direct Prompt Extraction",
               "file": "skills/pup/agents/application-security.md",
-              "line": 264
+              "line": 261
             },
             {
               "id": "P6",
               "severity": "HIGH",
               "message": "Direct Prompt Extraction",
               "file": "skills/pup/agents/cloud-cost.md",
-              "line": 421
+              "line": 309
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/pup/agents/application-security.md",
-              "line": 504
+              "line": 498
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/pup/agents/cloud-workload-security.md",
-              "line": 265
+              "line": 224
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/pup/agents/cloud-workload-security.md",
-              "line": 612
+              "line": 547
             },
             {
               "id": "TM1",
@@ -2066,35 +2557,28 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/pup/agents/cloud-workload-security.md",
-              "line": 77
+              "line": 224
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/pup/agents/cloud-workload-security.md",
-              "line": 265
-            },
-            {
-              "id": "PE3",
-              "severity": "HIGH",
-              "message": "Credential Access",
-              "file": "skills/pup/agents/cloud-workload-security.md",
-              "line": 612
+              "line": 547
             },
             {
               "id": "YR3",
               "severity": "HIGH",
               "message": "YARA rule 'crypto_miner_software': References to known cryptocurrency mining software [cryptominers]",
               "file": "skills/pup/agents/cloud-workload-security.md",
-              "line": 299
+              "line": 258
             },
             {
               "id": "P6",
               "severity": "HIGH",
               "message": "Direct Prompt Extraction",
               "file": "skills/pup/agents/cloud-workload-security.md",
-              "line": 439
+              "line": 397
             },
             {
               "id": "PE3",
@@ -2395,7 +2879,7 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/pup/src/settings.rs",
-              "line": 2466
+              "line": 2477
             },
             {
               "id": "SC2",
@@ -2430,7 +2914,7 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/pup/src/settings.rs",
-              "line": 696
+              "line": 707
             },
             {
               "id": "AR2",
@@ -2451,35 +2935,35 @@
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
               "file": "skills/pup/src/main.rs",
-              "line": 682
+              "line": 683
             },
             {
               "id": "TM1",
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
               "file": "skills/pup/src/main.rs",
-              "line": 1431
+              "line": 1432
             },
             {
               "id": "TM1",
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
               "file": "skills/pup/src/main.rs",
-              "line": 2059
+              "line": 2078
             },
             {
               "id": "TM1",
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
               "file": "skills/pup/src/main.rs",
-              "line": 12334
+              "line": 12845
             },
             {
               "id": "EA5",
               "severity": "HIGH",
               "message": "External Model or Provider Selection",
               "file": "skills/pup/src/main.rs",
-              "line": 1930
+              "line": 1949
             },
             {
               "id": "RA2",
@@ -2491,44 +2975,65 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/pup/README.md",
-              "line": 224
+              "line": 236
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/pup/README.md",
-              "line": 225
+              "line": 237
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/pup/npm/pup/README.md",
               "line": 10
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/pup/npm/pup/README.md",
               "line": 11
             },
             {
-              "id": "EA2",
+              "id": "RP1",
               "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "skills/pup/README.md",
-              "line": 490
+              "message": "MCP Rug Pull",
+              "file": "skills/pup/npm/pup/README.md",
+              "line": 26
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/pup/npm/pup/README.md",
+              "line": 27
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/pup/npm/pup/README.md",
+              "line": 28
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/README.md",
-              "line": 545
+              "line": 502
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/pup/README.md",
+              "line": 557
             },
             {
               "id": "EA2",
@@ -2542,7 +3047,7 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/docs/COMMANDS.md",
-              "line": 298
+              "line": 302
             },
             {
               "id": "EA2",
@@ -2556,28 +3061,28 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/main.rs",
-              "line": 13058
+              "line": 13647
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/README.md",
-              "line": 499
+              "line": 511
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/README.md",
-              "line": 549
+              "line": 561
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/agents/service-catalog.md",
-              "line": 80
+              "line": 79
             },
             {
               "id": "EA2",
@@ -2675,49 +3180,49 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/settings.rs",
-              "line": 1860
+              "line": 1871
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/settings.rs",
-              "line": 1861
+              "line": 1872
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/settings.rs",
-              "line": 1862
+              "line": 1873
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/settings.rs",
-              "line": 1889
+              "line": 1900
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/settings.rs",
-              "line": 1891
+              "line": 1902
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/settings.rs",
-              "line": 1897
+              "line": 1908
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/README.md",
-              "line": 499
+              "line": 511
             },
             {
               "id": "EA2",
@@ -2731,7 +3236,7 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/main.rs",
-              "line": 56
+              "line": 57
             },
             {
               "id": "EA2",
@@ -2745,21 +3250,28 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/README.md",
-              "line": 535
+              "line": 547
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/README.md",
-              "line": 549
+              "line": 561
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/pup/agents/governance.md",
+              "line": 55
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/agents/service-catalog.md",
-              "line": 80
+              "line": 79
             },
             {
               "id": "EA2",
@@ -2767,6 +3279,13 @@
               "message": "Autonomous Decision Making",
               "file": "skills/pup/docs/ARCHITECTURE.md",
               "line": 167
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/pup/docs/EXAMPLES.md",
+              "line": 1665
             },
             {
               "id": "EA2",
@@ -2787,14 +3306,14 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/docs/LLM_GUIDE.md",
-              "line": 313
+              "line": 314
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/docs/LLM_GUIDE.md",
-              "line": 344
+              "line": 345
             },
             {
               "id": "EA2",
@@ -2822,7 +3341,7 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/main.rs",
-              "line": 13058
+              "line": 13647
             },
             {
               "id": "EA2",
@@ -2850,21 +3369,14 @@
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/pup/README.md",
-              "line": 545
+              "line": 557
             },
             {
               "id": "AS3",
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
               "file": "skills/pup/README.md",
-              "line": 666
-            },
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/pup/SKILL.md",
-              "line": 1
+              "line": 678
             },
             {
               "id": "E1",
@@ -2913,14 +3425,14 @@
               "severity": "MEDIUM",
               "message": "Behavior Manipulation",
               "file": "skills/pup/agents/aws-integration.md",
-              "line": 626
+              "line": 367
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/pup/agents/cloud-workload-security.md",
-              "line": 641
+              "line": 576
             },
             {
               "id": "E1",
@@ -2951,30 +3463,9 @@
               "line": 120
             },
             {
-              "id": "E1",
-              "severity": "MEDIUM",
-              "message": "External Transmission",
-              "file": "skills/pup/agents/log-configuration.md",
-              "line": 374
-            },
-            {
-              "id": "E1",
-              "severity": "MEDIUM",
-              "message": "External Transmission",
-              "file": "skills/pup/agents/monitoring-alerting.md",
-              "line": 649
-            },
-            {
-              "id": "E1",
-              "severity": "MEDIUM",
-              "message": "External Transmission",
-              "file": "skills/pup/agents/synthetics.md",
-              "line": 197
-            },
-            {
               "id": "AE4",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "analysis-evasion",
               "file": "skills/pup/agents/network-performance.md",
               "line": 1
             },
@@ -2983,105 +3474,98 @@
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/pup/agents/notebooks.md",
-              "line": 21
+              "line": 20
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/pup/agents/notebooks.md",
-              "line": 166
+              "line": 174
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/pup/agents/notebooks.md",
-              "line": 298
+              "line": 322
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/pup/agents/notebooks.md",
-              "line": 308
+              "line": 332
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/pup/agents/notebooks.md",
-              "line": 548
+              "line": 589
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/pup/agents/notebooks.md",
-              "line": 649
+              "line": 621
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/pup/agents/notebooks.md",
-              "line": 681
+              "line": 631
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/pup/agents/notebooks.md",
-              "line": 691
+              "line": 702
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/pup/agents/notebooks.md",
-              "line": 762
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "skills/pup/agents/notebooks.md",
-              "line": 789
+              "line": 729
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/pup/agents/powerpacks.md",
-              "line": 291
+              "line": 237
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/pup/agents/powerpacks.md",
-              "line": 581
+              "line": 527
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/pup/agents/powerpacks.md",
-              "line": 722
+              "line": 667
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/pup/agents/powerpacks.md",
-              "line": 737
+              "line": 682
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/pup/agents/powerpacks.md",
-              "line": 820
+              "line": 765
             },
             {
               "id": "RA2",
@@ -3137,7 +3621,7 @@
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/pup/src/main.rs",
-              "line": 1057
+              "line": 1058
             },
             {
               "id": "E1",
@@ -3298,7 +3782,14 @@
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/pup/src/raw_client.rs",
-              "line": 777
+              "line": 927
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/pup/agents/synthetics.md",
+              "line": 192
             },
             {
               "id": "EA2",
@@ -3312,7 +3803,7 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/docs/LLM_GUIDE.md",
-              "line": 344
+              "line": 345
             },
             {
               "id": "EA2",
@@ -3396,7 +3887,7 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/client.rs",
-              "line": 440
+              "line": 464
             },
             {
               "id": "EA2",
@@ -3453,6 +3944,27 @@
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/commands/format.rs",
               "line": 167
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/pup/src/commands/governance.rs",
+              "line": 1004
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/pup/src/commands/governance.rs",
+              "line": 1072
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/pup/src/commands/governance.rs",
+              "line": 1205
             },
             {
               "id": "EA2",
@@ -3585,42 +4097,28 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/main.rs",
-              "line": 15629
+              "line": 16373
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/main.rs",
-              "line": 15630
+              "line": 16374
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/main.rs",
-              "line": 17840
+              "line": 21549
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/main.rs",
-              "line": 18063
-            },
-            {
-              "id": "EA2",
-              "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "skills/pup/src/main.rs",
-              "line": 20507
-            },
-            {
-              "id": "EA2",
-              "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "skills/pup/src/main.rs",
-              "line": 21489
+              "line": 22531
             },
             {
               "id": "EA2",
@@ -3634,7 +4132,7 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/raw_client.rs",
-              "line": 559
+              "line": 709
             },
             {
               "id": "EA2",
@@ -3690,77 +4188,77 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/settings.rs",
-              "line": 1020
+              "line": 1031
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/settings.rs",
-              "line": 1894
+              "line": 1905
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/settings.rs",
-              "line": 2015
+              "line": 2026
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/settings.rs",
-              "line": 2059
+              "line": 2070
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/settings.rs",
-              "line": 2096
+              "line": 2107
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/settings.rs",
-              "line": 2138
+              "line": 2149
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/settings.rs",
-              "line": 2176
+              "line": 2187
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/settings.rs",
-              "line": 2222
+              "line": 2233
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/settings.rs",
-              "line": 2252
+              "line": 2263
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/settings.rs",
-              "line": 2273
+              "line": 2284
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/settings.rs",
-              "line": 2293
+              "line": 2304
             },
             {
               "id": "EA2",
@@ -3831,6 +4329,27 @@
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/useragent.rs",
               "line": 381
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/pup/src/util_ext.rs",
+              "line": 18
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/pup/src/util_ext.rs",
+              "line": 687
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/pup/src/util_ext.rs",
+              "line": 690
             },
             {
               "id": "OH3",
@@ -4039,6 +4558,13 @@
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
+              "file": "skills/pup/src/commands/governance.rs",
+              "line": 1362
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
               "file": "skills/pup/src/auth/storage.rs",
               "line": 837
             },
@@ -4138,12 +4664,12 @@
               "severity": "MEDIUM",
               "message": "Indirect Prompt Extraction",
               "file": "skills/pup/src/commands/security.rs",
-              "line": 462
+              "line": 460
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/pup/src/commands/setup.rs",
               "line": 56
             },
@@ -4187,42 +4713,35 @@
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/pup/src/main.rs",
-              "line": 198
+              "line": 199
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/main.rs",
-              "line": 1079
+              "line": 1080
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/main.rs",
-              "line": 2217
-            },
-            {
-              "id": "EA2",
-              "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "skills/pup/src/main.rs",
-              "line": 2843
+              "line": 2859
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/pup/src/main.rs",
-              "line": 1920
+              "line": 1939
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/pup/src/main.rs",
-              "line": 13071
+              "line": 13660
             },
             {
               "id": "OH3",
@@ -4243,28 +4762,28 @@
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
               "file": "skills/pup/src/skills.rs",
-              "line": 1727
+              "line": 1967
             },
             {
               "id": "AS3",
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
               "file": "skills/pup/src/skills.rs",
-              "line": 1792
+              "line": 2032
             },
             {
               "id": "AS3",
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
               "file": "skills/pup/src/skills.rs",
-              "line": 2044
+              "line": 2284
             },
             {
               "id": "AS3",
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
               "file": "skills/pup/src/skills.rs",
-              "line": 2149
+              "line": 2389
             },
             {
               "id": "AS3",
@@ -4348,56 +4867,56 @@
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
               "file": "skills/pup/src/skills.rs",
-              "line": 2060
+              "line": 2300
             },
             {
               "id": "AS3",
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
               "file": "skills/pup/src/skills.rs",
-              "line": 2080
+              "line": 2320
             },
             {
               "id": "AS3",
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
               "file": "skills/pup/src/skills.rs",
-              "line": 1632
+              "line": 1872
             },
             {
               "id": "AS3",
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
               "file": "skills/pup/src/skills.rs",
-              "line": 1745
+              "line": 1985
             },
             {
               "id": "AS3",
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
               "file": "skills/pup/src/skills.rs",
-              "line": 1754
+              "line": 1994
             },
             {
               "id": "AS3",
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
               "file": "skills/pup/src/skills.rs",
-              "line": 1763
+              "line": 2003
             },
             {
               "id": "AS3",
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
               "file": "skills/pup/src/skills.rs",
-              "line": 1773
+              "line": 2013
             },
             {
               "id": "SC2",
               "severity": "LOW",
               "message": "External Script Fetching",
               "file": "skills/pup/README.md",
-              "line": 198
+              "line": 210
             },
             {
               "id": "SC2",
@@ -4439,7 +4958,25 @@
               "severity": "LOW",
               "message": "Scope Creep",
               "file": "skills/pup/src/settings.rs",
-              "line": 1380
+              "line": 1391
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/pup/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/pup/agents/aws-integration.md",
+              "line": 92,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             }
           ]
         }
@@ -4454,7 +4991,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-04T03:43:52Z"
+      "checkedAt": "2026-11-04T23:36:41Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

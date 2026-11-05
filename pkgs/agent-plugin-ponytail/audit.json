@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "ponytail",
-      "dir": "/nix/store/rjiqwnbai71wyb8wb53y3ahaq606i809-agent-plugin-ponytail-5.3.2/share/agent-plugins/ponytail",
+      "dir": "/nix/store/shr6w1srf8xj563b7075jbm4bja27cwk-agent-plugin-ponytail-5.3.3/share/agent-plugins/ponytail",
       "spec": "1.1.0",
-      "score": 100,
-      "status": "safe",
+      "score": 71,
+      "status": "caution",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/hooks",
           "skills/ponytail",
           "skills/ponytail-audit",
           "skills/ponytail-debt",
@@ -27,14 +28,60 @@
           {
             "path": "bin/",
             "reason": "interpreter links into /nix/store"
-          },
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
           }
         ]
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 71,
+          "risk": 29,
+          "status": "caution",
+          "partial": true,
+          "coverage": 71.4,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/band/board.ts",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/band/metrics.ts",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/band/register.tsx",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/ponytail-activate.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/ponytail-band-import.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/ponytail-statusline.sh",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "OH1",
+              "severity": "HIGH",
+              "message": "Unvalidated Output Injection",
+              "file": "com.anthropic.claude-code/hooks/band/metrics.ts",
+              "line": 93
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/ponytail",
           "score": 100,
@@ -43,7 +90,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/ponytail-audit",
@@ -59,7 +107,8 @@
               "line": 84
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/ponytail-debt",
@@ -75,7 +124,8 @@
               "line": 43
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/ponytail-gain",
@@ -91,7 +141,8 @@
               "line": 19
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/ponytail-help",
@@ -101,7 +152,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/ponytail-review",
@@ -117,20 +169,24 @@
               "line": 82
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 100,
-  "status": "safe",
+  "score": 71,
+  "status": "caution",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T23:05:09Z"
+      "checkedAt": "2026-11-04T23:48:58Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

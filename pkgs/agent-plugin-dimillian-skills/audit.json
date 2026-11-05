@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "dimillian-skills",
-      "dir": "/nix/store/05kl3k9hjy9y6h99r5hi0vvwrnqlz90c-agent-plugin-dimillian-skills-0.0.0-unstable.2026-03-29.g05ba982/share/agent-plugins/dimillian-skills",
+      "dir": "/nix/store/dklnj7s0s15s12cwnj70adqj2y09wr3a-agent-plugin-dimillian-skills-0.0.0-unstable.2026-03-29.g05ba982/share/agent-plugins/dimillian-skills",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -49,7 +49,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/bug-hunt-swarm",
@@ -65,7 +66,8 @@
               "line": 32
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/github",
@@ -75,7 +77,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/ios-debugger-agent",
@@ -85,7 +88,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/macos-menubar-tuist-app",
@@ -134,7 +138,8 @@
               "file": "skills/macos-menubar-tuist-app/SKILL.md",
               "line": 24
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/macos-spm-app-packaging",
@@ -227,41 +232,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/macos-spm-app-packaging/SKILL.md",
-              "line": 34
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/macos-spm-app-packaging/SKILL.md",
-              "line": 83
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/macos-spm-app-packaging/SKILL.md",
-              "line": 78
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/macos-spm-app-packaging/SKILL.md",
-              "line": 86
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/macos-spm-app-packaging/SKILL.md",
-              "line": 88
-            },
-            {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
@@ -302,13 +272,6 @@
               "message": "Tool Parameter Abuse",
               "file": "skills/macos-spm-app-packaging/assets/templates/sign-and-notarize.sh",
               "line": 17
-            },
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/macos-spm-app-packaging/SKILL.md",
-              "line": 1
             },
             {
               "id": "RA2",
@@ -429,6 +392,56 @@
               "file": "skills/macos-spm-app-packaging/assets/templates/package_app.sh",
               "line": 178
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/macos-spm-app-packaging/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/macos-spm-app-packaging/SKILL.md",
+              "line": 34,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/macos-spm-app-packaging/SKILL.md",
+              "line": 78,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/macos-spm-app-packaging/SKILL.md",
+              "line": 83,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/macos-spm-app-packaging/SKILL.md",
+              "line": 86,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/macos-spm-app-packaging/SKILL.md",
+              "line": 88,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
@@ -439,13 +452,14 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/project-skill-audit",
-          "score": 57,
-          "risk": 43,
-          "status": "caution",
+          "score": 94,
+          "risk": 6,
+          "status": "safe",
           "partial": true,
           "coverage": 100,
           "exceptions": [
@@ -487,25 +501,29 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/project-skill-audit/SKILL.md",
-              "line": 41
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/project-skill-audit/SKILL.md",
-              "line": 112
-            },
-            {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/project-skill-audit/SKILL.md",
               "line": 3
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/project-skill-audit/SKILL.md",
+              "line": 41,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/project-skill-audit/SKILL.md",
+              "line": 112,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -517,7 +535,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/review-and-simplify-changes",
@@ -533,7 +552,8 @@
               "line": 45
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/review-swarm",
@@ -549,7 +569,8 @@
               "line": 30
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/swift-concurrency-expert",
@@ -559,7 +580,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/swiftui-liquid-glass",
@@ -580,7 +602,8 @@
               "line": 75
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/swiftui-performance-audit",
@@ -590,7 +613,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/swiftui-ui-patterns",
@@ -600,7 +624,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/swiftui-view-refactor",
@@ -610,7 +635,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
@@ -623,7 +649,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:20:26Z"
+      "checkedAt": "2026-11-04T23:25:41Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

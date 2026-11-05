@@ -7,12 +7,14 @@
   "plugins": [
     {
       "name": "javascript-typescript",
-      "dir": "/nix/store/zr8p9l0f9f1i5d04jxsvhkjlkyh2i0f9-agent-plugin-javascript-typescript-1.2.3/share/agent-plugins/javascript-typescript",
+      "dir": "/nix/store/rf3fs5354f9v9xz8laqv3g3njg7pqqz3-agent-plugin-javascript-typescript-1.2.4/share/agent-plugins/javascript-typescript",
       "spec": "1.1.0",
-      "score": 47,
-      "status": "do not install",
+      "score": 79,
+      "status": "caution",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/commands",
           "skills/javascript-testing-patterns",
           "skills/modern-javascript-patterns",
           "skills/nodejs-backend-patterns",
@@ -21,19 +23,51 @@
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
         {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 79,
+          "risk": 21,
+          "status": "caution",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/commands/typescript-scaffold.md",
+              "line": 47
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "com.anthropic.claude-code/commands/typescript-scaffold.md",
+              "line": 316
+            }
+          ],
+          "suppressed": []
+        },
+        {
           "path": "skills/javascript-testing-patterns",
-          "score": 47,
-          "risk": 53,
-          "status": "do not install",
+          "score": 91,
+          "risk": 9,
+          "status": "incomplete",
           "partial": true,
           "coverage": 0,
           "exceptions": [
@@ -155,27 +189,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/javascript-testing-patterns/SKILL.md",
-              "line": 492
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/javascript-testing-patterns/SKILL.md",
-              "line": 498
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/javascript-testing-patterns/SKILL.md",
-              "line": 519
-            },
-            {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
@@ -210,13 +223,39 @@
               "file": "skills/javascript-testing-patterns/SKILL.md",
               "line": 226
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/javascript-testing-patterns/SKILL.md",
+              "line": 492,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/javascript-testing-patterns/SKILL.md",
+              "line": 498,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/javascript-testing-patterns/SKILL.md",
+              "line": 519,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
           "path": "skills/modern-javascript-patterns",
-          "score": 63,
-          "risk": 37,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
           "partial": true,
           "coverage": 33.3,
           "exceptions": [
@@ -231,28 +270,31 @@
               "line": 0
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/modern-javascript-patterns/SKILL.md",
-              "line": 23
+              "line": 23,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/modern-javascript-patterns/SKILL.md",
-              "line": 43
+              "line": 43,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
         {
           "path": "skills/nodejs-backend-patterns",
-          "score": 58,
-          "risk": 42,
-          "status": "caution",
+          "score": 83,
+          "risk": 17,
+          "status": "incomplete",
           "partial": true,
           "coverage": 33.3,
           "exceptions": [
@@ -269,18 +311,21 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/nodejs-backend-patterns/SKILL.md",
-              "line": 23
-            },
-            {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/nodejs-backend-patterns/references/details.md",
               "line": 591
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/nodejs-backend-patterns/SKILL.md",
+              "line": 23,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -303,20 +348,24 @@
               "line": 228
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 47,
-  "status": "do not install",
+  "score": 79,
+  "status": "caution",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:46:27Z"
+      "checkedAt": "2026-11-04T23:37:21Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

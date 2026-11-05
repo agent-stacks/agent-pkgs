@@ -7,12 +7,16 @@
   "plugins": [
     {
       "name": "power-pages",
-      "dir": "/nix/store/yf4rjzb9vqprdr52696252pyzgz153i4-agent-plugin-power-pages-3.0.0/share/agent-plugins/power-pages",
+      "dir": "/nix/store/bwqldnyickq1cm8zmyn27grv6pr26sv6-agent-plugin-power-pages-3.0.0/share/agent-plugins/power-pages",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "agents",
+          "com.anthropic.claude-code/hooks",
+          "references",
+          "scripts",
           "skills/activate-site",
           "skills/add-ai-webapi",
           "skills/add-cloud-flow",
@@ -62,32 +66,1175 @@
             "reason": "outside the spec"
           },
           {
-            "path": "agents/",
-            "reason": "outside the spec"
-          },
-          {
             "path": "bin/",
             "reason": "interpreter links into /nix/store"
           },
           {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          },
-          {
             "path": "mcp.json",
             "reason": "SkillSpector does not analyse this layout as an MCP manifest"
-          },
-          {
-            "path": "references/",
-            "reason": "outside the spec"
-          },
-          {
-            "path": "scripts/",
-            "reason": "outside the spec"
           }
         ]
       },
       "components": [
+        {
+          "path": "agents",
+          "score": 22,
+          "risk": 78,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 62.5,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "agents/ai-webapi-integration.md",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "agents/assets/data-model-plan.html",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "agents/assets/data-model-plan.html",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "agents/webapi-integration.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "agents/webapi-integration.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "agents/ai-webapi-settings-architect.md",
+              "line": 379
+            },
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "agents/data-model-architect.md",
+              "line": 409
+            },
+            {
+              "id": "EA4",
+              "severity": "MEDIUM",
+              "message": "Unbounded Resource Access",
+              "file": "agents/ai-webapi-integration.md",
+              "line": 844
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "agents/ai-webapi-settings-architect.md",
+              "line": 183
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "agents/data-model-architect.md",
+              "line": 38
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "agents/data-model-architect.md",
+              "line": 47
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "agents/table-permissions-architect.md",
+              "line": 47
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "agents/webapi-integration.md",
+              "line": 46
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "agents/webapi-settings-architect.md",
+              "line": 60
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "agents/webapi-integration.md",
+              "line": 415
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "agents/webapi-integration.md",
+              "line": 640
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "agents/webapi-integration.md",
+              "line": 591
+            },
+            {
+              "id": "PE1",
+              "severity": "LOW",
+              "message": "Excessive Permissions",
+              "file": "agents/table-permissions-architect.md",
+              "line": 558
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 93,
+          "risk": 7,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 80,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/run-skill-posttool-validation.js",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "E3",
+              "severity": "MEDIUM",
+              "message": "File System Enumeration",
+              "file": "com.anthropic.claude-code/hooks/run-user-prompt-telemetry.js",
+              "line": 93
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "references",
+          "score": 17,
+          "risk": 83,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 81.5,
+          "exceptions": [
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "references/approval-gates.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "references/bidirectional-design.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "references/design-aesthetics.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "references/webapi-core-client.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "references/webapi-service-patterns.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "references/approval-gates.md",
+              "line": 7
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "references/approval-gates.md",
+              "line": 170
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "references/approval-gates.md",
+              "line": 226
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "references/approval-gates.md",
+              "line": 254
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "references/approval-gates.md",
+              "line": 254
+            },
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "references/permissions-plan-data-format.md",
+              "line": 131
+            },
+            {
+              "id": "MP3",
+              "severity": "HIGH",
+              "message": "Memory Manipulation",
+              "file": "references/rendered-bidirectional-verification.md",
+              "line": 461
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "references/design-studio-site-discovery.md",
+              "line": 118
+            },
+            {
+              "id": "PE1",
+              "severity": "LOW",
+              "message": "Excessive Permissions",
+              "file": "references/table-permission-analysis-guide.md",
+              "line": 139
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "scripts",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 42.5,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/audit-bidirectional-readiness.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/audit-rendered-bidirectional-readiness.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/axe-audit.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/build-review-data.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/capture-design-review.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/check-activation-status.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/check-available-languages.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/check-solution-installed.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/check-version.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/clear-site-cache.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/create-site-setting.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/create-table-permission.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/detect-framework.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/emit-audit-permissions-telemetry.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/emit-non-spa-creation-telemetry.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/encode-solution-file.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/fetch-template-catalog.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/generate-uuid.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/import-template-solution.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/launch-playwright-mcp.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/add-components-to-solution.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/alm-paths.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/alm-thresholds.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/apply-seed-data.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/audit-report-validation.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/bidirectional-readiness.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/bump-solution-version.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/check-env-host-binding.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/check-solution-installed.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/classify-site-settings.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/compute-split-plan.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/create-deployment-environment.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/create-deployment-pipeline.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/create-env-var-definition.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/create-site-template-telemetry.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/create-solution.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/create-solutions-batch.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/create-stage-run.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/detect-project-context.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/discover-component-types.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/discover-pipelines-host.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/discover-site-components.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/download-export-data.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/edit-site-plan.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/ensure-pipelines-host-detect.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/estimate-solution-size.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/export-solution-async.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/fix-blocked-attachments.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/force-link-environment.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/generate-env-var-schema-name.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/inline-style-edits.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/install-pipelines-app.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/link-site-setting-to-env-var.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/list-tenant-envs.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/localization-config.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/localization-verification-transaction.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/non-spa-asset-preparation.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/non-spa-creation-telemetry.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/non-spa-image-verification.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/non-spa-metadata.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/non-spa-native-layout.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/non-spa-site-style-context.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/pac-bap-shim.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/pinned-download.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/poll-deployment-status.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/poll-validation-status.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/power-platform-api.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/provision-custom-host.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/provision-platform-host.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/refresh-alm-plan-data.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/rendered-bidirectional-readiness.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/resolve-env-by-id.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/resolve-target-solution.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/review-navigation.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/runtime-style-context.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/safe-untrusted-text.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/set-plan-status.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/site-integrity.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/site-settings-validator.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/strip-invalid-secret-values.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/studio-style-capabilities.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/style-site-css.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/style-site-plan.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/style-site-summary.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/lib/table-permissions-validator.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/table-permissions-validator.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/telemetry/invocation-state.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/telemetry/lib/agent-info.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/telemetry/lib/local-log.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/telemetry/lib/native-exec.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/telemetry/region/region-cache.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/lib/template-catalog.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/template-catalog.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/template-cli-args.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/validate-deployment-settings.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/validate-stage-runs-batch.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/validation-helpers.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/verification-evidence.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/verify-alm-prerequisites.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/verify-env-var-values.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/verify-host-readiness.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/verify-solution-exists.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/web-roles-validator.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lint-skills-alm.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/manage-localization-verification.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/open-url.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/pack-template-solution.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/parse-deployment-errors.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/promote-edit-site-plan.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/provision-template-site.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/render-add-localization-plan.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/render-createsite-plan.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/render-edit-site-plan.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/render-template-browser.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/render-template-import-status.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/serve-static-dir.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/store-keyvault-secret.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/style-site/apply-style-plan.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/style-site/validate-style-site.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/suggest-content-locale.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/update-edit-site-execution.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/validate-i18n-package.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/validate-permissions-schema.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/validate-site-integrity.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/vendor/css-tools/css-tools.cjs",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "scripts/check-solution-installed.js",
+              "line": 49
+            },
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "scripts/check-solution-installed.js",
+              "line": 49
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/clear-site-cache.js",
+              "line": 56
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/power-platform-api.js",
+              "line": 55
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/validation-helpers.js",
+              "line": 352
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/website.js",
+              "line": 62
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "scripts/dataverse-request.js",
+              "line": 8
+            },
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "scripts/lib/compute-split-plan.js",
+              "line": 533
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/load-playwright.js",
+              "line": 27
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/template-catalog.js",
+              "line": 828
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/provision-template-site.js",
+              "line": 402
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/provision-template-site.js",
+              "line": 416
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/provision-template-site.js",
+              "line": 419
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/provision-template-site.js",
+              "line": 492
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/validation-helpers.js",
+              "line": 357
+            },
+            {
+              "id": "E2",
+              "severity": "HIGH",
+              "message": "Env Variable Harvesting",
+              "file": "scripts/store-keyvault-secret.js",
+              "line": 161
+            },
+            {
+              "id": "E2",
+              "severity": "HIGH",
+              "message": "Env Variable Harvesting",
+              "file": "scripts/store-keyvault-secret.js",
+              "line": 274
+            },
+            {
+              "id": "SC4",
+              "severity": "HIGH",
+              "message": "Known Vulnerable Dependency: source-map-js==1.2.1 — 1 advisory(ies): CVE-2026-93749 (source-map-js allows event-loop denial of service through indexed source-map sec)",
+              "file": "scripts/vendor/css-tools/package-lock.json",
+              "line": 534
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "scripts/launch-playwright-mcp.js",
+              "line": 26
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "scripts/launch-playwright-mcp.js",
+              "line": 116
+            },
+            {
+              "id": "OH3",
+              "severity": "MEDIUM",
+              "message": "Unbounded Output",
+              "file": "scripts/lib/compute-split-plan.js",
+              "line": 811
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "scripts/lib/detect-browser.js",
+              "line": 80
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "scripts/lib/load-playwright.js",
+              "line": 17
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "scripts/lib/playwright-mcp-package.js",
+              "line": 1
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "scripts/lib/playwright-mcp-package.js",
+              "line": 16
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "scripts/lib/resolve-env-by-id.js",
+              "line": 6
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "scripts/vendor/css-tools/css-tools.cjs",
+              "line": 2549
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "scripts/vendor/css-tools/css-tools.cjs",
+              "line": 2549
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "scripts/vendor/css-tools/css-tools.cjs",
+              "line": 2605
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "scripts/vendor/css-tools/css-tools.cjs",
+              "line": 8453
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "scripts/vendor/css-tools/css-tools.cjs",
+              "line": 8778
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "scripts/vendor/css-tools/css-tools.cjs",
+              "line": 8793
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "scripts/vendor/css-tools/LICENSE.css-tree",
+              "line": 14
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "scripts/vendor/css-tools/LICENSE.entities",
+              "line": 10
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "scripts/vendor/css-tools/LICENSE.entities",
+              "line": 10
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "scripts/vendor/css-tools/LICENSE.source-map-js",
+              "line": 20
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "scripts/vendor/css-tools/LICENSE.source-map-js",
+              "line": 24
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "scripts/vendor/css-tools/LICENSE.mdn-data",
+              "line": 31
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/activate-site",
           "score": 56,
@@ -194,12 +1341,13 @@
               "file": "skills/activate-site/SKILL.md",
               "line": 9
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/add-ai-webapi",
-          "score": 0,
-          "risk": 100,
+          "score": 19,
+          "risk": 81,
           "status": "do not install",
           "partial": true,
           "coverage": 57.1,
@@ -327,41 +1475,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/add-ai-webapi/SKILL.md",
-              "line": 77
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/add-ai-webapi/SKILL.md",
-              "line": 616
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/add-ai-webapi/SKILL.md",
-              "line": 693
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/add-ai-webapi/SKILL.md",
-              "line": 824
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/add-ai-webapi/SKILL.md",
-              "line": 831
-            },
-            {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
@@ -378,7 +1491,7 @@
             {
               "id": "LP1",
               "severity": "HIGH",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/add-ai-webapi/scripts/validate-ai-webapi.js",
               "line": 1
             },
@@ -416,6 +1529,48 @@
               "message": "Autonomous Decision Making",
               "file": "skills/add-ai-webapi/references/explore-prompt.md",
               "line": 108
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/add-ai-webapi/SKILL.md",
+              "line": 77,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/add-ai-webapi/SKILL.md",
+              "line": 616,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/add-ai-webapi/SKILL.md",
+              "line": 693,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/add-ai-webapi/SKILL.md",
+              "line": 824,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/add-ai-webapi/SKILL.md",
+              "line": 831,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -640,7 +1795,8 @@
               "file": "skills/add-cloud-flow/SKILL.md",
               "line": 675
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/add-localization",
@@ -819,7 +1975,8 @@
               "file": "skills/add-localization/SKILL.md",
               "line": 1153
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/add-sample-data",
@@ -865,7 +2022,8 @@
               "file": "skills/add-sample-data/SKILL.md",
               "line": 9
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/add-seo",
@@ -1046,7 +2204,8 @@
               "file": "skills/add-seo/SKILL.md",
               "line": 9
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/add-server-logic",
@@ -1314,7 +2473,7 @@
             {
               "id": "LP1",
               "severity": "HIGH",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/add-server-logic/scripts/validate-serverlogic.js",
               "line": 1
             },
@@ -1332,7 +2491,8 @@
               "file": "skills/add-server-logic/SKILL.md",
               "line": 1248
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/analyze-performance",
@@ -1444,7 +2604,7 @@
             {
               "id": "LP1",
               "severity": "HIGH",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/analyze-performance/scripts/analyze-performance.js",
               "line": 1
             },
@@ -1462,7 +2622,8 @@
               "file": "skills/analyze-performance/references/performance-reference.md",
               "line": 66
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/audit-permissions",
@@ -1595,12 +2756,13 @@
               "file": "skills/audit-permissions/SKILL.md",
               "line": 60
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/author-webpage-content",
-          "score": 0,
-          "risk": 100,
+          "score": 34,
+          "risk": 66,
           "status": "do not install",
           "partial": true,
           "coverage": 73.3,
@@ -1632,27 +2794,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/author-webpage-content/SKILL.md",
-              "line": 49
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/author-webpage-content/SKILL.md",
-              "line": 50
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/author-webpage-content/SKILL.md",
-              "line": 55
-            },
             {
               "id": "PE3",
               "severity": "HIGH",
@@ -1701,6 +2842,32 @@
               "message": "Autonomous Decision Making",
               "file": "skills/author-webpage-content/references/design-studio-component-authoring.md",
               "line": 18
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/author-webpage-content/SKILL.md",
+              "line": 49,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/author-webpage-content/SKILL.md",
+              "line": 50,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/author-webpage-content/SKILL.md",
+              "line": 55,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -1912,7 +3079,8 @@
               "file": "skills/configure-env-variables/SKILL.md",
               "line": 275
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/create-site",
@@ -2647,7 +3815,8 @@
               "file": "skills/create-site/assets/vue/package.json",
               "line": 19
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/create-webroles",
@@ -2710,7 +3879,8 @@
               "file": "skills/create-webroles/SKILL.md",
               "line": 63
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/deploy-pipeline",
@@ -3450,7 +4620,8 @@
               "file": "skills/deploy-pipeline/SKILL.md",
               "line": 48
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/deploy-site",
@@ -3559,7 +4730,8 @@
               "file": "skills/deploy-site/SKILL.md",
               "line": 25
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/diagnose-deployment",
@@ -3642,7 +4814,8 @@
               "file": "skills/diagnose-deployment/SKILL.md",
               "line": 18
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/edit-site",
@@ -3734,13 +4907,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/edit-site/SKILL.md",
-              "line": 224
-            },
             {
               "id": "P2",
               "severity": "HIGH",
@@ -3839,6 +5005,16 @@
               "file": "skills/edit-site/references/styling/styling-policy.md",
               "line": 73
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/edit-site/SKILL.md",
+              "line": 224,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
@@ -3862,16 +5038,6 @@
             {
               "reason": "reference_missing",
               "path": "skills/ensure-pipelines-host/SKILL.md",
-              "line": 39
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/ensure-pipelines-host/SKILL.md",
-              "line": 42
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/ensure-pipelines-host/SKILL.md",
               "line": 48
             },
             {
@@ -3882,32 +5048,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/ensure-pipelines-host/SKILL.md",
-              "line": 54
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/ensure-pipelines-host/SKILL.md",
-              "line": 119
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/ensure-pipelines-host/SKILL.md",
               "line": 135
             },
             {
               "reason": "reference_missing",
               "path": "skills/ensure-pipelines-host/SKILL.md",
               "line": 140
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/ensure-pipelines-host/SKILL.md",
-              "line": 144
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/ensure-pipelines-host/SKILL.md",
-              "line": 147
             },
             {
               "reason": "reference_missing",
@@ -3933,11 +5079,6 @@
               "reason": "reference_missing",
               "path": "skills/ensure-pipelines-host/SKILL.md",
               "line": 191
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/ensure-pipelines-host/SKILL.md",
-              "line": 237
             },
             {
               "reason": "reference_missing",
@@ -4394,7 +5535,8 @@
               "file": "skills/ensure-pipelines-host/SKILL.md",
               "line": 645
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/exceptional-web-design",
@@ -4477,7 +5619,8 @@
               "file": "skills/exceptional-web-design/SKILL.md",
               "line": 15
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/export-solution",
@@ -4644,7 +5787,8 @@
               "file": "skills/export-solution/SKILL.md",
               "line": 38
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/force-link-environment",
@@ -4748,7 +5892,8 @@
               "file": "skills/force-link-environment/SKILL.md",
               "line": 223
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/import-solution",
@@ -4907,7 +6052,8 @@
               "file": "skills/import-solution/SKILL.md",
               "line": 38
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/integrate-backend",
@@ -4970,7 +6116,8 @@
               "file": "skills/integrate-backend/SKILL.md",
               "line": 12
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/integrate-webapi",
@@ -5167,12 +6314,13 @@
               "file": "skills/integrate-webapi/SKILL.md",
               "line": 645
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/manage-firewall",
-          "score": 0,
-          "risk": 100,
+          "score": 32,
+          "risk": 68,
           "status": "do not install",
           "partial": true,
           "coverage": 60,
@@ -5210,23 +6358,9 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/manage-firewall/SKILL.md",
-              "line": 32
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/manage-firewall/SKILL.md",
-              "line": 32
-            },
-            {
               "id": "LP1",
               "severity": "HIGH",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/manage-firewall/scripts/transform-firewall.js",
               "line": 1
             },
@@ -5250,6 +6384,24 @@
               "message": "Autonomous Decision Making",
               "file": "skills/manage-firewall/SKILL.md",
               "line": 129
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/manage-firewall/SKILL.md",
+              "line": 32,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/manage-firewall/SKILL.md",
+              "line": 32,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -5297,7 +6449,8 @@
               "file": "skills/manage-headers/SKILL.md",
               "line": 15
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/migrate-bootstrap",
@@ -5432,12 +6585,13 @@
               "file": "skills/migrate-bootstrap/SKILL.md",
               "line": 13
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/migrate-webapi-selectall",
-          "score": 10,
-          "risk": 90,
+          "score": 35,
+          "risk": 65,
           "status": "do not install",
           "partial": true,
           "coverage": 57.1,
@@ -5540,13 +6694,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/migrate-webapi-selectall/SKILL.md",
-              "line": 91
-            },
-            {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
@@ -5588,12 +6735,22 @@
               "file": "skills/migrate-webapi-selectall/SKILL.md",
               "line": 429
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/migrate-webapi-selectall/SKILL.md",
+              "line": 91,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
           "path": "skills/plan-alm",
-          "score": 0,
-          "risk": 100,
+          "score": 11,
+          "risk": 89,
           "status": "do not install",
           "partial": true,
           "coverage": 50,
@@ -6203,20 +7360,6 @@
               "line": 620
             },
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/plan-alm/SKILL.md",
-              "line": 1076
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/plan-alm/SKILL.md",
-              "line": 1131
-            },
-            {
               "id": "EA5",
               "severity": "MEDIUM",
               "message": "External Model or Provider Selection",
@@ -6236,6 +7379,24 @@
               "message": "Autonomous Decision Making",
               "file": "skills/plan-alm/SKILL.md",
               "line": 575
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/plan-alm/SKILL.md",
+              "line": 1076,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/plan-alm/SKILL.md",
+              "line": 1131,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -6261,12 +7422,13 @@
               "file": "skills/report-issue/SKILL.md",
               "line": 10
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/scan-code",
-          "score": 21,
-          "risk": 79,
+          "score": 46,
+          "risk": 54,
           "status": "do not install",
           "partial": true,
           "coverage": 33.3,
@@ -6298,13 +7460,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/scan-code/SKILL.md",
-              "line": 173
-            },
             {
               "id": "PE3",
               "severity": "HIGH",
@@ -6347,13 +7502,23 @@
               "file": "skills/scan-code/SKILL.md",
               "line": 101
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/scan-code/SKILL.md",
+              "line": 173,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
           "path": "skills/scan-site",
-          "score": 66,
-          "risk": 34,
-          "status": "caution",
+          "score": 91,
+          "risk": 9,
+          "status": "incomplete",
           "partial": true,
           "coverage": 57.1,
           "exceptions": [
@@ -6390,26 +7555,29 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/scan-site/SKILL.md",
-              "line": 250
-            },
-            {
               "id": "EA5",
               "severity": "MEDIUM",
               "message": "External Model or Provider Selection",
               "file": "skills/scan-site/SKILL.md",
               "line": 16
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/scan-site/SKILL.md",
+              "line": 250,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
           "path": "skills/security-review",
-          "score": 49,
-          "risk": 51,
-          "status": "do not install",
+          "score": 74,
+          "risk": 26,
+          "status": "caution",
           "partial": true,
           "coverage": 50,
           "exceptions": [
@@ -6453,18 +7621,21 @@
               "line": 97
             },
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/security-review/SKILL.md",
-              "line": 202
-            },
-            {
               "id": "EA5",
               "severity": "MEDIUM",
               "message": "External Model or Provider Selection",
               "file": "skills/security-review/SKILL.md",
               "line": 16
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/security-review/SKILL.md",
+              "line": 202,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -7143,97 +8314,6 @@
               "line": 456
             },
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/setup-auth/SKILL.md",
-              "line": 802
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/setup-auth/SKILL.md",
-              "line": 1161
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/setup-auth/SKILL.md",
-              "line": 1175
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/setup-auth/SKILL.md",
-              "line": 1377
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/setup-auth/SKILL.md",
-              "line": 1424
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/setup-auth/SKILL.md",
-              "line": 1430
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/setup-auth/SKILL.md",
-              "line": 1545
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/setup-auth/SKILL.md",
-              "line": 1621
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/setup-auth/SKILL.md",
-              "line": 1708
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/setup-auth/SKILL.md",
-              "line": 1713
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/setup-auth/SKILL.md",
-              "line": 1778
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/setup-auth/SKILL.md",
-              "line": 1842
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/setup-auth/SKILL.md",
-              "line": 1919
-            },
-            {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
@@ -7302,6 +8382,112 @@
               "message": "Autonomous Decision Making",
               "file": "skills/setup-auth/references/authentication-reference.md",
               "line": 73
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/setup-auth/SKILL.md",
+              "line": 802,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/setup-auth/SKILL.md",
+              "line": 1161,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/setup-auth/SKILL.md",
+              "line": 1175,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/setup-auth/SKILL.md",
+              "line": 1377,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/setup-auth/SKILL.md",
+              "line": 1424,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/setup-auth/SKILL.md",
+              "line": 1430,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/setup-auth/SKILL.md",
+              "line": 1545,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/setup-auth/SKILL.md",
+              "line": 1621,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/setup-auth/SKILL.md",
+              "line": 1708,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/setup-auth/SKILL.md",
+              "line": 1713,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/setup-auth/SKILL.md",
+              "line": 1778,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/setup-auth/SKILL.md",
+              "line": 1842,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/setup-auth/SKILL.md",
+              "line": 1919,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -7376,7 +8562,8 @@
               "file": "skills/setup-datamodel/SKILL.md",
               "line": 21
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/setup-pipeline",
@@ -7680,7 +8867,8 @@
               "file": "skills/setup-pipeline/SKILL.md",
               "line": 49
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/setup-solution",
@@ -8051,7 +9239,8 @@
               "file": "skills/setup-solution/SKILL.md",
               "line": 38
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/telemetry",
@@ -8075,7 +9264,8 @@
               "file": "skills/telemetry/SKILL.md",
               "line": 11
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/test-site",
@@ -8183,7 +9373,8 @@
               "file": "skills/test-site/SKILL.md",
               "line": 10
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
@@ -8196,7 +9387,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-26T07:01:10Z"
+      "checkedAt": "2026-11-05T02:19:52Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

@@ -7,9 +7,9 @@
   "plugins": [
     {
       "name": "skill-creator",
-      "dir": "/nix/store/lh0mschg8viz056pp73hya40j66jxkzi-agent-plugin-skill-creator-0.0.0-unstable.2026-10-19.ga0b04d9/share/agent-plugins/skill-creator",
+      "dir": "/nix/store/rpvm86g5iczmqjry5mxl5mh0iwzq0aq0-agent-plugin-skill-creator-0.0.0-unstable.2026-11-03.gfa4eb54/share/agent-plugins/skill-creator",
       "spec": "1.1.0",
-      "score": 0,
+      "score": 16,
       "status": "do not install",
       "coverage": {
         "scanned": [
@@ -28,8 +28,8 @@
       "components": [
         {
           "path": "skills/skill-creator",
-          "score": 0,
-          "risk": 100,
+          "score": 16,
+          "risk": 84,
           "status": "do not install",
           "partial": true,
           "coverage": 88.9,
@@ -112,13 +112,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/skill-creator/SKILL.md",
-              "line": 364
-            },
-            {
               "id": "E2",
               "severity": "HIGH",
               "message": "Env Variable Harvesting",
@@ -138,13 +131,6 @@
               "message": "Agent Config Directory Access",
               "file": "skills/skill-creator/scripts/run_eval.py",
               "line": 23
-            },
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/skill-creator/SKILL.md",
-              "line": 1
             },
             {
               "id": "RA2",
@@ -174,12 +160,30 @@
               "file": "skills/skill-creator/scripts/run_eval.py",
               "line": 85
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/skill-creator/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/skill-creator/SKILL.md",
+              "line": 364,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         }
       ]
     }
   ],
-  "score": 0,
+  "score": 16,
   "status": "do not install",
   "tool": {
     "name": "skillspector",
@@ -187,7 +191,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-20T03:59:59Z"
+      "checkedAt": "2026-11-05T01:14:06Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

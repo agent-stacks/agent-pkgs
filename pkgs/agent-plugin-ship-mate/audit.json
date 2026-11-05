@@ -7,25 +7,52 @@
   "plugins": [
     {
       "name": "ship-mate",
-      "dir": "/nix/store/zgsq8iqisr4r436xq1086l6brw5j54fv-agent-plugin-ship-mate-1.0.1/share/agent-plugins/ship-mate",
+      "dir": "/nix/store/jhakn97ln2ka4xf317sck7fdvlgy8j6x-agent-plugin-ship-mate-1.0.2/share/agent-plugins/ship-mate",
       "spec": "1.1.0",
-      "score": 100,
+      "score": 93,
       "status": "safe",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/commands",
           "skills/scan"
         ],
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 93,
+          "risk": 7,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "com.anthropic.claude-code/agents/playwright.md",
+              "line": 118
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/scan",
           "score": 100,
@@ -75,12 +102,13 @@
               "line": 151
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 100,
+  "score": 93,
   "status": "safe",
   "tool": {
     "name": "skillspector",
@@ -88,7 +116,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T23:37:04Z"
+      "checkedAt": "2026-11-05T00:10:11Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

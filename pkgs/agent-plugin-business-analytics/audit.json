@@ -7,26 +7,33 @@
   "plugins": [
     {
       "name": "business-analytics",
-      "dir": "/nix/store/fmys4153n1d8d6w6dfvi4bb3scbfj77x-agent-plugin-business-analytics-1.2.3/share/agent-plugins/business-analytics",
+      "dir": "/nix/store/g6d0ik9i2c5kmnw4jw559j26jb37zvp9-agent-plugin-business-analytics-1.2.3/share/agent-plugins/business-analytics",
       "spec": "1.1.0",
       "score": 100,
       "status": "safe",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
           "skills/data-storytelling",
           "skills/kpi-dashboard-design"
         ],
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/data-storytelling",
           "score": 100,
@@ -35,7 +42,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/kpi-dashboard-design",
@@ -45,7 +53,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
@@ -58,7 +67,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:19:43Z"
+      "checkedAt": "2026-11-04T23:11:37Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

@@ -7,25 +7,32 @@
   "plugins": [
     {
       "name": "content-marketing",
-      "dir": "/nix/store/p8gk3syw1i8wkzqbb6fbhs9ql7dnl39k-agent-plugin-content-marketing-1.3.0/share/agent-plugins/content-marketing",
+      "dir": "/nix/store/m5wv4nrff5l2wd3d3x1qgnqkyvl0awa3-agent-plugin-content-marketing-1.3.0/share/agent-plugins/content-marketing",
       "spec": "1.1.0",
       "score": 100,
       "status": "safe",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
           "skills/social-evidence-research"
         ],
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/social-evidence-research",
           "score": 100,
@@ -34,7 +41,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
@@ -47,7 +55,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:29:47Z"
+      "checkedAt": "2026-11-04T23:31:08Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

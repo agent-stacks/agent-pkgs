@@ -7,12 +7,14 @@
   "plugins": [
     {
       "name": "security-scanning",
-      "dir": "/nix/store/f5q37z1zdic7hd2k3vvwai0rxp0a9yig-agent-plugin-security-scanning-1.3.3/share/agent-plugins/security-scanning",
+      "dir": "/nix/store/a3bw44fdnjaazlbvkqngrk1nx6bm3lrf-agent-plugin-security-scanning-1.3.3/share/agent-plugins/security-scanning",
       "spec": "1.1.0",
-      "score": 89,
-      "status": "safe",
+      "score": 11,
+      "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/commands",
           "skills/attack-tree-construction",
           "skills/sast-configuration",
           "skills/security-requirement-extraction",
@@ -22,14 +24,66 @@
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 11,
+          "risk": 89,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 66.7,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/commands/security-sast.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "YR1",
+              "severity": "CRITICAL",
+              "message": "YARA rule 'c2_framework_indicators': Command-and-control framework indicators (Cobalt Strike, Metasploit, Sliver, etc.) [malware]",
+              "file": "com.anthropic.claude-code/commands/security-hardening.md",
+              "line": 522
+            },
+            {
+              "id": "YR4",
+              "severity": "HIGH",
+              "message": "YARA rule 'agent_skill_prompt_injection_hidden_instructions': Prompt injection or hidden instructions embedded in AI agent skill text [agent_skills]",
+              "file": "com.anthropic.claude-code/commands/security-hardening.md",
+              "line": 10
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "com.anthropic.claude-code/commands/security-sast.md",
+              "line": 166
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "com.anthropic.claude-code/commands/security-dependencies.md",
+              "line": 386
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/attack-tree-construction",
           "score": 100,
@@ -38,7 +92,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/sast-configuration",
@@ -52,18 +107,19 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/sast-configuration/SKILL.md",
               "line": 63
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/sast-configuration/SKILL.md",
               "line": 134
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/security-requirement-extraction",
@@ -73,7 +129,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/stride-analysis-patterns",
@@ -83,7 +140,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/threat-mitigation-mapping",
@@ -93,20 +151,24 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 89,
-  "status": "safe",
+  "score": 11,
+  "status": "do not install",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-31T00:57:07Z"
+      "checkedAt": "2026-11-04T23:45:26Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

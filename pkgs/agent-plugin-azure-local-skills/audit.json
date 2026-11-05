@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "azure-local-skills",
-      "dir": "/nix/store/ylhxcc8ai66sl6qn6cnwdkm041g8p462-agent-plugin-azure-local-skills-1.0.18/share/agent-plugins/azure-local-skills",
+      "dir": "/nix/store/xgrg0p14pcv62zvzzan0wb3zgx68l7ws-agent-plugin-azure-local-skills-1.0.23/share/agent-plugins/azure-local-skills",
       "spec": "1.1.0",
       "score": 82,
-      "status": "safe",
+      "status": "incomplete",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/hooks",
           "skills/azure-local",
           "skills/azure-local-multi-rack"
         ],
@@ -25,16 +26,54 @@
             "reason": "interpreter links into /nix/store"
           },
           {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          },
-          {
             "path": "mcp.json",
             "reason": "SkillSpector does not analyse this layout as an MCP manifest"
           }
         ]
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 85,
+          "risk": 15,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 78.6,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/scripts/install-telemetry.ps1",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/scripts/install-telemetry.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/scripts/track-telemetry.ps1",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "com.anthropic.claude-code/hooks/scripts/install-telemetry.ps1",
+              "line": 253
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "com.anthropic.claude-code/hooks/scripts/install-telemetry.sh",
+              "line": 420
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/azure-local",
           "score": 82,
@@ -62,7 +101,8 @@
               "file": "skills/azure-local/workflows/troubleshooting/troubleshooting.md",
               "line": 8
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/azure-local-multi-rack",
@@ -83,20 +123,24 @@
               "line": 20
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
   ],
   "score": 82,
-  "status": "safe",
+  "status": "incomplete",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:16:13Z"
+      "checkedAt": "2026-11-04T23:09:38Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

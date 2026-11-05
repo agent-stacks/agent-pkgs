@@ -7,31 +7,117 @@
   "plugins": [
     {
       "name": "conductor",
-      "dir": "/nix/store/saa45bgs8dn5ybpi4kqmgai4p75rsdiw-agent-plugin-conductor-1.2.2/share/agent-plugins/conductor",
+      "dir": "/nix/store/89jsxxsllairq9n9cg86qzphj8gp54l0-agent-plugin-conductor-1.2.3/share/agent-plugins/conductor",
       "spec": "1.1.0",
-      "score": 92,
-      "status": "safe",
+      "score": 24,
+      "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/commands",
           "skills/context-driven-development",
           "skills/track-management",
-          "skills/workflow-patterns"
+          "skills/workflow-patterns",
+          "templates"
         ],
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          },
-          {
-            "path": "templates/",
-            "reason": "outside the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 24,
+          "risk": 76,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 83.3,
+          "exceptions": [
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "com.anthropic.claude-code/commands/manage.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "com.anthropic.claude-code/commands/manage.md",
+              "line": 669
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "com.anthropic.claude-code/commands/manage.md",
+              "line": 671
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "com.anthropic.claude-code/commands/revert.md",
+              "line": 287
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "com.anthropic.claude-code/commands/revert.md",
+              "line": 288
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "com.anthropic.claude-code/commands/setup.md",
+              "line": 299
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "com.anthropic.claude-code/commands/implement.md",
+              "line": 364
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/commands/manage.md",
+              "line": 301
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/commands/manage.md",
+              "line": 531
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/commands/manage.md",
+              "line": 992
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/context-driven-development",
           "score": 92,
@@ -48,7 +134,8 @@
               "file": "skills/context-driven-development/references/artifact-templates.md",
               "line": 110
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/track-management",
@@ -66,7 +153,8 @@
               "file": "skills/track-management/references/details.md",
               "line": 98
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/workflow-patterns",
@@ -76,20 +164,73 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "templates",
+          "score": 66,
+          "risk": 34,
+          "status": "caution",
+          "partial": true,
+          "coverage": 82.4,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "templates/code_styleguides/csharp.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "templates/code_styleguides/javascript.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "templates/code_styleguides/typescript.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "templates/code_styleguides/html-css.md",
+              "line": 22
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "templates/code_styleguides/html-css.md",
+              "line": 108
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "templates/tracks.md",
+              "line": 50
+            }
+          ],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 92,
-  "status": "safe",
+  "score": 24,
+  "status": "do not install",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:29:45Z"
+      "checkedAt": "2026-11-04T23:30:16Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

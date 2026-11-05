@@ -7,12 +7,14 @@
   "plugins": [
     {
       "name": "pcf",
-      "dir": "/nix/store/9iah2iifj7g31817gv0xwmh2xwwmmnf8-agent-plugin-pcf-1.0.0/share/agent-plugins/pcf",
+      "dir": "/nix/store/avqf1p2xscxim5s3qygchcagr3xc3w50-agent-plugin-pcf-1.0.1/share/agent-plugins/pcf",
       "spec": "1.1.0",
-      "score": 91,
-      "status": "incomplete",
+      "score": 0,
+      "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/hooks",
+          "scripts",
           "skills/pcf",
           "skills/report-issue",
           "skills/telemetry"
@@ -28,18 +30,505 @@
           {
             "path": "bin/",
             "reason": "interpreter links into /nix/store"
-          },
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          },
-          {
-            "path": "scripts/",
-            "reason": "outside the spec"
           }
         ]
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 61,
+          "risk": 39,
+          "status": "caution",
+          "partial": true,
+          "coverage": 75,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/validate-write-safety.js",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "com.anthropic.claude-code/hooks/validate-write-safety.js",
+              "line": 104
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/hooks/validate-write-safety.js",
+              "line": 4
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/hooks/validate-write-safety.js",
+              "line": 56
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "scripts",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 48.4,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/check-auth.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/check-version.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/cli-failure.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/output-redaction.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/pcf-binding-verify.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/pcf-build.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/lib/pcf-code-gate.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/pcf-code-gate.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/lib/pcf-dataverse.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/pcf-dataverse.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/pcf-doctor.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/lib/pcf-intent.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/pcf-intent.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/lib/pcf-manifest.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/pcf-manifest.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/pcf-matrix.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/pcf-names.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/pcf-scaffold.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/pcf-upgrade.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/lib/process-runner.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/process-runner.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/lib/sdk-http-client.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/sdk-http-client.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/lib/source-literals.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/source-literals.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/telemetry/lib/agent-info.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/telemetry/lib/local-log.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/telemetry/lib/native-exec.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/telemetry/region/region-cache.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/telemetry/skill-completed.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lint-pcf.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/pcf-build.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/pcf-ci-build.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/pcf-gates.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/pcf-push.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/pcf-scaffold.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/telemetry-config.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/vendor/cds-maker-sdk.cjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/vendor/cds-maker-sdk.cjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/verify-pcf.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/write-pcf-plan.js",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "scripts/lib/cli-failure.js",
+              "line": 80
+            },
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "scripts/lib/cli-failure.js",
+              "line": 80
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/dataverse-auth.js",
+              "line": 11
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/dataverse-auth.js",
+              "line": 102
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/dataverse-auth.js",
+              "line": 321
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/dataverse-auth.js",
+              "line": 510
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/output-redaction.js",
+              "line": 2
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/output-redaction.js",
+              "line": 801
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/output-redaction.js",
+              "line": 802
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/output-redaction.js",
+              "line": 812
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/output-redaction.js",
+              "line": 837
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/output-redaction.js",
+              "line": 905
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/pcf-dataverse.js",
+              "line": 22
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/sdk-http-client.js",
+              "line": 14
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/sdk-http-client.js",
+              "line": 572
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/sdk-http-client.js",
+              "line": 579
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/sdk-http-client.js",
+              "line": 606
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/sdk-http-client.js",
+              "line": 610
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/sdk-http-client.js",
+              "line": 721
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/telemetry/skill-completed.js",
+              "line": 151
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/pcf-push.js",
+              "line": 404
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/process-runner.js",
+              "line": 112
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "scripts/vendor/cds-maker-sdk.cjs",
+              "line": 50
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "scripts/vendor/cds-maker-sdk.cjs",
+              "line": 50
+            },
+            {
+              "id": "MP3",
+              "severity": "HIGH",
+              "message": "Memory Manipulation",
+              "file": "scripts/vendor/cds-maker-sdk.cjs",
+              "line": 373
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "scripts/vendor/cds-maker-sdk.cjs",
+              "line": 373
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "scripts/vendor/cds-maker-sdk.cjs",
+              "line": 373
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "scripts/lib/dataverse-auth.js",
+              "line": 186
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "scripts/lib/dataverse-auth.js",
+              "line": 193
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "scripts/lib/dataverse-auth.js",
+              "line": 212
+            },
+            {
+              "id": "EA4",
+              "severity": "MEDIUM",
+              "message": "Unbounded Resource Access",
+              "file": "scripts/lib/process-runner.js",
+              "line": 269
+            },
+            {
+              "id": "EA4",
+              "severity": "MEDIUM",
+              "message": "Unbounded Resource Access",
+              "file": "scripts/vendor/cds-maker-sdk.cjs",
+              "line": 30
+            },
+            {
+              "id": "EA4",
+              "severity": "MEDIUM",
+              "message": "Unbounded Resource Access",
+              "file": "scripts/vendor/cds-maker-sdk.cjs",
+              "line": 367
+            },
+            {
+              "id": "EA4",
+              "severity": "MEDIUM",
+              "message": "Unbounded Resource Access",
+              "file": "scripts/vendor/cds-maker-sdk.cjs",
+              "line": 367
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/pcf",
           "score": 100,
@@ -124,7 +613,8 @@
               "line": 182
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/report-issue",
@@ -148,7 +638,8 @@
               "file": "skills/report-issue/SKILL.md",
               "line": 10
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/telemetry",
@@ -164,20 +655,24 @@
               "line": 14
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 91,
-  "status": "incomplete",
+  "score": 0,
+  "status": "do not install",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-20T22:16:49Z"
+      "checkedAt": "2026-11-04T23:42:41Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

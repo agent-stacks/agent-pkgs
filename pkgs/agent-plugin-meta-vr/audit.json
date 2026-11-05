@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "meta-vr",
-      "dir": "/nix/store/4mknl6yfd2n8m1zbfjagrpvgf0z82pgn-agent-plugin-meta-vr-2.0.0/share/agent-plugins/meta-vr",
+      "dir": "/nix/store/1sih1rhc5k8ajbbjd6gvfwm718q4p9g7-agent-plugin-meta-vr-2.0.0/share/agent-plugins/meta-vr",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -67,9 +67,9 @@
       "components": [
         {
           "path": "skills/hz-android-2d-porting",
-          "score": 37,
-          "risk": 63,
-          "status": "do not install",
+          "score": 74,
+          "risk": 26,
+          "status": "caution",
           "partial": true,
           "coverage": 80,
           "exceptions": [
@@ -86,20 +86,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/hz-android-2d-porting/SKILL.md",
-              "line": 83
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/hz-android-2d-porting/SKILL.md",
-              "line": 169
-            },
-            {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
@@ -112,6 +98,24 @@
               "message": "Hidden Instructions",
               "file": "skills/hz-android-2d-porting/references/gradle-setup.md",
               "line": 54
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/hz-android-2d-porting/SKILL.md",
+              "line": 83,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/hz-android-2d-porting/SKILL.md",
+              "line": 169,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -183,18 +187,19 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-api-upgrade/SKILL.md",
               "line": 162
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-api-upgrade/references/sdk-migration.md",
               "line": 195
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/hz-immersive-designer",
@@ -204,13 +209,14 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/hz-iwsdk-webxr",
-          "score": 75,
-          "risk": 25,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
           "partial": true,
           "coverage": 85.7,
           "exceptions": [
@@ -230,13 +236,15 @@
               "line": 0
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/hz-iwsdk-webxr/SKILL.md",
-              "line": 271
+              "line": 271,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -256,7 +264,8 @@
               "file": "skills/hz-metavrx-layout-sdk/references/compose-api-reference.md",
               "line": 91
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/hz-metavrx-ui-set",
@@ -302,7 +311,8 @@
               "line": 84
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/hz-new-project-creation",
@@ -331,7 +341,8 @@
               "file": "skills/hz-new-project-creation/SKILL.md",
               "line": 28
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/hz-perfetto-debug",
@@ -349,7 +360,8 @@
               "file": "skills/hz-perfetto-debug/SKILL.md",
               "line": 43
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/hz-platform-sdk",
@@ -436,7 +448,8 @@
               "file": "skills/hz-platform-sdk/references/consent.md",
               "line": 364
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/hz-psdk-integration",
@@ -576,7 +589,7 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-psdk-integration/SKILL.md",
               "line": 90
             },
@@ -587,7 +600,8 @@
               "file": "skills/hz-psdk-integration/references/consent.md",
               "line": 145
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/hz-quest-verify-first",
@@ -622,7 +636,7 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-quest-verify-first/SKILL.md",
               "line": 35
             },
@@ -633,7 +647,8 @@
               "file": "skills/hz-quest-verify-first/SKILL.md",
               "line": 280
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/hz-react-native-expo",
@@ -663,130 +678,131 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-react-native-expo/SKILL.md",
               "line": 48
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-react-native-expo/SKILL.md",
               "line": 77
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-react-native-expo/SKILL.md",
               "line": 105
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-react-native-expo/SKILL.md",
               "line": 123
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-react-native-expo/SKILL.md",
               "line": 155
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-react-native-expo/SKILL.md",
               "line": 219
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-react-native-expo/SKILL.md",
               "line": 224
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-react-native-expo/references/dev-loop.md",
               "line": 18
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-react-native-expo/references/dev-loop.md",
               "line": 34
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-react-native-expo/references/dev-loop.md",
               "line": 79
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-react-native-expo/references/dev-loop.md",
               "line": 100
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-react-native-expo/references/dev-loop.md",
               "line": 106
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-react-native-expo/references/expo-horizon-core-setup.md",
               "line": 21
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-react-native-expo/references/expo-horizon-core-setup.md",
               "line": 67
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-react-native-expo/references/horizon-libraries.md",
               "line": 42
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-react-native-expo/references/horizon-libraries.md",
               "line": 59
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-react-native-expo/SKILL.md",
               "line": 49
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-react-native-expo/SKILL.md",
               "line": 54
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/hz-simpleperf-debug",
@@ -804,7 +820,8 @@
               "file": "skills/hz-simpleperf-debug/SKILL.md",
               "line": 42
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/hz-spatial-sdk",
@@ -876,11 +893,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-spatial-sdk/SKILL.md",
               "line": 192
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/hz-store-pwa",
@@ -945,56 +963,56 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-store-pwa/SKILL.md",
               "line": 82
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-store-pwa/references/app-modes.md",
               "line": 28
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-store-pwa/SKILL.md",
               "line": 126
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-store-pwa/SKILL.md",
               "line": 127
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-store-pwa/SKILL.md",
               "line": 128
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-store-pwa/references/vercel-deploy.md",
               "line": 19
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-store-pwa/references/vercel-deploy.md",
               "line": 20
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-store-pwa/references/vercel-deploy.md",
               "line": 21
             },
@@ -1005,7 +1023,8 @@
               "file": "skills/hz-store-pwa/SKILL.md",
               "line": 142
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/hz-store-submit",
@@ -1036,7 +1055,8 @@
               "line": 170
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/hz-unity-code-review",
@@ -1063,11 +1083,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-unity-code-review/SKILL.md",
               "line": 206
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/hz-unity-device-readiness",
@@ -1077,13 +1098,14 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/hz-unity-face-tracking",
-          "score": 75,
-          "risk": 25,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
           "partial": true,
           "coverage": 100,
           "exceptions": [
@@ -1153,13 +1175,15 @@
               "line": 232
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/hz-unity-face-tracking/SKILL.md",
-              "line": 224
+              "line": 224,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -1227,7 +1251,8 @@
               "line": 175
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/hz-unity-meta-core-sdk",
@@ -1293,7 +1318,8 @@
               "file": "skills/hz-unity-meta-core-sdk/references/project-setup-workflow.md",
               "line": 171
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/hz-unity-meta-interaction-sdk",
@@ -1358,11 +1384,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-unity-meta-interaction-sdk/references/documentation.md",
               "line": 29
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/hz-unity-meta-mixed-reality-utility-kit",
@@ -1603,7 +1630,8 @@
               "line": 380
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/hz-unity-meta-movement-sdk-retargeting",
@@ -1764,7 +1792,8 @@
               "line": 338
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/hz-unity-meta-quest-ui",
@@ -1825,7 +1854,8 @@
               "line": 282
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/hz-unity-passthrough-camera-access",
@@ -1850,11 +1880,12 @@
             {
               "id": "AE4",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "analysis-evasion",
               "file": "skills/hz-unity-passthrough-camera-access/references/principal-point-offset.md",
               "line": 1
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/hz-unity-placement",
@@ -1985,7 +2016,8 @@
               "line": 441
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/hz-unity-platform-sdk",
@@ -2122,7 +2154,8 @@
               "file": "skills/hz-unity-platform-sdk/references/consent.md",
               "line": 222
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/hz-unity-project-analyzer",
@@ -2288,7 +2321,8 @@
               "line": 218
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/hz-unity-sdk-upgrade",
@@ -2317,7 +2351,8 @@
               "file": "skills/hz-unity-sdk-upgrade/SKILL.md",
               "line": 50
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/hz-unity-tmp-resources",
@@ -2351,7 +2386,8 @@
               "file": "skills/hz-unity-tmp-resources/SKILL.md",
               "line": 64
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/hz-vr-debug",
@@ -2400,7 +2436,7 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/hz-vr-debug/SKILL.md",
               "line": 36
             },
@@ -2418,7 +2454,8 @@
               "file": "skills/hz-vr-debug/references/common-issues.md",
               "line": 232
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/hz-xr-simulator-control",
@@ -2428,7 +2465,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/hz-xr-simulator-install-and-configure",
@@ -2438,13 +2476,14 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/metavr-cli",
-          "score": 25,
-          "risk": 75,
-          "status": "do not install",
+          "score": 50,
+          "risk": 50,
+          "status": "caution",
           "partial": true,
           "coverage": 100,
           "exceptions": [
@@ -2481,13 +2520,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/metavr-cli/SKILL.md",
-              "line": 24
-            },
-            {
               "id": "SC2",
               "severity": "HIGH",
               "message": "External Script Fetching",
@@ -2504,16 +2536,26 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/metavr-cli/SKILL.md",
               "line": 59
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/metavr-cli/SKILL.md",
               "line": 67
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/metavr-cli/SKILL.md",
+              "line": 24,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -2603,27 +2645,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/portal/SKILL.md",
-              "line": 43
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/portal/SKILL.md",
-              "line": 79
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/portal/SKILL.md",
-              "line": 181
-            },
-            {
               "id": "SC2",
               "severity": "HIGH",
               "message": "External Script Fetching",
@@ -2650,13 +2671,6 @@
               "message": "External Script Fetching",
               "file": "skills/portal/resources/metavr.md",
               "line": 31
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/portal/SKILL.md",
-              "line": 182
             },
             {
               "id": "TM2",
@@ -2801,35 +2815,35 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/portal/SKILL.md",
               "line": 63
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/portal/SKILL.md",
               "line": 67
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/portal/SKILL.md",
               "line": 76
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/portal/resources/metavr.md",
               "line": 50
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/portal/SKILL.md",
               "line": 83
             },
@@ -2903,6 +2917,40 @@
               "file": "skills/portal/resources/porting-existing-apps.md",
               "line": 123
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/portal/SKILL.md",
+              "line": 43,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/portal/SKILL.md",
+              "line": 79,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/portal/SKILL.md",
+              "line": 181,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/portal/SKILL.md",
+              "line": 182,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         }
       ]
@@ -2916,7 +2964,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:57:07Z"
+      "checkedAt": "2026-11-05T00:54:28Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

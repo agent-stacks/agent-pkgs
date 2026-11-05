@@ -7,12 +7,14 @@
   "plugins": [
     {
       "name": "agent-teams",
-      "dir": "/nix/store/dp3ljlkzdv978f07vyb8wvqr40gh6mzh-agent-plugin-agent-teams-1.0.3/share/agent-plugins/agent-teams",
+      "dir": "/nix/store/gc1yssh0qbig3393qwj35if6kikfvhrh-agent-plugin-agent-teams-1.0.4/share/agent-plugins/agent-teams",
       "spec": "1.1.0",
       "score": 78,
       "status": "caution",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/commands",
           "skills/multi-reviewer-patterns",
           "skills/parallel-debugging",
           "skills/parallel-feature-development",
@@ -23,14 +25,47 @@
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 94,
+          "risk": 6,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/agents/team-lead.md",
+              "line": 36
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 94,
+          "risk": 6,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/commands/team-spawn.md",
+              "line": 74
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/multi-reviewer-patterns",
           "score": 100,
@@ -39,7 +74,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/parallel-debugging",
@@ -55,7 +91,8 @@
               "line": 86
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/parallel-feature-development",
@@ -76,7 +113,8 @@
               "line": 160
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/task-coordination-strategies",
@@ -107,7 +145,8 @@
               "line": 132
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/team-communication-protocols",
@@ -117,7 +156,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/team-composition-patterns",
@@ -135,7 +175,8 @@
               "file": "skills/team-composition-patterns/SKILL.md",
               "line": 97
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
@@ -148,7 +189,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:14:43Z"
+      "checkedAt": "2026-11-04T23:05:58Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

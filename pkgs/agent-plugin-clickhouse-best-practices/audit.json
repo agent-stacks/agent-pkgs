@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "clickhouse-best-practices",
-      "dir": "/nix/store/hlv8vblhnbxjns76p93fn66a8ijgf7ld-agent-plugin-clickhouse-best-practices-0.3.0/share/agent-plugins/clickhouse-best-practices",
+      "dir": "/nix/store/5ivbi8mrfp677l8j7g61kimfy3zpyyqv-agent-plugin-clickhouse-best-practices-0.3.0/share/agent-plugins/clickhouse-best-practices",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -38,9 +38,9 @@
       "components": [
         {
           "path": "skills/chdb-datastore",
-          "score": 50,
-          "risk": 50,
-          "status": "caution",
+          "score": 93,
+          "risk": 7,
+          "status": "incomplete",
           "partial": true,
           "coverage": 85.7,
           "exceptions": [
@@ -77,32 +77,37 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/chdb-datastore/SKILL.md",
-              "line": 50
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/chdb-datastore/SKILL.md",
-              "line": 112
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/chdb-datastore/SKILL.md",
-              "line": 140
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/chdb-datastore/README.md",
               "line": 8
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/chdb-datastore/SKILL.md",
+              "line": 50,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/chdb-datastore/SKILL.md",
+              "line": 112,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/chdb-datastore/SKILL.md",
+              "line": 140,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -144,7 +149,7 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/chdb-sql/README.md",
               "line": 8
             },
@@ -155,7 +160,8 @@
               "file": "skills/chdb-sql/references/table-functions.md",
               "line": 211
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/clickhouse-architecture-advisor",
@@ -171,13 +177,14 @@
               "line": 7
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/clickhouse-best-practices",
-          "score": 33,
-          "risk": 67,
-          "status": "do not install",
+          "score": 70,
+          "risk": 30,
+          "status": "caution",
           "partial": true,
           "coverage": 94.6,
           "exceptions": [
@@ -198,20 +205,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/clickhouse-best-practices/SKILL.md",
-              "line": 272
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/clickhouse-best-practices/SKILL.md",
-              "line": 274
-            },
             {
               "id": "EA4",
               "severity": "MEDIUM",
@@ -243,30 +236,48 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/clickhouse-best-practices/README.md",
               "line": 8
             },
             {
               "id": "RP1",
               "severity": "LOW",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/clickhouse-best-practices/AGENTS.md",
               "line": 1734
             },
             {
               "id": "RP1",
               "severity": "LOW",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/clickhouse-best-practices/rules/agent-connect-mcp.md",
               "line": 50
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/clickhouse-best-practices/SKILL.md",
+              "line": 272,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/clickhouse-best-practices/SKILL.md",
+              "line": 274,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
         {
           "path": "skills/clickhouse-js-node-coding",
-          "score": 67,
-          "risk": 33,
+          "score": 79,
+          "risk": 21,
           "status": "caution",
           "partial": true,
           "coverage": 100,
@@ -289,90 +300,6 @@
           ],
           "findings": [
             {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-coding/SKILL.md",
-              "line": 78
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-coding/SKILL.md",
-              "line": 80
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-coding/SKILL.md",
-              "line": 81
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-coding/SKILL.md",
-              "line": 83
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-coding/SKILL.md",
-              "line": 82
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-coding/SKILL.md",
-              "line": 84
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-coding/SKILL.md",
-              "line": 86
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-coding/SKILL.md",
-              "line": 87
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-coding/SKILL.md",
-              "line": 89
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-coding/SKILL.md",
-              "line": 88
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-coding/SKILL.md",
-              "line": 90
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-coding/SKILL.md",
-              "line": 91
-            },
-            {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
@@ -380,41 +307,6 @@
               "line": 325
             },
             {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-coding/reference/select-formats.md",
-              "line": 81
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-coding/reference/select-formats.md",
-              "line": 83
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-coding/reference/select-formats.md",
-              "line": 84
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-coding/reference/select-formats.md",
-              "line": 85
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-coding/reference/select-formats.md",
-              "line": 86
-            },
-            {
               "id": "MP2",
               "severity": "MEDIUM",
               "message": "Context Window Stuffing",
@@ -441,41 +333,183 @@
               "message": "Context Window Stuffing",
               "file": "skills/clickhouse-js-node-coding/reference/select-formats.md",
               "line": 97
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-coding/SKILL.md",
+              "line": 78,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-coding/SKILL.md",
+              "line": 80,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-coding/SKILL.md",
+              "line": 81,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-coding/SKILL.md",
+              "line": 82,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-coding/SKILL.md",
+              "line": 83,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-coding/SKILL.md",
+              "line": 84,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-coding/SKILL.md",
+              "line": 86,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-coding/SKILL.md",
+              "line": 87,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-coding/SKILL.md",
+              "line": 88,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-coding/SKILL.md",
+              "line": 89,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-coding/SKILL.md",
+              "line": 90,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-coding/SKILL.md",
+              "line": 91,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/clickhouse-js-node-coding/reference/select-formats.md",
-              "line": 92
+              "line": 81,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/clickhouse-js-node-coding/reference/select-formats.md",
-              "line": 94
+              "line": 83,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/clickhouse-js-node-coding/reference/select-formats.md",
-              "line": 95
+              "line": 84,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/clickhouse-js-node-coding/reference/select-formats.md",
-              "line": 97
+              "line": 85,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-coding/reference/select-formats.md",
+              "line": 86,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-coding/reference/select-formats.md",
+              "line": 92,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-coding/reference/select-formats.md",
+              "line": 94,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-coding/reference/select-formats.md",
+              "line": 95,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-coding/reference/select-formats.md",
+              "line": 97,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             }
           ]
         },
         {
           "path": "skills/clickhouse-js-node-rowbinary",
-          "score": 15,
-          "risk": 85,
+          "score": 27,
+          "risk": 73,
           "status": "do not install",
           "partial": true,
           "coverage": 92.5,
@@ -532,100 +566,44 @@
               "line": 1083
             },
             {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/EXAMPLES.md",
-              "line": 17
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 120
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/EXAMPLES.md",
-              "line": 17
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/EXAMPLES.md",
-              "line": 19
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/EXAMPLES.md",
-              "line": 20
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/EXAMPLES.md",
-              "line": 21
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/EXAMPLES.md",
-              "line": 23
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/EXAMPLES.md",
-              "line": 24
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/clickhouse-js-node-rowbinary/README.md",
               "line": 67
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/clickhouse-js-node-rowbinary/README.md",
               "line": 73
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/clickhouse-js-node-rowbinary/case-studies/iot-rowbinary-vs-json.md",
               "line": 10
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/clickhouse-js-node-rowbinary/case-studies/ledger-rowbinary-vs-json.md",
               "line": 16
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/clickhouse-js-node-rowbinary/case-studies/logs-json-wins.md",
               "line": 20
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/clickhouse-js-node-rowbinary/case-studies/wasm-vs-js.md",
               "line": 20
             },
@@ -686,321 +664,6 @@
               "line": 389
             },
             {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 97
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 97
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 99
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 102
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 107
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 110
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 115
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 116
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 100
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 104
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 117
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 118
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 124
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 101
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 101
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 105
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 109
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 111
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 102
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 107
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 115
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 103
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 104
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 105
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 106
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 106
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 114
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 119
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 125
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 108
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 108
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 110
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 111
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 112
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 113
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 116
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 122
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 117
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 122
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 123
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 123
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 124
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 125
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 126
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
-              "line": 126
-            },
-            {
               "id": "SC1",
               "severity": "LOW",
               "message": "Unpinned Dependencies",
@@ -1021,66 +684,443 @@
               "file": "skills/clickhouse-js-node-rowbinary/package.json",
               "line": 79
             }
+          ],
+          "suppressed": [
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/EXAMPLES.md",
+              "line": 17,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/EXAMPLES.md",
+              "line": 17,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/EXAMPLES.md",
+              "line": 19,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/EXAMPLES.md",
+              "line": 20,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/EXAMPLES.md",
+              "line": 21,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/EXAMPLES.md",
+              "line": 23,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/EXAMPLES.md",
+              "line": 24,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 97,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 97,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 99,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 100,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 101,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 101,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 102,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 102,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 103,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 104,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 104,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 105,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 105,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 106,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 106,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 107,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 107,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 108,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 108,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 109,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 110,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 110,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 111,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 111,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 112,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 113,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 114,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 115,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 115,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 116,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 116,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 117,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 117,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 118,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 119,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 120,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 122,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 122,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 123,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 123,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 124,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 124,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 125,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 125,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 126,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-rowbinary/reader.md",
+              "line": 126,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            }
           ]
         },
         {
           "path": "skills/clickhouse-js-node-troubleshooting",
-          "score": 74,
-          "risk": 26,
-          "status": "caution",
+          "score": 86,
+          "risk": 14,
+          "status": "safe",
           "partial": false,
           "coverage": 100,
           "exceptions": [],
           "findings": [
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-troubleshooting/SKILL.md",
-              "line": 35
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-troubleshooting/SKILL.md",
-              "line": 39
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-troubleshooting/SKILL.md",
-              "line": 40
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-troubleshooting/SKILL.md",
-              "line": 41
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-troubleshooting/SKILL.md",
-              "line": 42
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-troubleshooting/SKILL.md",
-              "line": 44
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/clickhouse-js-node-troubleshooting/SKILL.md",
-              "line": 43
-            },
             {
               "id": "E1",
               "severity": "MEDIUM",
@@ -1095,13 +1135,71 @@
               "file": "skills/clickhouse-js-node-troubleshooting/reference/tls.md",
               "line": 66
             }
+          ],
+          "suppressed": [
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-troubleshooting/SKILL.md",
+              "line": 35,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-troubleshooting/SKILL.md",
+              "line": 39,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-troubleshooting/SKILL.md",
+              "line": 40,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-troubleshooting/SKILL.md",
+              "line": 41,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-troubleshooting/SKILL.md",
+              "line": 42,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-troubleshooting/SKILL.md",
+              "line": 43,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/clickhouse-js-node-troubleshooting/SKILL.md",
+              "line": 44,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            }
           ]
         },
         {
           "path": "skills/clickhouse-managed-postgres-rca",
-          "score": 16,
-          "risk": 84,
-          "status": "do not install",
+          "score": 60,
+          "risk": 40,
+          "status": "caution",
           "partial": true,
           "coverage": 76.9,
           "exceptions": [
@@ -1145,27 +1243,6 @@
               "message": "Tool Parameter Abuse",
               "file": "skills/clickhouse-managed-postgres-rca/rules/openapi-discovery.md",
               "line": 87
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/clickhouse-managed-postgres-rca/SKILL.md",
-              "line": 116
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/clickhouse-managed-postgres-rca/SKILL.md",
-              "line": 123
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/clickhouse-managed-postgres-rca/SKILL.md",
-              "line": 130
             },
             {
               "id": "E1",
@@ -1257,6 +1334,32 @@
               "message": "External Transmission",
               "file": "skills/clickhouse-managed-postgres-rca/rules/slow-query-patterns-fields.md",
               "line": 71
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/clickhouse-managed-postgres-rca/SKILL.md",
+              "line": 116,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/clickhouse-managed-postgres-rca/SKILL.md",
+              "line": 123,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/clickhouse-managed-postgres-rca/SKILL.md",
+              "line": 130,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -1518,28 +1621,28 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/clickstack-otel-collector/SKILL.md",
               "line": 3
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/clickstack-otel-collector/metadata.json",
               "line": 5
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/clickstack-otel-collector/SKILL.md",
               "line": 43
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/clickstack-otel-collector/SKILL.md",
               "line": 118
             },
@@ -1581,37 +1684,38 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/clickstack-otel-collector/SKILL.md",
               "line": 436
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/clickstack-otel-collector/SKILL.md",
               "line": 466
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/clickstack-otel-collector/SKILL.md",
               "line": 495
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/clickstack-otel-collector/SKILL.md",
               "line": 648
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/infra-clickhouse",
-          "score": 38,
-          "risk": 62,
+          "score": 17,
+          "risk": 83,
           "status": "do not install",
           "partial": true,
           "coverage": 100,
@@ -1620,43 +1724,56 @@
               "reason": "reference_missing",
               "path": "skills/infra-clickhouse/SKILL.md",
               "line": 7
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/infra-clickhouse/SKILL.md",
+              "line": 8
             }
           ],
           "findings": [
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/infra-clickhouse/SKILL.md",
+              "line": 11
+            },
             {
               "id": "SC2",
               "severity": "HIGH",
               "message": "External Script Fetching",
               "file": "skills/infra-clickhouse/SKILL.md",
-              "line": 41
+              "line": 44
             },
             {
               "id": "TM2",
               "severity": "HIGH",
               "message": "Chaining Abuse",
               "file": "skills/infra-clickhouse/SKILL.md",
-              "line": 41
+              "line": 44
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/infra-clickhouse/ref/cloud.md",
-              "line": 118
+              "line": 120
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/infra-clickhouse/ref/cloud.md",
-              "line": 119
+              "line": 121
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/infra-postgres",
-          "score": 37,
-          "risk": 63,
+          "score": 4,
+          "risk": 96,
           "status": "do not install",
           "partial": true,
           "coverage": 100,
@@ -1665,22 +1782,34 @@
               "reason": "reference_missing",
               "path": "skills/infra-postgres/SKILL.md",
               "line": 7
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/infra-postgres/SKILL.md",
+              "line": 8
             }
           ],
           "findings": [
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/infra-postgres/SKILL.md",
+              "line": 11
+            },
             {
               "id": "SC2",
               "severity": "HIGH",
               "message": "External Script Fetching",
               "file": "skills/infra-postgres/SKILL.md",
-              "line": 42
+              "line": 45
             },
             {
               "id": "TM2",
               "severity": "HIGH",
               "message": "Chaining Abuse",
               "file": "skills/infra-postgres/SKILL.md",
-              "line": 42
+              "line": 45
             },
             {
               "id": "PE3",
@@ -1692,9 +1821,30 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
+              "file": "skills/infra-postgres/ref/cloud.md",
+              "line": 79
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
               "file": "skills/infra-postgres/ref/migrate.md",
               "line": 52
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/infra-postgres/ref/cloud.md",
+              "line": 134
+            },
+            {
+              "id": "TM1",
+              "severity": "LOW",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/infra-postgres/ref/cloud.md",
+              "line": 79
             },
             {
               "id": "TM1",
@@ -1703,7 +1853,8 @@
               "file": "skills/infra-postgres/ref/migrate.md",
               "line": 52
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
@@ -1716,7 +1867,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-22T02:58:07Z"
+      "checkedAt": "2026-11-04T23:13:54Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

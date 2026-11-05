@@ -7,9 +7,9 @@
   "plugins": [
     {
       "name": "langchain-skills",
-      "dir": "/nix/store/5sksr8jwf40wrns44g439na9y2k9dnbn-agent-plugin-langchain-skills-0.1.2/share/agent-plugins/langchain-skills",
+      "dir": "/nix/store/k39j09zgiay6pn8ynv3v42zrm92kvjyv-agent-plugin-langchain-skills-0.1.2/share/agent-plugins/langchain-skills",
       "spec": "1.1.0",
-      "score": 0,
+      "score": 40,
       "status": "do not install",
       "coverage": {
         "scanned": [
@@ -63,7 +63,8 @@
               "file": "skills/deep-agents-core/SKILL.md",
               "line": 261
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/deep-agents-memory",
@@ -79,7 +80,8 @@
               "line": 192
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/deep-agents-orchestration",
@@ -95,7 +97,8 @@
               "line": 0
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/deepagents-python-quickstart",
@@ -105,7 +108,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/deepagents-typescript-quickstart",
@@ -115,7 +119,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/ecosystem-primer",
@@ -139,12 +144,13 @@
               "file": "skills/ecosystem-primer/SKILL.md",
               "line": 159
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/eval-engineering",
-          "score": 0,
-          "risk": 100,
+          "score": 40,
+          "risk": 60,
           "status": "do not install",
           "partial": true,
           "coverage": 95.2,
@@ -217,20 +223,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/eval-engineering/SKILL.md",
-              "line": 61
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/eval-engineering/SKILL.md",
-              "line": 262
-            },
-            {
               "id": "RA1",
               "severity": "HIGH",
               "message": "Self-Modification",
@@ -243,13 +235,6 @@
               "message": "Memory Manipulation",
               "file": "skills/eval-engineering/references/examples/service-desk.md",
               "line": 68
-            },
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/eval-engineering/SKILL.md",
-              "line": 1
             },
             {
               "id": "AS3",
@@ -272,6 +257,32 @@
               "file": "skills/eval-engineering/references/task-implementation.md",
               "line": 38
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/eval-engineering/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/eval-engineering/SKILL.md",
+              "line": 61,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/eval-engineering/SKILL.md",
+              "line": 262,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
@@ -288,7 +299,8 @@
               "line": 0
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/langchain-fundamentals",
@@ -322,7 +334,8 @@
               "file": "skills/langchain-fundamentals/SKILL.md",
               "line": 359
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/langchain-middleware",
@@ -358,7 +371,8 @@
               "line": 336
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/langchain-python-quickstart",
@@ -368,7 +382,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/langchain-rag",
@@ -467,7 +482,8 @@
               "file": "skills/langchain-rag/SKILL.md",
               "line": 519
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/langchain-typescript-quickstart",
@@ -477,7 +493,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/langgraph-cli",
@@ -647,14 +664,14 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/langgraph-cli/SKILL.md",
               "line": 41
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/langgraph-cli/SKILL.md",
               "line": 245
             },
@@ -672,7 +689,8 @@
               "file": "skills/langgraph-cli/SKILL.md",
               "line": 133
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/langgraph-decision-models",
@@ -713,13 +731,14 @@
               "line": 187
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/langgraph-fundamentals",
-          "score": 63,
-          "risk": 37,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
           "partial": true,
           "coverage": 33.3,
           "exceptions": [
@@ -734,20 +753,23 @@
               "line": 0
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/langgraph-fundamentals/SKILL.md",
-              "line": 161
+              "line": 161,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/langgraph-fundamentals/SKILL.md",
-              "line": 162
+              "line": 162,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -765,7 +787,8 @@
               "line": 0
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/langgraph-persistence",
@@ -796,7 +819,8 @@
               "file": "skills/langgraph-persistence/SKILL.md",
               "line": 527
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/langgraph-python-quickstart",
@@ -806,7 +830,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/langgraph-typescript-quickstart",
@@ -816,12 +841,13 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/managed-deep-agents",
-          "score": 23,
-          "risk": 77,
+          "score": 48,
+          "risk": 52,
           "status": "do not install",
           "partial": true,
           "coverage": 0,
@@ -1023,13 +1049,6 @@
               "line": 549
             },
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/managed-deep-agents/SKILL.md",
-              "line": 240
-            },
-            {
               "id": "RA1",
               "severity": "HIGH",
               "message": "Self-Modification",
@@ -1043,13 +1062,23 @@
               "file": "skills/managed-deep-agents/SKILL.md",
               "line": 271
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/managed-deep-agents/SKILL.md",
+              "line": 240,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
           "path": "skills/swarm",
-          "score": 48,
-          "risk": 52,
-          "status": "do not install",
+          "score": 73,
+          "risk": 27,
+          "status": "caution",
           "partial": true,
           "coverage": 55.6,
           "exceptions": [
@@ -1081,25 +1110,28 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/swarm/SKILL.md",
-              "line": 9
-            },
-            {
               "id": "P6",
               "severity": "HIGH",
               "message": "Direct Prompt Extraction",
               "file": "skills/swarm/scripts/batching.ts",
               "line": 172
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/swarm/SKILL.md",
+              "line": 9,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         }
       ]
     }
   ],
-  "score": 0,
+  "score": 40,
   "status": "do not install",
   "tool": {
     "name": "skillspector",
@@ -1107,7 +1139,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:40:47Z"
+      "checkedAt": "2026-11-04T23:37:42Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

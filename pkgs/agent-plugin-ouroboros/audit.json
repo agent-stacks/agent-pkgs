@@ -7,12 +7,14 @@
   "plugins": [
     {
       "name": "ouroboros",
-      "dir": "/nix/store/i0v7j5crd1g323y562rxdf5cgdgpdbfv-agent-plugin-ouroboros-0.59.9/share/agent-plugins/ouroboros",
+      "dir": "/nix/store/gkksiw7ldx5ij6a2l4q5nyxriqy5cav6-agent-plugin-ouroboros-0.59.9/share/agent-plugins/ouroboros",
       "spec": "1.1.0",
-      "score": 7,
+      "score": 0,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/hooks",
+          "scripts",
           "skills/auto",
           "skills/brownfield",
           "skills/cancel",
@@ -49,20 +51,280 @@
             "reason": "interpreter links into /nix/store"
           },
           {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          },
-          {
             "path": "mcp.json",
             "reason": "SkillSpector does not analyse this layout as an MCP manifest"
-          },
-          {
-            "path": "scripts/",
-            "reason": "outside the spec"
           }
         ]
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "scripts",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 83.3,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/bump-homebrew-formula.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/install.ps1",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/install.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/probe-copilot-acp.py",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "scripts/install.sh",
+              "line": 3
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/install.sh",
+              "line": 138
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/install.sh",
+              "line": 161
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "scripts/install.sh",
+              "line": 336
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "scripts/install.sh",
+              "line": 1242
+            },
+            {
+              "id": "AS2",
+              "severity": "HIGH",
+              "message": "MCP Config Access",
+              "file": "scripts/keyword-detector.py",
+              "line": 165
+            },
+            {
+              "id": "AS2",
+              "severity": "HIGH",
+              "message": "MCP Config Access",
+              "file": "scripts/keyword-detector.py",
+              "line": 181
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/keyword-detector.py",
+              "line": 213
+            },
+            {
+              "id": "E2",
+              "severity": "HIGH",
+              "message": "Env Variable Harvesting",
+              "file": "scripts/probe-copilot-acp.py",
+              "line": 130
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/check-auto-perf-budget.py",
+              "line": 89
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/check-auto-perf-budget.py",
+              "line": 176
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/check-module-size.py",
+              "line": 256
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/check-module-size.py",
+              "line": 268
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/check-module-size.py",
+              "line": 286
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "scripts/install.sh",
+              "line": 829
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "scripts/install.sh",
+              "line": 1497
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "scripts/install.sh",
+              "line": 1504
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/keyword-detector.py",
+              "line": 74
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "scripts/keyword-detector.py",
+              "line": 81
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/ralph-rewind.py",
+              "line": 75
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/ralph.py",
+              "line": 63
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "scripts/sync-plugin-version.py",
+              "line": 38
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "scripts/sync-plugin-version.py",
+              "line": 39
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/sync-plugin-version.py",
+              "line": 67
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/sync-plugin-version.py",
+              "line": 83
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/version-check.py",
+              "line": 8
+            },
+            {
+              "id": "SC2",
+              "severity": "LOW",
+              "message": "External Script Fetching",
+              "file": "scripts/bump-homebrew-formula.sh",
+              "line": 47
+            },
+            {
+              "id": "SC2",
+              "severity": "LOW",
+              "message": "External Script Fetching",
+              "file": "scripts/install.sh",
+              "line": 3
+            },
+            {
+              "id": "SC2",
+              "severity": "LOW",
+              "message": "External Script Fetching",
+              "file": "scripts/install.sh",
+              "line": 829
+            },
+            {
+              "id": "SC2",
+              "severity": "LOW",
+              "message": "External Script Fetching",
+              "file": "scripts/install.sh",
+              "line": 949
+            },
+            {
+              "id": "SC2",
+              "severity": "LOW",
+              "message": "External Script Fetching",
+              "file": "scripts/install.sh",
+              "line": 988
+            },
+            {
+              "id": "AST7",
+              "severity": "LOW",
+              "message": "Dynamic attribute access via getattr()",
+              "file": "scripts/sync-plugin-version.py",
+              "line": 210
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/auto",
           "score": 81,
@@ -109,7 +371,8 @@
               "file": "skills/auto/SKILL.md",
               "line": 200
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/brownfield",
@@ -138,7 +401,8 @@
               "file": "skills/brownfield/SKILL.md",
               "line": 8
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/cancel",
@@ -148,7 +412,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/config",
@@ -158,7 +423,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/evaluate",
@@ -197,7 +463,8 @@
               "file": "skills/evaluate/SKILL.md",
               "line": 67
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/evolve",
@@ -207,7 +474,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/help",
@@ -217,7 +485,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/idk",
@@ -227,7 +496,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/interview",
@@ -328,7 +598,8 @@
               "file": "skills/interview/SKILL.md",
               "line": 133
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/ooo",
@@ -338,7 +609,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/pm",
@@ -376,7 +648,8 @@
               "file": "skills/pm/SKILL.md",
               "line": 112
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/publish",
@@ -386,7 +659,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/qa",
@@ -412,7 +686,8 @@
               "line": 69
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/ralph",
@@ -441,7 +716,8 @@
               "file": "skills/ralph/SKILL.md",
               "line": 69
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/resume-session",
@@ -451,7 +727,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/run",
@@ -492,7 +769,8 @@
               "file": "skills/run/SKILL.md",
               "line": 199
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/seed",
@@ -543,7 +821,8 @@
               "file": "skills/seed/SKILL.md",
               "line": 172
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/setup",
@@ -643,7 +922,7 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/setup/SKILL.md",
               "line": 345
             },
@@ -654,7 +933,8 @@
               "file": "skills/setup/SKILL.md",
               "line": 116
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/status",
@@ -664,7 +944,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/threat-model",
@@ -792,7 +1073,8 @@
               "file": "skills/threat-model/SKILL.md",
               "line": 59
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/triage",
@@ -1057,7 +1339,8 @@
               "file": "skills/triage/SKILL.md",
               "line": 468
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/tutorial",
@@ -1067,7 +1350,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/unstuck",
@@ -1083,7 +1367,8 @@
               "line": 98
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/update",
@@ -1093,7 +1378,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/vuln-scan",
@@ -1172,7 +1458,8 @@
               "file": "skills/vuln-scan/SKILL.md",
               "line": 136
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/welcome",
@@ -1264,12 +1551,13 @@
               "file": "skills/welcome/SKILL.md",
               "line": 602
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 7,
+  "score": 0,
   "status": "do not install",
   "tool": {
     "name": "skillspector",
@@ -1277,7 +1565,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-30T06:39:36Z"
+      "checkedAt": "2026-11-05T00:05:01Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

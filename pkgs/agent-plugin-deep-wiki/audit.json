@@ -7,12 +7,14 @@
   "plugins": [
     {
       "name": "deep-wiki",
-      "dir": "/nix/store/p79iw21rbih2afqwbs6cxlchc9i27rg0-agent-plugin-deep-wiki-1.0.0/share/agent-plugins/deep-wiki",
+      "dir": "/nix/store/n1yfxz3xj0a3sy2wmjvdykr711yl8y0k-agent-plugin-deep-wiki-1.0.0/share/agent-plugins/deep-wiki",
       "spec": "1.1.0",
-      "score": 83,
-      "status": "safe",
+      "score": 54,
+      "status": "caution",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/commands",
           "skills/wiki-ado-convert",
           "skills/wiki-agents-md",
           "skills/wiki-architect",
@@ -27,14 +29,79 @@
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 74,
+          "risk": 26,
+          "status": "caution",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "com.anthropic.claude-code/agents/wiki-researcher.md",
+              "line": 37
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "com.anthropic.claude-code/agents/wiki-writer.md",
+              "line": 37
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 54,
+          "risk": 46,
+          "status": "caution",
+          "partial": true,
+          "coverage": 84.6,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/commands/build.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/commands/deploy.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "YR4",
+              "severity": "HIGH",
+              "message": "YARA rule 'agent_skill_mcp_tool_poisoning_metadata': MCP/tool metadata poisoning indicators in tool schemas or skill manifests [agent_skills]",
+              "file": "com.anthropic.claude-code/commands/build.md",
+              "line": 2
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "com.anthropic.claude-code/commands/crisp.md",
+              "line": 78
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "com.anthropic.claude-code/commands/onboard.md",
+              "line": 87
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/wiki-ado-convert",
           "score": 100,
@@ -89,7 +156,8 @@
               "line": 236
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/wiki-agents-md",
@@ -290,7 +358,8 @@
               "line": 354
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/wiki-architect",
@@ -311,7 +380,8 @@
               "line": 27
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/wiki-changelog",
@@ -332,7 +402,8 @@
               "line": 42
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/wiki-llms-txt",
@@ -438,7 +509,8 @@
               "line": 129
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/wiki-onboarding",
@@ -537,7 +609,8 @@
               "file": "skills/wiki-onboarding/SKILL.md",
               "line": 105
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/wiki-page-writer",
@@ -573,7 +646,8 @@
               "line": 71
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/wiki-qa",
@@ -604,7 +678,8 @@
               "line": 44
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/wiki-researcher",
@@ -630,7 +705,8 @@
               "line": 78
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/wiki-vitepress",
@@ -666,20 +742,24 @@
               "line": 81
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 83,
-  "status": "safe",
+  "score": 54,
+  "status": "caution",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:19:56Z"
+      "checkedAt": "2026-11-05T00:17:36Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

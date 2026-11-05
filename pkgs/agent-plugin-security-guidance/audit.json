@@ -1,13 +1,719 @@
 {
   "target": "./result",
-  "audited": false,
-  "score": null,
-  "status": "could not audit",
-  "reason": "nothing to audit",
-  "hints": [],
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "security-guidance",
+      "dir": "/nix/store/dkspzv5j0znpw191mlba5ry202prpr17-agent-plugin-security-guidance-2.0.17/share/agent-plugins/security-guidance",
+      "spec": "1.1.0",
+      "score": 0,
+      "status": "do not install",
+      "coverage": {
+        "scanned": [
+          "com.anthropic.claude-code/hooks"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 38.5,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/diffstate.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/extensibility.py",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/llm.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/patterns.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/reporesolve.py",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "com.anthropic.claude-code/hooks/security_reminder_hook.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/security_reminder_hook.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/sg-python.sh",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "TT3",
+              "severity": "CRITICAL",
+              "message": "Tainted flow: 'request' from os.environ.get (line 679, credential/environment) → urllib.request.urlopen (network output)",
+              "file": "com.anthropic.claude-code/hooks/llm.py",
+              "line": 281
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "com.anthropic.claude-code/hooks/extensibility.py",
+              "line": 194
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "com.anthropic.claude-code/hooks/extensibility.py",
+              "line": 217
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "com.anthropic.claude-code/hooks/extensibility.py",
+              "line": 308
+            },
+            {
+              "id": "E2",
+              "severity": "HIGH",
+              "message": "Env Variable Harvesting",
+              "file": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 664
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 1560
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 1565
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/hooks/llm.py",
+              "line": 2093
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 1564
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 1564
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 1565
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 1614
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 1623
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 1624
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/hooks/llm.py",
+              "line": 112
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/hooks/security_reminder_hook.py",
+              "line": 51
+            },
+            {
+              "id": "E2",
+              "severity": "HIGH",
+              "message": "Env Variable Harvesting",
+              "file": "com.anthropic.claude-code/hooks/llm.py",
+              "line": 873
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/hooks/llm.py",
+              "line": 1448
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/hooks/llm.py",
+              "line": 1448
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "com.anthropic.claude-code/hooks/llm.py",
+              "line": 1476
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "com.anthropic.claude-code/hooks/llm.py",
+              "line": 1460
+            },
+            {
+              "id": "AS2",
+              "severity": "HIGH",
+              "message": "MCP Config Access",
+              "file": "com.anthropic.claude-code/hooks/llm.py",
+              "line": 1462
+            },
+            {
+              "id": "SSRF1",
+              "severity": "HIGH",
+              "message": "Cloud Metadata Access",
+              "file": "com.anthropic.claude-code/hooks/llm.py",
+              "line": 1462
+            },
+            {
+              "id": "SSRF1",
+              "severity": "HIGH",
+              "message": "Cloud Metadata Access",
+              "file": "com.anthropic.claude-code/hooks/llm.py",
+              "line": 1474
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "com.anthropic.claude-code/hooks/llm.py",
+              "line": 1482
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "com.anthropic.claude-code/hooks/patterns.py",
+              "line": 156
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "com.anthropic.claude-code/hooks/patterns.py",
+              "line": 157
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/hooks/_base.py",
+              "line": 24
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/hooks/_base.py",
+              "line": 24
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "com.anthropic.claude-code/hooks/_base.py",
+              "line": 87
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/diffstate.py",
+              "line": 310
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/diffstate.py",
+              "line": 362
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/diffstate.py",
+              "line": 391
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 158
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/diffstate.py",
+              "line": 378
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/diffstate.py",
+              "line": 698
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/security_reminder_hook.py",
+              "line": 1935
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/diffstate.py",
+              "line": 963
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/ensure_agent_sdk.py",
+              "line": 337
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/ensure_agent_sdk.py",
+              "line": 447
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/ensure_agent_sdk.py",
+              "line": 471
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/ensure_agent_sdk.py",
+              "line": 656
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/ensure_agent_sdk.py",
+              "line": 693
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/ensure_agent_sdk.py",
+              "line": 715
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 182
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 202
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 314
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 759
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 822
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 847
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 863
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 883
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 907
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 924
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 948
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 964
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/security_reminder_hook.py",
+              "line": 1226
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 1019
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 1038
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 1079
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 1120
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 1167
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/gitutil.py",
+              "line": 1371
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/llm.py",
+              "line": 870
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "com.anthropic.claude-code/hooks/llm.py",
+              "line": 1454
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "com.anthropic.claude-code/hooks/llm.py",
+              "line": 1460
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "com.anthropic.claude-code/hooks/llm.py",
+              "line": 1460
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "com.anthropic.claude-code/hooks/llm.py",
+              "line": 1460
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "com.anthropic.claude-code/hooks/llm.py",
+              "line": 1513
+            },
+            {
+              "id": "TT2",
+              "severity": "MEDIUM",
+              "message": "Tainted flow: '_dd' from os.environ (line 2168, credential/environment) → open (file write)",
+              "file": "com.anthropic.claude-code/hooks/llm.py",
+              "line": 2170
+            },
+            {
+              "id": "EA1",
+              "severity": "MEDIUM",
+              "message": "Unrestricted Tool Access",
+              "file": "com.anthropic.claude-code/hooks/patterns.py",
+              "line": 101
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/reporesolve.py",
+              "line": 212
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/security_reminder_hook.py",
+              "line": 920
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/security_reminder_hook.py",
+              "line": 1241
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/security_reminder_hook.py",
+              "line": 1729
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/security_reminder_hook.py",
+              "line": 1735
+            },
+            {
+              "id": "TT2",
+              "severity": "MEDIUM",
+              "message": "Tainted flow: 's' from os.environ.get (line 2783, credential/environment) → subprocess.run (code execution)",
+              "file": "com.anthropic.claude-code/hooks/security_reminder_hook.py",
+              "line": 1935
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/security_reminder_hook.py",
+              "line": 2115
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/security_reminder_hook.py",
+              "line": 2148
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/security_reminder_hook.py",
+              "line": 2151
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/security_reminder_hook.py",
+              "line": 2170
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/security_reminder_hook.py",
+              "line": 2886
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/hooks/security_reminder_hook.py",
+              "line": 2937
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/hooks/session_state.py",
+              "line": 4
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "com.anthropic.claude-code/hooks/llm.py",
+              "line": 1462
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "com.anthropic.claude-code/hooks/llm.py",
+              "line": 1493
+            },
+            {
+              "id": "AST7",
+              "severity": "LOW",
+              "message": "Dynamic attribute access via getattr()",
+              "file": "com.anthropic.claude-code/hooks/llm.py",
+              "line": 2137
+            }
+          ],
+          "suppressed": []
+        }
+      ]
+    }
+  ],
+  "score": 0,
+  "status": "do not install",
   "tool": {
     "name": "skillspector",
-    "version": "2.12.0"
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-11-04T23:33:24Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
+    }
   },
   "agentStacks": {
     "version": "0.9.0"

@@ -7,10 +7,10 @@
   "plugins": [
     {
       "name": "chrome-devtools",
-      "dir": "/nix/store/f03sd748x56l5hzdl790x04pa1bxnacv-agent-plugin-chrome-devtools-1.11.0/share/agent-plugins/chrome-devtools",
+      "dir": "/nix/store/gznkfay1zz46fd2bb23y6scx38fh9dil-agent-plugin-chrome-devtools-1.12.0/share/agent-plugins/chrome-devtools",
       "spec": "1.1.0",
-      "score": 48,
-      "status": "do not install",
+      "score": 67,
+      "status": "caution",
       "coverage": {
         "scanned": [
           "skills/a11y-debugging",
@@ -38,9 +38,9 @@
       "components": [
         {
           "path": "skills/a11y-debugging",
-          "score": 57,
-          "risk": 43,
-          "status": "caution",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
           "partial": true,
           "coverage": 50,
           "exceptions": [
@@ -70,34 +70,39 @@
               "line": 0
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/a11y-debugging/SKILL.md",
-              "line": 56
+              "line": 56,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/a11y-debugging/SKILL.md",
-              "line": 70
+              "line": 70,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/a11y-debugging/SKILL.md",
-              "line": 76
+              "line": 76,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
               "id": "AE1",
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/a11y-debugging/SKILL.md",
-              "line": 80
+              "line": 80,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -113,11 +118,12 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/chrome-devtools/SKILL.md",
               "line": 8
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/chrome-devtools-cli",
@@ -238,12 +244,13 @@
               "line": 155
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/cookie-debugging",
-          "score": 93,
-          "risk": 7,
+          "score": 100,
+          "risk": 0,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -284,21 +291,23 @@
               "line": 144
             }
           ],
-          "findings": [
+          "findings": [],
+          "suppressed": [
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/cookie-debugging/SKILL.md",
-              "line": 22
+              "line": 22,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             }
           ]
         },
         {
           "path": "skills/debug-optimize-lcp",
-          "score": 48,
-          "risk": 52,
-          "status": "do not install",
+          "score": 93,
+          "risk": 7,
+          "status": "incomplete",
           "partial": true,
           "coverage": 80,
           "exceptions": [
@@ -310,32 +319,37 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/debug-optimize-lcp/SKILL.md",
-              "line": 57
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/debug-optimize-lcp/SKILL.md",
-              "line": 75
-            },
-            {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/debug-optimize-lcp/SKILL.md",
               "line": 29
-            },
+            }
+          ],
+          "suppressed": [
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/debug-optimize-lcp/references/lcp-breakdown.md",
-              "line": 9
+              "line": 9,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/debug-optimize-lcp/SKILL.md",
+              "line": 57,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/debug-optimize-lcp/SKILL.md",
+              "line": 75,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -361,7 +375,8 @@
               "file": "skills/memory-leak-debugging/SKILL.md",
               "line": 12
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/troubleshooting",
@@ -388,31 +403,35 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/troubleshooting/SKILL.md",
               "line": 90
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/troubleshooting/SKILL.md",
               "line": 91
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 48,
-  "status": "do not install",
+  "score": 67,
+  "status": "caution",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-20T22:03:01Z"
+      "checkedAt": "2026-11-04T23:11:52Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

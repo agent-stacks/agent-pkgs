@@ -7,10 +7,10 @@
   "plugins": [
     {
       "name": "avoid-ai-writing",
-      "dir": "/nix/store/k3c2ihprhmdpbfqn91w46p35dm6r8hrx-agent-plugin-avoid-ai-writing-3.38.0/share/agent-plugins/avoid-ai-writing",
+      "dir": "/nix/store/jyap89vxhgpg8i3ww5qfk0lar440jhhy-agent-plugin-avoid-ai-writing-3.38.0/share/agent-plugins/avoid-ai-writing",
       "spec": "1.1.0",
-      "score": 1,
-      "status": "do not install",
+      "score": 51,
+      "status": "caution",
       "coverage": {
         "scanned": [
           "skills/avoid-ai-writing"
@@ -28,11 +28,11 @@
       "components": [
         {
           "path": "skills/avoid-ai-writing",
-          "score": 1,
-          "risk": 99,
-          "status": "do not install",
+          "score": 51,
+          "risk": 49,
+          "status": "caution",
           "partial": true,
-          "coverage": 54.5,
+          "coverage": 58.3,
           "exceptions": [
             {
               "reason": "obfuscated_instruction_text",
@@ -89,27 +89,6 @@
               "line": 30
             },
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/avoid-ai-writing/SKILL.md",
-              "line": 31
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/avoid-ai-writing/SKILL.md",
-              "line": 212
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/avoid-ai-writing/SKILL.md",
-              "line": 275
-            },
-            {
               "id": "P6",
               "severity": "HIGH",
               "message": "Direct Prompt Extraction",
@@ -117,33 +96,63 @@
               "line": 62
             },
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/avoid-ai-writing/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "AE4",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "analysis-evasion",
               "file": "skills/avoid-ai-writing/detector/patterns.js",
               "line": 1
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/avoid-ai-writing/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/avoid-ai-writing/SKILL.md",
+              "line": 31,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/avoid-ai-writing/SKILL.md",
+              "line": 212,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/avoid-ai-writing/SKILL.md",
+              "line": 275,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         }
       ]
     }
   ],
-  "score": 1,
-  "status": "do not install",
+  "score": 51,
+  "status": "caution",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:15:44Z"
+      "checkedAt": "2026-11-04T23:07:09Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

@@ -7,12 +7,14 @@
   "plugins": [
     {
       "name": "llm-application-dev",
-      "dir": "/nix/store/sycjm9n77d4i5rwlr0r760hjvyi82n5j-agent-plugin-llm-application-dev-2.0.6/share/agent-plugins/llm-application-dev",
+      "dir": "/nix/store/6fg1dm5aglkh5ll5b7zviq0dv06nl8yv-agent-plugin-llm-application-dev-2.0.7/share/agent-plugins/llm-application-dev",
       "spec": "1.1.0",
-      "score": 56,
+      "score": 63,
       "status": "caution",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/commands",
           "skills/embedding-strategies",
           "skills/hybrid-search-implementation",
           "skills/langchain-architecture",
@@ -29,14 +31,47 @@
           {
             "path": "bin/",
             "reason": "interpreter links into /nix/store"
-          },
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
           }
         ]
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 77,
+          "risk": 23,
+          "status": "caution",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "com.anthropic.claude-code/commands/prompt-optimize.md",
+              "line": 198
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "com.anthropic.claude-code/commands/prompt-optimize.md",
+              "line": 300
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/embedding-strategies",
           "score": 100,
@@ -45,7 +80,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/hybrid-search-implementation",
@@ -55,7 +91,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/langchain-architecture",
@@ -71,7 +108,8 @@
               "line": 155
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/llm-evaluation",
@@ -81,12 +119,13 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/prompt-engineering-patterns",
-          "score": 56,
-          "risk": 44,
+          "score": 63,
+          "risk": 37,
           "status": "caution",
           "partial": false,
           "coverage": 100,
@@ -112,13 +151,16 @@
               "message": "Direct Prompt Extraction",
               "file": "skills/prompt-engineering-patterns/references/few-shot-learning.md",
               "line": 264
-            },
+            }
+          ],
+          "suppressed": [
             {
               "id": "LP3",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Least Privilege",
               "file": "skills/prompt-engineering-patterns/SKILL.md",
-              "line": 1
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
@@ -130,7 +172,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/similarity-search-patterns",
@@ -140,7 +183,8 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/vector-index-tuning",
@@ -150,12 +194,13 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 56,
+  "score": 63,
   "status": "caution",
   "tool": {
     "name": "skillspector",
@@ -163,7 +208,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:33:21Z"
+      "checkedAt": "2026-11-05T00:05:32Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

@@ -7,12 +7,15 @@
   "plugins": [
     {
       "name": "claude-seo",
-      "dir": "/nix/store/xh9k047vhdhjsq38qf0kwmmdd4bzp7dm-agent-plugin-claude-seo-2.5.0/share/agent-plugins/claude-seo",
+      "dir": "/nix/store/4a2nq48q4i1f99wzl9fgn4s3cqqnx4xp-agent-plugin-claude-seo-2.5.0/share/agent-plugins/claude-seo",
       "spec": "1.1.0",
-      "score": 23,
+      "score": 0,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/hooks",
+          "scripts",
           "skills/seo",
           "skills/seo-agentic",
           "skills/seo-ahrefs",
@@ -54,23 +57,558 @@
           {
             "path": "bin/",
             "reason": "interpreter links into /nix/store"
-          },
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          },
-          {
-            "path": "scripts/",
-            "reason": "outside the spec"
           }
         ]
       },
       "components": [
         {
-          "path": "skills/seo",
-          "score": 60,
-          "risk": 40,
+          "path": "com.anthropic.claude-code/agents",
+          "score": 72,
+          "risk": 28,
           "status": "caution",
+          "partial": true,
+          "coverage": 89.5,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/agents/seo-performance.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/agents/seo-sxo.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "com.anthropic.claude-code/agents/seo-sxo.md",
+              "line": 78
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "com.anthropic.claude-code/agents/seo-performance.md",
+              "line": 80
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 71,
+          "risk": 29,
+          "status": "caution",
+          "partial": true,
+          "coverage": 66.7,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/run-python-hook.js",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "com.anthropic.claude-code/hooks/validate-schema.py",
+              "line": 14
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "scripts",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 93.4,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/consistency_check.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/gsc_query.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/sync_flow.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/unlighthouse_run.py",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "TT3",
+              "severity": "CRITICAL",
+              "message": "Tainted flow: 'headers' from os.environ.get (line 394, credential/environment) → requests.post (network output)",
+              "file": "scripts/dataforseo_merchant.py",
+              "line": 118
+            },
+            {
+              "id": "TT3",
+              "severity": "CRITICAL",
+              "message": "Tainted flow: 'headers' from os.environ.get (line 394, credential/environment) → requests.get (network output)",
+              "file": "scripts/dataforseo_merchant.py",
+              "line": 149
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/google_auth.py",
+              "line": 15
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/google_auth.py",
+              "line": 688
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/google_auth.py",
+              "line": 846
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/google_auth.py",
+              "line": 198
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/google_auth.py",
+              "line": 198
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "scripts/lighthouse_agentic.py",
+              "line": 166
+            },
+            {
+              "id": "E2",
+              "severity": "HIGH",
+              "message": "Env Variable Harvesting",
+              "file": "scripts/runtime.py",
+              "line": 216
+            },
+            {
+              "id": "SSRF1",
+              "severity": "HIGH",
+              "message": "Cloud Metadata Access",
+              "file": "scripts/url_safety.py",
+              "line": 142
+            },
+            {
+              "id": "SSRF1",
+              "severity": "HIGH",
+              "message": "Cloud Metadata Access",
+              "file": "scripts/url_safety.py",
+              "line": 149
+            },
+            {
+              "id": "SSRF1",
+              "severity": "HIGH",
+              "message": "Cloud Metadata Access",
+              "file": "scripts/url_safety.py",
+              "line": 262
+            },
+            {
+              "id": "SSRF1",
+              "severity": "HIGH",
+              "message": "Cloud Metadata Access",
+              "file": "scripts/url_safety.py",
+              "line": 386
+            },
+            {
+              "id": "SSRF1",
+              "severity": "HIGH",
+              "message": "Cloud Metadata Access",
+              "file": "scripts/url_safety.py",
+              "line": 432
+            },
+            {
+              "id": "SSRF1",
+              "severity": "HIGH",
+              "message": "Cloud Metadata Access",
+              "file": "scripts/url_safety.py",
+              "line": 1069
+            },
+            {
+              "id": "SSRF1",
+              "severity": "HIGH",
+              "message": "Cloud Metadata Access",
+              "file": "scripts/url_safety.py",
+              "line": 160
+            },
+            {
+              "id": "SSRF1",
+              "severity": "HIGH",
+              "message": "Cloud Metadata Access",
+              "file": "scripts/url_safety.py",
+              "line": 266
+            },
+            {
+              "id": "SSRF1",
+              "severity": "HIGH",
+              "message": "Cloud Metadata Access",
+              "file": "scripts/url_safety.py",
+              "line": 565
+            },
+            {
+              "id": "SSRF1",
+              "severity": "HIGH",
+              "message": "Cloud Metadata Access",
+              "file": "scripts/url_safety.py",
+              "line": 161
+            },
+            {
+              "id": "SSRF1",
+              "severity": "HIGH",
+              "message": "Cloud Metadata Access",
+              "file": "scripts/url_safety.py",
+              "line": 268
+            },
+            {
+              "id": "SSRF1",
+              "severity": "HIGH",
+              "message": "Cloud Metadata Access",
+              "file": "scripts/url_safety.py",
+              "line": 200
+            },
+            {
+              "id": "SSRF1",
+              "severity": "HIGH",
+              "message": "Cloud Metadata Access",
+              "file": "scripts/url_safety.py",
+              "line": 267
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/backlinks_auth.py",
+              "line": 95
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/matomo_auth.py",
+              "line": 90
+            },
+            {
+              "id": "TT2",
+              "severity": "MEDIUM",
+              "message": "Tainted flow: 'user' from os.environ.get (line 87, credential/environment) → subprocess.run (code execution)",
+              "file": "scripts/backlinks_auth.py",
+              "line": 95
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "scripts/backlinks_auth.py",
+              "line": 117
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "scripts/backlinks_auth.py",
+              "line": 130
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "scripts/backlinks_auth.py",
+              "line": 174
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "scripts/google_auth.py",
+              "line": 266
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "scripts/google_auth.py",
+              "line": 296
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "scripts/matomo_auth.py",
+              "line": 122
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "scripts/matomo_auth.py",
+              "line": 184
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "scripts/commoncrawl_graph.py",
+              "line": 43
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/consistency_check.py",
+              "line": 15
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/consistency_check.py",
+              "line": 207
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/consistency_check.py",
+              "line": 213
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/consistency_check.py",
+              "line": 51
+            },
+            {
+              "id": "TT2",
+              "severity": "MEDIUM",
+              "message": "Tainted flow: 'CONFIG_FILE' from os.environ.get (line 53, credential/environment) → open (file write)",
+              "file": "scripts/dataforseo_costs.py",
+              "line": 155
+            },
+            {
+              "id": "TT2",
+              "severity": "MEDIUM",
+              "message": "Tainted flow: 'LOCK_FILE' from os.environ.get (line 55, credential/environment) → open (file write)",
+              "file": "scripts/dataforseo_costs.py",
+              "line": 246
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "scripts/dataforseo_merchant.py",
+              "line": 46
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "scripts/dataforseo_merchant.py",
+              "line": 118
+            },
+            {
+              "id": "OH3",
+              "severity": "MEDIUM",
+              "message": "Unbounded Output",
+              "file": "scripts/dataforseo_normalize.py",
+              "line": 396
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/domain_history.py",
+              "line": 95
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/drift_baseline.py",
+              "line": 166
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/drift_baseline.py",
+              "line": 190
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/drift_baseline.py",
+              "line": 229
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "scripts/google_auth.py",
+              "line": 306
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "scripts/indexnow_submit.py",
+              "line": 56
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "scripts/indexnow_submit.py",
+              "line": 118
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/iptc_ai_label.py",
+              "line": 12
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/iptc_ai_label.py",
+              "line": 77
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/iptc_ai_label.py",
+              "line": 154
+            },
+            {
+              "id": "TT2",
+              "severity": "MEDIUM",
+              "message": "Tainted flow: 'user' from os.environ.get (line 82, credential/environment) → subprocess.run (code execution)",
+              "file": "scripts/matomo_auth.py",
+              "line": 90
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "scripts/matomo_auth.py",
+              "line": 109
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "scripts/moz_api.py",
+              "line": 122
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/release_sign.py",
+              "line": 67
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/runtime.py",
+              "line": 257
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/runtime.py",
+              "line": 412
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "scripts/sync_flow.py",
+              "line": 19
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/sync_flow.py",
+              "line": 103
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "scripts/unlighthouse_run.py",
+              "line": 42
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "scripts/unlighthouse_run.py",
+              "line": 81
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/unlighthouse_run.py",
+              "line": 212
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "scripts/unlighthouse_run.py",
+              "line": 225
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/seo",
+          "score": 85,
+          "risk": 15,
+          "status": "incomplete",
           "partial": true,
           "coverage": 94.7,
           "exceptions": [
@@ -107,16 +645,9 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/seo/SKILL.md",
-              "line": 211
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/seo/references/cwv-thresholds.md",
               "line": 102
             },
@@ -176,13 +707,23 @@
               "file": "skills/seo/references/maps-free-apis.md",
               "line": 87
             }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/seo/SKILL.md",
+              "line": 211,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         },
         {
           "path": "skills/seo-agentic",
-          "score": 33,
-          "risk": 67,
-          "status": "do not install",
+          "score": 77,
+          "risk": 23,
+          "status": "caution",
           "partial": true,
           "coverage": 87.5,
           "exceptions": [
@@ -229,27 +770,6 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/seo-agentic/SKILL.md",
-              "line": 88
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/seo-agentic/SKILL.md",
-              "line": 133
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/seo-agentic/SKILL.md",
-              "line": 178
-            },
-            {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
@@ -259,14 +779,14 @@
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/seo-agentic/SKILL.md",
               "line": 186
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/seo-agentic/references/lighthouse-agentic-category.md",
               "line": 15
             },
@@ -276,6 +796,32 @@
               "message": "Autonomous Decision Making",
               "file": "skills/seo-agentic/references/webmcp.md",
               "line": 98
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/seo-agentic/SKILL.md",
+              "line": 88,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/seo-agentic/SKILL.md",
+              "line": 133,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/seo-agentic/SKILL.md",
+              "line": 178,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -303,7 +849,8 @@
               "line": 16
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/seo-audit",
@@ -354,7 +901,8 @@
               "line": 190
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/seo-backlinks",
@@ -375,7 +923,8 @@
               "line": 251
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/seo-bing",
@@ -409,7 +958,8 @@
               "file": "skills/seo-bing/SKILL.md",
               "line": 6
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/seo-cluster",
@@ -512,7 +1062,8 @@
               "file": "skills/seo-cluster/references/serp-overlap-methodology.md",
               "line": 59
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/seo-competitor-pages",
@@ -538,7 +1089,8 @@
               "line": 201
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/seo-content",
@@ -559,7 +1111,8 @@
               "line": 207
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/seo-content-brief",
@@ -575,7 +1128,8 @@
               "line": 16
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/seo-dataforseo",
@@ -601,7 +1155,8 @@
               "line": 394
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/seo-drift",
@@ -685,7 +1240,8 @@
               "file": "skills/seo-drift/SKILL.md",
               "line": 199
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/seo-ecommerce",
@@ -744,7 +1300,8 @@
               "file": "skills/seo-ecommerce/SKILL.md",
               "line": 52
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/seo-firecrawl",
@@ -805,7 +1362,8 @@
               "line": 202
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/seo-flow",
@@ -831,7 +1389,8 @@
               "line": 136
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/seo-geo",
@@ -905,7 +1464,8 @@
               "file": "skills/seo-geo/references/google-ai-optimization-guide.md",
               "line": 108
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/seo-google",
@@ -953,7 +1513,8 @@
               "file": "skills/seo-google/references/keyword-planner-api.md",
               "line": 7
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/seo-hreflang",
@@ -984,7 +1545,8 @@
               "line": 220
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/seo-image-gen",
@@ -1045,7 +1607,8 @@
               "file": "skills/seo-image-gen/SKILL.md",
               "line": 147
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/seo-images",
@@ -1185,7 +1748,8 @@
               "file": "skills/seo-images/SKILL.md",
               "line": 435
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/seo-local",
@@ -1206,7 +1770,8 @@
               "line": 13
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/seo-maps",
@@ -1222,7 +1787,8 @@
               "line": 17
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/seo-matomo",
@@ -1263,7 +1829,8 @@
               "line": 92
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/seo-page",
@@ -1279,7 +1846,8 @@
               "line": 11
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/seo-plan",
@@ -1320,7 +1888,8 @@
               "line": 99
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/seo-profound",
@@ -1354,7 +1923,8 @@
               "file": "skills/seo-profound/SKILL.md",
               "line": 20
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/seo-programmatic",
@@ -1370,7 +1940,8 @@
               "line": 14
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/seo-schema",
@@ -1406,7 +1977,8 @@
               "line": 160
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/seo-seranking",
@@ -1440,7 +2012,8 @@
               "file": "skills/seo-seranking/SKILL.md",
               "line": 17
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/seo-sitemap",
@@ -1486,7 +2059,8 @@
               "line": 154
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/seo-sxo",
@@ -1502,7 +2076,8 @@
               "line": 13
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/seo-technical",
@@ -1541,7 +2116,8 @@
               "file": "skills/seo-technical/references/stack-cve-exposure.md",
               "line": 66
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/seo-unlighthouse",
@@ -1587,12 +2163,13 @@
               "line": 47
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 23,
+  "score": 0,
   "status": "do not install",
   "tool": {
     "name": "skillspector",
@@ -1600,7 +2177,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-22T17:33:45Z"
+      "checkedAt": "2026-11-04T23:13:38Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

@@ -7,25 +7,68 @@
   "plugins": [
     {
       "name": "block-no-verify",
-      "dir": "/nix/store/7aq81kbgry42a2cbg7sb7asq5c2kqpqf-agent-plugin-block-no-verify-1.0.2/share/agent-plugins/block-no-verify",
+      "dir": "/nix/store/fk46k3dnw8rbgwd6sv023x8iyqjjd8r7-agent-plugin-block-no-verify-1.0.2/share/agent-plugins/block-no-verify",
       "spec": "1.1.0",
       "score": 17,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/commands",
           "skills/block-no-verify-hook"
         ],
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 43,
+          "risk": 57,
+          "status": "do not install",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "com.anthropic.claude-code/commands/block-no-verify.md",
+              "line": 29
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "com.anthropic.claude-code/commands/block-no-verify.md",
+              "line": 76
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "com.anthropic.claude-code/commands/block-no-verify.md",
+              "line": 34
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "com.anthropic.claude-code/commands/block-no-verify.md",
+              "line": 73
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "com.anthropic.claude-code/commands/block-no-verify.md",
+              "line": 85
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/block-no-verify-hook",
           "score": 17,
@@ -131,7 +174,8 @@
               "file": "skills/block-no-verify-hook/SKILL.md",
               "line": 114
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
@@ -144,7 +188,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:29:16Z"
+      "checkedAt": "2026-11-04T23:08:38Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

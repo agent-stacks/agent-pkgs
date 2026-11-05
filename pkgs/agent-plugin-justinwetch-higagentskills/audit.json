@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "justinwetch-higagentskills",
-      "dir": "/nix/store/rjc1rfd393i8dlzwl0la4dzl2xvbazhv-agent-plugin-justinwetch-higagentskills-0.0.0-unstable.2026-10-17.g2206ff9/share/agent-plugins/justinwetch-higagentskills",
+      "dir": "/nix/store/s0714rhi15lsqs4w03bljnb5903vhslp-agent-plugin-justinwetch-higagentskills-0.0.0-unstable.2026-10-17.g2206ff9/share/agent-plugins/justinwetch-higagentskills",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -57,6 +57,11 @@
             {
               "reason": "obfuscated_instruction_text",
               "path": "skills/apple-hig/sources/apple-hig-2026-06-09/inventory.json",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "skills/apple-hig/sources/apple-hig-2026-09-12/verification",
               "line": 0
             },
             {
@@ -170,13 +175,6 @@
               "line": 143
             },
             {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/apple-hig/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "TR2",
               "severity": "MEDIUM",
               "message": "Shadow Command Trigger",
@@ -267,6 +265,16 @@
               "file": "skills/apple-hig/sources/apple-hig-2026-09-12/verification/release-calibration-acceptance.json",
               "line": 1199
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/apple-hig/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
           ]
         }
       ]
@@ -280,7 +288,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-04T03:24:12Z"
+      "checkedAt": "2026-11-04T23:32:34Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

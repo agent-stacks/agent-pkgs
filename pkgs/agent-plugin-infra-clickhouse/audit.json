@@ -7,9 +7,9 @@
   "plugins": [
     {
       "name": "infra-clickhouse",
-      "dir": "/nix/store/sbhcyhgjai7y4src0v8fk7zpkqc9sd2a-agent-plugin-infra-clickhouse-0.3.0/share/agent-plugins/infra-clickhouse",
+      "dir": "/nix/store/x4x8vcrcpb39mk6bgkvj8ia69h0vi9sd-agent-plugin-infra-clickhouse-0.4.0/share/agent-plugins/infra-clickhouse",
       "spec": "1.1.0",
-      "score": 38,
+      "score": 17,
       "status": "do not install",
       "coverage": {
         "scanned": [
@@ -23,8 +23,8 @@
       "components": [
         {
           "path": "skills/infra-clickhouse",
-          "score": 38,
-          "risk": 62,
+          "score": 17,
+          "risk": 83,
           "status": "do not install",
           "partial": true,
           "coverage": 100,
@@ -33,43 +33,56 @@
               "reason": "reference_missing",
               "path": "skills/infra-clickhouse/SKILL.md",
               "line": 7
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/infra-clickhouse/SKILL.md",
+              "line": 8
             }
           ],
           "findings": [
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/infra-clickhouse/SKILL.md",
+              "line": 11
+            },
             {
               "id": "SC2",
               "severity": "HIGH",
               "message": "External Script Fetching",
               "file": "skills/infra-clickhouse/SKILL.md",
-              "line": 41
+              "line": 44
             },
             {
               "id": "TM2",
               "severity": "HIGH",
               "message": "Chaining Abuse",
               "file": "skills/infra-clickhouse/SKILL.md",
-              "line": 41
+              "line": 44
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/infra-clickhouse/ref/cloud.md",
-              "line": 118
+              "line": 120
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/infra-clickhouse/ref/cloud.md",
-              "line": 119
+              "line": 121
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 38,
+  "score": 17,
   "status": "do not install",
   "tool": {
     "name": "skillspector",
@@ -77,7 +90,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:29:30Z"
+      "checkedAt": "2026-11-04T23:57:20Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

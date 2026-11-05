@@ -7,12 +7,14 @@
   "plugins": [
     {
       "name": "documentation-generation",
-      "dir": "/nix/store/kzr5h5iibq6wl23glmijy7vlg7zznkqd-agent-plugin-documentation-generation-1.2.3/share/agent-plugins/documentation-generation",
+      "dir": "/nix/store/88xifz9kq4fqb34lppnplx47mv31dki0-agent-plugin-documentation-generation-1.2.4/share/agent-plugins/documentation-generation",
       "spec": "1.1.0",
-      "score": 63,
-      "status": "caution",
+      "score": 82,
+      "status": "incomplete",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/commands",
           "skills/architecture-decision-records",
           "skills/changelog-automation",
           "skills/openapi-spec-generation"
@@ -20,14 +22,45 @@
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "com.anthropic.claude-code/",
-            "reason": "client extension; no portable meaning in the spec"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 95,
+          "risk": 5,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 0,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/commands/doc-generate.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "com.anthropic.claude-code/commands/doc-generate.md",
+              "line": 170
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/architecture-decision-records",
           "score": 82,
@@ -75,13 +108,14 @@
               "file": "skills/architecture-decision-records/SKILL.md",
               "line": 8
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/changelog-automation",
-          "score": 63,
-          "risk": 37,
-          "status": "caution",
+          "score": 88,
+          "risk": 12,
+          "status": "incomplete",
           "partial": true,
           "coverage": 50,
           "exceptions": [
@@ -93,32 +127,35 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/changelog-automation/SKILL.md",
-              "line": 33
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/changelog-automation/references/details.md",
               "line": 115
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/changelog-automation/references/details.md",
               "line": 258
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/changelog-automation/references/details.md",
               "line": 281
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/changelog-automation/SKILL.md",
+              "line": 33,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -152,20 +189,24 @@
               "file": "skills/openapi-spec-generation/references/details.md",
               "line": 30
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 63,
-  "status": "caution",
+  "score": 82,
+  "status": "incomplete",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T22:30:11Z"
+      "checkedAt": "2026-11-04T23:13:51Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

@@ -7,12 +7,15 @@
   "plugins": [
     {
       "name": "mcp-apps",
-      "dir": "/nix/store/hnhkbah6cz6zilggh9zcmvq85m1zl2c5-agent-plugin-mcp-apps-1.2.0/share/agent-plugins/mcp-apps",
+      "dir": "/nix/store/jpqd1g4siy2w85adipwijwxgmjsqbavd-agent-plugin-mcp-apps-1.2.0/share/agent-plugins/mcp-apps",
       "spec": "1.1.0",
       "score": 79,
       "status": "caution",
       "coverage": {
         "scanned": [
+          "references",
+          "samples",
+          "scripts",
           "skills/generate-codeful-mcp-tool",
           "skills/generate-mcp-app-ui",
           "skills/report-issue"
@@ -28,22 +31,60 @@
           {
             "path": "bin/",
             "reason": "interpreter links into /nix/store"
-          },
-          {
-            "path": "references/",
-            "reason": "outside the spec"
-          },
-          {
-            "path": "samples/",
-            "reason": "outside the spec"
-          },
-          {
-            "path": "scripts/",
-            "reason": "outside the spec"
           }
         ]
       },
       "components": [
+        {
+          "path": "references",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "samples",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 80,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "samples/weather-refresh-widget.html",
+              "line": 0
+            }
+          ],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "scripts",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 60,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/_vendor-build/build.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/inline-self-contained-runtime.js",
+              "line": 0
+            }
+          ],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/generate-codeful-mcp-tool",
           "score": 100,
@@ -103,7 +144,8 @@
               "line": 271
             }
           ],
-          "findings": []
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/generate-mcp-app-ui",
@@ -162,7 +204,8 @@
               "file": "skills/generate-mcp-app-ui/SKILL.md",
               "line": 250
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/report-issue",
@@ -186,7 +229,8 @@
               "file": "skills/report-issue/SKILL.md",
               "line": 10
             }
-          ]
+          ],
+          "suppressed": []
         }
       ]
     }
@@ -199,7 +243,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-20T23:20:53Z"
+      "checkedAt": "2026-11-04T23:25:54Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

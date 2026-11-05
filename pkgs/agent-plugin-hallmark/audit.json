@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "hallmark",
-      "dir": "/nix/store/y5xm2s64ih61z2hxabbxiw2dpnf9x21p-agent-plugin-hallmark-2.0.0/share/agent-plugins/hallmark",
+      "dir": "/nix/store/77b7cpiq13hgblz8vhwvp5aj1bj4njkw-agent-plugin-hallmark-2.0.0/share/agent-plugins/hallmark",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -32,7 +32,7 @@
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 91.7,
+          "coverage": 91.2,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -87,6 +87,11 @@
             {
               "reason": "static_parse_limit",
               "path": "skills/hallmark/scripts/capture.mjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/hallmark/scripts/capture.test.mjs",
               "line": 0
             },
             {
@@ -151,62 +156,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/hallmark/SKILL.md",
-              "line": 52
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/hallmark/SKILL.md",
-              "line": 56
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/hallmark/SKILL.md",
-              "line": 58
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/hallmark/SKILL.md",
-              "line": 70
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/hallmark/SKILL.md",
-              "line": 154
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/hallmark/SKILL.md",
-              "line": 56
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/hallmark/SKILL.md",
-              "line": 135
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/hallmark/SKILL.md",
-              "line": 78
-            },
             {
               "id": "SSRF1",
               "severity": "HIGH",
@@ -275,49 +224,42 @@
               "severity": "HIGH",
               "message": "Direct Prompt Extraction",
               "file": "skills/hallmark/scripts/sloplint.mjs",
-              "line": 173
+              "line": 175
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/hallmark/scripts/sloplint.mjs",
-              "line": 199
+              "line": 201
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/hallmark/scripts/sloplint.mjs",
-              "line": 199
+              "line": 201
             },
             {
               "id": "P6",
               "severity": "HIGH",
               "message": "Direct Prompt Extraction",
               "file": "skills/hallmark/scripts/sloplint.mjs",
-              "line": 752
+              "line": 754
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/hallmark/scripts/sloplint.mjs",
-              "line": 1715
+              "line": 1717
             },
             {
               "id": "P6",
               "severity": "HIGH",
               "message": "Direct Prompt Extraction",
               "file": "skills/hallmark/scripts/sloplint.mjs",
-              "line": 4305
-            },
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/hallmark/SKILL.md",
-              "line": 1
+              "line": 4307
             },
             {
               "id": "E1",
@@ -396,6 +338,80 @@
               "file": "skills/hallmark/scripts/imagegen.mjs",
               "line": 6
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/hallmark/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/hallmark/SKILL.md",
+              "line": 52,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/hallmark/SKILL.md",
+              "line": 56,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/hallmark/SKILL.md",
+              "line": 56,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/hallmark/SKILL.md",
+              "line": 58,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/hallmark/SKILL.md",
+              "line": 70,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/hallmark/SKILL.md",
+              "line": 78,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/hallmark/SKILL.md",
+              "line": 135,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/hallmark/SKILL.md",
+              "line": 154,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         }
       ]
@@ -409,7 +425,10 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-01T03:09:01Z"
+      "checkedAt": "2026-11-04T23:40:58Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {

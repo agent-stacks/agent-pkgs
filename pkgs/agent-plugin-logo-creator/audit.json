@@ -7,10 +7,10 @@
   "plugins": [
     {
       "name": "logo-creator",
-      "dir": "/nix/store/dxqi83wyf5qwzxx9p40gk7ws3swjzi7z-agent-plugin-logo-creator-1.0.0/share/agent-plugins/logo-creator",
+      "dir": "/nix/store/hwcc47xlyzj9h4b6h2v55k5j6g7lfm1w-agent-plugin-logo-creator-1.0.0/share/agent-plugins/logo-creator",
       "spec": "1.1.0",
-      "score": 13,
-      "status": "do not install",
+      "score": 57,
+      "status": "caution",
       "coverage": {
         "scanned": [
           "skills/logo-creator"
@@ -28,9 +28,9 @@
       "components": [
         {
           "path": "skills/logo-creator",
-          "score": 13,
-          "risk": 87,
-          "status": "do not install",
+          "score": 57,
+          "risk": 43,
+          "status": "caution",
           "partial": true,
           "coverage": 81.8,
           "exceptions": [
@@ -52,30 +52,9 @@
           ],
           "findings": [
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/logo-creator/SKILL.md",
-              "line": 98
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/logo-creator/SKILL.md",
-              "line": 98
-            },
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "",
-              "file": "skills/logo-creator/SKILL.md",
-              "line": 1
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
-              "message": "",
+              "message": "MCP Rug Pull",
               "file": "skills/logo-creator/examples/images/logo-01.png",
               "line": 116
             },
@@ -135,20 +114,49 @@
               "file": "skills/logo-creator/scripts/vectorize.py",
               "line": 84
             }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/logo-creator/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/logo-creator/SKILL.md",
+              "line": 98,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/logo-creator/SKILL.md",
+              "line": 98,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
           ]
         }
       ]
     }
   ],
-  "score": 13,
-  "status": "do not install",
+  "score": 57,
+  "status": "caution",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-10-19T23:33:29Z"
+      "checkedAt": "2026-11-04T23:38:59Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {
