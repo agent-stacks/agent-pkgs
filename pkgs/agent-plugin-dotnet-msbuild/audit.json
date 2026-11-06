@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "dotnet-msbuild",
-      "dir": "/nix/store/c712ilf1ds7giax2krxc7pd3b2rq8dby-agent-plugin-dotnet-msbuild-0.1.11/share/agent-plugins/dotnet-msbuild",
+      "dir": "/nix/store/0krff9sdzp4j4h1rc5b6i9f945fhzc1v-agent-plugin-dotnet-msbuild-0.1.12/share/agent-plugins/dotnet-msbuild",
       "spec": "1.1.0",
       "score": 27,
       "status": "do not install",
@@ -25,6 +25,7 @@
           "skills/eliminate-redundant-restores",
           "skills/eval-performance",
           "skills/extension-points",
+          "skills/find-repeated-work-within-one-build",
           "skills/including-generated-files",
           "skills/incremental-build",
           "skills/item-management",
@@ -746,6 +747,43 @@
               "message": "Hidden Instructions",
               "file": "skills/extension-points/SKILL.md",
               "line": 204
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/find-repeated-work-within-one-build",
+          "score": 75,
+          "risk": 25,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/find-repeated-work-within-one-build/SKILL.md",
+              "line": 9
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/find-repeated-work-within-one-build/SKILL.md",
+              "line": 36
+            }
+          ],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/find-repeated-work-within-one-build/SKILL.md",
+              "line": 73
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/find-repeated-work-within-one-build/SKILL.md",
+              "line": 105
             }
           ],
           "suppressed": []
@@ -1794,7 +1832,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-04T23:25:21Z"
+      "checkedAt": "2026-11-06T18:17:00Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
