@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "cloudflare",
-      "dir": "/nix/store/y554sm88qs6gxkxmwppzwchv4wc55pdp-agent-plugin-cloudflare-1.0.4/share/agent-plugins/cloudflare",
+      "dir": "/nix/store/vdja00cnp7987d88mzz40z3l616gwpww-agent-plugin-cloudflare-1.0.4/share/agent-plugins/cloudflare",
       "spec": "1.1.0",
       "score": 13,
       "status": "do not install",
@@ -17,10 +17,12 @@
           "skills/basin",
           "skills/cf-cli",
           "skills/cloudflare",
+          "skills/cloudflare-app-bootstrap",
           "skills/cloudflare-email-service",
           "skills/cloudflare-one",
           "skills/cloudflare-one-migrations",
           "skills/durable-objects",
+          "skills/frameworks-on-cloudflare",
           "skills/gateway-workers",
           "skills/k2",
           "skills/nextjs-on-cloudflare",
@@ -30,6 +32,7 @@
           "skills/turnstile-spin",
           "skills/web-perf",
           "skills/workers-best-practices",
+          "skills/workers-development",
           "skills/workers-profiling",
           "skills/wrangler"
         ],
@@ -504,11 +507,11 @@
         },
         {
           "path": "skills/cloudflare",
-          "score": 42,
-          "risk": 58,
+          "score": 47,
+          "risk": 53,
           "status": "do not install",
           "partial": true,
-          "coverage": 99.3,
+          "coverage": 100,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -518,17 +521,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/cloudflare/SKILL.md",
-              "line": 74
+              "line": 77
             },
             {
               "reason": "reference_missing",
               "path": "skills/cloudflare/SKILL.md",
-              "line": 156
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/cloudflare/references/c3/gotchas.md",
-              "line": 0
+              "line": 160
             }
           ],
           "findings": [
@@ -537,7 +535,7 @@
               "severity": "HIGH",
               "message": "Anti-Refusal Statement",
               "file": "skills/cloudflare/SKILL.md",
-              "line": 146
+              "line": 150
             },
             {
               "id": "PE3",
@@ -551,49 +549,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/cloudflare/SKILL.md",
-              "line": 17
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/cloudflare/references/c3/configuration.md",
-              "line": 38
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/cloudflare/references/c3/configuration.md",
-              "line": 39
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/cloudflare/references/c3/configuration.md",
-              "line": 81
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/cloudflare/references/c3/gotchas.md",
-              "line": 10
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/cloudflare/references/c3/gotchas.md",
-              "line": 16
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/cloudflare/references/c3/gotchas.md",
-              "line": 88
+              "line": 18
             },
             {
               "id": "RA2",
@@ -603,6 +559,28 @@
               "line": 10
             }
           ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/cloudflare-app-bootstrap",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/cloudflare-app-bootstrap/SKILL.md",
+              "line": 12
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/cloudflare-app-bootstrap/SKILL.md",
+              "line": 23
+            }
+          ],
+          "findings": [],
           "suppressed": []
         },
         {
@@ -764,8 +742,8 @@
         },
         {
           "path": "skills/cloudflare-one",
-          "score": 100,
-          "risk": 0,
+          "score": 92,
+          "risk": 8,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -773,15 +751,23 @@
             {
               "reason": "reference_missing",
               "path": "skills/cloudflare-one/SKILL.md",
-              "line": 108
+              "line": 127
             },
             {
               "reason": "reference_missing",
               "path": "skills/cloudflare-one/SKILL.md",
-              "line": 122
+              "line": 141
             }
           ],
-          "findings": [],
+          "findings": [
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/cloudflare-one/SKILL.md",
+              "line": 30
+            }
+          ],
           "suppressed": []
         },
         {
@@ -810,6 +796,31 @@
             }
           ],
           "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "skills/frameworks-on-cloudflare",
+          "score": 92,
+          "risk": 8,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/frameworks-on-cloudflare/SKILL.md",
+              "line": 12
+            }
+          ],
+          "findings": [
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/frameworks-on-cloudflare/SKILL.md",
+              "line": 25
+            }
+          ],
           "suppressed": []
         },
         {
@@ -1575,6 +1586,17 @@
           ]
         },
         {
+          "path": "skills/workers-development",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
           "path": "skills/workers-profiling",
           "score": 100,
           "risk": 0,
@@ -1636,7 +1658,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-06T18:52:35Z"
+      "checkedAt": "2026-11-06T20:31:46Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"

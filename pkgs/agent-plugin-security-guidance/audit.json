@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "security-guidance",
-      "dir": "/nix/store/i4hphi2cbrw6hzndb9a6gxfk12xlwf89-agent-plugin-security-guidance-2.0.17/share/agent-plugins/security-guidance",
+      "dir": "/nix/store/qqhsssbyczagkfcg913x9a62wgfnpfrs-agent-plugin-security-guidance-2.0.18/share/agent-plugins/security-guidance",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -89,9 +89,16 @@
             {
               "id": "TT3",
               "severity": "CRITICAL",
-              "message": "Tainted flow: 'request' from os.environ.get (line 687, credential/environment) → urllib.request.urlopen (network output)",
+              "message": "Tainted flow: 'request' from os.environ.get (line 689, credential/environment) → urllib.request.urlopen (network output)",
               "file": "com.anthropic.claude-code/hooks/llm.py",
               "line": 285
+            },
+            {
+              "id": "E2",
+              "severity": "HIGH",
+              "message": "Env Variable Harvesting",
+              "file": "com.anthropic.claude-code/hooks/ensure_agent_sdk.py",
+              "line": 528
             },
             {
               "id": "P6",
@@ -140,7 +147,7 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "com.anthropic.claude-code/hooks/llm.py",
-              "line": 2218
+              "line": 2229
             },
             {
               "id": "PE3",
@@ -203,63 +210,63 @@
               "severity": "HIGH",
               "message": "Env Variable Harvesting",
               "file": "com.anthropic.claude-code/hooks/llm.py",
-              "line": 935
+              "line": 937
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "com.anthropic.claude-code/hooks/llm.py",
-              "line": 1509
+              "line": 1520
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "com.anthropic.claude-code/hooks/llm.py",
-              "line": 1509
+              "line": 1520
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "com.anthropic.claude-code/hooks/llm.py",
-              "line": 1537
+              "line": 1548
             },
             {
               "id": "TM1",
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
               "file": "com.anthropic.claude-code/hooks/llm.py",
-              "line": 1521
+              "line": 1532
             },
             {
               "id": "AS2",
               "severity": "HIGH",
               "message": "MCP Config Access",
               "file": "com.anthropic.claude-code/hooks/llm.py",
-              "line": 1523
+              "line": 1534
             },
             {
               "id": "SSRF1",
               "severity": "HIGH",
               "message": "Cloud Metadata Access",
               "file": "com.anthropic.claude-code/hooks/llm.py",
-              "line": 1523
+              "line": 1534
             },
             {
               "id": "SSRF1",
               "severity": "HIGH",
               "message": "Cloud Metadata Access",
               "file": "com.anthropic.claude-code/hooks/llm.py",
-              "line": 1535
+              "line": 1546
             },
             {
               "id": "TM1",
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
               "file": "com.anthropic.claude-code/hooks/llm.py",
-              "line": 1543
+              "line": 1554
             },
             {
               "id": "TM1",
@@ -280,21 +287,21 @@
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "com.anthropic.claude-code/hooks/_base.py",
-              "line": 31
+              "line": 32
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "com.anthropic.claude-code/hooks/_base.py",
-              "line": 31
+              "line": 32
             },
             {
               "id": "TM3",
               "severity": "MEDIUM",
               "message": "Unsafe Defaults",
               "file": "com.anthropic.claude-code/hooks/_base.py",
-              "line": 114
+              "line": 115
             },
             {
               "id": "AST4",
@@ -329,7 +336,7 @@
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "com.anthropic.claude-code/hooks/security_reminder_hook.py",
-              "line": 2070
+              "line": 2074
             },
             {
               "id": "AST4",
@@ -343,42 +350,35 @@
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "com.anthropic.claude-code/hooks/ensure_agent_sdk.py",
-              "line": 336
+              "line": 361
             },
             {
               "id": "AST4",
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "com.anthropic.claude-code/hooks/ensure_agent_sdk.py",
-              "line": 446
+              "line": 473
             },
             {
               "id": "AST4",
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "com.anthropic.claude-code/hooks/ensure_agent_sdk.py",
-              "line": 470
+              "line": 532
             },
             {
               "id": "AST4",
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "com.anthropic.claude-code/hooks/ensure_agent_sdk.py",
-              "line": 655
+              "line": 749
             },
             {
               "id": "AST4",
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "com.anthropic.claude-code/hooks/ensure_agent_sdk.py",
-              "line": 692
-            },
-            {
-              "id": "AST4",
-              "severity": "MEDIUM",
-              "message": "subprocess module call",
-              "file": "com.anthropic.claude-code/hooks/ensure_agent_sdk.py",
-              "line": 714
+              "line": 790
             },
             {
               "id": "AST4",
@@ -532,49 +532,49 @@
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "com.anthropic.claude-code/hooks/llm.py",
-              "line": 932
+              "line": 934
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "com.anthropic.claude-code/hooks/llm.py",
-              "line": 1515
+              "line": 1526
             },
             {
               "id": "TM3",
               "severity": "MEDIUM",
               "message": "Unsafe Defaults",
               "file": "com.anthropic.claude-code/hooks/llm.py",
-              "line": 1521
+              "line": 1532
             },
             {
               "id": "TM3",
               "severity": "MEDIUM",
               "message": "Unsafe Defaults",
               "file": "com.anthropic.claude-code/hooks/llm.py",
-              "line": 1521
+              "line": 1532
             },
             {
               "id": "TM3",
               "severity": "MEDIUM",
               "message": "Unsafe Defaults",
               "file": "com.anthropic.claude-code/hooks/llm.py",
-              "line": 1521
+              "line": 1532
             },
             {
               "id": "TM3",
               "severity": "MEDIUM",
               "message": "Unsafe Defaults",
               "file": "com.anthropic.claude-code/hooks/llm.py",
-              "line": 1574
+              "line": 1585
             },
             {
               "id": "TT2",
               "severity": "MEDIUM",
-              "message": "Tainted flow: '_dd' from os.environ (line 2308, credential/environment) → open (file write)",
+              "message": "Tainted flow: '_dd' from os.environ (line 2319, credential/environment) → open (file write)",
               "file": "com.anthropic.claude-code/hooks/llm.py",
-              "line": 2310
+              "line": 2321
             },
             {
               "id": "EA1",
@@ -609,63 +609,63 @@
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "com.anthropic.claude-code/hooks/security_reminder_hook.py",
-              "line": 1868
+              "line": 1872
             },
             {
               "id": "AST4",
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "com.anthropic.claude-code/hooks/security_reminder_hook.py",
-              "line": 1874
+              "line": 1878
             },
             {
               "id": "TT2",
               "severity": "MEDIUM",
-              "message": "Tainted flow: 's' from os.environ.get (line 2942, credential/environment) → subprocess.run (code execution)",
+              "message": "Tainted flow: 's' from os.environ.get (line 2946, credential/environment) → subprocess.run (code execution)",
               "file": "com.anthropic.claude-code/hooks/security_reminder_hook.py",
-              "line": 2070
+              "line": 2074
             },
             {
               "id": "AST4",
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "com.anthropic.claude-code/hooks/security_reminder_hook.py",
-              "line": 2250
+              "line": 2254
             },
             {
               "id": "AST4",
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "com.anthropic.claude-code/hooks/security_reminder_hook.py",
-              "line": 2283
+              "line": 2287
             },
             {
               "id": "AST4",
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "com.anthropic.claude-code/hooks/security_reminder_hook.py",
-              "line": 2286
+              "line": 2290
             },
             {
               "id": "AST4",
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "com.anthropic.claude-code/hooks/security_reminder_hook.py",
-              "line": 2305
+              "line": 2309
             },
             {
               "id": "AST4",
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "com.anthropic.claude-code/hooks/security_reminder_hook.py",
-              "line": 3048
+              "line": 3052
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "com.anthropic.claude-code/hooks/security_reminder_hook.py",
-              "line": 3099
+              "line": 3103
             },
             {
               "id": "RA2",
@@ -679,21 +679,21 @@
               "severity": "LOW",
               "message": "Scope Creep",
               "file": "com.anthropic.claude-code/hooks/llm.py",
-              "line": 1523
+              "line": 1534
             },
             {
               "id": "EA3",
               "severity": "LOW",
               "message": "Scope Creep",
               "file": "com.anthropic.claude-code/hooks/llm.py",
-              "line": 1554
+              "line": 1565
             },
             {
               "id": "AST7",
               "severity": "LOW",
               "message": "Dynamic attribute access via getattr()",
               "file": "com.anthropic.claude-code/hooks/llm.py",
-              "line": 2270
+              "line": 2281
             }
           ],
           "suppressed": []
@@ -709,7 +709,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-06T00:51:37Z"
+      "checkedAt": "2026-11-06T20:33:39Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
