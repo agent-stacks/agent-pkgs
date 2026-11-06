@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "aws-startup-advisor",
-      "dir": "/nix/store/mffix49wyi2bgbi5cslrn2dchy1qyys1-agent-plugin-aws-startup-advisor-2.0.3/share/agent-plugins/aws-startup-advisor",
+      "dir": "/nix/store/bjh34kwkxwqbf0gfr6xz3dr55lbk7bn7-agent-plugin-aws-startup-advisor-2.0.3/share/agent-plugins/aws-startup-advisor",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -8735,17 +8735,12 @@
         },
         {
           "path": "skills/bedrock-migration-assessment",
-          "score": 86,
-          "risk": 14,
-          "status": "incomplete",
+          "score": 56,
+          "risk": 44,
+          "status": "caution",
           "partial": true,
-          "coverage": 42.9,
+          "coverage": 55.6,
           "exceptions": [
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/bedrock-migration-assessment/SKILL.md",
-              "line": 0
-            },
             {
               "reason": "reference_missing",
               "path": "skills/bedrock-migration-assessment/SKILL.md",
@@ -8774,22 +8769,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/bedrock-migration-assessment/SKILL.md",
-              "line": 52
+              "line": 40
             },
             {
               "reason": "reference_missing",
               "path": "skills/bedrock-migration-assessment/SKILL.md",
-              "line": 53
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/bedrock-migration-assessment/SKILL.md",
-              "line": 69
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/bedrock-migration-assessment/SKILL.md",
-              "line": 71
+              "line": 42
             },
             {
               "reason": "static_parse_limit",
@@ -8803,11 +8788,37 @@
             },
             {
               "reason": "static_parse_limit",
+              "path": "skills/bedrock-migration-assessment/references/phases/discover/discover.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
               "path": "skills/bedrock-migration-assessment/scripts/validate-ai-profile.py",
               "line": 0
             }
           ],
           "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/bedrock-migration-assessment/references/phases/discover/discover-app-code.md",
+              "line": 37
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/bedrock-migration-assessment/references/phases/discover/discover-app-code.md",
+              "line": 39
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/bedrock-migration-assessment/references/phases/discover/discover-app-code.md",
+              "line": 39
+            },
             {
               "id": "MP2",
               "severity": "MEDIUM",
@@ -8880,14 +8891,6 @@
               "message": "Whitespace Padding",
               "file": "skills/bedrock-migration-assessment/SKILL.md",
               "line": 12,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/bedrock-migration-assessment/SKILL.md",
-              "line": 45,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -9182,6 +9185,38 @@
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
+              "file": "skills/bedrock-migration-assessment/references/phases/discover/discover-app-code.md",
+              "line": 67,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/bedrock-migration-assessment/references/phases/discover/discover-app-code.md",
+              "line": 72,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/bedrock-migration-assessment/references/phases/discover/discover-app-code.md",
+              "line": 117,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/bedrock-migration-assessment/references/phases/discover/discover.md",
+              "line": 37,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
               "file": "skills/bedrock-migration-assessment/references/shared/schema-preferences.md",
               "line": 11,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
@@ -9239,6 +9274,14 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/bedrock-migration-assessment/SKILL.md",
+              "line": 14,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/bedrock-migration-assessment/SKILL.md",
               "line": 15,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
@@ -9255,7 +9298,15 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/bedrock-migration-assessment/SKILL.md",
-              "line": 69,
+              "line": 36,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/bedrock-migration-assessment/SKILL.md",
+              "line": 40,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
@@ -23756,7 +23807,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-05T02:52:19Z"
+      "checkedAt": "2026-11-06T16:31:06Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
