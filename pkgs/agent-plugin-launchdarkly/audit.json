@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "launchdarkly",
-      "dir": "/nix/store/xvrbbnmpkwrv43skx0rya4sjzry8p0c2-agent-plugin-launchdarkly-1.0.6/share/agent-plugins/launchdarkly",
+      "dir": "/nix/store/nqjwag522vjp5af0jpb74qxb2qqyqajz-agent-plugin-launchdarkly-1.0.6/share/agent-plugins/launchdarkly",
       "spec": "1.1.0",
       "score": 50,
       "status": "caution",
@@ -235,6 +235,11 @@
               "reason": "reference_missing",
               "path": "skills/alert-investigation/SKILL.md",
               "line": 8
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/alert-investigation/SKILL.md",
+              "line": 86
             }
           ],
           "findings": [],
@@ -690,42 +695,87 @@
         },
         {
           "path": "skills/investigate",
-          "score": 77,
-          "risk": 23,
-          "status": "caution",
+          "score": 93,
+          "risk": 7,
+          "status": "incomplete",
           "partial": true,
-          "coverage": 100,
+          "coverage": 85.7,
           "exceptions": [
             {
               "reason": "reference_missing",
               "path": "skills/investigate/SKILL.md",
               "line": 8
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/investigate/SKILL.md",
+              "line": 55
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/investigate/SKILL.md",
+              "line": 56
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/investigate/SKILL.md",
+              "line": 57
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/investigate/SKILL.md",
+              "line": 76
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/investigate/SKILL.md",
+              "line": 82
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/investigate/SKILL.md",
+              "line": 84
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/investigate/SKILL.md",
+              "line": 86
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/investigate/SKILL.md",
+              "line": 94
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/investigate/SKILL.md",
+              "line": 106
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/investigate/relationship-search.md",
+              "line": 0
             }
           ],
           "findings": [
-            {
-              "id": "MP2",
-              "severity": "MEDIUM",
-              "message": "Context Window Stuffing",
-              "file": "skills/investigate/metrics.md",
-              "line": 26
-            },
             {
               "id": "P4",
               "severity": "MEDIUM",
               "message": "Behavior Manipulation",
               "file": "skills/investigate/relationship-search.md",
               "line": 5
-            },
-            {
-              "id": "EA4",
-              "severity": "MEDIUM",
-              "message": "Unbounded Resource Access",
-              "file": "skills/investigate/traces.md",
-              "line": 12
             }
           ],
-          "suppressed": []
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/investigate/SKILL.md",
+              "line": 126,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
+          ]
         },
         {
           "path": "skills/launchdarkly-experiment-guide",
@@ -2390,7 +2440,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-05T21:25:27Z"
+      "checkedAt": "2026-11-06T00:49:58Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
