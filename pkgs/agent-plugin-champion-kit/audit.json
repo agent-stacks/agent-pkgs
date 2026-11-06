@@ -1,0 +1,240 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "champion-kit",
+      "dir": "/nix/store/a1pamr3y7ijimd44yg59w775h9k9isnq-agent-plugin-champion-kit-0.5.0/share/agent-plugins/champion-kit",
+      "spec": "1.1.0",
+      "score": 83,
+      "status": "safe",
+      "coverage": {
+        "scanned": [
+          "com.anthropic.claude-code/agents",
+          "skills/climb",
+          "skills/faq",
+          "skills/hackathon",
+          "skills/maturity",
+          "skills/office-hours",
+          "skills/patterns",
+          "skills/routines"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": []
+      },
+      "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 94,
+          "risk": 6,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "com.anthropic.claude-code/agents/repo-scout.md",
+              "line": 9
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/climb",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/climb/SKILL.md",
+              "line": 63
+            }
+          ],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "skills/faq",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/faq/SKILL.md",
+              "line": 15
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/faq/SKILL.md",
+              "line": 20
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/faq/SKILL.md",
+              "line": 23
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/faq/SKILL.md",
+              "line": 29
+            }
+          ],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "skills/hackathon",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/hackathon/SKILL.md",
+              "line": 60
+            }
+          ],
+          "findings": [],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/hackathon/SKILL.md",
+              "line": 57,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
+          ]
+        },
+        {
+          "path": "skills/maturity",
+          "score": 83,
+          "risk": 17,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/maturity/SKILL.md",
+              "line": 20
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/maturity/SKILL.md",
+              "line": 30
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/maturity/SKILL.md",
+              "line": 50
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/maturity/SKILL.md",
+              "line": 51
+            }
+          ],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/maturity/report-template.html",
+              "line": 8
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/office-hours",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "skills/patterns",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/patterns/SKILL.md",
+              "line": 46
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/patterns/SKILL.md",
+              "line": 50
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/patterns/SKILL.md",
+              "line": 65
+            }
+          ],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "skills/routines",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/routines/SKILL.md",
+              "line": 49
+            }
+          ],
+          "findings": [],
+          "suppressed": []
+        }
+      ]
+    }
+  ],
+  "score": 83,
+  "status": "safe",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-11-06T02:34:50Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}
