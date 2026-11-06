@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "posthog-skills",
-      "dir": "/nix/store/qj5j6pah8pc7dlgyxghana06b8z05pn3-agent-plugin-posthog-skills-0.0.0-unstable.2026-11-05.gf816c8f/share/agent-plugins/posthog-skills",
+      "dir": "/nix/store/ss1yyp2vfrrxify6620szlfs86ylksap-agent-plugin-posthog-skills-0.0.0-unstable.2026-11-06.ga0d49ea/share/agent-plugins/posthog-skills",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -315,8 +315,10 @@
           "skills/svelte",
           "skills/sveltekit",
           "skills/swift",
+          "skills/syncing-migrated-self-managed-tables",
           "skills/tanstack-start",
           "skills/tools-and-features-hogql",
+          "skills/transcribing-slack-audio",
           "skills/transition-leads",
           "skills/triaging-error-issues",
           "skills/triaging-visual-review-runs",
@@ -2119,7 +2121,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/building-a-dashboard/SKILL.md",
-              "line": 106
+              "line": 112
             }
           ],
           "findings": [],
@@ -8916,25 +8918,9 @@
           "score": 100,
           "risk": 0,
           "status": "safe",
-          "partial": true,
+          "partial": false,
           "coverage": 100,
-          "exceptions": [
-            {
-              "reason": "reference_missing",
-              "path": "skills/inbox-exploration/SKILL.md",
-              "line": 455
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/inbox-exploration/SKILL.md",
-              "line": 594
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/inbox-exploration/SKILL.md",
-              "line": 765
-            }
-          ],
+          "exceptions": [],
           "findings": [],
           "suppressed": [
             {
@@ -8942,7 +8928,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/inbox-exploration/SKILL.md",
-              "line": 68,
+              "line": 32,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -8950,16 +8936,16 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/inbox-exploration/SKILL.md",
-              "line": 551,
+              "line": 72,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/inbox-exploration/SKILL.md",
-              "line": 453,
-              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/inbox-exploration/references/report-actions.md",
+              "line": 67,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             }
           ]
         },
@@ -9024,7 +9010,7 @@
           "risk": 67,
           "status": "do not install",
           "partial": true,
-          "coverage": 90,
+          "coverage": 86.7,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -9039,6 +9025,11 @@
             {
               "reason": "static_parse_limit",
               "path": "skills/instrument-error-tracking/references/flask.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/instrument-error-tracking/references/flutter.md",
               "line": 0
             },
             {
@@ -9060,7 +9051,21 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-error-tracking/references/laravel.md",
-              "line": 32
+              "line": 35
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/instrument-error-tracking/references/laravel.md",
+              "line": 94
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/instrument-error-tracking/references/laravel.md",
+              "line": 203
             },
             {
               "id": "PE3",
@@ -9081,7 +9086,7 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-error-tracking/references/ruby-on-rails.md",
-              "line": 152
+              "line": 153
             },
             {
               "id": "RP1",
@@ -9123,7 +9128,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/instrument-error-tracking/references/flutter.md",
-              "line": 25
+              "line": 27
             },
             {
               "id": "RP1",
@@ -9144,7 +9149,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/instrument-error-tracking/references/laravel.md",
-              "line": 24
+              "line": 195
             },
             {
               "id": "RP1",
@@ -9193,7 +9198,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/instrument-error-tracking/references/ruby-on-rails.md",
-              "line": 34
+              "line": 35
             },
             {
               "id": "RP1",
@@ -9221,14 +9226,14 @@
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-error-tracking/references/flutter.md",
-              "line": 80
+              "line": 82
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-error-tracking/references/flutter.md",
-              "line": 82
+              "line": 84
             },
             {
               "id": "RP1",
@@ -9268,6 +9273,14 @@
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/instrument-error-tracking/SKILL.md",
               "line": 76,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/instrument-error-tracking/SKILL.md",
+              "line": 85,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
@@ -9340,7 +9353,21 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-feature-flags/references/laravel.md",
-              "line": 32
+              "line": 35
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/instrument-feature-flags/references/laravel.md",
+              "line": 94
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/instrument-feature-flags/references/laravel.md",
+              "line": 203
             },
             {
               "id": "PE3",
@@ -9361,7 +9388,7 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-feature-flags/references/ruby-on-rails.md",
-              "line": 152
+              "line": 153
             },
             {
               "id": "P1",
@@ -9487,7 +9514,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/instrument-feature-flags/references/laravel.md",
-              "line": 24
+              "line": 195
             },
             {
               "id": "RP1",
@@ -9529,7 +9556,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/instrument-feature-flags/references/ruby-on-rails.md",
-              "line": 34
+              "line": 35
             },
             {
               "id": "RP1",
@@ -9557,14 +9584,14 @@
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-feature-flags/references/flutter.md",
-              "line": 79
+              "line": 88
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-feature-flags/references/flutter.md",
-              "line": 81
+              "line": 90
             },
             {
               "id": "RP1",
@@ -9615,7 +9642,7 @@
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 74.3,
+          "coverage": 72.9,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -9715,6 +9742,11 @@
             {
               "reason": "static_parse_limit",
               "path": "skills/instrument-integration/references/react.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/instrument-integration/references/tanstack-start.md",
               "line": 0
             }
           ],
@@ -9983,7 +10015,21 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-integration/references/laravel.md",
-              "line": 32
+              "line": 35
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/instrument-integration/references/laravel.md",
+              "line": 94
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/instrument-integration/references/laravel.md",
+              "line": 203
             },
             {
               "id": "PE3",
@@ -10074,28 +10120,28 @@
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 853
+              "line": 906
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 855
+              "line": 908
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-integration/references/node.md",
-              "line": 977
+              "line": 981
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-integration/references/node.md",
-              "line": 979
+              "line": 983
             },
             {
               "id": "P1",
@@ -10123,28 +10169,28 @@
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-integration/references/python.md",
-              "line": 950
+              "line": 954
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-integration/references/python.md",
-              "line": 952
+              "line": 956
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-integration/references/react-native.md",
-              "line": 1195
+              "line": 1204
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-integration/references/react-native.md",
-              "line": 1197
+              "line": 1206
             },
             {
               "id": "P1",
@@ -10165,35 +10211,35 @@
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 87
+              "line": 96
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 90
+              "line": 99
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 105
+              "line": 114
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 148
+              "line": 157
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 166
+              "line": 175
             },
             {
               "id": "E4",
@@ -10249,7 +10295,7 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-integration/references/ruby-on-rails.md",
-              "line": 152
+              "line": 153
             },
             {
               "id": "RP1",
@@ -10326,7 +10372,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/instrument-integration/references/astro.md",
-              "line": 24
+              "line": 25
             },
             {
               "id": "RP1",
@@ -10340,7 +10386,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/instrument-integration/references/elixir.md",
-              "line": 27
+              "line": 28
             },
             {
               "id": "RP1",
@@ -10375,7 +10421,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/instrument-integration/references/laravel.md",
-              "line": 24
+              "line": 195
             },
             {
               "id": "RP1",
@@ -10424,7 +10470,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/instrument-integration/references/ruby-on-rails.md",
-              "line": 34
+              "line": 35
             },
             {
               "id": "RP1",
@@ -10438,14 +10484,14 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/instrument-integration/references/svelte.md",
-              "line": 27
+              "line": 28
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/instrument-integration/references/tanstack-start.md",
-              "line": 26
+              "line": 27
             },
             {
               "id": "RP1",
@@ -10459,84 +10505,84 @@
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 134
+              "line": 143
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 136
+              "line": 145
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 140
+              "line": 149
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 141
+              "line": 150
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 152
+              "line": 161
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 157
+              "line": 166
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 159
+              "line": 168
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 163
+              "line": 172
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 164
+              "line": 173
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 170
+              "line": 179
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 140
+              "line": 149
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-integration/references/flutter.md",
-              "line": 163
+              "line": 172
             },
             {
               "id": "E1",
@@ -10557,7 +10603,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/instrument-integration/references/react-native.md",
-              "line": 201
+              "line": 210
             },
             {
               "id": "PE1",
@@ -10652,6 +10698,14 @@
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/instrument-integration/SKILL.md",
               "line": 91,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/instrument-integration/SKILL.md",
+              "line": 99,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
@@ -11238,33 +11292,75 @@
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/instrument-logs/references/flutter.md",
-              "line": 73
+              "line": 82
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/instrument-logs/references/flutter.md",
-              "line": 76
+              "line": 85
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/instrument-logs/references/flutter.md",
-              "line": 91
+              "line": 100
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/instrument-logs/references/flutter.md",
-              "line": 134
+              "line": 143
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
+              "file": "skills/instrument-logs/references/flutter.md",
+              "line": 161
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/instrument-logs/references/flutter.md",
+              "line": 129
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/instrument-logs/references/flutter.md",
+              "line": 131
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/instrument-logs/references/flutter.md",
+              "line": 135
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/instrument-logs/references/flutter.md",
+              "line": 136
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/instrument-logs/references/flutter.md",
+              "line": 147
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
               "file": "skills/instrument-logs/references/flutter.md",
               "line": 152
             },
@@ -11273,84 +11369,42 @@
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-logs/references/flutter.md",
-              "line": 120
+              "line": 154
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-logs/references/flutter.md",
-              "line": 122
+              "line": 158
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-logs/references/flutter.md",
-              "line": 126
+              "line": 159
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-logs/references/flutter.md",
-              "line": 127
+              "line": 165
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-logs/references/flutter.md",
-              "line": 138
+              "line": 135
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-logs/references/flutter.md",
-              "line": 143
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "skills/instrument-logs/references/flutter.md",
-              "line": 145
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "skills/instrument-logs/references/flutter.md",
-              "line": 149
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "skills/instrument-logs/references/flutter.md",
-              "line": 150
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "skills/instrument-logs/references/flutter.md",
-              "line": 156
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "skills/instrument-logs/references/flutter.md",
-              "line": 126
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "skills/instrument-logs/references/flutter.md",
-              "line": 149
+              "line": 158
             },
             {
               "id": "E1",
@@ -11493,7 +11547,7 @@
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 79,
+          "coverage": 77.4,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -11563,6 +11617,11 @@
             {
               "reason": "static_parse_limit",
               "path": "skills/instrument-product-analytics/references/react-native.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/instrument-product-analytics/references/tanstack-start.md",
               "line": 0
             }
           ],
@@ -11789,7 +11848,21 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-product-analytics/references/laravel.md",
-              "line": 32
+              "line": 35
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/instrument-product-analytics/references/laravel.md",
+              "line": 94
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/instrument-product-analytics/references/laravel.md",
+              "line": 203
             },
             {
               "id": "PE3",
@@ -11880,42 +11953,42 @@
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 853
+              "line": 906
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 855
+              "line": 908
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-product-analytics/references/python.md",
-              "line": 950
+              "line": 954
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-product-analytics/references/python.md",
-              "line": 952
+              "line": 956
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-product-analytics/references/react-native.md",
-              "line": 1195
+              "line": 1204
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-product-analytics/references/react-native.md",
-              "line": 1197
+              "line": 1206
             },
             {
               "id": "P1",
@@ -11936,35 +12009,35 @@
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 87
+              "line": 96
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 90
+              "line": 99
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 105
+              "line": 114
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 148
+              "line": 157
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 166
+              "line": 175
             },
             {
               "id": "E4",
@@ -12013,7 +12086,7 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/instrument-product-analytics/references/ruby-on-rails.md",
-              "line": 152
+              "line": 153
             },
             {
               "id": "RP1",
@@ -12083,7 +12156,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/instrument-product-analytics/references/astro.md",
-              "line": 24
+              "line": 25
             },
             {
               "id": "RP1",
@@ -12097,7 +12170,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/instrument-product-analytics/references/elixir.md",
-              "line": 27
+              "line": 28
             },
             {
               "id": "RP1",
@@ -12132,7 +12205,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/instrument-product-analytics/references/laravel.md",
-              "line": 24
+              "line": 195
             },
             {
               "id": "RP1",
@@ -12167,7 +12240,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/instrument-product-analytics/references/ruby-on-rails.md",
-              "line": 34
+              "line": 35
             },
             {
               "id": "RP1",
@@ -12181,14 +12254,14 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/instrument-product-analytics/references/svelte.md",
-              "line": 27
+              "line": 28
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/instrument-product-analytics/references/tanstack-start.md",
-              "line": 26
+              "line": 27
             },
             {
               "id": "RP1",
@@ -12202,84 +12275,84 @@
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 134
+              "line": 143
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 136
+              "line": 145
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 140
+              "line": 149
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 141
+              "line": 150
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 152
+              "line": 161
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 157
+              "line": 166
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 159
+              "line": 168
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 163
+              "line": 172
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 164
+              "line": 173
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 170
+              "line": 179
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 140
+              "line": 149
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/instrument-product-analytics/references/flutter.md",
-              "line": 163
+              "line": 172
             },
             {
               "id": "E1",
@@ -12293,7 +12366,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/instrument-product-analytics/references/react-native.md",
-              "line": 201
+              "line": 210
             },
             {
               "id": "PE1",
@@ -12364,6 +12437,14 @@
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/instrument-product-analytics/SKILL.md",
               "line": 102,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/instrument-product-analytics/SKILL.md",
+              "line": 110,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
@@ -17861,7 +17942,7 @@
           "risk": 43,
           "status": "caution",
           "partial": true,
-          "coverage": 96.9,
+          "coverage": 97,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -19878,17 +19959,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/setting-up-a-data-warehouse-source/SKILL.md",
-              "line": 57
+              "line": 64
             },
             {
               "reason": "reference_missing",
               "path": "skills/setting-up-a-data-warehouse-source/SKILL.md",
-              "line": 58
+              "line": 65
             },
             {
               "reason": "reference_missing",
               "path": "skills/setting-up-a-data-warehouse-source/SKILL.md",
-              "line": 113
+              "line": 120
             }
           ],
           "findings": [
@@ -19897,7 +19978,7 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/setting-up-a-data-warehouse-source/SKILL.md",
-              "line": 97
+              "line": 104
             }
           ],
           "suppressed": [
@@ -19906,7 +19987,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/setting-up-a-data-warehouse-source/SKILL.md",
-              "line": 31,
+              "line": 38,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -19914,7 +19995,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/setting-up-a-data-warehouse-source/SKILL.md",
-              "line": 48,
+              "line": 55,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             }
           ]
@@ -21569,17 +21650,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/suggesting-data-imports/SKILL.md",
-              "line": 41
+              "line": 43
             },
             {
               "reason": "reference_missing",
               "path": "skills/suggesting-data-imports/SKILL.md",
-              "line": 92
+              "line": 100
             },
             {
               "reason": "reference_missing",
               "path": "skills/suggesting-data-imports/SKILL.md",
-              "line": 96
+              "line": 104
             }
           ],
           "findings": [],
@@ -21759,6 +21840,17 @@
           "suppressed": []
         },
         {
+          "path": "skills/syncing-migrated-self-managed-tables",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
           "path": "skills/tanstack-start",
           "score": 85,
           "risk": 15,
@@ -21856,6 +21948,40 @@
               "file": "skills/tools-and-features-hogql/SKILL.md",
               "line": 22,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
+          ]
+        },
+        {
+          "path": "skills/transcribing-slack-audio",
+          "score": 91,
+          "risk": 9,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/transcribing-slack-audio/SKILL.md",
+              "line": 29
+            }
+          ],
+          "findings": [
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/transcribing-slack-audio/scripts/transcribe.py",
+              "line": 74
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/transcribing-slack-audio/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
         },
@@ -23240,7 +23366,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-05T12:38:46Z"
+      "checkedAt": "2026-11-06T12:37:45Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
