@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "shipshitdev-skills",
-      "dir": "/nix/store/3qz8159k9fddnx55plb9khkbwj7acib0-agent-plugin-shipshitdev-skills-0.0.0-unstable.2026-10-31.g87703ef/share/agent-plugins/shipshitdev-skills",
+      "dir": "/nix/store/jai3xhlzr3j1415xj5iglfnk3irgf0pp-agent-plugin-shipshitdev-skills-0.0.0-unstable.2026-11-06.gccdf1d0/share/agent-plugins/shipshitdev-skills",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -22,6 +22,7 @@
           "skills/image",
           "skills/issue",
           "skills/orchestrate",
+          "skills/performances",
           "skills/qa",
           "skills/release",
           "skills/stack",
@@ -1132,6 +1133,40 @@
           "suppressed": []
         },
         {
+          "path": "skills/performances",
+          "score": 92,
+          "risk": 8,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/performances/SKILL.md",
+              "line": 74
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA1",
+              "severity": "MEDIUM",
+              "message": "Unrestricted Tool Access",
+              "file": "skills/performances/SKILL.md",
+              "line": 41
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/performances/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
+          ]
+        },
+        {
           "path": "skills/qa",
           "score": 100,
           "risk": 0,
@@ -1373,7 +1408,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-05T02:32:56Z"
+      "checkedAt": "2026-11-06T22:33:37Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
