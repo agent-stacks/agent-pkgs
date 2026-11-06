@@ -1,0 +1,46 @@
+{
+  "name": "privacy",
+  "version": "0.1.0",
+  "src": {
+    "owner": "anthropics",
+    "repo": "claude-code",
+    "rev": "90380efca7f9d73e206fac453f841b6acd664f4d",
+    "hash": "sha256-QimZ7YH+ues7ZXL4+XDYjAPM7yPlR4hZJSg1tUWzM0U="
+  },
+  "sourceUrl": "https://github.com/anthropics/claude-code",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Anthropic"
+    },
+    "description": "Refuses a shell call that holds the signed-in account's email address and names a User-Agent, so the address does not go out as a client's contact details.",
+    "name": "privacy",
+    "version": "0.1.0"
+  },
+  "skills": {},
+  "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/hooks": "mods/privacy/hooks"
+  },
+  "meta": {
+    "description": "Refuses a shell call that holds the signed-in account's email address and names a User-Agent, so the address does not go out as a client's contact details",
+    "homepage": "https://github.com/anthropics/claude-code"
+  },
+  "import": {
+    "input": "anthropics/claude-code",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "mods/privacy/hooks/hooks.json",
+        "message": "Claude Code loads this module into its own process whenever the plugin is enabled: ./register.ts"
+      }
+    ]
+  }
+}
