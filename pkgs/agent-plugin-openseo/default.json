@@ -4,8 +4,8 @@
   "src": {
     "owner": "every-app",
     "repo": "open-seo",
-    "rev": "7d89cfb3ca30b2819356c57c5b746a1048b9743f",
-    "hash": "sha256-s2ySFBu2Zvsa3iAqVezQRgJrtswMGtf9RPgJ78eqGgU="
+    "rev": "46b815be34723e46ceeefe9b2b907bb62b62fd76",
+    "hash": "sha256-Bws/OOQZiFH1IUp0PoIAU6yGDlsvuOuH/Vn6fqiKtTU="
   },
   "sourceUrl": "https://github.com/every-app/open-seo",
   "manifest": {
@@ -14,7 +14,7 @@
       "name": "OpenSEO",
       "url": "https://openseo.so"
     },
-    "description": "Research keywords and competitors, audit sites, track rankings and AI visibility, and use connected Search Console data from your AI assistant.",
+    "description": "Without good data, your agent gives generic advice. Keyword research, competitor research, backlinks, and site audits. All for $10/month.",
     "homepage": "https://openseo.so",
     "keywords": [
       "seo",
@@ -46,9 +46,7 @@
     "seo-project-setup": "plugins/openseo/skills/seo-project-setup",
     "seo-report": "plugins/openseo/skills/seo-report"
   },
-  "requiredRuntimes": [
-    "npx"
-  ],
+  "requiredRuntimes": [],
   "defaultDependencies": [
     "bash",
     "python3",
@@ -56,21 +54,12 @@
   ],
   "mcpServers": {
     "openseo": {
-      "args": [
-        "-y",
-        "mcp-remote@0.1.49",
-        "https://app.openseo.so/mcp",
-        "--transport",
-        "http-only",
-        "--static-oauth-client-metadata",
-        "{\"client_name\":\"Hermes Agent (OpenSEO)\",\"token_endpoint_auth_method\":\"none\",\"grant_types\":[\"authorization_code\",\"refresh_token\"],\"response_types\":[\"code\"]}"
-      ],
-      "command": "npx",
-      "type": "stdio"
+      "type": "streamable-http",
+      "url": "https://app.openseo.so/mcp"
     }
   },
   "meta": {
-    "description": "Research keywords and competitors, audit sites, track rankings and AI visibility, and use connected Search Console data from your AI assistant",
+    "description": "Without good data, your agent gives generic advice",
     "homepage": "https://github.com/every-app/open-seo"
   },
   "import": {
