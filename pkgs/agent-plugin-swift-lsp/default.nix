@@ -7,7 +7,13 @@
 let
   source = builtins.fromJSON (builtins.readFile ./default.json);
   # BEGIN custom — kept as it is when this file is regenerated
-  args = { };
+  # sourcekit-lsp does not evaluate where nixpkgs marks swiftc broken
+  # (aarch64-linux at this pin), so there Claude Code starts it from the
+  # user's PATH (agent-stacks ADR 0085); elsewhere the build pins it.
+  args = {
+    allowPathCommands = pkgs.lib.optional
+      (!(builtins.tryEval pkgs.sourcekit-lsp.outPath).success) "sourcekit-lsp";
+  };
   hooks = old: { };
   # END custom — anything outside these markers is overwritten
 in
