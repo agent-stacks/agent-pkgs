@@ -44,6 +44,11 @@
   "requiredRuntimes": [
     "typescript-language-server"
   ],
+  "dependencies": [
+    "pyright",
+    "clang-tools",
+    "jdt-language-server"
+  ],
   "defaultDependencies": [
     "bash",
     "python3",
@@ -56,6 +61,9 @@
   "import": {
     "input": "anthropics/claude-plugins-official",
     "flags": [
+      "--dependency=pyright",
+      "--dependency=clang-tools",
+      "--dependency=jdt-language-server",
       "--path-ignore=external_plugins/context7",
       "--pkgs-dir=pkgs"
     ],
