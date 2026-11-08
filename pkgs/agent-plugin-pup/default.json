@@ -42,15 +42,9 @@
     "dd-pup": "skills/dd-pup",
     "dd-symdb": "skills/dd-symdb",
     "dd-triage-flaky-test": "skills/dd-triage-flaky-test",
-    "dd-unblock-pr": "skills/dd-unblock-pr",
-    "pup": "."
+    "dd-unblock-pr": "skills/dd-unblock-pr"
   },
-  "requiredRuntimes": [
-    "bash",
-    "node",
-    "python3",
-    "sh"
-  ],
+  "requiredRuntimes": [],
   "defaultDependencies": [
     "bash",
     "python3",
@@ -70,8 +64,8 @@
     ],
     "warnings": [
       {
-        "path": "SKILL.md/metadata/author",
-        "message": "must be a string value"
+        "path": "SKILL.md",
+        "message": "SKILL.md is beside a skills/ directory, which Claude Code loads instead, not imported"
       },
       {
         "path": "skills/dd-code-generation/SKILL.md",
@@ -84,14 +78,6 @@
       {
         "path": "skills/dd-file-issue/SKILL.md",
         "message": "unknown frontmatter fields: examples, trigger"
-      },
-      {
-        "path": "skills/pup/npm/pup/package.json",
-        "message": "declares dependencies import does not package; package them in this package's custom block; with no lockfile beside it, nothing pins the versions"
-      },
-      {
-        "path": "skills/pup/skills/extensions/dd-pup-pi/package.json",
-        "message": "declares dependencies import does not package; package them in this package's custom block; with no lockfile beside it, nothing pins the versions"
       }
     ]
   }
