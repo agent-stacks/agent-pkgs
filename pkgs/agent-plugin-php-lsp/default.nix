@@ -7,7 +7,10 @@
 let
   source = builtins.fromJSON (builtins.readFile ./default.json);
   # BEGIN custom — kept as it is when this file is regenerated
-  args = { };
+  # intelephense is unfree, and agent-pkgs builds no unfree package, so Claude Code
+  # starts it from the user's PATH, as upstream intends (agent-stacks
+  # ADR 0085).
+  args = { allowPathCommands = [ "intelephense" ]; };
   hooks = old: { };
   # END custom — anything outside these markers is overwritten
 in

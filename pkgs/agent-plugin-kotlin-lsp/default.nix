@@ -7,7 +7,10 @@
 let
   source = builtins.fromJSON (builtins.readFile ./default.json);
   # BEGIN custom — kept as it is when this file is regenerated
-  args = { };
+  # no nixpkgs package ships kotlin-lsp (JetBrains' server), so Claude Code
+  # starts it from the user's PATH, as upstream intends (agent-stacks
+  # ADR 0085).
+  args = { allowPathCommands = [ "kotlin-lsp" ]; };
   hooks = old: { };
   # END custom — anything outside these markers is overwritten
 in
