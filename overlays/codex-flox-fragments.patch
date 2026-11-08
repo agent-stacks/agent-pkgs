@@ -1,8 +1,8 @@
 diff --git a/core/src/agents_md.rs b/core/src/agents_md.rs
-index c65a688..b3a1194 100644
+index 1919d68..4225d71 100644
 --- a/core/src/agents_md.rs
 +++ b/core/src/agents_md.rs
-@@ -121,6 +121,21 @@ pub(crate) async fn load_project_instructions(
+@@ -112,6 +112,21 @@ pub(crate) async fn load_project_instructions(
          }
      }
  
@@ -25,10 +25,10 @@ index c65a688..b3a1194 100644
  }
  
 diff --git a/ext/skills/src/host_roots.rs b/ext/skills/src/host_roots.rs
-index ac2bf3e..08f9bdf 100644
+index 2559b4b..8b31700 100644
 --- a/ext/skills/src/host_roots.rs
 +++ b/ext/skills/src/host_roots.rs
-@@ -65,6 +65,19 @@ async fn resolve_skill_roots_with_home_dir(
+@@ -96,6 +96,19 @@ async fn resolve_skill_roots_with_home_dir(
              .into_iter()
              .map(|path| local_root(path, SkillScope::User)),
      );
@@ -45,6 +45,6 @@ index ac2bf3e..08f9bdf 100644
 +            }
 +        }
 +    }
-     roots.extend(repo_agents_skill_roots(repository_file_system, config_layer_stack, cwd).await);
-     dedupe_skill_roots_by_path(&mut roots);
-     roots
+     roots.extend(
+         repo_agents_skill_roots(
+             repository_file_system,
