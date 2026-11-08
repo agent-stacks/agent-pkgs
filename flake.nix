@@ -264,6 +264,36 @@
 
       mkChecks = pkgs:
         mkPackages pkgs // {
+          # bunLockModules lays out a fixture lock as npm's os/cpu/libc
+          # rule selects it, for each platform, nested packages going
+          # with a skipped parent (ADR 0030). The real locks have no
+          # platform packages, so this is the only place the rule runs.
+          # Layout only: the fixture's hashes are never fetched.
+          bun-lock-modules =
+            let
+              layoutOn = config: (pkgs.callPackage ./lib/bun-lock-modules.nix { } {
+                name = "fixture";
+                src = ./tests/bun-lock-modules;
+                host = nixpkgs.lib.systems.elaborate config;
+              }).layout;
+              common = [ "node_modules/@s/scoped" "node_modules/not-win" "node_modules/plain" "node_modules/plain/node_modules/nested" ];
+              expect = {
+                "aarch64-apple-darwin" = [ "node_modules/darwin-arm64" ] ++ common;
+                "x86_64-unknown-linux-gnu" = [ "node_modules/linux-x64-gnu" "node_modules/linux-x64-gnu/node_modules/child" ] ++ common;
+                "x86_64-unknown-linux-musl" = [ "node_modules/linux-x64-musl" ] ++ common;
+                "aarch64-unknown-linux-gnu" = common;
+              };
+              wrong = nixpkgs.lib.filterAttrs (config: want:
+                nixpkgs.lib.sort (a: b: a < b) (layoutOn config) != nixpkgs.lib.sort (a: b: a < b) want) expect;
+            in
+            pkgs.runCommand "bun-lock-modules" { } (
+              if wrong == { } then "touch $out"
+              else ''
+                echo ${nixpkgs.lib.escapeShellArg (builtins.toJSON (nixpkgs.lib.mapAttrs (c: _: layoutOn c) wrong))} >&2
+                exit 1
+              ''
+            );
+
           # The list handed to assemble-plugin: a declared dependency
           # ahead of the defaults, a token's own package when nothing
           # was declared, its main program when the binary is not its
