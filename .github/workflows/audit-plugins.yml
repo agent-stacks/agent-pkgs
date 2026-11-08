@@ -7,9 +7,11 @@ name: "Audit plugins"
 #
 # Which packages a run audits:
 #
-#   push to main      the packages whose call file changed, and a
-#                     package with no call file whose default.nix
-#                     changed; every package when the scoring changed:
+#   push to main      the packages whose call file changed, a package
+#                     with no call file whose default.nix changed, and
+#                     a plugin shipping a server's node_modules when
+#                     that tree or how it is laid out changed (ADR
+#                     0030); every package when the scoring changed:
 #                     SkillSpector (pkgs/skillspector or the
 #                     skillspector-src input in flake.lock), the
 #                     pinned agent-stacks (pkgs/agent-stacks/default.json)
@@ -33,6 +35,10 @@ on:
       - "pkgs/agent-plugin-*/default.json"
       - "pkgs/agent-plugin-*/source.json"
       - "pkgs/agent-plugin-*/default.nix"
+      # A server's node_modules, which the plugin ships (ADR 0030).
+      - "pkgs/*-node-modules/**"
+      - "lib/bun-lock-modules.nix"
+      - "lib/bun-server-hooks.nix"
       - "pkgs/skillspector/**"
       - "pkgs/agent-stacks/default.json"
       - "scripts/audit-baseline.yaml"
@@ -192,6 +198,15 @@ jobs:
                         d="$(dirname "$f")"
                         [ -f "$d/default.json" ] || [ -f "$d/source.json" ] || echo "$f"
                       done
+                  # A plugin that ships a server's node_modules, when the
+                  # tree or how it is laid out moved: its custom block,
+                  # its <name>-node-modules or the libraries (ADR 0030).
+                  for d in pkgs/agent-plugin-*; do
+                    grep -q 'bun-server-hooks.nix' "$d/default.nix" 2>/dev/null || continue
+                    n="${d#pkgs/agent-plugin-}"
+                    git diff --quiet "$BEFORE" HEAD -- "$d/default.nix" "pkgs/$n-node-modules" \
+                      lib/bun-lock-modules.nix lib/bun-server-hooks.nix || echo "$d/default.nix"
+                  done
                 } | cut -d/ -f2 | sort -u \
                   | while read -r p; do
                       [ -f "pkgs/$p/default.nix" ] && echo "$p"

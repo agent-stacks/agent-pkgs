@@ -2,25 +2,29 @@
 # bun: one fetchurl per package by the lock's sha512, unpacked at the
 # lock's hoisted paths, bins linked as Bun links them (ADR 0030).
 #
-# A lock this cannot lay out fails the build, never evaluation.
+# A lock this cannot lay out fails the build. Reading the lock needs the
+# plugin's source, which is fetched at evaluation (lib/plugin-source.nix),
+# so a source that cannot be fetched fails evaluation, as ADR 0025
+# accepted.
 { lib, stdenv, fetchurl, runCommand }:
 
-{ # A plugin's default.json (ADR 0028); name, src and dir come from it.
-  source ? null
-, name ? (lib.importJSON source).name
-  # The unpacked tree holding the lock, read at evaluation.
+{ # A plugin package's directory; the lock is read from the source its
+  # call file pins (ADR 0028).
+  plugin ? null
+, name ? (import ./plugin-source.nix plugin).call.name
+  # Or, without a plugin: a tree holding the lock, and the directory in
+  # it that does. The bun-lock-modules check lays out a fixture this way.
 , src ? null
-  # The directory in src holding bun.lock.
 , dir ? "."
+  # The platform whose os/cpu/libc packages are laid out; the host's
+  # unless the check asks for another.
+, host ? stdenv.hostPlatform
 }:
 
 let
-  plugin = lib.importJSON source;
-  lockPath = if source == null then "${dir}/bun.lock" else plugin.pluginRootPaths."bun.lock" or null;
-  srcTree = if source == null then src else builtins.fetchTarball {
-    url = "https://github.com/${plugin.src.owner}/${plugin.src.repo}/archive/${plugin.src.rev}.tar.gz";
-    sha256 = plugin.src.hash;
-  };
+  source = import ./plugin-source.nix plugin;
+  lockPath = if plugin == null then "${dir}/bun.lock" else source.call.pluginRootPaths."bun.lock" or null;
+  srcTree = if plugin == null then src else source.src;
   lockFile = "${srcTree}/${lockPath}";
 
   meta = {
@@ -28,8 +32,8 @@ let
     platforms = lib.platforms.all;
     # ADR 0014.
     category = "agent-tool";
-  } // lib.optionalAttrs (source != null) {
-    homepage = plugin.sourceUrl or "https://github.com/${plugin.src.owner}/${plugin.src.repo}";
+  } // lib.optionalAttrs (plugin != null) {
+    homepage = source.call.sourceUrl or "https://github.com/${source.call.src.owner}/${source.call.src.repo}";
   };
 
   # JSON with trailing commas, checked here because fromJSON's error
@@ -65,10 +69,10 @@ let
     then [ "${builtins.head segs}/${builtins.elemAt segs 1}" ] ++ names (lib.drop 2 segs)
     else [ (builtins.head segs) ] ++ names (builtins.tail segs);
 
-  host = stdenv.hostPlatform;
   os = if host.isDarwin then "darwin" else if host.isLinux then "linux" else host.parsed.kernel.name;
   cpu = if host.isAarch64 then "arm64" else if host.isx86_64 then "x64" else host.parsed.cpu.name;
-  # npm's os/cpu rule, which Bun follows.
+  libc = if host.isMusl then "musl" else "glibc";
+  # npm's os/cpu/libc rule, which Bun follows; libc applies on Linux only.
   allows = value: spec:
     let l = lib.toList spec; neg = builtins.filter (lib.hasPrefix "!") l; in
     l == [ "any" ] || !builtins.elem "!${value}" neg
@@ -93,8 +97,10 @@ let
         else if lib.any (n: builtins.match "(@[^/]+/)?[^/@]+" n == null) installs
           || lib.any (s: s == "." || s == "..") (lib.splitString "/" key)
         then "${key} is not a node_modules path"
-        else if !spec (info.os or [ ]) || !spec (info.cpu or [ ])
-        then "${key} has an os or cpu that is not a string or list"
+        else if !spec (info.os or [ ]) || !spec (info.cpu or [ ]) || !spec (info.libc or [ ])
+        then "${key} has an os, cpu or libc that is not a string or list"
+        else if info ? binDir && !builtins.isString info.binDir
+        then "${key} has a binDir that is not a string"
         else null;
       bins =
         if builtins.isString (info.bin or null) then { ${baseNameOf pkgName} = info.bin; }
@@ -102,20 +108,24 @@ let
         else { };
     in
     if problem != null then { inherit problem; } else {
-      inherit problem path;
-      wanted = allows os (info.os or [ ]) && allows cpu (info.cpu or [ ]);
+      inherit problem path install;
+      wanted = allows os (info.os or [ ]) && allows cpu (info.cpu or [ ])
+        && (!host.isLinux || allows libc (info.libc or [ ]));
       binDir = lib.removeSuffix install path + ".bin";
       tarball = fetchurl {
         name = "npm-" + lib.strings.sanitizeDerivationName "${baseNameOf pkgName}-${at}.tgz";
         url = "https://registry.npmjs.org/${pkgName}/-/${baseNameOf pkgName}-${at}.tgz";
         inherit hash;
       };
-      bin = lib.mapAttrsToList (cmd: file: { inherit cmd file install; }) bins;
+      bin = lib.mapAttrsToList (cmd: file: { inherit cmd file; }) bins;
+      # package.json's directories.bin, which Bun records as binDir: each
+      # file in it is a bin named after the file.
+      dirBin = info.binDir or null;
     };
 
   all = lib.mapAttrsToList entry (if isJSON && builtins.isAttrs (lock.packages or null) then lock.packages else { });
   problems =
-    if lockPath == null then [ "default.json ships no bun.lock" ]
+    if lockPath == null then [ "the call file ships no bun.lock" ]
     else if !builtins.pathExists lockFile then [ "${lockPath} is missing" ]
     else if !isJSON then [ "${lockPath} is not JSON with trailing commas" ]
     else if !builtins.isAttrs (lock.packages or null) then [ "${lockPath} has no packages" ]
@@ -130,42 +140,64 @@ let
 
   q = lib.escapeShellArg;
 
+  # Made writable after unpacking, so a nested package or a .bin can be
+  # created inside a parent whose tarball ships read-only directories.
   unpack = e: ''
     if [ ! -e "$out"/${q e.path} ]; then
       mkdir -p "$out"/${q e.path}
       tar -xzf ${e.tarball} -C "$out"/${q e.path} --strip-components=1 --no-same-owner --no-same-permissions
+      chmod -R u+w "$out"/${q e.path}
     fi
   '';
 
   # Into the .bin beside the package, relative, as Bun links them; the
-  # first package to claim a name keeps it.
-  link = e: lib.concatMapStrings (b:
-    let
-      segs = builtins.filter (s: s != "." && s != "") (lib.splitString "/" b.file);
-      rel = lib.concatStringsSep "/" segs;
-      linkPath = "${e.binDir}/${b.cmd}";
-    in
-    if !builtins.isString b.file || lib.hasPrefix "/" b.file || segs == [ ] || builtins.elem ".." segs
-      || builtins.elem b.cmd [ "" "." ".." ] || lib.hasInfix "/" b.cmd || lib.hasInfix "\\" b.cmd
-    then ''
-      echo ${q "bunLockModules: ${name}: skipping ${e.path}'s bin ${b.cmd}"}
-    '' else ''
-      if [ -e "$out"/${q linkPath} ] || [ -L "$out"/${q linkPath} ]; then
-        echo ${q "bunLockModules: ${name}: ${linkPath} is taken; skipping ${e.path}'s ${b.cmd}"}
-      elif [ ! -f "$out"/${q "${e.path}/${rel}"} ]; then
-        echo ${q "bunLockModules: ${name}: ${e.path} has no ${rel}; skipping bin ${b.cmd}"}
-      else
-        mkdir -p "$out"/${q e.binDir}
-        chmod +x "$out"/${q "${e.path}/${rel}"}
-        ln -s ${q "../${b.install}/${rel}"} "$out"/${q linkPath}
-      fi
-    '') e.bin;
+  # first package in path order to claim a name keeps it. cmd and rel
+  # are shell words: quoted for a name from the lock, "$cmd" for one
+  # found in a binDir.
+  linkOne = e: cmd: rel: ''
+    if [ -e "$out"/${q e.binDir}/${cmd} ] || [ -L "$out"/${q e.binDir}/${cmd} ]; then
+      echo "bunLockModules: "${q name}": "${q e.binDir}/${cmd}" is taken; skipping "${q e.path}"'s "${cmd}
+    elif [ ! -f "$out"/${q e.path}/${rel} ]; then
+      echo "bunLockModules: "${q name}": "${q e.path}" has no "${rel}"; skipping bin "${cmd}
+    else
+      mkdir -p "$out"/${q e.binDir}
+      chmod +x "$out"/${q e.path}/${rel}
+      ln -s ../${q e.install}/${rel} "$out"/${q e.binDir}/${cmd}
+    fi
+  '';
+  safeRel = file:
+    let segs = builtins.filter (s: s != "." && s != "") (lib.splitString "/" file); in
+    if !builtins.isString file || lib.hasPrefix "/" file || segs == [ ] || builtins.elem ".." segs
+    then null else lib.concatStringsSep "/" segs;
+  safeCmd = cmd: !(builtins.elem cmd [ "" "." ".." ] || lib.hasInfix "/" cmd || lib.hasInfix "\\" cmd);
+  link = e:
+    lib.concatMapStrings (b:
+      let rel = safeRel b.file; in
+      if rel == null || !safeCmd b.cmd then ''
+        echo ${q "bunLockModules: ${name}: skipping ${e.path}'s bin ${b.cmd}"}
+      '' else linkOne e (q b.cmd) (q rel)) e.bin
+    + lib.optionalString (e.bin == [ ] && e.dirBin != null) (
+      let rel = safeRel e.dirBin; in
+      if rel == null then ''
+        echo ${q "bunLockModules: ${name}: skipping ${e.path}'s binDir ${e.dirBin}"}
+      '' else ''
+        for f in "$out"/${q e.path}/${q rel}/*; do
+          [ -f "$f" ] || continue
+          cmd="$(basename "$f")"
+          ${linkOne e ''"$cmd"'' ''${q rel}/"$cmd"''}
+        done
+      '');
+
+  modules = runCommand "${name}-node-modules" { inherit meta; } (if problems != [ ] then ''
+    echo ${q "bunLockModules: ${name}: ${lib.concatStringsSep "; " problems}"} >&2
+    exit 1
+  '' else ''
+    # Always, so a lock with nothing for this platform still gives the
+    # plugin a node_modules to ship.
+    mkdir -p "$out/node_modules"
+    ${lib.concatMapStrings unpack entries}
+    ${lib.concatMapStrings link entries}
+  '');
 in
-runCommand "${name}-node-modules" { inherit meta; } (if problems != [ ] then ''
-  echo ${q "bunLockModules: ${name}: ${lib.concatStringsSep "; " problems}"} >&2
-  exit 1
-'' else ''
-  mkdir -p "$out"
-  ${lib.concatMapStrings unpack entries}
-  ${lib.concatMapStrings link entries}
-'')
+# The selected paths, for the check to compare without building.
+modules // { layout = map (e: e.path) entries; }

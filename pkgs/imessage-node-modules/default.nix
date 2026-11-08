@@ -2,4 +2,4 @@
 # start, built from the bun.lock the plugin pins (ADR 0030).
 { callPackage }:
 
-callPackage ../../lib/bun-lock-modules.nix { } { source = ../agent-plugin-imessage/default.json; }
+callPackage ../../lib/bun-lock-modules.nix { } { plugin = ../agent-plugin-imessage; }

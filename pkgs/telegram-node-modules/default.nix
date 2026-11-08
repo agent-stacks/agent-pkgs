@@ -2,4 +2,4 @@
 # start, built from the bun.lock the plugin pins (ADR 0030).
 { callPackage }:
 
-callPackage ../../lib/bun-lock-modules.nix { } { source = ../agent-plugin-telegram/default.json; }
+callPackage ../../lib/bun-lock-modules.nix { } { plugin = ../agent-plugin-telegram; }

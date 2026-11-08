@@ -10,21 +10,13 @@
 }:
 
 let
-  # The plugin's call file: default.json since agent-stacks ADR 0086,
-  # else the source.json of a plugin no such binary has replayed yet.
-  plugin = ../agent-plugin-impeccable;
-  callFile =
-    if builtins.pathExists (plugin + "/default.json") then plugin + "/default.json" else plugin + "/source.json";
-  source = builtins.fromJSON (builtins.readFile callFile);
-
-  # Fetched at evaluation, not as a derivation, so Cargo.lock and
-  # Cargo.toml can be read without import-from-derivation and no
-  # vendor hash has to be kept in step by hand. The NAR hash
-  # fetchFromGitHub recorded is the hash of this same unpacked tree.
-  src = builtins.fetchTarball {
-    url = "https://github.com/${source.src.owner}/${source.src.repo}/archive/${source.src.rev}.tar.gz";
-    sha256 = source.src.hash;
-  };
+  # The plugin's call file, and its source fetched at evaluation, not as
+  # a derivation, so Cargo.lock and Cargo.toml can be read without
+  # import-from-derivation and no vendor hash has to be kept in step by
+  # hand.
+  plugin = import ../../lib/plugin-source.nix ../agent-plugin-impeccable;
+  source = plugin.call;
+  inherit (plugin) src;
 
   # What the launcher expects, against what this commit builds.
   skillVersion = lib.trim (builtins.readFile "${src}/${source.skills.impeccable}/scripts/VERSION");
