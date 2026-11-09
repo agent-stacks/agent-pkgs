@@ -224,10 +224,14 @@
           lib' = mkLib pkgs;
           # SkillSpector's source and the uv2nix inputs are in scope for
           # pkgs/skillspector, which takes them as arguments; nothing
-          # else in pkgs/ names them.
+          # else in pkgs/ names them. nono is llm-agents.nix's, patched by
+          # overlays/llm-agents.nix: it tracks upstream releases ahead of
+          # nixpkgs, and it is the nono this set publishes, so
+          # agent-sandbox-nono runs the one users install beside it.
           scope = {
             inherit (lib') buildAgentPlugin mkAgentStack;
             inherit skillspector-src pyproject-nix uv2nix pyproject-build-systems;
+            inherit ((llmAgentsPkgsFor pkgs.stdenv.hostPlatform.system).llm-agents) nono;
           } // built;
           built = nixpkgs.lib.genAttrs (pluginDirs pkgs) (name:
             pkgs.newScope scope (./pkgs + "/${name}") { });
@@ -483,7 +487,10 @@
 
           agent-sandbox-nono-contract =
             let nono = "${(mkPackages pkgs).agent-sandbox-nono}/bin/agent-sandbox-nono"; in
-            pkgs.runCommand "agent-sandbox-nono-contract" { nativeBuildInputs = [ pkgs.jq pkgs.nono ]; } ''
+            pkgs.runCommand "agent-sandbox-nono-contract" {
+              # The nono agent-sandbox-nono runs, to validate its profiles.
+              nativeBuildInputs = [ pkgs.jq (llmAgentsPkgsFor pkgs.stdenv.hostPlatform.system).llm-agents.nono ];
+            } ''
               set -u
               export HOME=$PWD/home TMPDIR=$PWD/tmp AGENT_SANDBOX_NONO_DRY_RUN=1
               # Its own, or a macOS build would make /tmp/claude-<uid> for the build user.
