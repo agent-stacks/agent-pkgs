@@ -15,5 +15,17 @@ final: prev: {
         })
       ];
     });
+
+    # nixpkgs' cargo setup hook now exports AWS_LC_SYS_USE_SYSTEM=1, so
+    # aws-lc-sys links the system AWS-LC instead of building its own, and
+    # panics when it finds none. nono vendors aws-lc-sys and declares
+    # none; give it nixpkgs' aws-lc, and pkg-config to find it (nono has
+    # pkg-config only on Linux), as nixpkgs does for its own packages.
+    # Harmless before that change: the hook did not set the variable, so
+    # aws-lc-sys built from source.
+    nono = prev.llm-agents.nono.overrideAttrs (old: {
+      buildInputs = (old.buildInputs or [ ]) ++ [ final.aws-lc ];
+      nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.pkg-config ];
+    });
   };
 }
