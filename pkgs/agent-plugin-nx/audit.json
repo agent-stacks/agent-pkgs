@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "nx",
-      "dir": "/nix/store/4xhzknhb0friwid7ry3q3y8af99dzk78-agent-plugin-nx-0.2.36/share/agent-plugins/nx",
+      "dir": "/nix/store/aga6zpi9gz9yscknf6k1nchzz9q2bw3b-agent-plugin-nx-0.2.36/share/agent-plugins/nx",
       "spec": "1.1.0",
       "score": 44,
       "status": "do not install",
@@ -28,7 +28,12 @@
         "validated": [
           "plugin.json"
         ],
-        "notChecked": []
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          }
+        ]
       },
       "components": [
         {
@@ -111,156 +116,62 @@
         },
         {
           "path": "skills/monitor-ci",
-          "score": 67,
-          "risk": 33,
-          "status": "caution",
+          "score": 85,
+          "risk": 15,
+          "status": "incomplete",
           "partial": true,
-          "coverage": 100,
+          "coverage": 50,
           "exceptions": [
             {
               "reason": "reference_missing",
               "path": "skills/monitor-ci/SKILL.md",
-              "line": 12
+              "line": 51
             },
             {
               "reason": "reference_missing",
               "path": "skills/monitor-ci/SKILL.md",
-              "line": 13
+              "line": 52
             },
             {
               "reason": "reference_missing",
               "path": "skills/monitor-ci/SKILL.md",
-              "line": 39
+              "line": 232
             },
             {
               "reason": "reference_missing",
               "path": "skills/monitor-ci/SKILL.md",
-              "line": 54
+              "line": 234
             },
             {
               "reason": "reference_missing",
               "path": "skills/monitor-ci/SKILL.md",
-              "line": 55
+              "line": 235
             },
             {
-              "reason": "reference_missing",
-              "path": "skills/monitor-ci/SKILL.md",
-              "line": 58
+              "reason": "static_parse_limit",
+              "path": "skills/monitor-ci/scripts/ci-poll-decide.mjs",
+              "line": 0
             },
             {
-              "reason": "reference_missing",
-              "path": "skills/monitor-ci/SKILL.md",
-              "line": 60
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/monitor-ci/SKILL.md",
-              "line": 62
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/monitor-ci/SKILL.md",
-              "line": 63
+              "reason": "static_parse_limit",
+              "path": "skills/monitor-ci/scripts/ci-state-update.mjs",
+              "line": 0
             }
           ],
           "findings": [
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/monitor-ci/SKILL.md",
-              "line": 13
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/monitor-ci/SKILL.md",
-              "line": 14
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/monitor-ci/SKILL.md",
-              "line": 35
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/monitor-ci/SKILL.md",
-              "line": 36
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/monitor-ci/SKILL.md",
-              "line": 37
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/monitor-ci/SKILL.md",
-              "line": 38
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/monitor-ci/SKILL.md",
-              "line": 39
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/monitor-ci/SKILL.md",
-              "line": 40
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/monitor-ci/SKILL.md",
-              "line": 41
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/monitor-ci/SKILL.md",
-              "line": 42
-            },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/monitor-ci/SKILL.md",
-              "line": 29
+              "line": 320
             },
             {
-              "id": "MP2",
+              "id": "RP1",
               "severity": "MEDIUM",
-              "message": "Context Window Stuffing",
-              "file": "skills/monitor-ci/SKILL.md",
-              "line": 52
-            },
-            {
-              "id": "MP2",
-              "severity": "MEDIUM",
-              "message": "Context Window Stuffing",
-              "file": "skills/monitor-ci/SKILL.md",
-              "line": 54
-            },
-            {
-              "id": "MP2",
-              "severity": "MEDIUM",
-              "message": "Context Window Stuffing",
-              "file": "skills/monitor-ci/SKILL.md",
-              "line": 55
+              "message": "MCP Rug Pull",
+              "file": "skills/monitor-ci/references/fix-flows.md",
+              "line": 22
             }
           ],
           "suppressed": [
@@ -269,7 +180,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/monitor-ci/SKILL.md",
-              "line": 33,
+              "line": 78,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -277,7 +188,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/monitor-ci/SKILL.md",
-              "line": 33,
+              "line": 118,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -285,7 +196,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/monitor-ci/SKILL.md",
-              "line": 41,
+              "line": 120,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -293,7 +204,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/monitor-ci/SKILL.md",
-              "line": 52,
+              "line": 121,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -301,7 +212,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/monitor-ci/SKILL.md",
-              "line": 54,
+              "line": 122,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -309,7 +220,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/monitor-ci/SKILL.md",
-              "line": 55,
+              "line": 123,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -317,7 +228,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/monitor-ci/SKILL.md",
-              "line": 56,
+              "line": 127,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -325,7 +236,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/monitor-ci/SKILL.md",
-              "line": 57,
+              "line": 131,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -333,7 +244,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/monitor-ci/SKILL.md",
-              "line": 58,
+              "line": 301,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -341,31 +252,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/monitor-ci/SKILL.md",
-              "line": 59,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/monitor-ci/SKILL.md",
-              "line": 61,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/monitor-ci/SKILL.md",
-              "line": 62,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/monitor-ci/SKILL.md",
-              "line": 63,
+              "line": 303,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             }
           ]
@@ -997,12 +884,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/nx-generate/SKILL.md",
-              "line": 99
+              "line": 101
             },
             {
               "reason": "reference_missing",
               "path": "skills/nx-generate/SKILL.md",
-              "line": 103
+              "line": 105
             }
           ],
           "findings": [
@@ -1011,28 +898,28 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/nx-generate/SKILL.md",
-              "line": 30
+              "line": 32
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/nx-generate/SKILL.md",
-              "line": 31
+              "line": 33
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/nx-generate/SKILL.md",
-              "line": 48
+              "line": 50
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/nx-generate/SKILL.md",
-              "line": 120
+              "line": 122
             }
           ],
           "suppressed": []
@@ -1468,7 +1355,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-04T23:34:34Z"
+      "checkedAt": "2026-11-09T01:34:37Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"

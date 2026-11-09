@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "caveman",
-      "dir": "/nix/store/z7ssg2yx5majmg2n5sqxa72h48b2w3bd-agent-plugin-caveman-4.0.1/share/agent-plugins/caveman",
+      "dir": "/nix/store/5ksrkxys3fvzwv4nmi7zysy5vbliwh9s-agent-plugin-caveman-4.1.0/share/agent-plugins/caveman",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -250,8 +250,13 @@
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 75,
+          "coverage": 70,
           "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/caveman-compress/README.md",
+              "line": 0
+            },
             {
               "reason": "reference_missing",
               "path": "skills/caveman-compress/SKILL.md",
@@ -275,6 +280,13 @@
               "message": "Tainted flow: 'request' from os.environ.get (line 735, credential/environment) → urllib.request.urlopen (network output)",
               "file": "skills/caveman-compress/scripts/compress.py",
               "line": 746
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/caveman-compress/README.md",
+              "line": 195
             },
             {
               "id": "PE3",
@@ -338,6 +350,13 @@
               "message": "Credential Access",
               "file": "skills/caveman-compress/scripts/detect.py",
               "line": 104
+            },
+            {
+              "id": "EA1",
+              "severity": "MEDIUM",
+              "message": "Unrestricted Tool Access",
+              "file": "skills/caveman-compress/SECURITY.md",
+              "line": 11
             },
             {
               "id": "AST4",
@@ -1023,7 +1042,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-06T12:37:08Z"
+      "checkedAt": "2026-11-09T01:03:58Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
