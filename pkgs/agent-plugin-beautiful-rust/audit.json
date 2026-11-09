@@ -1,0 +1,173 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "beautiful-rust",
+      "dir": "/nix/store/8k57l73xi6mw7kgj3yph7cnwh6x96bzc-agent-plugin-beautiful-rust-1.6.0/share/agent-plugins/beautiful-rust",
+      "spec": "1.1.0",
+      "score": 70,
+      "status": "caution",
+      "coverage": {
+        "scanned": [
+          "skills/rust-best-practices",
+          "skills/rust-port",
+          "skills/rust-review"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          },
+          {
+            "path": "mcp.json",
+            "reason": "SkillSpector does not analyse this layout as an MCP manifest"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "skills/rust-best-practices",
+          "score": 80,
+          "risk": 20,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 96.7,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/rust-best-practices/SKILL.md",
+              "line": 0
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/rust-best-practices/SKILL.md",
+              "line": 52
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/rust-best-practices/SKILL.md",
+              "line": 53
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/rust-best-practices/SKILL.md",
+              "line": 414
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/rust-best-practices/SKILL.md",
+              "line": 420
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/rust-best-practices/references/microsoft-rust-guidelines.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "skills/rust-best-practices/evals/bevy-arena-regen/graders/08-clippy-clean.md",
+              "line": 7
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/rust-best-practices/SKILL.md",
+              "line": 507,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
+          ]
+        },
+        {
+          "path": "skills/rust-port",
+          "score": 70,
+          "risk": 30,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/rust-port/SKILL.md",
+              "line": 131
+            }
+          ],
+          "findings": [
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "skills/rust-port/evals/port-c-config-parser/graders/02-clippy-clean.md",
+              "line": 7
+            },
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "skills/rust-port/evals/port-python-task-graph/graders/02-clippy-clean.md",
+              "line": 7
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/rust-review",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/rust-review/SKILL.md",
+              "line": 31
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/rust-review/SKILL.md",
+              "line": 130
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/rust-review/SKILL.md",
+              "line": 178
+            }
+          ],
+          "findings": [],
+          "suppressed": []
+        }
+      ]
+    }
+  ],
+  "score": 70,
+  "status": "caution",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-11-09T17:06:46Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}
