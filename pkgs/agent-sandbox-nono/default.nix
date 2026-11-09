@@ -26,13 +26,20 @@
 # instead of running them.
 {
   lib,
+  stdenv,
   writeShellApplication,
   jq,
   coreutils,
   findutils,
-  nono,
+  llmAgentsPkgsFor,
 }:
 
+let
+  # llm-agents.nix's nono, as overlays/llm-agents.nix patches it, so it is
+  # the nono this set publishes: the one users install beside this
+  # sandbox. It tracks upstream releases ahead of nixpkgs'.
+  inherit ((llmAgentsPkgsFor stdenv.hostPlatform.system).llm-agents) nono;
+in
 (writeShellApplication {
   name = "agent-sandbox-nono";
   runtimeInputs = [ jq coreutils findutils ];
@@ -164,6 +171,12 @@
     exec "$@"
   '';
 }).overrideAttrs (old: {
+  # The contract runs on the built wrapper, in a dry run, with the nono
+  # it runs validating the profiles it writes.
+  nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ jq nono coreutils ];
+  buildCommand = old.buildCommand + ''
+    bash ${./contract-test.sh} "$out/bin/agent-sandbox-nono"
+  '';
   meta = (old.meta or { }) // {
     description = "Sandbox that runs the agent inside nono";
     license = lib.licenses.mit;
