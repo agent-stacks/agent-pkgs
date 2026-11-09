@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "firebase",
-      "dir": "/nix/store/ql0n6j25h9y9brbmai15kww0scpfiija-agent-plugin-firebase-1.1.0/share/agent-plugins/firebase",
+      "dir": "/nix/store/ylhf046299i6lpgr2bhq9m44q3y5rwzm-agent-plugin-firebase-1.1.0/share/agent-plugins/firebase",
       "spec": "1.1.0",
       "score": 21,
       "status": "do not install",
@@ -1320,9 +1320,15 @@
           "score": 75,
           "risk": 25,
           "status": "caution",
-          "partial": false,
-          "coverage": 100,
-          "exceptions": [],
+          "partial": true,
+          "coverage": 75,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/firebase-crashlytics/references/web_setup.md",
+              "line": 0
+            }
+          ],
           "findings": [
             {
               "id": "RP1",
@@ -1346,6 +1352,20 @@
               "line": 19
             },
             {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/firebase-crashlytics/references/web_setup.md",
+              "line": 31
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/firebase-crashlytics/references/web_setup.md",
+              "line": 82
+            },
+            {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
@@ -1367,7 +1387,16 @@
               "line": 56
             }
           ],
-          "suppressed": []
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/firebase-crashlytics/SKILL.md",
+              "line": 29,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
+          ]
         },
         {
           "path": "skills/firebase-data-connect-basics",
@@ -2462,7 +2491,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-04T23:20:33Z"
+      "checkedAt": "2026-11-09T19:32:36Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
