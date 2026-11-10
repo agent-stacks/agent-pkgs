@@ -1,11 +1,11 @@
 {
   "name": "azure-cost",
-  "version": "1.0.20",
+  "version": "1.0.22",
   "src": {
     "owner": "microsoft",
     "repo": "skills",
-    "rev": "84666abf77c6b09ed431ab09c516891d0514710e",
-    "hash": "sha256-sUTcQBI9Ugt3gYXYeC4398N2jwAy3p7JpwGpZUvCvQg="
+    "rev": "18e05b845d43e869b5701d796abce6e9a49e57db",
+    "hash": "sha256-9m/tiEGwHBr8oYKxsp1rCQVLtRmoNw3n/JVR+UKgrzg="
   },
   "sourceUrl": "https://github.com/microsoft/skills",
   "manifest": {
@@ -29,7 +29,7 @@
     "license": "MIT",
     "name": "azure-cost",
     "repository": "https://github.com/microsoft/GitHub-Copilot-for-Azure",
-    "version": "1.0.20"
+    "version": "1.0.22"
   },
   "skills": {
     "cost-analysis": ".github/plugins/azure-cost/skills/cost-analysis",
@@ -65,7 +65,7 @@
       {
         "hooks": [
           {
-            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\"",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\" --harness claude-code",
             "type": "command"
           }
         ]
@@ -75,7 +75,7 @@
       {
         "hooks": [
           {
-            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\"",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\" --harness claude-code",
             "type": "command"
           }
         ]
@@ -99,11 +99,11 @@
       },
       {
         "path": ".github/plugins/azure-cost/hooks/claude-hooks.json",
-        "message": "Claude Code runs this on PostToolUse: bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\""
+        "message": "Claude Code runs this on PostToolUse: bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\" --harness claude-code"
       },
       {
         "path": ".github/plugins/azure-cost/hooks/claude-hooks.json",
-        "message": "Claude Code runs this on SessionStart: bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\""
+        "message": "Claude Code runs this on SessionStart: bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\" --harness claude-code"
       },
       {
         "path": "com.anthropic.claude-code/hooks/scripts/pluginPathAllowPattern.sh",
