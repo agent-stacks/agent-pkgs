@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "neon-postgres",
-      "dir": "/nix/store/cx3j72k3vdk076vlh2mqwnwm0vqn8364-agent-plugin-neon-postgres-3.0.5/share/agent-plugins/neon-postgres",
+      "dir": "/nix/store/s7yq19hnifdq85a1y19sa4fk2khi2bkb-agent-plugin-neon-postgres-3.0.6/share/agent-plugins/neon-postgres",
       "spec": "1.1.0",
       "score": 26,
       "status": "do not install",
@@ -518,7 +518,7 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/neon-auth/references/oauth-server.md",
-              "line": 144
+              "line": 163
             },
             {
               "id": "AS3",
@@ -581,7 +581,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/neon-auth/references/oauth-server.md",
-              "line": 151
+              "line": 170
             }
           ],
           "suppressed": []
@@ -592,7 +592,7 @@
           "risk": 70,
           "status": "do not install",
           "partial": true,
-          "coverage": 55.6,
+          "coverage": 44.4,
           "exceptions": [
             {
               "reason": "static_parse_limit",
@@ -772,11 +772,21 @@
             {
               "reason": "reference_missing",
               "path": "skills/neon-functions/SKILL.md",
-              "line": 688
+              "line": 670
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/neon-functions/SKILL.md",
+              "line": 705
             },
             {
               "reason": "static_parse_limit",
               "path": "skills/neon-functions/references/ai-sdk.md",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/neon-functions/references/mcp.md",
               "line": 0
             },
             {
@@ -803,7 +813,7 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/neon-functions/references/mcp.md",
-              "line": 92
+              "line": 125
             },
             {
               "id": "PE3",
@@ -845,7 +855,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/neon-functions/references/mcp.md",
-              "line": 155
+              "line": 277
             },
             {
               "id": "EA2",
@@ -965,7 +975,23 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/neon-functions/SKILL.md",
-              "line": 690,
+              "line": 689,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/neon-functions/SKILL.md",
+              "line": 691,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/neon-functions/SKILL.md",
+              "line": 707,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
@@ -1385,7 +1411,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-07T04:32:07Z"
+      "checkedAt": "2026-11-10T17:33:59Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
