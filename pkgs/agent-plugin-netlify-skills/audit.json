@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "netlify-skills",
-      "dir": "/nix/store/c21g7m4m8jj3k2hbp4g0cisbkzdsm9xg-agent-plugin-netlify-skills-1.8.1/share/agent-plugins/netlify-skills",
+      "dir": "/nix/store/jlzg900fxkx8xxs5i059h68ckad8vsw0-agent-plugin-netlify-skills-1.9.0/share/agent-plugins/netlify-skills",
       "spec": "1.1.0",
       "score": 5,
       "status": "do not install",
@@ -27,7 +27,8 @@
           "skills/netlify-functions",
           "skills/netlify-identity",
           "skills/netlify-image-cdn",
-          "skills/netlify-mcp-servers"
+          "skills/netlify-mcp-servers",
+          "skills/netlify-server"
         ],
         "validated": [
           "plugin.json"
@@ -1897,6 +1898,103 @@
             }
           ],
           "suppressed": []
+        },
+        {
+          "path": "skills/netlify-server",
+          "score": 63,
+          "risk": 37,
+          "status": "caution",
+          "partial": true,
+          "coverage": 0,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/netlify-server/SKILL.md",
+              "line": 0
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/netlify-server/SKILL.md",
+              "line": 15
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/netlify-server/SKILL.md",
+              "line": 42
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/netlify-server/SKILL.md",
+              "line": 54
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/netlify-server/SKILL.md",
+              "line": 61
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/netlify-server/SKILL.md",
+              "line": 74
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/netlify-server/SKILL.md",
+              "line": 201
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/netlify-server/SKILL.md",
+              "line": 204
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/netlify-server/SKILL.md",
+              "line": 212
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/netlify-server/SKILL.md",
+              "line": 226
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/netlify-server/SKILL.md",
+              "line": 229
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/netlify-server/SKILL.md",
+              "line": 232
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/netlify-server/SKILL.md",
+              "line": 326
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/netlify-server/SKILL.md",
+              "line": 343
+            }
+          ],
+          "findings": [
+            {
+              "id": "YR4",
+              "severity": "HIGH",
+              "message": "YARA rule 'agent_skill_mcp_tool_poisoning_metadata': MCP/tool metadata poisoning indicators in tool schemas or skill manifests [agent_skills]",
+              "file": "skills/netlify-server/SKILL.md",
+              "line": 3
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/netlify-server/SKILL.md",
+              "line": 340
+            }
+          ],
+          "suppressed": []
         }
       ]
     }
@@ -1909,7 +2007,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-09T17:33:55Z"
+      "checkedAt": "2026-11-10T16:32:47Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
