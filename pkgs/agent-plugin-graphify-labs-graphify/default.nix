@@ -13,13 +13,13 @@
 }:
 
 let
-  version = "0.9.97";
+  version = "0.9.105";
 
   upstream = fetchFromGitHub {
     owner = "Graphify-Labs";
     repo = "graphify";
     tag = "v${version}";
-    hash = "sha256-MCzEVYnC5L/lsLEq0Orqn64AP+xVk3S7jf1p1K+ESyA=";
+    hash = "sha256-sX2W/em6DW5N0TY/EnD2UPLPSiH2z+gYvNKXXAC8Eks=";
   };
 
   # The skill as `graphify install` lays it out for Claude Code: skill.md
