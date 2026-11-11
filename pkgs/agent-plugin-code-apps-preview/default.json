@@ -4,8 +4,8 @@
   "src": {
     "owner": "microsoft",
     "repo": "power-platform-skills",
-    "rev": "7322abba73b4859e1c0032c7223db65444d42396",
-    "hash": "sha256-OjgZweErIcLzU+D80s/ReCNUBM4E6F7R6dhNn4VqgPM="
+    "rev": "8021d27d517d81963da22e728125a26c9ecfbbe1",
+    "hash": "sha256-ICyz0wWmT4r1jvnjvETwft0O9oC5QOCdA309mV1m6ro="
   },
   "sourceUrl": "https://github.com/microsoft/power-platform-skills",
   "manifest": {
@@ -66,7 +66,7 @@
       {
         "hooks": [
           {
-            "command": "node -e \"try { const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root) throw new Error('Plugin root is not set'); require(path.resolve(root,'hooks','set-cli-origin.js')); } catch(error) { console.error('[code-apps] CLI attribution was not applied: '+error.message); }\"",
+            "command": "node -e 'try{const path=require(process.argv[1]);const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT;if(!root)throw new Error(process.argv[3]);process.argv[1]=undefined;require(path.resolve(root,process.argv[2]))}catch(error){console.error(process.argv[4]+error.message)}' node:path hooks/set-cli-origin.js 'Plugin root is not set' '[code-apps] CLI attribution was not applied: '",
             "timeout": 10,
             "type": "command"
           }
@@ -148,7 +148,7 @@
       },
       {
         "path": "plugins/code-apps/hooks/hooks.json",
-        "message": "Claude Code runs this on PreToolUse: node -e \"try { const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root) throw new Error('Plugin root is not set'); require(path.resolve(root,'hooks','set-cli-origin.js')); } catch(error) { console.error('[code-apps] CLI attribution was not applied: '+error.message); }\""
+        "message": "Claude Code runs this on PreToolUse: node -e 'try{const path=require(process.argv[1]);const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT;if(!root)throw new Error(process.argv[3]);process.argv[1]=undefined;require(path.resolve(root,process.argv[2]))}catch(error){console.error(process.argv[4]+error.message)}' node:path hooks/set-cli-origin.js 'Plugin root is not set' '[code-apps] CLI attribution was not applied: '"
       }
     ]
   }

@@ -4,8 +4,8 @@
   "src": {
     "owner": "microsoft",
     "repo": "power-platform-skills",
-    "rev": "7322abba73b4859e1c0032c7223db65444d42396",
-    "hash": "sha256-OjgZweErIcLzU+D80s/ReCNUBM4E6F7R6dhNn4VqgPM="
+    "rev": "8021d27d517d81963da22e728125a26c9ecfbbe1",
+    "hash": "sha256-ICyz0wWmT4r1jvnjvETwft0O9oC5QOCdA309mV1m6ro="
   },
   "sourceUrl": "https://github.com/microsoft/power-platform-skills",
   "manifest": {
@@ -76,7 +76,7 @@
       {
         "hooks": [
           {
-            "command": "node -e \"const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root){console.error('PLUGIN_ROOT is not set'); process.exit(0);} require(path.resolve(root,'hooks','run-skill-pretool-telemetry.js'));\"",
+            "command": "node -e 'process.on(process.argv[3],()=>{process.exitCode=0});const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT;if(!root){console.error(process.argv[4]);process.exit(0)}require(require(process.argv[1]).resolve(root,process.argv[2]))' node:path hooks/run-skill-pretool-telemetry.js exit 'PLUGIN_ROOT is not set'",
             "timeout": 30,
             "type": "command"
           }
@@ -88,7 +88,7 @@
       {
         "hooks": [
           {
-            "command": "node -e \"const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root){console.error('PLUGIN_ROOT is not set'); process.exit(0);} require(path.resolve(root,'hooks','run-user-prompt-telemetry.js'));\"",
+            "command": "node -e 'process.on(process.argv[3],()=>{process.exitCode=0});const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT;if(!root){console.error(process.argv[4]);process.exit(0)}require(require(process.argv[1]).resolve(root,process.argv[2]))' node:path hooks/run-user-prompt-telemetry.js exit 'PLUGIN_ROOT is not set'",
             "timeout": 30,
             "type": "command"
           }
@@ -153,11 +153,11 @@
       },
       {
         "path": "plugins/power-automate/hooks/hooks.json",
-        "message": "Claude Code runs this on PreToolUse: node -e \"const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root){console.error('PLUGIN_ROOT is not set'); process.exit(0);} require(path.resolve(root,'hooks','run-skill-pretool-telemetry.js'));\""
+        "message": "Claude Code runs this on PreToolUse: node -e 'process.on(process.argv[3],()=>{process.exitCode=0});const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT;if(!root){console.error(process.argv[4]);process.exit(0)}require(require(process.argv[1]).resolve(root,process.argv[2]))' node:path hooks/run-skill-pretool-telemetry.js exit 'PLUGIN_ROOT is not set'"
       },
       {
         "path": "plugins/power-automate/hooks/hooks.json",
-        "message": "Claude Code runs this on UserPromptSubmit: node -e \"const path=require('node:path'); const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT; if(!root){console.error('PLUGIN_ROOT is not set'); process.exit(0);} require(path.resolve(root,'hooks','run-user-prompt-telemetry.js'));\""
+        "message": "Claude Code runs this on UserPromptSubmit: node -e 'process.on(process.argv[3],()=>{process.exitCode=0});const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT;if(!root){console.error(process.argv[4]);process.exit(0)}require(require(process.argv[1]).resolve(root,process.argv[2]))' node:path hooks/run-user-prompt-telemetry.js exit 'PLUGIN_ROOT is not set'"
       },
       {
         "path": "package.json",
