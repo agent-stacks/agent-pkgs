@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "claude-seo",
-      "dir": "/nix/store/ncjclw9lk6487b9myk9bmxgik0p7jdyf-agent-plugin-claude-seo-2.5.0/share/agent-plugins/claude-seo",
+      "dir": "/nix/store/lfkkckf3258b5s1ylzi37xnx8268hd0x-agent-plugin-claude-seo-2.6.0/share/agent-plugins/claude-seo",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -129,8 +129,13 @@
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 93.4,
+          "coverage": 90.6,
           "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/agentic_check.py",
+              "line": 0
+            },
             {
               "reason": "static_parse_limit",
               "path": "scripts/consistency_check.py",
@@ -138,7 +143,12 @@
             },
             {
               "reason": "static_parse_limit",
-              "path": "scripts/gsc_query.py",
+              "path": "scripts/fetch_page.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/page_checks.py",
               "line": 0
             },
             {
@@ -156,14 +166,14 @@
             {
               "id": "TT3",
               "severity": "CRITICAL",
-              "message": "Tainted flow: 'headers' from os.environ.get (line 394, credential/environment) → requests.post (network output)",
+              "message": "Tainted flow: 'headers' from os.environ.get (line 399, credential/environment) → requests.post (network output)",
               "file": "scripts/dataforseo_merchant.py",
               "line": 118
             },
             {
               "id": "TT3",
               "severity": "CRITICAL",
-              "message": "Tainted flow: 'headers' from os.environ.get (line 394, credential/environment) → requests.get (network output)",
+              "message": "Tainted flow: 'headers' from os.environ.get (line 399, credential/environment) → requests.get (network output)",
               "file": "scripts/dataforseo_merchant.py",
               "line": 149
             },
@@ -210,74 +220,39 @@
               "line": 166
             },
             {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "scripts/page_checks.py",
+              "line": 490
+            },
+            {
+              "id": "YR4",
+              "severity": "HIGH",
+              "message": "YARA rule 'agent_skill_mcp_tool_poisoning_metadata': MCP/tool metadata poisoning indicators in tool schemas or skill manifests [agent_skills]",
+              "file": "scripts/page_checks.py",
+              "line": 180
+            },
+            {
               "id": "E2",
               "severity": "HIGH",
               "message": "Env Variable Harvesting",
               "file": "scripts/runtime.py",
-              "line": 216
+              "line": 217
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "scripts/transport_check.py",
+              "line": 600
             },
             {
               "id": "SSRF1",
               "severity": "HIGH",
               "message": "Cloud Metadata Access",
               "file": "scripts/url_safety.py",
-              "line": 142
-            },
-            {
-              "id": "SSRF1",
-              "severity": "HIGH",
-              "message": "Cloud Metadata Access",
-              "file": "scripts/url_safety.py",
-              "line": 149
-            },
-            {
-              "id": "SSRF1",
-              "severity": "HIGH",
-              "message": "Cloud Metadata Access",
-              "file": "scripts/url_safety.py",
-              "line": 262
-            },
-            {
-              "id": "SSRF1",
-              "severity": "HIGH",
-              "message": "Cloud Metadata Access",
-              "file": "scripts/url_safety.py",
-              "line": 386
-            },
-            {
-              "id": "SSRF1",
-              "severity": "HIGH",
-              "message": "Cloud Metadata Access",
-              "file": "scripts/url_safety.py",
-              "line": 432
-            },
-            {
-              "id": "SSRF1",
-              "severity": "HIGH",
-              "message": "Cloud Metadata Access",
-              "file": "scripts/url_safety.py",
-              "line": 1069
-            },
-            {
-              "id": "SSRF1",
-              "severity": "HIGH",
-              "message": "Cloud Metadata Access",
-              "file": "scripts/url_safety.py",
-              "line": 160
-            },
-            {
-              "id": "SSRF1",
-              "severity": "HIGH",
-              "message": "Cloud Metadata Access",
-              "file": "scripts/url_safety.py",
-              "line": 266
-            },
-            {
-              "id": "SSRF1",
-              "severity": "HIGH",
-              "message": "Cloud Metadata Access",
-              "file": "scripts/url_safety.py",
-              "line": 565
+              "line": 154
             },
             {
               "id": "SSRF1",
@@ -291,21 +266,84 @@
               "severity": "HIGH",
               "message": "Cloud Metadata Access",
               "file": "scripts/url_safety.py",
-              "line": 268
+              "line": 311
             },
             {
               "id": "SSRF1",
               "severity": "HIGH",
               "message": "Cloud Metadata Access",
               "file": "scripts/url_safety.py",
-              "line": 200
+              "line": 437
             },
             {
               "id": "SSRF1",
               "severity": "HIGH",
               "message": "Cloud Metadata Access",
               "file": "scripts/url_safety.py",
-              "line": 267
+              "line": 483
+            },
+            {
+              "id": "SSRF1",
+              "severity": "HIGH",
+              "message": "Cloud Metadata Access",
+              "file": "scripts/url_safety.py",
+              "line": 1316
+            },
+            {
+              "id": "SSRF1",
+              "severity": "HIGH",
+              "message": "Cloud Metadata Access",
+              "file": "scripts/url_safety.py",
+              "line": 172
+            },
+            {
+              "id": "SSRF1",
+              "severity": "HIGH",
+              "message": "Cloud Metadata Access",
+              "file": "scripts/url_safety.py",
+              "line": 315
+            },
+            {
+              "id": "SSRF1",
+              "severity": "HIGH",
+              "message": "Cloud Metadata Access",
+              "file": "scripts/url_safety.py",
+              "line": 654
+            },
+            {
+              "id": "SSRF1",
+              "severity": "HIGH",
+              "message": "Cloud Metadata Access",
+              "file": "scripts/url_safety.py",
+              "line": 173
+            },
+            {
+              "id": "SSRF1",
+              "severity": "HIGH",
+              "message": "Cloud Metadata Access",
+              "file": "scripts/url_safety.py",
+              "line": 237
+            },
+            {
+              "id": "SSRF1",
+              "severity": "HIGH",
+              "message": "Cloud Metadata Access",
+              "file": "scripts/url_safety.py",
+              "line": 317
+            },
+            {
+              "id": "SSRF1",
+              "severity": "HIGH",
+              "message": "Cloud Metadata Access",
+              "file": "scripts/url_safety.py",
+              "line": 212
+            },
+            {
+              "id": "SSRF1",
+              "severity": "HIGH",
+              "message": "Cloud Metadata Access",
+              "file": "scripts/url_safety.py",
+              "line": 316
             },
             {
               "id": "AST4",
@@ -445,7 +483,7 @@
               "severity": "MEDIUM",
               "message": "Unbounded Output",
               "file": "scripts/dataforseo_normalize.py",
-              "line": 396
+              "line": 397
             },
             {
               "id": "AST4",
@@ -539,6 +577,27 @@
               "line": 122
             },
             {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/page_checks.py",
+              "line": 101
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/page_checks.py",
+              "line": 103
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "scripts/page_checks.py",
+              "line": 142
+            },
+            {
               "id": "AST4",
               "severity": "MEDIUM",
               "message": "subprocess module call",
@@ -550,14 +609,14 @@
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "scripts/runtime.py",
-              "line": 257
+              "line": 258
             },
             {
               "id": "AST4",
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "scripts/runtime.py",
-              "line": 412
+              "line": 430
             },
             {
               "id": "E1",
@@ -572,6 +631,27 @@
               "message": "subprocess module call",
               "file": "scripts/sync_flow.py",
               "line": 103
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "scripts/transport_check.py",
+              "line": 91
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "scripts/transport_check.py",
+              "line": 382
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "scripts/transport_check.py",
+              "line": 465
             },
             {
               "id": "RP1",
@@ -649,7 +729,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/seo/references/cwv-thresholds.md",
-              "line": 102
+              "line": 105
             },
             {
               "id": "E1",
@@ -755,12 +835,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/seo-agentic/SKILL.md",
-              "line": 154
+              "line": 157
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo-agentic/SKILL.md",
-              "line": 165
+              "line": 168
             },
             {
               "reason": "static_parse_limit",
@@ -781,7 +861,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/seo-agentic/SKILL.md",
-              "line": 186
+              "line": 189
             },
             {
               "id": "RP1",
@@ -820,7 +900,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/seo-agentic/SKILL.md",
-              "line": 178,
+              "line": 181,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
@@ -920,7 +1000,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/seo-backlinks/SKILL.md",
-              "line": 251
+              "line": 267
             }
           ],
           "findings": [],
@@ -1108,7 +1188,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/seo-content/SKILL.md",
-              "line": 207
+              "line": 217
             }
           ],
           "findings": [],
@@ -1413,22 +1493,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/seo-geo/SKILL.md",
-              "line": 154
+              "line": 156
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo-geo/SKILL.md",
-              "line": 162
+              "line": 164
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo-geo/SKILL.md",
-              "line": 229
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/seo-geo/SKILL.md",
-              "line": 238
+              "line": 231
             },
             {
               "reason": "reference_missing",
@@ -1438,22 +1513,27 @@
             {
               "reason": "reference_missing",
               "path": "skills/seo-geo/SKILL.md",
-              "line": 254
+              "line": 242
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo-geo/SKILL.md",
-              "line": 255
+              "line": 256
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo-geo/SKILL.md",
-              "line": 336
+              "line": 257
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo-geo/SKILL.md",
-              "line": 340
+              "line": 338
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-geo/SKILL.md",
+              "line": 342
             }
           ],
           "findings": [
@@ -1483,12 +1563,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/seo-google/SKILL.md",
-              "line": 349
+              "line": 356
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo-google/SKILL.md",
-              "line": 354
+              "line": 361
             }
           ],
           "findings": [
@@ -1673,6 +1753,11 @@
             {
               "reason": "reference_missing",
               "path": "skills/seo-images/SKILL.md",
+              "line": 24
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-images/SKILL.md",
               "line": 25
             },
             {
@@ -1683,42 +1768,37 @@
             {
               "reason": "reference_missing",
               "path": "skills/seo-images/SKILL.md",
-              "line": 68
+              "line": 80
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo-images/SKILL.md",
-              "line": 69
+              "line": 88
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo-images/SKILL.md",
-              "line": 70
+              "line": 89
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo-images/SKILL.md",
-              "line": 87
+              "line": 90
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo-images/SKILL.md",
-              "line": 101
+              "line": 107
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo-images/SKILL.md",
-              "line": 104
+              "line": 121
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo-images/SKILL.md",
-              "line": 129
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/seo-images/SKILL.md",
-              "line": 139
+              "line": 124
             },
             {
               "reason": "reference_missing",
@@ -1728,37 +1808,47 @@
             {
               "reason": "reference_missing",
               "path": "skills/seo-images/SKILL.md",
-              "line": 152
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/seo-images/SKILL.md",
-              "line": 155
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/seo-images/SKILL.md",
               "line": 159
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo-images/SKILL.md",
-              "line": 217
+              "line": 169
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo-images/SKILL.md",
-              "line": 283
+              "line": 172
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo-images/SKILL.md",
-              "line": 329
+              "line": 175
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo-images/SKILL.md",
-              "line": 332
+              "line": 179
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-images/SKILL.md",
+              "line": 237
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-images/SKILL.md",
+              "line": 303
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-images/SKILL.md",
+              "line": 349
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-images/SKILL.md",
+              "line": 352
             }
           ],
           "findings": [
@@ -1767,28 +1857,28 @@
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/seo-images/SKILL.md",
-              "line": 239
+              "line": 259
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/seo-images/SKILL.md",
-              "line": 240
+              "line": 260
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/seo-images/SKILL.md",
-              "line": 434
+              "line": 454
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/seo-images/SKILL.md",
-              "line": 435
+              "line": 455
             }
           ],
           "suppressed": []
@@ -1886,6 +1976,11 @@
               "reason": "reference_missing",
               "path": "skills/seo-page/SKILL.md",
               "line": 11
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-page/SKILL.md",
+              "line": 167
             }
           ],
           "findings": [],
@@ -2001,22 +2096,22 @@
             {
               "reason": "reference_missing",
               "path": "skills/seo-schema/SKILL.md",
-              "line": 50
+              "line": 54
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo-schema/SKILL.md",
-              "line": 73
+              "line": 79
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo-schema/SKILL.md",
-              "line": 159
+              "line": 165
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo-schema/SKILL.md",
-              "line": 160
+              "line": 166
             }
           ],
           "findings": [],
@@ -2073,32 +2168,57 @@
             {
               "reason": "reference_missing",
               "path": "skills/seo-sitemap/SKILL.md",
-              "line": 113
+              "line": 31
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo-sitemap/SKILL.md",
-              "line": 124
+              "line": 35
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo-sitemap/SKILL.md",
-              "line": 140
+              "line": 36
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo-sitemap/SKILL.md",
-              "line": 148
+              "line": 49
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo-sitemap/SKILL.md",
-              "line": 153
+              "line": 50
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo-sitemap/SKILL.md",
-              "line": 154
+              "line": 139
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-sitemap/SKILL.md",
+              "line": 150
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-sitemap/SKILL.md",
+              "line": 166
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-sitemap/SKILL.md",
+              "line": 174
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-sitemap/SKILL.md",
+              "line": 179
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-sitemap/SKILL.md",
+              "line": 180
             }
           ],
           "findings": [],
@@ -2125,10 +2245,15 @@
           "path": "skills/seo-technical",
           "score": 95,
           "risk": 5,
-          "status": "safe",
+          "status": "incomplete",
           "partial": true,
-          "coverage": 100,
+          "coverage": 66.7,
           "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/seo-technical/SKILL.md",
+              "line": 0
+            },
             {
               "reason": "reference_missing",
               "path": "skills/seo-technical/SKILL.md",
@@ -2147,7 +2272,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/seo-technical/SKILL.md",
-              "line": 115
+              "line": 108
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-technical/SKILL.md",
+              "line": 117
             }
           ],
           "findings": [
@@ -2219,7 +2349,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-09T01:06:56Z"
+      "checkedAt": "2026-11-11T01:54:56Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
