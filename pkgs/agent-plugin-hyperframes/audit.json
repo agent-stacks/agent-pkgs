@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "hyperframes",
-      "dir": "/nix/store/yrzdnic9ii70fjzc81iayb0jmg5mikl9-agent-plugin-hyperframes-0.9.33/share/agent-plugins/hyperframes",
+      "dir": "/nix/store/dw3hk1fv4p61nir92544mcfzp429szc5-agent-plugin-hyperframes-0.9.34/share/agent-plugins/hyperframes",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -981,7 +981,7 @@
           "risk": 29,
           "status": "caution",
           "partial": true,
-          "coverage": 50,
+          "coverage": 66.7,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -1043,7 +1043,16 @@
               "line": 34
             }
           ],
-          "suppressed": []
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/figma/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
+          ]
         },
         {
           "path": "skills/frost-sequence-camera-orbit",
@@ -2470,7 +2479,7 @@
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 94.4,
+          "coverage": 93.2,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -2490,6 +2499,11 @@
             {
               "reason": "static_parse_limit",
               "path": "skills/hyperframes/scripts/bake-basemap.mjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/hyperframes/scripts/lib/windows-exe-search.test.mjs",
               "line": 0
             },
             {
@@ -2857,21 +2871,21 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/hyperframes/scripts/plugin-cli.mjs",
-              "line": 37
+              "line": 38
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/hyperframes/scripts/plugin-cli.test.mjs",
-              "line": 131
+              "line": 159
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/hyperframes/scripts/plugin-cli.test.mjs",
-              "line": 142
+              "line": 170
             },
             {
               "id": "AR2",
@@ -2879,6 +2893,13 @@
               "message": "Anti-Refusal Statement",
               "file": "skills/hyperframes/references/skill-lifecycle.md",
               "line": 48
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/hyperframes/scripts/plugin-cli.test.mjs",
+              "line": 152
             },
             {
               "id": "RP1",
@@ -3228,7 +3249,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/hyperframes/scripts/plugin-cli.mjs",
-              "line": 33
+              "line": 34
             },
             {
               "id": "RP1",
@@ -3256,35 +3277,35 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/hyperframes/scripts/bake-basemap.mjs",
-              "line": 72
+              "line": 73
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/hyperframes/scripts/plugin-cli.mjs",
-              "line": 37
+              "line": 38
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/hyperframes/scripts/plugin-cli.test.mjs",
-              "line": 131
+              "line": 159
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/hyperframes/scripts/plugin-cli.test.mjs",
-              "line": 80
+              "line": 83
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/hyperframes/scripts/plugin-cli.test.mjs",
-              "line": 166
+              "line": 194
             },
             {
               "id": "EA3",
@@ -6196,7 +6217,7 @@
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 59.8,
+          "coverage": 61,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -6951,14 +6972,14 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/media-use/audio/scripts/lib/tts.mjs",
-              "line": 155
+              "line": 156
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/media-use/audio/scripts/lib/tts.mjs",
-              "line": 319
+              "line": 320
             },
             {
               "id": "RP1",
@@ -7343,7 +7364,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/media-use/scripts/transcribe.mjs",
-              "line": 52
+              "line": 53
             },
             {
               "id": "E1",
@@ -7378,7 +7399,7 @@
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "skills/media-use/audio/scripts/extract-audio-data.py",
-              "line": 60
+              "line": 62
             },
             {
               "id": "E1",
@@ -7455,7 +7476,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/media-use/audio/scripts/lib/tts.mjs",
-              "line": 156
+              "line": 157
             },
             {
               "id": "RP1",
@@ -7469,7 +7490,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/media-use/audio/scripts/lib/tts.mjs",
-              "line": 178
+              "line": 179
             },
             {
               "id": "RP1",
@@ -7553,7 +7574,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/media-use/scripts/transcribe.mjs",
-              "line": 132
+              "line": 133
             },
             {
               "id": "RA2",
@@ -9478,7 +9499,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-11T12:39:20Z"
+      "checkedAt": "2026-11-11T19:28:19Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
