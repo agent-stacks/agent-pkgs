@@ -7,6 +7,7 @@
 {
   lib,
   rustPlatform,
+  stdenv,
 }:
 
 let
@@ -34,6 +35,12 @@ rustPlatform.buildRustPackage {
   # crates/cli/tests drive Chrome and timed loopback servers, which
   # fail in the build sandbox.
   cargoTestFlags = [ "-p" "impeccable" "--lib" ];
+  # loop_install's macOS tests install and update a Loop.app bundle and
+  # launch it; the darwin build sandbox refuses that with "Operation not
+  # permitted (os error 1)".
+  checkFlags = lib.optionals stdenv.hostPlatform.isDarwin [
+    "--skip=loop_install::tests::mac"
+  ];
   # Some unit tests listen on 127.0.0.1.
   __darwinAllowLocalNetworking = true;
 
