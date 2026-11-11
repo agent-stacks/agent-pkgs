@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "marketing-skills",
-      "dir": "/nix/store/nd4xhraymrl2yyh8yc628yg5k22wz9si-agent-plugin-marketing-skills-2.14.9/share/agent-plugins/marketing-skills",
+      "dir": "/nix/store/fs0106zx4hx6xwhg85273yiwa906rs5r-agent-plugin-marketing-skills-2.14.12/share/agent-plugins/marketing-skills",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -263,8 +263,8 @@
         },
         {
           "path": "skills/ads",
-          "score": 22,
-          "risk": 78,
+          "score": 42,
+          "risk": 58,
           "status": "do not install",
           "partial": true,
           "coverage": 94.4,
@@ -281,13 +281,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "P1",
-              "severity": "HIGH",
-              "message": "Instruction Override",
-              "file": "skills/ads/references/audit-guardrails.md",
-              "line": 87
-            },
             {
               "id": "MP3",
               "severity": "HIGH",
@@ -1144,8 +1137,8 @@
         },
         {
           "path": "skills/directory-submissions",
-          "score": 62,
-          "risk": 38,
+          "score": 55,
+          "risk": 45,
           "status": "caution",
           "partial": true,
           "coverage": 100,
@@ -1154,6 +1147,11 @@
               "reason": "reference_missing",
               "path": "skills/directory-submissions/SKILL.md",
               "line": 15
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/directory-submissions/SKILL.md",
+              "line": 153
             }
           ],
           "findings": [
@@ -1163,6 +1161,13 @@
               "message": "Anti-Refusal Statement",
               "file": "skills/directory-submissions/references/directory-list.md",
               "line": 545
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/directory-submissions/references/agent-registry-files.md",
+              "line": 14
             },
             {
               "id": "RA2",
@@ -1319,9 +1324,9 @@
         },
         {
           "path": "skills/lead-magnets",
-          "score": 43,
-          "risk": 57,
-          "status": "do not install",
+          "score": 93,
+          "risk": 7,
+          "status": "safe",
           "partial": true,
           "coverage": 100,
           "exceptions": [
@@ -1332,27 +1337,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "P1",
-              "severity": "HIGH",
-              "message": "Instruction Override",
-              "file": "skills/lead-magnets/evals/evals.json",
-              "line": 100
-            },
-            {
-              "id": "YR4",
-              "severity": "HIGH",
-              "message": "YARA rule 'agent_skill_prompt_injection_hidden_instructions': Prompt injection or hidden instructions embedded in AI agent skill text [agent_skills]",
-              "file": "skills/lead-magnets/references/content-to-skill-corpus-design.md",
-              "line": 15
-            },
-            {
-              "id": "P1",
-              "severity": "HIGH",
-              "message": "Instruction Override",
-              "file": "skills/lead-magnets/references/content-to-skill-corpus-design.md",
-              "line": 42
-            },
             {
               "id": "EA2",
               "severity": "MEDIUM",
@@ -2677,7 +2661,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-10T02:48:06Z"
+      "checkedAt": "2026-11-11T18:35:30Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
