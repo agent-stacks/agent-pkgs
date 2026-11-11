@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "streaming-skills-plugin",
-      "dir": "/nix/store/mq7ksxrn1nb0fqs5m03sc70qh291plxz-agent-plugin-streaming-skills-plugin-1.4.0/share/agent-plugins/streaming-skills-plugin",
+      "dir": "/nix/store/pmx9namfsjjmz4fq4qmw777q0s32jpxm-agent-plugin-streaming-skills-plugin-1.5.0/share/agent-plugins/streaming-skills-plugin",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -15,6 +15,7 @@
         "scanned": [
           "skills/confluent-cloud-cdc-tableflow",
           "skills/confluent-cloud-flink-sql",
+          "skills/confluent-cloud-provider-integration",
           "skills/confluent-skill-creator",
           "skills/confluent-skill-reviewer",
           "skills/confluent-tuning-advisor",
@@ -396,6 +397,129 @@
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
+        },
+        {
+          "path": "skills/confluent-cloud-provider-integration",
+          "score": 57,
+          "risk": 43,
+          "status": "caution",
+          "partial": true,
+          "coverage": 88.9,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/confluent-cloud-provider-integration/SKILL.md",
+              "line": 20
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/confluent-cloud-provider-integration/SKILL.md",
+              "line": 81
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/confluent-cloud-provider-integration/SKILL.md",
+              "line": 202
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/confluent-cloud-provider-integration/SKILL.md",
+              "line": 208
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/confluent-cloud-provider-integration/SKILL.md",
+              "line": 210
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/confluent-cloud-provider-integration/SKILL.md",
+              "line": 322
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/confluent-cloud-provider-integration/SKILL.md",
+              "line": 351
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/confluent-cloud-provider-integration/evals/evals.json",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/confluent-cloud-provider-integration/SKILL.md",
+              "line": 81
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/confluent-cloud-provider-integration/evals/evals.json",
+              "line": 79
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/confluent-cloud-provider-integration/evals/evals.json",
+              "line": 83
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/confluent-cloud-provider-integration/SKILL.md",
+              "line": 138
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/confluent-cloud-provider-integration/references/aws.md",
+              "line": 260
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/confluent-cloud-provider-integration/references/common.md",
+              "line": 47
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/confluent-cloud-provider-integration/references/common.md",
+              "line": 51
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/confluent-cloud-provider-integration/references/common.md",
+              "line": 76
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/confluent-cloud-provider-integration/references/aws.md",
+              "line": 259
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/confluent-cloud-provider-integration/references/gcp.md",
+              "line": 140
+            }
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/confluent-skill-creator",
@@ -2281,7 +2405,7 @@
     "mode": "static",
     "osv": {
       "live": false,
-      "checkedAt": "2026-11-04T23:46:38Z"
+      "checkedAt": "2026-11-11T21:56:59Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"

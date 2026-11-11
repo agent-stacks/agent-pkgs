@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "aws-core",
-      "dir": "/nix/store/4h0zxnhj5w2ifdhga4jihkm8236rcz6q-agent-plugin-aws-core-1.2.0/share/agent-plugins/aws-core",
+      "dir": "/nix/store/dkfjdmq6g00rpz898bnm64dwhw9xdz21-agent-plugin-aws-core-1.2.0/share/agent-plugins/aws-core",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -25,6 +25,7 @@
           "skills/aws-containers",
           "skills/aws-database",
           "skills/aws-deployment",
+          "skills/aws-emulator",
           "skills/aws-iam",
           "skills/aws-investigation",
           "skills/aws-messaging-and-streaming",
@@ -1849,6 +1850,335 @@
           ]
         },
         {
+          "path": "skills/aws-emulator",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 66.7,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-emulator/SKILL.md",
+              "line": 73
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-emulator/SKILL.md",
+              "line": 94
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-emulator/SKILL.md",
+              "line": 111
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-emulator/SKILL.md",
+              "line": 112
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-emulator/SKILL.md",
+              "line": 122
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/aws-emulator/SKILL.md",
+              "line": 123
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/aws-emulator/references/compatibility-check.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/aws-emulator/references/connect.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/aws-emulator/references/container.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/aws-emulator/references/compatibility-check.md",
+              "line": 78
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/aws-emulator/references/connect.md",
+              "line": 90
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/aws-emulator/references/container.md",
+              "line": 30
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-emulator/references/container.md",
+              "line": 57
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-emulator/references/container.md",
+              "line": 72
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-emulator/references/container.md",
+              "line": 77
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/aws-emulator/references/container.md",
+              "line": 91
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/aws-emulator/references/linux-package.md",
+              "line": 56
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/aws-emulator/references/linux-package.md",
+              "line": 56
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/aws-emulator/references/linux-package.md",
+              "line": 56
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/aws-emulator/SKILL.md",
+              "line": 90
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/aws-emulator/references/linux-package.md",
+              "line": 67
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/aws-emulator/SKILL.md",
+              "line": 91
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "skills/aws-emulator/SKILL.md",
+              "line": 114
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "skills/aws-emulator/references/connect.md",
+              "line": 78
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/aws-emulator/references/compatibility-check.md",
+              "line": 85
+            },
+            {
+              "id": "E5",
+              "severity": "MEDIUM",
+              "message": "Cloud Storage Exfiltration",
+              "file": "skills/aws-emulator/references/compatibility-find-usage.md",
+              "line": 28
+            },
+            {
+              "id": "E5",
+              "severity": "MEDIUM",
+              "message": "Cloud Storage Exfiltration",
+              "file": "skills/aws-emulator/references/compatibility-find-usage.md",
+              "line": 29
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "skills/aws-emulator/references/connect.md",
+              "line": 78
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/aws-emulator/references/container.md",
+              "line": 53
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/aws-emulator/references/linux-package.md",
+              "line": 39
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/aws-emulator/references/linux-package.md",
+              "line": 44
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/aws-emulator/references/linux-package.md",
+              "line": 55
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/aws-emulator/references/linux-package.md",
+              "line": 55
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/aws-emulator/references/troubleshooting.md",
+              "line": 21
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/aws-emulator/references/troubleshooting.md",
+              "line": 10
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-emulator/SKILL.md",
+              "line": 41,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-emulator/SKILL.md",
+              "line": 42,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-emulator/SKILL.md",
+              "line": 54,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-emulator/SKILL.md",
+              "line": 56,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-emulator/SKILL.md",
+              "line": 57,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-emulator/SKILL.md",
+              "line": 59,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-emulator/SKILL.md",
+              "line": 60,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-emulator/SKILL.md",
+              "line": 75,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-emulator/SKILL.md",
+              "line": 98,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-emulator/SKILL.md",
+              "line": 117,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/aws-emulator/SKILL.md",
+              "line": 120,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
+          ]
+        },
+        {
           "path": "skills/aws-iam",
           "score": 64,
           "risk": 36,
@@ -3327,7 +3657,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-11T09:34:05Z"
+      "checkedAt": "2026-11-11T21:33:20Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
