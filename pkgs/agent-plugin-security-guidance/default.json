@@ -4,8 +4,8 @@
   "src": {
     "owner": "anthropics",
     "repo": "claude-plugins-official",
-    "rev": "43fd1f9db0941b2b83cb62268e35970d4a67c202",
-    "hash": "sha256-zgguBu2cDFU0hwgpWlG8baZhmFIwUS4pLl0pO3WAF20="
+    "rev": "e37d307bd9f85dab6fea5dfb5e3dc146753b2d2d",
+    "hash": "sha256-ssG50c5+vMP+7voNJ6wdJUdCG9CmVRhvx85NUyNQQXQ="
   },
   "sourceUrl": "https://github.com/anthropics/claude-plugins-official",
   "manifest": {
@@ -76,6 +76,27 @@
           }
         ],
         "matcher": "Bash"
+      },
+      {
+        "hooks": [
+          {
+            "asyncRewake": true,
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/sg-python.sh\" \"${CLAUDE_PLUGIN_ROOT}/hooks/security_reminder_hook.py\"",
+            "if": "PowerShell(git*commit*)",
+            "rewakeMessage": "Background security review of committed or pushed changes — address or acknowledge the findings below, then continue with the user's original request or continue waiting for their reply:",
+            "rewakeSummary": "Security review found issues",
+            "type": "command"
+          },
+          {
+            "asyncRewake": true,
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/sg-python.sh\" \"${CLAUDE_PLUGIN_ROOT}/hooks/security_reminder_hook.py\"",
+            "if": "PowerShell(git*push*)",
+            "rewakeMessage": "Background security review of committed or pushed changes — address or acknowledge the findings below, then continue with the user's original request or continue waiting for their reply:",
+            "rewakeSummary": "Security review found issues",
+            "type": "command"
+          }
+        ],
+        "matcher": "PowerShell"
       }
     ],
     "SessionStart": [
@@ -127,6 +148,14 @@
       "--pkgs-dir=pkgs"
     ],
     "warnings": [
+      {
+        "path": "plugins/security-guidance/hooks/hooks.json",
+        "message": "Claude Code runs this on PostToolUse: bash \"${CLAUDE_PLUGIN_ROOT}/hooks/sg-python.sh\" \"${CLAUDE_PLUGIN_ROOT}/hooks/security_reminder_hook.py\""
+      },
+      {
+        "path": "plugins/security-guidance/hooks/hooks.json",
+        "message": "Claude Code runs this on PostToolUse: bash \"${CLAUDE_PLUGIN_ROOT}/hooks/sg-python.sh\" \"${CLAUDE_PLUGIN_ROOT}/hooks/security_reminder_hook.py\""
+      },
       {
         "path": "plugins/security-guidance/hooks/hooks.json",
         "message": "Claude Code runs this on PostToolUse: bash \"${CLAUDE_PLUGIN_ROOT}/hooks/sg-python.sh\" \"${CLAUDE_PLUGIN_ROOT}/hooks/security_reminder_hook.py\""
