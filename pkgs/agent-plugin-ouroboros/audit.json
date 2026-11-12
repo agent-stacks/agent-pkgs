@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "ouroboros",
-      "dir": "/nix/store/cqlf2vfsf1mz1n60gvgiaq7s6s07fv6s-agent-plugin-ouroboros-0.59.9/share/agent-plugins/ouroboros",
+      "dir": "/nix/store/djfrs0nq4b7dl8sl9ypgsf4svqvh7aqb-agent-plugin-ouroboros-0.59.9/share/agent-plugins/ouroboros",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -71,7 +71,7 @@
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 83.3,
+          "coverage": 84,
           "exceptions": [
             {
               "reason": "static_parse_limit",
@@ -241,6 +241,13 @@
               "message": "subprocess module call",
               "file": "scripts/ralph.py",
               "line": 63
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/report-merged-issue-references.py",
+              "line": 53
             },
             {
               "id": "RP1",
@@ -476,13 +483,63 @@
         },
         {
           "path": "skills/help",
-          "score": 100,
-          "risk": 0,
-          "status": "safe",
+          "score": 48,
+          "risk": 52,
+          "status": "do not install",
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": [],
+          "findings": [
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/help/TROUBLESHOOTING.md",
+              "line": 139
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/help/TROUBLESHOOTING.md",
+              "line": 54
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/help/TROUBLESHOOTING.md",
+              "line": 54
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/help/TROUBLESHOOTING.md",
+              "line": 54
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/help/TROUBLESHOOTING.md",
+              "line": 56
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/help/TROUBLESHOOTING.md",
+              "line": 56
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/help/TROUBLESHOOTING.md",
+              "line": 109
+            }
+          ],
           "suppressed": []
         },
         {
@@ -1087,7 +1144,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-09T01:12:19Z"
+      "checkedAt": "2026-11-12T13:34:09Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
