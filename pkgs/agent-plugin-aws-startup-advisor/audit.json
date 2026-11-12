@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "aws-startup-advisor",
-      "dir": "/nix/store/68zczf73hkpb82ffjn07w7a9nbr062ml-agent-plugin-aws-startup-advisor-2.0.3/share/agent-plugins/aws-startup-advisor",
+      "dir": "/nix/store/70liqlqlh5kwljmch0877sbixghxsv5x-agent-plugin-aws-startup-advisor-2.0.3/share/agent-plugins/aws-startup-advisor",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -52,7 +52,7 @@
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 57.1,
+          "coverage": 42.9,
           "exceptions": [
             {
               "reason": "obfuscated_instruction_text",
@@ -67,6 +67,16 @@
             {
               "reason": "obfuscated_instruction_text",
               "path": "com.anthropic.claude-code/agents/llm2bedrock-prompt-evaluator.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/agents/llm2bedrock-prompt-evaluator.md",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "com.anthropic.claude-code/agents/llm2bedrock-report-generator.md",
               "line": 0
             }
           ],
@@ -145,36 +155,43 @@
               "id": "TM1",
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
-              "file": "com.anthropic.claude-code/agents/llm2bedrock-code-rewriter.md",
-              "line": 487
+              "file": "com.anthropic.claude-code/agents/llm2bedrock-code-analyzer.md",
+              "line": 258
             },
             {
               "id": "TM1",
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
               "file": "com.anthropic.claude-code/agents/llm2bedrock-code-rewriter.md",
-              "line": 875
+              "line": 545
             },
             {
               "id": "TM1",
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
               "file": "com.anthropic.claude-code/agents/llm2bedrock-code-rewriter.md",
-              "line": 876
+              "line": 933
             },
             {
               "id": "TM1",
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
               "file": "com.anthropic.claude-code/agents/llm2bedrock-code-rewriter.md",
-              "line": 876
+              "line": 934
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "com.anthropic.claude-code/agents/llm2bedrock-code-rewriter.md",
+              "line": 934
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "com.anthropic.claude-code/agents/llm2bedrock-report-generator.md",
-              "line": 600
+              "line": 679
             },
             {
               "id": "EA2",
@@ -237,21 +254,21 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "com.anthropic.claude-code/agents/llm2bedrock-code-rewriter.md",
-              "line": 407
+              "line": 465
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "com.anthropic.claude-code/agents/llm2bedrock-code-rewriter.md",
-              "line": 807
+              "line": 865
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "com.anthropic.claude-code/agents/llm2bedrock-code-rewriter.md",
-              "line": 918
+              "line": 980
             },
             {
               "id": "E5",
@@ -272,14 +289,14 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "com.anthropic.claude-code/agents/llm2bedrock-prompt-evaluator.md",
-              "line": 184
+              "line": 186
             },
             {
               "id": "EA4",
               "severity": "MEDIUM",
               "message": "Unbounded Resource Access",
               "file": "com.anthropic.claude-code/agents/llm2bedrock-prompt-evaluator.md",
-              "line": 518
+              "line": 604
             }
           ],
           "suppressed": [
@@ -336,7 +353,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "com.anthropic.claude-code/agents/llm2bedrock-prompt-evaluator.md",
-              "line": 666,
+              "line": 767,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -344,7 +361,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "com.anthropic.claude-code/agents/llm2bedrock-prompt-evaluator.md",
-              "line": 757,
+              "line": 858,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -352,7 +369,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "com.anthropic.claude-code/agents/llm2bedrock-prompt-evaluator.md",
-              "line": 761,
+              "line": 862,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             }
           ]
@@ -2855,7 +2872,7 @@
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 90.9,
+          "coverage": 91,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -3767,7 +3784,7 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/azure-to-aws/references/shared/openai-on-bedrock.md",
-              "line": 380
+              "line": 409
             },
             {
               "id": "EA2",
@@ -4618,7 +4635,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/azure-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 203,
+              "line": 221,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -4730,23 +4747,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/azure-to-aws/references/phases/design/design-ai.md",
-              "line": 77,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/azure-to-aws/references/phases/design/design-ai.md",
-              "line": 79,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/azure-to-aws/references/phases/design/design-ai.md",
-              "line": 81,
+              "line": 80,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -4755,6 +4756,22 @@
               "message": "Whitespace Padding",
               "file": "skills/azure-to-aws/references/phases/design/design-ai.md",
               "line": 82,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/azure-to-aws/references/phases/design/design-ai.md",
+              "line": 84,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/azure-to-aws/references/phases/design/design-ai.md",
+              "line": 85,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -5258,54 +5275,6 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/azure-to-aws/references/phases/discover/discover-openai-api.md",
-              "line": 427,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/azure-to-aws/references/phases/discover/discover-openai-api.md",
-              "line": 429,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/azure-to-aws/references/phases/discover/discover-openai-api.md",
-              "line": 430,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/azure-to-aws/references/phases/discover/discover-openai-api.md",
-              "line": 432,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/azure-to-aws/references/phases/discover/discover-openai-api.md",
-              "line": 433,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/azure-to-aws/references/phases/discover/discover-openai-api.md",
-              "line": 434,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/azure-to-aws/references/phases/discover/discover-openai-api.md",
               "line": 435,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
@@ -5314,7 +5283,55 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/azure-to-aws/references/phases/discover/discover-openai-api.md",
-              "line": 436,
+              "line": 437,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/azure-to-aws/references/phases/discover/discover-openai-api.md",
+              "line": 438,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/azure-to-aws/references/phases/discover/discover-openai-api.md",
+              "line": 440,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/azure-to-aws/references/phases/discover/discover-openai-api.md",
+              "line": 441,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/azure-to-aws/references/phases/discover/discover-openai-api.md",
+              "line": 442,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/azure-to-aws/references/phases/discover/discover-openai-api.md",
+              "line": 443,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/azure-to-aws/references/phases/discover/discover-openai-api.md",
+              "line": 444,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -5778,7 +5795,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/azure-to-aws/references/phases/estimate/estimate-assemble.md",
-              "line": 232,
+              "line": 236,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -5786,7 +5803,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/azure-to-aws/references/phases/estimate/estimate-assemble.md",
-              "line": 236,
+              "line": 240,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -8058,7 +8075,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/azure-to-aws/references/vendored/ai/ai-openai-to-bedrock.md",
-              "line": 137,
+              "line": 148,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -8066,7 +8083,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/azure-to-aws/references/vendored/ai/ai-openai-to-bedrock.md",
-              "line": 292,
+              "line": 303,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -8074,7 +8091,15 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/azure-to-aws/references/vendored/ai/ai-openai-to-bedrock.md",
-              "line": 300,
+              "line": 311,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/azure-to-aws/references/vendored/ai/bedrock-endpoint-policy.md",
+              "line": 41,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -9112,6 +9137,13 @@
               "line": 363
             },
             {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/bedrock-migration-assessment/references/phases/discover/discover-app-code.md",
+              "line": 340
+            },
+            {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
@@ -9306,7 +9338,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/bedrock-migration-assessment/references/phases/clarify/clarify-ai-only.md",
-              "line": 378,
+              "line": 381,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -9314,7 +9346,31 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/bedrock-migration-assessment/references/phases/clarify/clarify-ai-only.md",
-              "line": 403,
+              "line": 384,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/bedrock-migration-assessment/references/phases/clarify/clarify-ai-only.md",
+              "line": 385,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/bedrock-migration-assessment/references/phases/clarify/clarify-ai-only.md",
+              "line": 386,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/bedrock-migration-assessment/references/phases/clarify/clarify-ai-only.md",
+              "line": 388,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -9330,7 +9386,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/bedrock-migration-assessment/references/phases/clarify/clarify-ai-only.md",
-              "line": 406,
+              "line": 430,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -9338,7 +9394,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/bedrock-migration-assessment/references/phases/clarify/clarify-ai-only.md",
-              "line": 408,
+              "line": 432,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -9346,7 +9402,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/bedrock-migration-assessment/references/phases/clarify/clarify-ai-only.md",
-              "line": 409,
+              "line": 433,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -9354,7 +9410,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/bedrock-migration-assessment/references/phases/clarify/clarify-ai-only.md",
-              "line": 411,
+              "line": 435,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -9362,7 +9418,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/bedrock-migration-assessment/references/phases/clarify/clarify-ai-only.md",
-              "line": 412,
+              "line": 436,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -9370,7 +9426,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/bedrock-migration-assessment/references/phases/clarify/clarify-ai-only.md",
-              "line": 413,
+              "line": 438,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -9378,7 +9434,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/bedrock-migration-assessment/references/phases/clarify/clarify-ai-only.md",
-              "line": 414,
+              "line": 439,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -9386,7 +9442,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/bedrock-migration-assessment/references/phases/clarify/clarify-ai-only.md",
-              "line": 415,
+              "line": 440,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -9394,7 +9450,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/bedrock-migration-assessment/references/phases/clarify/clarify-ai-only.md",
-              "line": 416,
+              "line": 441,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -9402,7 +9458,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/bedrock-migration-assessment/references/phases/clarify/clarify-ai-only.md",
-              "line": 417,
+              "line": 442,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -9410,7 +9466,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/bedrock-migration-assessment/references/phases/clarify/clarify-ai-only.md",
-              "line": 418,
+              "line": 443,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -9418,7 +9474,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/bedrock-migration-assessment/references/phases/clarify/clarify-ai-only.md",
-              "line": 419,
+              "line": 444,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -9426,7 +9482,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/bedrock-migration-assessment/references/phases/clarify/clarify-ai-only.md",
-              "line": 420,
+              "line": 445,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -9434,7 +9490,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/bedrock-migration-assessment/references/phases/clarify/clarify-ai-only.md",
-              "line": 421,
+              "line": 446,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -9442,7 +9498,31 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/bedrock-migration-assessment/references/phases/clarify/clarify-ai-only.md",
-              "line": 422,
+              "line": 447,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/bedrock-migration-assessment/references/phases/clarify/clarify-ai-only.md",
+              "line": 448,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/bedrock-migration-assessment/references/phases/clarify/clarify-ai-only.md",
+              "line": 449,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/bedrock-migration-assessment/references/phases/clarify/clarify-ai-only.md",
+              "line": 450,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -9611,6 +9691,70 @@
               "message": "Whitespace Padding",
               "file": "skills/bedrock-migration-assessment/references/phases/discover/discover-app-code.md",
               "line": 304,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/bedrock-migration-assessment/references/phases/discover/discover-app-code.md",
+              "line": 340,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/bedrock-migration-assessment/references/phases/discover/discover-app-code.md",
+              "line": 340,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/bedrock-migration-assessment/references/phases/discover/discover-app-code.md",
+              "line": 342,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/bedrock-migration-assessment/references/phases/discover/discover-app-code.md",
+              "line": 343,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/bedrock-migration-assessment/references/phases/discover/discover-app-code.md",
+              "line": 343,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/bedrock-migration-assessment/references/phases/discover/discover-app-code.md",
+              "line": 345,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/bedrock-migration-assessment/references/phases/discover/discover-app-code.md",
+              "line": 345,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/bedrock-migration-assessment/references/phases/discover/discover-app-code.md",
+              "line": 346,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -9803,7 +9947,7 @@
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 84.8,
+          "coverage": 83.2,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -10088,6 +10232,16 @@
             {
               "reason": "static_parse_limit",
               "path": "skills/gcp-to-aws/references/phases/estimate/estimate.md",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/gcp-to-aws/references/phases/generate/generate-ai.md",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/gcp-to-aws/references/phases/generate/generate-artifacts-ai.md",
               "line": 0
             },
             {
@@ -10534,14 +10688,7 @@
               "severity": "MEDIUM",
               "message": "Context Window Stuffing",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 240
-            },
-            {
-              "id": "MP2",
-              "severity": "MEDIUM",
-              "message": "Context Window Stuffing",
-              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 243
+              "line": 241
             },
             {
               "id": "MP2",
@@ -10569,21 +10716,21 @@
               "severity": "MEDIUM",
               "message": "Context Window Stuffing",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 265
+              "line": 247
             },
             {
               "id": "MP2",
               "severity": "MEDIUM",
               "message": "Context Window Stuffing",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 267
+              "line": 266
             },
             {
               "id": "MP2",
               "severity": "MEDIUM",
               "message": "Context Window Stuffing",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 271
+              "line": 268
             },
             {
               "id": "MP2",
@@ -10625,14 +10772,21 @@
               "severity": "MEDIUM",
               "message": "Context Window Stuffing",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 342
+              "line": 277
             },
             {
               "id": "MP2",
               "severity": "MEDIUM",
               "message": "Context Window Stuffing",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 389
+              "line": 343
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
+              "line": 390
             },
             {
               "id": "MP2",
@@ -10661,6 +10815,13 @@
               "message": "Context Window Stuffing",
               "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
               "line": 101
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/gcp-to-aws/references/phases/discover/discover-app-code.md",
+              "line": 395
             },
             {
               "id": "MP2",
@@ -11633,14 +11794,14 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
-              "line": 350
+              "line": 356
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
-              "line": 683
+              "line": 689
             },
             {
               "id": "EA2",
@@ -12741,7 +12902,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai-only.md",
-              "line": 336,
+              "line": 337,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -12749,7 +12910,31 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai-only.md",
-              "line": 361,
+              "line": 340,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai-only.md",
+              "line": 341,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai-only.md",
+              "line": 342,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai-only.md",
+              "line": 344,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -12765,7 +12950,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai-only.md",
-              "line": 364,
+              "line": 388,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -12773,7 +12958,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai-only.md",
-              "line": 366,
+              "line": 390,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -12781,7 +12966,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai-only.md",
-              "line": 367,
+              "line": 391,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -12789,7 +12974,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai-only.md",
-              "line": 369,
+              "line": 393,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -12797,7 +12982,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai-only.md",
-              "line": 370,
+              "line": 394,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -12805,7 +12990,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai-only.md",
-              "line": 371,
+              "line": 396,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -12813,7 +12998,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai-only.md",
-              "line": 372,
+              "line": 397,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -12821,7 +13006,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai-only.md",
-              "line": 373,
+              "line": 398,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -12829,7 +13014,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai-only.md",
-              "line": 374,
+              "line": 399,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -12837,7 +13022,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai-only.md",
-              "line": 375,
+              "line": 400,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -12845,7 +13030,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai-only.md",
-              "line": 376,
+              "line": 401,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -12853,7 +13038,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai-only.md",
-              "line": 377,
+              "line": 402,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -12861,7 +13046,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai-only.md",
-              "line": 378,
+              "line": 403,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -12869,7 +13054,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai-only.md",
-              "line": 379,
+              "line": 404,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -12877,7 +13062,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai-only.md",
-              "line": 380,
+              "line": 405,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -12885,7 +13070,31 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai-only.md",
-              "line": 381,
+              "line": 406,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai-only.md",
+              "line": 407,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai-only.md",
+              "line": 408,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai-only.md",
+              "line": 409,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -12893,7 +13102,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 89,
+              "line": 90,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -12901,15 +13110,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 91,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 93,
+              "line": 92,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -12941,7 +13142,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 100,
+              "line": 97,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -12949,7 +13150,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 175,
+              "line": 101,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -12957,7 +13158,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 189,
+              "line": 176,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -12965,7 +13166,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 215,
+              "line": 190,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -12973,7 +13174,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 217,
+              "line": 216,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -12989,7 +13190,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 221,
+              "line": 219,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -12997,7 +13198,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 240,
+              "line": 222,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13005,7 +13206,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 243,
+              "line": 241,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13037,7 +13238,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 265,
+              "line": 247,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13045,7 +13246,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 267,
+              "line": 266,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13053,7 +13254,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 269,
+              "line": 268,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13061,7 +13262,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 271,
+              "line": 270,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13109,7 +13310,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 290,
+              "line": 277,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13117,7 +13318,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 342,
+              "line": 291,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13125,7 +13326,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 342,
+              "line": 343,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13133,15 +13334,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 344,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 344,
+              "line": 343,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13213,7 +13406,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 350,
+              "line": 349,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13221,7 +13414,15 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 352,
+              "line": 349,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
+              "line": 351,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13245,7 +13446,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 354,
+              "line": 355,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13277,7 +13478,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 357,
+              "line": 358,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13301,14 +13502,6 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 359,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
               "line": 360,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
@@ -13357,7 +13550,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 364,
+              "line": 363,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13365,7 +13558,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 389,
+              "line": 363,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13373,7 +13566,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 440,
+              "line": 365,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13381,7 +13574,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 528,
+              "line": 390,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13389,7 +13582,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 533,
+              "line": 441,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13397,7 +13590,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 549,
+              "line": 503,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13405,7 +13598,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 551,
+              "line": 506,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13413,7 +13606,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 566,
+              "line": 507,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13421,7 +13614,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 568,
+              "line": 508,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13429,7 +13622,31 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 569,
+              "line": 510,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
+              "line": 560,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
+              "line": 565,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
+              "line": 581,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13445,7 +13662,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 586,
+              "line": 598,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13453,7 +13670,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 627,
+              "line": 600,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13461,7 +13678,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 629,
+              "line": 601,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13469,30 +13686,38 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
-              "line": 632,
+              "line": 615,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
-              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
-              "line": 355,
+              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
+              "line": 618,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
-              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
-              "line": 392,
+              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
+              "line": 659,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
-              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
+              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
+              "line": 661,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-ai.md",
               "line": 664,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
@@ -13501,7 +13726,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
-              "line": 664,
+              "line": 361,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13509,55 +13734,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
-              "line": 666,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
-              "line": 666,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
-              "line": 667,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
-              "line": 668,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
-              "line": 668,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
-              "line": 669,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
-              "line": 669,
+              "line": 398,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13581,15 +13758,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
-              "line": 671,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
-              "line": 671,
+              "line": 672,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13613,7 +13782,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
-              "line": 673,
+              "line": 674,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13685,14 +13854,6 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
-              "line": 678,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
               "line": 679,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
@@ -13702,14 +13863,6 @@
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
               "line": 679,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
-              "line": 680,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13750,6 +13903,14 @@
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
               "line": 682,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
+              "line": 683,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13838,14 +13999,6 @@
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
               "line": 688,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
-              "line": 689,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -13965,6 +14118,14 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
+              "line": 696,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
               "line": 697,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
@@ -14021,6 +14182,14 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
+              "line": 700,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
               "line": 701,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
@@ -14045,7 +14214,95 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
-              "line": 702,
+              "line": 703,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
+              "line": 704,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
+              "line": 704,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
+              "line": 705,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
+              "line": 705,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
+              "line": 706,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
+              "line": 706,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
+              "line": 707,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
+              "line": 708,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
+              "line": 708,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
+              "line": 709,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/clarify/clarify-assemble.md",
+              "line": 709,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -14277,7 +14534,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
-              "line": 209,
+              "line": 231,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -14285,7 +14542,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
-              "line": 211,
+              "line": 233,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -14293,7 +14550,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
-              "line": 212,
+              "line": 234,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -14301,7 +14558,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
-              "line": 213,
+              "line": 235,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -14309,7 +14566,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
-              "line": 214,
+              "line": 236,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -14317,7 +14574,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
-              "line": 392,
+              "line": 414,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -14325,7 +14582,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
-              "line": 399,
+              "line": 422,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -14333,7 +14590,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
-              "line": 489,
+              "line": 526,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -14341,7 +14598,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
-              "line": 489,
+              "line": 526,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -14349,7 +14606,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
-              "line": 492,
+              "line": 530,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -14357,7 +14614,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
-              "line": 493,
+              "line": 531,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -14365,7 +14622,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
-              "line": 494,
+              "line": 543,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -14373,7 +14630,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
-              "line": 506,
+              "line": 545,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -14381,7 +14638,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
-              "line": 508,
+              "line": 548,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -14389,7 +14646,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
-              "line": 511,
+              "line": 550,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -14397,7 +14654,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
-              "line": 513,
+              "line": 552,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -14405,7 +14662,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
-              "line": 515,
+              "line": 553,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -14413,7 +14670,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
-              "line": 516,
+              "line": 554,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -14421,15 +14678,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
-              "line": 517,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
-              "line": 518,
+              "line": 555,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -14629,7 +14878,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/discover/discover-app-code.md",
-              "line": 412,
+              "line": 395,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -14637,7 +14886,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/discover/discover-app-code.md",
-              "line": 471,
+              "line": 395,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -14645,7 +14894,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/discover/discover-app-code.md",
-              "line": 482,
+              "line": 397,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -14653,7 +14902,71 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/discover/discover-app-code.md",
-              "line": 483,
+              "line": 398,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/discover/discover-app-code.md",
+              "line": 398,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/discover/discover-app-code.md",
+              "line": 400,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/discover/discover-app-code.md",
+              "line": 400,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/discover/discover-app-code.md",
+              "line": 401,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/discover/discover-app-code.md",
+              "line": 455,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/discover/discover-app-code.md",
+              "line": 514,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/discover/discover-app-code.md",
+              "line": 525,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/discover/discover-app-code.md",
+              "line": 526,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -15245,54 +15558,6 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/discover/discover-openai-api.md",
-              "line": 363,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/gcp-to-aws/references/phases/discover/discover-openai-api.md",
-              "line": 365,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/gcp-to-aws/references/phases/discover/discover-openai-api.md",
-              "line": 366,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/gcp-to-aws/references/phases/discover/discover-openai-api.md",
-              "line": 368,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/gcp-to-aws/references/phases/discover/discover-openai-api.md",
-              "line": 369,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/gcp-to-aws/references/phases/discover/discover-openai-api.md",
-              "line": 370,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/gcp-to-aws/references/phases/discover/discover-openai-api.md",
               "line": 371,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
@@ -15301,7 +15566,55 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/discover/discover-openai-api.md",
-              "line": 372,
+              "line": 373,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/discover/discover-openai-api.md",
+              "line": 374,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/discover/discover-openai-api.md",
+              "line": 376,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/discover/discover-openai-api.md",
+              "line": 377,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/discover/discover-openai-api.md",
+              "line": 378,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/discover/discover-openai-api.md",
+              "line": 379,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/discover/discover-openai-api.md",
+              "line": 380,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -17341,7 +17654,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/shared/schema-discover-ai.md",
-              "line": 232,
+              "line": 247,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -17349,7 +17662,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/shared/schema-discover-ai.md",
-              "line": 234,
+              "line": 249,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -17357,7 +17670,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/shared/schema-discover-ai.md",
-              "line": 236,
+              "line": 251,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -17365,7 +17678,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/shared/schema-discover-ai.md",
-              "line": 238,
+              "line": 253,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -17373,7 +17686,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/shared/schema-discover-ai.md",
-              "line": 309,
+              "line": 325,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -17381,7 +17694,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/shared/schema-discover-ai.md",
-              "line": 379,
+              "line": 395,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -17662,6 +17975,14 @@
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/shared/schema-preferences.md",
               "line": 96,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/shared/schema-preferences.md",
+              "line": 97,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -18349,7 +18670,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/vendored/ai/ai-openai-to-bedrock.md",
-              "line": 137,
+              "line": 148,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -18357,7 +18678,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/vendored/ai/ai-openai-to-bedrock.md",
-              "line": 292,
+              "line": 303,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -18365,7 +18686,15 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/vendored/ai/ai-openai-to-bedrock.md",
-              "line": 300,
+              "line": 311,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/vendored/ai/bedrock-endpoint-policy.md",
+              "line": 41,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -22407,7 +22736,7 @@
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 96.2,
+          "coverage": 92.6,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -22542,62 +22871,37 @@
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
+              "line": 517
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/llm-to-bedrock/SKILL.md",
               "line": 518
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 527
+              "line": 541
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 528
+              "line": 550
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 544
+              "line": 551
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 547
+              "line": 567
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 549
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 552
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 554
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 555
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 557
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 560
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 569
+              "line": 570
             },
             {
               "reason": "reference_missing",
@@ -22612,7 +22916,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 576
+              "line": 577
             },
             {
               "reason": "reference_missing",
@@ -22622,17 +22926,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 579
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/llm-to-bedrock/SKILL.md",
               "line": 580
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 582
             },
             {
               "reason": "reference_missing",
@@ -22642,42 +22936,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 584
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 585
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 586
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 588
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 590
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 591
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/llm-to-bedrock/SKILL.md",
               "line": 592
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 593
             },
             {
               "reason": "reference_missing",
@@ -22687,7 +22946,47 @@
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
+              "line": 598
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/llm-to-bedrock/SKILL.md",
+              "line": 599
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/llm-to-bedrock/SKILL.md",
+              "line": 601
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/llm-to-bedrock/SKILL.md",
+              "line": 602
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/llm-to-bedrock/SKILL.md",
+              "line": 603
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/llm-to-bedrock/SKILL.md",
               "line": 605
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/llm-to-bedrock/SKILL.md",
+              "line": 606
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/llm-to-bedrock/SKILL.md",
+              "line": 607
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/llm-to-bedrock/SKILL.md",
+              "line": 608
             },
             {
               "reason": "reference_missing",
@@ -22697,7 +22996,22 @@
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 612
+              "line": 611
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/llm-to-bedrock/SKILL.md",
+              "line": 613
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/llm-to-bedrock/SKILL.md",
+              "line": 614
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/llm-to-bedrock/SKILL.md",
+              "line": 615
             },
             {
               "reason": "reference_missing",
@@ -22707,47 +23021,52 @@
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 617
+              "line": 618
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 622
+              "line": 628
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 623
+              "line": 632
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 624
+              "line": 635
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 642
+              "line": 639
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 643
+              "line": 640
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 644
+              "line": 645
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 655
+              "line": 646
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 663
+              "line": 647
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/llm-to-bedrock/SKILL.md",
+              "line": 665
             },
             {
               "reason": "reference_missing",
@@ -22757,7 +23076,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 668
+              "line": 667
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/llm-to-bedrock/SKILL.md",
+              "line": 678
             },
             {
               "reason": "reference_missing",
@@ -22767,7 +23091,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 688
+              "line": 689
             },
             {
               "reason": "reference_missing",
@@ -22777,132 +23101,132 @@
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 692
+              "line": 709
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 704
+              "line": 711
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 712
+              "line": 714
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 716
+              "line": 715
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 720
+              "line": 727
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 828
+              "line": 744
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 841
+              "line": 758
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 865
+              "line": 762
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 919
+              "line": 766
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 926
+              "line": 878
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 938
+              "line": 883
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 939
+              "line": 905
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 940
+              "line": 929
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 952
+              "line": 954
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 970
+              "line": 1020
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 973
+              "line": 1028
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 981
+              "line": 1040
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 992
+              "line": 1041
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 995
+              "line": 1042
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 1051
+              "line": 1054
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 1052
+              "line": 1073
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 1053
+              "line": 1076
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 1091
+              "line": 1084
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 1111
+              "line": 1095
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 1115
+              "line": 1098
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 1123
+              "line": 1155
             },
             {
               "reason": "reference_missing",
@@ -22912,32 +23236,62 @@
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 1161
+              "line": 1157
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 1174
+              "line": 1195
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 1175
+              "line": 1218
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 1200
+              "line": 1222
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 1228
+              "line": 1230
             },
             {
               "reason": "reference_missing",
               "path": "skills/llm-to-bedrock/SKILL.md",
-              "line": 1246
+              "line": 1269
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/llm-to-bedrock/SKILL.md",
+              "line": 1274
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/llm-to-bedrock/SKILL.md",
+              "line": 1287
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/llm-to-bedrock/SKILL.md",
+              "line": 1288
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/llm-to-bedrock/SKILL.md",
+              "line": 1313
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/llm-to-bedrock/SKILL.md",
+              "line": 1345
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/llm-to-bedrock/SKILL.md",
+              "line": 1363
             },
             {
               "reason": "static_parse_limit",
@@ -22945,8 +23299,23 @@
               "line": 0
             },
             {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/llm-to-bedrock/scripts/iam_policy.py",
+              "line": 0
+            },
+            {
               "reason": "static_parse_limit",
               "path": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/llm-to-bedrock/scripts/test_iam_policy_round2.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/llm-to-bedrock/scripts/test_iam_policy_round2.py",
               "line": 0
             }
           ],
@@ -22956,112 +23325,168 @@
               "severity": "CRITICAL",
               "message": "Dangerous chain: exec() wrapping compile",
               "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
-              "line": 50
+              "line": 58
             },
             {
               "id": "AST8",
               "severity": "CRITICAL",
               "message": "Dangerous chain: exec() wrapping compile",
               "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
-              "line": 90
+              "line": 75
             },
             {
               "id": "AST8",
               "severity": "CRITICAL",
               "message": "Dangerous chain: exec() wrapping compile",
               "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
-              "line": 105
+              "line": 94
             },
             {
               "id": "AST8",
               "severity": "CRITICAL",
               "message": "Dangerous chain: exec() wrapping compile",
               "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
-              "line": 169
+              "line": 141
             },
             {
               "id": "AST8",
               "severity": "CRITICAL",
               "message": "Dangerous chain: exec() wrapping compile",
               "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
-              "line": 129
+              "line": 164
             },
             {
               "id": "AST8",
               "severity": "CRITICAL",
               "message": "Dangerous chain: exec() wrapping compile",
               "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
-              "line": 244
+              "line": 307
             },
             {
               "id": "AST8",
               "severity": "CRITICAL",
               "message": "Dangerous chain: exec() wrapping compile",
               "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
-              "line": 410
+              "line": 188
             },
             {
               "id": "AST8",
               "severity": "CRITICAL",
               "message": "Dangerous chain: exec() wrapping compile",
               "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
-              "line": 462
+              "line": 218
+            },
+            {
+              "id": "AST8",
+              "severity": "CRITICAL",
+              "message": "Dangerous chain: exec() wrapping compile",
+              "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
+              "line": 220
+            },
+            {
+              "id": "AST8",
+              "severity": "CRITICAL",
+              "message": "Dangerous chain: exec() wrapping compile",
+              "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
+              "line": 398
+            },
+            {
+              "id": "AST8",
+              "severity": "CRITICAL",
+              "message": "Dangerous chain: exec() wrapping compile",
+              "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
+              "line": 564
+            },
+            {
+              "id": "AST8",
+              "severity": "CRITICAL",
+              "message": "Dangerous chain: exec() wrapping compile",
+              "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
+              "line": 616
             },
             {
               "id": "AST1",
               "severity": "HIGH",
               "message": "exec() call detected",
               "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
-              "line": 50
+              "line": 58
             },
             {
               "id": "AST1",
               "severity": "HIGH",
               "message": "exec() call detected",
               "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
-              "line": 90
+              "line": 75
             },
             {
               "id": "AST1",
               "severity": "HIGH",
               "message": "exec() call detected",
               "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
-              "line": 105
+              "line": 94
             },
             {
               "id": "AST1",
               "severity": "HIGH",
               "message": "exec() call detected",
               "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
-              "line": 169
+              "line": 141
             },
             {
               "id": "AST1",
               "severity": "HIGH",
               "message": "exec() call detected",
               "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
-              "line": 129
+              "line": 164
             },
             {
               "id": "AST1",
               "severity": "HIGH",
               "message": "exec() call detected",
               "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
-              "line": 244
+              "line": 307
             },
             {
               "id": "AST1",
               "severity": "HIGH",
               "message": "exec() call detected",
               "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
-              "line": 410
+              "line": 188
             },
             {
               "id": "AST1",
               "severity": "HIGH",
               "message": "exec() call detected",
               "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
-              "line": 462
+              "line": 218
+            },
+            {
+              "id": "AST1",
+              "severity": "HIGH",
+              "message": "exec() call detected",
+              "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
+              "line": 220
+            },
+            {
+              "id": "AST1",
+              "severity": "HIGH",
+              "message": "exec() call detected",
+              "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
+              "line": 398
+            },
+            {
+              "id": "AST1",
+              "severity": "HIGH",
+              "message": "exec() call detected",
+              "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
+              "line": 564
+            },
+            {
+              "id": "AST1",
+              "severity": "HIGH",
+              "message": "exec() call detected",
+              "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
+              "line": 616
             },
             {
               "id": "RP1",
@@ -23103,35 +23528,70 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/llm-to-bedrock/SKILL.md",
-              "line": 766
+              "line": 812
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/llm-to-bedrock/SKILL.md",
-              "line": 790
+              "line": 836
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "skills/llm-to-bedrock/SKILL.md",
-              "line": 800
+              "line": 846
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/llm-to-bedrock/SKILL.md",
+              "line": 889
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/llm-to-bedrock/references/vendored/telemetry/PROTOCOL.md",
+              "line": 61
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/llm-to-bedrock/scripts/preflight_bedrock.py",
+              "line": 428
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/llm-to-bedrock/scripts/preflight_bedrock.py",
+              "line": 459
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/llm-to-bedrock/scripts/test_preflight_resume_runtime_api.py",
+              "line": 31
             },
             {
               "id": "MP2",
               "severity": "MEDIUM",
               "message": "Context Window Stuffing",
               "file": "skills/llm-to-bedrock/SKILL.md",
-              "line": 936
+              "line": 1038
             },
             {
               "id": "MP2",
               "severity": "MEDIUM",
               "message": "Context Window Stuffing",
               "file": "skills/llm-to-bedrock/SKILL.md",
-              "line": 941
+              "line": 1043
             },
             {
               "id": "MP2",
@@ -23186,13 +23646,6 @@
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
-              "file": "skills/llm-to-bedrock/references/vendored/telemetry/PROTOCOL.md",
-              "line": 61
-            },
-            {
-              "id": "EA2",
-              "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
               "file": "skills/llm-to-bedrock/references/vendored/telemetry/consent/record.py",
               "line": 17
             },
@@ -23208,14 +23661,21 @@
               "severity": "MEDIUM",
               "message": "Unbounded Resource Access",
               "file": "skills/llm-to-bedrock/scripts/preflight_bedrock.py",
-              "line": 124
+              "line": 155
             },
             {
               "id": "EA4",
               "severity": "MEDIUM",
               "message": "Unbounded Resource Access",
               "file": "skills/llm-to-bedrock/scripts/preflight_bedrock.py",
-              "line": 200
+              "line": 274
+            },
+            {
+              "id": "EA4",
+              "severity": "MEDIUM",
+              "message": "Unbounded Resource Access",
+              "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
+              "line": 265
             },
             {
               "id": "E1",
@@ -23327,70 +23787,154 @@
               "severity": "MEDIUM",
               "message": "compile() call detected",
               "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
-              "line": 50
+              "line": 58
             },
             {
               "id": "AST6",
               "severity": "MEDIUM",
               "message": "compile() call detected",
               "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
-              "line": 90
+              "line": 75
             },
             {
               "id": "AST6",
               "severity": "MEDIUM",
               "message": "compile() call detected",
               "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
-              "line": 105
-            },
-            {
-              "id": "AST6",
-              "severity": "MEDIUM",
-              "message": "compile() call detected",
-              "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
-              "line": 129
-            },
-            {
-              "id": "AST6",
-              "severity": "MEDIUM",
-              "message": "compile() call detected",
-              "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
-              "line": 169
-            },
-            {
-              "id": "AST6",
-              "severity": "MEDIUM",
-              "message": "compile() call detected",
-              "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
-              "line": 244
-            },
-            {
-              "id": "AST6",
-              "severity": "MEDIUM",
-              "message": "compile() call detected",
-              "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
-              "line": 410
-            },
-            {
-              "id": "AST6",
-              "severity": "MEDIUM",
-              "message": "compile() call detected",
-              "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
-              "line": 462
-            },
-            {
-              "id": "AST4",
-              "severity": "MEDIUM",
-              "message": "subprocess module call",
-              "file": "skills/llm-to-bedrock/scripts/test_iam_policy.py",
               "line": 94
             },
             {
+              "id": "AST6",
+              "severity": "MEDIUM",
+              "message": "compile() call detected",
+              "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
+              "line": 141
+            },
+            {
+              "id": "AST6",
+              "severity": "MEDIUM",
+              "message": "compile() call detected",
+              "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
+              "line": 164
+            },
+            {
+              "id": "AST6",
+              "severity": "MEDIUM",
+              "message": "compile() call detected",
+              "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
+              "line": 188
+            },
+            {
+              "id": "AST6",
+              "severity": "MEDIUM",
+              "message": "compile() call detected",
+              "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
+              "line": 307
+            },
+            {
+              "id": "AST6",
+              "severity": "MEDIUM",
+              "message": "compile() call detected",
+              "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
+              "line": 218
+            },
+            {
+              "id": "AST6",
+              "severity": "MEDIUM",
+              "message": "compile() call detected",
+              "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
+              "line": 220
+            },
+            {
+              "id": "AST6",
+              "severity": "MEDIUM",
+              "message": "compile() call detected",
+              "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
+              "line": 398
+            },
+            {
+              "id": "AST6",
+              "severity": "MEDIUM",
+              "message": "compile() call detected",
+              "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
+              "line": 564
+            },
+            {
+              "id": "AST6",
+              "severity": "MEDIUM",
+              "message": "compile() call detected",
+              "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
+              "line": 616
+            },
+            {
               "id": "AST4",
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "skills/llm-to-bedrock/scripts/test_iam_policy.py",
-              "line": 109
+              "line": 97
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/llm-to-bedrock/scripts/test_iam_policy.py",
+              "line": 112
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/llm-to-bedrock/scripts/test_iam_policy.py",
+              "line": 507
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/llm-to-bedrock/scripts/test_iam_policy.py",
+              "line": 534
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/llm-to-bedrock/scripts/test_iam_policy.py",
+              "line": 643
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/llm-to-bedrock/scripts/test_iam_policy.py",
+              "line": 668
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/llm-to-bedrock/scripts/test_iam_policy.py",
+              "line": 679
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/llm-to-bedrock/scripts/test_iam_policy.py",
+              "line": 692
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/llm-to-bedrock/scripts/test_iam_policy_round2.py",
+              "line": 204
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/llm-to-bedrock/scripts/test_iam_policy_round2.py",
+              "line": 286
             },
             {
               "id": "AST4",
@@ -23411,7 +23955,7 @@
               "severity": "LOW",
               "message": "Dynamic attribute access via getattr()",
               "file": "skills/llm-to-bedrock/scripts/test_astra_execution_contract.py",
-              "line": 403
+              "line": 557
             }
           ],
           "suppressed": [
@@ -23428,7 +23972,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/llm-to-bedrock/SKILL.md",
-              "line": 936,
+              "line": 1038,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -23436,7 +23980,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/llm-to-bedrock/SKILL.md",
-              "line": 938,
+              "line": 1040,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -23444,7 +23988,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/llm-to-bedrock/SKILL.md",
-              "line": 941,
+              "line": 1043,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -23452,7 +23996,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/llm-to-bedrock/SKILL.md",
-              "line": 1015,
+              "line": 1118,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -23460,7 +24004,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/llm-to-bedrock/SKILL.md",
-              "line": 1018,
+              "line": 1121,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -23468,7 +24012,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/llm-to-bedrock/SKILL.md",
-              "line": 1019,
+              "line": 1122,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -23476,7 +24020,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/llm-to-bedrock/SKILL.md",
-              "line": 1020,
+              "line": 1123,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -23484,7 +24028,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/llm-to-bedrock/SKILL.md",
-              "line": 1021,
+              "line": 1124,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -23492,7 +24036,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/llm-to-bedrock/SKILL.md",
-              "line": 1022,
+              "line": 1125,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -23500,7 +24044,15 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/llm-to-bedrock/SKILL.md",
-              "line": 1023,
+              "line": 1126,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/llm-to-bedrock/SKILL.md",
+              "line": 1127,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -24384,7 +24936,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-12T20:38:02Z"
+      "checkedAt": "2026-11-12T23:33:29Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"

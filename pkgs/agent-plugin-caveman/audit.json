@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "caveman",
-      "dir": "/nix/store/5ksrkxys3fvzwv4nmi7zysy5vbliwh9s-agent-plugin-caveman-4.1.0/share/agent-plugins/caveman",
+      "dir": "/nix/store/7k997vjk901wma4ga066jd145rim0rly-agent-plugin-caveman-4.1.0/share/agent-plugins/caveman",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -277,16 +277,16 @@
             {
               "id": "TT3",
               "severity": "CRITICAL",
-              "message": "Tainted flow: 'request' from os.environ.get (line 735, credential/environment) → urllib.request.urlopen (network output)",
+              "message": "Tainted flow: 'request' from os.environ.get (line 806, credential/environment) → urllib.request.urlopen (network output)",
               "file": "skills/caveman-compress/scripts/compress.py",
-              "line": 746
+              "line": 817
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/caveman-compress/README.md",
-              "line": 195
+              "line": 223
             },
             {
               "id": "PE3",
@@ -328,7 +328,7 @@
               "severity": "HIGH",
               "message": "Env Variable Harvesting",
               "file": "skills/caveman-compress/scripts/compress.py",
-              "line": 586
+              "line": 596
             },
             {
               "id": "PE3",
@@ -363,14 +363,21 @@
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "skills/caveman-compress/scripts/compress.py",
-              "line": 588
+              "line": 598
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/caveman-compress/scripts/compress.py",
+              "line": 703
             },
             {
               "id": "P7",
               "severity": "MEDIUM",
               "message": "Indirect Prompt Extraction",
               "file": "skills/caveman-compress/scripts/compress.py",
-              "line": 720
+              "line": 791
             }
           ],
           "suppressed": [
@@ -1042,7 +1049,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-09T01:03:58Z"
+      "checkedAt": "2026-11-12T23:33:28Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
