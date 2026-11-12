@@ -7,10 +7,10 @@
   "plugins": [
     {
       "name": "interfaces",
-      "dir": "/nix/store/v15x3avn20av9gk69crpm8n9mgnv37v1-agent-plugin-interfaces-1.19.2/share/agent-plugins/interfaces",
+      "dir": "/nix/store/bwgwk8ijkx51rdsfjrx65f9rp10j6b4j-agent-plugin-interfaces-1.20.0/share/agent-plugins/interfaces",
       "spec": "1.1.0",
-      "score": 71,
-      "status": "caution",
+      "score": 83,
+      "status": "incomplete",
       "coverage": {
         "scanned": [
           "skills/afk",
@@ -26,18 +26,12 @@
           "skills/explain-interface",
           "skills/interface-review",
           "skills/state-machine",
-          "skills/teardown",
           "skills/variant"
         ],
         "validated": [
           "plugin.json"
         ],
-        "notChecked": [
-          {
-            "path": "bin/",
-            "reason": "interpreter links into /nix/store"
-          }
-        ]
+        "notChecked": []
       },
       "components": [
         {
@@ -357,132 +351,6 @@
           "suppressed": []
         },
         {
-          "path": "skills/teardown",
-          "score": 71,
-          "risk": 29,
-          "status": "caution",
-          "partial": true,
-          "coverage": 70,
-          "exceptions": [
-            {
-              "reason": "reference_missing",
-              "path": "skills/teardown/SKILL.md",
-              "line": 26
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/teardown/SKILL.md",
-              "line": 40
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/teardown/SKILL.md",
-              "line": 64
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/teardown/assets/geometry.js",
-              "line": 0
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/teardown/assets/projection.js",
-              "line": 0
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/teardown/assets/sheet.js",
-              "line": 0
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/teardown/assets/viewer.js",
-              "line": 0
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/teardown/scripts/check-viewer.cjs",
-              "line": 0
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/teardown/scripts/proof.cjs",
-              "line": 0
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/teardown/scripts/test-flipbook.cjs",
-              "line": 0
-            },
-            {
-              "reason": "obfuscated_instruction_text",
-              "path": "skills/teardown/scripts/test-geometry.cjs",
-              "line": 0
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/teardown/scripts/test-geometry.cjs",
-              "line": 0
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/teardown/viewer-assets.md",
-              "line": 0
-            }
-          ],
-          "findings": [
-            {
-              "id": "OH1",
-              "severity": "HIGH",
-              "message": "Unvalidated Output Injection",
-              "file": "skills/teardown/assets/viewer.js",
-              "line": 110
-            }
-          ],
-          "suppressed": [
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "MCP Least Privilege",
-              "file": "skills/teardown/SKILL.md",
-              "line": 1,
-              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/teardown/SKILL.md",
-              "line": 64,
-              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/teardown/SKILL.md",
-              "line": 101,
-              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/teardown/SKILL.md",
-              "line": 119,
-              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/teardown/SKILL.md",
-              "line": 129,
-              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
-            }
-          ]
-        },
-        {
           "path": "skills/variant",
           "score": 100,
           "risk": 0,
@@ -496,15 +364,15 @@
       ]
     }
   ],
-  "score": 71,
-  "status": "caution",
+  "score": 83,
+  "status": "incomplete",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-10T03:21:31Z"
+      "checkedAt": "2026-11-12T21:04:20Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
