@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "google-cloud-developer",
-      "dir": "/nix/store/h7ydav2lkjrs8klr1capqzavkcmpw644-agent-plugin-google-cloud-developer-1.1.17/share/agent-plugins/google-cloud-developer",
+      "dir": "/nix/store/q0vjqlna7mg7q0s29i6ibd4ng9wvg79z-agent-plugin-google-cloud-developer-1.1.19/share/agent-plugins/google-cloud-developer",
       "spec": "1.1.0",
       "score": 26,
       "status": "do not install",
@@ -78,8 +78,8 @@
         },
         {
           "path": "skills/gcloud",
-          "score": 92,
-          "risk": 8,
+          "score": 80,
+          "risk": 20,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -92,21 +92,35 @@
             {
               "reason": "reference_missing",
               "path": "skills/gcloud/SKILL.md",
-              "line": 86
+              "line": 92
             },
             {
               "reason": "reference_missing",
               "path": "skills/gcloud/SKILL.md",
-              "line": 87
+              "line": 93
             }
           ],
           "findings": [
+            {
+              "id": "EA1",
+              "severity": "MEDIUM",
+              "message": "Unrestricted Tool Access",
+              "file": "skills/gcloud/SKILL.md",
+              "line": 36
+            },
+            {
+              "id": "EA1",
+              "severity": "MEDIUM",
+              "message": "Unrestricted Tool Access",
+              "file": "skills/gcloud/SKILL.md",
+              "line": 36
+            },
             {
               "id": "MP2",
               "severity": "MEDIUM",
               "message": "Context Window Stuffing",
               "file": "skills/gcloud/SKILL.md",
-              "line": 130
+              "line": 136
             }
           ],
           "suppressed": []
@@ -271,7 +285,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-05T21:22:15Z"
+      "checkedAt": "2026-11-12T19:32:22Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
