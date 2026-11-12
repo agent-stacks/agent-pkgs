@@ -1,0 +1,100 @@
+{
+  "name": "claude-for-manufacturing",
+  "version": "1.0.0",
+  "src": {
+    "owner": "anthropics",
+    "repo": "claude-plugins-official",
+    "rev": "e0ab6e51219eef74e417a0e1d89e5d53e5e763d4",
+    "hash": "sha256-7ddCmC7xM5NWxD4rfxUeUCzfK4H6lCgGmKG1l9hkppc="
+  },
+  "sourceUrl": "https://github.com/anthropics/claude-plugins-official",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "email": "support@anthropic.com",
+      "name": "Anthropic"
+    },
+    "description": "The manufacturing plugin. Skills for the work a plant actually runs on: joining the exports and systems into one dataset, quoting make-to-order jobs from drawings, writing nonconformances and 8Ds, diagnosing breakdowns, and reporting the morning numbers. Works with Microsoft 365, Oracle NetSuite, Infor M3 and Autodesk Fusion once connected, connects anything else through custom-connector, and runs on scheduled file exports when a system has no connector at all. Install and then ask Claude to help you get onboarded.",
+    "keywords": [
+      "8d",
+      "capa",
+      "cmms",
+      "erp",
+      "manufacturing",
+      "mes",
+      "nonconformance",
+      "oee",
+      "operations",
+      "production",
+      "quality",
+      "quoting",
+      "supply-chain"
+    ],
+    "name": "claude-for-manufacturing",
+    "version": "1.0.0"
+  },
+  "skills": {
+    "breakdown-diagnosis": "plugins/claude-for-manufacturing/skills/breakdown-diagnosis",
+    "breakdown-to-next-report": "plugins/claude-for-manufacturing/skills/breakdown-to-next-report",
+    "custom-connector": "plugins/claude-for-manufacturing/skills/custom-connector",
+    "customer-inquiry-intake": "plugins/claude-for-manufacturing/skills/customer-inquiry-intake",
+    "daily-production-report": "plugins/claude-for-manufacturing/skills/daily-production-report",
+    "data-consolidate": "plugins/claude-for-manufacturing/skills/data-consolidate",
+    "design-space-explore": "plugins/claude-for-manufacturing/skills/design-space-explore",
+    "inspection-to-capa": "plugins/claude-for-manufacturing/skills/inspection-to-capa",
+    "morning-plant-pulse": "plugins/claude-for-manufacturing/skills/morning-plant-pulse",
+    "ncr-writeup": "plugins/claude-for-manufacturing/skills/ncr-writeup",
+    "onboarding": "plugins/claude-for-manufacturing/skills/onboarding",
+    "quote-build": "plugins/claude-for-manufacturing/skills/quote-build",
+    "rfq-to-quote": "plugins/claude-for-manufacturing/skills/rfq-to-quote",
+    "root-cause-capa": "plugins/claude-for-manufacturing/skills/root-cause-capa",
+    "supplier-escape-to-alternate-source": "plugins/claude-for-manufacturing/skills/supplier-escape-to-alternate-source",
+    "supplier-quote-request": "plugins/claude-for-manufacturing/skills/supplier-quote-request",
+    "trade-study-report": "plugins/claude-for-manufacturing/skills/trade-study-report"
+  },
+  "requiredRuntimes": [],
+  "dependencies": [
+    "pyright",
+    "clang-tools",
+    "jdt-language-server"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "mcpServers": {
+    "fusion": {
+      "type": "streamable-http",
+      "url": "http://127.0.0.1:${FUSION_MCP_PORT:-27182}/mcp"
+    }
+  },
+  "meta": {
+    "description": "The manufacturing plugin",
+    "homepage": "https://github.com/anthropics/claude-plugins-official"
+  },
+  "import": {
+    "input": "anthropics/claude-plugins-official",
+    "flags": [
+      "--dependency=pyright",
+      "--dependency=clang-tools",
+      "--dependency=jdt-language-server",
+      "--path-ignore=external_plugins/context7",
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "plugins/claude-for-manufacturing/.mcp.json/mcpServers/fusion",
+        "message": "url or headers carry ${FUSION_MCP_PORT:-27182}; a conforming client does not expand them and sends the text as written"
+      },
+      {
+        "path": "skills/morning-plant-pulse/scripts/pulse_compute.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/morning-plant-pulse/scripts/render_short.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      }
+    ]
+  }
+}
