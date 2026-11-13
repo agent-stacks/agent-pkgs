@@ -4,8 +4,8 @@
   "src": {
     "owner": "microsoft",
     "repo": "power-platform-skills",
-    "rev": "0eb041a16772a5adf89f5a78632154765569f552",
-    "hash": "sha256-6pm3EmXRcbZqrZHsDuiahTJrjKveo5Xe9Gd3xEoI3xI="
+    "rev": "01d846cbe2f16abcd22b3ccb1fc7b50e28811fdc",
+    "hash": "sha256-03C+93X7ylNsqkjJEFrrVBc+URjZ3GijI+35Jae0fNE="
   },
   "sourceUrl": "https://github.com/microsoft/power-platform-skills",
   "manifest": {
@@ -60,20 +60,6 @@
   "pluginRootPaths": {
     "com.anthropic.claude-code/agents": "plugins/code-apps/agents",
     "com.anthropic.claude-code/hooks": "plugins/code-apps/hooks"
-  },
-  "hooks": {
-    "PreToolUse": [
-      {
-        "hooks": [
-          {
-            "command": "node -e 'try{const path=require(process.argv[1]);const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT;if(!root)throw new Error(process.argv[3]);process.argv[1]=undefined;require(path.resolve(root,process.argv[2]))}catch(error){console.error(process.argv[4]+error.message)}' node:path hooks/set-cli-origin.js 'Plugin root is not set' '[code-apps] CLI attribution was not applied: '",
-            "timeout": 10,
-            "type": "command"
-          }
-        ],
-        "matcher": "Bash|bash|sh|powershell|PowerShell|pwsh"
-      }
-    ]
   },
   "meta": {
     "description": "Build and deploy Power Apps code apps using React, Vite, and Power Platform connectors",
@@ -145,10 +131,6 @@
       {
         "path": "plugins/code-apps/skills/report-issue/SKILL.md",
         "message": "unknown frontmatter fields: argument-hint, model, user-invocable"
-      },
-      {
-        "path": "plugins/code-apps/hooks/hooks.json",
-        "message": "Claude Code runs this on PreToolUse: node -e 'try{const path=require(process.argv[1]);const root=process.env.PLUGIN_ROOT||process.env.CLAUDE_PLUGIN_ROOT;if(!root)throw new Error(process.argv[3]);process.argv[1]=undefined;require(path.resolve(root,process.argv[2]))}catch(error){console.error(process.argv[4]+error.message)}' node:path hooks/set-cli-origin.js 'Plugin root is not set' '[code-apps] CLI attribution was not applied: '"
       }
     ]
   }
