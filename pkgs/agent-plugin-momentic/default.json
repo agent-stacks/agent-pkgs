@@ -4,8 +4,8 @@
   "src": {
     "owner": "momentic-ai",
     "repo": "skills",
-    "rev": "f864c6fb5dba8041a5351f8eaae7381b0dea9b77",
-    "hash": "sha256-bTkYbJERVGxARQ/QPt945JkqrONCVRfU2EBC9xPDQp4="
+    "rev": "79a788a4f8b0d7f7f9c2e3f5aac1895857e8c596",
+    "hash": "sha256-gCIGD1nv7PZNrIk13yAdE73fvCCSekdLEDKHEfga3wA="
   },
   "sourceUrl": "https://github.com/momentic-ai/skills",
   "manifest": {
@@ -41,21 +41,26 @@
     "momentic-test": "skills/momentic-test"
   },
   "requiredRuntimes": [
-    "npx"
+    "node"
   ],
   "defaultDependencies": [
     "bash",
     "python3",
     "nodejs"
   ],
+  "pluginRootPaths": {
+    "local-mcp.cjs": "local-mcp.cjs"
+  },
   "mcpServers": {
     "momentic": {
       "args": [
-        "-y",
-        "momentic",
-        "mcp"
+        "${PLUGIN_ROOT}/local-mcp.cjs",
+        "momentic@3.73.0"
       ],
-      "command": "npx",
+      "command": "node",
+      "env": {
+        "MOMENTIC_PLUGIN_API_KEY": "${user_config.MOMENTIC_API_KEY}"
+      },
       "type": "stdio"
     },
     "momentic-hosted": {
@@ -64,11 +69,13 @@
     },
     "momentic-mobile": {
       "args": [
-        "-y",
-        "momentic-mobile",
-        "mcp"
+        "${PLUGIN_ROOT}/local-mcp.cjs",
+        "momentic-mobile@1.46.0"
       ],
-      "command": "npx",
+      "command": "node",
+      "env": {
+        "MOMENTIC_PLUGIN_API_KEY": "${user_config.MOMENTIC_API_KEY}"
+      },
       "type": "stdio"
     }
   },
