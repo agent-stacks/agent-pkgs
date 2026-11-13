@@ -12,7 +12,8 @@
 #     plugins names (read from CLAUDE_CODE_PLUGIN_DIRS, which launch
 #     sets for the agent);
 #   - ~/.ssh denied; the project, /tmp and Claude's state writable;
-#   - on macOS, allowPty and /private/tmp (srt does not follow /tmp);
+#   - on macOS, allowPty, /private/tmp (srt does not follow /tmp) and
+#     the pasteboard service, so copying out of the agent works;
 #   - the agent's temp folder made, which srt names but does not create;
 #   - and it refuses to start at / or ~, where "." would open everything;
 #   - the caller's options, each a list added to the above.
@@ -96,6 +97,8 @@
     # macOS: Claude's terminal cannot go raw without allowPty, and srt
     # does not follow the /tmp -> /private/tmp link, so "/tmp" alone
     # leaves Claude's Bash tool unable to make its working folder.
+    # pbcopy fails without the pasteboard service and Claude does not
+    # report it, so /copy and copying from its screen copy nothing.
     darwin=false
     [ "$(uname -s)" = Darwin ] && darwin=true
 
@@ -105,10 +108,10 @@
 
     settings=$(mktemp "''${TMPDIR:-/tmp}/agent-sandbox-srt.XXXXXX")
     jq -n --argjson o "$opts" --argjson mcp "$mcp_hosts" --argjson darwin "$darwin" --arg bwrap "$bwrap" '{
-      network: {
+      network: ({
         allowedDomains: (["api.anthropic.com", "platform.claude.com"] + $mcp + ($o.allowedDomains // []) | unique),
         deniedDomains: []
-      },
+      } + (if $darwin then {allowMachLookup: ["com.apple.pasteboard.1"]} else {} end)),
       filesystem: {
         denyRead: (["~/.ssh"] + ($o.denyRead // []) | unique),
         allowWrite: ([".", "/tmp", "~/.claude", "~/.claude.json", "~/.claude.json.lock"]
