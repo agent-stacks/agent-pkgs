@@ -438,7 +438,19 @@
               jq -e '.network.allowedDomains | index("example.com") and index("api.anthropic.com")' o.json
               jq -e '(.filesystem.allowWrite | index("/data")) and (.filesystem.denyRead | index("~/.aws"))' o.json
 
-              for bad in '[1]' '{"allowedDomains":"x"}' '{"allowedDomains":[1]}' '{"other":[]}' '{nope'; do
+              # A switch is off unless true, and one that is on is named on
+              # stderr: gh and flox cannot verify a certificate on macOS without this one.
+              jq -es 'all(.[]; has("enableWeakerNetworkIsolation") | not)' s.json o.json
+              if grep -q 'enableWeakerNetworkIsolation' cmd; then echo "named a switch that is off"; exit 1; fi
+              ${srt} --options '{"enableWeakerNetworkIsolation":false}' -- true > f.json 2>notes
+              jq -e 'has("enableWeakerNetworkIsolation") | not' f.json
+              if grep -q 'enableWeakerNetworkIsolation' notes; then echo "named a switch that is off"; exit 1; fi
+              ${srt} --options '{"enableWeakerNetworkIsolation":true}' -- true > w.json 2>notes
+              jq -e '.enableWeakerNetworkIsolation == true' w.json
+              grep -q 'enableWeakerNetworkIsolation is on' notes
+
+              for bad in '[1]' '{"allowedDomains":"x"}' '{"allowedDomains":[1]}' '{"allowedDomains":true}' \
+                '{"enableWeakerNetworkIsolation":"yes"}' '{"enableWeakerNetworkIsolation":[true]}' '{"other":[]}' '{nope'; do
                 if ${srt} --options "$bad" -- true >/dev/null 2>err; then echo "accepted $bad"; exit 1; fi
                 [ -s err ] || { echo "no reason for $bad"; exit 1; }
               done

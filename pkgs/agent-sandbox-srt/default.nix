@@ -15,7 +15,9 @@
 #   - on macOS, allowPty and /private/tmp (srt does not follow /tmp);
 #   - the agent's temp folder made, which srt names but does not create;
 #   - and it refuses to start at / or ~, where "." would open everything;
-#   - the caller's options, each a list added to the above.
+#   - the caller's options: lists added to the above, and switches that
+#     are off unless true. A switch weakens the sandbox, so each one
+#     that is on is named on stderr at every launch.
 #
 # Found by James Bayer's tests (agent-stacks-sandbox-lab) and recorded in
 # spec proposal 0001, appendix A. AGENT_SANDBOX_SRT_DRY_RUN=1 prints the
@@ -42,7 +44,9 @@
     # Linux: the bwrap srt runs, named so the AppArmor fix below can name
     # it too. The same one nixpkgs' srt puts first on its PATH.
     bwrap=${lib.optionalString stdenv.hostPlatform.isLinux (lib.getExe' bubblewrap "bwrap")}
-    keys='["allowedDomains", "allowWrite", "denyRead"]'
+    # The options: lists of strings, and switches that are true or false.
+    lists='["allowedDomains", "allowWrite", "denyRead"]'
+    switches='["enableWeakerNetworkIsolation"]'
 
     opts="{}"
     while [ $# -gt 0 ]; do
@@ -76,10 +80,15 @@
 
     jq -e 'type == "object"' >/dev/null 2>&1 <<<"$opts" ||
       die "options must be a JSON object, got: $opts"
-    unknown=$(jq -r --argjson k "$keys" 'keys - $k | join(", ")' <<<"$opts")
-    [ -z "$unknown" ] || die "unknown option: $unknown (srt takes $(jq -r 'join(", ")' <<<"$keys"))"
-    bad=$(jq -r 'to_entries[] | select((.value | type) != "array" or any(.value[]; type != "string")) | .key' <<<"$opts")
+    known=$(jq -cn --argjson l "$lists" --argjson s "$switches" '$l + $s')
+    unknown=$(jq -r --argjson k "$known" 'keys - $k | join(", ")' <<<"$opts")
+    [ -z "$unknown" ] || die "unknown option: $unknown (srt takes $(jq -r 'join(", ")' <<<"$known"))"
+    bad=$(jq -r --argjson l "$lists" '[to_entries[] | select(.key | IN($l[]))
+      | select((.value | type) != "array" or any(.value[]; type != "string")) | .key] | join(", ")' <<<"$opts")
     [ -z "$bad" ] || die "option $bad must be a list of strings"
+    bad=$(jq -r --argjson s "$switches" '[to_entries[] | select(.key | IN($s[]))
+      | select((.value | type) != "boolean") | .key] | join(", ")' <<<"$opts")
+    [ -z "$bad" ] || die "option $bad must be true or false"
 
     # Every host the staged plugins' MCP servers reach.
     mcp_hosts="[]"
@@ -116,7 +125,14 @@
         denyWrite: []
       }
     } + (if $darwin then {allowPty: true} else {} end)
+      + (if $o.enableWeakerNetworkIsolation == true then {enableWeakerNetworkIsolation: true} else {} end)
       + (if $bwrap != "" then {bwrapPath: $bwrap} else {} end)' >"$settings"
+
+    # A stack can carry its options, so the person at the terminal may
+    # not have chosen them: say what is on that weakens the sandbox.
+    if jq -e '.enableWeakerNetworkIsolation == true' "$settings" >/dev/null; then
+      echo "agent-sandbox-srt: enableWeakerNetworkIsolation is on: gh, flox and other programs that verify certificates through macOS can do so, and data can leave through its trust service" >&2
+    fi
 
     if [ -n "''${AGENT_SANDBOX_SRT_DRY_RUN:-}" ]; then
       cat "$settings"
