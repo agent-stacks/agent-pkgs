@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "ouroboros",
-      "dir": "/nix/store/sm33sy25yzx1gdf0kpyy9qfka7qcsk54-agent-plugin-ouroboros-0.59.9/share/agent-plugins/ouroboros",
+      "dir": "/nix/store/yi3zkqwndrar49166hzv30jsyil06fjx-agent-plugin-ouroboros-0.59.9/share/agent-plugins/ouroboros",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -71,7 +71,7 @@
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 84,
+          "coverage": 85.2,
           "exceptions": [
             {
               "reason": "static_parse_limit",
@@ -171,6 +171,20 @@
               "message": "subprocess module call",
               "file": "scripts/check-auto-perf-budget.py",
               "line": 176
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/check-doc-impact.py",
+              "line": 304
+            },
+            {
+              "id": "TT2",
+              "severity": "MEDIUM",
+              "message": "Tainted flow: 'summary_path' from os.environ.get (line 475, credential/environment) → open (file write)",
+              "file": "scripts/check-doc-impact.py",
+              "line": 478
             },
             {
               "id": "AST4",
@@ -483,13 +497,20 @@
         },
         {
           "path": "skills/help",
-          "score": 48,
-          "risk": 52,
+          "score": 30,
+          "risk": 70,
           "status": "do not install",
           "partial": false,
           "coverage": 100,
           "exceptions": [],
           "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/help/TROUBLESHOOTING.md",
+              "line": 56
+            },
             {
               "id": "RA1",
               "severity": "HIGH",
@@ -1051,52 +1072,57 @@
           "risk": 67,
           "status": "do not install",
           "partial": true,
-          "coverage": 100,
+          "coverage": 80,
           "exceptions": [
             {
               "reason": "reference_missing",
               "path": "skills/welcome/SKILL.md",
-              "line": 88
+              "line": 79
             },
             {
               "reason": "reference_missing",
               "path": "skills/welcome/SKILL.md",
-              "line": 151
+              "line": 102
             },
             {
               "reason": "reference_missing",
               "path": "skills/welcome/SKILL.md",
-              "line": 160
+              "line": 121
             },
             {
               "reason": "reference_missing",
               "path": "skills/welcome/SKILL.md",
-              "line": 259
+              "line": 129
             },
             {
               "reason": "reference_missing",
               "path": "skills/welcome/SKILL.md",
-              "line": 325
+              "line": 135
             },
             {
               "reason": "reference_missing",
               "path": "skills/welcome/SKILL.md",
-              "line": 386
+              "line": 155
             },
             {
               "reason": "reference_missing",
               "path": "skills/welcome/SKILL.md",
-              "line": 426
+              "line": 161
             },
             {
               "reason": "reference_missing",
               "path": "skills/welcome/SKILL.md",
-              "line": 432
+              "line": 168
             },
             {
               "reason": "reference_missing",
               "path": "skills/welcome/SKILL.md",
-              "line": 503
+              "line": 253
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/welcome/scripts/welcome_state.py",
+              "line": 0
             }
           ],
           "findings": [
@@ -1112,31 +1138,56 @@
               "severity": "HIGH",
               "message": "MCP Config Access",
               "file": "skills/welcome/SKILL.md",
-              "line": 85
+              "line": 97
             },
             {
               "id": "AS2",
               "severity": "HIGH",
               "message": "MCP Config Access",
               "file": "skills/welcome/SKILL.md",
-              "line": 639
+              "line": 214
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/welcome/SKILL.md",
-              "line": 382
+              "line": 109
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/welcome/SKILL.md",
-              "line": 602
+              "line": 177
             }
           ],
-          "suppressed": []
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/welcome/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/welcome/SKILL.md",
+              "line": 57,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/welcome/SKILL.md",
+              "line": 59,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
+          ]
         }
       ]
     }
@@ -1149,7 +1200,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-12T18:53:37Z"
+      "checkedAt": "2026-11-13T06:39:58Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
