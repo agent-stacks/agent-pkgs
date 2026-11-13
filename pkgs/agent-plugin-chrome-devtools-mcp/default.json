@@ -1,0 +1,70 @@
+{
+  "name": "chrome-devtools-mcp",
+  "version": "1.13.0",
+  "src": {
+    "owner": "ChromeDevTools",
+    "repo": "chrome-devtools-mcp",
+    "rev": "142498080a6128a0b6389e9b33811182e6e050a6",
+    "hash": "sha256-EPfYgqOxcYxEbxPxOJXC6GLynmWKTyUYkPmHNSMIzOY="
+  },
+  "sourceUrl": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Google Chrome",
+      "url": "https://developer.chrome.com/"
+    },
+    "description": "Reliable Chrome automation, debugging, and performance analysis for AI agents.",
+    "homepage": "https://developer.chrome.com/docs/devtools/agents",
+    "keywords": [
+      "browser",
+      "chrome",
+      "debugging",
+      "mcp",
+      "performance"
+    ],
+    "license": "Apache-2.0",
+    "name": "chrome-devtools-mcp",
+    "repository": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+    "version": "1.13.0"
+  },
+  "skills": {
+    "a11y-debugging": "skills/a11y-debugging",
+    "chrome-devtools": "skills/chrome-devtools",
+    "chrome-devtools-cli": "skills/chrome-devtools-cli",
+    "cookie-debugging": "skills/cookie-debugging",
+    "debug-optimize-lcp": "skills/debug-optimize-lcp",
+    "inspect-in-devtools": "skills/inspect-in-devtools",
+    "memory-leak-debugging": "skills/memory-leak-debugging",
+    "troubleshooting": "skills/troubleshooting"
+  },
+  "requiredRuntimes": [
+    "npx"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "mcpServers": {
+    "chrome-devtools": {
+      "args": [
+        "--prefix",
+        "${PLUGIN_DATA}",
+        "chrome-devtools-mcp@1.13.0"
+      ],
+      "command": "npx",
+      "type": "stdio"
+    }
+  },
+  "meta": {
+    "description": "Reliable Chrome automation, debugging, and performance analysis for AI agents",
+    "homepage": "https://github.com/ChromeDevTools/chrome-devtools-mcp"
+  },
+  "import": {
+    "input": "ChromeDevTools/chrome-devtools-mcp",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ]
+  }
+}
