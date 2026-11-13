@@ -474,8 +474,26 @@
               jq -e '.enableWeakerNetworkIsolation == true' w.json
               grep -q 'enableWeakerNetworkIsolation is on' notes
 
+              # A socket reaches something outside the sandbox, so the paths
+              # are named, and the Nix daemon by name: it can reach any host.
+              # srt reads the paths on macOS only, and Linux is told so.
+              jq -es 'all(.[]; .network | has("allowUnixSockets") | not)' s.json o.json
+              if grep -q -i 'socket' cmd; then echo "named sockets when none are allowed"; exit 1; fi
+              ${srt} --options '{"allowUnixSockets":["/var/run/docker.sock"]}' -- true > u.json 2>notes
+              jq -e '.network.allowUnixSockets == ["/var/run/docker.sock"]' u.json
+              if grep -q 'Nix daemon' notes; then echo "named the Nix daemon without its socket"; exit 1; fi
+              if [ "$(uname -s)" = Darwin ]; then grep -q 'Unix sockets allowed: /var/run/docker.sock' notes; fi
+              if [ "$(uname -s)" = Linux ]; then grep -q 'no effect on Linux' notes; fi
+              for nix in /nix/var/nix/daemon-socket/socket /nix/var/nix/daemon-socket; do
+                ${srt} --options "{\"allowUnixSockets\":[\"$nix\"]}" -- true > n.json 2>notes
+                jq -e --arg p "$nix" '.network.allowUnixSockets == [$p]' n.json
+                if [ "$(uname -s)" = Darwin ]; then grep -q 'the Nix daemon is reachable' notes; fi
+                if [ "$(uname -s)" = Linux ] && grep -q 'Nix daemon' notes; then echo "said the Nix daemon is reachable on Linux"; exit 1; fi
+              done
+
               for bad in '[1]' '{"allowedDomains":"x"}' '{"allowedDomains":[1]}' '{"allowedDomains":true}' \
-                '{"enableWeakerNetworkIsolation":"yes"}' '{"enableWeakerNetworkIsolation":[true]}' '{"other":[]}' '{nope'; do
+                '{"enableWeakerNetworkIsolation":"yes"}' '{"enableWeakerNetworkIsolation":[true]}' '{"other":[]}' '{nope' \
+                '{"allowUnixSockets":"/var/run/docker.sock"}'; do
                 if ${srt} --options "$bad" -- true >/dev/null 2>err; then echo "accepted $bad"; exit 1; fi
                 [ -s err ] || { echo "no reason for $bad"; exit 1; }
               done

@@ -48,7 +48,7 @@
     # it too. The same one nixpkgs' srt puts first on its PATH.
     bwrap=${lib.optionalString stdenv.hostPlatform.isLinux (lib.getExe' bubblewrap "bwrap")}
     # The options: lists of strings, and switches that are true or false.
-    lists='["allowedDomains", "allowWrite", "denyRead"]'
+    lists='["allowedDomains", "allowUnixSockets", "allowWrite", "denyRead"]'
     switches='["enableWeakerNetworkIsolation"]'
 
     opts="{}"
@@ -143,12 +143,26 @@
       }
     } + (if $darwin then {allowPty: true} else {} end)
       + (if $o.enableWeakerNetworkIsolation == true then {enableWeakerNetworkIsolation: true} else {} end)
-      + (if $bwrap != "" then {bwrapPath: $bwrap} else {} end)' >"$settings"
+      + (if $bwrap != "" then {bwrapPath: $bwrap} else {} end)
+      | .network += (($o.allowUnixSockets // []) | if length > 0 then {allowUnixSockets: unique} else {} end)' >"$settings"
 
     # A stack can carry its options, so the person at the terminal may
     # not have chosen them: say what is on that weakens the sandbox.
     if jq -e '.enableWeakerNetworkIsolation == true' "$settings" >/dev/null; then
       echo "agent-sandbox-srt: enableWeakerNetworkIsolation is on: flox and other programs that verify certificates through macOS can do so, and data can leave through its trust service" >&2
+    fi
+    # What listens on a socket runs outside the sandbox. The Nix daemon
+    # is named because it is the one that undoes the allow list: it
+    # fetches from, and its builds can send to, any host. srt allows a
+    # path and everything under it, hence the prefix match.
+    sockets=$(jq -r '.network.allowUnixSockets // [] | join(", ")' "$settings")
+    if [ -n "$sockets" ] && [ "$darwin" = false ]; then
+      echo "agent-sandbox-srt: allowUnixSockets has no effect on Linux, where srt cannot allow a socket by its path" >&2
+    elif [ -n "$sockets" ]; then
+      echo "agent-sandbox-srt: Unix sockets allowed: $sockets: what listens on one runs outside the sandbox" >&2
+      if jq -e '.network.allowUnixSockets | any(. as $p | "/nix/var/nix/daemon-socket/socket" | startswith($p))' "$settings" >/dev/null; then
+        echo "agent-sandbox-srt: the Nix daemon is reachable: it runs outside the sandbox and can reach any host, so the allow list no longer limits what leaves this session" >&2
+      fi
     fi
 
     if [ -n "''${AGENT_SANDBOX_SRT_DRY_RUN:-}" ]; then
