@@ -4,8 +4,8 @@
   "src": {
     "owner": "Q00",
     "repo": "ouroboros",
-    "rev": "f2165bab2a65e8a4eeba4de204b89d696c0d0c32",
-    "hash": "sha256-gMcmtQE1qMIo+CAVFwnLXw+tNkCVOarVjBzkQcmp/88="
+    "rev": "515c0f70fc56bb2f585b69455f8193155460c899",
+    "hash": "sha256-3gN+Z0XYPA+NatOa2fF8Pgrr8jtxWMGgNCRuoo4/eXs="
   },
   "sourceUrl": "https://github.com/Q00/ouroboros",
   "manifest": {
@@ -232,6 +232,22 @@
       {
         "path": "hooks/hooks.json",
         "message": "Claude Code runs this on UserPromptSubmit: ROOT=\"${PLUGIN_ROOT:-${CLAUDE_PLUGIN_ROOT:-}}\"; if [ -z \"$ROOT\" ]; then printf '%s\\n' 'Ouroboros hook skipped: plugin root is unavailable.' >&2; exit 0; fi; SCRIPT=\"$ROOT/scripts/keyword-detector.py\"; if [ ! -r \"$SCRIPT\" ]; then printf '%s\\n' \"Ouroboros hook skipped: $SCRIPT is unavailable.\" >&2; exit 0; fi; if command -v python3 >/dev/null 2>&1; then PYTHON=python3; elif command -v python >/dev/null 2>&1; then PYTHON=python; else printf '%s\\n' 'Ouroboros hook skipped: Python is unavailable.' >&2; exit 0; fi; \"$PYTHON\" \"$SCRIPT\" || { STATUS=$?; printf '%s\\n' \"Ouroboros hook failed open: $SCRIPT exited with code $STATUS.\" >&2; exit 0; }"
+      },
+      {
+        "path": "skills/welcome/scripts/migrate_codex_models.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/welcome/scripts/record_codex_model_migration.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/welcome/scripts/record_welcome_completed.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/welcome/scripts/welcome_state.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
         "path": "pyproject.toml",
