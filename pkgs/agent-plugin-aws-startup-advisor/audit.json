@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "aws-startup-advisor",
-      "dir": "/nix/store/70liqlqlh5kwljmch0877sbixghxsv5x-agent-plugin-aws-startup-advisor-2.0.3/share/agent-plugins/aws-startup-advisor",
+      "dir": "/nix/store/da38hxnc05iigc6jmnnbyx1yhvbm9slr-agent-plugin-aws-startup-advisor-2.0.3/share/agent-plugins/aws-startup-advisor",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -191,7 +191,7 @@
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "com.anthropic.claude-code/agents/llm2bedrock-report-generator.md",
-              "line": 679
+              "line": 682
             },
             {
               "id": "EA2",
@@ -680,7 +680,7 @@
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 86.2,
+          "coverage": 82.2,
           "exceptions": [
             {
               "reason": "static_parse_limit",
@@ -750,7 +750,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/agent-advisor/SKILL.md",
-              "line": 188
+              "line": 189
             },
             {
               "reason": "static_parse_limit",
@@ -783,8 +783,23 @@
               "line": 0
             },
             {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/agent-advisor/scripts/anthropic_model_recommendation.py",
+              "line": 0
+            },
+            {
               "reason": "static_parse_limit",
               "path": "skills/agent-advisor/scripts/model_recommendation.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/agent-advisor/scripts/test_model_refresh_a2.py",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/agent-advisor/scripts/test_openai_model_recommendation.py",
               "line": 0
             },
             {
@@ -809,12 +824,22 @@
             },
             {
               "reason": "static_parse_limit",
+              "path": "skills/agent-advisor/scripts/test_runtime_default_docs.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
               "path": "skills/agent-advisor/scripts/test_temporal_decision_refs.py",
               "line": 0
             },
             {
               "reason": "static_parse_limit",
               "path": "skills/agent-advisor/scripts/test_unit_grouping.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/agent-advisor/scripts/test_verify_model_path.py",
               "line": 0
             }
           ],
@@ -867,6 +892,13 @@
               "message": "Dangerous chain: exec() wrapping compile",
               "file": "skills/agent-advisor/scripts/test_opus55_generation_contracts.py",
               "line": 386
+            },
+            {
+              "id": "AST8",
+              "severity": "CRITICAL",
+              "message": "Dangerous chain: exec() wrapping compile",
+              "file": "skills/agent-advisor/scripts/test_runtime_default_docs.py",
+              "line": 97
             },
             {
               "id": "PE3",
@@ -964,7 +996,7 @@
               "severity": "HIGH",
               "message": "Context Leakage",
               "file": "skills/agent-advisor/scripts/anthropic_model_recommendation.py",
-              "line": 209
+              "line": 224
             },
             {
               "id": "AST1",
@@ -1084,6 +1116,13 @@
               "message": "exec() call detected",
               "file": "skills/agent-advisor/scripts/test_opus55_generation_contracts.py",
               "line": 386
+            },
+            {
+              "id": "AST1",
+              "severity": "HIGH",
+              "message": "exec() call detected",
+              "file": "skills/agent-advisor/scripts/test_runtime_default_docs.py",
+              "line": 97
             },
             {
               "id": "MP2",
@@ -1454,14 +1493,14 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/agent-advisor/references/phases/model-recommend/model-recommend.md",
-              "line": 141
+              "line": 217
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/agent-advisor/references/phases/poc/poc.md",
-              "line": 659
+              "line": 663
             },
             {
               "id": "AE4",
@@ -1475,7 +1514,7 @@
               "severity": "MEDIUM",
               "message": "Behavior Manipulation",
               "file": "skills/agent-advisor/scripts/openai_model_recommendation.py",
-              "line": 485
+              "line": 726
             },
             {
               "id": "AST6",
@@ -1534,6 +1573,13 @@
               "line": 386
             },
             {
+              "id": "AST6",
+              "severity": "MEDIUM",
+              "message": "compile() call detected",
+              "file": "skills/agent-advisor/scripts/test_runtime_default_docs.py",
+              "line": 97
+            },
+            {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
@@ -1570,7 +1616,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/agent-advisor/SKILL.md",
-              "line": 165,
+              "line": 166,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -1578,7 +1624,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/agent-advisor/SKILL.md",
-              "line": 169,
+              "line": 170,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -1586,7 +1632,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/agent-advisor/SKILL.md",
-              "line": 171,
+              "line": 172,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -1594,7 +1640,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/agent-advisor/SKILL.md",
-              "line": 179,
+              "line": 180,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -2089,6 +2135,14 @@
               "id": "P9",
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
+              "file": "skills/agent-advisor/references/vendored/ai/bedrock-endpoint-policy.md",
+              "line": 41,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
               "file": "skills/agent-advisor/references/vendored/dsl/INTERPRETER.md",
               "line": 19,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
@@ -2330,7 +2384,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/agent-advisor/SKILL.md",
-              "line": 166,
+              "line": 167,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
@@ -2338,15 +2392,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/agent-advisor/SKILL.md",
-              "line": 172,
-              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/agent-advisor/SKILL.md",
-              "line": 180,
+              "line": 173,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
@@ -2362,7 +2408,15 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/agent-advisor/SKILL.md",
-              "line": 183,
+              "line": 182,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/agent-advisor/SKILL.md",
+              "line": 184,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
@@ -14590,54 +14644,6 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
-              "line": 526,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
-              "line": 526,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
-              "line": 530,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
-              "line": 531,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
-              "line": 543,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
-              "line": 545,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
               "line": 548,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
@@ -14646,7 +14652,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
-              "line": 550,
+              "line": 548,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -14670,7 +14676,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
-              "line": 554,
+              "line": 565,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -14678,7 +14684,55 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
-              "line": 555,
+              "line": 567,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
+              "line": 570,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
+              "line": 572,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
+              "line": 574,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
+              "line": 575,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
+              "line": 576,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/gcp-to-aws/references/phases/design/design-ai.md",
+              "line": 577,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -24936,7 +24990,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-12T23:33:29Z"
+      "checkedAt": "2026-11-13T00:48:41Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
