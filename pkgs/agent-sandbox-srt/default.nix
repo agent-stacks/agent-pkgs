@@ -49,7 +49,7 @@
     bwrap=${lib.optionalString stdenv.hostPlatform.isLinux (lib.getExe' bubblewrap "bwrap")}
     # The options: lists of strings, and switches that are true or false.
     lists='["allowedDomains", "allowUnixSockets", "allowWrite", "denyRead"]'
-    switches='["enableWeakerNetworkIsolation"]'
+    switches='["allowLocalBinding", "enableWeakerNetworkIsolation"]'
 
     opts="{}"
     while [ $# -gt 0 ]; do
@@ -144,12 +144,18 @@
     } + (if $darwin then {allowPty: true} else {} end)
       + (if $o.enableWeakerNetworkIsolation == true then {enableWeakerNetworkIsolation: true} else {} end)
       + (if $bwrap != "" then {bwrapPath: $bwrap} else {} end)
-      | .network += (($o.allowUnixSockets // []) | if length > 0 then {allowUnixSockets: unique} else {} end)' >"$settings"
+      | .network += (($o.allowUnixSockets // []) | if length > 0 then {allowUnixSockets: unique} else {} end)
+      | .network += (if $o.allowLocalBinding == true then {allowLocalBinding: true} else {} end)' >"$settings"
 
     # A stack can carry its options, so the person at the terminal may
     # not have chosen them: say what is on that weakens the sandbox.
     if jq -e '.enableWeakerNetworkIsolation == true' "$settings" >/dev/null; then
       echo "agent-sandbox-srt: enableWeakerNetworkIsolation is on: flox and other programs that verify certificates through macOS can do so, and data can leave through its trust service" >&2
+    fi
+    # Linux is not told: the sandbox has its own loopback there, and srt
+    # ignores the switch.
+    if [ "$darwin" = true ] && jq -e '.network.allowLocalBinding == true' "$settings" >/dev/null; then
+      echo "agent-sandbox-srt: allowLocalBinding is on: programs can listen on local ports, and can reach every service on localhost, including a proxy that forwards off this machine" >&2
     fi
     # What listens on a socket runs outside the sandbox. The Nix daemon
     # is named because it is the one that undoes the allow list: it
