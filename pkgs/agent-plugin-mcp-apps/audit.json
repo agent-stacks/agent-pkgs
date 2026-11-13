@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "mcp-apps",
-      "dir": "/nix/store/jpqd1g4siy2w85adipwijwxgmjsqbavd-agent-plugin-mcp-apps-1.2.0/share/agent-plugins/mcp-apps",
+      "dir": "/nix/store/74hkv46qyi76byhpadk5wbvqznjm873f-agent-plugin-mcp-apps-1.2.0/share/agent-plugins/mcp-apps",
       "spec": "1.1.0",
       "score": 79,
       "status": "caution",
@@ -65,8 +65,8 @@
         },
         {
           "path": "scripts",
-          "score": 100,
-          "risk": 0,
+          "score": 90,
+          "risk": 10,
           "status": "incomplete",
           "partial": true,
           "coverage": 60,
@@ -82,7 +82,22 @@
               "line": 0
             }
           ],
-          "findings": [],
+          "findings": [
+            {
+              "id": "SC4",
+              "severity": "MEDIUM",
+              "message": "Known Vulnerable Dependency: @hono/node-server==2.1.5 — 2 advisory(ies): CVE-2026-126210 (@hono/node-server: Backslash in the request path is parsed as a path separator, ); CVE-2026-126343 (@hono/node-server: Unhandled `ECONNRESET` on the socket during an asynchronous W)",
+              "file": "scripts/_vendor-build/package-lock.json",
+              "line": 442
+            },
+            {
+              "id": "SC4",
+              "severity": "MEDIUM",
+              "message": "Known Vulnerable Dependency: hono==4.13.13 — 5 advisory(ies): CVE-2026-126359 (Hono: `css` helper does not escape a closing tag split between the template and ); CVE-2026-126355 (Hono: `csrf()` does not check requests sent by hyperlink auditing (`text/ping`)); CVE-2026-126356 (Hono: `validator('form')` skips validation for `multipart/form-data` requests wi) +2 more",
+              "file": "scripts/_vendor-build/package-lock.json",
+              "line": 1094
+            }
+          ],
           "suppressed": []
         },
         {
@@ -243,7 +258,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-04T23:25:54Z"
+      "checkedAt": "2026-11-13T03:39:56Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
