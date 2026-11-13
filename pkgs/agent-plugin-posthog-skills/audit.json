@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "posthog-skills",
-      "dir": "/nix/store/p3wfgs166xxblc3n1z7axg7ryj7bbbka-agent-plugin-posthog-skills-0.0.0-unstable.2026-11-12.g21c028c/share/agent-plugins/posthog-skills",
+      "dir": "/nix/store/vmd0glra2ny5bz8hxy6lmh4758s61vfm-agent-plugin-posthog-skills-0.0.0-unstable.2026-11-13.gf87c8af/share/agent-plugins/posthog-skills",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -282,6 +282,7 @@
           "skills/sending-transactional-emails",
           "skills/setting-up-a-custom-rest-source",
           "skills/setting-up-a-data-warehouse-source",
+          "skills/setting-up-ai-visibility",
           "skills/setting-up-data-catalog",
           "skills/setting-up-supabase-auth-emails",
           "skills/setting-up-warehouse-properties",
@@ -4589,8 +4590,8 @@
         },
         {
           "path": "skills/diagnosing-failed-warehouse-syncs",
-          "score": 100,
-          "risk": 0,
+          "score": 92,
+          "risk": 8,
           "status": "incomplete",
           "partial": true,
           "coverage": 0,
@@ -4603,25 +4604,24 @@
             {
               "reason": "reference_missing",
               "path": "skills/diagnosing-failed-warehouse-syncs/SKILL.md",
-              "line": 173
+              "line": 199
             },
             {
               "reason": "reference_missing",
               "path": "skills/diagnosing-failed-warehouse-syncs/SKILL.md",
-              "line": 175
+              "line": 201
             }
           ],
-          "findings": [],
-          "suppressed": [
+          "findings": [
             {
-              "id": "P9",
+              "id": "EA2",
               "severity": "MEDIUM",
-              "message": "Whitespace Padding",
+              "message": "Autonomous Decision Making",
               "file": "skills/diagnosing-failed-warehouse-syncs/SKILL.md",
-              "line": 91,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+              "line": 128
             }
-          ]
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/diagnosing-missing-recordings",
@@ -5307,27 +5307,27 @@
             {
               "reason": "reference_missing",
               "path": "skills/exploring-apm-traces/SKILL.md",
-              "line": 61
+              "line": 67
             },
             {
               "reason": "reference_missing",
               "path": "skills/exploring-apm-traces/SKILL.md",
-              "line": 129
+              "line": 135
             },
             {
               "reason": "reference_missing",
               "path": "skills/exploring-apm-traces/SKILL.md",
-              "line": 139
+              "line": 145
             },
             {
               "reason": "reference_missing",
               "path": "skills/exploring-apm-traces/SKILL.md",
-              "line": 163
+              "line": 169
             },
             {
               "reason": "reference_missing",
               "path": "skills/exploring-apm-traces/SKILL.md",
-              "line": 178
+              "line": 184
             }
           ],
           "findings": [],
@@ -9084,13 +9084,21 @@
         },
         {
           "path": "skills/inbox-exploration",
-          "score": 100,
-          "risk": 0,
+          "score": 93,
+          "risk": 7,
           "status": "safe",
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": [],
+          "findings": [
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/inbox-exploration/references/report-state.md",
+              "line": 98
+            }
+          ],
           "suppressed": [
             {
               "id": "P9",
@@ -15934,17 +15942,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/investigating-logs/SKILL.md",
-              "line": 58
+              "line": 69
             },
             {
               "reason": "reference_missing",
               "path": "skills/investigating-logs/SKILL.md",
-              "line": 73
+              "line": 84
             },
             {
               "reason": "reference_missing",
               "path": "skills/investigating-logs/SKILL.md",
-              "line": 99
+              "line": 125
             }
           ],
           "findings": [],
@@ -15954,7 +15962,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/investigating-logs/SKILL.md",
-              "line": 36,
+              "line": 45,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             }
           ]
@@ -20778,6 +20786,14 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/querying-posthog-data/SKILL.md",
+              "line": 96,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/querying-posthog-data/SKILL.md",
               "line": 134,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
@@ -22185,7 +22201,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/setting-up-a-custom-rest-source/SKILL.md",
-              "line": 171
+              "line": 181
             }
           ],
           "findings": [
@@ -22246,14 +22262,6 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/setting-up-a-custom-rest-source/SKILL.md",
-              "line": 80,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/setting-up-a-custom-rest-source/SKILL.md",
               "line": 81,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
@@ -22263,6 +22271,14 @@
               "message": "Whitespace Padding",
               "file": "skills/setting-up-a-custom-rest-source/SKILL.md",
               "line": 82,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/setting-up-a-custom-rest-source/SKILL.md",
+              "line": 83,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -22344,7 +22360,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/setting-up-a-data-warehouse-source/SKILL.md",
-              "line": 120
+              "line": 131
             }
           ],
           "findings": [
@@ -22374,6 +22390,17 @@
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             }
           ]
+        },
+        {
+          "path": "skills/setting-up-ai-visibility",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/setting-up-data-catalog",
@@ -22872,7 +22899,15 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/signals-scout-anomaly-detection/references/report-contract.md",
-              "line": 225,
+              "line": 222,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/signals-scout-anomaly-detection/references/report-contract.md",
+              "line": 224,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -22881,14 +22916,6 @@
               "message": "Whitespace Padding",
               "file": "skills/signals-scout-anomaly-detection/references/report-contract.md",
               "line": 227,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/signals-scout-anomaly-detection/references/report-contract.md",
-              "line": 230,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -23854,7 +23881,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/signals-scout-unused-features/SKILL.md",
-              "line": 74,
+              "line": 81,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
@@ -23862,7 +23889,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/signals-scout-unused-features/SKILL.md",
-              "line": 87,
+              "line": 94,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
@@ -23870,7 +23897,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/signals-scout-unused-features/SKILL.md",
-              "line": 130,
+              "line": 140,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
@@ -25719,7 +25746,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-12T12:39:43Z"
+      "checkedAt": "2026-11-13T13:34:38Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
