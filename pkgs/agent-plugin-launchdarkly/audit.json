@@ -7,10 +7,10 @@
   "plugins": [
     {
       "name": "launchdarkly",
-      "dir": "/nix/store/1nwap4kw6p7k3l6ckfq23vj2wknn0gys-agent-plugin-launchdarkly-1.0.7/share/agent-plugins/launchdarkly",
+      "dir": "/nix/store/byyrjna144xh8nmlxdbwp19cnaq7cmxf-agent-plugin-launchdarkly-1.0.8/share/agent-plugins/launchdarkly",
       "spec": "1.1.0",
-      "score": 59,
-      "status": "caution",
+      "score": 36,
+      "status": "do not install",
       "coverage": {
         "scanned": [
           "skills/configs-create",
@@ -28,6 +28,7 @@
           "skills/launchdarkly-metric-instrument",
           "skills/launchdarkly-release-autopilot-onboarding",
           "skills/launchdarkly-release-autopilot-settings",
+          "skills/launchdarkly-release-plans",
           "skills/online-evals",
           "skills/projects",
           "skills/tools"
@@ -408,11 +409,11 @@
         },
         {
           "path": "skills/launchdarkly-release-autopilot-onboarding",
-          "score": 72,
-          "risk": 28,
-          "status": "caution",
+          "score": 41,
+          "risk": 59,
+          "status": "do not install",
           "partial": true,
-          "coverage": 90,
+          "coverage": 88.9,
           "exceptions": [
             {
               "reason": "obfuscated_instruction_text",
@@ -437,6 +438,27 @@
           ],
           "findings": [
             {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/launchdarkly-release-autopilot-onboarding/README.md",
+              "line": 31
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/launchdarkly-release-autopilot-onboarding/SKILL.md",
+              "line": 71
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/launchdarkly-release-autopilot-onboarding/SKILL.md",
+              "line": 324
+            },
+            {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
@@ -448,21 +470,21 @@
               "severity": "MEDIUM",
               "message": "Behavior Manipulation",
               "file": "skills/launchdarkly-release-autopilot-onboarding/SKILL.md",
-              "line": 126
+              "line": 127
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/launchdarkly-release-autopilot-onboarding/SKILL.md",
-              "line": 136
+              "line": 137
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/launchdarkly-release-autopilot-onboarding/SKILL.md",
-              "line": 307
+              "line": 302
             },
             {
               "id": "EA2",
@@ -476,7 +498,7 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/launchdarkly-release-autopilot-onboarding/references/modes.md",
-              "line": 7
+              "line": 8
             }
           ],
           "suppressed": []
@@ -491,11 +513,6 @@
           "exceptions": [
             {
               "reason": "obfuscated_instruction_text",
-              "path": "skills/launchdarkly-release-autopilot-settings/SKILL.md",
-              "line": 0
-            },
-            {
-              "reason": "static_parse_limit",
               "path": "skills/launchdarkly-release-autopilot-settings/SKILL.md",
               "line": 0
             },
@@ -516,6 +533,73 @@
             }
           ],
           "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "skills/launchdarkly-release-plans",
+          "score": 36,
+          "risk": 64,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/launchdarkly-release-plans/SKILL.md",
+              "line": 8
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/launchdarkly-release-plans/README.md",
+              "line": 26
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/launchdarkly-release-plans/SKILL.md",
+              "line": 43
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/launchdarkly-release-plans/SKILL.md",
+              "line": 45
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/launchdarkly-release-plans/references/rest-api.md",
+              "line": 3
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/launchdarkly-release-plans/references/rest-api.md",
+              "line": 17
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/launchdarkly-release-plans/SKILL.md",
+              "line": 98
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/launchdarkly-release-plans/references/rest-api.md",
+              "line": 42
+            }
+          ],
           "suppressed": []
         },
         {
@@ -1054,15 +1138,15 @@
       ]
     }
   ],
-  "score": 59,
-  "status": "caution",
+  "score": 36,
+  "status": "do not install",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-12T20:39:39Z"
+      "checkedAt": "2026-11-13T01:29:59Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
