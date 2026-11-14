@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "posthog-skills",
-      "dir": "/nix/store/vmd0glra2ny5bz8hxy6lmh4758s61vfm-agent-plugin-posthog-skills-0.0.0-unstable.2026-11-13.gf87c8af/share/agent-plugins/posthog-skills",
+      "dir": "/nix/store/b73jpfnw9z8a4f3c4z7vzcyi6602qy6r-agent-plugin-posthog-skills-0.0.0-unstable.2026-11-14.g7981e57/share/agent-plugins/posthog-skills",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -160,6 +160,7 @@
           "skills/instrument-logs",
           "skills/instrument-metrics",
           "skills/instrument-product-analytics",
+          "skills/instrument-reverse-proxy",
           "skills/instrument-tracing",
           "skills/integration-android",
           "skills/integration-angular",
@@ -221,6 +222,7 @@
           "skills/managing-self-driving-spend",
           "skills/managing-streamlit-apps",
           "skills/managing-subscriptions",
+          "skills/measuring-email-performance",
           "skills/migrating-from-customer-io",
           "skills/migrating-from-fivetran",
           "skills/modeling-activation-metrics",
@@ -10141,6 +10143,20 @@
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
+              "file": "skills/instrument-integration/references/EXAMPLE-gatsby.md",
+              "line": 57
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/instrument-integration/references/EXAMPLE-gatsby.md",
+              "line": 170
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
               "file": "skills/instrument-integration/references/EXAMPLE-javascript-node.md",
               "line": 44
             },
@@ -12881,6 +12897,20 @@
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
+              "file": "skills/instrument-product-analytics/references/EXAMPLE-gatsby.md",
+              "line": 57
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/instrument-product-analytics/references/EXAMPLE-gatsby.md",
+              "line": 170
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
               "file": "skills/instrument-product-analytics/references/EXAMPLE-laravel.md",
               "line": 46
             },
@@ -14487,6 +14517,180 @@
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/instrument-product-analytics/SKILL.md",
               "line": 169,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
+          ]
+        },
+        {
+          "path": "skills/instrument-reverse-proxy",
+          "score": 22,
+          "risk": 78,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 89.5,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/instrument-reverse-proxy/SKILL.md",
+              "line": 26
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/instrument-reverse-proxy/SKILL.md",
+              "line": 81
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/instrument-reverse-proxy/SKILL.md",
+              "line": 119
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/instrument-reverse-proxy/references/caddy.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/instrument-reverse-proxy/references/sveltekit.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "YR4",
+              "severity": "HIGH",
+              "message": "YARA rule 'agent_skill_prompt_injection_hidden_instructions': Prompt injection or hidden instructions embedded in AI agent skill text [agent_skills]",
+              "file": "skills/instrument-reverse-proxy/references/cloudflare.md",
+              "line": 1
+            },
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "skills/instrument-reverse-proxy/references/nginx.md",
+              "line": 79
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/instrument-reverse-proxy/references/caddy.md",
+              "line": 554
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/instrument-reverse-proxy/references/caddy.md",
+              "line": 762
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/instrument-reverse-proxy/references/nginx.md",
+              "line": 79
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/instrument-reverse-proxy/references/nginx.md",
+              "line": 79
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/instrument-reverse-proxy/references/nginx.md",
+              "line": 163
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/instrument-reverse-proxy/references/nginx.md",
+              "line": 175
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/instrument-reverse-proxy/references/nginx.md",
+              "line": 181
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/instrument-reverse-proxy/references/nginx.md",
+              "line": 193
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/instrument-reverse-proxy/references/nginx.md",
+              "line": 194
+            },
+            {
+              "id": "SSRF3",
+              "severity": "MEDIUM",
+              "message": "Dynamic Request Target",
+              "file": "skills/instrument-reverse-proxy/references/cloudflare.md",
+              "line": 91
+            },
+            {
+              "id": "SSRF3",
+              "severity": "MEDIUM",
+              "message": "Dynamic Request Target",
+              "file": "skills/instrument-reverse-proxy/references/cloudflare.md",
+              "line": 147
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/instrument-reverse-proxy/references/kubernetes-ingress-controller.md",
+              "line": 294
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/instrument-reverse-proxy/references/nextjs-middleware.md",
+              "line": 38
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/instrument-reverse-proxy/references/nginx.md",
+              "line": 57
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/instrument-reverse-proxy/references/nginx.md",
+              "line": 363
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/instrument-reverse-proxy/SKILL.md",
+              "line": 48,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/instrument-reverse-proxy/SKILL.md",
+              "line": 53,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
@@ -16910,6 +17114,64 @@
             }
           ],
           "suppressed": []
+        },
+        {
+          "path": "skills/measuring-email-performance",
+          "score": 93,
+          "risk": 7,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/measuring-email-performance/SKILL.md",
+              "line": 20
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/measuring-email-performance/SKILL.md",
+              "line": 122
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/measuring-email-performance/SKILL.md",
+              "line": 66,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/measuring-email-performance/SKILL.md",
+              "line": 69,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/measuring-email-performance/SKILL.md",
+              "line": 70,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/measuring-email-performance/SKILL.md",
+              "line": 71,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            }
+          ]
         },
         {
           "path": "skills/migrating-from-customer-io",
@@ -22129,59 +22391,57 @@
           "path": "skills/sending-transactional-emails",
           "score": 100,
           "risk": 0,
-          "status": "safe",
-          "partial": false,
-          "coverage": 100,
-          "exceptions": [],
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 66.7,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/sending-transactional-emails/references/sdks.md",
+              "line": 0
+            }
+          ],
           "findings": [],
           "suppressed": [
             {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/sending-transactional-emails/references/moving-from-other-providers.md",
-              "line": 9,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/sending-transactional-emails/SKILL.md",
+              "line": 46,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/sending-transactional-emails/references/moving-from-other-providers.md",
-              "line": 12,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/sending-transactional-emails/SKILL.md",
+              "line": 61,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/sending-transactional-emails/references/moving-from-other-providers.md",
-              "line": 13,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/sending-transactional-emails/SKILL.md",
+              "line": 68,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/sending-transactional-emails/references/moving-from-other-providers.md",
-              "line": 14,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/sending-transactional-emails/SKILL.md",
+              "line": 72,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/sending-transactional-emails/references/moving-from-other-providers.md",
-              "line": 15,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/sending-transactional-emails/references/moving-from-other-providers.md",
-              "line": 16,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/sending-transactional-emails/SKILL.md",
+              "line": 83,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -25746,7 +26006,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-13T13:34:38Z"
+      "checkedAt": "2026-11-14T12:30:31Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
