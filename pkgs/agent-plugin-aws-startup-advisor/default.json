@@ -4,8 +4,8 @@
   "src": {
     "owner": "aws",
     "repo": "agent-toolkit-for-aws",
-    "rev": "19b89b263b725b04082a55b4fc4d24d22f065999",
-    "hash": "sha256-lSsbyePjmaKYEnc1L2rBaCnHOBmgYOo2erbetKDJHP8="
+    "rev": "5955ad2e46d35e7615b036f4e8863f1975f0ab72",
+    "hash": "sha256-fWCLlg9dgbVt9mWb4kJiVn3lYfojagy8SYvHak8sga4="
   },
   "sourceUrl": "https://github.com/aws/agent-toolkit-for-aws",
   "manifest": {
@@ -13,7 +13,7 @@
     "author": {
       "name": "Amazon Web Services"
     },
-    "description": "AWS Startup Advisor puts an AWS Startups Solutions Architect in your coding assistant. It recommends the smallest architecture that fits your stage, credits, and team, then can scaffold it, migrate you from Azure, Google Cloud, or Heroku, move your model calls to Amazon Bedrock, and investigate production incidents. It also answers your AWS Activate credits eligibility questions and finds startup offers you can use.",
+    "description": "AWS Startup Advisor puts an AWS Startups Solutions Architect in your coding assistant. It recommends the smallest architecture that fits your stage, credits, and team, then can scaffold it, migrate you from Azure, Google Cloud, Heroku, or Render, move your model calls to Amazon Bedrock, and investigate production incidents. It also answers your AWS Activate credits eligibility questions and finds startup offers you can use.",
     "homepage": "https://aws.amazon.com/products/developer-tools/agent-toolkit-for-aws/",
     "keywords": [
       "aws",
@@ -95,7 +95,9 @@
       "incident-response",
       "root-cause-analysis",
       "release-readiness",
-      "on-call"
+      "on-call",
+      "render",
+      "render-to-aws"
     ],
     "license": "Apache-2.0",
     "name": "aws-startup-advisor",
@@ -114,10 +116,12 @@
     "llm-to-bedrock": "plugins/aws-startup-advisor/skills/llm-to-bedrock",
     "operate-on-aws": "plugins/aws-startup-advisor/skills/operate-on-aws",
     "prompt-library-for-startups": "plugins/aws-startup-advisor/skills/prompt-library-for-startups",
+    "render-to-aws": "plugins/aws-startup-advisor/skills/render-to-aws",
     "start-building-for-startups": "plugins/aws-startup-advisor/skills/start-building-for-startups",
     "tf-best-practices": "plugins/aws-startup-advisor/skills/tf-best-practices"
   },
   "requiredRuntimes": [
+    "bash",
     "python3",
     "uvx"
   ],
@@ -477,6 +481,70 @@
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
+        "path": "skills/render-to-aws/fixtures/render-application/src/agent.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/render-to-aws/fixtures/render-application/src/app.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/render-to-aws/scripts/render_common/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/render-to-aws/scripts/render_common/atomic.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/render-to-aws/scripts/render_common/bounds.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/render-to-aws/scripts/render_common/canonical.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/render-to-aws/scripts/render_common/classifier.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/render-to-aws/scripts/render_common/plans.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/render-to-aws/scripts/test_capture_render_api.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/render-to-aws/scripts/test_capture_render_cli.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/render-to-aws/scripts/test_normalize_render_capture.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/render-to-aws/scripts/test_parse_render_billing.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/render-to-aws/scripts/test_parse_render_blueprint.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/render-to-aws/scripts/test_render_plans.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/render-to-aws/scripts/test_scan_render_application.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/render-to-aws/scripts/test_validate_render_migration_report.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
         "path": "skills/tf-best-practices/scripts/test_validate_terraform_policy.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
@@ -486,6 +554,14 @@
       },
       {
         "path": "skills/llm-to-bedrock/scripts/pyproject.toml",
+        "message": "declares dependencies import does not package; package them in this package's custom block, using uv2nix for its uv.lock"
+      },
+      {
+        "path": "skills/render-to-aws/fixtures/render-application/requirements.txt",
+        "message": "declares dependencies import does not package; package them in this package's custom block, using python3.withPackages"
+      },
+      {
+        "path": "skills/render-to-aws/scripts/pyproject.toml",
         "message": "declares dependencies import does not package; package them in this package's custom block, using uv2nix for its uv.lock"
       }
     ]
