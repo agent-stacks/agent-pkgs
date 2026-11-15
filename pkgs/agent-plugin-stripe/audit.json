@@ -7,9 +7,9 @@
   "plugins": [
     {
       "name": "stripe",
-      "dir": "/nix/store/nk8kagqh6fr24p8wjdi92id8b689qxzm-agent-plugin-stripe-0.11.51/share/agent-plugins/stripe",
+      "dir": "/nix/store/9jagl750fniw8ccg8v579gsq5lg4r9lb-agent-plugin-stripe-0.12.0/share/agent-plugins/stripe",
       "spec": "1.1.0",
-      "score": 48,
+      "score": 37,
       "status": "do not install",
       "coverage": {
         "scanned": [
@@ -23,6 +23,7 @@
           "skills/stripe-best-practices",
           "skills/stripe-directory",
           "skills/stripe-docs",
+          "skills/stripe-implementation-planner",
           "skills/stripe-pay",
           "skills/stripe-projects",
           "skills/upgrade-stripe"
@@ -366,9 +367,9 @@
         },
         {
           "path": "skills/stripe-directory",
-          "score": 50,
-          "risk": 50,
-          "status": "caution",
+          "score": 39,
+          "risk": 61,
+          "status": "do not install",
           "partial": true,
           "coverage": 0,
           "exceptions": [
@@ -384,14 +385,21 @@
               "severity": "HIGH",
               "message": "External Script Fetching",
               "file": "skills/stripe-directory/SKILL.md",
-              "line": 58
+              "line": 20
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/stripe-directory/SKILL.md",
+              "line": 59
             },
             {
               "id": "TM2",
               "severity": "HIGH",
               "message": "Chaining Abuse",
               "file": "skills/stripe-directory/SKILL.md",
-              "line": 58
+              "line": 59
             },
             {
               "id": "RP1",
@@ -405,7 +413,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/stripe-directory/SKILL.md",
-              "line": 20
+              "line": 21
             }
           ],
           "suppressed": []
@@ -418,6 +426,23 @@
           "partial": false,
           "coverage": 100,
           "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "skills/stripe-implementation-planner",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 0,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/stripe-implementation-planner/SKILL.md",
+              "line": 0
+            }
+          ],
           "findings": [],
           "suppressed": []
         },
@@ -440,8 +465,8 @@
         },
         {
           "path": "skills/stripe-projects",
-          "score": 48,
-          "risk": 52,
+          "score": 37,
+          "risk": 63,
           "status": "do not install",
           "partial": true,
           "coverage": 0,
@@ -454,12 +479,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/stripe-projects/SKILL.md",
-              "line": 82
+              "line": 83
             },
             {
               "reason": "reference_missing",
               "path": "skills/stripe-projects/SKILL.md",
-              "line": 89
+              "line": 90
             }
           ],
           "findings": [
@@ -468,28 +493,35 @@
               "severity": "HIGH",
               "message": "External Script Fetching",
               "file": "skills/stripe-projects/SKILL.md",
-              "line": 41
+              "line": 19
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/stripe-projects/SKILL.md",
+              "line": 42
             },
             {
               "id": "TM2",
               "severity": "HIGH",
               "message": "Chaining Abuse",
               "file": "skills/stripe-projects/SKILL.md",
-              "line": 41
+              "line": 42
             },
             {
               "id": "AS3",
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
               "file": "skills/stripe-projects/SKILL.md",
-              "line": 89
+              "line": 90
             },
             {
               "id": "AS3",
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
               "file": "skills/stripe-projects/SKILL.md",
-              "line": 89
+              "line": 90
             }
           ],
           "suppressed": [
@@ -498,7 +530,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/stripe-projects/SKILL.md",
-              "line": 91,
+              "line": 92,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
@@ -576,7 +608,7 @@
       ]
     }
   ],
-  "score": 48,
+  "score": 37,
   "status": "do not install",
   "tool": {
     "name": "skillspector",
@@ -584,7 +616,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-14T02:34:19Z"
+      "checkedAt": "2026-11-15T01:04:38Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
