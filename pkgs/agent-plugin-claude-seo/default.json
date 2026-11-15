@@ -1,11 +1,11 @@
 {
   "name": "claude-seo",
-  "version": "2.6.1",
+  "version": "2.6.2",
   "src": {
     "owner": "AgriciDaniel",
     "repo": "claude-seo",
-    "rev": "2e40a5fa6220fc846fcc56d666831fd1315bedc7",
-    "hash": "sha256-1H+bPIyZy1RXMCEiOGxQrnkZAezwMwdDv0gX8SzjJfE="
+    "rev": "468ed5b0d9e3249394783710e54abb02837e326b",
+    "hash": "sha256-DmO1wfiuHntvhEC2vCuHOLzAQhx04UGUUsHgo13vtdQ="
   },
   "sourceUrl": "https://github.com/AgriciDaniel/claude-seo",
   "manifest": {
@@ -14,7 +14,7 @@
       "name": "AgriciDaniel",
       "url": "https://github.com/AgriciDaniel"
     },
-    "description": "Comprehensive SEO analysis plugin for Claude Code. 26 sub-skills and 19 sub-agents, plus 9 optional MCP extensions. v2.6.1 adds deterministic page, TLS and header, sitemap and JavaScript-gap checks ported from web-obs; v2.5.1 merged 39 community fixes and raised the urllib3 floor for three advisories; v2.5.0 fixed Claude Desktop installs and hardened Google sign-in, page rendering and agent prompts; v2.4.2 added the seo-cockpit companion and gcloud sign-in; v2.4.1 brought Google guidance current through 2026-09-28; v2.4.0 added /seo agentic for agent readiness (Lighthouse Agentic Browsing, WebMCP, AI agent access).",
+    "description": "Comprehensive SEO analysis plugin for Claude Code. 29 sub-skills and 20 sub-agents, plus 11 optional extensions (5 connect MCP servers, 6 use API keys or local tools). v2.6.2 adds the Shopify and PostHog extensions, a trusted local proxy opt-in and 36 community pull requests; v2.6.1 fixed ten security reports; v2.6.0 added deterministic page, TLS and header, sitemap and JavaScript-gap checks ported from web-obs; v2.5.1 merged 39 community fixes and raised the urllib3 floor for three advisories; v2.5.0 fixed Claude Desktop installs and hardened Google sign-in, page rendering and agent prompts; v2.4.2 added the seo-cockpit companion and gcloud sign-in; v2.4.1 brought Google guidance current through 2026-09-28; v2.4.0 added /seo agentic for agent readiness (Lighthouse Agentic Browsing, WebMCP, AI agent access).",
     "homepage": "https://claude-seo.md",
     "keywords": [
       "seo",
@@ -58,7 +58,7 @@
     "license": "MIT",
     "name": "claude-seo",
     "repository": "https://github.com/AgriciDaniel/claude-seo",
-    "version": "2.6.1"
+    "version": "2.6.2"
   },
   "skills": {
     "seo": "skills/seo",
@@ -66,7 +66,7 @@
     "seo-ahrefs": "extensions/ahrefs/skills/seo-ahrefs",
     "seo-audit": "skills/seo-audit",
     "seo-backlinks": "skills/seo-backlinks",
-    "seo-bing": "extensions/bing-webmaster/skills/seo-bing",
+    "seo-bing": "skills/seo-bing",
     "seo-cluster": "skills/seo-cluster",
     "seo-competitor-pages": "skills/seo-competitor-pages",
     "seo-content": "skills/seo-content",
@@ -86,10 +86,12 @@
     "seo-matomo": "extensions/matomo/skills/seo-matomo",
     "seo-page": "skills/seo-page",
     "seo-plan": "skills/seo-plan",
+    "seo-posthog": "skills/seo-posthog",
     "seo-profound": "extensions/profound/skills/seo-profound",
     "seo-programmatic": "skills/seo-programmatic",
     "seo-schema": "skills/seo-schema",
     "seo-seranking": "extensions/seranking/skills/seo-seranking",
+    "seo-shopify": "skills/seo-shopify",
     "seo-sitemap": "skills/seo-sitemap",
     "seo-sxo": "skills/seo-sxo",
     "seo-technical": "skills/seo-technical",
@@ -144,12 +146,24 @@
         "message": "skill \"seo-image-gen\" already found at skills/seo-image-gen, not imported"
       },
       {
+        "path": "extensions/bing-webmaster/skills/seo-bing",
+        "message": "skill \"seo-bing\" already found at skills/seo-bing, not imported"
+      },
+      {
         "path": "extensions/dataforseo/skills/seo-dataforseo",
         "message": "skill \"seo-dataforseo\" already found at skills/seo-dataforseo, not imported"
       },
       {
         "path": "extensions/firecrawl/skills/seo-firecrawl/SKILL.md",
         "message": "unknown frontmatter fields: argument-hint, user-invocable"
+      },
+      {
+        "path": "extensions/posthog/skills/seo-posthog",
+        "message": "skill \"seo-posthog\" already found at skills/seo-posthog, not imported"
+      },
+      {
+        "path": "extensions/shopify/skills/seo-shopify",
+        "message": "skill \"seo-shopify\" already found at skills/seo-shopify, not imported"
       },
       {
         "path": "skills/seo-agentic/SKILL.md",
@@ -161,6 +175,10 @@
       },
       {
         "path": "skills/seo-backlinks/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, user-invocable"
+      },
+      {
+        "path": "skills/seo-bing/SKILL.md",
         "message": "unknown frontmatter fields: argument-hint, user-invocable"
       },
       {
