@@ -1,11 +1,11 @@
 {
   "name": "langchain-skills",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "src": {
     "owner": "langchain-ai",
     "repo": "langchain-skills",
-    "rev": "32d6228affabb653720d6c20187a8a7afc292478",
-    "hash": "sha256-an4PrHcpt1VqtY/NbcJpqWxhhYKRS8h1IZNUStfVuz4="
+    "rev": "f68d40fe9ec6a4c4c615e94d0bff1423578cb81a",
+    "hash": "sha256-l9eXhtSBMXySso/DehWm/5KKdj5Ifl2PPr61aX7bOcU="
   },
   "sourceUrl": "https://github.com/langchain-ai/langchain-skills",
   "manifest": {
@@ -14,7 +14,7 @@
       "name": "LangChain",
       "url": "https://langchain.com"
     },
-    "description": "Agent skills for building agents with LangChain, LangGraph, and Deep Agents",
+    "description": "Skills for LangChain application development, LangSmith workflows, and Harbor evaluation, with current documentation MCP access",
     "homepage": "https://github.com/langchain-ai/langchain-skills",
     "keywords": [
       "langchain",
@@ -26,31 +26,13 @@
     "license": "MIT",
     "name": "langchain-skills",
     "repository": "https://github.com/langchain-ai/langchain-skills",
-    "version": "0.1.3"
+    "version": "0.2.0"
   },
   "skills": {
-    "deep-agents-core": "config/skills/deep-agents-core",
-    "deep-agents-memory": "config/skills/deep-agents-memory",
-    "deep-agents-orchestration": "config/skills/deep-agents-orchestration",
-    "deepagents-python-quickstart": "config/skills/deepagents-python-quickstart",
-    "deepagents-typescript-quickstart": "config/skills/deepagents-typescript-quickstart",
-    "ecosystem-primer": "config/skills/ecosystem-primer",
-    "eval-engineering": "config/skills/eval-engineering",
-    "langchain-dependencies": "config/skills/langchain-dependencies",
-    "langchain-fundamentals": "config/skills/langchain-fundamentals",
-    "langchain-middleware": "config/skills/langchain-middleware",
-    "langchain-python-quickstart": "config/skills/langchain-python-quickstart",
-    "langchain-rag": "config/skills/langchain-rag",
-    "langchain-typescript-quickstart": "config/skills/langchain-typescript-quickstart",
-    "langgraph-cli": "config/skills/langgraph-cli",
-    "langgraph-decision-models": "config/skills/langgraph-decision-models",
-    "langgraph-fundamentals": "config/skills/langgraph-fundamentals",
-    "langgraph-human-in-the-loop": "config/skills/langgraph-human-in-the-loop",
-    "langgraph-persistence": "config/skills/langgraph-persistence",
-    "langgraph-python-quickstart": "config/skills/langgraph-python-quickstart",
-    "langgraph-typescript-quickstart": "config/skills/langgraph-typescript-quickstart",
-    "managed-deep-agents": "config/skills/managed-deep-agents",
-    "swarm": "config/skills/swarm"
+    "langchain-agent-monitoring": "skills/langchain-agent-monitoring",
+    "langchain-agent-tracing": "skills/langchain-agent-tracing",
+    "langchain-build-agent": "skills/langchain-build-agent",
+    "langchain-eval-engineering": "skills/langchain-eval-engineering"
   },
   "requiredRuntimes": [
     "python3"
@@ -60,8 +42,18 @@
     "python3",
     "nodejs"
   ],
+  "mcpServers": {
+    "langchain-docs": {
+      "type": "streamable-http",
+      "url": "https://docs.langchain.com/mcp"
+    },
+    "langchain-reference": {
+      "type": "streamable-http",
+      "url": "https://reference.langchain.com/mcp"
+    }
+  },
   "meta": {
-    "description": "Agent skills for building agents with LangChain, LangGraph, and Deep Agents",
+    "description": "Skills for LangChain application development, LangSmith workflows, and Harbor evaluation",
     "homepage": "https://github.com/langchain-ai/langchain-skills"
   },
   "import": {
@@ -71,15 +63,15 @@
     ],
     "warnings": [
       {
-        "path": "skills/eval-engineering/references/multi-turn-simulation/harbor_example.py",
+        "path": "skills/langchain-eval-engineering/references/multi-turn-simulation/harbor_example.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
-        "path": "skills/eval-engineering/references/multi-turn-simulation/model_user.py",
+        "path": "skills/langchain-eval-engineering/references/multi-turn-simulation/model_user.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
-        "path": "skills/eval-engineering/references/multi-turn-simulation/runner.py",
+        "path": "skills/langchain-eval-engineering/references/multi-turn-simulation/runner.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       }
     ]
