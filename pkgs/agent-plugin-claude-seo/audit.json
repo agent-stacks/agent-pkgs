@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "claude-seo",
-      "dir": "/nix/store/zbq7m9cdmfwcn20ax91c14xzc7xhakqj-agent-plugin-claude-seo-2.6.1/share/agent-plugins/claude-seo",
+      "dir": "/nix/store/1jglvnihch62fycjy5rhpnj4604r07f5-agent-plugin-claude-seo-2.6.2/share/agent-plugins/claude-seo",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -41,10 +41,12 @@
           "skills/seo-matomo",
           "skills/seo-page",
           "skills/seo-plan",
+          "skills/seo-posthog",
           "skills/seo-profound",
           "skills/seo-programmatic",
           "skills/seo-schema",
           "skills/seo-seranking",
+          "skills/seo-shopify",
           "skills/seo-sitemap",
           "skills/seo-sxo",
           "skills/seo-technical",
@@ -67,7 +69,7 @@
           "risk": 28,
           "status": "caution",
           "partial": true,
-          "coverage": 94.7,
+          "coverage": 95,
           "exceptions": [
             {
               "reason": "static_parse_limit",
@@ -124,7 +126,7 @@
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 87.9,
+          "coverage": 87,
           "exceptions": [
             {
               "reason": "static_parse_limit",
@@ -152,6 +154,11 @@
               "line": 0
             },
             {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/shopify_env.py",
+              "line": 0
+            },
+            {
               "reason": "static_parse_limit",
               "path": "scripts/sync_flow.py",
               "line": 0
@@ -171,16 +178,16 @@
             {
               "id": "TT3",
               "severity": "CRITICAL",
-              "message": "Tainted flow: 'headers' from os.environ.get (line 399, credential/environment) → requests.post (network output)",
+              "message": "Tainted flow: 'headers' from os.environ.get (line 388, credential/environment) → requests.post (network output)",
               "file": "scripts/dataforseo_merchant.py",
-              "line": 118
+              "line": 120
             },
             {
               "id": "TT3",
               "severity": "CRITICAL",
-              "message": "Tainted flow: 'headers' from os.environ.get (line 399, credential/environment) → requests.get (network output)",
+              "message": "Tainted flow: 'headers' from os.environ.get (line 388, credential/environment) → requests.get (network output)",
               "file": "scripts/dataforseo_merchant.py",
-              "line": 149
+              "line": 151
             },
             {
               "id": "PE3",
@@ -201,35 +208,35 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "scripts/google_auth.py",
-              "line": 57
+              "line": 63
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "scripts/google_auth.py",
-              "line": 746
+              "line": 753
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "scripts/google_auth.py",
-              "line": 909
+              "line": 913
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "scripts/google_auth.py",
-              "line": 201
+              "line": 208
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "scripts/google_auth.py",
-              "line": 201
+              "line": 208
             },
             {
               "id": "P6",
@@ -257,7 +264,7 @@
               "severity": "HIGH",
               "message": "Env Variable Harvesting",
               "file": "scripts/runtime.py",
-              "line": 217
+              "line": 243
             },
             {
               "id": "E2",
@@ -271,182 +278,189 @@
               "severity": "HIGH",
               "message": "Direct Prompt Extraction",
               "file": "scripts/transport_check.py",
-              "line": 600
+              "line": 632
             },
             {
               "id": "SSRF1",
               "severity": "HIGH",
               "message": "Cloud Metadata Access",
               "file": "scripts/url_safety.py",
-              "line": 175
+              "line": 183
             },
             {
               "id": "SSRF1",
               "severity": "HIGH",
               "message": "Cloud Metadata Access",
               "file": "scripts/url_safety.py",
-              "line": 182
+              "line": 190
             },
             {
               "id": "SSRF1",
               "severity": "HIGH",
               "message": "Cloud Metadata Access",
               "file": "scripts/url_safety.py",
-              "line": 332
+              "line": 340
             },
             {
               "id": "SSRF1",
               "severity": "HIGH",
               "message": "Cloud Metadata Access",
               "file": "scripts/url_safety.py",
-              "line": 458
+              "line": 595
             },
             {
               "id": "SSRF1",
               "severity": "HIGH",
               "message": "Cloud Metadata Access",
               "file": "scripts/url_safety.py",
-              "line": 504
+              "line": 641
             },
             {
               "id": "SSRF1",
               "severity": "HIGH",
               "message": "Cloud Metadata Access",
               "file": "scripts/url_safety.py",
-              "line": 1513
+              "line": 1805
             },
             {
               "id": "SSRF1",
               "severity": "HIGH",
               "message": "Cloud Metadata Access",
               "file": "scripts/url_safety.py",
-              "line": 193
+              "line": 201
             },
             {
               "id": "SSRF1",
               "severity": "HIGH",
               "message": "Cloud Metadata Access",
               "file": "scripts/url_safety.py",
-              "line": 336
+              "line": 344
             },
             {
               "id": "SSRF1",
               "severity": "HIGH",
               "message": "Cloud Metadata Access",
               "file": "scripts/url_safety.py",
-              "line": 717
+              "line": 397
             },
             {
               "id": "SSRF1",
               "severity": "HIGH",
               "message": "Cloud Metadata Access",
               "file": "scripts/url_safety.py",
-              "line": 194
+              "line": 882
             },
             {
               "id": "SSRF1",
               "severity": "HIGH",
               "message": "Cloud Metadata Access",
               "file": "scripts/url_safety.py",
-              "line": 258
+              "line": 202
             },
             {
               "id": "SSRF1",
               "severity": "HIGH",
               "message": "Cloud Metadata Access",
               "file": "scripts/url_safety.py",
-              "line": 338
+              "line": 266
             },
             {
               "id": "SSRF1",
               "severity": "HIGH",
               "message": "Cloud Metadata Access",
               "file": "scripts/url_safety.py",
-              "line": 233
+              "line": 346
             },
             {
               "id": "SSRF1",
               "severity": "HIGH",
               "message": "Cloud Metadata Access",
               "file": "scripts/url_safety.py",
-              "line": 337
+              "line": 241
+            },
+            {
+              "id": "SSRF1",
+              "severity": "HIGH",
+              "message": "Cloud Metadata Access",
+              "file": "scripts/url_safety.py",
+              "line": 345
             },
             {
               "id": "AST4",
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "scripts/backlinks_auth.py",
-              "line": 95
+              "line": 97
             },
             {
               "id": "AST4",
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "scripts/matomo_auth.py",
-              "line": 90
+              "line": 92
             },
             {
               "id": "TT2",
               "severity": "MEDIUM",
-              "message": "Tainted flow: 'user' from os.environ.get (line 87, credential/environment) → subprocess.run (code execution)",
+              "message": "Tainted flow: 'user' from os.environ.get (line 89, credential/environment) → subprocess.run (code execution)",
               "file": "scripts/backlinks_auth.py",
-              "line": 95
+              "line": 97
             },
             {
               "id": "TM3",
               "severity": "MEDIUM",
               "message": "Unsafe Defaults",
               "file": "scripts/backlinks_auth.py",
-              "line": 117
+              "line": 119
             },
             {
               "id": "TM3",
               "severity": "MEDIUM",
               "message": "Unsafe Defaults",
               "file": "scripts/backlinks_auth.py",
-              "line": 130
+              "line": 132
             },
             {
               "id": "TM3",
               "severity": "MEDIUM",
               "message": "Unsafe Defaults",
               "file": "scripts/backlinks_auth.py",
-              "line": 174
+              "line": 177
             },
             {
               "id": "TM3",
               "severity": "MEDIUM",
               "message": "Unsafe Defaults",
               "file": "scripts/google_auth.py",
-              "line": 269
+              "line": 276
             },
             {
               "id": "TM3",
               "severity": "MEDIUM",
               "message": "Unsafe Defaults",
               "file": "scripts/google_auth.py",
-              "line": 306
+              "line": 313
             },
             {
               "id": "TM3",
               "severity": "MEDIUM",
               "message": "Unsafe Defaults",
               "file": "scripts/matomo_auth.py",
-              "line": 122
+              "line": 124
             },
             {
               "id": "TM3",
               "severity": "MEDIUM",
               "message": "Unsafe Defaults",
               "file": "scripts/matomo_auth.py",
-              "line": 184
+              "line": 187
             },
             {
               "id": "PE2",
               "severity": "MEDIUM",
               "message": "Sudo/Root Execution",
               "file": "scripts/browser_proxy.py",
-              "line": 809
+              "line": 820
             },
             {
               "id": "E1",
@@ -502,21 +516,21 @@
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "scripts/dataforseo_merchant.py",
-              "line": 46
+              "line": 48
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "scripts/dataforseo_merchant.py",
-              "line": 118
+              "line": 120
             },
             {
               "id": "OH3",
               "severity": "MEDIUM",
               "message": "Unbounded Output",
               "file": "scripts/dataforseo_normalize.py",
-              "line": 397
+              "line": 427
             },
             {
               "id": "AST4",
@@ -537,42 +551,42 @@
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "scripts/drift_baseline.py",
-              "line": 190
+              "line": 195
             },
             {
               "id": "AST4",
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "scripts/drift_baseline.py",
-              "line": 229
+              "line": 234
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "scripts/google_auth.py",
-              "line": 52
+              "line": 58
             },
             {
-              "id": "RA2",
+              "id": "PE2",
               "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "scripts/google_auth.py",
-              "line": 316
-            },
-            {
-              "id": "E1",
-              "severity": "MEDIUM",
-              "message": "External Transmission",
-              "file": "scripts/indexnow_submit.py",
-              "line": 56
+              "message": "Sudo/Root Execution",
+              "file": "scripts/google_report.py",
+              "line": 2709
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "scripts/indexnow_submit.py",
-              "line": 118
+              "line": 57
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "scripts/indexnow_submit.py",
+              "line": 141
             },
             {
               "id": "AS3",
@@ -598,16 +612,9 @@
             {
               "id": "TT2",
               "severity": "MEDIUM",
-              "message": "Tainted flow: 'user' from os.environ.get (line 82, credential/environment) → subprocess.run (code execution)",
+              "message": "Tainted flow: 'user' from os.environ.get (line 84, credential/environment) → subprocess.run (code execution)",
               "file": "scripts/matomo_auth.py",
-              "line": 90
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "scripts/matomo_auth.py",
-              "line": 109
+              "line": 92
             },
             {
               "id": "E1",
@@ -649,14 +656,42 @@
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "scripts/runtime.py",
-              "line": 258
+              "line": 288
             },
             {
               "id": "AST4",
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "scripts/runtime.py",
-              "line": 430
+              "line": 460
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/shopify_env.py",
+              "line": 335
+            },
+            {
+              "id": "TT2",
+              "severity": "MEDIUM",
+              "message": "Tainted flow: 'path' from os.environ.get (line 210, credential/environment) → subprocess.run (code execution)",
+              "file": "scripts/shopify_env.py",
+              "line": 335
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "scripts/shopify_env.py",
+              "line": 338
+            },
+            {
+              "id": "TT2",
+              "severity": "MEDIUM",
+              "message": "Tainted flow: 'path' from os.environ.get (line 210, credential/environment) → subprocess.run (code execution)",
+              "file": "scripts/shopify_env.py",
+              "line": 338
             },
             {
               "id": "E1",
@@ -670,7 +705,7 @@
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "scripts/sync_flow.py",
-              "line": 103
+              "line": 110
             },
             {
               "id": "EA2",
@@ -684,14 +719,14 @@
               "severity": "MEDIUM",
               "message": "Unsafe Defaults",
               "file": "scripts/transport_check.py",
-              "line": 382
+              "line": 405
             },
             {
               "id": "TM3",
               "severity": "MEDIUM",
               "message": "Unsafe Defaults",
               "file": "scripts/transport_check.py",
-              "line": 465
+              "line": 491
             },
             {
               "id": "RP1",
@@ -726,21 +761,35 @@
               "severity": "MEDIUM",
               "message": "Unsafe Defaults",
               "file": "scripts/url_safety.py",
-              "line": 835
+              "line": 1102
             },
             {
               "id": "AST7",
               "severity": "LOW",
               "message": "Dynamic attribute access via getattr()",
               "file": "scripts/browser_proxy.py",
-              "line": 762
+              "line": 773
+            },
+            {
+              "id": "AST7",
+              "severity": "LOW",
+              "message": "Dynamic attribute access via getattr()",
+              "file": "scripts/shopify_crawl.py",
+              "line": 615
+            },
+            {
+              "id": "AST7",
+              "severity": "LOW",
+              "message": "Dynamic attribute access via getattr()",
+              "file": "scripts/shopify_crawl.py",
+              "line": 628
             },
             {
               "id": "AST7",
               "severity": "LOW",
               "message": "Dynamic attribute access via getattr()",
               "file": "scripts/url_safety.py",
-              "line": 1383
+              "line": 1670
             }
           ],
           "suppressed": []
@@ -751,8 +800,13 @@
           "risk": 15,
           "status": "incomplete",
           "partial": true,
-          "coverage": 94.7,
+          "coverage": 89.5,
           "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/seo/SKILL.md",
+              "line": 0
+            },
             {
               "reason": "reference_missing",
               "path": "skills/seo/SKILL.md",
@@ -766,17 +820,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/seo/SKILL.md",
-              "line": 269
+              "line": 279
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo/SKILL.md",
-              "line": 278
+              "line": 291
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo/SKILL.md",
-              "line": 282
+              "line": 295
             },
             {
               "reason": "static_parse_limit",
@@ -804,35 +858,35 @@
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/seo/references/maps-api-endpoints.md",
-              "line": 22
+              "line": 23
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/seo/references/maps-api-endpoints.md",
-              "line": 57
+              "line": 58
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/seo/references/maps-api-endpoints.md",
-              "line": 78
+              "line": 79
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/seo/references/maps-api-endpoints.md",
-              "line": 107
+              "line": 108
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/seo/references/maps-api-endpoints.md",
-              "line": 119
+              "line": 120
             },
             {
               "id": "E1",
@@ -855,7 +909,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/seo/SKILL.md",
-              "line": 211,
+              "line": 218,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
@@ -1009,6 +1063,11 @@
             {
               "reason": "reference_missing",
               "path": "skills/seo-audit/SKILL.md",
+              "line": 19
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-audit/SKILL.md",
               "line": 55
             },
             {
@@ -1039,7 +1098,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/seo-audit/SKILL.md",
-              "line": 190
+              "line": 192
             }
           ],
           "findings": [],
@@ -1069,8 +1128,8 @@
         },
         {
           "path": "skills/seo-bing",
-          "score": 78,
-          "risk": 22,
+          "score": 67,
+          "risk": 33,
           "status": "caution",
           "partial": true,
           "coverage": 100,
@@ -1078,17 +1137,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/seo-bing/SKILL.md",
-              "line": 5
+              "line": 8
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo-bing/SKILL.md",
-              "line": 6
+              "line": 9
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo-bing/SKILL.md",
-              "line": 18
+              "line": 23
             }
           ],
           "findings": [
@@ -1097,7 +1156,14 @@
               "severity": "HIGH",
               "message": "Agent Config Directory Access",
               "file": "skills/seo-bing/SKILL.md",
-              "line": 6
+              "line": 9
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/seo-bing/SKILL.md",
+              "line": 26
             }
           ],
           "suppressed": []
@@ -1249,7 +1315,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/seo-content/SKILL.md",
-              "line": 217
+              "line": 219
             }
           ],
           "findings": [],
@@ -1589,12 +1655,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/seo-geo/SKILL.md",
-              "line": 338
+              "line": 339
             },
             {
               "reason": "reference_missing",
               "path": "skills/seo-geo/SKILL.md",
-              "line": 342
+              "line": 343
             }
           ],
           "findings": [
@@ -1610,8 +1676,8 @@
         },
         {
           "path": "skills/seo-google",
-          "score": 40,
-          "risk": 60,
+          "score": 38,
+          "risk": 62,
           "status": "do not install",
           "partial": true,
           "coverage": 100,
@@ -1620,6 +1686,11 @@
               "reason": "reference_missing",
               "path": "skills/seo-google/SKILL.md",
               "line": 15
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-google/SKILL.md",
+              "line": 35
             },
             {
               "reason": "reference_missing",
@@ -1638,21 +1709,21 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/seo-google/references/auth-setup.md",
-              "line": 178
+              "line": 176
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/seo-google/references/auth-setup.md",
-              "line": 181
+              "line": 179
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/seo-google/references/auth-setup.md",
-              "line": 197
+              "line": 195
             },
             {
               "id": "PE3",
@@ -1674,6 +1745,13 @@
               "message": "Session Persistence",
               "file": "skills/seo-google/references/auth-setup.md",
               "line": 33
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/seo-google/references/auth-setup.md",
+              "line": 140
             },
             {
               "id": "RA2",
@@ -2118,6 +2196,51 @@
           "suppressed": []
         },
         {
+          "path": "skills/seo-posthog",
+          "score": 92,
+          "risk": 8,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-posthog/SKILL.md",
+              "line": 7
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-posthog/SKILL.md",
+              "line": 8
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-posthog/SKILL.md",
+              "line": 20
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-posthog/SKILL.md",
+              "line": 58
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-posthog/SKILL.md",
+              "line": 81
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/seo-posthog/SKILL.md",
+              "line": 85
+            }
+          ],
+          "suppressed": []
+        },
+        {
           "path": "skills/seo-profound",
           "score": 78,
           "risk": 22,
@@ -2242,6 +2365,98 @@
           "suppressed": []
         },
         {
+          "path": "skills/seo-shopify",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-shopify/SKILL.md",
+              "line": 6
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-shopify/SKILL.md",
+              "line": 29
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-shopify/SKILL.md",
+              "line": 30
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-shopify/SKILL.md",
+              "line": 41
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-shopify/SKILL.md",
+              "line": 70
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-shopify/SKILL.md",
+              "line": 81
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-shopify/SKILL.md",
+              "line": 105
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-shopify/SKILL.md",
+              "line": 128
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-shopify/SKILL.md",
+              "line": 133
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-shopify/SKILL.md",
+              "line": 136
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-shopify/SKILL.md",
+              "line": 138
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-shopify/SKILL.md",
+              "line": 147
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-shopify/SKILL.md",
+              "line": 148
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-shopify/SKILL.md",
+              "line": 154
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-shopify/SKILL.md",
+              "line": 165
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-shopify/SKILL.md",
+              "line": 166
+            }
+          ],
+          "findings": [],
+          "suppressed": []
+        },
+        {
           "path": "skills/seo-sitemap",
           "score": 100,
           "risk": 0,
@@ -2362,6 +2577,11 @@
               "reason": "reference_missing",
               "path": "skills/seo-technical/SKILL.md",
               "line": 117
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-technical/SKILL.md",
+              "line": 284
             }
           ],
           "findings": [
@@ -2433,7 +2653,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-14T15:30:20Z"
+      "checkedAt": "2026-11-15T10:30:11Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
