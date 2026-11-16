@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "document-skills",
-      "dir": "/nix/store/1wbpb7fv86j408cd244pxain9y9xrck0-agent-plugin-document-skills-0.0.0-unstable.2026-11-14.g1780c5e/share/agent-plugins/document-skills",
+      "dir": "/nix/store/fp1mcp7812qxna4jnzqv0c2bfazmi0c5-agent-plugin-document-skills-0.0.0-unstable.2026-11-16.ge4bb5d9/share/agent-plugins/document-skills",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -30,7 +30,7 @@
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 80.3,
+          "coverage": 78.7,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -65,22 +65,22 @@
             {
               "reason": "reference_missing",
               "path": "skills/docx/SKILL.md",
-              "line": 57
+              "line": 56
             },
             {
               "reason": "reference_missing",
               "path": "skills/docx/SKILL.md",
-              "line": 63
+              "line": 62
             },
             {
               "reason": "reference_missing",
               "path": "skills/docx/SKILL.md",
-              "line": 78
+              "line": 77
             },
             {
               "reason": "reference_missing",
               "path": "skills/docx/SKILL.md",
-              "line": 89
+              "line": 88
             },
             {
               "reason": "obfuscated_instruction_text",
@@ -149,6 +149,11 @@
             },
             {
               "reason": "static_parse_limit",
+              "path": "skills/docx/scripts/office/soffice.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
               "path": "skills/docx/scripts/office/validators/base.py",
               "line": 0
             }
@@ -159,14 +164,14 @@
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
               "file": "skills/docx/SKILL.md",
-              "line": 58
+              "line": 57
             },
             {
               "id": "TM2",
               "severity": "HIGH",
               "message": "Chaining Abuse",
               "file": "skills/docx/SKILL.md",
-              "line": 58
+              "line": 57
             },
             {
               "id": "P2",
@@ -194,7 +199,7 @@
               "severity": "HIGH",
               "message": "Env Variable Harvesting",
               "file": "skills/docx/scripts/office/soffice.py",
-              "line": 28
+              "line": 33
             },
             {
               "id": "AST4",
@@ -306,14 +311,14 @@
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "skills/docx/scripts/office/soffice.py",
-              "line": 46
+              "line": 56
             },
             {
               "id": "AST4",
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "skills/docx/scripts/office/soffice.py",
-              "line": 68
+              "line": 152
             },
             {
               "id": "TR1",
@@ -331,6 +336,22 @@
               "file": "skills/docx/SKILL.md",
               "line": 1,
               "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/docx/SKILL.md",
+              "line": 42,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/docx/SKILL.md",
+              "line": 51,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -469,7 +490,7 @@
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 77.6,
+          "coverage": 75.9,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -623,6 +644,11 @@
             },
             {
               "reason": "static_parse_limit",
+              "path": "skills/pptx/scripts/office/soffice.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
               "path": "skills/pptx/scripts/office/validators/base.py",
               "line": 0
             }
@@ -668,7 +694,7 @@
               "severity": "HIGH",
               "message": "Env Variable Harvesting",
               "file": "skills/pptx/scripts/office/soffice.py",
-              "line": 28
+              "line": 33
             },
             {
               "id": "TM3",
@@ -766,14 +792,14 @@
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "skills/pptx/scripts/office/soffice.py",
-              "line": 46
+              "line": 56
             },
             {
               "id": "AST4",
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "skills/pptx/scripts/office/soffice.py",
-              "line": 68
+              "line": 152
             },
             {
               "id": "AST4",
@@ -799,6 +825,38 @@
               "file": "skills/pptx/SKILL.md",
               "line": 27,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/pptx/SKILL.md",
+              "line": 29,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/pptx/SKILL.md",
+              "line": 86,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/pptx/SKILL.md",
+              "line": 259,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/pptx/SKILL.md",
+              "line": 271,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -808,7 +866,7 @@
           "risk": 85,
           "status": "do not install",
           "partial": true,
-          "coverage": 75.5,
+          "coverage": 73.6,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -907,6 +965,11 @@
             },
             {
               "reason": "static_parse_limit",
+              "path": "skills/xlsx/scripts/office/soffice.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
               "path": "skills/xlsx/scripts/office/validators/base.py",
               "line": 0
             },
@@ -943,7 +1006,7 @@
               "severity": "HIGH",
               "message": "Env Variable Harvesting",
               "file": "skills/xlsx/scripts/office/soffice.py",
-              "line": 28
+              "line": 33
             },
             {
               "id": "TM3",
@@ -1041,14 +1104,14 @@
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "skills/xlsx/scripts/office/soffice.py",
-              "line": 46
+              "line": 56
             },
             {
               "id": "AST4",
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "skills/xlsx/scripts/office/soffice.py",
-              "line": 68
+              "line": 152
             },
             {
               "id": "AST4",
@@ -1097,6 +1160,14 @@
               "file": "skills/xlsx/SKILL.md",
               "line": 74,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/xlsx/SKILL.md",
+              "line": 104,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         }
@@ -1111,7 +1182,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-14T15:30:16Z"
+      "checkedAt": "2026-11-16T14:52:23Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
