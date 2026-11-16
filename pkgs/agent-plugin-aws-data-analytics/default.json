@@ -1,11 +1,11 @@
 {
   "name": "aws-data-analytics",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "src": {
     "owner": "aws",
     "repo": "agent-toolkit-for-aws",
-    "rev": "fc261f713daea2f5509b06d304e7f10c58d59794",
-    "hash": "sha256-ViOnUL/OIylLdkjKlxV2yDm4AkdAiepNPsg+0nbVfW0="
+    "rev": "d583ef6a5c1877c4a1a39f573dfb84317211aed1",
+    "hash": "sha256-TCByry8aO9h0hrYYRor5avVvkM1xc67HPhDRlXFzv0k="
   },
   "sourceUrl": "https://github.com/aws/agent-toolkit-for-aws",
   "manifest": {
@@ -13,7 +13,7 @@
     "author": {
       "name": "Amazon Web Services"
     },
-    "description": "Data lake, analytics, search, streaming, ETL, and orchestration workflows with S3 Tables, AWS Glue, Athena, Amazon Redshift, Amazon OpenSearch Service, Amazon MSK, Amazon Managed Service for Apache Flink, Amazon MWAA, and Amazon SageMaker Catalog. Covers managed Iceberg tables on S3 Tables, ingestion from JDBC databases (Oracle, SQL Server, PostgreSQL, MySQL, RDS), Amazon Redshift, Snowflake, BigQuery, and DynamoDB, AWS Glue Data Catalog inventory and asset discovery, federated Athena queries, vector storage and semantic search on Amazon S3 Vectors, Amazon OpenSearch Service and Serverless (migration from Solr/Elasticsearch, provisioning, vector/semantic/hybrid search, log analytics, trace analytics), Amazon MSK Provisioned with Standard and Express brokers (cluster sizing, performance and consumer lag troubleshooting, topic management, MSK Replicator for disaster recovery and active-active replication, and Streaming Tables delivery to S3 Tables), migrating self-managed Apache Kafka to MSK Express, Apache Flink application development on Amazon Managed Service for Apache Flink, and Amazon MWAA Provisioned and MWAA Serverless (authoring, testing, and debugging DAGs and workflows, and Airflow version upgrades for provisioned environments), and Amazon SageMaker Catalog and AWS Glue Data Catalog curation (business descriptions, glossaries, metadata forms, publishing, and safe asset retirement) with subscription-based access requests, approvals, audits, and revocations.",
+    "description": "Data lake, analytics, search, streaming, ETL, and orchestration workflows with S3 Tables, AWS Glue, Athena, Amazon Redshift, Amazon OpenSearch Service, Amazon MSK, Amazon Managed Service for Apache Flink, Amazon MWAA, and Amazon SageMaker Catalog. Covers managed Iceberg tables on S3 Tables, ingestion from JDBC databases (Oracle, SQL Server, PostgreSQL, MySQL, RDS), Amazon Redshift, Snowflake, BigQuery, and DynamoDB, AWS Glue Data Catalog inventory and asset discovery, federated Athena queries, vector storage and semantic search on Amazon S3 Vectors, Amazon OpenSearch Service and Serverless (migration from Solr/Elasticsearch, provisioning, vector/semantic/hybrid search, log analytics, trace analytics), Amazon MSK Provisioned with Standard and Express brokers (cluster sizing, performance and consumer lag troubleshooting, topic management, MSK Replicator for disaster recovery and active-active replication, and Streaming Tables delivery to S3 Tables), migrating self-managed Apache Kafka to MSK Express, Apache Flink application development on Amazon Managed Service for Apache Flink, and Amazon MWAA Provisioned and MWAA Serverless (authoring, testing, and debugging DAGs and workflows, and Airflow version upgrades for provisioned environments), and Amazon SageMaker Catalog and AWS Glue Data Catalog curation (business descriptions, glossaries, metadata forms, publishing, and safe asset retirement) with subscription-based access requests, approvals, audits, and revocations, and AWS Glue auto upgrade for Spark ETL jobs (assessment, turning on auto upgrade, email notifications, and per-job upgrade approval).",
     "homepage": "https://aws.amazon.com/products/developer-tools/agent-toolkit-for-aws/",
     "keywords": [
       "aws",
@@ -58,12 +58,13 @@
       "data-governance",
       "business-glossary",
       "metadata-forms",
-      "data-access"
+      "data-access",
+      "glue-auto-version"
     ],
     "license": "Apache-2.0",
     "name": "aws-data-analytics",
     "repository": "https://github.com/aws/agent-toolkit-for-aws",
-    "version": "1.5.0"
+    "version": "1.6.0"
   },
   "skills": {
     "amazon-opensearch-service": "plugins/aws-data-analytics/skills/amazon-opensearch-service",
@@ -78,6 +79,7 @@
     "managing-amazon-msk": "plugins/aws-data-analytics/skills/managing-amazon-msk",
     "managing-data-asset-access": "plugins/aws-data-analytics/skills/managing-data-asset-access",
     "managing-data-catalog": "plugins/aws-data-analytics/skills/managing-data-catalog",
+    "managing-glue-jobs": "plugins/aws-data-analytics/skills/managing-glue-jobs",
     "migrate-to-msk": "plugins/aws-data-analytics/skills/migrate-to-msk",
     "querying-data-lake": "plugins/aws-data-analytics/skills/querying-data-lake",
     "redshift-guide": "plugins/aws-data-analytics/skills/redshift-guide",
@@ -122,8 +124,24 @@
     ],
     "warnings": [
       {
+        "path": "plugins/aws-data-analytics/skills/managing-glue-jobs/SKILL.md/metadata/persona",
+        "message": "must be a string value"
+      },
+      {
+        "path": "plugins/aws-data-analytics/skills/managing-glue-jobs/SKILL.md/metadata/service",
+        "message": "must be a string value"
+      },
+      {
+        "path": "plugins/aws-data-analytics/skills/managing-glue-jobs/SKILL.md/metadata/task",
+        "message": "must be a string value"
+      },
+      {
+        "path": "plugins/aws-data-analytics/skills/managing-glue-jobs/SKILL.md/metadata/workload",
+        "message": "must be a string value"
+      },
+      {
         "path": "skills",
-        "message": "123 SKILL.md outside every imported plugin, not imported"
+        "message": "124 SKILL.md outside every imported plugin, not imported"
       },
       {
         "path": "skills/managing-amazon-msk/scripts/msk_sizing.py",
