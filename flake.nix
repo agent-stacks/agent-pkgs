@@ -424,6 +424,13 @@
               if [ "$(uname -s)" = Darwin ]; then jq -e 'has("bwrapPath") | not' s.json; fi
               # srt does not follow macOS's /tmp -> /private/tmp link.
               if [ "$(uname -s)" = Darwin ]; then jq -e '.filesystem.allowWrite | index("/private/tmp")' s.json; fi
+              # macOS: pbcopy needs the pasteboard service, or copying out
+              # of the agent copies nothing. srt reads the key on macOS only.
+              if [ "$(uname -s)" = Darwin ]; then
+                jq -e '.network.allowMachLookup == ["com.apple.pasteboard.1"]' s.json
+              else
+                jq -e '.network | has("allowMachLookup") | not' s.json
+              fi
               # srt points TMPDIR here but does not create it on macOS.
               ${srt} -- true >/dev/null 2>&1
               [ -d agent-tmp ] || { echo "agent TMPDIR not created"; exit 1; }
