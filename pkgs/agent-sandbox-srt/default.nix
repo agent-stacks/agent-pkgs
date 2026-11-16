@@ -14,6 +14,8 @@
 #   - ~/.ssh denied; the project, /tmp and Claude's state writable;
 #   - on macOS, allowPty and /private/tmp (srt does not follow /tmp);
 #   - the agent's temp folder made, which srt names but does not create;
+#   - on macOS, SSL_CERT_FILE set unless the caller has, so gh can check
+#     a certificate without the trust service the sandbox blocks;
 #   - and it refuses to start at / or ~, where "." would open everything;
 #   - the caller's options: lists added to the above, and switches that
 #     are off unless true. A switch weakens the sandbox, so each one
@@ -29,6 +31,7 @@
   coreutils,
   stdenv,
   bubblewrap,
+  cacert,
   sandbox-runtime,
 }:
 
@@ -112,6 +115,20 @@
     # macOS does not create it, so mktemp inside the sandbox fails.
     mkdir -p "''${CLAUDE_CODE_TMPDIR:-''${CLAUDE_TMPDIR:-/tmp/claude}}"
 
+    # macOS: a program that has the system check a certificate fails in
+    # the sandbox, which blocks the trust service that does the check. A
+    # Go program (gh) checks it itself when SSL_CERT_FILE or SSL_CERT_DIR
+    # is set, from Go 1.27 on, so set one unless the caller has. Nix's
+    # file first: a machine's added authorities are usually in it. Not
+    # with the switch on: the trust service answers then, and it also
+    # knows the authorities only the keychain holds.
+    cert_file=
+    if [ "$darwin" = true ] && [ -z "''${SSL_CERT_FILE:-}" ] && [ -z "''${SSL_CERT_DIR:-}" ] &&
+      jq -e '.enableWeakerNetworkIsolation != true' >/dev/null <<<"$opts"; then
+      cert_file=''${NIX_SSL_CERT_FILE:-}
+      [ -r "$cert_file" ] || cert_file=${cacert}/etc/ssl/certs/ca-bundle.crt
+    fi
+
     settings=$(mktemp "''${TMPDIR:-/tmp}/agent-sandbox-srt.XXXXXX")
     jq -n --argjson o "$opts" --argjson mcp "$mcp_hosts" --argjson darwin "$darwin" --arg bwrap "$bwrap" '{
       network: {
@@ -131,11 +148,12 @@
     # A stack can carry its options, so the person at the terminal may
     # not have chosen them: say what is on that weakens the sandbox.
     if jq -e '.enableWeakerNetworkIsolation == true' "$settings" >/dev/null; then
-      echo "agent-sandbox-srt: enableWeakerNetworkIsolation is on: gh, flox and other programs that verify certificates through macOS can do so, and data can leave through its trust service" >&2
+      echo "agent-sandbox-srt: enableWeakerNetworkIsolation is on: flox and other programs that verify certificates through macOS can do so, and data can leave through its trust service" >&2
     fi
 
     if [ -n "''${AGENT_SANDBOX_SRT_DRY_RUN:-}" ]; then
       cat "$settings"
+      [ -z "$cert_file" ] || echo "would set: SSL_CERT_FILE=$cert_file" >&2
       echo "would run: $srt --settings $settings -- $*" >&2
       exit 0
     fi
@@ -163,6 +181,7 @@ Fix it once, as root, with either:
   - sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 (relaxes it for the whole host)"
     fi
 
+    [ -z "$cert_file" ] || export SSL_CERT_FILE=$cert_file
     echo "agent-sandbox-srt: running ''${1##*/} inside srt" >&2
     exec "$srt" --settings "$settings" -- "$@"
   '';
