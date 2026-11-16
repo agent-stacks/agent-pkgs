@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "postman",
-      "dir": "/nix/store/fy5masfpvvfy9hx5dfz3hl85vz4m65f8-agent-plugin-postman-2.4.2/share/agent-plugins/postman",
+      "dir": "/nix/store/74402qnv4f93850g6xlkg3rcvi48xwkj-agent-plugin-postman-2.4.2/share/agent-plugins/postman",
       "spec": "1.1.0",
       "score": 49,
       "status": "do not install",
@@ -534,19 +534,34 @@
         },
         {
           "path": "skills/performance-testing",
-          "score": 100,
-          "risk": 0,
-          "status": "safe",
+          "score": 60,
+          "risk": 40,
+          "status": "caution",
           "partial": true,
           "coverage": 100,
           "exceptions": [
             {
               "reason": "reference_missing",
               "path": "skills/performance-testing/SKILL.md",
-              "line": 55
+              "line": 68
             }
           ],
-          "findings": [],
+          "findings": [
+            {
+              "id": "P1",
+              "severity": "HIGH",
+              "message": "Instruction Override",
+              "file": "skills/performance-testing/references/readyapi-import/script-translation.md",
+              "line": 15
+            },
+            {
+              "id": "YR4",
+              "severity": "HIGH",
+              "message": "YARA rule 'agent_skill_prompt_injection_hidden_instructions': Prompt injection or hidden instructions embedded in AI agent skill text [agent_skills]",
+              "file": "skills/performance-testing/references/readyapi-import/script-translation.md",
+              "line": 15
+            }
+          ],
           "suppressed": []
         },
         {
@@ -666,7 +681,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-13T23:59:05Z"
+      "checkedAt": "2026-11-16T07:40:47Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
