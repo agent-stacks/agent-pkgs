@@ -1,8 +1,8 @@
 diff --git a/core/src/agents_md.rs b/core/src/agents_md.rs
-index 1919d68..4225d71 100644
+index 08983d7..66c2c2b 100644
 --- a/core/src/agents_md.rs
 +++ b/core/src/agents_md.rs
-@@ -112,6 +112,21 @@ pub(crate) async fn load_project_instructions(
+@@ -119,6 +119,21 @@ pub(crate) async fn load_project_instructions(
          }
      }
  
@@ -21,16 +21,16 @@ index 1919d68..4225d71 100644
 +        });
 +    }
 +
-     Ok((!loaded.is_empty()).then_some(loaded))
+     Ok(loaded)
  }
  
 diff --git a/ext/skills/src/host_roots.rs b/ext/skills/src/host_roots.rs
-index 2559b4b..8b31700 100644
+index 940b263..6b5ff22 100644
 --- a/ext/skills/src/host_roots.rs
 +++ b/ext/skills/src/host_roots.rs
-@@ -96,6 +96,19 @@ async fn resolve_skill_roots_with_home_dir(
+@@ -105,6 +105,19 @@ async fn resolve_skill_roots_with_home_dir<'a>(
              .into_iter()
-             .map(|path| local_root(path, SkillScope::User)),
+             .map(|root| HostSkillRoot::plugin(root, host)),
      );
 +    // flox-ai: extra skill roots injected via the CODEX_FLOX_SKILL_ROOTS env
 +    // var (colon-separated absolute paths). Added by the flox downstream
@@ -41,10 +41,10 @@ index 2559b4b..8b31700 100644
 +            if let Ok(path) =
 +                AbsolutePathBuf::from_absolute_path_checked(std::path::PathBuf::from(entry))
 +            {
-+                roots.push(local_root(path, SkillScope::User));
++                roots.push(HostSkillRoot::host(path, SkillScope::User, host));
 +            }
 +        }
 +    }
      roots.extend(
-         repo_agents_skill_roots(
-             repository_file_system,
+         extra_skill_roots
+             .into_iter()
