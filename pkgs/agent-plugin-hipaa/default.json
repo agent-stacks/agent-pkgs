@@ -1,0 +1,46 @@
+{
+  "name": "hipaa",
+  "version": "0.1.0",
+  "src": {
+    "owner": "anthropics",
+    "repo": "claude-code",
+    "rev": "d94ebddcb62d160e52fc84d8c963ad5c06ac91b3",
+    "hash": "sha256-6qk8L4tPgKYULKuqZ3Pblt1NNa4YPjsGa6JWg7LkXIU="
+  },
+  "sourceUrl": "https://github.com/anthropics/claude-code",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Anthropic"
+    },
+    "description": "For organizations under HIPAA: refuses a plugin's or a settings hook's own call to an MCP or connector tool that an administrator blocked, unless it is the organization's.",
+    "name": "hipaa",
+    "version": "0.1.0"
+  },
+  "skills": {},
+  "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/hooks": "mods/hipaa/hooks"
+  },
+  "meta": {
+    "description": "For organizations under HIPAA",
+    "homepage": "https://github.com/anthropics/claude-code"
+  },
+  "import": {
+    "input": "anthropics/claude-code",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "mods/hipaa/hooks/hooks.json",
+        "message": "Claude Code loads this module into its own process whenever the plugin is enabled: ./register.ts"
+      }
+    ]
+  }
+}
