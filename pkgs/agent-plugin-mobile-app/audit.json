@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "mobile-app",
-      "dir": "/nix/store/i0d1c6r6dwsz785gqi3pqcbp6v4yqaaf-agent-plugin-mobile-app-0.6.2/share/agent-plugins/mobile-app",
+      "dir": "/nix/store/h8la2mwp18ipkrni59h0w8hixd8mkzr3-agent-plugin-mobile-app-0.6.3/share/agent-plugins/mobile-app",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -42,8 +42,7 @@
           "skills/setup-app-insights",
           "skills/setup-datamodel",
           "skills/setup-offline-profile",
-          "skills/telemetry",
-          "template"
+          "skills/telemetry"
         ],
         "validated": [
           "plugin.json"
@@ -70,11 +69,11 @@
       "components": [
         {
           "path": "agents",
-          "score": 30,
-          "risk": 70,
+          "score": 38,
+          "risk": 62,
           "status": "do not install",
           "partial": true,
-          "coverage": 20,
+          "coverage": 40,
           "exceptions": [
             {
               "reason": "static_parse_limit",
@@ -95,11 +94,6 @@
               "reason": "static_parse_limit",
               "path": "agents/screen-builder.md",
               "line": 0
-            },
-            {
-              "reason": "obfuscated_instruction_text",
-              "path": "agents/screen-planner.md",
-              "line": 0
             }
           ],
           "findings": [
@@ -108,95 +102,88 @@
               "severity": "HIGH",
               "message": "Anti-Refusal Statement",
               "file": "agents/data-model-architect.md",
-              "line": 712
+              "line": 721
             },
             {
               "id": "AR2",
               "severity": "HIGH",
               "message": "Anti-Refusal Statement",
               "file": "agents/native-app-planner.md",
-              "line": 835
+              "line": 882
             },
             {
               "id": "AR2",
               "severity": "HIGH",
               "message": "Anti-Refusal Statement",
               "file": "agents/screen-builder.md",
-              "line": 1046
+              "line": 1078
             },
             {
               "id": "AR2",
               "severity": "HIGH",
               "message": "Anti-Refusal Statement",
               "file": "agents/screen-planner.md",
-              "line": 314
+              "line": 323
             },
             {
               "id": "AS3",
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
               "file": "agents/data-model-architect.md",
-              "line": 83
+              "line": 92
             },
             {
               "id": "AS3",
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
               "file": "agents/data-model-architect.md",
-              "line": 83
+              "line": 92
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "agents/data-model-architect.md",
-              "line": 84
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "agents/native-app-planner.md",
-              "line": 142
+              "line": 93
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "agents/native-app-planner.md",
-              "line": 249
+              "line": 296
             },
             {
               "id": "AS3",
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
               "file": "agents/screen-builder.md",
-              "line": 216
+              "line": 228
             },
             {
               "id": "AS3",
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
               "file": "agents/screen-builder.md",
-              "line": 216
+              "line": 228
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "agents/screen-builder.md",
-              "line": 932
+              "line": 964
             }
           ],
           "suppressed": []
         },
         {
           "path": "hooks",
-          "score": 34,
-          "risk": 66,
+          "score": 47,
+          "risk": 53,
           "status": "do not install",
           "partial": true,
-          "coverage": 23.1,
+          "coverage": 30.8,
           "exceptions": [
             {
               "reason": "static_parse_limit",
@@ -235,11 +222,6 @@
             },
             {
               "reason": "static_parse_limit",
-              "path": "hooks/validate-protected-paths.js",
-              "line": 0
-            },
-            {
-              "reason": "static_parse_limit",
               "path": "hooks/validate-screen-quality.js",
               "line": 0
             },
@@ -256,13 +238,6 @@
               "message": "Memory Manipulation",
               "file": "hooks/validate-navigation-idempotency.js",
               "line": 204
-            },
-            {
-              "id": "PE3",
-              "severity": "HIGH",
-              "message": "Credential Access",
-              "file": "hooks/validate-package-deps.js",
-              "line": 67
             },
             {
               "id": "PE3",
@@ -287,7 +262,7 @@
           "risk": 99,
           "status": "do not install",
           "partial": true,
-          "coverage": 29.7,
+          "coverage": 31.5,
           "exceptions": [
             {
               "reason": "static_parse_limit",
@@ -381,6 +356,16 @@
             },
             {
               "reason": "static_parse_limit",
+              "path": "scripts/lib/mobile-published-packages.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/mobile-release.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
               "path": "scripts/lib/mobile-telemetry-config.js",
               "line": 0
             },
@@ -445,6 +430,16 @@
               "line": 0
             },
             {
+              "reason": "obfuscated_instruction_text",
+              "path": "scripts/mobile-template-lifecycle.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/mobile-template-lifecycle.js",
+              "line": 0
+            },
+            {
               "reason": "static_parse_limit",
               "path": "scripts/offline-profile-delta.js",
               "line": 0
@@ -481,6 +476,11 @@
             },
             {
               "reason": "static_parse_limit",
+              "path": "scripts/resolve-mobile-release.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
               "path": "scripts/run-with-telemetry.sh",
               "line": 0
             },
@@ -502,6 +502,11 @@
             {
               "reason": "static_parse_limit",
               "path": "scripts/validate-mobile-files.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/vendor/semver.cjs",
               "line": 0
             },
             {
@@ -534,6 +539,41 @@
               "message": "Unvalidated Output Injection",
               "file": "scripts/app-docs.js",
               "line": 1383
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/mobile-release.js",
+              "line": 23
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/npm-context.js",
+              "line": 34
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/npm-context.js",
+              "line": 35
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/mobile-template-lifecycle.js",
+              "line": 213
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/mobile-template-lifecycle.js",
+              "line": 216
             },
             {
               "id": "PE3",
@@ -572,7 +612,7 @@
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 78.4,
+          "coverage": 78.8,
           "exceptions": [
             {
               "reason": "static_parse_limit",
@@ -644,6 +684,13 @@
               "line": 455
             },
             {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "shared/references/mobile-release-lifecycle.md",
+              "line": 76
+            },
+            {
               "id": "YR4",
               "severity": "HIGH",
               "message": "YARA rule 'agent_skill_prompt_injection_hidden_instructions': Prompt injection or hidden instructions embedded in AI agent skill text [agent_skills]",
@@ -655,42 +702,42 @@
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
               "file": "shared/shared-instructions.md",
-              "line": 362
+              "line": 377
             },
             {
               "id": "TM1",
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
               "file": "shared/shared-instructions.md",
-              "line": 362
+              "line": 377
             },
             {
               "id": "TM1",
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
               "file": "shared/shared-instructions.md",
-              "line": 362
+              "line": 377
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "shared/shared-instructions.md",
-              "line": 378
+              "line": 393
             },
             {
               "id": "TM1",
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
               "file": "shared/shared-instructions.md",
-              "line": 378
+              "line": 393
             },
             {
               "id": "TM1",
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
               "file": "shared/shared-instructions.md",
-              "line": 378
+              "line": 393
             },
             {
               "id": "RP1",
@@ -704,7 +751,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "shared/shared-instructions.md",
-              "line": 413
+              "line": 428
             },
             {
               "id": "RP1",
@@ -718,7 +765,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "shared/shared-instructions.md",
-              "line": 413
+              "line": 428
             },
             {
               "id": "RP1",
@@ -823,42 +870,35 @@
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "shared/shared-instructions.md",
-              "line": 280
+              "line": 295
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "shared/shared-instructions.md",
-              "line": 280
+              "line": 295
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "shared/shared-instructions.md",
-              "line": 436
+              "line": 451
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "shared/version-check.md",
-              "line": 18
+              "line": 36
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "shared/version-check.md",
-              "line": 30
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "shared/version-check.md",
-              "line": 26
+              "line": 37
             }
           ],
           "suppressed": []
@@ -1355,11 +1395,11 @@
         },
         {
           "path": "skills/add-native",
-          "score": 53,
-          "risk": 47,
+          "score": 57,
+          "risk": 43,
           "status": "caution",
           "partial": true,
-          "coverage": 16.7,
+          "coverage": 57.1,
           "exceptions": [
             {
               "reason": "static_parse_limit",
@@ -1379,147 +1419,57 @@
             {
               "reason": "reference_missing",
               "path": "skills/add-native/SKILL.md",
-              "line": 29
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/add-native/SKILL.md",
-              "line": 30
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/add-native/SKILL.md",
-              "line": 31
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/add-native/SKILL.md",
               "line": 32
             },
             {
               "reason": "reference_missing",
               "path": "skills/add-native/SKILL.md",
-              "line": 54
+              "line": 33
             },
             {
               "reason": "reference_missing",
               "path": "skills/add-native/SKILL.md",
-              "line": 63
+              "line": 81
             },
             {
               "reason": "reference_missing",
               "path": "skills/add-native/SKILL.md",
-              "line": 69
+              "line": 102
             },
             {
               "reason": "reference_missing",
               "path": "skills/add-native/SKILL.md",
-              "line": 83
+              "line": 164
             },
             {
               "reason": "reference_missing",
               "path": "skills/add-native/SKILL.md",
-              "line": 142
+              "line": 165
             },
             {
               "reason": "reference_missing",
               "path": "skills/add-native/SKILL.md",
-              "line": 143
+              "line": 166
             },
             {
               "reason": "reference_missing",
               "path": "skills/add-native/SKILL.md",
-              "line": 144
+              "line": 167
             },
             {
               "reason": "reference_missing",
               "path": "skills/add-native/SKILL.md",
-              "line": 145
+              "line": 168
             },
             {
               "reason": "reference_missing",
               "path": "skills/add-native/SKILL.md",
-              "line": 146
+              "line": 169
             },
             {
               "reason": "reference_missing",
               "path": "skills/add-native/SKILL.md",
-              "line": 147
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/add-native/SKILL.md",
-              "line": 148
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/add-native/SKILL.md",
-              "line": 149
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/add-native/SKILL.md",
-              "line": 150
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/add-native/SKILL.md",
-              "line": 151
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/add-native/SKILL.md",
-              "line": 152
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/add-native/SKILL.md",
-              "line": 153
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/add-native/SKILL.md",
-              "line": 154
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/add-native/SKILL.md",
-              "line": 155
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/add-native/SKILL.md",
-              "line": 156
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/add-native/SKILL.md",
-              "line": 157
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/add-native/SKILL.md",
-              "line": 158
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/add-native/SKILL.md",
-              "line": 159
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/add-native/SKILL.md",
-              "line": 160
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/add-native/SKILL.md",
-              "line": 161
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/add-native/SKILL.md",
-              "line": 162
+              "line": 170
             },
             {
               "reason": "reference_missing",
@@ -1529,67 +1479,127 @@
             {
               "reason": "reference_missing",
               "path": "skills/add-native/SKILL.md",
+              "line": 172
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/add-native/SKILL.md",
+              "line": 173
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/add-native/SKILL.md",
+              "line": 174
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/add-native/SKILL.md",
               "line": 175
             },
             {
               "reason": "reference_missing",
               "path": "skills/add-native/SKILL.md",
-              "line": 187
+              "line": 176
             },
             {
               "reason": "reference_missing",
               "path": "skills/add-native/SKILL.md",
-              "line": 206
+              "line": 177
             },
             {
               "reason": "reference_missing",
               "path": "skills/add-native/SKILL.md",
-              "line": 212
+              "line": 178
             },
             {
               "reason": "reference_missing",
               "path": "skills/add-native/SKILL.md",
-              "line": 236
+              "line": 179
             },
             {
               "reason": "reference_missing",
               "path": "skills/add-native/SKILL.md",
-              "line": 246
+              "line": 180
             },
             {
               "reason": "reference_missing",
               "path": "skills/add-native/SKILL.md",
-              "line": 250
+              "line": 181
             },
             {
               "reason": "reference_missing",
               "path": "skills/add-native/SKILL.md",
-              "line": 262
+              "line": 182
             },
             {
               "reason": "reference_missing",
               "path": "skills/add-native/SKILL.md",
-              "line": 284
+              "line": 183
             },
             {
               "reason": "reference_missing",
               "path": "skills/add-native/SKILL.md",
-              "line": 363
+              "line": 184
             },
             {
               "reason": "reference_missing",
               "path": "skills/add-native/SKILL.md",
-              "line": 372
+              "line": 193
             },
             {
               "reason": "reference_missing",
               "path": "skills/add-native/SKILL.md",
-              "line": 461
+              "line": 197
             },
             {
               "reason": "reference_missing",
               "path": "skills/add-native/SKILL.md",
-              "line": 463
+              "line": 237
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/add-native/SKILL.md",
+              "line": 249
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/add-native/SKILL.md",
+              "line": 273
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/add-native/SKILL.md",
+              "line": 289
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/add-native/SKILL.md",
+              "line": 301
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/add-native/SKILL.md",
+              "line": 323
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/add-native/SKILL.md",
+              "line": 406
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/add-native/SKILL.md",
+              "line": 415
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/add-native/SKILL.md",
+              "line": 508
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/add-native/SKILL.md",
+              "line": 512
             },
             {
               "reason": "static_parse_limit",
@@ -1599,16 +1609,6 @@
             {
               "reason": "static_parse_limit",
               "path": "skills/add-native/add-pdf-report/SKILL.md",
-              "line": 0
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/add-native/add-pdf-viewer/SKILL.md",
-              "line": 0
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/add-native/add-pen-input/SKILL.md",
               "line": 0
             }
           ],
@@ -1660,63 +1660,42 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/add-native/SKILL.md",
-              "line": 29
+              "line": 31
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/add-native/SKILL.md",
-              "line": 253
+              "line": 292
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/add-native/add-camera/SKILL.md",
-              "line": 112
+              "line": 123
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/add-native/add-pdf-report/SKILL.md",
-              "line": 55
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/add-native/add-pdf-viewer/SKILL.md",
-              "line": 41
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/add-native/add-pen-input/SKILL.md",
-              "line": 41
+              "line": 65
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/add-native/SKILL.md",
-              "line": 30
+              "line": 32
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/add-native/SKILL.md",
-              "line": 36
-            },
-            {
-              "id": "EA2",
-              "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "skills/add-native/add-geolocation/SKILL.md",
-              "line": 48
+              "line": 39
             }
           ],
           "suppressed": [
@@ -1725,31 +1704,15 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/add-native/SKILL.md",
-              "line": 44,
-              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/add-native/SKILL.md",
-              "line": 45,
-              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/add-native/SKILL.md",
-              "line": 46,
-              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/add-native/SKILL.md",
               "line": 47,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/add-native/SKILL.md",
+              "line": 48,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
@@ -2234,8 +2197,8 @@
         },
         {
           "path": "skills/check-updates",
-          "score": 77,
-          "risk": 23,
+          "score": 58,
+          "risk": 42,
           "status": "caution",
           "partial": true,
           "coverage": 100,
@@ -2253,40 +2216,64 @@
             {
               "reason": "reference_missing",
               "path": "skills/check-updates/SKILL.md",
-              "line": 43
+              "line": 51
             },
             {
               "reason": "reference_missing",
               "path": "skills/check-updates/SKILL.md",
-              "line": 46
+              "line": 57
             },
             {
               "reason": "reference_missing",
               "path": "skills/check-updates/SKILL.md",
-              "line": 48
+              "line": 60
             },
             {
               "reason": "reference_missing",
               "path": "skills/check-updates/SKILL.md",
-              "line": 66
+              "line": 75
             },
             {
               "reason": "reference_missing",
               "path": "skills/check-updates/SKILL.md",
-              "line": 70
+              "line": 180
             },
             {
               "reason": "reference_missing",
               "path": "skills/check-updates/SKILL.md",
-              "line": 72
+              "line": 184
             },
             {
               "reason": "reference_missing",
               "path": "skills/check-updates/SKILL.md",
-              "line": 89
+              "line": 214
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/check-updates/SKILL.md",
+              "line": 216
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/check-updates/SKILL.md",
+              "line": 232
             }
           ],
           "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/check-updates/SKILL.md",
+              "line": 63
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/check-updates/SKILL.md",
+              "line": 64
+            },
             {
               "id": "EA5",
               "severity": "MEDIUM",
@@ -2295,18 +2282,11 @@
               "line": 6
             },
             {
-              "id": "EA2",
-              "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "skills/check-updates/SKILL.md",
-              "line": 48
-            },
-            {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/check-updates/SKILL.md",
-              "line": 72
+              "line": 215
             }
           ],
           "suppressed": []
@@ -2332,82 +2312,57 @@
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 57
+              "line": 65
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 58
+              "line": 66
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 63
+              "line": 72
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 122
+              "line": 131
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 185
+              "line": 194
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 189
+              "line": 198
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 206
+              "line": 215
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 230
+              "line": 251
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 254
+              "line": 275
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 295
+              "line": 318
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 297
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/create-mobile-app/SKILL.md",
-              "line": 319
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/create-mobile-app/SKILL.md",
-              "line": 323
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/create-mobile-app/SKILL.md",
-              "line": 334
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/create-mobile-app/SKILL.md",
-              "line": 338
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/create-mobile-app/SKILL.md",
-              "line": 339
+              "line": 320
             },
             {
               "reason": "reference_missing",
@@ -2417,117 +2372,117 @@
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 347
+              "line": 346
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 364
+              "line": 357
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 366
+              "line": 361
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 432
+              "line": 362
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 489
+              "line": 365
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 495
+              "line": 370
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 509
+              "line": 387
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 562
+              "line": 389
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 580
+              "line": 455
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 583
+              "line": 512
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 602
+              "line": 518
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 682
+              "line": 532
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 773
+              "line": 585
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 973
+              "line": 603
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 975
+              "line": 606
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 982
+              "line": 625
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1028
+              "line": 705
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1082
+              "line": 796
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1094
+              "line": 996
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1095
+              "line": 998
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1110
+              "line": 1005
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1112
+              "line": 1051
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1114
+              "line": 1105
             },
             {
               "reason": "reference_missing",
@@ -2542,12 +2497,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1126
+              "line": 1133
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1131
+              "line": 1135
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/create-mobile-app/SKILL.md",
+              "line": 1137
             },
             {
               "reason": "reference_missing",
@@ -2557,62 +2517,52 @@
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1143
+              "line": 1141
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1162
+              "line": 1149
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1180
+              "line": 1154
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1200
+              "line": 1163
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1387
+              "line": 1166
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1389
+              "line": 1185
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1416
+              "line": 1203
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1420
+              "line": 1223
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1429
+              "line": 1410
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1432
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1436
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1437
+              "line": 1412
             },
             {
               "reason": "reference_missing",
@@ -2622,227 +2572,227 @@
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1440
+              "line": 1443
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1442
+              "line": 1452
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1490
+              "line": 1455
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1511
+              "line": 1459
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1542
+              "line": 1460
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1563
+              "line": 1462
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1577
+              "line": 1463
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1578
+              "line": 1465
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1593
+              "line": 1513
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1609
+              "line": 1534
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1616
+              "line": 1566
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1626
+              "line": 1587
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1628
+              "line": 1600
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1656
+              "line": 1601
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1664
+              "line": 1604
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1666
+              "line": 1605
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1696
+              "line": 1620
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1697
+              "line": 1636
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1710
+              "line": 1643
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1714
+              "line": 1653
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1730
+              "line": 1655
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1733
+              "line": 1683
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1752
+              "line": 1691
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1766
+              "line": 1693
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1790
+              "line": 1723
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1793
+              "line": 1724
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1796
+              "line": 1739
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1804
+              "line": 1743
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1821
+              "line": 1759
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1876
+              "line": 1762
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1885
+              "line": 1781
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1907
+              "line": 1795
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1920
+              "line": 1819
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1925
+              "line": 1822
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1934
+              "line": 1825
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1966
+              "line": 1833
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1968
+              "line": 1850
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1982
+              "line": 1905
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1986
+              "line": 1914
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1991
+              "line": 1936
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1994
+              "line": 1949
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 1999
+              "line": 1954
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2002
+              "line": 1963
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2004
+              "line": 1995
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2007
+              "line": 1997
             },
             {
               "reason": "reference_missing",
@@ -2852,62 +2802,87 @@
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2090
+              "line": 2015
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2092
+              "line": 2020
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2093
+              "line": 2023
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2094
+              "line": 2028
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2095
+              "line": 2031
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2115
+              "line": 2033
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2116
+              "line": 2036
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2117
+              "line": 2040
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2118
+              "line": 2119
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2120
+              "line": 2121
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2133
+              "line": 2122
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2148
+              "line": 2123
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/create-mobile-app/SKILL.md",
+              "line": 2124
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/create-mobile-app/SKILL.md",
+              "line": 2144
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/create-mobile-app/SKILL.md",
+              "line": 2145
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/create-mobile-app/SKILL.md",
+              "line": 2146
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/create-mobile-app/SKILL.md",
+              "line": 2147
             },
             {
               "reason": "reference_missing",
@@ -2917,117 +2892,102 @@
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2150
+              "line": 2162
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2151
+              "line": 2177
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2156
+              "line": 2178
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2165
+              "line": 2179
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2173
+              "line": 2180
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2189
+              "line": 2185
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2326
+              "line": 2194
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2340
+              "line": 2202
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2373
+              "line": 2218
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2376
+              "line": 2355
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2391
+              "line": 2369
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2393
+              "line": 2402
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2401
+              "line": 2405
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2435
+              "line": 2420
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2457
+              "line": 2422
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2474
+              "line": 2430
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2482
+              "line": 2464
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2484
+              "line": 2486
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2493
+              "line": 2503
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2497
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2499
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2500
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2507
+              "line": 2511
             },
             {
               "reason": "reference_missing",
@@ -3037,157 +2997,187 @@
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2514
+              "line": 2522
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2569
+              "line": 2526
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2580
+              "line": 2528
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2596
+              "line": 2529
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2613
+              "line": 2536
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2645
+              "line": 2542
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2655
+              "line": 2543
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2671
+              "line": 2598
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2686
+              "line": 2609
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2694
+              "line": 2625
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2702
+              "line": 2642
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2727
+              "line": 2674
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2835
+              "line": 2684
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2852
+              "line": 2700
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2859
+              "line": 2715
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2860
+              "line": 2723
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 2892
+              "line": 2731
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 3083
+              "line": 2756
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 3121
+              "line": 2864
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 3147
+              "line": 2881
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 3168
+              "line": 2888
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 3211
+              "line": 2889
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 3238
+              "line": 2921
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 3258
+              "line": 3112
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 3311
+              "line": 3150
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 3323
+              "line": 3176
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 3473
+              "line": 3197
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 3484
+              "line": 3240
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 3523
+              "line": 3267
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 3524
+              "line": 3287
             },
             {
               "reason": "reference_missing",
               "path": "skills/create-mobile-app/SKILL.md",
-              "line": 3525
+              "line": 3340
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/create-mobile-app/SKILL.md",
+              "line": 3352
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/create-mobile-app/SKILL.md",
+              "line": 3502
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/create-mobile-app/SKILL.md",
+              "line": 3513
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/create-mobile-app/SKILL.md",
+              "line": 3552
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/create-mobile-app/SKILL.md",
+              "line": 3553
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/create-mobile-app/SKILL.md",
+              "line": 3554
             }
           ],
           "findings": [
@@ -3196,14 +3186,14 @@
               "severity": "HIGH",
               "message": "Memory Manipulation",
               "file": "skills/create-mobile-app/SKILL.md",
-              "line": 61
+              "line": 70
             },
             {
               "id": "MP3",
               "severity": "HIGH",
               "message": "Memory Manipulation",
               "file": "skills/create-mobile-app/SKILL.md",
-              "line": 2596
+              "line": 2625
             },
             {
               "id": "EA5",
@@ -3217,49 +3207,49 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/create-mobile-app/SKILL.md",
-              "line": 426
+              "line": 449
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/create-mobile-app/SKILL.md",
-              "line": 430
+              "line": 453
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/create-mobile-app/SKILL.md",
-              "line": 979
+              "line": 1002
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/create-mobile-app/SKILL.md",
-              "line": 1387
+              "line": 1410
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/create-mobile-app/SKILL.md",
-              "line": 3121
+              "line": 3150
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/create-mobile-app/SKILL.md",
-              "line": 3123
+              "line": 3152
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/create-mobile-app/SKILL.md",
-              "line": 3399
+              "line": 3428
             }
           ],
           "suppressed": []
@@ -3320,47 +3310,37 @@
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 185
+              "line": 191
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 187
+              "line": 193
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 189
+              "line": 195
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 223
+              "line": 229
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 226
+              "line": 232
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 230
+              "line": 236
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 234
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/debug-app/SKILL.md",
-              "line": 255
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/debug-app/SKILL.md",
-              "line": 265
+              "line": 240
             },
             {
               "reason": "reference_missing",
@@ -3370,177 +3350,177 @@
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 267
+              "line": 276
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 268
+              "line": 277
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 269
+              "line": 278
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 273
+              "line": 279
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 287
+              "line": 280
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 321
+              "line": 284
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 340
+              "line": 298
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 428
+              "line": 332
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 435
+              "line": 351
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 460
+              "line": 439
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 465
+              "line": 446
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 473
+              "line": 471
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 481
+              "line": 476
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 485
+              "line": 484
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 501
+              "line": 492
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 521
+              "line": 496
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 525
+              "line": 512
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 544
+              "line": 532
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 556
+              "line": 536
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 558
+              "line": 555
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 561
+              "line": 567
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 563
+              "line": 569
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 579
+              "line": 572
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 580
+              "line": 574
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 599
+              "line": 590
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 619
+              "line": 591
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 625
+              "line": 610
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 632
+              "line": 630
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 717
+              "line": 636
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 721
+              "line": 643
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 723
+              "line": 728
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 729
+              "line": 732
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 806
+              "line": 734
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 838
+              "line": 740
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 847
+              "line": 817
             },
             {
               "reason": "reference_missing",
@@ -3550,112 +3530,92 @@
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 855
+              "line": 858
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 857
+              "line": 860
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 902
+              "line": 866
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 903
+              "line": 868
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 922
+              "line": 913
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 941
+              "line": 914
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 949
+              "line": 933
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 962
+              "line": 952
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 976
+              "line": 960
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 990
+              "line": 973
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 992
+              "line": 987
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 993
+              "line": 1026
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 994
+              "line": 1028
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 996
+              "line": 1029
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 997
+              "line": 1030
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 1001
+              "line": 1032
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 1017
+              "line": 1033
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 1027
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/debug-app/SKILL.md",
-              "line": 1036
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/debug-app/SKILL.md",
-              "line": 1038
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/debug-app/SKILL.md",
-              "line": 1049
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/debug-app/SKILL.md",
-              "line": 1052
+              "line": 1037
             },
             {
               "reason": "reference_missing",
@@ -3665,37 +3625,72 @@
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 1100
+              "line": 1063
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 1108
+              "line": 1072
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 1140
+              "line": 1074
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 1144
+              "line": 1085
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 1154
+              "line": 1088
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 1158
+              "line": 1089
             },
             {
               "reason": "reference_missing",
               "path": "skills/debug-app/SKILL.md",
-              "line": 1171
+              "line": 1136
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/debug-app/SKILL.md",
+              "line": 1149
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/debug-app/SKILL.md",
+              "line": 1151
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/debug-app/SKILL.md",
+              "line": 1183
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/debug-app/SKILL.md",
+              "line": 1187
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/debug-app/SKILL.md",
+              "line": 1197
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/debug-app/SKILL.md",
+              "line": 1201
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/debug-app/SKILL.md",
+              "line": 1214
             }
           ],
           "findings": [
@@ -3704,7 +3699,7 @@
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
               "file": "skills/debug-app/SKILL.md",
-              "line": 270
+              "line": 281
             },
             {
               "id": "PE3",
@@ -3725,21 +3720,21 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/debug-app/SKILL.md",
-              "line": 992
+              "line": 1028
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/debug-app/SKILL.md",
-              "line": 1053
+              "line": 1089
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/debug-app/SKILL.md",
-              "line": 1118
+              "line": 1161
             },
             {
               "id": "EA4",
@@ -3777,12 +3772,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 33
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/deploy/SKILL.md",
-              "line": 39
+              "line": 37
             },
             {
               "reason": "reference_missing",
@@ -3792,97 +3782,52 @@
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 46
+              "line": 97
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 52
+              "line": 100
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 56
+              "line": 106
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 73
+              "line": 110
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 80
+              "line": 127
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 88
+              "line": 134
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 94
+              "line": 143
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 95
+              "line": 149
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 98
+              "line": 150
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 101
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/deploy/SKILL.md",
-              "line": 102
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/deploy/SKILL.md",
-              "line": 104
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/deploy/SKILL.md",
-              "line": 117
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/deploy/SKILL.md",
-              "line": 131
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/deploy/SKILL.md",
-              "line": 138
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/deploy/SKILL.md",
-              "line": 140
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/deploy/SKILL.md",
-              "line": 141
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/deploy/SKILL.md",
-              "line": 145
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/deploy/SKILL.md",
-              "line": 151
+              "line": 153
             },
             {
               "reason": "reference_missing",
@@ -3897,47 +3842,62 @@
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 161
+              "line": 159
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 170
+              "line": 172
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 174
+              "line": 189
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 181
+              "line": 196
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 188
+              "line": 198
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 212
+              "line": 199
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 217
+              "line": 203
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 221
+              "line": 213
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 224
+              "line": 218
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/deploy/SKILL.md",
+              "line": 219
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/deploy/SKILL.md",
+              "line": 223
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/deploy/SKILL.md",
+              "line": 232
             },
             {
               "reason": "reference_missing",
@@ -3947,7 +3907,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 247
+              "line": 243
             },
             {
               "reason": "reference_missing",
@@ -3957,27 +3917,62 @@
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 261
+              "line": 278
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 265
+              "line": 283
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 309
+              "line": 287
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 310
+              "line": 290
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 311
+              "line": 302
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/deploy/SKILL.md",
+              "line": 313
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/deploy/SKILL.md",
+              "line": 316
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/deploy/SKILL.md",
+              "line": 327
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/deploy/SKILL.md",
+              "line": 331
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/deploy/SKILL.md",
+              "line": 377
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/deploy/SKILL.md",
+              "line": 378
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/deploy/SKILL.md",
+              "line": 379
             }
           ],
           "findings": [
@@ -3986,7 +3981,7 @@
               "severity": "HIGH",
               "message": "Tool Parameter Abuse",
               "file": "skills/deploy/SKILL.md",
-              "line": 94
+              "line": 149
             },
             {
               "id": "EA5",
@@ -4000,28 +3995,28 @@
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
               "file": "skills/deploy/SKILL.md",
-              "line": 203
+              "line": 265
             },
             {
               "id": "AS3",
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
               "file": "skills/deploy/SKILL.md",
-              "line": 203
+              "line": 265
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/deploy/SKILL.md",
-              "line": 261
+              "line": 327
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/deploy/SKILL.md",
-              "line": 261
+              "line": 327
             }
           ],
           "suppressed": []
@@ -4406,52 +4401,32 @@
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 287
+              "line": 296
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 288
+              "line": 308
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 289
+              "line": 309
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 290
+              "line": 310
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 291
+              "line": 311
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 295
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/edit-app/SKILL.md",
-              "line": 302
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/edit-app/SKILL.md",
-              "line": 303
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/edit-app/SKILL.md",
-              "line": 304
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/edit-app/SKILL.md",
-              "line": 315
+              "line": 312
             },
             {
               "reason": "reference_missing",
@@ -4461,57 +4436,72 @@
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 317
+              "line": 323
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 318
+              "line": 324
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 356
+              "line": 325
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 365
+              "line": 336
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 379
+              "line": 337
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 385
+              "line": 338
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 443
+              "line": 339
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 485
+              "line": 377
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 577
+              "line": 386
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 585
+              "line": 400
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 603
+              "line": 406
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/edit-app/SKILL.md",
+              "line": 464
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/edit-app/SKILL.md",
+              "line": 506
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/edit-app/SKILL.md",
+              "line": 598
             },
             {
               "reason": "reference_missing",
@@ -4521,37 +4511,32 @@
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 612
+              "line": 624
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 613
+              "line": 627
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 614
+              "line": 633
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 646
+              "line": 634
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 693
+              "line": 635
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 718
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/edit-app/SKILL.md",
-              "line": 733
+              "line": 668
             },
             {
               "reason": "reference_missing",
@@ -4561,37 +4546,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 746
+              "line": 760
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 749
+              "line": 775
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 750
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/edit-app/SKILL.md",
-              "line": 753
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/edit-app/SKILL.md",
-              "line": 755
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/edit-app/SKILL.md",
-              "line": 761
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/edit-app/SKILL.md",
-              "line": 764
+              "line": 777
             },
             {
               "reason": "reference_missing",
@@ -4601,127 +4566,162 @@
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 808
+              "line": 791
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 809
+              "line": 792
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 820
+              "line": 795
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 822
+              "line": 797
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 890
+              "line": 803
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 915
+              "line": 806
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 970
+              "line": 835
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 974
+              "line": 855
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 978
+              "line": 856
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 994
+              "line": 867
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1000
+              "line": 869
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1035
+              "line": 937
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1064
+              "line": 962
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1068
+              "line": 1017
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1094
+              "line": 1021
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1102
+              "line": 1025
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1118
+              "line": 1041
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1127
+              "line": 1047
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1136
+              "line": 1082
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1137
+              "line": 1111
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1154
+              "line": 1115
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1162
+              "line": 1141
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1172
+              "line": 1149
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1202
+              "line": 1165
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1205
+              "line": 1174
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/edit-app/SKILL.md",
+              "line": 1183
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/edit-app/SKILL.md",
+              "line": 1184
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/edit-app/SKILL.md",
+              "line": 1201
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/edit-app/SKILL.md",
+              "line": 1209
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/edit-app/SKILL.md",
+              "line": 1219
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/edit-app/SKILL.md",
+              "line": 1249
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/edit-app/SKILL.md",
+              "line": 1252
             }
           ],
           "findings": [
@@ -4744,21 +4744,21 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/edit-app/SKILL.md",
-              "line": 608
+              "line": 629
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/edit-app/SKILL.md",
-              "line": 896
+              "line": 943
             },
             {
               "id": "EA3",
               "severity": "LOW",
               "message": "Scope Creep",
               "file": "skills/edit-app/SKILL.md",
-              "line": 873
+              "line": 920
             }
           ],
           "suppressed": []
@@ -5130,47 +5130,37 @@
             {
               "reason": "reference_missing",
               "path": "skills/report-issue/SKILL.md",
-              "line": 56
+              "line": 99
             },
             {
               "reason": "reference_missing",
               "path": "skills/report-issue/SKILL.md",
-              "line": 65
+              "line": 104
             },
             {
               "reason": "reference_missing",
               "path": "skills/report-issue/SKILL.md",
-              "line": 66
+              "line": 105
             },
             {
               "reason": "reference_missing",
               "path": "skills/report-issue/SKILL.md",
-              "line": 72
+              "line": 106
             },
             {
               "reason": "reference_missing",
               "path": "skills/report-issue/SKILL.md",
-              "line": 77
+              "line": 143
             },
             {
               "reason": "reference_missing",
               "path": "skills/report-issue/SKILL.md",
-              "line": 78
+              "line": 146
             },
             {
               "reason": "reference_missing",
               "path": "skills/report-issue/SKILL.md",
-              "line": 79
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/report-issue/SKILL.md",
-              "line": 118
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/report-issue/SKILL.md",
-              "line": 150
+              "line": 176
             }
           ],
           "findings": [
@@ -5186,7 +5176,7 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/report-issue/SKILL.md",
-              "line": 221
+              "line": 247
             }
           ],
           "suppressed": []
@@ -5880,137 +5870,6 @@
             }
           ],
           "suppressed": []
-        },
-        {
-          "path": "template",
-          "score": 26,
-          "risk": 74,
-          "status": "do not install",
-          "partial": false,
-          "coverage": 100,
-          "exceptions": [],
-          "findings": [
-            {
-              "id": "MP3",
-              "severity": "HIGH",
-              "message": "Memory Manipulation",
-              "file": "template/AGENTS.md",
-              "line": 104
-            },
-            {
-              "id": "PE3",
-              "severity": "HIGH",
-              "message": "Credential Access",
-              "file": "template/AGENTS.md",
-              "line": 265
-            },
-            {
-              "id": "PE3",
-              "severity": "HIGH",
-              "message": "Credential Access",
-              "file": "template/gitignore",
-              "line": 20
-            },
-            {
-              "id": "EA2",
-              "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "template/AGENTS.md",
-              "line": 83
-            },
-            {
-              "id": "EA2",
-              "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "template/AGENTS.md",
-              "line": 129
-            },
-            {
-              "id": "EA2",
-              "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "template/AGENTS.md",
-              "line": 279
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "template/CUSTOMIZATION.md",
-              "line": 69
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "template/README.md",
-              "line": 179
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "template/README.md",
-              "line": 185
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "template/README.md",
-              "line": 197
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "template/README.md",
-              "line": 24
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "template/gitignore",
-              "line": 30
-            },
-            {
-              "id": "SC1",
-              "severity": "LOW",
-              "message": "Unpinned Dependencies",
-              "file": "template/package.json",
-              "line": 21
-            },
-            {
-              "id": "SC1",
-              "severity": "LOW",
-              "message": "Unpinned Dependencies",
-              "file": "template/package.json",
-              "line": 22
-            },
-            {
-              "id": "SC1",
-              "severity": "LOW",
-              "message": "Unpinned Dependencies",
-              "file": "template/package.json",
-              "line": 23
-            },
-            {
-              "id": "SC1",
-              "severity": "LOW",
-              "message": "Unpinned Dependencies",
-              "file": "template/package.json",
-              "line": 75
-            },
-            {
-              "id": "SC1",
-              "severity": "LOW",
-              "message": "Unpinned Dependencies",
-              "file": "template/package.json",
-              "line": 79
-            }
-          ],
-          "suppressed": []
         }
       ]
     }
@@ -6023,7 +5882,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-16T06:59:13Z"
+      "checkedAt": "2026-11-17T11:40:45Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
