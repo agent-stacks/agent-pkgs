@@ -1,0 +1,545 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "azure-observability",
+      "dir": "/nix/store/knbvv7bsfhxi7162icyizgisyngkq13c-agent-plugin-azure-observability-1.0.0/share/agent-plugins/azure-observability",
+      "spec": "1.1.0",
+      "score": 0,
+      "status": "do not install",
+      "coverage": {
+        "scanned": [
+          "com.anthropic.claude-code/hooks",
+          "skills/assess-observability-health",
+          "skills/connect-observability",
+          "skills/troubleshoot-observability",
+          "skills/verify-observability-fix"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 85,
+          "risk": 15,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 80,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/scripts/install-telemetry.ps1",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/scripts/install-telemetry.sh",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/scripts/track-telemetry.ps1",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "com.anthropic.claude-code/hooks/scripts/install-telemetry.ps1",
+              "line": 253
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "com.anthropic.claude-code/hooks/scripts/install-telemetry.sh",
+              "line": 420
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/assess-observability-health",
+          "score": 47,
+          "risk": 53,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/assess-observability-health/SKILL.md",
+              "line": 8
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/assess-observability-health/references/application-health.md",
+              "line": 61
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/assess-observability-health/references/query-guidance.md",
+              "line": 90
+            },
+            {
+              "id": "P3",
+              "severity": "HIGH",
+              "message": "Exfiltration Commands",
+              "file": "skills/assess-observability-health/references/evidence.md",
+              "line": 65
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/assess-observability-health/references/evidence.md",
+              "line": 65
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/assess-observability-health/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
+          ]
+        },
+        {
+          "path": "skills/connect-observability",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 96,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/connect-observability/SKILL.md",
+              "line": 7
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/connect-observability/SKILL.md",
+              "line": 127
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/connect-observability/references/shared/trace-capabilities.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/connect-observability/SKILL.md",
+              "line": 136
+            },
+            {
+              "id": "AR3",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "skills/connect-observability/references/shared/acquire-capability.md",
+              "line": 91
+            },
+            {
+              "id": "P1",
+              "severity": "HIGH",
+              "message": "Instruction Override",
+              "file": "skills/connect-observability/references/shared/acquire-capability.md",
+              "line": 91
+            },
+            {
+              "id": "E2",
+              "severity": "HIGH",
+              "message": "Env Variable Harvesting",
+              "file": "skills/connect-observability/references/shared/investigation/scripts/query_prometheus.py",
+              "line": 63
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/connect-observability/references/shared/investigation/scripts/query_prometheus.py",
+              "line": 123
+            },
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/connect-observability/references/tools.md",
+              "line": 73
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/connect-observability/SKILL.md",
+              "line": 278
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/connect-observability/references/shared/visual-evidence.md",
+              "line": 140
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/connect-observability/references/cli-setup.md",
+              "line": 19
+            },
+            {
+              "id": "EA4",
+              "severity": "MEDIUM",
+              "message": "Unbounded Resource Access",
+              "file": "skills/connect-observability/references/routing.md",
+              "line": 145
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/connect-observability/references/shared/handoff.md",
+              "line": 105
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/connect-observability/references/shared/investigation/scripts/query_prometheus.py",
+              "line": 58
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/connect-observability/references/shared/matching.md",
+              "line": 116
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/connect-observability/references/shared/specialists.md",
+              "line": 59
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/connect-observability/references/shared/next-actions.md",
+              "line": 116
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/connect-observability/references/shared/next-actions.md",
+              "line": 166
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/connect-observability/scripts/onboarding.py",
+              "line": 282
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/connect-observability/SKILL.md",
+              "line": 202
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/connect-observability/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
+          ]
+        },
+        {
+          "path": "skills/troubleshoot-observability",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 95.8,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/troubleshoot-observability/SKILL.md",
+              "line": 7
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/troubleshoot-observability/references/trace-capabilities.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AR3",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "skills/troubleshoot-observability/references/acquire-capability.md",
+              "line": 91
+            },
+            {
+              "id": "P1",
+              "severity": "HIGH",
+              "message": "Instruction Override",
+              "file": "skills/troubleshoot-observability/references/acquire-capability.md",
+              "line": 91
+            },
+            {
+              "id": "E2",
+              "severity": "HIGH",
+              "message": "Env Variable Harvesting",
+              "file": "skills/troubleshoot-observability/references/investigation/scripts/query_prometheus.py",
+              "line": 63
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/troubleshoot-observability/references/investigation/scripts/query_prometheus.py",
+              "line": 123
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/troubleshoot-observability/references/coverage.md",
+              "line": 9
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/troubleshoot-observability/references/coverage.md",
+              "line": 14
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/troubleshoot-observability/references/visual-evidence.md",
+              "line": 140
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/troubleshoot-observability/references/handoff.md",
+              "line": 105
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/troubleshoot-observability/references/investigation/scripts/query_prometheus.py",
+              "line": 58
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/troubleshoot-observability/references/matching.md",
+              "line": 116
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/troubleshoot-observability/references/specialists.md",
+              "line": 59
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/troubleshoot-observability/references/next-actions.md",
+              "line": 116
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/troubleshoot-observability/references/next-actions.md",
+              "line": 166
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/troubleshoot-observability/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
+          ]
+        },
+        {
+          "path": "skills/verify-observability-fix",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 95.7,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/verify-observability-fix/SKILL.md",
+              "line": 7
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/verify-observability-fix/references/shared/trace-capabilities.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AR3",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "skills/verify-observability-fix/references/shared/acquire-capability.md",
+              "line": 91
+            },
+            {
+              "id": "P1",
+              "severity": "HIGH",
+              "message": "Instruction Override",
+              "file": "skills/verify-observability-fix/references/shared/acquire-capability.md",
+              "line": 91
+            },
+            {
+              "id": "E2",
+              "severity": "HIGH",
+              "message": "Env Variable Harvesting",
+              "file": "skills/verify-observability-fix/references/shared/investigation/scripts/query_prometheus.py",
+              "line": 63
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/verify-observability-fix/references/shared/investigation/scripts/query_prometheus.py",
+              "line": 123
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/verify-observability-fix/references/shared/handoff.md",
+              "line": 105
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/verify-observability-fix/references/shared/investigation/scripts/query_prometheus.py",
+              "line": 58
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/verify-observability-fix/references/shared/matching.md",
+              "line": 116
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/verify-observability-fix/references/shared/specialists.md",
+              "line": 59
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/verify-observability-fix/references/shared/next-actions.md",
+              "line": 116
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/verify-observability-fix/references/shared/next-actions.md",
+              "line": 166
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/verify-observability-fix/references/shared/visual-evidence.md",
+              "line": 140
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/verify-observability-fix/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "score": 0,
+  "status": "do not install",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-11-17T02:36:33Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
+    }
+  },
+  "agentStacks": {
+    "version": "0.9.0"
+  }
+}

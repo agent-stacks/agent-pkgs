@@ -7,13 +7,14 @@
   "plugins": [
     {
       "name": "foundry-iq-skills",
-      "dir": "/nix/store/89gbjkg0x76vk86fap1238ipi9ifd8r0-agent-plugin-foundry-iq-skills-0.2.13/share/agent-plugins/foundry-iq-skills",
+      "dir": "/nix/store/gy59w8213dapdrzimg6wzfhyykg1jrc7-agent-plugin-foundry-iq-skills-0.3.0/share/agent-plugins/foundry-iq-skills",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
       "coverage": {
         "scanned": [
           "com.anthropic.claude-code/hooks",
+          "graph",
           "skills/foundry-iq"
         ],
         "validated": [
@@ -23,6 +24,10 @@
           {
             "path": "bin/",
             "reason": "interpreter links into /nix/store"
+          },
+          {
+            "path": "mcp.json",
+            "reason": "SkillSpector does not analyse this layout as an MCP manifest"
           }
         ]
       },
@@ -70,398 +75,3566 @@
           "suppressed": []
         },
         {
-          "path": "skills/foundry-iq",
+          "path": "graph",
           "score": 0,
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 88.2,
+          "coverage": 0,
           "exceptions": [
             {
-              "reason": "reference_missing",
-              "path": "skills/foundry-iq/SKILL.md",
-              "line": 8
+              "reason": "runtime_limit",
+              "path": "graph/SKILL.md",
+              "line": 0
             },
             {
-              "reason": "obfuscated_instruction_text",
-              "path": "skills/foundry-iq/helpers/_blob_source_read.py",
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/CONNECTOR_THIRD_PARTY_NOTICES.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/CONNECTOR_THIRD_PARTY_NOTICES.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/README.md",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/connector.mjs",
               "line": 0
             },
             {
               "reason": "obfuscated_instruction_text",
-              "path": "skills/foundry-iq/helpers/_cleanup_dependencies.py",
+              "path": "graph/apps-host/connector.mjs",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/connector.mjs",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/launch.mjs",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/payload-provenance.json",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/standalone-build.md",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/standalone-configuration.md",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/standalone-delivery.md",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/standalone-errors.md",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/standalone-inspection.md",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/standalone-isolation.md",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/standalone-launch.md",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/standalone-lifecycle.md",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/standalone-protocol.md",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/standalone-setup.md",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/standalone-topic-diversity.md",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/standalone-workspace.md",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/supervise.py",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/supervise.py",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/THIRD_PARTY_NOTICES.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/THIRD_PARTY_NOTICES.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/entity/asset-manifest.json",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/entity/assets/evidence-D2EaQbzH.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/entity/assets/graph-CWnmp8-z.js",
               "line": 0
             },
             {
               "reason": "obfuscated_instruction_text",
-              "path": "skills/foundry-iq/helpers/_cleanup_receipts.py",
+              "path": "graph/apps-host/ui/apps/entity/assets/graph-CWnmp8-z.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/entity/assets/graph-CWnmp8-z.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/entity/assets/style--ITum15_.css",
               "line": 0
             },
             {
               "reason": "obfuscated_instruction_text",
-              "path": "skills/foundry-iq/helpers/_progress.py",
+              "path": "graph/apps-host/ui/apps/entity/assets/style-BY9EP1Gj.js",
               "line": 0
             },
             {
-              "reason": "static_parse_limit",
-              "path": "skills/foundry-iq/helpers/blob_inventory.py",
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/entity/assets/style-BY9EP1Gj.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/entity/evidence.html",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/entity/graph.html",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/grounding/asset-manifest.json",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/grounding/assets/explorer-aqcDZ3fH.css",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/grounding/assets/explorer-gSfK-h9u.js",
               "line": 0
             },
             {
               "reason": "obfuscated_instruction_text",
-              "path": "skills/foundry-iq/helpers/bootstrap_azure.py",
+              "path": "graph/apps-host/ui/apps/grounding/assets/explorer-gSfK-h9u.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/grounding/assets/explorer-gSfK-h9u.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/grounding/explorer.html",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/ontology/asset-manifest.json",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/ontology/assets/evidence-CtLzHclG.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/ontology/assets/ontology-BEQ6CxEH.css",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/ontology/assets/ontology-CjLYCRRI.js",
               "line": 0
             },
             {
               "reason": "obfuscated_instruction_text",
-              "path": "skills/foundry-iq/helpers/cleanup_plan.py",
+              "path": "graph/apps-host/ui/apps/ontology/assets/ontology-CjLYCRRI.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/ontology/assets/ontology-CjLYCRRI.js",
               "line": 0
             },
             {
               "reason": "obfuscated_instruction_text",
-              "path": "skills/foundry-iq/helpers/prompt_cleanup.py",
+              "path": "graph/apps-host/ui/apps/ontology/assets/style-BhJK8mB3.js",
               "line": 0
             },
             {
-              "reason": "static_parse_limit",
-              "path": "skills/foundry-iq/helpers/retrieval_verify.py",
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/ontology/assets/style-BhJK8mB3.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/ontology/assets/style-DGDibpte.css",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/ontology/evidence.html",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/ontology/ontology.html",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/topicgraph/asset-manifest.json",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/topicgraph/assets/evidence-Bua5TKqC.js",
               "line": 0
             },
             {
               "reason": "obfuscated_instruction_text",
-              "path": "skills/foundry-iq/helpers/search_reconcile.py",
+              "path": "graph/apps-host/ui/apps/topicgraph/assets/explorer-CouDSwnR.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/topicgraph/assets/explorer-CouDSwnR.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/topicgraph/assets/style-Bep8TWly.css",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "graph/apps-host/ui/apps/topicgraph/assets/style-WBe4CiL1.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/topicgraph/assets/style-WBe4CiL1.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/topicgraph/evidence.html",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/apps/topicgraph/explorer.html",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/assets/standalone-C2NRUSlu.css",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "graph/apps-host/ui/assets/standalone-DdKgFAqx.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/assets/standalone-DdKgFAqx.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/build-provenance.json",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/sandbox.html",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/apps-host/ui/standalone.html",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/bootstrap.py",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/bootstrap.py",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/launch-python.mjs",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/entity-py3.12-darwin-arm64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/entity-py3.12-linux-aarch64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/entity-py3.12-linux-x86_64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/entity-py3.12-win32-x86_64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/entity-py3.13-darwin-arm64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/entity-py3.13-linux-aarch64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/entity-py3.13-linux-x86_64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/entity-py3.13-win32-x86_64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/entity-py3.14-darwin-arm64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/entity-py3.14-linux-aarch64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/entity-py3.14-linux-x86_64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/entity-py3.14-win32-x86_64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/grounding-py3.12-darwin-arm64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/grounding-py3.12-linux-aarch64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/grounding-py3.12-linux-x86_64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/grounding-py3.12-win32-x86_64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/grounding-py3.13-darwin-arm64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/grounding-py3.13-linux-aarch64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/grounding-py3.13-linux-x86_64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/grounding-py3.13-win32-x86_64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/grounding-py3.14-darwin-arm64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/grounding-py3.14-linux-aarch64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/grounding-py3.14-linux-x86_64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/grounding-py3.14-win32-x86_64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/ontology-py3.12-darwin-arm64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/ontology-py3.12-linux-aarch64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/ontology-py3.12-linux-x86_64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/ontology-py3.12-win32-x86_64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/ontology-py3.13-darwin-arm64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/ontology-py3.13-linux-aarch64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/ontology-py3.13-linux-x86_64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/ontology-py3.13-win32-x86_64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/ontology-py3.14-darwin-arm64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/ontology-py3.14-linux-aarch64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/ontology-py3.14-linux-x86_64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/ontology-py3.14-win32-x86_64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/topicgraph-py3.12-darwin-arm64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/topicgraph-py3.12-linux-aarch64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/topicgraph-py3.12-linux-x86_64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/topicgraph-py3.12-win32-x86_64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/topicgraph-py3.13-darwin-arm64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/topicgraph-py3.13-linux-aarch64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/topicgraph-py3.13-linux-x86_64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/topicgraph-py3.13-win32-x86_64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/topicgraph-py3.14-darwin-arm64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/topicgraph-py3.14-linux-aarch64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/topicgraph-py3.14-linux-x86_64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/locks/topicgraph-py3.14-win32-x86_64.txt",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/manifest.json",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/preflight.py",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "graph/runtime/preflight.py",
               "line": 0
             }
           ],
           "findings": [
             {
-              "id": "AR3",
+              "id": "PE3",
               "severity": "HIGH",
-              "message": "Anti-Refusal Statement",
-              "file": "skills/foundry-iq/SKILL.md",
-              "line": 16
+              "message": "Credential Access",
+              "file": "graph/apps-host/connector.mjs",
+              "line": 7607
             },
             {
-              "id": "P1",
+              "id": "P3",
               "severity": "HIGH",
-              "message": "Instruction Override",
-              "file": "skills/foundry-iq/SKILL.md",
-              "line": 16
+              "message": "Exfiltration Commands",
+              "file": "graph/apps-host/connector.mjs",
+              "line": 22862
             },
             {
               "id": "E2",
               "severity": "HIGH",
               "message": "Env Variable Harvesting",
-              "file": "skills/foundry-iq/helpers/_bootstrap_io.py",
-              "line": 605
+              "file": "graph/runtime/bootstrap.py",
+              "line": 268
             },
             {
-              "id": "PE3",
+              "id": "E2",
               "severity": "HIGH",
-              "message": "Credential Access",
-              "file": "skills/foundry-iq/helpers/_common.py",
-              "line": 637
+              "message": "Env Variable Harvesting",
+              "file": "graph/runtime/bootstrap.py",
+              "line": 396
             },
             {
-              "id": "PE3",
+              "id": "E2",
               "severity": "HIGH",
-              "message": "Credential Access",
-              "file": "skills/foundry-iq/helpers/_common.py",
-              "line": 643
+              "message": "Env Variable Harvesting",
+              "file": "graph/runtime/bootstrap.py",
+              "line": 973
             },
             {
-              "id": "PE3",
+              "id": "AST5",
               "severity": "HIGH",
-              "message": "Credential Access",
-              "file": "skills/foundry-iq/helpers/_common.py",
-              "line": 650
+              "message": "os.system() or os exec-family call",
+              "file": "graph/runtime/bootstrap.py",
+              "line": 973
             },
             {
-              "id": "PE3",
+              "id": "AST5",
               "severity": "HIGH",
-              "message": "Credential Access",
-              "file": "skills/foundry-iq/helpers/_file_inventory.py",
-              "line": 90
+              "message": "os.system() or os exec-family call",
+              "file": "graph/runtime/bootstrap.py",
+              "line": 1038
             },
             {
-              "id": "OH1",
-              "severity": "HIGH",
-              "message": "Unvalidated Output Injection",
-              "file": "skills/foundry-iq/helpers/search_reconcile.py",
-              "line": 764
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "graph/apps-host/supervise.py",
+              "line": 21
             },
             {
-              "id": "OH1",
-              "severity": "HIGH",
-              "message": "Unvalidated Output Injection",
-              "file": "skills/foundry-iq/helpers/search_reconcile.py",
-              "line": 774
-            },
-            {
-              "id": "TM1",
-              "severity": "HIGH",
-              "message": "Tool Parameter Abuse",
-              "file": "skills/foundry-iq/references/bootstrap-azure.md",
-              "line": 116
-            },
-            {
-              "id": "PE3",
-              "severity": "HIGH",
-              "message": "Credential Access",
-              "file": "skills/foundry-iq/references/owner.md",
-              "line": 11
-            },
-            {
-              "id": "YR4",
-              "severity": "HIGH",
-              "message": "YARA rule 'agent_skill_prompt_injection_hidden_instructions': Prompt injection or hidden instructions embedded in AI agent skill text [agent_skills]",
-              "file": "skills/foundry-iq/references/search-substrate.md",
+              "id": "EA4",
+              "severity": "MEDIUM",
+              "message": "Unbounded Resource Access",
+              "file": "graph/apps-host/supervise.py",
               "line": 55
             },
             {
-              "id": "EA2",
+              "id": "MP2",
               "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "skills/foundry-iq/SKILL.md",
-              "line": 59
+              "message": "Context Window Stuffing",
+              "file": "graph/apps-host/ui/apps/entity/assets/graph-CWnmp8-z.js",
+              "line": 4192
             },
             {
-              "id": "EA2",
+              "id": "MP2",
               "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "skills/foundry-iq/agents/connect.md",
-              "line": 16
+              "message": "Context Window Stuffing",
+              "file": "graph/apps-host/ui/apps/grounding/assets/explorer-gSfK-h9u.js",
+              "line": 4300
             },
             {
-              "id": "EA2",
+              "id": "MP2",
               "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "skills/foundry-iq/helpers/blob-contracts.md",
-              "line": 51
+              "message": "Context Window Stuffing",
+              "file": "graph/apps-host/ui/apps/ontology/assets/ontology-CjLYCRRI.js",
+              "line": 4192
             },
             {
-              "id": "EA2",
+              "id": "MP2",
               "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "skills/foundry-iq/helpers/bootstrap-contracts.md",
-              "line": 45
+              "message": "Context Window Stuffing",
+              "file": "graph/apps-host/ui/apps/entity/assets/graph-CWnmp8-z.js",
+              "line": 4192
             },
             {
-              "id": "EA2",
+              "id": "MP2",
               "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "skills/foundry-iq/helpers/contracts.md",
-              "line": 53
+              "message": "Context Window Stuffing",
+              "file": "graph/apps-host/ui/apps/grounding/assets/explorer-gSfK-h9u.js",
+              "line": 4300
             },
             {
-              "id": "EA2",
+              "id": "MP2",
               "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "skills/foundry-iq/knowledge-bases/create.md",
-              "line": 19
+              "message": "Context Window Stuffing",
+              "file": "graph/apps-host/ui/apps/ontology/assets/ontology-CjLYCRRI.js",
+              "line": 4192
             },
             {
-              "id": "EA2",
+              "id": "AST4",
               "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "skills/foundry-iq/knowledge-bases/retrieve.md",
-              "line": 24
-            },
-            {
-              "id": "EA2",
-              "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "skills/foundry-iq/knowledge-bases/retrieve.md",
+              "message": "subprocess module call",
+              "file": "graph/runtime/bootstrap.py",
               "line": 93
             },
             {
-              "id": "EA2",
+              "id": "TT2",
               "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "skills/foundry-iq/knowledge-sources/create-azure-blob.md",
-              "line": 16
+              "message": "Tainted flow: 'path' from os.environ.get (line 167, credential/environment) → subprocess.run (code execution)",
+              "file": "graph/runtime/bootstrap.py",
+              "line": 93
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "graph/runtime/bootstrap.py",
+              "line": 266
+            },
+            {
+              "id": "TT2",
+              "severity": "MEDIUM",
+              "message": "Tainted flow: 'command' from os.environ.get (line 969, credential/environment) → subprocess.run (code execution)",
+              "file": "graph/runtime/bootstrap.py",
+              "line": 266
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "graph/runtime/bootstrap.py",
+              "line": 347
+            },
+            {
+              "id": "TT2",
+              "severity": "MEDIUM",
+              "message": "Tainted flow: 'selected' from os.environ.get (line 312, credential/environment) → subprocess.run (code execution)",
+              "file": "graph/runtime/bootstrap.py",
+              "line": 347
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "graph/runtime/bootstrap.py",
+              "line": 408
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "graph/runtime/bootstrap.py",
+              "line": 553
+            },
+            {
+              "id": "TT2",
+              "severity": "MEDIUM",
+              "message": "Tainted flow: 'command' from os.environ.get (line 969, credential/environment) → subprocess.run (code execution)",
+              "file": "graph/runtime/bootstrap.py",
+              "line": 553
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "graph/runtime/bootstrap.py",
+              "line": 674
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "graph/runtime/bootstrap.py",
+              "line": 678
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "graph/runtime/bootstrap.py",
+              "line": 680
+            },
+            {
+              "id": "TT2",
+              "severity": "MEDIUM",
+              "message": "Tainted flow: 'command' from os.environ.get (line 969, credential/environment) → subprocess.Popen (code execution)",
+              "file": "graph/runtime/bootstrap.py",
+              "line": 680
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "graph/runtime/bootstrap.py",
+              "line": 752
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "graph/runtime/preflight.py",
+              "line": 96
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/CONNECTOR_THIRD_PARTY_NOTICES.txt",
+              "line": 38
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/CONNECTOR_THIRD_PARTY_NOTICES.txt",
+              "line": 43
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/CONNECTOR_THIRD_PARTY_NOTICES.txt",
+              "line": 66
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/CONNECTOR_THIRD_PARTY_NOTICES.txt",
+              "line": 171
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/CONNECTOR_THIRD_PARTY_NOTICES.txt",
+              "line": 261
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/CONNECTOR_THIRD_PARTY_NOTICES.txt",
+              "line": 266
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/CONNECTOR_THIRD_PARTY_NOTICES.txt",
+              "line": 289
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/CONNECTOR_THIRD_PARTY_NOTICES.txt",
+              "line": 394
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/CONNECTOR_THIRD_PARTY_NOTICES.txt",
+              "line": 484
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/CONNECTOR_THIRD_PARTY_NOTICES.txt",
+              "line": 489
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/CONNECTOR_THIRD_PARTY_NOTICES.txt",
+              "line": 512
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/CONNECTOR_THIRD_PARTY_NOTICES.txt",
+              "line": 617
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/THIRD_PARTY_NOTICES.txt",
+              "line": 38
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/THIRD_PARTY_NOTICES.txt",
+              "line": 43
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/THIRD_PARTY_NOTICES.txt",
+              "line": 66
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/THIRD_PARTY_NOTICES.txt",
+              "line": 171
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/THIRD_PARTY_NOTICES.txt",
+              "line": 261
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/THIRD_PARTY_NOTICES.txt",
+              "line": 266
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/THIRD_PARTY_NOTICES.txt",
+              "line": 289
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/THIRD_PARTY_NOTICES.txt",
+              "line": 394
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/THIRD_PARTY_NOTICES.txt",
+              "line": 484
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/THIRD_PARTY_NOTICES.txt",
+              "line": 489
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/THIRD_PARTY_NOTICES.txt",
+              "line": 512
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/THIRD_PARTY_NOTICES.txt",
+              "line": 617
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 73
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 78
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 101
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 206
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 296
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 301
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 324
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 429
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 519
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 524
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 547
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 652
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 2137
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 2142
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 2165
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 2270
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 73
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 78
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 101
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 206
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 296
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 301
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 324
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 429
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 519
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 524
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 547
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 652
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 2137
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 2142
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 2165
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 2270
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 73
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 78
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 101
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 206
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 296
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 301
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 324
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 429
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 519
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 524
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 547
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 652
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 2137
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 2142
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 2165
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 2270
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 73
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 78
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 101
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 206
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 296
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 301
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 324
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 429
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 519
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 524
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 547
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 652
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 2137
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 2142
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 2165
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 2270
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/CONNECTOR_THIRD_PARTY_NOTICES.txt",
+              "line": 206
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/CONNECTOR_THIRD_PARTY_NOTICES.txt",
+              "line": 429
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/CONNECTOR_THIRD_PARTY_NOTICES.txt",
+              "line": 652
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/CONNECTOR_THIRD_PARTY_NOTICES.txt",
+              "line": 688
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/CONNECTOR_THIRD_PARTY_NOTICES.txt",
+              "line": 717
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/CONNECTOR_THIRD_PARTY_NOTICES.txt",
+              "line": 745
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/CONNECTOR_THIRD_PARTY_NOTICES.txt",
+              "line": 795
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/CONNECTOR_THIRD_PARTY_NOTICES.txt",
+              "line": 816
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/CONNECTOR_THIRD_PARTY_NOTICES.txt",
+              "line": 839
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/CONNECTOR_THIRD_PARTY_NOTICES.txt",
+              "line": 860
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/CONNECTOR_THIRD_PARTY_NOTICES.txt",
+              "line": 876
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/CONNECTOR_THIRD_PARTY_NOTICES.txt",
+              "line": 921
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/THIRD_PARTY_NOTICES.txt",
+              "line": 206
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/THIRD_PARTY_NOTICES.txt",
+              "line": 429
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/THIRD_PARTY_NOTICES.txt",
+              "line": 652
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/THIRD_PARTY_NOTICES.txt",
+              "line": 689
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/THIRD_PARTY_NOTICES.txt",
+              "line": 717
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/THIRD_PARTY_NOTICES.txt",
+              "line": 745
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/THIRD_PARTY_NOTICES.txt",
+              "line": 773
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/THIRD_PARTY_NOTICES.txt",
+              "line": 801
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/THIRD_PARTY_NOTICES.txt",
+              "line": 829
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/THIRD_PARTY_NOTICES.txt",
+              "line": 857
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/THIRD_PARTY_NOTICES.txt",
+              "line": 885
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 20
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 241
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 464
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 687
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 723
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 751
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 779
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 807
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 835
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 863
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 891
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 919
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 951
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 976
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 1003
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 1032
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 1060
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 1088
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 1136
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 1204
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 1292
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 1420
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 1448
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 1476
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 1505
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 1533
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 1561
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 1589
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 1617
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 1645
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 1673
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 1701
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 1729
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 1757
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 1792
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 1846
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 1874
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 1908
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 1936
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 1964
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 1992
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 2042
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 2070
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 2098
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 2334
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 2362
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 2396
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 2424
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 2452
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 2480
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 2508
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 2536
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 2564
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 2593
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 2622
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 2650
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 2678
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 2706
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 2735
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 2763
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/entity/THIRD_PARTY_NOTICES.txt",
+              "line": 2791
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 20
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 241
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 464
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 687
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 723
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 751
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 779
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 807
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 835
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 863
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 891
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 919
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 951
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 976
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 1003
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 1032
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 1060
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 1088
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 1136
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 1204
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 1292
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 1420
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 1448
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 1476
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 1505
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 1533
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 1561
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 1589
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 1617
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 1645
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 1673
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 1701
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 1729
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 1757
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 1792
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 1846
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 1874
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 1908
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 1936
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 1964
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 1992
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 2042
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 2070
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 2098
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 2334
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 2362
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 2396
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 2424
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 2452
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 2480
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 2508
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 2536
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 2564
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 2593
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 2622
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 2650
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 2678
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 2706
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 2735
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 2763
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/grounding/THIRD_PARTY_NOTICES.txt",
+              "line": 2791
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 20
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 241
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 464
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 687
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 723
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 751
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 779
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 807
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 835
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 863
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 891
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 919
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 951
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 976
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 1003
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 1032
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 1060
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 1088
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 1136
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 1204
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 1292
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 1420
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 1448
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 1476
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 1505
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 1533
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 1561
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 1589
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 1617
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 1645
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 1673
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 1701
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 1729
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 1757
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 1792
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 1846
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 1874
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 1908
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 1936
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 1964
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 1992
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 2042
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 2070
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 2098
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 2334
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 2362
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 2396
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 2424
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 2452
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 2480
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 2508
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 2536
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 2564
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 2593
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 2622
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 2650
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 2678
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 2706
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 2735
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 2763
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/ontology/THIRD_PARTY_NOTICES.txt",
+              "line": 2791
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 20
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 241
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 464
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 687
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 723
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 751
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 779
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 807
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 835
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 863
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 891
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 919
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 951
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 976
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 1003
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 1032
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 1060
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 1088
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 1136
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 1204
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 1292
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 1420
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 1448
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 1476
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 1505
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 1533
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 1561
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 1589
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 1617
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 1645
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 1673
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 1701
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 1729
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 1757
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 1792
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 1846
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 1874
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 1908
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 1936
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 1964
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 1992
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 2042
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 2070
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 2098
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 2334
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 2362
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 2396
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 2424
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 2452
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 2480
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 2508
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 2536
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 2564
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 2593
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 2622
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 2650
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 2678
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 2706
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 2735
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 2763
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "graph/apps-host/ui/apps/topicgraph/THIRD_PARTY_NOTICES.txt",
+              "line": 2791
+            },
+            {
+              "id": "AST7",
+              "severity": "LOW",
+              "message": "Dynamic attribute access via getattr()",
+              "file": "graph/apps-host/supervise.py",
+              "line": 167
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/foundry-iq",
+          "score": 45,
+          "risk": 55,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 98.6,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/foundry-iq/SKILL.md",
+              "line": 7
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/foundry-iq/references/http-contract.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "skills/foundry-iq/workflows/graph/entity-graph-build/references/status-and-telemetry.md",
+              "line": 43
+            },
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "skills/foundry-iq/workflows/graph/graph-demo/references/story.md",
+              "line": 10
+            },
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "skills/foundry-iq/workflows/graph/graph-demo/references/story.md",
+              "line": 47
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
-              "file": "skills/foundry-iq/knowledge-sources/create-file.md",
+              "file": "skills/foundry-iq/references/service-provisioning.md",
+              "line": 3
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/references/source-security.md",
+              "line": 78
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/references/service-provisioning.md",
+              "line": 7
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/workflows/graph/entity-graph-build/entity-graph-build.md",
               "line": 18
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
-              "file": "skills/foundry-iq/knowledge-sources/create-file.md",
-              "line": 98
+              "file": "skills/foundry-iq/workflows/graph/entity-graph-provision/entity-graph-provision.md",
+              "line": 18
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
-              "file": "skills/foundry-iq/references/platform-contracts.md",
-              "line": 13
+              "file": "skills/foundry-iq/workflows/graph/entity-graph-provision/references/connect-existing-resources.md",
+              "line": 24
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
-              "file": "skills/foundry-iq/references/resource-intake.md",
-              "line": 121
-            },
-            {
-              "id": "EA2",
-              "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "skills/foundry-iq/search-services/create.md",
-              "line": 17
-            },
-            {
-              "id": "EA2",
-              "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "skills/foundry-iq/troubleshooting/diagnose.md",
+              "file": "skills/foundry-iq/workflows/graph/entity-graph-provision/references/new-resources.md",
               "line": 35
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
-              "file": "skills/foundry-iq/agents/connect-hosted-toolbox.md",
-              "line": 85
-            },
-            {
-              "id": "EA2",
-              "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "skills/foundry-iq/agents/connect-prompt-sdk-fallback.md",
-              "line": 61
-            },
-            {
-              "id": "AST4",
-              "severity": "MEDIUM",
-              "message": "subprocess module call",
-              "file": "skills/foundry-iq/helpers/_bootstrap_io.py",
-              "line": 611
-            },
-            {
-              "id": "AST4",
-              "severity": "MEDIUM",
-              "message": "subprocess module call",
-              "file": "skills/foundry-iq/helpers/_common.py",
-              "line": 611
-            },
-            {
-              "id": "EA2",
-              "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "skills/foundry-iq/helpers/blob-cu-contracts.md",
+              "file": "skills/foundry-iq/workflows/graph/graph-guide/references/install-and-checks.md",
               "line": 119
             },
             {
-              "id": "EA4",
+              "id": "EA2",
               "severity": "MEDIUM",
-              "message": "Unbounded Resource Access",
-              "file": "skills/foundry-iq/helpers/bootstrap_azure.py",
-              "line": 307
-            },
-            {
-              "id": "EA4",
-              "severity": "MEDIUM",
-              "message": "Unbounded Resource Access",
-              "file": "skills/foundry-iq/helpers/bootstrap_azure.py",
-              "line": 340
-            },
-            {
-              "id": "AST4",
-              "severity": "MEDIUM",
-              "message": "subprocess module call",
-              "file": "skills/foundry-iq/helpers/document_assess.py",
-              "line": 251
-            },
-            {
-              "id": "AST4",
-              "severity": "MEDIUM",
-              "message": "subprocess module call",
-              "file": "skills/foundry-iq/helpers/knowledge_base_retrieve.py",
-              "line": 96
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/workflows/graph/graph.md",
+              "line": 68
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
-              "file": "skills/foundry-iq/helpers/vector-contracts.md",
-              "line": 97
+              "file": "skills/foundry-iq/workflows/graph/grounding-build/grounding-build.md",
+              "line": 19
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
-              "file": "skills/foundry-iq/knowledge-bases/create.md",
-              "line": 99
+              "file": "skills/foundry-iq/workflows/graph/grounding-provision/grounding-provision.md",
+              "line": 20
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
-              "file": "skills/foundry-iq/lifecycle/cleanup.md",
+              "file": "skills/foundry-iq/workflows/graph/grounding-provision/references/create-service.md",
+              "line": 19
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/workflows/graph/ontology-build/ontology-build.md",
+              "line": 21
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/workflows/graph/ontology-build/references/connect-plan-propose.md",
+              "line": 38
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/workflows/graph/ontology-build/references/review-approve-export.md",
               "line": 16
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
-              "file": "skills/foundry-iq/references/bootstrap-azure.md",
-              "line": 95
+              "file": "skills/foundry-iq/workflows/graph/topic-graph-build/topic-graph-build.md",
+              "line": 18
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/foundry-iq/workflows/graph/entity-graph-build/references/plan-and-publish.md",
+              "line": 17
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
-              "file": "skills/foundry-iq/lifecycle/cleanup.md",
-              "line": 120
-            },
-            {
-              "id": "TM3",
-              "severity": "MEDIUM",
-              "message": "Unsafe Defaults",
-              "file": "skills/foundry-iq/references/bootstrap-azure.md",
-              "line": 116
-            },
-            {
-              "id": "EA2",
-              "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "skills/foundry-iq/references/content-fit.md",
+              "file": "skills/foundry-iq/workflows/graph/graph-demo/references/finish.md",
               "line": 6
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
-              "file": "skills/foundry-iq/references/cu-ingestion.md",
-              "line": 105
+              "file": "skills/foundry-iq/workflows/graph/graph-demo/references/install-and-checks.md",
+              "line": 25
             },
             {
-              "id": "AST7",
-              "severity": "LOW",
-              "message": "Dynamic attribute access via getattr()",
-              "file": "skills/foundry-iq/helpers/_cleanup_receipts.py",
-              "line": 27
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/workflows/graph/graph-demo/references/intake.md",
+              "line": 41
             },
             {
-              "id": "AST7",
-              "severity": "LOW",
-              "message": "Dynamic attribute access via getattr()",
-              "file": "skills/foundry-iq/helpers/prompt_connect.py",
-              "line": 732
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/workflows/graph/graph-guide/references/install-and-checks.md",
+              "line": 99
             },
             {
-              "id": "EA3",
-              "severity": "LOW",
-              "message": "Scope Creep",
-              "file": "skills/foundry-iq/references/bootstrap-azure.md",
-              "line": 105
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/workflows/graph/ontology-build/references/refine-critique-revise.md",
+              "line": 23
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/foundry-iq/workflows/graph/topic-graph-build/references/native-runtime.md",
+              "line": 30
             }
           ],
           "suppressed": [
@@ -472,6 +3645,14 @@
               "file": "skills/foundry-iq/SKILL.md",
               "line": 1,
               "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/foundry-iq/SKILL.md",
+              "line": 25,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         }
@@ -486,7 +3667,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-11T18:34:17Z"
+      "checkedAt": "2026-11-17T02:38:05Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"

@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "azure",
-      "dir": "/nix/store/bvaw4zkpcsybflsdy8s5wff5mdvmr6rs-agent-plugin-azure-1.2.125/share/agent-plugins/azure",
+      "dir": "/nix/store/1q37sdbbif0r0q55yliqxapdfspivqhv-agent-plugin-azure-1.2.127/share/agent-plugins/azure",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -224,7 +224,7 @@
           "risk": 7,
           "status": "incomplete",
           "partial": true,
-          "coverage": 96.3,
+          "coverage": 93.8,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -234,6 +234,11 @@
             {
               "reason": "static_parse_limit",
               "path": "skills/azure-ai/scripts/analyze-speech-sdk-log.mjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/azure-ai/scripts/inspect-speech-audio.mjs",
               "line": 0
             }
           ],
@@ -246,7 +251,16 @@
               "line": 71
             }
           ],
-          "suppressed": []
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/azure-ai/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
+          ]
         },
         {
           "path": "skills/azure-aigateway",
@@ -4194,11 +4208,6 @@
               "line": 0
             },
             {
-              "reason": "runtime_limit",
-              "path": "skills/microsoft-foundry/models/deploy-model/capacity/scripts",
-              "line": 0
-            },
-            {
               "reason": "static_parse_limit",
               "path": "skills/microsoft-foundry/models/deploy-model/customize/references/customize-workflow.md",
               "line": 0
@@ -4211,6 +4220,11 @@
             {
               "reason": "static_parse_limit",
               "path": "skills/microsoft-foundry/models/deploy-model/scripts/generate_deployment_url.ps1",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "skills/microsoft-foundry/project",
               "line": 0
             },
             {
@@ -5080,7 +5094,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-16T21:31:06Z"
+      "checkedAt": "2026-11-17T02:36:24Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
