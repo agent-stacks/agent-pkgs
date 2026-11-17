@@ -445,7 +445,70 @@
               jq -e '.network.allowedDomains | index("example.com") and index("api.anthropic.com")' o.json
               jq -e '(.filesystem.allowWrite | index("/data")) and (.filesystem.denyRead | index("~/.aws"))' o.json
 
-              for bad in '[1]' '{"allowedDomains":"x"}' '{"allowedDomains":[1]}' '{"other":[]}' '{nope'; do
+              # macOS: gh checks a certificate itself when SSL_CERT_FILE is
+              # set, so the wrapper sets it: to Nix's file if that can be
+              # read, to its own if not. Never over the caller's choice.
+              # A build sets both variables to a file that does not exist.
+              unset SSL_CERT_FILE SSL_CERT_DIR NIX_SSL_CERT_FILE
+              certs() { "$@" >/dev/null 2>notes; sed -n 's/^would set: SSL_CERT_FILE=//p' notes; }
+              own=$(certs ${srt} -- true)
+              if [ "$(uname -s)" = Darwin ]; then
+                touch nix.crt
+                [ -s "$own" ] || { echo "no certificate file of its own: $own"; exit 1; }
+                [ "$(certs env NIX_SSL_CERT_FILE=$PWD/nix.crt ${srt} -- true)" = "$PWD/nix.crt" ] ||
+                  { echo "did not use Nix's certificate file"; exit 1; }
+                [ "$(certs env NIX_SSL_CERT_FILE=/no-cert-file.crt ${srt} -- true)" = "$own" ] ||
+                  { echo "used a certificate file that cannot be read"; exit 1; }
+                for mine in SSL_CERT_FILE=$PWD/nix.crt SSL_CERT_DIR=$PWD; do
+                  [ -z "$(certs env "$mine" ${srt} -- true)" ] || { echo "set SSL_CERT_FILE over $mine"; exit 1; }
+                done
+                # With the switch on the trust service answers, and it
+                # knows the authorities only the keychain holds.
+                [ -z "$(certs ${srt} --options '{"enableWeakerNetworkIsolation":true}' -- true)" ] ||
+                  { echo "set SSL_CERT_FILE with the switch on"; exit 1; }
+              else
+                [ -z "$own" ] || { echo "set SSL_CERT_FILE off macOS"; exit 1; }
+              fi
+
+              # A switch is off unless true, and one that is on is named on
+              # stderr: flox cannot verify a certificate on macOS without this one.
+              jq -es 'all(.[]; has("enableWeakerNetworkIsolation") | not)' s.json o.json
+              if grep -q 'enableWeakerNetworkIsolation' cmd; then echo "named a switch that is off"; exit 1; fi
+              ${srt} --options '{"enableWeakerNetworkIsolation":false}' -- true > f.json 2>notes
+              jq -e 'has("enableWeakerNetworkIsolation") | not' f.json
+              if grep -q 'enableWeakerNetworkIsolation' notes; then echo "named a switch that is off"; exit 1; fi
+              ${srt} --options '{"enableWeakerNetworkIsolation":true}' -- true > w.json 2>notes
+              jq -e '.enableWeakerNetworkIsolation == true' w.json
+              grep -q 'enableWeakerNetworkIsolation is on' notes
+
+              # Local ports: a dev server or a test's own server cannot listen
+              # without this switch on macOS. Linux has its own loopback.
+              jq -es 'all(.[]; .network | has("allowLocalBinding") | not)' s.json o.json f.json
+              ${srt} --options '{"allowLocalBinding":true}' -- true > b.json 2>notes
+              jq -e '.network.allowLocalBinding == true' b.json
+              if [ "$(uname -s)" = Darwin ]; then grep -q 'allowLocalBinding is on' notes; fi
+              if [ "$(uname -s)" = Linux ] && grep -q 'allowLocalBinding' notes; then echo "named a switch Linux ignores"; exit 1; fi
+
+              # A socket reaches something outside the sandbox, so the paths
+              # are named, and the Nix daemon by name: it can reach any host.
+              # srt reads the paths on macOS only, and Linux is told so.
+              jq -es 'all(.[]; .network | has("allowUnixSockets") | not)' s.json o.json
+              if grep -q -i 'socket' cmd; then echo "named sockets when none are allowed"; exit 1; fi
+              ${srt} --options '{"allowUnixSockets":["/var/run/docker.sock"]}' -- true > u.json 2>notes
+              jq -e '.network.allowUnixSockets == ["/var/run/docker.sock"]' u.json
+              if grep -q 'Nix daemon' notes; then echo "named the Nix daemon without its socket"; exit 1; fi
+              if [ "$(uname -s)" = Darwin ]; then grep -q 'Unix sockets allowed: /var/run/docker.sock' notes; fi
+              if [ "$(uname -s)" = Linux ]; then grep -q 'no effect on Linux' notes; fi
+              for nix in /nix/var/nix/daemon-socket/socket /nix/var/nix/daemon-socket; do
+                ${srt} --options "{\"allowUnixSockets\":[\"$nix\"]}" -- true > n.json 2>notes
+                jq -e --arg p "$nix" '.network.allowUnixSockets == [$p]' n.json
+                if [ "$(uname -s)" = Darwin ]; then grep -q 'the Nix daemon is reachable' notes; fi
+                if [ "$(uname -s)" = Linux ] && grep -q 'Nix daemon' notes; then echo "said the Nix daemon is reachable on Linux"; exit 1; fi
+              done
+
+              for bad in '[1]' '{"allowedDomains":"x"}' '{"allowedDomains":[1]}' '{"allowedDomains":true}' \
+                '{"enableWeakerNetworkIsolation":"yes"}' '{"enableWeakerNetworkIsolation":[true]}' '{"other":[]}' '{nope' \
+                '{"allowUnixSockets":"/var/run/docker.sock"}' '{"allowLocalBinding":"yes"}'; do
                 if ${srt} --options "$bad" -- true >/dev/null 2>err; then echo "accepted $bad"; exit 1; fi
                 [ -s err ] || { echo "no reason for $bad"; exit 1; }
               done

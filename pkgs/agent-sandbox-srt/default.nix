@@ -15,8 +15,12 @@
 #   - on macOS, allowPty, /private/tmp (srt does not follow /tmp) and
 #     the pasteboard service, so copying out of the agent works;
 #   - the agent's temp folder made, which srt names but does not create;
+#   - on macOS, SSL_CERT_FILE set unless the caller has, so gh can check
+#     a certificate without the trust service the sandbox blocks;
 #   - and it refuses to start at / or ~, where "." would open everything;
-#   - the caller's options, each a list added to the above.
+#   - the caller's options: lists added to the above, and switches that
+#     are off unless true. A switch weakens the sandbox, so each one
+#     that is on is named on stderr at every launch.
 #
 # Found by James Bayer's tests (agent-stacks-sandbox-lab) and recorded in
 # spec proposal 0001, appendix A. AGENT_SANDBOX_SRT_DRY_RUN=1 prints the
@@ -28,6 +32,7 @@
   coreutils,
   stdenv,
   bubblewrap,
+  cacert,
   sandbox-runtime,
 }:
 
@@ -43,7 +48,9 @@
     # Linux: the bwrap srt runs, named so the AppArmor fix below can name
     # it too. The same one nixpkgs' srt puts first on its PATH.
     bwrap=${lib.optionalString stdenv.hostPlatform.isLinux (lib.getExe' bubblewrap "bwrap")}
-    keys='["allowedDomains", "allowWrite", "denyRead"]'
+    # The options: lists of strings, and switches that are true or false.
+    lists='["allowedDomains", "allowUnixSockets", "allowWrite", "denyRead"]'
+    switches='["allowLocalBinding", "enableWeakerNetworkIsolation"]'
 
     opts="{}"
     while [ $# -gt 0 ]; do
@@ -77,10 +84,15 @@
 
     jq -e 'type == "object"' >/dev/null 2>&1 <<<"$opts" ||
       die "options must be a JSON object, got: $opts"
-    unknown=$(jq -r --argjson k "$keys" 'keys - $k | join(", ")' <<<"$opts")
-    [ -z "$unknown" ] || die "unknown option: $unknown (srt takes $(jq -r 'join(", ")' <<<"$keys"))"
-    bad=$(jq -r 'to_entries[] | select((.value | type) != "array" or any(.value[]; type != "string")) | .key' <<<"$opts")
+    known=$(jq -cn --argjson l "$lists" --argjson s "$switches" '$l + $s')
+    unknown=$(jq -r --argjson k "$known" 'keys - $k | join(", ")' <<<"$opts")
+    [ -z "$unknown" ] || die "unknown option: $unknown (srt takes $(jq -r 'join(", ")' <<<"$known"))"
+    bad=$(jq -r --argjson l "$lists" '[to_entries[] | select(.key | IN($l[]))
+      | select((.value | type) != "array" or any(.value[]; type != "string")) | .key] | join(", ")' <<<"$opts")
     [ -z "$bad" ] || die "option $bad must be a list of strings"
+    bad=$(jq -r --argjson s "$switches" '[to_entries[] | select(.key | IN($s[]))
+      | select((.value | type) != "boolean") | .key] | join(", ")' <<<"$opts")
+    [ -z "$bad" ] || die "option $bad must be true or false"
 
     # Every host the staged plugins' MCP servers reach.
     mcp_hosts="[]"
@@ -106,6 +118,20 @@
     # macOS does not create it, so mktemp inside the sandbox fails.
     mkdir -p "''${CLAUDE_CODE_TMPDIR:-''${CLAUDE_TMPDIR:-/tmp/claude}}"
 
+    # macOS: a program that has the system check a certificate fails in
+    # the sandbox, which blocks the trust service that does the check. A
+    # Go program (gh) checks it itself when SSL_CERT_FILE or SSL_CERT_DIR
+    # is set, from Go 1.27 on, so set one unless the caller has. Nix's
+    # file first: a machine's added authorities are usually in it. Not
+    # with the switch on: the trust service answers then, and it also
+    # knows the authorities only the keychain holds.
+    cert_file=
+    if [ "$darwin" = true ] && [ -z "''${SSL_CERT_FILE:-}" ] && [ -z "''${SSL_CERT_DIR:-}" ] &&
+      jq -e '.enableWeakerNetworkIsolation != true' >/dev/null <<<"$opts"; then
+      cert_file=''${NIX_SSL_CERT_FILE:-}
+      [ -r "$cert_file" ] || cert_file=${cacert}/etc/ssl/certs/ca-bundle.crt
+    fi
+
     settings=$(mktemp "''${TMPDIR:-/tmp}/agent-sandbox-srt.XXXXXX")
     jq -n --argjson o "$opts" --argjson mcp "$mcp_hosts" --argjson darwin "$darwin" --arg bwrap "$bwrap" '{
       network: ({
@@ -119,10 +145,38 @@
         denyWrite: []
       }
     } + (if $darwin then {allowPty: true} else {} end)
-      + (if $bwrap != "" then {bwrapPath: $bwrap} else {} end)' >"$settings"
+      + (if $o.enableWeakerNetworkIsolation == true then {enableWeakerNetworkIsolation: true} else {} end)
+      + (if $bwrap != "" then {bwrapPath: $bwrap} else {} end)
+      | .network += (($o.allowUnixSockets // []) | if length > 0 then {allowUnixSockets: unique} else {} end)
+      | .network += (if $o.allowLocalBinding == true then {allowLocalBinding: true} else {} end)' >"$settings"
+
+    # A stack can carry its options, so the person at the terminal may
+    # not have chosen them: say what is on that weakens the sandbox.
+    if jq -e '.enableWeakerNetworkIsolation == true' "$settings" >/dev/null; then
+      echo "agent-sandbox-srt: enableWeakerNetworkIsolation is on: flox and other programs that verify certificates through macOS can do so, and data can leave through its trust service" >&2
+    fi
+    # Linux is not told: the sandbox has its own loopback there, and srt
+    # ignores the switch.
+    if [ "$darwin" = true ] && jq -e '.network.allowLocalBinding == true' "$settings" >/dev/null; then
+      echo "agent-sandbox-srt: allowLocalBinding is on: programs can listen on local ports, and can reach every service on localhost, including a proxy that forwards off this machine" >&2
+    fi
+    # What listens on a socket runs outside the sandbox. The Nix daemon
+    # is named because it is the one that undoes the allow list: it
+    # fetches from, and its builds can send to, any host. srt allows a
+    # path and everything under it, hence the prefix match.
+    sockets=$(jq -r '.network.allowUnixSockets // [] | join(", ")' "$settings")
+    if [ -n "$sockets" ] && [ "$darwin" = false ]; then
+      echo "agent-sandbox-srt: allowUnixSockets has no effect on Linux, where srt cannot allow a socket by its path" >&2
+    elif [ -n "$sockets" ]; then
+      echo "agent-sandbox-srt: Unix sockets allowed: $sockets: what listens on one runs outside the sandbox" >&2
+      if jq -e '.network.allowUnixSockets | any(. as $p | "/nix/var/nix/daemon-socket/socket" | startswith($p))' "$settings" >/dev/null; then
+        echo "agent-sandbox-srt: the Nix daemon is reachable: it runs outside the sandbox and can reach any host, so the allow list no longer limits what leaves this session" >&2
+      fi
+    fi
 
     if [ -n "''${AGENT_SANDBOX_SRT_DRY_RUN:-}" ]; then
       cat "$settings"
+      [ -z "$cert_file" ] || echo "would set: SSL_CERT_FILE=$cert_file" >&2
       echo "would run: $srt --settings $settings -- $*" >&2
       exit 0
     fi
@@ -150,6 +204,7 @@ Fix it once, as root, with either:
   - sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 (relaxes it for the whole host)"
     fi
 
+    [ -z "$cert_file" ] || export SSL_CERT_FILE=$cert_file
     echo "agent-sandbox-srt: running ''${1##*/} inside srt" >&2
     exec "$srt" --settings "$settings" -- "$@"
   '';
