@@ -6,6 +6,7 @@
 # before downloading one (ADR 0025).
 {
   lib,
+  stdenv,
   rustPlatform,
 }:
 
@@ -36,6 +37,12 @@ rustPlatform.buildRustPackage {
   cargoTestFlags = [ "-p" "impeccable" "--lib" ];
   # Some unit tests listen on 127.0.0.1.
   __darwinAllowLocalNetworking = true;
+  # The macOS Loop-install tests start a fake Loop and list processes
+  # with /bin/ps, which the darwin build sandbox refuses ("Operation not
+  # permitted").
+  checkFlags = lib.optionals stdenv.hostPlatform.isDarwin [
+    "--skip=loop_install::tests::mac::"
+  ];
 
   # The launcher execs the sibling slot without asking its version, so
   # a commit whose engine and VERSION disagree fails here instead.
