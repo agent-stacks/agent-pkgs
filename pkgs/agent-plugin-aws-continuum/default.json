@@ -1,0 +1,68 @@
+{
+  "name": "aws-continuum",
+  "version": "1.0.0",
+  "src": {
+    "owner": "aws",
+    "repo": "agent-toolkit-for-aws",
+    "rev": "ae8855cd69b883dc7e5717fb01142be4c5d2ab84",
+    "hash": "sha256-2iU+yKeIcggUgDHRU8y6ImtCqebgqO42ZrCb5V/FC9I="
+  },
+  "sourceUrl": "https://github.com/aws/agent-toolkit-for-aws",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Amazon Web Services"
+    },
+    "description": "Discover, prioritize, validate, and remediate security risks across the software development lifecycle with AWS Continuum, right from your coding agent. See which risks are real and drive each one to a tested fix.",
+    "homepage": "https://aws.amazon.com/products/developer-tools/agent-toolkit-for-aws/",
+    "keywords": [
+      "aws",
+      "continuum",
+      "security",
+      "code-scanning",
+      "remediation",
+      "skills",
+      "scripts"
+    ],
+    "license": "Apache-2.0",
+    "name": "aws-continuum",
+    "repository": "https://github.com/aws/agent-toolkit-for-aws/tree/main/plugins/aws-continuum",
+    "version": "1.0.0"
+  },
+  "skills": {
+    "fixing-continuum-issues": "plugins/aws-continuum/skills/fixing-continuum-issues",
+    "reporting-continuum-security": "plugins/aws-continuum/skills/reporting-continuum-security",
+    "setting-up-continuum": "plugins/aws-continuum/skills/setting-up-continuum"
+  },
+  "requiredRuntimes": [
+    "node"
+  ],
+  "dependencies": [
+    "uv"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/commands": "plugins/aws-continuum/commands"
+  },
+  "meta": {
+    "description": "Discover, prioritize, validate, and remediate security risks across the software development lifecycle with AWS Continuum, right from your coding agent",
+    "homepage": "https://github.com/aws/agent-toolkit-for-aws"
+  },
+  "import": {
+    "input": "aws/agent-toolkit-for-aws",
+    "flags": [
+      "--dependency=uv",
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "skills",
+        "message": "125 SKILL.md outside every imported plugin, not imported"
+      }
+    ]
+  }
+}
