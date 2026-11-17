@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "slack",
-      "dir": "/nix/store/0fsghmgv6phlnpf53as5vqk3xafqrqk9-agent-plugin-slack-1.7.0/share/agent-plugins/slack",
+      "dir": "/nix/store/y97s9wahfmv8vl72a3nrqxc2waswq2mr-agent-plugin-slack-1.8.0/share/agent-plugins/slack",
       "spec": "1.1.0",
       "score": 53,
       "status": "caution",
@@ -244,42 +244,42 @@
             {
               "reason": "reference_missing",
               "path": "skills/deploy-slack-app/SKILL.md",
-              "line": 137
+              "line": 147
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy-slack-app/SKILL.md",
-              "line": 139
+              "line": 149
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy-slack-app/SKILL.md",
-              "line": 159
+              "line": 169
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy-slack-app/SKILL.md",
-              "line": 172
+              "line": 182
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy-slack-app/SKILL.md",
-              "line": 180
+              "line": 190
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy-slack-app/SKILL.md",
-              "line": 183
+              "line": 193
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy-slack-app/SKILL.md",
-              "line": 186
+              "line": 196
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy-slack-app/SKILL.md",
-              "line": 198
+              "line": 208
             }
           ],
           "findings": [],
@@ -287,12 +287,17 @@
         },
         {
           "path": "skills/slack-api",
-          "score": 84,
-          "risk": 16,
-          "status": "safe",
+          "score": 67,
+          "risk": 33,
+          "status": "caution",
           "partial": true,
-          "coverage": 100,
+          "coverage": 0,
           "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/slack-api/SKILL.md",
+              "line": 0
+            },
             {
               "reason": "reference_missing",
               "path": "skills/slack-api/SKILL.md",
@@ -346,15 +351,22 @@
             {
               "reason": "reference_missing",
               "path": "skills/slack-api/SKILL.md",
-              "line": 163
+              "line": 165
             },
             {
               "reason": "reference_missing",
               "path": "skills/slack-api/SKILL.md",
-              "line": 198
+              "line": 200
             }
           ],
           "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/slack-api/SKILL.md",
+              "line": 137
+            },
             {
               "id": "EA2",
               "severity": "MEDIUM",
@@ -374,7 +386,28 @@
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/slack-api/SKILL.md",
-              "line": 119
+              "line": 142
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/slack-api/SKILL.md",
+              "line": 150
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/slack-api/SKILL.md",
+              "line": 180
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/slack-api/SKILL.md",
+              "line": 185
             }
           ],
           "suppressed": []
@@ -390,7 +423,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/slack-cli/SKILL.md",
-              "line": 253
+              "line": 273
             }
           ],
           "findings": [
@@ -434,17 +467,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/slack-docs/SKILL.md",
-              "line": 48
+              "line": 58
             },
             {
               "reason": "reference_missing",
               "path": "skills/slack-docs/SKILL.md",
-              "line": 86
+              "line": 96
             },
             {
               "reason": "reference_missing",
               "path": "skills/slack-docs/SKILL.md",
-              "line": 99
+              "line": 120
             }
           ],
           "findings": [],
@@ -515,7 +548,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-05T05:28:31Z"
+      "checkedAt": "2026-11-17T21:56:53Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"

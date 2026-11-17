@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "posthog-skills",
-      "dir": "/nix/store/cvfpr15wd5zmk4hpr8y3y16dmxsv39vf-agent-plugin-posthog-skills-0.0.0-unstable.2026-11-16.gaecd71d/share/agent-plugins/posthog-skills",
+      "dir": "/nix/store/hj0v6vrn7gjg40whqi0nhwy8s7lz4bly-agent-plugin-posthog-skills-0.0.0-unstable.2026-11-17.g2cd3194/share/agent-plugins/posthog-skills",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -77,6 +77,8 @@
           "skills/diagnosing-experiment-health",
           "skills/diagnosing-failed-warehouse-syncs",
           "skills/diagnosing-missing-recordings",
+          "skills/diagnosing-replay-capture-gaps",
+          "skills/diagnosing-replay-rendering",
           "skills/diagnosing-sdk-health",
           "skills/diagnosing-stacktrace-symbolication",
           "skills/django",
@@ -4282,14 +4284,14 @@
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/diagnosing-experiment-health/references/mid-run-changes.md",
-              "line": 208
+              "line": 212
             },
             {
               "id": "P2",
               "severity": "HIGH",
               "message": "Hidden Instructions",
               "file": "skills/diagnosing-experiment-health/references/mid-run-changes.md",
-              "line": 445
+              "line": 449
             },
             {
               "id": "P2",
@@ -4664,6 +4666,306 @@
               "file": "skills/diagnosing-missing-recordings/SKILL.md",
               "line": 27,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
+          ]
+        },
+        {
+          "path": "skills/diagnosing-replay-capture-gaps",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/diagnosing-replay-capture-gaps/SKILL.md",
+              "line": 35
+            }
+          ],
+          "findings": [],
+          "suppressed": [
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-capture-gaps/SKILL.md",
+              "line": 33,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-capture-gaps/references/reading-the-export.md",
+              "line": 21,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-capture-gaps/references/reading-the-export.md",
+              "line": 23,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-capture-gaps/references/reading-the-export.md",
+              "line": 24,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-capture-gaps/references/reading-the-export.md",
+              "line": 25,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-capture-gaps/references/reading-the-export.md",
+              "line": 27,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-capture-gaps/references/reading-the-export.md",
+              "line": 28,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-capture-gaps/references/reading-the-export.md",
+              "line": 29,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-capture-gaps/references/reading-the-export.md",
+              "line": 30,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-capture-gaps/references/reading-the-export.md",
+              "line": 31,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-capture-gaps/references/reading-the-export.md",
+              "line": 33,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-capture-gaps/references/reading-the-export.md",
+              "line": 34,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-capture-gaps/references/reading-the-export.md",
+              "line": 40,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-capture-gaps/references/reading-the-export.md",
+              "line": 43,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-capture-gaps/references/reading-the-export.md",
+              "line": 44,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-capture-gaps/references/reading-the-export.md",
+              "line": 46,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-capture-gaps/references/reading-the-export.md",
+              "line": 47,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-capture-gaps/references/reading-the-export.md",
+              "line": 48,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-capture-gaps/references/reading-the-export.md",
+              "line": 49,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            }
+          ]
+        },
+        {
+          "path": "skills/diagnosing-replay-rendering",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/diagnosing-replay-rendering/SKILL.md",
+              "line": 41
+            }
+          ],
+          "findings": [],
+          "suppressed": [
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-rendering/SKILL.md",
+              "line": 39,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-rendering/references/mobile-causes.md",
+              "line": 29,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-rendering/references/mobile-causes.md",
+              "line": 29,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-rendering/references/mobile-causes.md",
+              "line": 32,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-rendering/references/mobile-causes.md",
+              "line": 32,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-rendering/references/mobile-causes.md",
+              "line": 34,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-rendering/references/mobile-causes.md",
+              "line": 61,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-rendering/references/mobile-causes.md",
+              "line": 64,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-rendering/references/reading-the-export.md",
+              "line": 49,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-rendering/references/reading-the-export.md",
+              "line": 61,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-rendering/references/reading-the-export.md",
+              "line": 66,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-rendering/references/web-causes.md",
+              "line": 21,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-rendering/references/web-causes.md",
+              "line": 24,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/diagnosing-replay-rendering/references/web-causes.md",
+              "line": 90,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             }
           ]
         },
@@ -9118,7 +9420,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/inbox-exploration/references/report-actions.md",
-              "line": 67,
+              "line": 68,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             }
           ]
@@ -9184,7 +9486,7 @@
           "risk": 67,
           "status": "do not install",
           "partial": true,
-          "coverage": 86.7,
+          "coverage": 87.5,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -9218,13 +9520,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "P1",
-              "severity": "HIGH",
-              "message": "Instruction Override",
-              "file": "skills/instrument-error-tracking/references/dotnet.md",
-              "line": 193
-            },
             {
               "id": "PE3",
               "severity": "HIGH",
@@ -9261,18 +9556,25 @@
               "line": 71
             },
             {
-              "id": "PE3",
+              "id": "P1",
               "severity": "HIGH",
-              "message": "Credential Access",
-              "file": "skills/instrument-error-tracking/references/nextjs.md",
-              "line": 71
+              "message": "Instruction Override",
+              "file": "skills/instrument-error-tracking/references/libraries-dotnet.md",
+              "line": 193
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
-              "file": "skills/instrument-error-tracking/references/ruby-on-rails.md",
+              "file": "skills/instrument-error-tracking/references/libraries-ruby-on-rails.md",
               "line": 155
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/instrument-error-tracking/references/nextjs.md",
+              "line": 71
             },
             {
               "id": "RP1",
@@ -9327,6 +9629,13 @@
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
+              "file": "skills/instrument-error-tracking/references/installation-ruby-on-rails.md",
+              "line": 36
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
               "file": "skills/instrument-error-tracking/references/ios.md",
               "line": 25
             },
@@ -9336,6 +9645,13 @@
               "message": "MCP Rug Pull",
               "file": "skills/instrument-error-tracking/references/laravel.md",
               "line": 245
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/instrument-error-tracking/references/libraries-ruby-on-rails.md",
+              "line": 36
             },
             {
               "id": "RP1",
@@ -9378,13 +9694,6 @@
               "message": "MCP Rug Pull",
               "file": "skills/instrument-error-tracking/references/react.md",
               "line": 27
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/instrument-error-tracking/references/ruby-on-rails.md",
-              "line": 36
             },
             {
               "id": "RP1",
@@ -9470,7 +9779,7 @@
           "risk": 91,
           "status": "do not install",
           "partial": true,
-          "coverage": 84.6,
+          "coverage": 85.2,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -9508,8 +9817,8 @@
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
-              "file": "skills/instrument-feature-flags/references/dotnet.md",
-              "line": 193
+              "file": "skills/instrument-feature-flags/references/installation-dotnet.md",
+              "line": 174
             },
             {
               "id": "P1",
@@ -9517,6 +9826,13 @@
               "message": "Instruction Override",
               "file": "skills/instrument-feature-flags/references/java.md",
               "line": 88
+            },
+            {
+              "id": "P1",
+              "severity": "HIGH",
+              "message": "Instruction Override",
+              "file": "skills/instrument-feature-flags/references/libraries-dotnet.md",
+              "line": 193
             },
             {
               "id": "P1",
@@ -10615,14 +10931,14 @@
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-integration/references/react-native.md",
-              "line": 1204
+              "line": 1227
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-integration/references/react-native.md",
-              "line": 1206
+              "line": 1229
             },
             {
               "id": "P1",
@@ -11525,7 +11841,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/instrument-integration/references/react-native.md",
-              "line": 40
+              "line": 41
             },
             {
               "id": "RP1",
@@ -11616,7 +11932,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/instrument-integration/references/react-native.md",
-              "line": 210
+              "line": 211
             },
             {
               "id": "E1",
@@ -13320,14 +13636,14 @@
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-product-analytics/references/react-native.md",
-              "line": 1204
+              "line": 1227
             },
             {
               "id": "P1",
               "severity": "HIGH",
               "message": "Instruction Override",
               "file": "skills/instrument-product-analytics/references/react-native.md",
-              "line": 1206
+              "line": 1229
             },
             {
               "id": "P1",
@@ -14223,7 +14539,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/instrument-product-analytics/references/react-native.md",
-              "line": 40
+              "line": 41
             },
             {
               "id": "RP1",
@@ -14307,7 +14623,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/instrument-product-analytics/references/react-native.md",
-              "line": 210
+              "line": 211
             },
             {
               "id": "E1",
@@ -24949,7 +25265,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/understanding-billing-usage/SKILL.md",
-              "line": 198
+              "line": 209
             }
           ],
           "findings": [
@@ -26001,7 +26317,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-16T12:48:44Z"
+      "checkedAt": "2026-11-17T20:17:48Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
