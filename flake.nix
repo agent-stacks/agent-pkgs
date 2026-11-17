@@ -474,6 +474,14 @@
               jq -e '.enableWeakerNetworkIsolation == true' w.json
               grep -q 'enableWeakerNetworkIsolation is on' notes
 
+              # Local ports: a dev server or a test's own server cannot listen
+              # without this switch on macOS. Linux has its own loopback.
+              jq -es 'all(.[]; .network | has("allowLocalBinding") | not)' s.json o.json f.json
+              ${srt} --options '{"allowLocalBinding":true}' -- true > b.json 2>notes
+              jq -e '.network.allowLocalBinding == true' b.json
+              if [ "$(uname -s)" = Darwin ]; then grep -q 'allowLocalBinding is on' notes; fi
+              if [ "$(uname -s)" = Linux ] && grep -q 'allowLocalBinding' notes; then echo "named a switch Linux ignores"; exit 1; fi
+
               # A socket reaches something outside the sandbox, so the paths
               # are named, and the Nix daemon by name: it can reach any host.
               # srt reads the paths on macOS only, and Linux is told so.
@@ -493,7 +501,7 @@
 
               for bad in '[1]' '{"allowedDomains":"x"}' '{"allowedDomains":[1]}' '{"allowedDomains":true}' \
                 '{"enableWeakerNetworkIsolation":"yes"}' '{"enableWeakerNetworkIsolation":[true]}' '{"other":[]}' '{nope' \
-                '{"allowUnixSockets":"/var/run/docker.sock"}'; do
+                '{"allowUnixSockets":"/var/run/docker.sock"}' '{"allowLocalBinding":"yes"}'; do
                 if ${srt} --options "$bad" -- true >/dev/null 2>err; then echo "accepted $bad"; exit 1; fi
                 [ -s err ] || { echo "no reason for $bad"; exit 1; }
               done
