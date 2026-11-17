@@ -1,11 +1,11 @@
 {
   "name": "foundry-iq-skills",
-  "version": "0.2.13",
+  "version": "0.3.0",
   "src": {
     "owner": "microsoft",
     "repo": "skills",
-    "rev": "f558cce7c37fcc7b0e12f32a22331d587eb92a3a",
-    "hash": "sha256-ZHSxw73eKBYOf18BHW3lxH+T4SjzoM0ighsXob+Qvtk="
+    "rev": "b35d2c60fac796bfd2cfd14ad3f550c73e92d9bb",
+    "hash": "sha256-i5vWLil6dt8lmbeePi7BjSMAuIi92BbG0RHC8vsrmJk="
   },
   "sourceUrl": "https://github.com/microsoft/skills",
   "manifest": {
@@ -14,33 +14,37 @@
       "name": "Microsoft",
       "url": "https://www.microsoft.com"
     },
-    "description": "Create and retrieve from a Foundry IQ knowledge base using File, Azure Blob, or ADLS Gen2, then connect an existing Prompt or Hosted Agent.",
+    "description": "Diagnose Foundry IQ and Azure AI Search access and ingestion issues, and configure Azure AI Search and Foundry IQ with source-aware security and verified API guidance. Build and query entity graphs, topic graphs and ontologies over your documents.",
     "homepage": "https://github.com/microsoft/github-copilot-for-azure",
     "keywords": [
       "azure",
       "azure-ai-search",
-      "rag",
-      "grounding",
       "foundry-iq",
-      "knowledge-base",
-      "file-knowledge-source",
-      "azure-blob",
-      "adls-gen2",
+      "search",
       "retrieval",
-      "citations",
-      "prompt-agent",
-      "hosted-agent"
+      "rag",
+      "knowledge-graph",
+      "entity",
+      "grounding",
+      "topic-graph",
+      "ontology",
+      "entity-graph",
+      "graphrag",
+      "owl",
+      "ontology-validation"
     ],
     "license": "MIT",
     "name": "foundry-iq-skills",
     "repository": "https://github.com/microsoft/GitHub-Copilot-for-Azure",
-    "version": "0.2.13"
+    "version": "0.3.0"
   },
   "skills": {
     "foundry-iq": ".github/plugins/foundry-iq-skills/skills/foundry-iq"
   },
   "requiredRuntimes": [
-    "bash"
+    "bash",
+    "node",
+    "npx"
   ],
   "dependencies": [
     "powershell"
@@ -51,7 +55,30 @@
     "nodejs"
   ],
   "pluginRootPaths": {
-    "com.anthropic.claude-code/hooks": ".github/plugins/foundry-iq-skills/hooks"
+    "com.anthropic.claude-code/hooks": ".github/plugins/foundry-iq-skills/hooks",
+    "graph": ".github/plugins/foundry-iq-skills/graph"
+  },
+  "mcpServers": {
+    "azure": {
+      "args": [
+        "-y",
+        "@azure/mcp@latest",
+        "server",
+        "start"
+      ],
+      "command": "npx",
+      "type": "stdio"
+    },
+    "foundry-iq-graph": {
+      "args": [
+        "${PLUGIN_ROOT}/graph/runtime/launch-python.mjs",
+        "run",
+        "entity",
+        "foundry-iq-graph"
+      ],
+      "command": "node",
+      "type": "stdio"
+    }
   },
   "hooks": {
     "PostToolUse": [
@@ -76,7 +103,7 @@
     ]
   },
   "meta": {
-    "description": "Create and retrieve from a Foundry IQ knowledge base using File, Azure Blob, or ADLS Gen2, then connect an existing Prompt or Hosted Agent",
+    "description": "Diagnose Foundry IQ and Azure AI Search access and ingestion issues",
     "homepage": "https://github.com/microsoft/skills"
   },
   "import": {
@@ -99,167 +126,27 @@
         "message": "Claude Code runs this on SessionStart: bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\" --harness claude-code"
       },
       {
+        "path": ".github/plugins/foundry-iq-skills/graph/runtime/manifest.json",
+        "message": "larger than 1MiB, so it was not read; a ${PLUGIN_ROOT} reference inside it ships nothing, and a script only it runs is not reported"
+      },
+      {
         "path": "com.anthropic.claude-code/hooks/scripts/pluginPathAllowPattern.sh",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
-        "path": "skills/foundry-iq/helpers/_blob_observation.py",
+        "path": "graph/apps-host/supervise.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
-        "path": "skills/foundry-iq/helpers/_blob_source_read.py",
+        "path": "graph/runtime/bootstrap.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
-        "path": "skills/foundry-iq/helpers/_bootstrap_io.py",
+        "path": "graph/runtime/preflight.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
-        "path": "skills/foundry-iq/helpers/_cleanup_dependencies.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/_cleanup_receipts.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/_common.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/_document_adapters.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/_document_limits.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/_embedding.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/_file_inventory.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/_file_source_config.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/_indexer_observation.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/_initial_prompt.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/_private_json.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/_progress.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/_prompt_read.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/_search_read.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/_source_readback.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/blob_inventory.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/blob_recheck.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/blob_source.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/bootstrap_azure.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/cleanup_plan.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/cu_ingestion_auth.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/document_assess.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/file_cu_canary.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/file_cu_mi.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/file_ingest.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/file_source.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/file_upload.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/hosted_connect.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/knowledge_base_retrieve.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/model_discovery.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/private_artifacts.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/prompt_cleanup.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/prompt_connect.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/retrieval_verify.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/search_intake.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/search_reconcile.py",
-        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
-      },
-      {
-        "path": "skills/foundry-iq/helpers/source_vector.py",
+        "path": "skills/foundry-iq/scripts/request_attribution.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       }
     ]

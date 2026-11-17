@@ -1,0 +1,111 @@
+{
+  "name": "azure-observability",
+  "version": "1.0.0",
+  "src": {
+    "owner": "microsoft",
+    "repo": "skills",
+    "rev": "b35d2c60fac796bfd2cfd14ad3f550c73e92d9bb",
+    "hash": "sha256-i5vWLil6dt8lmbeePi7BjSMAuIi92BbG0RHC8vsrmJk="
+  },
+  "sourceUrl": "https://github.com/microsoft/skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Microsoft",
+      "url": "https://www.microsoft.com"
+    },
+    "description": "Guide read-only Azure web/API and Foundry-agent troubleshooting, approved fixes, and evidence-based recovery validation.",
+    "homepage": "https://github.com/microsoft/github-copilot-for-azure",
+    "keywords": [
+      "azure",
+      "observability",
+      "troubleshooting",
+      "monitor",
+      "foundry"
+    ],
+    "license": "MIT",
+    "name": "azure-observability",
+    "repository": "https://github.com/microsoft/GitHub-Copilot-for-Azure",
+    "version": "1.0.0"
+  },
+  "skills": {
+    "assess-observability-health": ".github/plugins/azure-observability/skills/assess-observability-health",
+    "connect-observability": ".github/plugins/azure-observability/skills/connect-observability",
+    "troubleshoot-observability": ".github/plugins/azure-observability/skills/troubleshoot-observability",
+    "verify-observability-fix": ".github/plugins/azure-observability/skills/verify-observability-fix"
+  },
+  "requiredRuntimes": [
+    "bash",
+    "python3"
+  ],
+  "dependencies": [
+    "powershell"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/hooks": ".github/plugins/azure-observability/hooks"
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\" --harness claude-code",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\" --harness claude-code",
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "description": "Guide read-only Azure web/API and Foundry-agent troubleshooting, approved fixes, and evidence-based recovery validation",
+    "homepage": "https://github.com/microsoft/skills"
+  },
+  "import": {
+    "input": "microsoft/skills",
+    "flags": [
+      "--dependency=powershell",
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": ".github/skills",
+        "message": "13 SKILL.md outside every imported plugin, not imported"
+      },
+      {
+        "path": ".github/plugins/azure-observability/hooks/claude-hooks.json",
+        "message": "Claude Code runs this on PostToolUse: bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\" --harness claude-code"
+      },
+      {
+        "path": ".github/plugins/azure-observability/hooks/claude-hooks.json",
+        "message": "Claude Code runs this on SessionStart: bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/track-telemetry.sh\" --harness claude-code"
+      },
+      {
+        "path": "com.anthropic.claude-code/hooks/scripts/pluginPathAllowPattern.sh",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/assess-observability-health/scripts/build_appinsights_trace_link.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/assess-observability-health/scripts/render_inline_health_visual.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      }
+    ]
+  }
+}
