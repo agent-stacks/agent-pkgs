@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "clickhouse-best-practices",
-      "dir": "/nix/store/cyag32hmbkwbbbdawbqbsyg1lfd1kn30-agent-plugin-clickhouse-best-practices-0.3.0/share/agent-plugins/clickhouse-best-practices",
+      "dir": "/nix/store/3y0ndq439x282dyi59bnswhrklv7phrf-agent-plugin-clickhouse-best-practices-0.5.0/share/agent-plugins/clickhouse-best-practices",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -179,11 +179,11 @@
         },
         {
           "path": "skills/clickhouse-best-practices",
-          "score": 70,
-          "risk": 30,
+          "score": 59,
+          "risk": 41,
           "status": "caution",
           "partial": true,
-          "coverage": 94.6,
+          "coverage": 95.5,
           "exceptions": [
             {
               "reason": "obfuscated_instruction_text",
@@ -203,11 +203,25 @@
           ],
           "findings": [
             {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/clickhouse-best-practices/AGENTS.md",
+              "line": 1240
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/clickhouse-best-practices/rules/query-index-skipping-indices.md",
+              "line": 14
+            },
+            {
               "id": "EA4",
               "severity": "MEDIUM",
               "message": "Unbounded Resource Access",
               "file": "skills/clickhouse-best-practices/AGENTS.md",
-              "line": 1577
+              "line": 1910
             },
             {
               "id": "EA4",
@@ -221,7 +235,7 @@
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/clickhouse-best-practices/AGENTS.md",
-              "line": 1754
+              "line": 2087
             },
             {
               "id": "E1",
@@ -242,7 +256,7 @@
               "severity": "LOW",
               "message": "MCP Rug Pull",
               "file": "skills/clickhouse-best-practices/AGENTS.md",
-              "line": 1734
+              "line": 2067
             },
             {
               "id": "RP1",
@@ -258,7 +272,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/clickhouse-best-practices/SKILL.md",
-              "line": 272,
+              "line": 297,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
@@ -266,7 +280,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/clickhouse-best-practices/SKILL.md",
-              "line": 274,
+              "line": 299,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
@@ -858,7 +872,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-09T01:05:05Z"
+      "checkedAt": "2026-11-18T02:07:44Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
