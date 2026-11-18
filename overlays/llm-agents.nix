@@ -14,29 +14,6 @@ final: prev: {
           name = "codex-flox-fragments.patch";
         })
       ];
-      # Temporary, until the lock has numtide/llm-agents.nix#12320, which
-      # makes the same change upstream; drop it then. Our nixpkgs builds
-      # aws-lc without the compat openssl.pc that codex gives openssl-sys
-      # (Linux only), so it needs the real openssl. Once upstream adds
-      # openssl itself, this would list it a second time.
-      buildInputs =
-        (old.buildInputs or [ ])
-        ++ final.lib.optionals (
-          final.stdenv.hostPlatform.isLinux
-          && !(final.lib.elem "openssl" (final.aws-lc.meta.pkgConfigModules or [ ]))
-        ) [ final.openssl ];
-    });
-
-    # nixpkgs' cargo setup hook now exports AWS_LC_SYS_USE_SYSTEM=1, so
-    # aws-lc-sys links the system AWS-LC instead of building its own, and
-    # panics when it finds none. nono vendors aws-lc-sys and declares
-    # none; give it nixpkgs' aws-lc, and pkg-config to find it (nono has
-    # pkg-config only on Linux), as nixpkgs does for its own packages.
-    # Harmless before that change: the hook did not set the variable, so
-    # aws-lc-sys built from source.
-    nono = prev.llm-agents.nono.overrideAttrs (old: {
-      buildInputs = (old.buildInputs or [ ]) ++ [ final.aws-lc ];
-      nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.pkg-config ];
     });
   };
 }
