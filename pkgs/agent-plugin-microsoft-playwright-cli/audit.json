@@ -7,10 +7,10 @@
   "plugins": [
     {
       "name": "microsoft-playwright-cli",
-      "dir": "/nix/store/q06j00adg6xp0liwidrh39vcg883w9cm-agent-plugin-microsoft-playwright-cli-0.0.0-unstable.2026-11-10.gf9b304f/share/agent-plugins/microsoft-playwright-cli",
+      "dir": "/nix/store/g4gh7n9n2xhadyd8lvcnc0la9wd2ywxb-agent-plugin-microsoft-playwright-cli-0.0.0-unstable.2026-11-18.gc872a33/share/agent-plugins/microsoft-playwright-cli",
       "spec": "1.1.0",
-      "score": 57,
-      "status": "caution",
+      "score": 38,
+      "status": "do not install",
       "coverage": {
         "scanned": [
           "skills/dev",
@@ -57,9 +57,9 @@
         },
         {
           "path": "skills/playwright-cli",
-          "score": 57,
-          "risk": 43,
-          "status": "caution",
+          "score": 38,
+          "risk": 62,
+          "status": "do not install",
           "partial": true,
           "coverage": 90.9,
           "exceptions": [
@@ -86,17 +86,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/playwright-cli/SKILL.md",
-              "line": 311
+              "line": 315
             },
             {
               "reason": "reference_missing",
               "path": "skills/playwright-cli/SKILL.md",
-              "line": 331
+              "line": 335
             },
             {
               "reason": "reference_missing",
               "path": "skills/playwright-cli/SKILL.md",
-              "line": 477
+              "line": 481
             },
             {
               "reason": "static_parse_limit",
@@ -105,6 +105,13 @@
             }
           ],
           "findings": [
+            {
+              "id": "YR1",
+              "severity": "HIGH",
+              "message": "YARA rule 'info_stealer': Information stealer patterns (credential harvesting, browser data theft) [malware]",
+              "file": "skills/playwright-cli/references/session-management.md",
+              "line": 146
+            },
             {
               "id": "MP3",
               "severity": "HIGH",
@@ -124,14 +131,14 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/playwright-cli/SKILL.md",
-              "line": 406
+              "line": 410
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/playwright-cli/SKILL.md",
-              "line": 412
+              "line": 416
             },
             {
               "id": "RP1",
@@ -224,7 +231,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/playwright-cli/SKILL.md",
-              "line": 480,
+              "line": 484,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
@@ -232,7 +239,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/playwright-cli/SKILL.md",
-              "line": 492,
+              "line": 496,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
@@ -240,15 +247,15 @@
       ]
     }
   ],
-  "score": 57,
-  "status": "caution",
+  "score": 38,
+  "status": "do not install",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-10T17:33:59Z"
+      "checkedAt": "2026-11-18T19:51:59Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
