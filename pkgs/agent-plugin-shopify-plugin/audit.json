@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "shopify-plugin",
-      "dir": "/nix/store/0p1znli41y17mijim1x93gzpjhwizs0m-agent-plugin-shopify-plugin-2.3.0/share/agent-plugins/shopify-plugin",
+      "dir": "/nix/store/zxyqhlg67s289djs3jj4brvva63645x8-agent-plugin-shopify-plugin-2.4.0/share/agent-plugins/shopify-plugin",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -122,7 +122,7 @@
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 78.8,
+          "coverage": 84.2,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -170,8 +170,18 @@
               "line": 0
             },
             {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/shopify/scripts/_validate_theme.mjs",
+              "line": 0
+            },
+            {
               "reason": "static_parse_limit",
               "path": "skills/shopify/scripts/_validate_theme.mjs",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/shopify/scripts/data/shopify_system_translations.json",
               "line": 0
             },
             {
@@ -216,7 +226,7 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/shopify/references/hydrogen.md",
-              "line": 58
+              "line": 62
             },
             {
               "id": "PE3",
@@ -240,6 +250,20 @@
               "line": 23
             },
             {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/shopify/scripts/_validate_theme.mjs",
+              "line": 1020
+            },
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/shopify/scripts/_validate_theme.mjs",
+              "line": 1020
+            },
+            {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
@@ -251,33 +275,40 @@
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
               "file": "skills/shopify/references/hydrogen.md",
-              "line": 54
+              "line": 57
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/shopify/references/hydrogen.md",
-              "line": 54
+              "line": 57
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/shopify/references/hydrogen.md",
-              "line": 55
+              "line": 59
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/shopify/references/hydrogen.md",
-              "line": 56
+              "line": 60
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
+              "file": "skills/shopify/references/hydrogen.md",
+              "line": 63
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
               "file": "skills/shopify/references/hydrogen.md",
               "line": 59
             },
@@ -392,6 +423,20 @@
               "message": "Scope Creep",
               "file": "skills/shopify/scripts/_validate_graphql.mjs",
               "line": 184
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/shopify/scripts/data/objects.json",
+              "line": 7624
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/shopify/scripts/data/objects.json",
+              "line": 18731
             }
           ],
           "suppressed": [
@@ -1135,7 +1180,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-04T23:50:42Z"
+      "checkedAt": "2026-11-17T23:08:43Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
