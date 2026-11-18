@@ -1,11 +1,11 @@
 {
   "name": "aws-data-analytics",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "src": {
     "owner": "aws",
     "repo": "agent-toolkit-for-aws",
-    "rev": "522e65e46c4e6f6ab60d1c0c442aad38ab2f20f8",
-    "hash": "sha256-oP6eXnksbxJokMHlbZb3CDr68CJ3ZhsClJM7NEmRVUU="
+    "rev": "bd7e0013bf3db2f15ce81dedd824eba1380e4a5d",
+    "hash": "sha256-5KXQ2Ed5Zl96kUt0678WSy9ECnLJbx9pxhyvppuCuUQ="
   },
   "sourceUrl": "https://github.com/aws/agent-toolkit-for-aws",
   "manifest": {
@@ -13,7 +13,7 @@
     "author": {
       "name": "Amazon Web Services"
     },
-    "description": "Data lake, analytics, search, streaming, ETL, and orchestration workflows with S3 Tables, AWS Glue, Athena, Amazon Redshift, Amazon OpenSearch Service, Amazon MSK, Amazon Managed Service for Apache Flink, Amazon MWAA, and Amazon SageMaker Catalog. Covers managed Iceberg tables on S3 Tables, ingestion from JDBC databases (Oracle, SQL Server, PostgreSQL, MySQL, RDS), Amazon Redshift, Snowflake, BigQuery, and DynamoDB, AWS Glue Data Catalog inventory and asset discovery, federated Athena queries, vector storage and semantic search on Amazon S3 Vectors, Amazon OpenSearch Service and Serverless (migration from Solr/Elasticsearch, provisioning, vector/semantic/hybrid search, log analytics, trace analytics), Amazon MSK Provisioned with Standard and Express brokers (cluster sizing, performance and consumer lag troubleshooting, topic management, MSK Replicator for disaster recovery and active-active replication, and Streaming Tables delivery to S3 Tables), migrating self-managed Apache Kafka to MSK Express, Apache Flink application development on Amazon Managed Service for Apache Flink, and Amazon MWAA Provisioned and MWAA Serverless (authoring, testing, and debugging DAGs and workflows, and Airflow version upgrades for provisioned environments), and Amazon SageMaker Catalog and AWS Glue Data Catalog curation (business descriptions, glossaries, metadata forms, publishing, and safe asset retirement) with subscription-based access requests, approvals, audits, and revocations, and AWS Glue auto upgrade for Spark ETL jobs (assessment, turning on auto upgrade, email notifications, and per-job upgrade approval).",
+    "description": "Data lake, analytics, search, streaming, ETL, and orchestration workflows with S3 Tables, AWS Glue, Athena, Amazon Redshift, Amazon OpenSearch Service, Amazon MSK, Amazon Managed Service for Apache Flink, Amazon MWAA, Amazon SageMaker Catalog, and Amazon EMR. Covers managed Iceberg tables on S3 Tables, ingestion from JDBC databases (Oracle, SQL Server, PostgreSQL, MySQL, RDS), Amazon Redshift, Snowflake, BigQuery, and DynamoDB, AWS Glue Data Catalog inventory and asset discovery, federated Athena queries, vector storage and semantic search on Amazon S3 Vectors, Amazon OpenSearch Service and Serverless (migration from Solr/Elasticsearch, provisioning, vector/semantic/hybrid search, log analytics, trace analytics), Amazon MSK Provisioned with Standard and Express brokers (cluster sizing, performance and consumer lag troubleshooting, topic management, MSK Replicator for disaster recovery and active-active replication, and Streaming Tables delivery to S3 Tables), migrating self-managed Apache Kafka to MSK Express, Apache Flink application development on Amazon Managed Service for Apache Flink, and Amazon MWAA Provisioned and MWAA Serverless (authoring, testing, and debugging DAGs and workflows, and Airflow version upgrades for provisioned environments), and Amazon SageMaker Catalog and AWS Glue Data Catalog curation (business descriptions, glossaries, metadata forms, publishing, and safe asset retirement) with subscription-based access requests, approvals, audits, and revocations, and AWS Glue auto upgrade for Spark ETL jobs (assessment, turning on auto upgrade, email notifications, and per-job upgrade approval), and troubleshooting of failed or slow Apache Spark workloads on AWS Glue, Amazon EMR on EC2, EMR Serverless, and EMR on EKS.",
     "homepage": "https://aws.amazon.com/products/developer-tools/agent-toolkit-for-aws/",
     "keywords": [
       "aws",
@@ -59,12 +59,17 @@
       "business-glossary",
       "metadata-forms",
       "data-access",
-      "glue-auto-version"
+      "glue-auto-version",
+      "spark",
+      "apache-spark",
+      "emr",
+      "amazon-emr",
+      "troubleshooting"
     ],
     "license": "Apache-2.0",
     "name": "aws-data-analytics",
     "repository": "https://github.com/aws/agent-toolkit-for-aws",
-    "version": "1.6.0"
+    "version": "1.7.0"
   },
   "skills": {
     "amazon-opensearch-service": "plugins/aws-data-analytics/skills/amazon-opensearch-service",
@@ -85,6 +90,7 @@
     "redshift-guide": "plugins/aws-data-analytics/skills/redshift-guide",
     "storing-and-querying-vectors": "plugins/aws-data-analytics/skills/storing-and-querying-vectors",
     "testing-mwaa-workflow": "plugins/aws-data-analytics/skills/testing-mwaa-workflow",
+    "troubleshoot-spark-job": "plugins/aws-data-analytics/skills/troubleshoot-spark-job",
     "upgrading-mwaa-environments": "plugins/aws-data-analytics/skills/upgrading-mwaa-environments"
   },
   "requiredRuntimes": [
@@ -110,10 +116,38 @@
       ],
       "command": "uvx",
       "type": "stdio"
+    },
+    "spark-code-recommendation": {
+      "args": [
+        "mcp-proxy-for-aws==1.7.0",
+        "https://sagemaker-unified-studio-mcp.us-east-1.api.aws/spark-code-recommendation/mcp",
+        "--service",
+        "sagemaker-unified-studio-mcp",
+        "--region",
+        "us-east-1",
+        "--read-timeout",
+        "180"
+      ],
+      "command": "uvx",
+      "type": "stdio"
+    },
+    "spark-troubleshooting": {
+      "args": [
+        "mcp-proxy-for-aws==1.7.0",
+        "https://sagemaker-unified-studio-mcp.us-east-1.api.aws/spark-troubleshooting/mcp",
+        "--service",
+        "sagemaker-unified-studio-mcp",
+        "--region",
+        "us-east-1",
+        "--read-timeout",
+        "180"
+      ],
+      "command": "uvx",
+      "type": "stdio"
     }
   },
   "meta": {
-    "description": "Data lake, analytics, search, streaming, ETL, and orchestration workflows with S3 Tables, AWS Glue, Athena, Amazon Redshift, Amazon OpenSearch Service, Amazon MSK, Amazon Managed Service for Apache Flink, Amazon MWAA, and Amazon SageMaker Catalog",
+    "description": "Data lake, analytics, search, streaming, ETL, and orchestration workflows with S3 Tables, AWS Glue, Athena, Amazon Redshift, Amazon OpenSearch Service, Amazon MSK, Amazon Managed Service for Apache Flink, Amazon MWAA, Amazon SageMaker Catalog, and Amazon EMR",
     "homepage": "https://github.com/aws/agent-toolkit-for-aws"
   },
   "import": {
@@ -141,7 +175,7 @@
       },
       {
         "path": "skills",
-        "message": "125 SKILL.md outside every imported plugin, not imported"
+        "message": "126 SKILL.md outside every imported plugin, not imported"
       },
       {
         "path": "skills/managing-amazon-msk/scripts/msk_sizing.py",
