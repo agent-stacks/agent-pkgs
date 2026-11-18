@@ -7,13 +7,15 @@
   "plugins": [
     {
       "name": "canva",
-      "dir": "/nix/store/6xflsgj9hp244cbdsgcv0qk1iyx4iwx7-agent-plugin-canva-1.0.0/share/agent-plugins/canva",
+      "dir": "/nix/store/37qag7sksfsi3v808fwq8y92jggf6kav-agent-plugin-canva-1.0.0/share/agent-plugins/canva",
       "spec": "1.1.0",
       "score": 74,
       "status": "caution",
       "coverage": {
         "scanned": [
           "skills/branded-presentation",
+          "skills/canva-agent-guide",
+          "skills/canva-autofill",
           "skills/canva-brand-check",
           "skills/canva-bulk-create",
           "skills/canva-cli",
@@ -54,6 +56,52 @@
               "line": 20
             }
           ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/canva-agent-guide",
+          "score": 95,
+          "risk": 5,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/canva-agent-guide/SKILL.md",
+              "line": 7
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/canva-agent-guide/SKILL.md",
+              "line": 165
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/canva-agent-guide/SKILL.md",
+              "line": 177
+            }
+          ],
+          "findings": [
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/canva-agent-guide/SKILL.md",
+              "line": 24
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/canva-autofill",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
           "suppressed": []
         },
         {
@@ -285,7 +333,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-18T05:49:59Z"
+      "checkedAt": "2026-11-18T06:42:07Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
