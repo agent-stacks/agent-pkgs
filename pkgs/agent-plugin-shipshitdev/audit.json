@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "shipshitdev",
-      "dir": "/nix/store/gjyvz14b0iw0fyp80k6fzg73dsli43ch-agent-plugin-shipshitdev-0.0.0-unstable.2026-11-16.g4ddb609/share/agent-plugins/shipshitdev",
+      "dir": "/nix/store/s0gv1jqf0h2nwr4i3mwh12biiaybdkqz-agent-plugin-shipshitdev-0.0.0-unstable.2026-11-19.g675ffd0/share/agent-plugins/shipshitdev",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -27,7 +27,8 @@
           "skills/release",
           "skills/stack",
           "skills/standup",
-          "skills/test"
+          "skills/test",
+          "skills/verify"
         ],
         "validated": [
           "plugin.json"
@@ -1172,11 +1173,26 @@
           "risk": 0,
           "status": "incomplete",
           "partial": true,
-          "coverage": 80,
+          "coverage": 66.7,
           "exceptions": [
             {
               "reason": "static_parse_limit",
               "path": "skills/qa/references/review-guide.md",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/qa/scripts/release-inputs.mjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/qa/scripts/release-inputs.mjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/qa/scripts/release-inputs.test.mjs",
               "line": 0
             }
           ],
@@ -1396,6 +1412,31 @@
             }
           ],
           "suppressed": []
+        },
+        {
+          "path": "skills/verify",
+          "score": 93,
+          "risk": 7,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/verify/SKILL.md",
+              "line": 41
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/verify/references/check.md",
+              "line": 4
+            }
+          ],
+          "suppressed": []
         }
       ]
     }
@@ -1408,7 +1449,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-16T17:44:34Z"
+      "checkedAt": "2026-11-19T09:03:12Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
