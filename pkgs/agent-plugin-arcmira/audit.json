@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "arcmira",
-      "dir": "/nix/store/wkd2hjnn4xqz5snf4vbzxaczabw56rf6-agent-plugin-arcmira-0.10.8/share/agent-plugins/arcmira",
+      "dir": "/nix/store/rnwdnhxkb6gid81xgf02pyv4a1ylyyc5-agent-plugin-arcmira-0.10.21/share/agent-plugins/arcmira",
       "spec": "1.1.0",
-      "score": 95,
+      "score": 93,
       "status": "incomplete",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/commands",
           "skills/arcmira",
           "skills/brand-mention-monitoring",
           "skills/company-watch",
@@ -36,6 +37,25 @@
         ]
       },
       "components": [
+        {
+          "path": "com.anthropic.claude-code/commands",
+          "score": 93,
+          "risk": 7,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "com.anthropic.claude-code/commands/try.md",
+              "line": 5
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/arcmira",
           "score": 95,
@@ -309,7 +329,7 @@
       ]
     }
   ],
-  "score": 95,
+  "score": 93,
   "status": "incomplete",
   "tool": {
     "name": "skillspector",
@@ -317,7 +337,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-08T03:31:10Z"
+      "checkedAt": "2026-11-19T02:35:39Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
