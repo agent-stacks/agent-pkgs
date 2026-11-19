@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "launchdarkly",
-      "dir": "/nix/store/r443kcdsckk0n71hqqwrd9968hi48z6f-agent-plugin-launchdarkly-1.0.10/share/agent-plugins/launchdarkly",
+      "dir": "/nix/store/3kq64kla2xxq3605087wjfw5j0mis10r-agent-plugin-launchdarkly-1.0.11/share/agent-plugins/launchdarkly",
       "spec": "1.1.0",
       "score": 32,
       "status": "do not install",
@@ -36,6 +36,7 @@
           "skills/launchdarkly-release-plans",
           "skills/online-evals",
           "skills/projects",
+          "skills/should-auto-approve",
           "skills/should-flag-change",
           "skills/tools"
         ],
@@ -43,6 +44,10 @@
           "plugin.json"
         ],
         "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          },
           {
             "path": "mcp.json",
             "reason": "SkillSpector does not analyse this layout as an MCP manifest"
@@ -1275,46 +1280,469 @@
           ]
         },
         {
-          "path": "skills/should-flag-change",
-          "score": 100,
-          "risk": 0,
-          "status": "incomplete",
+          "path": "skills/should-auto-approve",
+          "score": 47,
+          "risk": 53,
+          "status": "do not install",
           "partial": true,
-          "coverage": 66.7,
+          "coverage": 80,
           "exceptions": [
             {
-              "reason": "obfuscated_instruction_text",
-              "path": "skills/should-flag-change/SKILL.md",
-              "line": 0
+              "reason": "reference_missing",
+              "path": "skills/should-auto-approve/SKILL.md",
+              "line": 8
             },
             {
               "reason": "reference_missing",
-              "path": "skills/should-flag-change/SKILL.md",
-              "line": 57
+              "path": "skills/should-auto-approve/SKILL.md",
+              "line": 22
             },
             {
               "reason": "reference_missing",
-              "path": "skills/should-flag-change/SKILL.md",
-              "line": 59
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/should-flag-change/SKILL.md",
+              "path": "skills/should-auto-approve/SKILL.md",
               "line": 65
             },
             {
               "reason": "reference_missing",
+              "path": "skills/should-auto-approve/SKILL.md",
+              "line": 89
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/should-auto-approve/SKILL.md",
+              "line": 93
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/should-auto-approve/SKILL.md",
+              "line": 104
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/should-auto-approve/SKILL.md",
+              "line": 114
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/should-auto-approve/SKILL.md",
+              "line": 122
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/should-auto-approve/SKILL.md",
+              "line": 130
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/should-auto-approve/SKILL.md",
+              "line": 149
+            },
+            {
+              "reason": "excluded_executable_content",
+              "path": "skills/should-auto-approve/should-auto-approve.pyz",
+              "line": 0
+            },
+            {
+              "reason": "opaque_content",
+              "path": "skills/should-auto-approve/should-auto-approve.pyz",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "SC9",
+              "severity": "HIGH",
+              "message": "Concealed Executable Artifact",
+              "file": "skills/should-auto-approve/should-auto-approve.pyz",
+              "line": 1
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/should-auto-approve/README.md",
+              "line": 1
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/should-auto-approve/README.md",
+              "line": 14
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/should-auto-approve/README.md",
+              "line": 22
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/should-auto-approve/README.md",
+              "line": 24
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/should-auto-approve/README.md",
+              "line": 33
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/should-auto-approve/SKILL.md",
+              "line": 2
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/should-auto-approve/SKILL.md",
+              "line": 3
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/should-auto-approve/SKILL.md",
+              "line": 5
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/should-auto-approve/SKILL.md",
+              "line": 21
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/should-auto-approve/SKILL.md",
+              "line": 22
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/should-auto-approve/SKILL.md",
+              "line": 32
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/should-auto-approve/SKILL.md",
+              "line": 65
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/should-auto-approve/SKILL.md",
+              "line": 122
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/should-auto-approve/SKILL.md",
+              "line": 130
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/should-auto-approve/SKILL.md",
+              "line": 149
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/should-auto-approve/SKILL.md",
+              "line": 160
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/should-auto-approve/SKILL.md",
+              "line": 183
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/should-auto-approve/SKILL.md",
+              "line": 198
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/should-auto-approve/marketplace.json",
+              "line": 2
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/should-auto-approve/README.md",
+              "line": 16
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/should-auto-approve/SKILL.md",
+              "line": 161
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/should-auto-approve/README.md",
+              "line": 33
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/should-auto-approve/SKILL.md",
+              "line": 33
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/should-auto-approve/SKILL.md",
+              "line": 30
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/should-auto-approve/SKILL.md",
+              "line": 21,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
+          ]
+        },
+        {
+          "path": "skills/should-flag-change",
+          "score": 49,
+          "risk": 51,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 84.6,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
               "path": "skills/should-flag-change/SKILL.md",
-              "line": 141
+              "line": 8
             },
             {
               "reason": "reference_missing",
               "path": "skills/should-flag-change/SKILL.md",
-              "line": 178
+              "line": 22
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/should-flag-change/SKILL.md",
+              "line": 23
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/should-flag-change/SKILL.md",
+              "line": 108
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/should-flag-change/SKILL.md",
+              "line": 117
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/should-flag-change/SKILL.md",
+              "line": 120
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/should-flag-change/SKILL.md",
+              "line": 139
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/should-flag-change/SKILL.md",
+              "line": 140
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/should-flag-change/SKILL.md",
+              "line": 148
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/should-flag-change/SKILL.md",
+              "line": 149
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/should-flag-change/SKILL.md",
+              "line": 174
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/should-flag-change/SKILL.md",
+              "line": 175
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/should-flag-change/SKILL.md",
+              "line": 201
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/should-flag-change/SKILL.md",
+              "line": 204
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/should-flag-change/SKILL.md",
+              "line": 239
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/should-flag-change/SKILL.md",
+              "line": 242
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/should-flag-change/SKILL.md",
+              "line": 258
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/should-flag-change/SKILL.md",
+              "line": 259
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/should-flag-change/SKILL.md",
+              "line": 277
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/should-flag-change/SKILL.md",
+              "line": 280
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/should-flag-change/SKILL.md",
+              "line": 293
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/should-flag-change/SKILL.md",
+              "line": 295
+            },
+            {
+              "reason": "excluded_executable_content",
+              "path": "skills/should-flag-change/ld-factory.pyz",
+              "line": 0
+            },
+            {
+              "reason": "opaque_content",
+              "path": "skills/should-flag-change/ld-factory.pyz",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/should-flag-change/references/NO_CHECKOUT.md",
+              "line": 0
             }
           ],
-          "findings": [],
-          "suppressed": []
+          "findings": [
+            {
+              "id": "SC9",
+              "severity": "HIGH",
+              "message": "Concealed Executable Artifact",
+              "file": "skills/should-flag-change/ld-factory.pyz",
+              "line": 1
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/should-flag-change/README.md",
+              "line": 36
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/should-flag-change/references/PROFILE.md",
+              "line": 6
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/should-flag-change/SKILL.md",
+              "line": 21,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/should-flag-change/SKILL.md",
+              "line": 59,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/should-flag-change/SKILL.md",
+              "line": 64,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/should-flag-change/SKILL.md",
+              "line": 112,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/should-flag-change/SKILL.md",
+              "line": 145,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/should-flag-change/SKILL.md",
+              "line": 414,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
+          ]
         },
         {
           "path": "skills/tools",
@@ -1344,7 +1772,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-19T00:51:12Z"
+      "checkedAt": "2026-11-19T18:56:02Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
