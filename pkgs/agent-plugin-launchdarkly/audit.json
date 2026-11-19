@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "launchdarkly",
-      "dir": "/nix/store/lkp31b64mfsrdvmywajx7jkymfb12vfl-agent-plugin-launchdarkly-1.0.9/share/agent-plugins/launchdarkly",
+      "dir": "/nix/store/r443kcdsckk0n71hqqwrd9968hi48z6f-agent-plugin-launchdarkly-1.0.10/share/agent-plugins/launchdarkly",
       "spec": "1.1.0",
       "score": 32,
       "status": "do not install",
@@ -19,6 +19,7 @@
           "skills/configs-variations",
           "skills/flag-and-release-change",
           "skills/flag-release",
+          "skills/launchdarkly-approval-requests",
           "skills/launchdarkly-automations-archival-settings",
           "skills/launchdarkly-automations-cleanup-settings",
           "skills/launchdarkly-flag-cleanup",
@@ -222,6 +223,36 @@
           "suppressed": []
         },
         {
+          "path": "skills/launchdarkly-approval-requests",
+          "score": 79,
+          "risk": 21,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/launchdarkly-approval-requests/SKILL.md",
+              "line": 8
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/launchdarkly-approval-requests/SKILL.md",
+              "line": 46
+            }
+          ],
+          "findings": [
+            {
+              "id": "AR1",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "skills/launchdarkly-approval-requests/SKILL.md",
+              "line": 28
+            }
+          ],
+          "suppressed": []
+        },
+        {
           "path": "skills/launchdarkly-automations-archival-settings",
           "score": 93,
           "risk": 7,
@@ -420,13 +451,6 @@
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
-              "file": "skills/launchdarkly-flag-targeting/references/approval-workflows.md",
-              "line": 107
-            },
-            {
-              "id": "EA2",
-              "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
               "file": "skills/launchdarkly-flag-targeting/references/safety-checklist.md",
               "line": 31
             },
@@ -441,15 +465,15 @@
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
-              "file": "skills/launchdarkly-flag-targeting/references/approval-workflows.md",
-              "line": 104
+              "file": "skills/launchdarkly-flag-targeting/references/safety-checklist.md",
+              "line": 31
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
-              "file": "skills/launchdarkly-flag-targeting/references/safety-checklist.md",
-              "line": 31
+              "file": "skills/launchdarkly-flag-targeting/references/approval-workflows.md",
+              "line": 20
             }
           ],
           "suppressed": []
@@ -1320,7 +1344,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-18T19:49:55Z"
+      "checkedAt": "2026-11-19T00:51:12Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
