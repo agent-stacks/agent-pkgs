@@ -7,23 +7,27 @@
   "plugins": [
     {
       "name": "mengto-skills",
-      "dir": "/nix/store/hskgc39j61lyl21n2f489h9q83gx036p-agent-plugin-mengto-skills-0.0.0-unstable.2026-11-19.g1a32b45/share/agent-plugins/mengto-skills",
+      "dir": "/nix/store/562mcpr6cb34xd9nx98j4xfqkmyczj2w-agent-plugin-mengto-skills-0.0.0-unstable.2026-11-19.g375251a/share/agent-plugins/mengto-skills",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
       "coverage": {
         "scanned": [
           "skills/3d-cloth-material",
+          "skills/3d-construction-sequence",
           "skills/3d-falling-leaves",
           "skills/3d-four-seasons",
+          "skills/3d-harbour-water",
           "skills/3d-high-poly-models",
           "skills/3d-high-resolution-textures",
           "skills/3d-metal-material",
+          "skills/3d-modular-buildings",
           "skills/3d-orbit-inspect-demo",
           "skills/3d-paper-material",
           "skills/3d-retina-resolution",
           "skills/3d-sky-background",
           "skills/3d-sky-rays",
+          "skills/3d-survey-scan",
           "skills/3d-ultra-realistic-water",
           "skills/3d-underwater-god-rays",
           "skills/3d-virtual-tour",
@@ -87,6 +91,7 @@
           "skills/design-first-ui-prompting",
           "skills/design-game-encounters",
           "skills/digital-twin",
+          "skills/dither-ascii-ink-hover",
           "skills/dither-background",
           "skills/dither-laser-dark-mode",
           "skills/documentary-brutalist-agency",
@@ -103,7 +108,9 @@
           "skills/game-dev-character-model",
           "skills/game-dev-combat-animation",
           "skills/game-dev-combat-skill-polish",
+          "skills/generate-ledger-logo-register",
           "skills/generate-reference-inspired-brand-worlds",
+          "skills/genjutsu-scene",
           "skills/glass-dark-mode-clock",
           "skills/glass-dark-ui",
           "skills/globe-gl",
@@ -144,6 +151,7 @@
           "skills/masked-reveal",
           "skills/matterjs",
           "skills/mesh-gradient-dark-blue-clean",
+          "skills/neoclassical-ledger-ui",
           "skills/nested-container-clean-agency",
           "skills/nested-container-frames",
           "skills/no-ai-design-slop",
@@ -152,6 +160,7 @@
           "skills/optimize-threejs-games",
           "skills/optimize-web-animations",
           "skills/orange-clean-paper-saas",
+          "skills/painted-product-showcase",
           "skills/paper-cinder-transition",
           "skills/performance-profiling",
           "skills/pointer-trail-emitter",
@@ -159,8 +168,10 @@
           "skills/product-proof-saas",
           "skills/progressive-blur",
           "skills/publish-project-to-github",
+          "skills/relight-painted-surfaces",
           "skills/reveal-hover-effect",
           "skills/scroll-progress-timeline",
+          "skills/scroll-scrubbed-object-handoff",
           "skills/scroll-scrubbed-visual-sequence",
           "skills/scroll-scrubbed-word-reveal",
           "skills/scroll-world-storytelling",
@@ -278,6 +289,40 @@
           ]
         },
         {
+          "path": "skills/3d-construction-sequence",
+          "score": 97,
+          "risk": 3,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 83.3,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/3d-construction-sequence/demo/assets/three.min.js",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/3d-construction-sequence/demo/assets/Three-LICENSE.txt",
+              "line": 16
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/3d-construction-sequence/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
+          ]
+        },
+        {
           "path": "skills/3d-falling-leaves",
           "score": 100,
           "risk": 0,
@@ -298,6 +343,47 @@
           "exceptions": [],
           "findings": [],
           "suppressed": []
+        },
+        {
+          "path": "skills/3d-harbour-water",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 87.5,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/3d-harbour-water/SKILL.md",
+              "line": 18
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/3d-harbour-water/SKILL.md",
+              "line": 19
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/3d-harbour-water/demo/assets/three-reflector.min.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/3d-harbour-water/demo/assets/three-reflector.min.js",
+              "line": 0
+            }
+          ],
+          "findings": [],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/3d-harbour-water/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
+          ]
         },
         {
           "path": "skills/3d-high-poly-models",
@@ -367,6 +453,40 @@
           ],
           "findings": [],
           "suppressed": []
+        },
+        {
+          "path": "skills/3d-modular-buildings",
+          "score": 97,
+          "risk": 3,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 83.3,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/3d-modular-buildings/demo/assets/three.min.js",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/3d-modular-buildings/demo/assets/Three-LICENSE.txt",
+              "line": 16
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/3d-modular-buildings/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
+          ]
         },
         {
           "path": "skills/3d-orbit-inspect-demo",
@@ -488,6 +608,40 @@
           "exceptions": [],
           "findings": [],
           "suppressed": []
+        },
+        {
+          "path": "skills/3d-survey-scan",
+          "score": 97,
+          "risk": 3,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 83.3,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/3d-survey-scan/demo/assets/three.min.js",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/3d-survey-scan/demo/assets/Three-LICENSE.txt",
+              "line": 16
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/3d-survey-scan/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
+          ]
         },
         {
           "path": "skills/3d-ultra-realistic-water",
@@ -3278,6 +3432,25 @@
           ]
         },
         {
+          "path": "skills/dither-ascii-ink-hover",
+          "score": 97,
+          "risk": 3,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/dither-ascii-ink-hover/demo/assets/Font-LICENSE.txt",
+              "line": 86
+            }
+          ],
+          "suppressed": []
+        },
+        {
           "path": "skills/dither-background",
           "score": 88,
           "risk": 12,
@@ -3961,6 +4134,34 @@
           ]
         },
         {
+          "path": "skills/generate-ledger-logo-register",
+          "score": 97,
+          "risk": 3,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/generate-ledger-logo-register/demo/assets/Font-LICENSE.txt",
+              "line": 86
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/generate-ledger-logo-register/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
+          ]
+        },
+        {
           "path": "skills/generate-reference-inspired-brand-worlds",
           "score": 100,
           "risk": 0,
@@ -3981,6 +4182,170 @@
           ],
           "findings": [],
           "suppressed": []
+        },
+        {
+          "path": "skills/genjutsu-scene",
+          "score": 52,
+          "risk": 48,
+          "status": "caution",
+          "partial": true,
+          "coverage": 90.9,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/genjutsu-scene/SKILL.md",
+              "line": 56
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/genjutsu-scene/SKILL.md",
+              "line": 63
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/genjutsu-scene/SKILL.md",
+              "line": 92
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/genjutsu-scene/SKILL.md",
+              "line": 125
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/genjutsu-scene/SKILL.md",
+              "line": 144
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/genjutsu-scene/references/plate-capture-example.mjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/genjutsu-scene/scripts/post.sh",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/genjutsu-scene/references/judge-prompt.md",
+              "line": 1
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/genjutsu-scene/scripts/dedup.py",
+              "line": 11
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/genjutsu-scene/scripts/dedup.py",
+              "line": 16
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/genjutsu-scene/scripts/dedup.py",
+              "line": 24
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/genjutsu-scene/scripts/dedup.py",
+              "line": 26
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/genjutsu-scene/scripts/drive.py",
+              "line": 40
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/genjutsu-scene/scripts/judgekit.py",
+              "line": 26
+            },
+            {
+              "id": "TT2",
+              "severity": "MEDIUM",
+              "message": "Tainted flow: 'tmp' from open (line 25, file read) → subprocess.run (code execution)",
+              "file": "skills/genjutsu-scene/scripts/judgekit.py",
+              "line": 26
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/genjutsu-scene/scripts/judgekit.py",
+              "line": 29
+            },
+            {
+              "id": "TT2",
+              "severity": "MEDIUM",
+              "message": "Tainted flow: 'C' from open (line 17, file read) → subprocess.run (code execution)",
+              "file": "skills/genjutsu-scene/scripts/judgekit.py",
+              "line": 29
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/genjutsu-scene/scripts/judgekit.py",
+              "line": 61
+            },
+            {
+              "id": "TT2",
+              "severity": "MEDIUM",
+              "message": "Tainted flow: 'C' from open (line 17, file read) → subprocess.run (code execution)",
+              "file": "skills/genjutsu-scene/scripts/judgekit.py",
+              "line": 61
+            },
+            {
+              "id": "TT2",
+              "severity": "MEDIUM",
+              "message": "Tainted flow: 'W' from open (line 17, file read) → open (file write)",
+              "file": "skills/genjutsu-scene/scripts/judgekit.py",
+              "line": 62
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/genjutsu-scene/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/genjutsu-scene/SKILL.md",
+              "line": 86,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/genjutsu-scene/SKILL.md",
+              "line": 125,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
+          ]
         },
         {
           "path": "skills/glass-dark-mode-clock",
@@ -6970,42 +7335,42 @@
             {
               "reason": "reference_missing",
               "path": "skills/making-of-film/SKILL.md",
-              "line": 49
+              "line": 50
             },
             {
               "reason": "reference_missing",
               "path": "skills/making-of-film/SKILL.md",
-              "line": 96
+              "line": 97
             },
             {
               "reason": "reference_missing",
               "path": "skills/making-of-film/SKILL.md",
-              "line": 98
+              "line": 99
             },
             {
               "reason": "reference_missing",
               "path": "skills/making-of-film/SKILL.md",
-              "line": 105
+              "line": 106
             },
             {
               "reason": "reference_missing",
               "path": "skills/making-of-film/SKILL.md",
-              "line": 109
+              "line": 110
             },
             {
               "reason": "reference_missing",
               "path": "skills/making-of-film/SKILL.md",
-              "line": 133
+              "line": 134
             },
             {
               "reason": "reference_missing",
               "path": "skills/making-of-film/SKILL.md",
-              "line": 173
+              "line": 174
             },
             {
               "reason": "reference_missing",
               "path": "skills/making-of-film/SKILL.md",
-              "line": 179
+              "line": 180
             },
             {
               "reason": "excluded_executable_content",
@@ -7127,7 +7492,7 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/making-of-film/SKILL.md",
-              "line": 64
+              "line": 65
             },
             {
               "id": "AST4",
@@ -7221,15 +7586,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/making-of-film/SKILL.md",
-              "line": 111,
-              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/making-of-film/SKILL.md",
-              "line": 111,
+              "line": 112,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
@@ -7245,7 +7602,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/making-of-film/SKILL.md",
-              "line": 116,
+              "line": 113,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
@@ -7253,7 +7610,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/making-of-film/SKILL.md",
-              "line": 118,
+              "line": 117,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
@@ -7261,7 +7618,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/making-of-film/SKILL.md",
-              "line": 126,
+              "line": 119,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
@@ -7269,7 +7626,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/making-of-film/SKILL.md",
-              "line": 174,
+              "line": 127,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
@@ -7277,7 +7634,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/making-of-film/SKILL.md",
-              "line": 176,
+              "line": 175,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
@@ -7285,7 +7642,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/making-of-film/SKILL.md",
-              "line": 187,
+              "line": 177,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
@@ -7293,7 +7650,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/making-of-film/SKILL.md",
-              "line": 193,
+              "line": 188,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
@@ -7301,7 +7658,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/making-of-film/SKILL.md",
-              "line": 195,
+              "line": 194,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
@@ -7309,7 +7666,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/making-of-film/SKILL.md",
-              "line": 197,
+              "line": 196,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
@@ -7333,7 +7690,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/making-of-film/SKILL.md",
-              "line": 199,
+              "line": 200,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
@@ -7341,7 +7698,15 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/making-of-film/SKILL.md",
-              "line": 199,
+              "line": 200,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/making-of-film/SKILL.md",
+              "line": 200,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
@@ -7469,6 +7834,25 @@
               "message": "Obfuscated Code",
               "file": "skills/mesh-gradient-dark-blue-clean/demo/index.html",
               "line": 19
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/neoclassical-ledger-ui",
+          "score": 97,
+          "risk": 3,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/neoclassical-ledger-ui/demo/assets/Font-LICENSE.txt",
+              "line": 86
             }
           ],
           "suppressed": []
@@ -7670,6 +8054,47 @@
           "suppressed": []
         },
         {
+          "path": "skills/painted-product-showcase",
+          "score": 78,
+          "risk": 22,
+          "status": "caution",
+          "partial": true,
+          "coverage": 88.9,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/painted-product-showcase/demo/index.html",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "YR4",
+              "severity": "HIGH",
+              "message": "YARA rule 'privilege_escalation_tools': Privilege escalation tools and techniques [hacktools]",
+              "file": "skills/painted-product-showcase/demo/index.html",
+              "line": 1
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/painted-product-showcase/demo/assets/Font-LICENSE.txt",
+              "line": 86
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/painted-product-showcase/SKILL.md",
+              "line": 10,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
+          ]
+        },
+        {
           "path": "skills/paper-cinder-transition",
           "score": 91,
           "risk": 9,
@@ -7855,6 +8280,72 @@
           ]
         },
         {
+          "path": "skills/relight-painted-surfaces",
+          "score": 73,
+          "risk": 27,
+          "status": "caution",
+          "partial": true,
+          "coverage": 81.8,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/relight-painted-surfaces/SKILL.md",
+              "line": 32
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/relight-painted-surfaces/SKILL.md",
+              "line": 36
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/relight-painted-surfaces/SKILL.md",
+              "line": 39
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/relight-painted-surfaces/demo/assets/handoff.js",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/relight-painted-surfaces/demo/assets/paint-light.min.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/relight-painted-surfaces/demo/assets/paint-light.min.js",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "YR4",
+              "severity": "HIGH",
+              "message": "YARA rule 'privilege_escalation_tools': Privilege escalation tools and techniques [hacktools]",
+              "file": "skills/relight-painted-surfaces/demo/assets/handoff.js",
+              "line": 1
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/relight-painted-surfaces/demo/assets/Three-LICENSE.txt",
+              "line": 16
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/relight-painted-surfaces/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
+          ]
+        },
+        {
           "path": "skills/reveal-hover-effect",
           "score": 100,
           "risk": 0,
@@ -7928,6 +8419,100 @@
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/scroll-progress-timeline/SKILL.md",
               "line": 72,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
+          ]
+        },
+        {
+          "path": "skills/scroll-scrubbed-object-handoff",
+          "score": 46,
+          "risk": 54,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 83.3,
+          "exceptions": [
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/scroll-scrubbed-object-handoff/demo/assets/behavior.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/scroll-scrubbed-object-handoff/demo/assets/behavior.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/scroll-scrubbed-object-handoff/demo/index.html",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "YR4",
+              "severity": "HIGH",
+              "message": "YARA rule 'agent_skill_mcp_tool_poisoning_metadata': MCP/tool metadata poisoning indicators in tool schemas or skill manifests [agent_skills]",
+              "file": "skills/scroll-scrubbed-object-handoff/demo/assets/behavior.js",
+              "line": 1
+            },
+            {
+              "id": "YR4",
+              "severity": "HIGH",
+              "message": "YARA rule 'privilege_escalation_tools': Privilege escalation tools and techniques [hacktools]",
+              "file": "skills/scroll-scrubbed-object-handoff/demo/index.html",
+              "line": 1
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/scroll-scrubbed-object-handoff/demo/index.html",
+              "line": 1
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/scroll-scrubbed-object-handoff/demo/index.html",
+              "line": 1
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/scroll-scrubbed-object-handoff/demo/index.html",
+              "line": 1
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/scroll-scrubbed-object-handoff/demo/assets/Font-LICENSE.txt",
+              "line": 86
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/scroll-scrubbed-object-handoff/demo/assets/Three-LICENSE.txt",
+              "line": 16
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/scroll-scrubbed-object-handoff/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/scroll-scrubbed-object-handoff/SKILL.md",
+              "line": 10,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
@@ -9292,7 +9877,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-19T00:51:26Z"
+      "checkedAt": "2026-11-19T13:39:01Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
