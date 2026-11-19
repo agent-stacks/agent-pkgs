@@ -1,0 +1,46 @@
+{
+  "name": "easel",
+  "version": "0.1.0",
+  "src": {
+    "owner": "anthropics",
+    "repo": "claude-code",
+    "rev": "9cf919afe52f17a76dcd66aa9a3bd3df619d2a5d",
+    "hash": "sha256-DCWZbV5PMYSR9hp/1sJSD2fociRLV+r1syOnQ/iY6bI="
+  },
+  "sourceUrl": "https://github.com/anthropics/claude-code",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Anthropic"
+    },
+    "description": "Draws charts in the transcript: a chart tool for Claude, and automatic charts for MCP results that are metrics over time",
+    "name": "easel",
+    "version": "0.1.0"
+  },
+  "skills": {},
+  "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/hooks": "mods/easel/hooks"
+  },
+  "meta": {
+    "description": "Draws charts in the transcript",
+    "homepage": "https://github.com/anthropics/claude-code"
+  },
+  "import": {
+    "input": "anthropics/claude-code",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "mods/easel/hooks/hooks.json",
+        "message": "Claude Code loads this module into its own process whenever the plugin is enabled: ./register.ts"
+      }
+    ]
+  }
+}
