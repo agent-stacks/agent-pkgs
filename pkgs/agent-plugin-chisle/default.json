@@ -1,11 +1,11 @@
 {
   "name": "chisle",
-  "version": "3.13.0",
+  "version": "3.14.0",
   "src": {
     "owner": "JayPokale",
     "repo": "Chisle",
-    "rev": "711a9e0b52e1372e918323c6bb8e9679471c1064",
-    "hash": "sha256-4LYpwPSpQjS61LaA2OrenWM+T1NOzZBnuRvH97VwemU="
+    "rev": "76241a4274d920f4c2caef71215049268f03c0d1",
+    "hash": "sha256-PK1bj7JiD5gC70e5oiLNOHHZFPoEvy3YzX9KRtrKVR4="
   },
   "sourceUrl": "https://github.com/JayPokale/Chisle",
   "manifest": {
@@ -19,7 +19,7 @@
     "license": "MIT",
     "name": "chisle",
     "repository": "https://github.com/JayPokale/Chisle",
-    "version": "3.13.0"
+    "version": "3.14.0"
   },
   "skills": {
     "chisle": "skills/chisle",
@@ -53,6 +53,18 @@
           }
         ],
         "matcher": "Bash|Agent|WebFetch|WebSearch|Grep|Glob|mcp__.*"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/chisle-run.js\"; exit 0",
+            "timeout": 5,
+            "type": "command"
+          }
+        ],
+        "matcher": "Bash"
       }
     ],
     "SessionStart": [
@@ -96,6 +108,10 @@
       {
         "path": ".claude-plugin/plugin.json",
         "message": "Claude Code runs this on PostToolUse: node \"${CLAUDE_PLUGIN_ROOT}/hooks/chisle-compress-output.js\"; exit 0"
+      },
+      {
+        "path": ".claude-plugin/plugin.json",
+        "message": "Claude Code runs this on PreToolUse: node \"${CLAUDE_PLUGIN_ROOT}/hooks/chisle-run.js\"; exit 0"
       },
       {
         "path": ".claude-plugin/plugin.json",
