@@ -174,8 +174,8 @@ whose `input` names that upstream and applies the `flags` they
 record, refusing any other flag beside `--pkgs-dir` and any disagreement
 between those packages. That is the whole of the hourly workflow's
 invocation. Nothing in this repository reads `flags` itself, and the
-`--flag=value` shape is the importer's own: it is what Go's flag
-package re-parses, not a contract for a shell reader. Without
+`--flag=value` shape is the importer's own: it is what the importer
+reads back, not a contract for a shell reader. Without
 `--replay`, import never applies recorded flags.
 
 `pluginRootPaths` maps a plugin-root entry's destination inside the

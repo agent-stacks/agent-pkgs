@@ -14,8 +14,8 @@
 # provides, and network access to api.osv.dev. SKILLSPECTOR_BIN names
 # the skillspector whose version an exit-3 record names (default:
 # skillspector on PATH; the version is null when there is none).
-# AUDIT_SCAN_TIMEOUT bounds each component's scan (default 20m, a Go
-# duration). Large skills run past the CLI's own 5m default on a CI
+# AUDIT_SCAN_TIMEOUT bounds each component's scan (default 20m, a
+# number with its unit). Large skills run past the CLI's own 5m default on a CI
 # runner. It is passed as --scan-timeout only to a CLI whose
 # `audit --help` lists that flag (agent-stacks-cli #192); an older one
 # keeps its fixed 5 minutes.
@@ -95,8 +95,8 @@ esac
 ln -s "$plugin" "$work/result"
 
 args=(audit ./result --json)
-# `audit --help` exits 2, as Go's flag package does; under pipefail
-# that would fail a pipe into grep, so the text is read first.
+# An agent-stacks before 0.10.0 exits 2 on `audit --help`; under
+# pipefail that would fail a pipe into grep, so the text is read first.
 usage=$("$agent_stacks" audit --help 2>&1 || true)
 if grep -q -- '-scan-timeout' <<< "$usage"; then
   args+=(--scan-timeout "${AUDIT_SCAN_TIMEOUT:-20m}")
@@ -136,7 +136,7 @@ case "$rc" in
     fi
     # Only what the plugin itself causes is its result: the CLI's
     # reasons from validating and reading it (agent-stacks-cli
-    # internal/audit/audit/audit.go). Anything else is the run's.
+    # crates/agent-stacks/src/audit.rs). Anything else is the run's.
     case "$reason" in
       "nothing to audit" | "not an agent plugin" | "not an agent plugin: "* | "cannot read the plugin: "*) ;;
       *)
