@@ -858,6 +858,23 @@
               ''
             );
 
+          # The hourly lock update moves codex unreviewed. agent-stacks'
+          # `launch codex` needs at least this version, the first whose
+          # hook approval covers a plugin's contents. Reads the version
+          # only, so codex is never built here.
+          codex-min-version =
+            let
+              minimum = "0.164.0";
+              inherit ((llmAgentsPkgsFor pkgs.stdenv.hostPlatform.system).llm-agents.codex) version;
+            in
+            pkgs.runCommand "codex-min-version" { } (
+              if nixpkgs.lib.versionOlder version minimum then ''
+                echo "codex ${version} is older than ${minimum}, the minimum agent-stacks' launch codex supports." >&2
+                exit 1
+              ''
+              else "touch $out"
+            );
+
         };
     in
     {

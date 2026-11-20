@@ -88,6 +88,8 @@ An overlay, `overlays/llm-agents.nix`, patches the llm-agents set
 before it is re-exported. Today that is only codex, so
 `agent-stacks launch` can pass it skills
 ([decisions/0024](../decisions/0024-a-re-exported-package-can-carry-a-patch.md)).
+The `codex-min-version` check fails a lock update that would take
+codex below the oldest version `agent-stacks launch codex` supports.
 
 Spec conformance is not a separate check. `buildAgentPlugin` runs
 `agent-stacks check-plugin` on every plugin it builds, so a tree that
