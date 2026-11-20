@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "mengto-skills",
-      "dir": "/nix/store/562mcpr6cb34xd9nx98j4xfqkmyczj2w-agent-plugin-mengto-skills-0.0.0-unstable.2026-11-19.g375251a/share/agent-plugins/mengto-skills",
+      "dir": "/nix/store/3mzl8kppnd9z2n0p5i5qxvds3ar9kahc-agent-plugin-mengto-skills-0.0.0-unstable.2026-11-20.g4bce53f/share/agent-plugins/mengto-skills",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -20,6 +20,7 @@
           "skills/3d-harbour-water",
           "skills/3d-high-poly-models",
           "skills/3d-high-resolution-textures",
+          "skills/3d-kasumidera-ultra-realism",
           "skills/3d-metal-material",
           "skills/3d-modular-buildings",
           "skills/3d-orbit-inspect-demo",
@@ -69,6 +70,7 @@
           "skills/build-rigged-game-assets",
           "skills/build-threejs-enemy-systems",
           "skills/build-threejs-scroll-worlds",
+          "skills/build-ultra-realistic-game-interiors",
           "skills/build-vesperfall-review-assets",
           "skills/build-wireframe-scan-reveal",
           "skills/cinematic-gsap-lenis-motion-system",
@@ -406,6 +408,61 @@
           "exceptions": [],
           "findings": [],
           "suppressed": []
+        },
+        {
+          "path": "skills/3d-kasumidera-ultra-realism",
+          "score": 83,
+          "risk": 17,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 91.7,
+          "exceptions": [
+            {
+              "reason": "opaque_content",
+              "path": "skills/3d-kasumidera-ultra-realism/demo/preview.jpg",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/3d-kasumidera-ultra-realism/references/creator-steering.md",
+              "line": 49
+            },
+            {
+              "id": "OH3",
+              "severity": "MEDIUM",
+              "message": "Unbounded Output",
+              "file": "skills/3d-kasumidera-ultra-realism/references/generation-prompts.md",
+              "line": 17
+            },
+            {
+              "id": "OH3",
+              "severity": "MEDIUM",
+              "message": "Unbounded Output",
+              "file": "skills/3d-kasumidera-ultra-realism/references/generation-prompts.md",
+              "line": 21
+            },
+            {
+              "id": "OH3",
+              "severity": "MEDIUM",
+              "message": "Unbounded Output",
+              "file": "skills/3d-kasumidera-ultra-realism/references/generation-prompts.md",
+              "line": 25
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/3d-kasumidera-ultra-realism/SKILL.md",
+              "line": 10,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
+          ]
         },
         {
           "path": "skills/3d-metal-material",
@@ -2196,6 +2253,32 @@
               "file": "skills/build-threejs-scroll-worlds/SKILL.md",
               "line": 1,
               "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
+          ]
+        },
+        {
+          "path": "skills/build-ultra-realistic-game-interiors",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 83.3,
+          "exceptions": [
+            {
+              "reason": "opaque_content",
+              "path": "skills/build-ultra-realistic-game-interiors/assets/four-room-look.jpg",
+              "line": 0
+            }
+          ],
+          "findings": [],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/build-ultra-realistic-game-interiors/SKILL.md",
+              "line": 10,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
@@ -9877,7 +9960,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-19T13:39:01Z"
+      "checkedAt": "2026-11-20T05:29:45Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
