@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "model-apps",
-      "dir": "/nix/store/ir5vzsd17zlkjmmhvbgmygy4jmmdf7h9-agent-plugin-model-apps-2.28.0/share/agent-plugins/model-apps",
+      "dir": "/nix/store/2g7pdk19ic9yq6wk52pd513yx6bwpfic-agent-plugin-model-apps-2.28.0/share/agent-plugins/model-apps",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -278,7 +278,7 @@
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 3.7,
+          "coverage": 4.7,
           "exceptions": [
             {
               "reason": "runtime_limit",
@@ -581,57 +581,47 @@
               "line": 0
             },
             {
-              "reason": "runtime_limit",
+              "reason": "static_parse_limit",
               "path": "scripts/lib/apply-snapshot-store.js",
               "line": 0
             },
             {
-              "reason": "runtime_limit",
+              "reason": "static_parse_limit",
               "path": "scripts/lib/apply-snapshot.js",
               "line": 0
             },
             {
-              "reason": "runtime_limit",
-              "path": "scripts/lib/artifact-intent.js",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
+              "reason": "static_parse_limit",
               "path": "scripts/lib/batch-request.js",
               "line": 0
             },
             {
-              "reason": "runtime_limit",
+              "reason": "static_parse_limit",
               "path": "scripts/lib/bpf-settlement.js",
               "line": 0
             },
             {
-              "reason": "runtime_limit",
+              "reason": "static_parse_limit",
               "path": "scripts/lib/bpf-stages.js",
               "line": 0
             },
             {
-              "reason": "runtime_limit",
-              "path": "scripts/lib/build-journal.js",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
+              "reason": "static_parse_limit",
               "path": "scripts/lib/changed-only-flow.js",
               "line": 0
             },
             {
-              "reason": "runtime_limit",
+              "reason": "static_parse_limit",
               "path": "scripts/lib/chart-reconcile.js",
               "line": 0
             },
             {
-              "reason": "runtime_limit",
+              "reason": "static_parse_limit",
               "path": "scripts/lib/chart-verify.js",
               "line": 0
             },
             {
-              "reason": "runtime_limit",
+              "reason": "static_parse_limit",
               "path": "scripts/lib/classify-changes.js",
               "line": 0
             },
@@ -641,17 +631,17 @@
               "line": 0
             },
             {
-              "reason": "runtime_limit",
-              "path": "scripts/lib/collection-answers.js",
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/cli-failure.js",
               "line": 0
             },
             {
-              "reason": "runtime_limit",
+              "reason": "static_parse_limit",
               "path": "scripts/lib/command-reconcile.js",
               "line": 0
             },
             {
-              "reason": "runtime_limit",
+              "reason": "static_parse_limit",
               "path": "scripts/lib/command-state-contract.js",
               "line": 0
             },
@@ -661,7 +651,7 @@
               "line": 0
             },
             {
-              "reason": "runtime_limit",
+              "reason": "static_parse_limit",
               "path": "scripts/lib/command-state-read.js",
               "line": 0
             },
@@ -2424,6 +2414,20 @@
               "line": 1474
             },
             {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "scripts/lib/cli-failure.js",
+              "line": 80
+            },
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "scripts/lib/cli-failure.js",
+              "line": 80
+            },
+            {
               "id": "P6",
               "severity": "HIGH",
               "message": "Direct Prompt Extraction",
@@ -2436,6 +2440,13 @@
               "message": "Memory Manipulation",
               "file": "scripts/lib/form-layout-reconcile.js",
               "line": 1981
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "scripts/lib/genpage-sdk.js",
+              "line": 632
             },
             {
               "id": "PE3",
@@ -2702,6 +2713,13 @@
               "message": "Autonomous Decision Making",
               "file": "scripts/lib/schema-feature-contract.js",
               "line": 447
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "scripts/lib/sdk-build.js",
+              "line": 1918
             },
             {
               "id": "AS3",
@@ -3893,13 +3911,13 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-20T12:38:37Z"
+      "checkedAt": "2026-11-20T15:46:23Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
     }
   },
   "agentStacks": {
-    "version": "0.9.0"
+    "version": "0.10.0"
   }
 }
