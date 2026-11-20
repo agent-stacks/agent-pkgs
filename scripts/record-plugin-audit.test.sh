@@ -15,8 +15,9 @@ echo '{}' > "$root/built/share/agent-plugins/demo/plugin.json"
 # The shebang is bash's absolute path: the Linux nix sandbox has no
 # /usr/bin/env. The stub prints STUB_OUT on stdout, STUB_ERR on
 # stderr, and exits STUB_EXIT; --version prints STUB_VERSION, and
-# `audit --help` prints STUB_HELP on stderr and exits 2, as Go's flag
-# package does. An audit's arguments are written to STUB_ARGV.
+# `audit --help` prints STUB_HELP on stderr and exits 2, as an
+# agent-stacks before 0.10.0 does. An audit's arguments are written
+# to STUB_ARGV.
 { echo "#!$(command -v bash)"; cat <<'STUB'
 if [ "${1:-}" = --version ]; then echo "${STUB_VERSION:-1.0.0}"; exit 0; fi
 if [ "${1:-}" = audit ] && [ "${2:-}" = --help ]; then printf '%s' "${STUB_HELP:-}" >&2; exit 2; fi
