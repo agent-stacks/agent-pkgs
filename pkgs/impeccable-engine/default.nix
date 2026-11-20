@@ -8,6 +8,7 @@
   lib,
   stdenv,
   rustPlatform,
+  git,
 }:
 
 let
@@ -35,6 +36,8 @@ rustPlatform.buildRustPackage {
   # crates/cli/tests drive Chrome and timed loopback servers, which
   # fail in the build sandbox.
   cargoTestFlags = [ "-p" "impeccable" "--lib" ];
+  # The listing-scan tests build a git checkout and run git ls-files.
+  nativeCheckInputs = [ git ];
   # Some unit tests listen on 127.0.0.1.
   __darwinAllowLocalNetworking = true;
   # The macOS Loop-install tests start a fake Loop and list processes
