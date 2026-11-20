@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "langchain-skills",
-      "dir": "/nix/store/c9dsi3pzn790d6mi5bnhkmrmb61135s3-agent-plugin-langchain-skills-0.2.2/share/agent-plugins/langchain-skills",
+      "dir": "/nix/store/5nh2232lms0pjg7lvpfrl6897g2ly4sn-agent-plugin-langchain-skills-0.3.0/share/agent-plugins/langchain-skills",
       "spec": "1.1.0",
       "score": 40,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "skills/langchain-agent-experiments",
           "skills/langchain-agent-monitoring",
           "skills/langchain-agent-tracing",
           "skills/langchain-build-agent",
@@ -33,6 +34,23 @@
         ]
       },
       "components": [
+        {
+          "path": "skills/langchain-agent-experiments",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/langchain-agent-experiments/SKILL.md",
+              "line": 76
+            }
+          ],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/langchain-agent-monitoring",
           "score": 100,
@@ -215,7 +233,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-19T21:21:56Z"
+      "checkedAt": "2026-11-19T23:44:01Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
