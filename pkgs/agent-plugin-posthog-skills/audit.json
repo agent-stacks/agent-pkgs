@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "posthog-skills",
-      "dir": "/nix/store/d9khhc9zjh8qdsjwk30q5hn78b8fgsri-agent-plugin-posthog-skills-0.0.0-unstable.2026-11-20.g2d39074/share/agent-plugins/posthog-skills",
+      "dir": "/nix/store/yhijxhcd2qiyxwds86n0829kggvn409k-agent-plugin-posthog-skills-0.0.0-unstable.2026-11-21.gdd94c6e/share/agent-plugins/posthog-skills",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -44,6 +44,7 @@
           "skills/building-canvases",
           "skills/building-html-canvases",
           "skills/building-loops",
+          "skills/building-notebook-apps",
           "skills/building-react-quill-canvases",
           "skills/building-workflows",
           "skills/checking-deploy-timing",
@@ -301,6 +302,7 @@
           "skills/signals-scout-customer-analytics",
           "skills/signals-scout-data-pipelines",
           "skills/signals-scout-data-warehouse",
+          "skills/signals-scout-dreaming",
           "skills/signals-scout-error-tracking",
           "skills/signals-scout-experiments",
           "skills/signals-scout-feature-flags",
@@ -2519,6 +2521,25 @@
           ]
         },
         {
+          "path": "skills/building-notebook-apps",
+          "score": 80,
+          "risk": 20,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "OH1",
+              "severity": "HIGH",
+              "message": "Unvalidated Output Injection",
+              "file": "skills/building-notebook-apps/SKILL.md",
+              "line": 42
+            }
+          ],
+          "suppressed": []
+        },
+        {
           "path": "skills/building-react-quill-canvases",
           "score": 95,
           "risk": 5,
@@ -3510,23 +3531,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/creating-an-endpoint/references/materializing.md",
-              "line": 39,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/creating-an-endpoint/references/materializing.md",
-              "line": 39,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/creating-an-endpoint/references/materializing.md",
-              "line": 41,
+              "line": 42,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -3542,14 +3547,6 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/creating-an-endpoint/references/materializing.md",
-              "line": 43,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/creating-an-endpoint/references/materializing.md",
               "line": 44,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
@@ -3558,7 +3555,31 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/creating-an-endpoint/references/materializing.md",
+              "line": 45,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/creating-an-endpoint/references/materializing.md",
               "line": 46,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/creating-an-endpoint/references/materializing.md",
+              "line": 47,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/creating-an-endpoint/references/materializing.md",
+              "line": 49,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             }
           ]
@@ -5810,7 +5831,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/exploring-endpoint-execution-logs/SKILL.md",
-              "line": 55,
+              "line": 61,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             }
           ]
@@ -9405,7 +9426,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/inbox-exploration/SKILL.md",
-              "line": 33,
+              "line": 32,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -9413,7 +9434,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/inbox-exploration/SKILL.md",
-              "line": 75,
+              "line": 74,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -23022,7 +23043,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/setting-up-data-catalog/SKILL.md",
-              "line": 91
+              "line": 93
             }
           ],
           "findings": [],
@@ -23043,7 +23064,15 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/setting-up-supabase-auth-emails/SKILL.md",
-              "line": 47,
+              "line": 45,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/setting-up-supabase-auth-emails/SKILL.md",
+              "line": 45,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -23052,6 +23081,14 @@
               "message": "Whitespace Padding",
               "file": "skills/setting-up-supabase-auth-emails/SKILL.md",
               "line": 47,
+              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/setting-up-supabase-auth-emails/SKILL.md",
+              "line": 48,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -23067,7 +23104,7 @@
               "severity": "MEDIUM",
               "message": "Whitespace Padding",
               "file": "skills/setting-up-supabase-auth-emails/SKILL.md",
-              "line": 50,
+              "line": 49,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             },
             {
@@ -23076,22 +23113,6 @@
               "message": "Whitespace Padding",
               "file": "skills/setting-up-supabase-auth-emails/SKILL.md",
               "line": 51,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/setting-up-supabase-auth-emails/SKILL.md",
-              "line": 51,
-              "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
-            },
-            {
-              "id": "P9",
-              "severity": "MEDIUM",
-              "message": "Whitespace Padding",
-              "file": "skills/setting-up-supabase-auth-emails/SKILL.md",
-              "line": 53,
               "reason": "Whitespace padding in Markdown is aligned table columns. Code files keep the rule."
             }
           ]
@@ -23880,6 +23901,17 @@
               "line": 233
             }
           ],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "skills/signals-scout-dreaming",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
           "findings": [],
           "suppressed": []
         },
@@ -26358,7 +26390,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-20T18:24:41Z"
+      "checkedAt": "2026-11-21T12:34:50Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
