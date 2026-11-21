@@ -1,0 +1,64 @@
+{
+  "name": "google-health-developer",
+  "version": "1.0.0",
+  "src": {
+    "owner": "google",
+    "repo": "skills",
+    "rev": "613a3929dce4289513c1c8e88539050974ed7ce6",
+    "hash": "sha256-utW9CkTrFXuiJbEDCsRQHz45N1h+9B4XlXGF3pfZOJU="
+  },
+  "sourceUrl": "https://github.com/google/skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Google LLC",
+      "url": "https://developers.google.com/health"
+    },
+    "description": "Search and retrieve official Google Health API documentation on developers.google.com/health through the Google Health Developer MCP server.",
+    "homepage": "https://github.com/google/skills/tree/main/plugins/health/google-health-developer",
+    "keywords": [
+      "google-health",
+      "health",
+      "wearables",
+      "fitness",
+      "mcp",
+      "documentation",
+      "api"
+    ],
+    "license": "Apache-2.0",
+    "name": "google-health-developer",
+    "repository": "https://github.com/google/skills",
+    "version": "1.0.0"
+  },
+  "skills": {
+    "finding-google-skills": "plugins/health/google-health-developer/skills/finding-google-skills"
+  },
+  "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "mcpServers": {
+    "HealthDevelopers": {
+      "type": "streamable-http",
+      "url": "https://healthdevelopers.googleapis.com/mcp"
+    }
+  },
+  "meta": {
+    "description": "Search and retrieve official Google Health API documentation on developers.google.com/health through the Google Health Developer MCP server",
+    "homepage": "https://github.com/google/skills"
+  },
+  "import": {
+    "input": "https://github.com/google/skills",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "skills",
+        "message": "219 SKILL.md outside every imported plugin, not imported"
+      }
+    ]
+  }
+}
