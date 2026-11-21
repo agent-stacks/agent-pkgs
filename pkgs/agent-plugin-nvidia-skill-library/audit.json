@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "nvidia-skill-library",
-      "dir": "/nix/store/z7w70xyi7j46qg7m9vphcifjainrgs7v-agent-plugin-nvidia-skill-library-0.0.0-unstable.2026-11-19.g6b75e9e/share/agent-plugins/nvidia-skill-library",
+      "dir": "/nix/store/jc4l3j13yh90hj95mxkwnjpx8wn7xx6w-agent-plugin-nvidia-skill-library-0.0.0-unstable.2026-11-20.gf41ce99/share/agent-plugins/nvidia-skill-library",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -80,6 +80,8 @@
           "skills/cudaq-guide",
           "skills/cudaq-importing",
           "skills/cudf-query-engine-builder",
+          "skills/cudnn-compile-and-serialize",
+          "skills/cudnn-install",
           "skills/cuml",
           "skills/cuopt-developer",
           "skills/cuopt-install",
@@ -13223,6 +13225,28 @@
           ]
         },
         {
+          "path": "skills/cudnn-compile-and-serialize",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "skills/cudnn-install",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
           "path": "skills/cuml",
           "score": 87,
           "risk": 13,
@@ -16926,7 +16950,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/dicom-metadata-extract/SKILL.md",
-              "line": 69
+              "line": 70
             }
           ],
           "findings": [
@@ -16956,8 +16980,8 @@
         },
         {
           "path": "skills/dicom-series-preflight",
-          "score": 97,
-          "risk": 3,
+          "score": 92,
+          "risk": 8,
           "status": "safe",
           "partial": true,
           "coverage": 100,
@@ -16965,15 +16989,34 @@
             {
               "reason": "reference_missing",
               "path": "skills/dicom-series-preflight/SKILL.md",
-              "line": 53
+              "line": 55
             },
             {
               "reason": "reference_missing",
               "path": "skills/dicom-series-preflight/SKILL.md",
-              "line": 71
+              "line": 76
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dicom-series-preflight/SKILL.md",
+              "line": 93
             }
           ],
           "findings": [
+            {
+              "id": "LP4",
+              "severity": "LOW",
+              "message": "MCP Least Privilege",
+              "file": "skills/dicom-series-preflight/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "LP4",
+              "severity": "LOW",
+              "message": "MCP Least Privilege",
+              "file": "skills/dicom-series-preflight/SKILL.md",
+              "line": 1
+            },
             {
               "id": "AST7",
               "severity": "LOW",
@@ -16995,17 +17038,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/dicom-series-to-volume/SKILL.md",
-              "line": 53
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/dicom-series-to-volume/SKILL.md",
-              "line": 67
+              "line": 54
             },
             {
               "reason": "reference_missing",
               "path": "skills/dicom-series-to-volume/SKILL.md",
               "line": 68
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dicom-series-to-volume/SKILL.md",
+              "line": 69
             }
           ],
           "findings": [],
@@ -36810,7 +36853,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/kumo-model-explanations/SKILL.md",
-              "line": 49
+              "line": 19
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/kumo-model-explanations/SKILL.md",
+              "line": 46
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/kumo-model-explanations/SKILL.md",
+              "line": 71
             }
           ],
           "findings": [],
@@ -37311,17 +37364,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/medtech-model-evidence-export/SKILL.md",
-              "line": 23
+              "line": 24
             },
             {
               "reason": "reference_missing",
               "path": "skills/medtech-model-evidence-export/SKILL.md",
-              "line": 58
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/medtech-model-evidence-export/SKILL.md",
-              "line": 65
+              "line": 59
             },
             {
               "reason": "reference_missing",
@@ -37331,12 +37379,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/medtech-model-evidence-export/SKILL.md",
-              "line": 69
+              "line": 67
             },
             {
               "reason": "reference_missing",
               "path": "skills/medtech-model-evidence-export/SKILL.md",
-              "line": 77
+              "line": 70
             },
             {
               "reason": "reference_missing",
@@ -37346,7 +37394,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/medtech-model-evidence-export/SKILL.md",
-              "line": 97
+              "line": 79
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/medtech-model-evidence-export/SKILL.md",
+              "line": 98
             },
             {
               "reason": "static_parse_limit",
@@ -37390,7 +37443,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/medtech-model-evidence-export/SKILL.md",
-              "line": 22,
+              "line": 23,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
@@ -37398,7 +37451,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/medtech-model-evidence-export/SKILL.md",
-              "line": 32,
+              "line": 33,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
@@ -37406,7 +37459,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/medtech-model-evidence-export/SKILL.md",
-              "line": 38,
+              "line": 39,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
@@ -41332,76 +41385,61 @@
         },
         {
           "path": "skills/nv-generate-ct-rflow",
-          "score": 0,
-          "risk": 100,
+          "score": 29,
+          "risk": 71,
           "status": "do not install",
           "partial": true,
-          "coverage": 89.3,
+          "coverage": 89.7,
           "exceptions": [
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-ct-rflow/SKILL.md",
-              "line": 26
+              "line": 50
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-ct-rflow/SKILL.md",
-              "line": 48
+              "line": 66
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-ct-rflow/SKILL.md",
-              "line": 64
+              "line": 84
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-ct-rflow/SKILL.md",
-              "line": 82
+              "line": 106
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-ct-rflow/SKILL.md",
-              "line": 104
+              "line": 110
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-ct-rflow/SKILL.md",
-              "line": 108
+              "line": 116
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-ct-rflow/SKILL.md",
-              "line": 114
+              "line": 117
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-ct-rflow/SKILL.md",
-              "line": 115
+              "line": 124
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-ct-rflow/SKILL.md",
-              "line": 122
+              "line": 127
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-ct-rflow/SKILL.md",
-              "line": 125
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/nv-generate-ct-rflow/SKILL.md",
-              "line": 128
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/nv-generate-ct-rflow/SKILL.md",
-              "line": 145
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/nv-generate-ct-rflow/SKILL.md",
-              "line": 146
+              "line": 130
             },
             {
               "reason": "reference_missing",
@@ -41411,72 +41449,82 @@
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-ct-rflow/SKILL.md",
-              "line": 151
+              "line": 148
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-ct-rflow/SKILL.md",
-              "line": 152
+              "line": 149
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-ct-rflow/SKILL.md",
-              "line": 161
+              "line": 153
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-ct-rflow/SKILL.md",
-              "line": 162
+              "line": 154
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-ct-rflow/SKILL.md",
-              "line": 166
+              "line": 163
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-ct-rflow/SKILL.md",
-              "line": 167
+              "line": 164
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-ct-rflow/SKILL.md",
-              "line": 171
+              "line": 168
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-ct-rflow/SKILL.md",
-              "line": 172
+              "line": 169
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-ct-rflow/SKILL.md",
-              "line": 185
+              "line": 173
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-ct-rflow/SKILL.md",
-              "line": 186
+              "line": 174
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-ct-rflow/SKILL.md",
-              "line": 193
+              "line": 200
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-ct-rflow/SKILL.md",
-              "line": 197
+              "line": 201
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-ct-rflow/SKILL.md",
-              "line": 198
+              "line": 208
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-ct-rflow/SKILL.md",
-              "line": 207
+              "line": 212
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-generate-ct-rflow/SKILL.md",
+              "line": 213
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-generate-ct-rflow/SKILL.md",
+              "line": 222
             },
             {
               "reason": "static_parse_limit",
@@ -41496,27 +41544,6 @@
           ],
           "findings": [
             {
-              "id": "LP1",
-              "severity": "HIGH",
-              "message": "MCP Least Privilege",
-              "file": "skills/nv-generate-ct-rflow/scripts/_anatomy.py",
-              "line": 1
-            },
-            {
-              "id": "LP1",
-              "severity": "HIGH",
-              "message": "MCP Least Privilege",
-              "file": "skills/nv-generate-ct-rflow/scripts/_anatomy.py",
-              "line": 1
-            },
-            {
-              "id": "LP1",
-              "severity": "HIGH",
-              "message": "MCP Least Privilege",
-              "file": "skills/nv-generate-ct-rflow/scripts/_summary_card.py",
-              "line": 1
-            },
-            {
               "id": "E2",
               "severity": "HIGH",
               "message": "Env Variable Harvesting",
@@ -41535,14 +41562,7 @@
               "severity": "HIGH",
               "message": "Env Variable Harvesting",
               "file": "skills/nv-generate-ct-rflow/scripts/run_rflow_ct.py",
-              "line": 854
-            },
-            {
-              "id": "LP1",
-              "severity": "HIGH",
-              "message": "MCP Least Privilege",
-              "file": "skills/nv-generate-ct-rflow/scripts/run_rflow_ct.py",
-              "line": 1
+              "line": 862
             },
             {
               "id": "AST4",
@@ -41563,7 +41583,7 @@
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "skills/nv-generate-ct-rflow/scripts/run_rflow_ct.py",
-              "line": 861
+              "line": 869
             },
             {
               "id": "TT2",
@@ -41580,18 +41600,11 @@
               "line": 463
             },
             {
-              "id": "AST10",
-              "severity": "MEDIUM",
-              "message": "Insecure deserialization: torch.load() without weights_only=True",
-              "file": "skills/nv-generate-ct-rflow/scripts/run_ct_mask.py",
-              "line": 357
-            },
-            {
               "id": "TT2",
               "severity": "MEDIUM",
-              "message": "Tainted flow: 'upstream_root' from os.environ.get (line 728, credential/environment) → subprocess.run (code execution)",
+              "message": "Tainted flow: 'upstream_root' from os.environ.get (line 723, credential/environment) → subprocess.run (code execution)",
               "file": "skills/nv-generate-ct-rflow/scripts/run_rflow_ct.py",
-              "line": 861
+              "line": 869
             },
             {
               "id": "AST4",
@@ -41599,6 +41612,13 @@
               "message": "subprocess module call",
               "file": "skills/nv-generate-ct-rflow/scripts/wrapper_utils.py",
               "line": 55
+            },
+            {
+              "id": "PE1",
+              "severity": "LOW",
+              "message": "Excessive Permissions",
+              "file": "skills/nv-generate-ct-rflow/SKILL.md",
+              "line": 6
             },
             {
               "id": "AST7",
@@ -41614,7 +41634,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/nv-generate-ct-rflow/SKILL.md",
-              "line": 37,
+              "line": 39,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
@@ -41622,78 +41642,78 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/nv-generate-ct-rflow/SKILL.md",
-              "line": 39,
+              "line": 41,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
         {
           "path": "skills/nv-generate-mr",
-          "score": 16,
-          "risk": 84,
-          "status": "do not install",
+          "score": 59,
+          "risk": 41,
+          "status": "caution",
           "partial": true,
-          "coverage": 91.7,
+          "coverage": 92.3,
           "exceptions": [
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr/SKILL.md",
-              "line": 26
+              "line": 28
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr/SKILL.md",
-              "line": 69
+              "line": 71
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr/SKILL.md",
-              "line": 70
+              "line": 72
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr/SKILL.md",
-              "line": 73
+              "line": 75
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr/SKILL.md",
-              "line": 90
+              "line": 92
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr/SKILL.md",
-              "line": 109
+              "line": 111
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr/SKILL.md",
-              "line": 112
+              "line": 114
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr/SKILL.md",
-              "line": 118
+              "line": 120
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr/SKILL.md",
-              "line": 119
+              "line": 121
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr/SKILL.md",
-              "line": 126
+              "line": 128
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr/SKILL.md",
-              "line": 129
+              "line": 131
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr/SKILL.md",
-              "line": 139
+              "line": 141
             },
             {
               "reason": "static_parse_limit",
@@ -41702,27 +41722,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "LP1",
-              "severity": "HIGH",
-              "message": "MCP Least Privilege",
-              "file": "skills/nv-generate-mr/scripts/run_mr.py",
-              "line": 1
-            },
-            {
-              "id": "LP1",
-              "severity": "HIGH",
-              "message": "MCP Least Privilege",
-              "file": "skills/nv-generate-mr/scripts/run_mr.py",
-              "line": 1
-            },
-            {
-              "id": "LP1",
-              "severity": "HIGH",
-              "message": "MCP Least Privilege",
-              "file": "skills/nv-generate-mr/scripts/run_mr.py",
-              "line": 1
-            },
             {
               "id": "E2",
               "severity": "HIGH",
@@ -41758,7 +41757,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/nv-generate-mr/SKILL.md",
-              "line": 24,
+              "line": 26,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
@@ -41766,7 +41765,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/nv-generate-mr/SKILL.md",
-              "line": 25,
+              "line": 27,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
@@ -41774,7 +41773,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/nv-generate-mr/SKILL.md",
-              "line": 33,
+              "line": 35,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
@@ -41782,7 +41781,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/nv-generate-mr/SKILL.md",
-              "line": 130,
+              "line": 132,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
@@ -41798,17 +41797,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain/SKILL.md",
-              "line": 32
+              "line": 33
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain/SKILL.md",
-              "line": 45
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/nv-generate-mr-brain/SKILL.md",
-              "line": 92
+              "line": 46
             },
             {
               "reason": "reference_missing",
@@ -41818,37 +41812,37 @@
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain/SKILL.md",
-              "line": 96
+              "line": 94
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain/SKILL.md",
-              "line": 113
+              "line": 97
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain/SKILL.md",
-              "line": 128
+              "line": 114
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain/SKILL.md",
-              "line": 132
+              "line": 129
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain/SKILL.md",
-              "line": 149
+              "line": 133
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain/SKILL.md",
-              "line": 152
+              "line": 150
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain/SKILL.md",
-              "line": 158
+              "line": 153
             },
             {
               "reason": "reference_missing",
@@ -41858,22 +41852,27 @@
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain/SKILL.md",
-              "line": 166
+              "line": 160
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain/SKILL.md",
-              "line": 169
+              "line": 167
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain/SKILL.md",
-              "line": 176
+              "line": 170
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain/SKILL.md",
-              "line": 188
+              "line": 177
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-generate-mr-brain/SKILL.md",
+              "line": 189
             },
             {
               "reason": "static_parse_limit",
@@ -41931,14 +41930,6 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/nv-generate-mr-brain/SKILL.md",
-              "line": 25,
-              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/nv-generate-mr-brain/SKILL.md",
               "line": 26,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
@@ -41947,7 +41938,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/nv-generate-mr-brain/SKILL.md",
-              "line": 58,
+              "line": 27,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
@@ -41955,7 +41946,15 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/nv-generate-mr-brain/SKILL.md",
-              "line": 170,
+              "line": 59,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/nv-generate-mr-brain/SKILL.md",
+              "line": 171,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
@@ -41971,17 +41970,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain-finetune/SKILL.md",
-              "line": 23
+              "line": 24
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain-finetune/SKILL.md",
-              "line": 37
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/nv-generate-mr-brain-finetune/SKILL.md",
-              "line": 45
+              "line": 38
             },
             {
               "reason": "reference_missing",
@@ -41991,12 +41985,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain-finetune/SKILL.md",
-              "line": 58
+              "line": 47
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain-finetune/SKILL.md",
-              "line": 73
+              "line": 59
             },
             {
               "reason": "reference_missing",
@@ -42006,72 +42000,72 @@
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain-finetune/SKILL.md",
-              "line": 78
+              "line": 75
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain-finetune/SKILL.md",
-              "line": 110
+              "line": 79
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain-finetune/SKILL.md",
-              "line": 114
+              "line": 111
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain-finetune/SKILL.md",
-              "line": 121
+              "line": 115
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain-finetune/SKILL.md",
-              "line": 128
+              "line": 122
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain-finetune/SKILL.md",
-              "line": 130
+              "line": 129
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain-finetune/SKILL.md",
-              "line": 138
+              "line": 131
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain-finetune/SKILL.md",
-              "line": 142
+              "line": 139
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain-finetune/SKILL.md",
-              "line": 147
+              "line": 143
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain-finetune/SKILL.md",
-              "line": 156
+              "line": 148
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain-finetune/SKILL.md",
-              "line": 158
+              "line": 157
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain-finetune/SKILL.md",
-              "line": 168
+              "line": 159
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain-finetune/SKILL.md",
-              "line": 176
+              "line": 169
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain-finetune/SKILL.md",
-              "line": 187
+              "line": 177
             },
             {
               "reason": "reference_missing",
@@ -42081,7 +42075,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain-finetune/SKILL.md",
-              "line": 198
+              "line": 189
             },
             {
               "reason": "reference_missing",
@@ -42091,17 +42085,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain-finetune/SKILL.md",
-              "line": 208
+              "line": 200
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain-finetune/SKILL.md",
-              "line": 219
+              "line": 209
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain-finetune/SKILL.md",
-              "line": 223
+              "line": 220
             },
             {
               "reason": "reference_missing",
@@ -42111,12 +42105,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain-finetune/SKILL.md",
-              "line": 226
+              "line": 225
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-mr-brain-finetune/SKILL.md",
-              "line": 249
+              "line": 227
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-generate-mr-brain-finetune/SKILL.md",
+              "line": 250
             }
           ],
           "findings": [
@@ -42125,14 +42124,14 @@
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/nv-generate-mr-brain-finetune/BENCHMARK.md",
-              "line": 79
+              "line": 109
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/nv-generate-mr-brain-finetune/SKILL.md",
-              "line": 79
+              "line": 80
             },
             {
               "id": "AST4",
@@ -42174,17 +42173,12 @@
         },
         {
           "path": "skills/nv-generate-vae-finetune",
-          "score": 34,
-          "risk": 66,
-          "status": "do not install",
+          "score": 82,
+          "risk": 18,
+          "status": "safe",
           "partial": true,
           "coverage": 100,
           "exceptions": [
-            {
-              "reason": "reference_missing",
-              "path": "skills/nv-generate-vae-finetune/SKILL.md",
-              "line": 21
-            },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-vae-finetune/SKILL.md",
@@ -42193,67 +42187,47 @@
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-vae-finetune/SKILL.md",
-              "line": 30
+              "line": 25
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-vae-finetune/SKILL.md",
-              "line": 38
+              "line": 32
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-vae-finetune/SKILL.md",
-              "line": 39
+              "line": 40
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-vae-finetune/SKILL.md",
-              "line": 55
+              "line": 41
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-vae-finetune/SKILL.md",
-              "line": 56
+              "line": 71
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-vae-finetune/SKILL.md",
-              "line": 59
+              "line": 72
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-vae-finetune/SKILL.md",
-              "line": 81
+              "line": 75
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-vae-finetune/SKILL.md",
-              "line": 85
+              "line": 97
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-vae-finetune/SKILL.md",
-              "line": 90
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/nv-generate-vae-finetune/SKILL.md",
-              "line": 99
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/nv-generate-vae-finetune/SKILL.md",
-              "line": 100
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/nv-generate-vae-finetune/SKILL.md",
-              "line": 102
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/nv-generate-vae-finetune/SKILL.md",
-              "line": 105
+              "line": 101
             },
             {
               "reason": "reference_missing",
@@ -42263,12 +42237,22 @@
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-vae-finetune/SKILL.md",
-              "line": 109
+              "line": 115
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-vae-finetune/SKILL.md",
-              "line": 114
+              "line": 116
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-generate-vae-finetune/SKILL.md",
+              "line": 118
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-generate-vae-finetune/SKILL.md",
+              "line": 121
             },
             {
               "reason": "reference_missing",
@@ -42278,82 +42262,83 @@
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-vae-finetune/SKILL.md",
-              "line": 133
+              "line": 125
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-vae-finetune/SKILL.md",
-              "line": 134
+              "line": 130
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-vae-finetune/SKILL.md",
-              "line": 144
+              "line": 138
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-vae-finetune/SKILL.md",
-              "line": 146
+              "line": 149
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-vae-finetune/SKILL.md",
-              "line": 156
+              "line": 150
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-vae-finetune/SKILL.md",
-              "line": 167
+              "line": 160
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-vae-finetune/SKILL.md",
-              "line": 171
+              "line": 162
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-vae-finetune/SKILL.md",
-              "line": 173
+              "line": 172
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-vae-finetune/SKILL.md",
-              "line": 180
+              "line": 183
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-generate-vae-finetune/SKILL.md",
-              "line": 198
+              "line": 187
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-generate-vae-finetune/SKILL.md",
+              "line": 189
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-generate-vae-finetune/SKILL.md",
+              "line": 196
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-generate-vae-finetune/SKILL.md",
+              "line": 214
             }
           ],
           "findings": [
             {
-              "id": "LP1",
-              "severity": "HIGH",
-              "message": "MCP Least Privilege",
-              "file": "skills/nv-generate-vae-finetune/scripts/run_vae_finetune.py",
-              "line": 1
-            },
-            {
-              "id": "LP1",
-              "severity": "HIGH",
-              "message": "MCP Least Privilege",
-              "file": "skills/nv-generate-vae-finetune/scripts/run_vae_finetune.py",
-              "line": 1
-            },
-            {
-              "id": "LP1",
-              "severity": "HIGH",
-              "message": "MCP Least Privilege",
-              "file": "skills/nv-generate-vae-finetune/scripts/run_vae_finetune.py",
-              "line": 1
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/nv-generate-vae-finetune/BENCHMARK.md",
+              "line": 110
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/nv-generate-vae-finetune/SKILL.md",
-              "line": 60
+              "line": 76
             },
             {
               "id": "AST4",
@@ -42361,13 +42346,6 @@
               "message": "subprocess module call",
               "file": "skills/nv-generate-vae-finetune/scripts/run_vae_finetune.py",
               "line": 203
-            },
-            {
-              "id": "AST10",
-              "severity": "MEDIUM",
-              "message": "Insecure deserialization: torch.load() without weights_only=True",
-              "file": "skills/nv-generate-vae-finetune/scripts/run_vae_finetune.py",
-              "line": 432
             }
           ],
           "suppressed": []
@@ -42388,22 +42366,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/nv-reason-ct/SKILL.md",
-              "line": 27
+              "line": 28
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-reason-ct/SKILL.md",
-              "line": 34
+              "line": 35
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-reason-ct/SKILL.md",
-              "line": 39
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/nv-reason-ct/SKILL.md",
-              "line": 51
+              "line": 40
             },
             {
               "reason": "reference_missing",
@@ -42423,32 +42396,32 @@
             {
               "reason": "reference_missing",
               "path": "skills/nv-reason-ct/SKILL.md",
-              "line": 57
+              "line": 55
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-reason-ct/SKILL.md",
-              "line": 61
+              "line": 58
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-reason-ct/SKILL.md",
-              "line": 77
+              "line": 62
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-reason-ct/SKILL.md",
-              "line": 81
+              "line": 78
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-reason-ct/SKILL.md",
-              "line": 92
+              "line": 82
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-reason-ct/SKILL.md",
-              "line": 98
+              "line": 93
             },
             {
               "reason": "reference_missing",
@@ -42523,22 +42496,27 @@
             {
               "reason": "reference_missing",
               "path": "skills/nv-reason-ct/SKILL.md",
-              "line": 114
+              "line": 113
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-reason-ct/SKILL.md",
-              "line": 132
+              "line": 115
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-reason-ct/SKILL.md",
-              "line": 148
+              "line": 133
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-reason-ct/SKILL.md",
-              "line": 154
+              "line": 149
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-ct/SKILL.md",
+              "line": 155
             }
           ],
           "findings": [],
@@ -42548,176 +42526,132 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/nv-reason-ct/SKILL.md",
-              "line": 34,
-              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
-            }
-          ]
-        },
-        {
-          "path": "skills/nv-reason-cxr",
-          "score": 42,
-          "risk": 58,
-          "status": "do not install",
-          "partial": true,
-          "coverage": 87.5,
-          "exceptions": [
-            {
-              "reason": "reference_missing",
-              "path": "skills/nv-reason-cxr/SKILL.md",
-              "line": 71
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/nv-reason-cxr/SKILL.md",
-              "line": 78
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/nv-reason-cxr/SKILL.md",
-              "line": 86
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/nv-reason-cxr/SKILL.md",
-              "line": 91
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/nv-reason-cxr/SKILL.md",
-              "line": 120
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/nv-reason-cxr/SKILL.md",
-              "line": 208
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/nv-reason-cxr/SKILL.md",
-              "line": 227
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/nv-reason-cxr/SKILL.md",
-              "line": 235
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/nv-reason-cxr/SKILL.md",
-              "line": 248
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/nv-reason-cxr/SKILL.md",
-              "line": 254
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/nv-reason-cxr/SKILL.md",
-              "line": 260
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/nv-reason-cxr/SKILL.md",
-              "line": 267
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/nv-reason-cxr/SKILL.md",
-              "line": 276
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/nv-reason-cxr/SKILL.md",
-              "line": 323
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/nv-reason-cxr/SKILL.md",
-              "line": 324
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/nv-reason-cxr/scripts/run_nv_reason_cxr.py",
-              "line": 0
-            }
-          ],
-          "findings": [
-            {
-              "id": "LP1",
-              "severity": "HIGH",
-              "message": "MCP Least Privilege",
-              "file": "skills/nv-reason-cxr/scripts/run_nv_reason_cxr.py",
-              "line": 1
-            },
-            {
-              "id": "LP1",
-              "severity": "HIGH",
-              "message": "MCP Least Privilege",
-              "file": "skills/nv-reason-cxr/scripts/run_nv_reason_cxr.py",
-              "line": 1
-            },
-            {
-              "id": "LP1",
-              "severity": "HIGH",
-              "message": "MCP Least Privilege",
-              "file": "skills/nv-reason-cxr/scripts/run_nv_reason_cxr.py",
-              "line": 1
-            },
-            {
-              "id": "LP1",
-              "severity": "HIGH",
-              "message": "MCP Least Privilege",
-              "file": "skills/nv-reason-cxr/scripts/run_nv_reason_cxr.py",
-              "line": 1
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "skills/nv-reason-cxr/SKILL.md",
-              "line": 40
-            },
-            {
-              "id": "AST3",
-              "severity": "MEDIUM",
-              "message": "Dynamic import via __import__()",
-              "file": "skills/nv-reason-cxr/scripts/run_nv_reason_cxr.py",
-              "line": 108
-            }
-          ],
-          "suppressed": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/nv-reason-cxr/SKILL.md",
-              "line": 23,
-              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/nv-reason-cxr/SKILL.md",
-              "line": 24,
-              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/nv-reason-cxr/SKILL.md",
               "line": 35,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
         {
-          "path": "skills/nv-segment-ct",
-          "score": 58,
-          "risk": 42,
+          "path": "skills/nv-reason-cxr",
+          "score": 78,
+          "risk": 22,
           "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-cxr/SKILL.md",
+              "line": 73
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-cxr/SKILL.md",
+              "line": 80
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-cxr/SKILL.md",
+              "line": 88
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-cxr/SKILL.md",
+              "line": 93
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-cxr/SKILL.md",
+              "line": 123
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-cxr/SKILL.md",
+              "line": 211
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-cxr/SKILL.md",
+              "line": 230
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-cxr/SKILL.md",
+              "line": 238
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-cxr/SKILL.md",
+              "line": 251
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-cxr/SKILL.md",
+              "line": 257
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-cxr/SKILL.md",
+              "line": 263
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-cxr/SKILL.md",
+              "line": 270
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-cxr/SKILL.md",
+              "line": 279
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-cxr/SKILL.md",
+              "line": 326
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-cxr/SKILL.md",
+              "line": 327
+            }
+          ],
+          "findings": [
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/nv-reason-cxr/SKILL.md",
+              "line": 42
+            },
+            {
+              "id": "AST3",
+              "severity": "MEDIUM",
+              "message": "Dynamic import via __import__()",
+              "file": "skills/nv-reason-cxr/scripts/run_nv_reason_cxr.py",
+              "line": 116
+            },
+            {
+              "id": "LP4",
+              "severity": "LOW",
+              "message": "MCP Least Privilege",
+              "file": "skills/nv-reason-cxr/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "PE1",
+              "severity": "LOW",
+              "message": "Excessive Permissions",
+              "file": "skills/nv-reason-cxr/SKILL.md",
+              "line": 6
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/nv-segment-ct",
+          "score": 94,
+          "risk": 6,
+          "status": "incomplete",
           "partial": true,
           "coverage": 88.9,
           "exceptions": [
@@ -42729,17 +42663,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/nv-segment-ct/SKILL.md",
-              "line": 69
+              "line": 71
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-segment-ct/SKILL.md",
-              "line": 72
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/nv-segment-ct/SKILL.md",
-              "line": 78
+              "line": 74
             },
             {
               "reason": "reference_missing",
@@ -42749,40 +42678,38 @@
             {
               "reason": "reference_missing",
               "path": "skills/nv-segment-ct/SKILL.md",
-              "line": 87
+              "line": 82
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-segment-ct/SKILL.md",
-              "line": 88
+              "line": 89
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-segment-ct/SKILL.md",
-              "line": 121
+              "line": 90
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-segment-ct/SKILL.md",
+              "line": 123
             }
           ],
           "findings": [
             {
-              "id": "LP1",
-              "severity": "HIGH",
+              "id": "LP4",
+              "severity": "LOW",
               "message": "MCP Least Privilege",
-              "file": "skills/nv-segment-ct/fixtures/fetch_spleen_fixture.py",
+              "file": "skills/nv-segment-ct/SKILL.md",
               "line": 1
             },
             {
-              "id": "LP1",
-              "severity": "HIGH",
-              "message": "MCP Least Privilege",
-              "file": "skills/nv-segment-ct/fixtures/fetch_spleen_fixture.py",
-              "line": 1
-            },
-            {
-              "id": "LP1",
-              "severity": "HIGH",
-              "message": "MCP Least Privilege",
-              "file": "skills/nv-segment-ct/fixtures/fetch_spleen_fixture.py",
-              "line": 1
+              "id": "PE1",
+              "severity": "LOW",
+              "message": "Excessive Permissions",
+              "file": "skills/nv-segment-ct/SKILL.md",
+              "line": 6
             }
           ],
           "suppressed": []
@@ -42798,57 +42725,52 @@
             {
               "reason": "reference_missing",
               "path": "skills/nv-segment-ct-finetune/SKILL.md",
-              "line": 46
+              "line": 47
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-segment-ct-finetune/SKILL.md",
-              "line": 52
+              "line": 53
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-segment-ct-finetune/SKILL.md",
-              "line": 60
+              "line": 61
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-segment-ct-finetune/SKILL.md",
-              "line": 78
+              "line": 79
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-segment-ct-finetune/SKILL.md",
-              "line": 101
+              "line": 102
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-segment-ct-finetune/SKILL.md",
-              "line": 113
+              "line": 114
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-segment-ct-finetune/SKILL.md",
-              "line": 119
+              "line": 120
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-segment-ct-finetune/SKILL.md",
-              "line": 124
+              "line": 125
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-segment-ct-finetune/SKILL.md",
-              "line": 139
+              "line": 140
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-segment-ct-finetune/SKILL.md",
-              "line": 155
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/nv-segment-ct-finetune/SKILL.md",
-              "line": 164
+              "line": 156
             },
             {
               "reason": "reference_missing",
@@ -42863,32 +42785,32 @@
             {
               "reason": "reference_missing",
               "path": "skills/nv-segment-ct-finetune/SKILL.md",
-              "line": 174
+              "line": 167
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-segment-ct-finetune/SKILL.md",
-              "line": 184
+              "line": 175
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-segment-ct-finetune/SKILL.md",
-              "line": 196
+              "line": 185
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-segment-ct-finetune/SKILL.md",
-              "line": 201
+              "line": 197
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-segment-ct-finetune/SKILL.md",
-              "line": 208
+              "line": 202
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-segment-ct-finetune/SKILL.md",
-              "line": 217
+              "line": 209
             },
             {
               "reason": "reference_missing",
@@ -42908,7 +42830,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/nv-segment-ct-finetune/SKILL.md",
-              "line": 237
+              "line": 221
             },
             {
               "reason": "reference_missing",
@@ -42918,7 +42840,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/nv-segment-ct-finetune/SKILL.md",
-              "line": 242
+              "line": 239
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-segment-ct-finetune/SKILL.md",
+              "line": 243
             },
             {
               "reason": "static_parse_limit",
@@ -42932,14 +42859,14 @@
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/nv-segment-ct-finetune/BENCHMARK.md",
-              "line": 82
+              "line": 115
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/nv-segment-ct-finetune/BENCHMARK.md",
-              "line": 83
+              "line": 116
             },
             {
               "id": "AST4",
@@ -43002,22 +42929,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/nv-segment-ctmr/SKILL.md",
-              "line": 67
+              "line": 68
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-segment-ctmr/SKILL.md",
-              "line": 70
+              "line": 71
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-segment-ctmr/SKILL.md",
-              "line": 100
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/nv-segment-ctmr/SKILL.md",
-              "line": 104
+              "line": 101
             },
             {
               "reason": "reference_missing",
@@ -43032,17 +42954,22 @@
             {
               "reason": "reference_missing",
               "path": "skills/nv-segment-ctmr/SKILL.md",
-              "line": 116
+              "line": 107
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-segment-ctmr/SKILL.md",
-              "line": 134
+              "line": 117
             },
             {
               "reason": "reference_missing",
               "path": "skills/nv-segment-ctmr/SKILL.md",
-              "line": 139
+              "line": 135
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-segment-ctmr/SKILL.md",
+              "line": 140
             }
           ],
           "findings": [
@@ -45293,13 +45220,13 @@
               "line": 0
             },
             {
-              "reason": "obfuscated_instruction_text",
-              "path": "skills/omniverse-realtime-viewer/references/routing.md",
+              "reason": "runtime_limit",
+              "path": "skills/omniverse-realtime-viewer/references/prim-transform-safety",
               "line": 0
             },
             {
-              "reason": "runtime_limit",
-              "path": "skills/omniverse-realtime-viewer/references/stage-hierarchy",
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/omniverse-realtime-viewer/references/routing.md",
               "line": 0
             },
             {
@@ -69749,7 +69676,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-20T15:22:16Z"
+      "checkedAt": "2026-11-21T00:09:36Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
