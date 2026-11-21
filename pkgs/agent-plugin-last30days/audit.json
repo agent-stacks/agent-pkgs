@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "last30days",
-      "dir": "/nix/store/19v8rnp1awsbcr8lk5r3iapbqrlgml96-agent-plugin-last30days-4.5.0/share/agent-plugins/last30days",
+      "dir": "/nix/store/38bw9qfdgw8zl51kl7c2968w8lmfw8sv-agent-plugin-last30days-4.5.0/share/agent-plugins/last30days",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/hooks",
           "skills/last30days"
         ],
         "validated": [
@@ -27,12 +28,23 @@
       },
       "components": [
         {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
           "path": "skills/last30days",
           "score": 0,
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 84.3,
+          "coverage": 84.1,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -127,6 +139,16 @@
             {
               "reason": "static_parse_limit",
               "path": "skills/last30days/scripts/lib/bluesky.py",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/last30days/scripts/lib/brief_capture.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/last30days/scripts/lib/brief_capture.py",
               "line": 0
             },
             {
@@ -306,14 +328,14 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/last30days.py",
-              "line": 3261
+              "line": 3279
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/last30days.py",
-              "line": 4399
+              "line": 4586
             },
             {
               "id": "PE3",
@@ -362,14 +384,14 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/doctor.py",
-              "line": 1594
+              "line": 1617
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/doctor.py",
-              "line": 1750
+              "line": 1774
             },
             {
               "id": "PE3",
@@ -453,56 +475,56 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/env.py",
-              "line": 752
+              "line": 754
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/env.py",
-              "line": 807
+              "line": 809
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/env.py",
-              "line": 815
+              "line": 817
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/env.py",
-              "line": 832
+              "line": 834
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/env.py",
-              "line": 833
+              "line": 835
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/env.py",
-              "line": 838
+              "line": 840
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/env.py",
-              "line": 1156
+              "line": 1158
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/env.py",
-              "line": 1671
+              "line": 1673
             },
             {
               "id": "PE3",
@@ -684,21 +706,21 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/last30days.py",
-              "line": 3784
+              "line": 3875
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/last30days.py",
-              "line": 3799
+              "line": 3890
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/last30days.py",
-              "line": 4290
+              "line": 4474
             },
             {
               "id": "PE3",
@@ -992,84 +1014,84 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/env.py",
-              "line": 908
+              "line": 910
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/env.py",
-              "line": 963
+              "line": 965
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/env.py",
-              "line": 1078
+              "line": 1080
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/env.py",
-              "line": 1161
+              "line": 1163
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/env.py",
-              "line": 1318
+              "line": 1320
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/env.py",
-              "line": 1327
+              "line": 1329
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/env.py",
-              "line": 1332
+              "line": 1334
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/env.py",
-              "line": 1487
+              "line": 1489
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/env.py",
-              "line": 1513
+              "line": 1515
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/env.py",
-              "line": 1533
+              "line": 1535
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/env.py",
-              "line": 1903
+              "line": 1905
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/env.py",
-              "line": 1962
+              "line": 1964
             },
             {
               "id": "PE3",
@@ -1188,14 +1210,14 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/last30days.py",
-              "line": 3344
+              "line": 3433
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/last30days.py",
-              "line": 3349
+              "line": 3438
             },
             {
               "id": "PE3",
@@ -1335,7 +1357,7 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/env.py",
-              "line": 786
+              "line": 788
             },
             {
               "id": "PE3",
@@ -1762,35 +1784,35 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/env.py",
-              "line": 719
+              "line": 721
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/env.py",
-              "line": 879
+              "line": 881
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/env.py",
-              "line": 884
+              "line": 886
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/env.py",
-              "line": 885
+              "line": 887
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/last30days/scripts/lib/env.py",
-              "line": 2392
+              "line": 2394
             },
             {
               "id": "PE3",
@@ -2154,7 +2176,7 @@
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/last30days/scripts/last30days.py",
-              "line": 2703
+              "line": 2721
             },
             {
               "id": "AST4",
@@ -2224,7 +2246,7 @@
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/last30days/scripts/lib/doctor.py",
-              "line": 2178
+              "line": 2225
             },
             {
               "id": "E1",
@@ -2308,7 +2330,7 @@
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "skills/last30days/scripts/lib/env.py",
-              "line": 988
+              "line": 990
             },
             {
               "id": "AST4",
@@ -2980,21 +3002,21 @@
               "severity": "LOW",
               "message": "Dynamic attribute access via getattr()",
               "file": "skills/last30days/scripts/last30days.py",
-              "line": 1960
+              "line": 1978
             },
             {
               "id": "AST7",
               "severity": "LOW",
               "message": "Dynamic attribute access via getattr()",
               "file": "skills/last30days/scripts/last30days.py",
-              "line": 1982
+              "line": 2000
             },
             {
               "id": "AST7",
               "severity": "LOW",
               "message": "Dynamic attribute access via getattr()",
               "file": "skills/last30days/scripts/last30days.py",
-              "line": 3414
+              "line": 3503
             },
             {
               "id": "AST7",
@@ -3063,7 +3085,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-21T21:30:06Z"
+      "checkedAt": "2026-11-21T22:29:56Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
