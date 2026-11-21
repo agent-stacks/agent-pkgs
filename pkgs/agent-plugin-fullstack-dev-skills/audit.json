@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "fullstack-dev-skills",
-      "dir": "/nix/store/08c6192r5pq6042mhrijgb8wiw2n363c-agent-plugin-fullstack-dev-skills-0.4.20/share/agent-plugins/fullstack-dev-skills",
+      "dir": "/nix/store/v809dlg0gcvz3s46mhb5fpqm6jn6ghhx-agent-plugin-fullstack-dev-skills-0.4.21/share/agent-plugins/fullstack-dev-skills",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -36,6 +36,8 @@
           "skills/fastapi-expert",
           "skills/feature-forge",
           "skills/fine-tuning-expert",
+          "skills/firebase-expert",
+          "skills/flask-expert",
           "skills/flutter-expert",
           "skills/fullstack-guardian",
           "skills/game-developer",
@@ -53,6 +55,7 @@
           "skills/monitoring-expert",
           "skills/nestjs-expert",
           "skills/nextjs-developer",
+          "skills/nuxt-expert",
           "skills/pandas-pro",
           "skills/php-pro",
           "skills/playwright-expert",
@@ -109,7 +112,7 @@
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
-              "file": "com.anthropic.claude-code/commands/common-ground/COMMAND.md",
+              "file": "com.anthropic.claude-code/commands/common-ground.md",
               "line": 117
             },
             {
@@ -425,11 +428,11 @@
         },
         {
           "path": "skills/atlassian-mcp",
-          "score": 24,
-          "risk": 76,
+          "score": 23,
+          "risk": 77,
           "status": "do not install",
           "partial": true,
-          "coverage": 50,
+          "coverage": 66.7,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -445,14 +448,16 @@
               "reason": "static_parse_limit",
               "path": "skills/atlassian-mcp/references/jira-queries.md",
               "line": 0
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/atlassian-mcp/references/mcp-server-setup.md",
-              "line": 0
             }
           ],
           "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/atlassian-mcp/SKILL.md",
+              "line": 80
+            },
             {
               "id": "PE3",
               "severity": "HIGH",
@@ -503,11 +508,25 @@
               "line": 365
             },
             {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/atlassian-mcp/references/mcp-server-setup.md",
+              "line": 175
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/atlassian-mcp/references/mcp-server-setup.md",
+              "line": 185
+            },
+            {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/atlassian-mcp/SKILL.md",
-              "line": 114
+              "line": 118
             },
             {
               "id": "E1",
@@ -563,46 +582,38 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/atlassian-mcp/references/mcp-server-setup.md",
-              "line": 15
+              "line": 40
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/atlassian-mcp/references/mcp-server-setup.md",
-              "line": 16
+              "line": 213
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/atlassian-mcp/references/mcp-server-setup.md",
-              "line": 156
+              "line": 47
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/atlassian-mcp/references/mcp-server-setup.md",
-              "line": 159
+              "line": 52
             },
             {
               "id": "RP1",
               "severity": "LOW",
               "message": "MCP Rug Pull",
               "file": "skills/atlassian-mcp/references/mcp-server-setup.md",
-              "line": 33
+              "line": 44
             }
           ],
           "suppressed": [
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/atlassian-mcp/SKILL.md",
-              "line": 45,
-              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
-            },
             {
               "id": "AE1",
               "severity": "HIGH",
@@ -1535,6 +1546,283 @@
           "suppressed": []
         },
         {
+          "path": "skills/firebase-expert",
+          "score": 46,
+          "risk": 54,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 62.5,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/firebase-expert/SKILL.md",
+              "line": 8
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/firebase-expert/SKILL.md",
+              "line": 24
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/firebase-expert/SKILL.md",
+              "line": 31
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/firebase-expert/SKILL.md",
+              "line": 33
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/firebase-expert/SKILL.md",
+              "line": 42
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/firebase-expert/SKILL.md",
+              "line": 46
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/firebase-expert/SKILL.md",
+              "line": 47
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/firebase-expert/SKILL.md",
+              "line": 54
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/firebase-expert/SKILL.md",
+              "line": 78
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/firebase-expert/SKILL.md",
+              "line": 87
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/firebase-expert/SKILL.md",
+              "line": 88
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/firebase-expert/SKILL.md",
+              "line": 89
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/firebase-expert/SKILL.md",
+              "line": 105
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/firebase-expert/references/cloud-functions.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/firebase-expert/references/emulators-testing.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/firebase-expert/references/storage-app-check.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/firebase-expert/references/cloud-functions.md",
+              "line": 33
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/firebase-expert/references/cloud-functions.md",
+              "line": 94
+            },
+            {
+              "id": "SSRF3",
+              "severity": "MEDIUM",
+              "message": "Dynamic Request Target",
+              "file": "skills/firebase-expert/references/emulators-testing.md",
+              "line": 101
+            },
+            {
+              "id": "SSRF3",
+              "severity": "MEDIUM",
+              "message": "Dynamic Request Target",
+              "file": "skills/firebase-expert/references/emulators-testing.md",
+              "line": 105
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/firebase-expert/references/emulators-testing.md",
+              "line": 143
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/firebase-expert/references/emulators-testing.md",
+              "line": 232
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/firebase-expert/references/hosting-deployment.md",
+              "line": 150
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "skills/firebase-expert/references/security-rules.md",
+              "line": 14
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/firebase-expert/references/security-rules.md",
+              "line": 263
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/firebase-expert/SKILL.md",
+              "line": 44,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/firebase-expert/SKILL.md",
+              "line": 45,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/firebase-expert/SKILL.md",
+              "line": 46,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
+          ]
+        },
+        {
+          "path": "skills/flask-expert",
+          "score": 74,
+          "risk": 26,
+          "status": "caution",
+          "partial": true,
+          "coverage": 87.5,
+          "exceptions": [
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/flask-expert/SKILL.md",
+              "line": 0
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/flask-expert/SKILL.md",
+              "line": 7
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/flask-expert/SKILL.md",
+              "line": 26
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/flask-expert/SKILL.md",
+              "line": 99
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/flask-expert/SKILL.md",
+              "line": 100
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/flask-expert/SKILL.md",
+              "line": 101
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/flask-expert/SKILL.md",
+              "line": 108
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/flask-expert/SKILL.md",
+              "line": 109
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/flask-expert/SKILL.md",
+              "line": 110
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/flask-expert/SKILL.md",
+              "line": 117
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/flask-expert/SKILL.md",
+              "line": 127
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/flask-expert/references/app-structure.md",
+              "line": 51
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/flask-expert/references/app-structure.md",
+              "line": 154
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/flask-expert/references/authentication.md",
+              "line": 21
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/flask-expert/references/authentication.md",
+              "line": 280
+            }
+          ],
+          "suppressed": []
+        },
+        {
           "path": "skills/flutter-expert",
           "score": 100,
           "risk": 0,
@@ -2108,21 +2396,21 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/kubernetes-specialist/references/helm-charts.md",
-              "line": 794
+              "line": 800
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/kubernetes-specialist/references/helm-charts.md",
-              "line": 795
+              "line": 801
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/kubernetes-specialist/references/helm-charts.md",
-              "line": 796
+              "line": 802
             },
             {
               "id": "TM2",
@@ -2185,21 +2473,21 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/kubernetes-specialist/references/multi-cluster.md",
-              "line": 447
+              "line": 449
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/kubernetes-specialist/references/multi-cluster.md",
-              "line": 444
+              "line": 446
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/kubernetes-specialist/references/multi-cluster.md",
-              "line": 448
+              "line": 450
             },
             {
               "id": "SC2",
@@ -3096,6 +3384,304 @@
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/nextjs-developer/SKILL.md",
               "line": 40,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
+          ]
+        },
+        {
+          "path": "skills/nuxt-expert",
+          "score": 58,
+          "risk": 42,
+          "status": "caution",
+          "partial": true,
+          "coverage": 50,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/nuxt-expert/SKILL.md",
+              "line": 0
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nuxt-expert/SKILL.md",
+              "line": 8
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nuxt-expert/SKILL.md",
+              "line": 32
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nuxt-expert/SKILL.md",
+              "line": 36
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nuxt-expert/SKILL.md",
+              "line": 102
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nuxt-expert/SKILL.md",
+              "line": 104
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nuxt-expert/SKILL.md",
+              "line": 113
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/nuxt-expert/references/data-fetching.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/nuxt-expert/references/project-structure.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/nuxt-expert/references/rendering.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "skills/nuxt-expert/references/rendering.md",
+              "line": 89
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/nuxt-expert/SKILL.md",
+              "line": 36
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/nuxt-expert/references/deployment.md",
+              "line": 41
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/nuxt-expert/references/deployment.md",
+              "line": 46
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/nuxt-expert/references/deployment.md",
+              "line": 79
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/nuxt-expert/references/deployment.md",
+              "line": 132
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/nuxt-expert/references/deployment.md",
+              "line": 170
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/nuxt-expert/references/deployment.md",
+              "line": 181
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/nuxt-expert/references/deployment.md",
+              "line": 191
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/nuxt-expert/references/deployment.md",
+              "line": 192
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/nuxt-expert/references/deployment.md",
+              "line": 193
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/nuxt-expert/references/project-structure.md",
+              "line": 233
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/nuxt-expert/references/project-structure.md",
+              "line": 265
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/nuxt-expert/references/project-structure.md",
+              "line": 267
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/nuxt-expert/references/security.md",
+              "line": 67
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/nuxt-expert/references/security.md",
+              "line": 85
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/nuxt-expert/references/security.md",
+              "line": 185
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/nuxt-expert/references/security.md",
+              "line": 234
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/nuxt-expert/references/testing.md",
+              "line": 253
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/nuxt-expert/references/testing.md",
+              "line": 254
+            },
+            {
+              "id": "OH3",
+              "severity": "MEDIUM",
+              "message": "Unbounded Output",
+              "file": "skills/nuxt-expert/references/deployment.md",
+              "line": 52
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/nuxt-expert/references/deployment.md",
+              "line": 98
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/nuxt-expert/references/deployment.md",
+              "line": 170
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/nuxt-expert/references/deployment.md",
+              "line": 174
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/nuxt-expert/references/deployment.md",
+              "line": 182
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/nuxt-expert/references/project-structure.md",
+              "line": 93
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/nuxt-expert/references/project-structure.md",
+              "line": 266
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "skills/nuxt-expert/references/server-routes.md",
+              "line": 190
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/nuxt-expert/references/testing.md",
+              "line": 196
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/nuxt-expert/references/testing.md",
+              "line": 255
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/nuxt-expert/SKILL.md",
+              "line": 42,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/nuxt-expert/SKILL.md",
+              "line": 43,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/nuxt-expert/SKILL.md",
+              "line": 45,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
@@ -4418,8 +5004,8 @@
         },
         {
           "path": "skills/terraform-engineer",
-          "score": 40,
-          "risk": 60,
+          "score": 35,
+          "risk": 65,
           "status": "do not install",
           "partial": true,
           "coverage": 100,
@@ -4432,27 +5018,47 @@
             {
               "reason": "reference_missing",
               "path": "skills/terraform-engineer/SKILL.md",
-              "line": 75
+              "line": 27
             },
             {
               "reason": "reference_missing",
               "path": "skills/terraform-engineer/SKILL.md",
-              "line": 83
+              "line": 59
             },
             {
               "reason": "reference_missing",
               "path": "skills/terraform-engineer/SKILL.md",
-              "line": 102
+              "line": 65
             },
             {
               "reason": "reference_missing",
               "path": "skills/terraform-engineer/SKILL.md",
-              "line": 116
+              "line": 81
             },
             {
               "reason": "reference_missing",
               "path": "skills/terraform-engineer/SKILL.md",
-              "line": 145
+              "line": 89
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/terraform-engineer/SKILL.md",
+              "line": 108
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/terraform-engineer/SKILL.md",
+              "line": 124
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/terraform-engineer/SKILL.md",
+              "line": 165
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/terraform-engineer/SKILL.md",
+              "line": 181
             }
           ],
           "findings": [
@@ -4461,21 +5067,21 @@
               "severity": "HIGH",
               "message": "Anti-Refusal Statement",
               "file": "skills/terraform-engineer/SKILL.md",
-              "line": 67
+              "line": 72
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/terraform-engineer/references/providers.md",
-              "line": 70
+              "line": 72
             },
             {
-              "id": "TM1",
+              "id": "MP3",
               "severity": "HIGH",
-              "message": "Tool Parameter Abuse",
-              "file": "skills/terraform-engineer/references/testing.md",
-              "line": 414
+              "message": "Memory Manipulation",
+              "file": "skills/terraform-engineer/references/state-management.md",
+              "line": 278
             }
           ],
           "suppressed": []
@@ -4525,6 +5131,20 @@
               "message": "MCP Rug Pull",
               "file": "skills/test-master/references/automation-frameworks.md",
               "line": 180
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/test-master/references/e2e-testing.md",
+              "line": 142
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/test-master/references/e2e-testing.md",
+              "line": 143
             },
             {
               "id": "OH3",
@@ -4665,11 +5285,11 @@
         },
         {
           "path": "skills/vue-expert",
-          "score": 11,
-          "risk": 89,
+          "score": 16,
+          "risk": 84,
           "status": "do not install",
           "partial": true,
-          "coverage": 37.5,
+          "coverage": 50,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -4684,11 +5304,6 @@
             {
               "reason": "static_parse_limit",
               "path": "skills/vue-expert/references/mobile-hybrid.md",
-              "line": 0
-            },
-            {
-              "reason": "static_parse_limit",
-              "path": "skills/vue-expert/references/nuxt.md",
               "line": 0
             },
             {
@@ -4735,20 +5350,6 @@
               "message": "Hidden Instructions",
               "file": "skills/vue-expert/references/components.md",
               "line": 98
-            },
-            {
-              "id": "P2",
-              "severity": "HIGH",
-              "message": "Hidden Instructions",
-              "file": "skills/vue-expert/references/nuxt.md",
-              "line": 46
-            },
-            {
-              "id": "P2",
-              "severity": "HIGH",
-              "message": "Hidden Instructions",
-              "file": "skills/vue-expert/references/nuxt.md",
-              "line": 100
             },
             {
               "id": "MP3",
@@ -4815,14 +5416,6 @@
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/vue-expert/SKILL.md",
               "line": 38,
-              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
-            },
-            {
-              "id": "AE1",
-              "severity": "HIGH",
-              "message": "Incomplete referenced artifact analysis",
-              "file": "skills/vue-expert/SKILL.md",
-              "line": 39,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
@@ -5181,7 +5774,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-20T17:46:10Z"
+      "checkedAt": "2026-11-21T02:39:51Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
