@@ -1,11 +1,11 @@
 {
   "name": "tt-a1i-archify",
-  "version": "0.0.0-unstable.2026-11-21.g8509a3d",
+  "version": "0.0.0-unstable.2026-11-23.g6cafc5a",
   "src": {
     "owner": "tt-a1i",
     "repo": "archify",
-    "rev": "8509a3d63e763b4d454ea9aafa1f939545fcb1ea",
-    "hash": "sha256-yfwNYkrozcmS6nk19YTKs15OPv5Qq3o7fR7jIzPggrc="
+    "rev": "6cafc5a9875a795c6932ac0c196dacf3097fafe6",
+    "hash": "sha256-X54WPzEFd1GobI+Mnz7mBYSu+Mm9U8kXXloKPXyN8LU="
   },
   "sourceUrl": "https://github.com/tt-a1i/archify",
   "manifest": {
@@ -14,6 +14,7 @@
   },
   "skills": {
     "archify": "archify",
+    "archify-pr": "archify-pr",
     "archify-review": ".agents/skills/archify-review",
     "archify-tuning": ".agents/skills/archify-tuning",
     "simplify-codebase": ".agents/skills/simplify-codebase",
@@ -54,7 +55,139 @@
         "message": "must be a string value"
       },
       {
+        "path": "archify/modules/code-analysis/vendor/typescript.cjs",
+        "message": "larger than 1MiB, so it was not read; a ${PLUGIN_ROOT} reference inside it ships nothing, and a script only it runs is not reported"
+      },
+      {
+        "path": "archify/renderers/shared/generated-validators.mjs",
+        "message": "larger than 1MiB, so it was not read; a ${PLUGIN_ROOT} reference inside it ships nothing, and a script only it runs is not reported"
+      },
+      {
         "path": "skills/archify/bin/recover-output.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/extract/cpp/extract.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/scripts/build-python.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/scripts/build-vendor.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/test/extractor-revisions.test.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/test/fixtures/mixed/a.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/test/fixtures/py-basic/app/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/test/fixtures/py-basic/app/core.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/test/fixtures/py-basic/app/util/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/test/fixtures/py-basic/app/util/text.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/test/fixtures/py-basic/broken.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/test/fixtures/py-basic/ns/mod.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/test/fixtures/py-basic/sibling.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/test/fixtures/py-tasks/app/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/test/fixtures/py-tasks/app/a.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/test/fixtures/py-tasks/app/b.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/test/fixtures/py-tasks/app/engine.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/test/fixtures/py-tasks/domain/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/test/fixtures/py-tasks/domain/model.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/test/fixtures/py-tasks/domain/order.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/test/fixtures/py-tasks/ui/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/test/fixtures/py-tasks/ui/view.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/test/run-extract.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/test/rust-calls.test.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/test/task-fixtures.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/test/ts-multi-repo-probe.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/test/ts-real-project-acceptance.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/test/ts-real-repo-probe.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/test/ts-upstream-inventory.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/test/ts-upstream-ledger.test.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/test/ts-upstream-syntax-probe.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/test/ts-version-probe.mjs",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
@@ -96,6 +229,18 @@
       {
         "path": "skills/archify/scripts/render-examples.mjs",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/story/vendor/html-parser.mjs",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/package.json",
+        "message": "declares dependencies import does not package; package them in this package's custom block; with no lockfile beside it, nothing pins the versions"
+      },
+      {
+        "path": "skills/archify/modules/code-analysis/test/fixtures/jsx-project/package.json",
+        "message": "declares dependencies import does not package; package them in this package's custom block; with no lockfile beside it, nothing pins the versions"
       },
       {
         "path": "skills/archify/package.json",
