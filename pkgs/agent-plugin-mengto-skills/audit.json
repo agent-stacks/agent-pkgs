@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "mengto-skills",
-      "dir": "/nix/store/vgd41v8svhq506vwx97h69sk9an6c1rr-agent-plugin-mengto-skills-0.0.0-unstable.2026-11-20.g3ec2dc0/share/agent-plugins/mengto-skills",
+      "dir": "/nix/store/52j16fj19x3rh1jw9a5q6av5xdzc4zsp-agent-plugin-mengto-skills-0.0.0-unstable.2026-11-22.gde18eae/share/agent-plugins/mengto-skills",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -150,6 +150,7 @@
           "skills/implement-fog-of-war",
           "skills/iterate-until-verified",
           "skills/landing-page",
+          "skills/light-a-threejs-workspace",
           "skills/light-mode-paper-technical",
           "skills/lightning-energy-skill-vfx",
           "skills/liquid-metal-border",
@@ -158,6 +159,7 @@
           "skills/masked-reveal",
           "skills/matterjs",
           "skills/mesh-gradient-dark-blue-clean",
+          "skills/model-threejs-control-icons",
           "skills/moss-glass-controls",
           "skills/neoclassical-ledger-ui",
           "skills/nested-container-clean-agency",
@@ -178,6 +180,8 @@
           "skills/product-proof-saas",
           "skills/progressive-blur",
           "skills/publish-project-to-github",
+          "skills/refract-liquid-glass",
+          "skills/release-threeui-demo",
           "skills/relight-painted-surfaces",
           "skills/reveal-hover-effect",
           "skills/scroll-mesh-survey",
@@ -187,6 +191,7 @@
           "skills/scroll-scrubbed-word-reveal",
           "skills/scroll-world-storytelling",
           "skills/segmented-field-menu",
+          "skills/shade-glass-button-press",
           "skills/shaders-cursor-ripples",
           "skills/ship-web-games",
           "skills/skeuomorphic-ui",
@@ -7484,6 +7489,58 @@
           "suppressed": []
         },
         {
+          "path": "skills/light-a-threejs-workspace",
+          "score": 97,
+          "risk": 3,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 60,
+          "exceptions": [
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/light-a-threejs-workspace/demo/assets/three.min.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/light-a-threejs-workspace/demo/assets/three.min.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/light-a-threejs-workspace/demo/index.html",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/light-a-threejs-workspace/demo/assets/THREE-LICENSE.txt",
+              "line": 16
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/light-a-threejs-workspace/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/light-a-threejs-workspace/SKILL.md",
+              "line": 36,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
+          ]
+        },
+        {
           "path": "skills/light-mode-paper-technical",
           "score": 88,
           "risk": 12,
@@ -8166,6 +8223,52 @@
           "suppressed": []
         },
         {
+          "path": "skills/model-threejs-control-icons",
+          "score": 77,
+          "risk": 23,
+          "status": "caution",
+          "partial": true,
+          "coverage": 80,
+          "exceptions": [
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/model-threejs-control-icons/demo/assets/three.min.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/model-threejs-control-icons/demo/assets/three.min.js",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "MP3",
+              "severity": "HIGH",
+              "message": "Memory Manipulation",
+              "file": "skills/model-threejs-control-icons/SKILL.md",
+              "line": 20
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/model-threejs-control-icons/demo/assets/THREE-LICENSE.txt",
+              "line": 16
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/model-threejs-control-icons/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
+          ]
+        },
+        {
           "path": "skills/moss-glass-controls",
           "score": 100,
           "risk": 0,
@@ -8686,6 +8789,45 @@
           ]
         },
         {
+          "path": "skills/refract-liquid-glass",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "skills/release-threeui-demo",
+          "score": 91,
+          "risk": 9,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/release-threeui-demo/scripts/verify_master.py",
+              "line": 40
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/release-threeui-demo/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
+          ]
+        },
+        {
           "path": "skills/relight-painted-surfaces",
           "score": 73,
           "risk": 27,
@@ -9097,6 +9239,17 @@
               "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
+        },
+        {
+          "path": "skills/shade-glass-button-press",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/shaders-cursor-ripples",
@@ -10396,7 +10549,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-20T18:04:02Z"
+      "checkedAt": "2026-11-22T10:38:45Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
