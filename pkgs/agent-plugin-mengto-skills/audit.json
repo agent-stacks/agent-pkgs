@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "mengto-skills",
-      "dir": "/nix/store/52j16fj19x3rh1jw9a5q6av5xdzc4zsp-agent-plugin-mengto-skills-0.0.0-unstable.2026-11-22.gde18eae/share/agent-plugins/mengto-skills",
+      "dir": "/nix/store/2b2h10p5bdy572kj644m5w99sxagbxbj-agent-plugin-mengto-skills-0.0.0-unstable.2026-11-23.g821d22a/share/agent-plugins/mengto-skills",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -38,6 +38,7 @@
           "skills/add-shader-cursor-trail",
           "skills/agency-grid-layout-minimal",
           "skills/ambient-section-particles",
+          "skills/animate-procedural-birds",
           "skills/animation-on-scroll",
           "skills/animation-systems",
           "skills/article-prompts-to-skills",
@@ -84,6 +85,7 @@
           "skills/company-logos",
           "skills/compose-a-woodland-landing-page",
           "skills/container-lines",
+          "skills/control-camera-lenses",
           "skills/corner-diagonals",
           "skills/corner-lasers",
           "skills/create-ai-avatar",
@@ -723,12 +725,12 @@
           "risk": 54,
           "status": "do not install",
           "partial": true,
-          "coverage": 80,
+          "coverage": 84.6,
           "exceptions": [
             {
               "reason": "reference_missing",
               "path": "skills/3d-ultra-realistic-water/SKILL.md",
-              "line": 25
+              "line": 27
             },
             {
               "reason": "static_parse_limit",
@@ -791,7 +793,7 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/3d-ultra-realistic-water/SKILL.md",
-              "line": 22,
+              "line": 24,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
@@ -1537,6 +1539,47 @@
           ],
           "findings": [],
           "suppressed": []
+        },
+        {
+          "path": "skills/animate-procedural-birds",
+          "score": 90,
+          "risk": 10,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 88.9,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/animate-procedural-birds/demo/assets/three.min.js",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "TR2",
+              "severity": "MEDIUM",
+              "message": "Shadow Command Trigger",
+              "file": "skills/animate-procedural-birds/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/animate-procedural-birds/demo/assets/THREE-LICENSE.txt",
+              "line": 16
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/animate-procedural-birds/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
+          ]
         },
         {
           "path": "skills/animation-on-scroll",
@@ -2916,6 +2959,45 @@
             }
           ],
           "suppressed": []
+        },
+        {
+          "path": "skills/control-camera-lenses",
+          "score": 97,
+          "risk": 3,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 88.9,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/control-camera-lenses/SKILL.md",
+              "line": 12
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/control-camera-lenses/demo/assets/three.min.js",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/control-camera-lenses/demo/assets/THREE-LICENSE.txt",
+              "line": 16
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/control-camera-lenses/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
+          ]
         },
         {
           "path": "skills/corner-diagonals",
@@ -10549,7 +10631,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-22T10:38:45Z"
+      "checkedAt": "2026-11-22T16:30:46Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
