@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "garrytan-gstack",
-      "dir": "/nix/store/xbp9l7klvp371njzzlxdj5lylglx2cni-agent-plugin-garrytan-gstack-1.2.0/share/agent-plugins/garrytan-gstack",
+      "dir": "/nix/store/5rxq1kpkgmg7jfds3blbh4ninpkszaqg-agent-plugin-garrytan-gstack-1.2.0/share/agent-plugins/garrytan-gstack",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -17,6 +17,7 @@
           "skills/benchmark",
           "skills/benchmark-models",
           "skills/browse",
+          "skills/build-check",
           "skills/canary",
           "skills/captain",
           "skills/careful",
@@ -79,7 +80,6 @@
           "skills/test-audit",
           "skills/ubicloud",
           "skills/unfreeze",
-          "skills/verify",
           "skills/write-skill"
         ],
         "validated": [
@@ -3466,6 +3466,36 @@
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
+        },
+        {
+          "path": "skills/build-check",
+          "score": 78,
+          "risk": 22,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/build-check/SKILL.md",
+              "line": 59
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/build-check/SKILL.md",
+              "line": 221
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA5",
+              "severity": "HIGH",
+              "message": "External Model or Provider Selection",
+              "file": "skills/build-check/SKILL.md",
+              "line": 50
+            }
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/canary",
@@ -6912,61 +6942,6 @@
           "exceptions": [
             {
               "reason": "runtime_limit",
-              "path": "skills/gstack/lib/design-lint/css.ts",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/lib/design-lint/html.ts",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/lib/design-lint/index.ts",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/lib/design-lint/render-app.ts",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/lib/design-lint/render-png.ts",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/lib/design-lint/render-probe-app.ts",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/lib/design-lint/render-probe-quality.ts",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/lib/design-lint/render-probe-space.ts",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/lib/design-lint/render-probe.ts",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/lib/design-lint/render.ts",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/lib/design-lint/report.ts",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
               "path": "skills/gstack/lib/design-lint/rules/assets.ts",
               "line": 0
             },
@@ -10303,6 +10278,11 @@
             {
               "reason": "runtime_limit",
               "path": "skills/gstack/test/branch-slug-hygiene.test.ts",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "skills/gstack/test/build-check-skill-eval.test.ts",
               "line": 0
             },
             {
@@ -16816,6 +16796,11 @@
               "line": 0
             },
             {
+              "reason": "output_limit",
+              "path": "skills/gstack/test/fixtures/review-pins/replays/GST-940.json",
+              "line": 0
+            },
+            {
               "reason": "runtime_limit",
               "path": "skills/gstack/test/fixtures/review-pins/replays/GST-942.json",
               "line": 0
@@ -16827,11 +16812,6 @@
             },
             {
               "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/review-pins/replays/GST-967.json",
-              "line": 0
-            },
-            {
-              "reason": "output_limit",
               "path": "skills/gstack/test/fixtures/review-pins/replays/GST-967.json",
               "line": 0
             },
@@ -17342,6 +17322,26 @@
             },
             {
               "reason": "runtime_limit",
+              "path": "skills/gstack/test/fixtures/skill-evals/build-check/check.sh",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "skills/gstack/test/fixtures/skill-evals/build-check/seed.sh",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "skills/gstack/test/fixtures/skill-evals/build-check/tasks.ext.json",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "skills/gstack/test/fixtures/skill-evals/build-check/tasks.json",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
               "path": "skills/gstack/test/fixtures/skill-evals/land-and-deploy/check.sh",
               "line": 0
             },
@@ -17388,26 +17388,6 @@
             {
               "reason": "runtime_limit",
               "path": "skills/gstack/test/fixtures/skill-evals/office-hours/tasks.json",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/skill-evals/verify/check.sh",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/skill-evals/verify/seed.sh",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/skill-evals/verify/tasks.ext.json",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/skill-evals/verify/tasks.json",
               "line": 0
             },
             {
@@ -24622,11 +24602,6 @@
             },
             {
               "reason": "excluded_executable_content",
-              "path": "skills/gstack/test/verify-skill-eval.test.ts",
-              "line": 0
-            },
-            {
-              "reason": "excluded_executable_content",
               "path": "skills/gstack/test/version-gate-fragments.test.ts",
               "line": 0
             },
@@ -31166,13 +31141,6 @@
               "id": "SC9",
               "severity": "HIGH",
               "message": "Concealed Executable Artifact",
-              "file": "skills/gstack/test/verify-skill-eval.test.ts",
-              "line": 1
-            },
-            {
-              "id": "SC9",
-              "severity": "HIGH",
-              "message": "Concealed Executable Artifact",
               "file": "skills/gstack/test/version-gate-fragments.test.ts",
               "line": 1
             },
@@ -31356,7 +31324,7 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/gstack/bin/gstack-checks",
-              "line": 22
+              "line": 21
             },
             {
               "id": "EA2",
@@ -32059,6 +32027,13 @@
               "line": 365
             },
             {
+              "id": "OH3",
+              "severity": "MEDIUM",
+              "message": "Unbounded Output",
+              "file": "skills/gstack/scripts/gen-skill-docs.ts",
+              "line": 322
+            },
+            {
               "id": "AS3",
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
@@ -32287,7 +32262,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/gstack/lib/checks.ts",
-              "line": 175
+              "line": 174
             },
             {
               "id": "RP1",
@@ -40032,36 +40007,6 @@
           "suppressed": []
         },
         {
-          "path": "skills/verify",
-          "score": 78,
-          "risk": 22,
-          "status": "caution",
-          "partial": true,
-          "coverage": 100,
-          "exceptions": [
-            {
-              "reason": "reference_missing",
-              "path": "skills/verify/SKILL.md",
-              "line": 61
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/verify/SKILL.md",
-              "line": 223
-            }
-          ],
-          "findings": [
-            {
-              "id": "EA5",
-              "severity": "HIGH",
-              "message": "External Model or Provider Selection",
-              "file": "skills/verify/SKILL.md",
-              "line": 52
-            }
-          ],
-          "suppressed": []
-        },
-        {
           "path": "skills/write-skill",
           "score": 67,
           "risk": 33,
@@ -40180,7 +40125,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-22T19:32:12Z"
+      "checkedAt": "2026-11-22T20:31:51Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
