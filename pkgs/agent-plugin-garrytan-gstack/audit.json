@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "garrytan-gstack",
-      "dir": "/nix/store/40lanx8vny6vhhxxzq4752vciacx1wjm-agent-plugin-garrytan-gstack-1.2.0/share/agent-plugins/garrytan-gstack",
+      "dir": "/nix/store/kdybsmfjf9zlv8bqv3xlvwsdndknxq2n-agent-plugin-garrytan-gstack-1.2.0/share/agent-plugins/garrytan-gstack",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -7027,6 +7027,11 @@
             },
             {
               "reason": "runtime_limit",
+              "path": "skills/gstack/lib/docs-audit-read.ts",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
               "path": "skills/gstack/lib/docs-only.ts",
               "line": 0
             },
@@ -7228,6 +7233,11 @@
             {
               "reason": "runtime_limit",
               "path": "skills/gstack/lib/gh-poll.ts",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "skills/gstack/lib/git-worktree-lock.ts",
               "line": 0
             },
             {
@@ -16806,8 +16816,18 @@
               "line": 0
             },
             {
+              "reason": "output_limit",
+              "path": "skills/gstack/test/fixtures/review-pins/replays/GSTA-258-L7+GST-961+962.json",
+              "line": 0
+            },
+            {
               "reason": "runtime_limit",
               "path": "skills/gstack/test/fixtures/review-pins/replays/GSTA-258-L7.json",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "skills/gstack/test/fixtures/review-pins/replays/GSTA-812.json",
               "line": 0
             },
             {
@@ -16887,11 +16907,6 @@
             },
             {
               "reason": "runtime_limit",
-              "path": "skills/gstack/test/fixtures/sdk-original-order-ai.json",
-              "line": 0
-            },
-            {
-              "reason": "output_limit",
               "path": "skills/gstack/test/fixtures/sdk-original-order-ai.json",
               "line": 0
             },
@@ -17908,6 +17923,11 @@
             {
               "reason": "runtime_limit",
               "path": "skills/gstack/test/git-ref-fixture-tripwire.test.ts",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "skills/gstack/test/git-worktree-lock.test.ts",
               "line": 0
             },
             {
@@ -20271,18 +20291,18 @@
               "line": 0
             },
             {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/office-hours-probe.test.ts",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/gstack/test/office-hours-review.test.ts",
-              "line": 0
-            },
-            {
               "reason": "total_bytes_limit",
-              "path": "skills/gstack/test/office-hours-review.test.ts",
+              "path": "skills/gstack/test/office-hours-phase4-caller.test.ts",
+              "line": 0
+            },
+            {
+              "reason": "excluded_executable_content",
+              "path": "skills/gstack/test/office-hours-phase4-caller.test.ts",
+              "line": 0
+            },
+            {
+              "reason": "excluded_executable_content",
+              "path": "skills/gstack/test/office-hours-probe.test.ts",
               "line": 0
             },
             {
@@ -21913,6 +21933,11 @@
             {
               "reason": "excluded_executable_content",
               "path": "skills/gstack/test/review-exclude-contract-test.test.ts",
+              "line": 0
+            },
+            {
+              "reason": "excluded_executable_content",
+              "path": "skills/gstack/test/review-exclude-docs-audit-read.test.ts",
               "line": 0
             },
             {
@@ -25012,25 +25037,11 @@
               "line": 450
             },
             {
-              "id": "OH1",
-              "severity": "HIGH",
-              "message": "Unvalidated Output Injection",
-              "file": "skills/gstack/scripts/ship-measure.ts",
-              "line": 590
-            },
-            {
               "id": "E4",
               "severity": "HIGH",
               "message": "Context Leakage",
               "file": "skills/gstack/lib/gstack-memory-helpers.ts",
               "line": 505
-            },
-            {
-              "id": "OH1",
-              "severity": "HIGH",
-              "message": "Unvalidated Output Injection",
-              "file": "skills/gstack/scripts/eval-flake-rank.ts",
-              "line": 229
             },
             {
               "id": "E2",
@@ -25115,6 +25126,20 @@
               "message": "Context Leakage",
               "file": "skills/gstack/test/helpers/codex-session-runner.ts",
               "line": 107
+            },
+            {
+              "id": "SC9",
+              "severity": "HIGH",
+              "message": "Concealed Executable Artifact",
+              "file": "skills/gstack/test/office-hours-phase4-caller.test.ts",
+              "line": 1
+            },
+            {
+              "id": "SC9",
+              "severity": "HIGH",
+              "message": "Concealed Executable Artifact",
+              "file": "skills/gstack/test/office-hours-probe.test.ts",
+              "line": 1
             },
             {
               "id": "SC9",
@@ -27396,6 +27421,13 @@
               "severity": "HIGH",
               "message": "Concealed Executable Artifact",
               "file": "skills/gstack/test/review-exclude-contract-test.test.ts",
+              "line": 1
+            },
+            {
+              "id": "SC9",
+              "severity": "HIGH",
+              "message": "Concealed Executable Artifact",
+              "file": "skills/gstack/test/review-exclude-docs-audit-read.test.ts",
               "line": 1
             },
             {
@@ -31928,13 +31960,6 @@
               "line": 365
             },
             {
-              "id": "OH3",
-              "severity": "MEDIUM",
-              "message": "Unbounded Output",
-              "file": "skills/gstack/scripts/gen-skill-docs.ts",
-              "line": 322
-            },
-            {
               "id": "AS3",
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
@@ -32192,13 +32217,6 @@
               "message": "MCP Rug Pull",
               "file": "skills/gstack/lib/pregate/checks/lanes.ts",
               "line": 63
-            },
-            {
-              "id": "OH3",
-              "severity": "MEDIUM",
-              "message": "Unbounded Output",
-              "file": "skills/gstack/scripts/resolvers/design.ts",
-              "line": 814
             },
             {
               "id": "E1",
@@ -38535,6 +38553,20 @@
               "line": 90
             },
             {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/ship/sections/pr-body.md",
+              "line": 261
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/ship/sections/pr-body.md.tmpl",
+              "line": 244
+            },
+            {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
@@ -38903,14 +38935,14 @@
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/ship/sections/pr-body.md",
-              "line": 327
+              "line": 330
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
               "file": "skills/ship/sections/pr-body.md.tmpl",
-              "line": 310
+              "line": 313
             },
             {
               "id": "RA2",
@@ -40049,7 +40081,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-22T15:30:18Z"
+      "checkedAt": "2026-11-22T17:51:18Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
