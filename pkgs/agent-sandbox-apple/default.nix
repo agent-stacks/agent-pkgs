@@ -18,8 +18,9 @@
 #
 # AGENT_SANDBOX_APPLE_DRY_RUN=1 prints what would run instead of running
 # it. AGENT_SANDBOX_APPLE_CONTAINER and AGENT_SANDBOX_APPLE_PROXY name
-# another container and proxy, for the contract check's stubs; with the
-# first, the Mac is not checked for, as only container needs it.
+# another container and proxy, for the contract check's stubs, and
+# AGENT_SANDBOX_APPLE_SKIP_PLATFORM=1 skips the macOS and arch checks so
+# that check can run them off the Mac. Test-only.
 {
   lib,
   writeShellApplication,
@@ -81,9 +82,9 @@ in
     done
     [ $# -gt 0 ] || die "no command after --"
 
-    # The Mac. Not in the dry run, which runs on any system, nor with a
-    # stand-in container.
-    if [ -z "$dry_run" ] && [ -z "''${AGENT_SANDBOX_APPLE_CONTAINER:-}" ]; then
+    # The Mac. Not in the dry run, which runs on any system, nor when the
+    # contract check asks.
+    if [ -z "$dry_run" ] && [ "''${AGENT_SANDBOX_APPLE_SKIP_PLATFORM:-}" != 1 ]; then
       [ "$(uname -s)" = Darwin ] && [ "$(uname -m)" = arm64 ] ||
         die "this sandbox needs macOS 26 or later on Apple silicon"
       macos=$(sw_vers -productVersion 2>/dev/null) || macos=""
@@ -326,7 +327,9 @@ in
       [ "$own" = "$common" ] || git_dirs+=("$common")
     fi
     # What git on the Mac would run: one line per hook, config file,
-    # core.hooksPath and .git itself, "<fingerprint> <what>".
+    # core.hooksPath and .git itself, "<fingerprint> <what>". commondir
+    # and gitdir, the .git file's gitdir: line, and the git dirs git
+    # resolves too, as each can point git at other hooks and config.
     fingerprint() {
       if [ -L "$1" ]; then
         printf 'link-%s\n' "$(readlink "$1" | sha256sum | cut -c1-64)"
@@ -341,9 +344,9 @@ in
       fi
     }
     git_state() {
-      local d f hooks_path
+      local d f hooks_path resolved
       for d in "''${git_dirs[@]}"; do
-        for f in "$d/config" "$d/config.worktree" "$d/hooks"; do
+        for f in "$d/config" "$d/config.worktree" "$d/commondir" "$d/gitdir" "$d/hooks"; do
           echo "$(fingerprint "$f") $f"
         done
         if [ -d "$d/hooks" ] && [ ! -L "$d/hooks" ]; then
@@ -353,7 +356,9 @@ in
       done
       hooks_path=$(git -C "$here" config --get core.hooksPath 2>/dev/null) || hooks_path=""
       echo "$(printf '%s' "$hooks_path" | sha256sum | cut -c1-64) core.hooksPath"
-      echo "$(stat -c %d:%i "$here/.git" 2>/dev/null || echo missing) $here/.git"
+      echo "$(stat -c %d:%i "$here/.git" 2>/dev/null || echo missing)-$(fingerprint "$here/.git") $here/.git"
+      resolved=$(git -C "$here" rev-parse --absolute-git-dir --path-format=absolute --git-common-dir 2>&1) || true
+      echo "$(printf '%s' "$resolved" | sha256sum | cut -c1-64) the git dirs git resolves: $(tr '\n' ' ' <<<"$resolved")"
     }
     # Activation runs the environment's hooks as root: an agent that
     # could edit them would run as root in the next session.

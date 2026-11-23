@@ -296,6 +296,15 @@ refuse "no --" "" dry claude
 
 # --- A real launch, against the stubs ----------------------------------
 
+# A stand-in container does not skip the platform checks: off the Mac,
+# or in the nix build sandbox (no sw_vers), a launch is refused. Only
+# AGENT_SANDBOX_APPLE_SKIP_PLATFORM=1, set below, skips them.
+if ! { [ "$(uname -s)" = Darwin ] && sw_vers -productVersion >/dev/null 2>&1; }; then
+  real() { (cd "$dir" && "$apple" "$@"); }
+  refuse "a stand-in container on a system that is not macOS 26" "macOS 26" real -- claude
+fi
+export AGENT_SANDBOX_APPLE_SKIP_PLATFORM=1
+
 export STUB_DIR=$root/stub STUB_LOG=$root/stub/container.log AGENT_SANDBOX_APPLE_PROXY=$root/bin/proxy
 # <stub env...> -- <sandbox args...>: runs in $dir with fresh stub logs;
 # its exit code is in $rc, its stdout and stderr in out and err.
@@ -416,6 +425,30 @@ launch STUB_IMAGE=1 STUB_VOLUME=1 "STUB_RUN_HOOK=git -C $(printf %q "$p") config
 [ "$rc" = 3 ] || fail "a changed core.hooksPath gave exit $rc: $(cat err)"
 grep -qF "$p/.git/config" err || fail "the changed config not named: $(cat err)"
 git -C "$p" config --unset core.hooksPath
+# A commondir file sends git to another folder's hooks and config.
+launch STUB_IMAGE=1 STUB_VOLUME=1 "STUB_RUN_HOOK=echo ../evil >$(printf %q "$p/.git/commondir")" \
+  -- --options '{"writableGit":true}' -- claude
+[ "$rc" = 3 ] || fail "a new .git/commondir gave exit $rc: $(cat err)"
+grep -qF "$p/.git/commondir" err || fail "the new commondir not named: $(cat err)"
+rm -f "$p/.git/commondir"
+# A worktree: its .git file's gitdir: line rewritten in place (same
+# inode), and its git dir's commondir changed.
+dir=$root/w
+wtfile=$root/w/.git
+launch STUB_IMAGE=1 STUB_VOLUME=1 "STUB_RUN_HOOK=echo 'gitdir: /tmp/evil' >$(printf %q "$wtfile")" \
+  -- --options '{"writableGit":true}' -- claude
+[ "$rc" = 3 ] || fail "a rewritten worktree .git file gave exit $rc: $(cat err)"
+grep -qF "changed: $wtfile" err || fail "the rewritten .git file not named: $(cat err)"
+echo 'gitdir: ../main/.git/worktrees/w' >"$wtfile"
+launch STUB_IMAGE=1 STUB_VOLUME=1 -- --options '{"writableGit":true}' -- claude
+[ "$rc" = 0 ] || fail "worktree, nothing changed: exit $rc: $(cat err)"
+grep -q 'changed during the session' err && fail "worktree warned with nothing changed: $(cat err)"
+launch STUB_IMAGE=1 STUB_VOLUME=1 "STUB_RUN_HOOK=echo ../../evil >$(printf %q "$wt/commondir")" \
+  -- --options '{"writableGit":true}' -- claude
+[ "$rc" = 3 ] || fail "a changed worktree commondir gave exit $rc: $(cat err)"
+grep -qF "$wt/commondir" err || fail "the worktree commondir not named: $(cat err)"
+echo ../.. >"$wt/commondir"
+dir=$p
 
 # --- The FloxHub hint --------------------------------------------------
 
