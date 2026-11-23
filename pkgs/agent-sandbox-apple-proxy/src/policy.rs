@@ -97,8 +97,11 @@ fn is_global_v6(a: Ipv6Addr) -> bool {
         || a.is_multicast()
         || s[0] & 0xfe00 == 0xfc00 // ULA fc00::/7
         || s[0] & 0xffc0 == 0xfe80 // link-local fe80::/10
+        || s[0] & 0xffc0 == 0xfec0 // site-local fec0::/10
+        || s[0..6] == [0, 0, 0, 0, 0, 0] // IPv4-compatible ::/96
         || (s[0] == 0x2001 && s[1] == 0x0db8) // documentation
-        || (s[0] == 0x64 && s[1] == 0xff9b && s[2..6] == [0, 0, 0, 0])) // NAT64
+        || (s[0] == 0x64 && s[1] == 0xff9b && s[2..6] == [0, 0, 0, 0]) // NAT64
+        || (s[0] == 0x64 && s[1] == 0xff9b && s[2] == 1)) // local-use NAT64 64:ff9b:1::/48
 }
 
 #[cfg(test)]
@@ -119,6 +122,18 @@ mod tests {
             assert!(!is_global(a.parse().unwrap()), "{a}");
         }
         for a in ["1.1.1.1","2606:4700::1111"] { assert!(is_global(a.parse().unwrap())); }
+    }
+    #[test] fn non_global_v6_gaps() {
+        // Site-local fec0::/10, IPv4-compatible ::/96 (the Mac's own
+        // ::192.168.64.1, say) and local-use NAT64 64:ff9b:1::/48.
+        for a in ["fec0::1", "feff::1", "::192.168.64.1", "::1.1.1.1", "::a00:1",
+                  "64:ff9b:1::c0a8:4001", "64:ff9b:1:ffff::1"] {
+            assert!(!is_global(a.parse().unwrap()), "{a}");
+        }
+        // Just outside them.
+        for a in ["fe00::1", "::1:0:0:1", "64:ff9b:2::1", "2001:4860:4860::8888"] {
+            assert!(is_global(a.parse().unwrap()), "{a}");
+        }
     }
     #[test] fn latch_closes_startup_hosts_for_good() {
         let mut p = Policy::new(vec!["api.anthropic.com".into()], vec!["cache.nixos.org".into()]);

@@ -11,8 +11,11 @@
 #     which closes the startup hosts for good; IP literals are refused;
 #   - the host is resolved once, every address must be public (no
 #     loopback, private, link-local, CGNAT or metadata address), and the
-#     connection goes to the first address, never to the name again, so
-#     the VM cannot reach the Mac or its network through it;
+#     connection goes to those addresses in turn, never to the name
+#     again, so the VM cannot reach the Mac or its network through it;
+#   - a client has 30 s to send its request head; the soft open-file
+#     limit is raised to min(hard, 10240), and out of descriptors it
+#     waits rather than spinning;
 #   - every decision is a line in the --log file: `allow host:port -> ip`,
 #     `deny target (reason)`, `latch closed`.
 #

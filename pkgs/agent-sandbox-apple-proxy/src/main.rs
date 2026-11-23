@@ -15,16 +15,37 @@ use std::path::PathBuf;
 use std::process::exit;
 use std::sync::{Arc, Mutex, OnceLock};
 use std::thread;
-use std::time::Duration;
+use std::time::{Duration, Instant};
 
 const MAX_HEAD: usize = 16 * 1024;
 const CONNECT_TIMEOUT: Duration = Duration::from_secs(15);
+/// How long a client has to send its whole request head.
+const HEAD_TIMEOUT: Duration = Duration::from_secs(30);
+/// How long to wait after a failed accept(), such as one out of
+/// descriptors, before trying again: never a busy loop.
+const ACCEPT_BACKOFF: Duration = Duration::from_millis(100);
+/// The open-file limit asked for, macOS's OPEN_MAX.
+const NOFILE_WANT: u64 = 10240;
+
+/// struct rlimit: rlim_t is 64 bits on macOS and on 64-bit Linux.
+#[repr(C)]
+struct RLimit {
+    cur: u64,
+    max: u64,
+}
+
+#[cfg(any(target_os = "linux", target_os = "android"))]
+const RLIMIT_NOFILE: i32 = 7;
+#[cfg(not(any(target_os = "linux", target_os = "android")))]
+const RLIMIT_NOFILE: i32 = 8;
 
 extern "C" {
     fn signal(signum: i32, handler: extern "C" fn(i32)) -> usize;
     fn unlink(path: *const std::os::raw::c_char) -> i32;
     fn _exit(code: i32) -> !;
     fn umask(mask: u32) -> u32;
+    fn getrlimit(resource: i32, rlim: *mut RLimit) -> i32;
+    fn setrlimit(resource: i32, rlim: *const RLimit) -> i32;
 }
 
 static SOCKET_PATH: OnceLock<CString> = OnceLock::new();
@@ -36,6 +57,25 @@ extern "C" fn on_signal(_: i32) {
         unsafe { unlink(p.as_ptr()) };
     }
     unsafe { _exit(0) };
+}
+
+/// Raises the soft open-file limit to min(hard, 10240): macOS starts a
+/// process at 256, and a tunnel holds two descriptors. Returns the soft
+/// limit now in force.
+fn raise_nofile_limit() -> io::Result<u64> {
+    let mut l = RLimit { cur: 0, max: 0 };
+    if unsafe { getrlimit(RLIMIT_NOFILE, &mut l) } != 0 {
+        return Err(io::Error::last_os_error());
+    }
+    let want = l.max.min(NOFILE_WANT);
+    if l.cur >= want {
+        return Ok(l.cur);
+    }
+    let raised = RLimit { cur: want, max: l.max };
+    if unsafe { setrlimit(RLIMIT_NOFILE, &raised) } != 0 {
+        return Err(io::Error::last_os_error());
+    }
+    Ok(want)
 }
 
 struct Args {
@@ -101,8 +141,8 @@ impl Log {
     }
 }
 
-/// Resolve once; refuse if any address is non-global; return the first.
-fn resolve_public(host: &str, port: u16) -> Result<SocketAddr, String> {
+/// Resolve once; refuse if any address is non-global; return them all.
+fn resolve_public(host: &str, port: u16) -> Result<Vec<SocketAddr>, String> {
     let addrs: Vec<SocketAddr> = (host, port)
         .to_socket_addrs()
         .map_err(|e| format!("resolve: {e}"))?
@@ -110,16 +150,31 @@ fn resolve_public(host: &str, port: u16) -> Result<SocketAddr, String> {
     if let Some(bad) = addrs.iter().find(|a| !is_global(a.ip())) {
         return Err(format!("non-global {}", bad.ip()));
     }
-    addrs.first().copied().ok_or_else(|| "resolve: no addresses".to_string())
+    if addrs.is_empty() {
+        return Err("resolve: no addresses".to_string());
+    }
+    Ok(addrs)
 }
 
-/// Copy `from` to `to` until EOF, then close the write side of `to`.
-fn pipe<R: Read, W: Write>(mut from: R, mut to: W, done: impl FnOnce()) {
-    let _ = io::copy(&mut from, &mut to);
-    done();
+/// Connects to the first of `addrs` that answers, in order.
+fn connect_any(addrs: &[SocketAddr], timeout: Duration) -> Result<(TcpStream, SocketAddr), String> {
+    let mut last = "no addresses".to_string();
+    for a in addrs {
+        match TcpStream::connect_timeout(a, timeout) {
+            Ok(s) => return Ok((s, *a)),
+            Err(e) => last = format!("{a}: {e}"),
+        }
+    }
+    Err(last)
 }
 
-fn handle(mut c: UnixStream, policy: &Mutex<Policy>, log: &Log) -> io::Result<()> {
+/// Reads the request head, within `timeout` for the whole of it. Returns
+/// the bytes read and where the head ends in them, or None when the
+/// client left or sent too much; a client too slow is a TimedOut error.
+/// The read timeout is cleared again before it returns the head.
+fn read_head(c: &mut UnixStream, timeout: Duration) -> io::Result<Option<(Vec<u8>, usize)>> {
+    let deadline = Instant::now() + timeout;
+    let timed_out = || io::Error::new(io::ErrorKind::TimedOut, "request head timed out");
     let mut head = Vec::new();
     let mut buf = [0u8; 4096];
     let end = loop {
@@ -127,13 +182,50 @@ fn handle(mut c: UnixStream, policy: &Mutex<Policy>, log: &Log) -> io::Result<()
             break i + 4;
         }
         if head.len() > MAX_HEAD {
-            return Ok(());
+            return Ok(None);
         }
-        let n = c.read(&mut buf)?;
+        let left = deadline.saturating_duration_since(Instant::now());
+        if left.is_zero() {
+            return Err(timed_out());
+        }
+        c.set_read_timeout(Some(left))?;
+        let n = match c.read(&mut buf) {
+            Ok(n) => n,
+            Err(e) if matches!(e.kind(), io::ErrorKind::WouldBlock | io::ErrorKind::TimedOut) => {
+                return Err(timed_out())
+            }
+            Err(e) => return Err(e),
+        };
         if n == 0 {
-            return Ok(());
+            return Ok(None);
         }
         head.extend_from_slice(&buf[..n]);
+    };
+    c.set_read_timeout(None)?;
+    Ok(Some((head, end)))
+}
+
+/// Pipes `c` and `u` both ways until both are done, closing the write
+/// side of each once its source ends. It borrows both, so a tunnel holds
+/// two descriptors, and nothing in it can panic.
+fn tunnel(c: &UnixStream, u: &TcpStream) {
+    thread::scope(|s| {
+        let up = thread::Builder::new().spawn_scoped(s, || {
+            let _ = io::copy(&mut &*c, &mut &*u);
+            let _ = u.shutdown(Shutdown::Write);
+        });
+        if up.is_err() {
+            // No thread for the upload: drop the tunnel.
+            return;
+        }
+        let _ = io::copy(&mut &*u, &mut &*c);
+        let _ = c.shutdown(Shutdown::Write);
+    });
+}
+
+fn handle(mut c: UnixStream, policy: &Mutex<Policy>, log: &Log) -> io::Result<()> {
+    let Some((head, end)) = read_head(&mut c, HEAD_TIMEOUT)? else {
+        return Ok(());
     };
     let first = String::from_utf8_lossy(&head[..head.iter().position(|&b| b == b'\r').unwrap_or(0)])
         .into_owned();
@@ -155,7 +247,7 @@ fn handle(mut c: UnixStream, policy: &Mutex<Policy>, log: &Log) -> io::Result<()
         }
         Decision::Connect { host, port } => (host, port),
     };
-    let addr = match resolve_public(&host, port) {
+    let addrs = match resolve_public(&host, port) {
         Ok(a) => a,
         Err(e) => {
             log.line(&format!("deny {target} ({e})"));
@@ -167,8 +259,8 @@ fn handle(mut c: UnixStream, policy: &Mutex<Policy>, log: &Log) -> io::Result<()
             return c.write_all(resp);
         }
     };
-    let mut u = match TcpStream::connect_timeout(&addr, CONNECT_TIMEOUT) {
-        Ok(u) => u,
+    let (mut u, addr) = match connect_any(&addrs, CONNECT_TIMEOUT) {
+        Ok(found) => found,
         Err(e) => {
             log.line(&format!("deny {target} (connect: {e})"));
             return c.write_all(b"HTTP/1.1 502 Connect failed\r\n\r\n");
@@ -179,20 +271,15 @@ fn handle(mut c: UnixStream, policy: &Mutex<Policy>, log: &Log) -> io::Result<()
     if end < head.len() {
         u.write_all(&head[end..])?;
     }
-    let (c2, u2) = (c.try_clone()?, u.try_clone()?);
-    let up = thread::spawn(move || pipe(c2, u2.try_clone().unwrap(), move || {
-        let _ = u2.shutdown(Shutdown::Write);
-    }));
-    let c3 = c.try_clone()?;
-    pipe(u, c, move || {
-        let _ = c3.shutdown(Shutdown::Write);
-    });
-    let _ = up.join();
+    tunnel(&c, &u);
     Ok(())
 }
 
 fn run() -> Result<(), String> {
     let args = parse_args()?;
+    if let Err(e) = raise_nofile_limit() {
+        eprintln!("agent-sandbox-apple-proxy: cannot raise the open-file limit: {e}");
+    }
     let policy = Arc::new(Mutex::new(Policy::new(
         read_hosts(&args.allow)?,
         read_hosts(&args.startup)?,
@@ -223,13 +310,25 @@ fn run() -> Result<(), String> {
     io::stdout().flush().map_err(|e| e.to_string())?;
 
     for conn in listener.incoming() {
-        let Ok(conn) = conn else { continue };
+        let conn = match conn {
+            Ok(conn) => conn,
+            Err(_) => {
+                // Out of descriptors, say: the connection waits in the
+                // backlog until one is free.
+                thread::sleep(ACCEPT_BACKOFF);
+                continue;
+            }
+        };
         let (policy, log) = (Arc::clone(&policy), Arc::clone(&log));
-        thread::spawn(move || {
+        let spawned = thread::Builder::new().spawn(move || {
             if let Err(e) = handle(conn, &policy, &log) {
                 log.line(&format!("error {e}"));
             }
         });
+        if spawned.is_err() {
+            // No thread to serve it: the connection is dropped, closed.
+            thread::sleep(ACCEPT_BACKOFF);
+        }
     }
     Ok(())
 }
@@ -238,5 +337,96 @@ fn main() {
     if let Err(e) = run() {
         eprintln!("agent-sandbox-apple-proxy: {e}");
         exit(2);
+    }
+}
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::net::TcpListener;
+    use std::time::Instant;
+
+    #[test]
+    fn head_read_gives_up_on_a_stalled_client() {
+        let (mut a, mut b) = UnixStream::pair().unwrap();
+        b.write_all(b"CONNECT x.com:443 HTTP/1.1\r\n").unwrap();
+        let start = Instant::now();
+        let e = read_head(&mut a, Duration::from_millis(200)).unwrap_err();
+        assert_eq!(e.kind(), io::ErrorKind::TimedOut);
+        assert!(start.elapsed() < Duration::from_secs(2), "{:?}", start.elapsed());
+    }
+
+    #[test]
+    fn head_read_gives_up_on_a_trickling_client() {
+        // One byte at a time, each within a per-read timeout: the
+        // deadline is for the whole head.
+        let (mut a, mut b) = UnixStream::pair().unwrap();
+        let t = thread::spawn(move || {
+            for _ in 0..20 {
+                if b.write_all(b"x").is_err() {
+                    break;
+                }
+                thread::sleep(Duration::from_millis(50));
+            }
+        });
+        let start = Instant::now();
+        assert!(read_head(&mut a, Duration::from_millis(300)).is_err());
+        assert!(start.elapsed() < Duration::from_millis(900), "{:?}", start.elapsed());
+        drop(a);
+        let _ = t.join();
+    }
+
+    #[test]
+    fn head_read_returns_the_head_and_clears_the_timeout() {
+        let (mut a, mut b) = UnixStream::pair().unwrap();
+        b.write_all(b"CONNECT x.com:443 HTTP/1.1\r\n\r\nrest").unwrap();
+        let (head, end) = read_head(&mut a, Duration::from_secs(5)).unwrap().unwrap();
+        assert_eq!(&head[..end], b"CONNECT x.com:443 HTTP/1.1\r\n\r\n");
+        assert_eq!(&head[end..], b"rest");
+        assert_eq!(a.read_timeout().unwrap(), None);
+    }
+
+    #[test]
+    fn tunnel_copies_both_ways_and_half_closes() {
+        let l = TcpListener::bind("127.0.0.1:0").unwrap();
+        let addr = l.local_addr().unwrap();
+        let server = thread::spawn(move || {
+            let (mut s, _) = l.accept().unwrap();
+            let mut got = Vec::new();
+            s.read_to_end(&mut got).unwrap();
+            s.write_all(b"echo:").unwrap();
+            s.write_all(&got).unwrap();
+        });
+        let (mut client, side) = UnixStream::pair().unwrap();
+        let u = TcpStream::connect(addr).unwrap();
+        let t = thread::spawn(move || tunnel(&side, &u));
+        client.write_all(b"hi").unwrap();
+        client.shutdown(Shutdown::Write).unwrap();
+        let mut out = String::new();
+        client.read_to_string(&mut out).unwrap();
+        assert_eq!(out, "echo:hi");
+        t.join().unwrap();
+        server.join().unwrap();
+    }
+
+    #[test]
+    fn connect_tries_every_address() {
+        let dead = TcpListener::bind("127.0.0.1:0").unwrap().local_addr().unwrap();
+        let live = TcpListener::bind("127.0.0.1:0").unwrap();
+        let (s, used) = connect_any(&[dead, live.local_addr().unwrap()], CONNECT_TIMEOUT).unwrap();
+        assert_eq!(s.peer_addr().unwrap(), live.local_addr().unwrap());
+        assert_eq!(used, live.local_addr().unwrap());
+        assert!(connect_any(&[dead], CONNECT_TIMEOUT).is_err());
+        assert!(connect_any(&[], CONNECT_TIMEOUT).is_err());
+    }
+
+    #[test]
+    fn open_file_limit_is_raised() {
+        let now = raise_nofile_limit().unwrap();
+        let mut l = RLimit { cur: 0, max: 0 };
+        assert_eq!(unsafe { getrlimit(RLIMIT_NOFILE, &mut l) }, 0);
+        assert_eq!(l.cur, now);
+        assert!(l.cur >= l.max.min(NOFILE_WANT), "{} {}", l.cur, l.max);
     }
 }
