@@ -1,5 +1,5 @@
 diff --git a/core-plugins/src/store.rs b/core-plugins/src/store.rs
-index 087eae6..80090bf 100644
+index 087eae6..5b17a01 100644
 --- a/core-plugins/src/store.rs
 +++ b/core-plugins/src/store.rs
 @@ -32,6 +32,22 @@ const DEFAULT_AGENT_PLUGIN_VERSION: &str = "1.0.0";
@@ -11,8 +11,8 @@ index 087eae6..80090bf 100644
 +// flox-ai: CODEX_FLOX_PLUGIN_ROOT names a folder laid out as
 +// <marketplace>/<plugin>/. A plugin with a folder there loads from it
 +// instead of the cache, so `agent-stacks launch codex` can hand Codex
-+// plugins for one process without writing $CODEX_HOME. Added by the flox
-+// downstream patch.
++// plugins for one process without writing the plugin cache. Added by the
++// flox downstream patch.
 +fn flox_plugin_root(plugin_id: &PluginId) -> Option<AbsolutePathBuf> {
 +    let raw = std::env::var_os("CODEX_FLOX_PLUGIN_ROOT")?;
 +    let root = AbsolutePathBuf::from_absolute_path_checked(PathBuf::from(raw)).ok()?;
