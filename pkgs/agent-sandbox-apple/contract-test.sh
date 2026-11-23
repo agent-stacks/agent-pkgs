@@ -183,6 +183,19 @@ for ro in true false; do
   dir=$root/w dry --options '{"writableGit":true}' -- claude >out 2>err || fail "dry run in a worktree: $(cat err)"
 done
 
+# --- An environment in a folder of the project ------------------------
+
+# Its .flox runs as root at activation, so it is read-only too.
+mkenv "$p/sub" '{"name":"sub","version":1}' "$linux_lock"
+FLOX_ENV_PROJECT=$p/sub dry -- claude >out 2>err || fail "dry run with a nested env: $(cat err)"
+has --arg f "$p/sub/.flox" '.mounts | index({source: $f, target: $f, readonly: true})'
+has --arg f "$p/.flox" '.mounts | index({source: $f, target: $f, readonly: true})'
+has --arg e "$p/sub/.flox/env" '.mounts | index({source: $e, target: "/host-env", readonly: true})'
+# An environment outside the project adds no mount of its .flox.
+mkenv "$root/outside" '{"name":"outside","version":1}' "$linux_lock"
+FLOX_ENV_PROJECT=$root/outside dry -- claude >out 2>err || fail "dry run with an outside env: $(cat err)"
+has --arg f "$root/outside/.flox" 'all(.mounts[]; .target != $f)'
+
 # --- Refusals ----------------------------------------------------------
 
 refuse() { # <what> <message pattern> <command...>
@@ -205,9 +218,18 @@ refuse "allowRead of the project's parent" project \
   dry --options "$(jq -nc --arg r "$root" '{allowRead: [$r]}')" -- claude
 refuse "allowRead of the project" project \
   dry --options "$(jq -nc --arg r "$p" '{allowRead: [$r]}')" -- claude
+# Inside the project, a mount would sit over .git or .flox, whose
+# mounts container then drops.
+for inside in "$p/.git/hooks" "$p/.git" "$p/.flox/env"; do
+  for kind in allowRead allowWrite; do
+    refuse "$kind of $inside" project \
+      dry --options "$(jq -nc --arg k "$kind" --arg r "$inside" '{($k): [$r]}')" -- claude
+  done
+done
 refuse "allowRead missing" "" dry --options "$(jq -nc --arg r "$root/missing" '{allowRead: [$r]}')" -- claude
 dir=$HOME refuse "run at ~" "project folder" dry -- claude
 dir=/ refuse "run at /" "project folder" dry -- claude
+dir=$(dirname "$HOME") refuse "run at a folder holding ~" "project folder" dry -- claude
 refuse "forwardLogin with nothing to forward" "claude setup-token" dry --options '{"forwardLogin":true}' -- claude
 (unset FLOX_ENV_PROJECT; refuse "no FLOX_ENV_PROJECT" "activated Flox environment" dry -- claude)
 mkenv "$root/hub" '{"owner":"garbas","name":"demo","version":1}' "$linux_lock"

@@ -95,11 +95,13 @@
     grep -Eq '^status[[:space:]]+running[[:space:]]*$' <<<"$out" ||
       die "container's system service is not running: run 'container system start' first"
 
-    # The project folder is writable inside the VM, so starting at / or ~
-    # would make the whole disk or home folder writable.
+    # Whether $1 is $2 or inside it.
+    within() { case "$1/" in "''${2%/}/"*) return 0 ;; esac; return 1; }
+    # The project folder is writable inside the VM, so starting at / or ~,
+    # or any folder that holds ~, would make the disk or home writable.
     here=$(pwd -P)
     home=$(cd "$HOME" 2>/dev/null && pwd -P) || home=""
-    if [ "$here" = / ] || [ "$here" = "$home" ]; then
+    if [ "$here" = / ] || { [ -n "$home" ] && within "$home" "$here"; }; then
       die "refusing to start in $here: the project folder is writable inside the sandbox, so start from a project folder instead"
     fi
 
@@ -198,8 +200,6 @@
     }
     add_mount "$here" "$here" false
 
-    # Whether $1 is $2 or inside it.
-    within() { case "$1/" in "''${2%/}/"*) return 0 ;; esac; return 1; }
     for kind in allowRead allowWrite; do
       n=$(jq -r ".$kind | length" <<<"$opts")
       for ((i = 0; i < n; i++)); do
@@ -212,8 +212,10 @@
         else
           die "$kind: $given does not exist"
         fi
-        if within "$here" "$path"; then
-          die "$kind: $given holds the project folder, which is already mounted"
+        # Inside the project, it would sit over .git or .flox, whose
+        # mounts container then drops.
+        if within "$here" "$path" || within "$path" "$here"; then
+          die "$kind: $given holds or is inside the project folder, which is already mounted"
         fi
         if [ -n "$home" ] && within "$home" "$path"; then
           die "$kind: $given holds your home folder"
@@ -248,7 +250,12 @@
     fi
     # Activation runs the environment's hooks as root: an agent that
     # could edit them would run as root in the next session.
+    # That is the environment's too when it is a folder of the project.
     [ ! -d "$here/.flox" ] || add_mount "$here/.flox" "$here/.flox" true
+    env_flox=$(cd "$proj/.flox" && pwd -P)
+    if [ "$env_flox" != "$here/.flox" ] && within "$env_flox" "$here"; then
+      add_mount "$env_flox" "$env_flox" true
+    fi
     add_mount "$proj/.flox/env" /host-env true
     add_mount "$sock_dir/proxy.sock" /run/agent-proxy.sock false
 
