@@ -1,0 +1,44 @@
+{
+  "name": "statement-auditor",
+  "version": "0.1.0",
+  "src": {
+    "owner": "anthropics",
+    "repo": "financial-services",
+    "rev": "3e32c2287dcb637c184c01cc0ad82d6af7e9bb0f",
+    "hash": "sha256-EK8JcxjQFXjDqN83RqugsH5f/SQN5flzXaWykGvFmcI="
+  },
+  "sourceUrl": "https://github.com/anthropics/financial-services",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Anthropic FSI"
+    },
+    "description": "Audits pre-generated LP statements before distribution",
+    "name": "statement-auditor",
+    "version": "0.1.0"
+  },
+  "skills": {
+    "audit-xls": "plugins/agent-plugins/statement-auditor/skills/audit-xls",
+    "nav-tieout": "plugins/agent-plugins/statement-auditor/skills/nav-tieout",
+    "xlsx-author": "plugins/agent-plugins/statement-auditor/skills/xlsx-author"
+  },
+  "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/agents": "plugins/agent-plugins/statement-auditor/agents"
+  },
+  "meta": {
+    "description": "Audits pre-generated LP statements before distribution",
+    "homepage": "https://github.com/anthropics/financial-services"
+  },
+  "import": {
+    "input": "anthropics/financial-services",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ]
+  }
+}

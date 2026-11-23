@@ -1,0 +1,47 @@
+{
+  "name": "claude-for-msft-365-install",
+  "version": "0.1.14",
+  "src": {
+    "owner": "anthropics",
+    "repo": "financial-services",
+    "rev": "3e32c2287dcb637c184c01cc0ad82d6af7e9bb0f",
+    "hash": "sha256-EK8JcxjQFXjDqN83RqugsH5f/SQN5flzXaWykGvFmcI="
+  },
+  "sourceUrl": "https://github.com/anthropics/financial-services",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "email": "support@anthropic.com",
+      "name": "Anthropic"
+    },
+    "description": "Provision direct cloud access (Vertex AI, Bedrock, or LLM gateway) for the Claude Microsoft 365 add-in. Generates the customized manifest, walks through Azure admin consent, and writes per-user config via Graph extension attributes.",
+    "name": "claude-for-msft-365-install",
+    "version": "0.1.14"
+  },
+  "skills": {
+    "verify": "claude-for-msft-365-install/.claude/skills/verify"
+  },
+  "requiredRuntimes": [
+    "bash",
+    "node"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/commands": "claude-for-msft-365-install/commands",
+    "scripts": "claude-for-msft-365-install/scripts"
+  },
+  "meta": {
+    "description": "Provision direct cloud access (Vertex AI, Bedrock, or LLM gateway) for the Claude Microsoft 365 add-in",
+    "homepage": "https://github.com/anthropics/financial-services"
+  },
+  "import": {
+    "input": "anthropics/financial-services",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ]
+  }
+}

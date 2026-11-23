@@ -1,0 +1,55 @@
+{
+  "name": "lseg",
+  "version": "1.0.0",
+  "src": {
+    "owner": "anthropics",
+    "repo": "financial-services",
+    "rev": "3e32c2287dcb637c184c01cc0ad82d6af7e9bb0f",
+    "hash": "sha256-EK8JcxjQFXjDqN83RqugsH5f/SQN5flzXaWykGvFmcI="
+  },
+  "sourceUrl": "https://github.com/anthropics/financial-services",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "LSEG"
+    },
+    "description": "Price bonds, analyze yield curves, evaluate FX carry trades, value options, and build macro dashboards using LSEG financial data and analytics.",
+    "name": "lseg",
+    "version": "1.0.0"
+  },
+  "skills": {
+    "bond-futures-basis": "plugins/partner-built/lseg/skills/bond-futures-basis",
+    "bond-relative-value": "plugins/partner-built/lseg/skills/bond-relative-value",
+    "equity-research": "plugins/partner-built/lseg/skills/equity-research",
+    "fixed-income-portfolio": "plugins/partner-built/lseg/skills/fixed-income-portfolio",
+    "fx-carry-trade": "plugins/partner-built/lseg/skills/fx-carry-trade",
+    "macro-rates-monitor": "plugins/partner-built/lseg/skills/macro-rates-monitor",
+    "option-vol-analysis": "plugins/partner-built/lseg/skills/option-vol-analysis",
+    "swap-curve-strategy": "plugins/partner-built/lseg/skills/swap-curve-strategy"
+  },
+  "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/commands": "plugins/partner-built/lseg/commands"
+  },
+  "mcpServers": {
+    "lseg": {
+      "type": "streamable-http",
+      "url": "https://api.analytics.lseg.com/lfa/mcp/server-cl"
+    }
+  },
+  "meta": {
+    "description": "Price bonds, analyze yield curves, evaluate FX carry trades, value options, and build macro dashboards using LSEG financial data and analytics",
+    "homepage": "https://github.com/anthropics/financial-services"
+  },
+  "import": {
+    "input": "anthropics/financial-services",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ]
+  }
+}

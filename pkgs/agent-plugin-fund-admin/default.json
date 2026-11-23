@@ -1,0 +1,44 @@
+{
+  "name": "fund-admin",
+  "version": "0.1.0",
+  "src": {
+    "owner": "anthropics",
+    "repo": "financial-services",
+    "rev": "3e32c2287dcb637c184c01cc0ad82d6af7e9bb0f",
+    "hash": "sha256-EK8JcxjQFXjDqN83RqugsH5f/SQN5flzXaWykGvFmcI="
+  },
+  "sourceUrl": "https://github.com/anthropics/financial-services",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Anthropic FSI"
+    },
+    "description": "Fund administration and finance ops: GL reconciliation, break tracing, accruals, roll-forwards, variance commentary, NAV tie-out",
+    "name": "fund-admin",
+    "version": "0.1.0"
+  },
+  "skills": {
+    "accrual-schedule": "plugins/vertical-plugins/fund-admin/skills/accrual-schedule",
+    "break-trace": "plugins/vertical-plugins/fund-admin/skills/break-trace",
+    "gl-recon": "plugins/vertical-plugins/fund-admin/skills/gl-recon",
+    "nav-tieout": "plugins/vertical-plugins/fund-admin/skills/nav-tieout",
+    "roll-forward": "plugins/vertical-plugins/fund-admin/skills/roll-forward",
+    "variance-commentary": "plugins/vertical-plugins/fund-admin/skills/variance-commentary"
+  },
+  "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "meta": {
+    "description": "Fund administration and finance ops",
+    "homepage": "https://github.com/anthropics/financial-services"
+  },
+  "import": {
+    "input": "anthropics/financial-services",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ]
+  }
+}

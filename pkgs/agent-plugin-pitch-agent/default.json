@@ -1,0 +1,60 @@
+{
+  "name": "pitch-agent",
+  "version": "0.1.1",
+  "src": {
+    "owner": "anthropics",
+    "repo": "financial-services",
+    "rev": "3e32c2287dcb637c184c01cc0ad82d6af7e9bb0f",
+    "hash": "sha256-EK8JcxjQFXjDqN83RqugsH5f/SQN5flzXaWykGvFmcI="
+  },
+  "sourceUrl": "https://github.com/anthropics/financial-services",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Anthropic FSI"
+    },
+    "description": "Comps, precedents, LBO to a branded pitch deck, end to end",
+    "name": "pitch-agent",
+    "version": "0.1.1"
+  },
+  "skills": {
+    "3-statement-model": "plugins/agent-plugins/pitch-agent/skills/3-statement-model",
+    "audit-xls": "plugins/agent-plugins/pitch-agent/skills/audit-xls",
+    "comps-analysis": "plugins/agent-plugins/pitch-agent/skills/comps-analysis",
+    "dcf-model": "plugins/agent-plugins/pitch-agent/skills/dcf-model",
+    "deck-refresh": "plugins/agent-plugins/pitch-agent/skills/deck-refresh",
+    "ib-check-deck": "plugins/agent-plugins/pitch-agent/skills/ib-check-deck",
+    "lbo-model": "plugins/agent-plugins/pitch-agent/skills/lbo-model",
+    "pitch-deck": "plugins/agent-plugins/pitch-agent/skills/pitch-deck",
+    "pptx-author": "plugins/agent-plugins/pitch-agent/skills/pptx-author",
+    "sector-overview": "plugins/agent-plugins/pitch-agent/skills/sector-overview",
+    "xlsx-author": "plugins/agent-plugins/pitch-agent/skills/xlsx-author"
+  },
+  "requiredRuntimes": [
+    "python3"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/agents": "plugins/agent-plugins/pitch-agent/agents"
+  },
+  "meta": {
+    "description": "Comps, precedents, LBO to a branded pitch deck, end to end",
+    "homepage": "https://github.com/anthropics/financial-services"
+  },
+  "import": {
+    "input": "anthropics/financial-services",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "skills/dcf-model/requirements.txt",
+        "message": "declares dependencies import does not package; package them in this package's custom block, using python3.withPackages"
+      }
+    ]
+  }
+}

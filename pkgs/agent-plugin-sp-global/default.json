@@ -1,0 +1,66 @@
+{
+  "name": "sp-global",
+  "version": "1.0.1",
+  "src": {
+    "owner": "anthropics",
+    "repo": "financial-services",
+    "rev": "3e32c2287dcb637c184c01cc0ad82d6af7e9bb0f",
+    "hash": "sha256-EK8JcxjQFXjDqN83RqugsH5f/SQN5flzXaWykGvFmcI="
+  },
+  "sourceUrl": "https://github.com/anthropics/financial-services",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "email": "spglobal-agent-skills-maintainers@kensho.com",
+      "name": "Kensho Technologies"
+    },
+    "description": "S&P Global - Financial data and analytics skills including company tearsheets, earnings previews, and transaction summaries",
+    "homepage": "https://www.marketplace.spglobal.com/en/solutions/kensho-llm-ready-api-%28a156fe9f-5564-4f60-a624-95d8645dc98f%29",
+    "keywords": [
+      "sp-global",
+      "finance",
+      "capital-iq",
+      "tearsheets",
+      "earnings",
+      "transactions",
+      "excel"
+    ],
+    "license": "Apache-2.0",
+    "name": "sp-global",
+    "repository": "https://github.com/kensho-technologies/spglobal-agent-skills",
+    "version": "1.0.1"
+  },
+  "skills": {
+    "earnings-preview-beta": "plugins/partner-built/spglobal/skills/earnings-preview-beta",
+    "funding-digest": "plugins/partner-built/spglobal/skills/funding-digest",
+    "tear-sheet": "plugins/partner-built/spglobal/skills/tear-sheet"
+  },
+  "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "mcpServers": {
+    "spglobal": {
+      "type": "streamable-http",
+      "url": "https://kfinance.kensho.com/integrations/mcp"
+    }
+  },
+  "meta": {
+    "description": "S&P Global - Financial data and analytics skills including company tearsheets, earnings previews, and transaction summaries",
+    "homepage": "https://github.com/anthropics/financial-services"
+  },
+  "import": {
+    "input": "anthropics/financial-services",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "plugins/partner-built/spglobal/skills/earnings-preview-beta/SKILL.md/name",
+        "message": "skill name \"earnings-preview-single\" must match directory name \"earnings-preview-beta\""
+      }
+    ]
+  }
+}
