@@ -7,14 +7,17 @@
   "plugins": [
     {
       "name": "fullstack-dev-skills",
-      "dir": "/nix/store/v809dlg0gcvz3s46mhb5fpqm6jn6ghhx-agent-plugin-fullstack-dev-skills-0.4.21/share/agent-plugins/fullstack-dev-skills",
+      "dir": "/nix/store/v9137vidy9isqxi5jqr9mw0pha4r27a9-agent-plugin-fullstack-dev-skills-0.5.2/share/agent-plugins/fullstack-dev-skills",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.anthropic.claude-code/agents",
           "com.anthropic.claude-code/commands",
+          "com.anthropic.claude-code/hooks",
           "references",
+          "runtime",
           "skills/angular-architect",
           "skills/api-designer",
           "skills/architecture-designer",
@@ -80,6 +83,7 @@
           "skills/terraform-engineer",
           "skills/test-master",
           "skills/the-fool",
+          "skills/ticket-guard",
           "skills/typescript-pro",
           "skills/vue-expert",
           "skills/vue-expert-js",
@@ -89,57 +93,92 @@
         "validated": [
           "plugin.json"
         ],
-        "notChecked": []
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          }
+        ]
       },
       "components": [
         {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
           "path": "com.anthropic.claude-code/commands",
-          "score": 66,
-          "risk": 34,
-          "status": "caution",
+          "score": 87,
+          "risk": 13,
+          "status": "safe",
           "partial": false,
           "coverage": 100,
           "exceptions": [],
           "findings": [
             {
-              "id": "P2",
-              "severity": "HIGH",
-              "message": "Hidden Instructions",
-              "file": "com.anthropic.claude-code/commands/project/discovery/synthesize-discovery.md",
-              "line": 270
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "com.anthropic.claude-code/commands/spec/complete.md",
+              "line": 70
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
-              "file": "com.anthropic.claude-code/commands/common-ground.md",
-              "line": 117
-            },
-            {
-              "id": "EA2",
-              "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "com.anthropic.claude-code/commands/project/discovery/approve-synthesis.md",
-              "line": 107
-            },
-            {
-              "id": "EA2",
-              "severity": "MEDIUM",
-              "message": "Autonomous Decision Making",
-              "file": "com.anthropic.claude-code/commands/project/execution/execute-ticket.md",
-              "line": 180
+              "file": "com.anthropic.claude-code/commands/spec/review.md",
+              "line": 105
             }
           ],
           "suppressed": []
         },
         {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 0,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/hooks.json",
+              "line": 0
+            }
+          ],
+          "findings": [],
+          "suppressed": []
+        },
+        {
           "path": "references",
-          "score": 68,
-          "risk": 32,
-          "status": "caution",
-          "partial": false,
-          "coverage": 100,
-          "exceptions": [],
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 93.5,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "references/intake/goal-prompt.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "references/review/verifier.md",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "references/specs/launch.md",
+              "line": 0
+            }
+          ],
           "findings": [
             {
               "id": "PE3",
@@ -156,11 +195,106 @@
               "line": 208
             },
             {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "references/intake/access-control.md",
+              "line": 134
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "references/intake/severity.md",
+              "line": 92
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "references/review/verifier.md",
+              "line": 59
+            },
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "references/specs/assumptions.md",
+              "line": 58
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "references/adapters/linear.md",
+              "line": 5
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "references/adapters/text.md",
+              "line": 3
+            },
+            {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
-              "file": "references/common-ground/file-management.md",
-              "line": 224
+              "file": "references/intake/access-control.md",
+              "line": 130
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "references/intake/procedures/testing-authorization.md",
+              "line": 84
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "references/intake/procedures/testing-owasp.md",
+              "line": 173
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "references/intake/procedures/document-codebase.md",
+              "line": 62
+            },
+            {
+              "id": "E3",
+              "severity": "MEDIUM",
+              "message": "File System Enumeration",
+              "file": "references/intake/procedures/document-file-tree.md",
+              "line": 29
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "runtime",
+          "score": 49,
+          "risk": 51,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "excluded_executable_content",
+              "path": "runtime/guard.pyz",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "SC9",
+              "severity": "HIGH",
+              "message": "Concealed Executable Artifact",
+              "file": "runtime/guard.pyz",
+              "line": 1
             }
           ],
           "suppressed": []
@@ -5206,6 +5340,48 @@
           "suppressed": []
         },
         {
+          "path": "skills/ticket-guard",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/ticket-guard/SKILL.md",
+              "line": 8
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/ticket-guard/SKILL.md",
+              "line": 25
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/ticket-guard/SKILL.md",
+              "line": 29
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/ticket-guard/SKILL.md",
+              "line": 40
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/ticket-guard/SKILL.md",
+              "line": 61
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/ticket-guard/SKILL.md",
+              "line": 63
+            }
+          ],
+          "findings": [],
+          "suppressed": []
+        },
+        {
           "path": "skills/typescript-pro",
           "score": 93,
           "risk": 7,
@@ -5774,7 +5950,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-21T03:08:49Z"
+      "checkedAt": "2026-11-23T20:08:59Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
