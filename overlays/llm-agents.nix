@@ -2,8 +2,8 @@
 # llm-agents.nix's shared-nixpkgs overlay. ADR 0024.
 final: prev: {
   llm-agents = prev.llm-agents // {
-    # Adds the env vars agent-stacks passes skills through (agent-stacks
-    # ADR 0011).
+    # Adds the env vars agent-stacks passes skills and plugins through
+    # (agent-stacks ADR 0011, ADR 0024 here).
     #
     # builtins.path gives the patch its own store path. A plain path sits
     # inside this flake's source, so every commit would rebuild codex.

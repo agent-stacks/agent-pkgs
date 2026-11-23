@@ -1,29 +1,49 @@
-diff --git a/core/src/agents_md.rs b/core/src/agents_md.rs
-index 08983d7..66c2c2b 100644
---- a/core/src/agents_md.rs
-+++ b/core/src/agents_md.rs
-@@ -119,6 +119,21 @@ pub(crate) async fn load_project_instructions(
-         }
+diff --git a/core-plugins/src/store.rs b/core-plugins/src/store.rs
+index 087eae6..80090bf 100644
+--- a/core-plugins/src/store.rs
++++ b/core-plugins/src/store.rs
+@@ -32,6 +32,22 @@ const DEFAULT_AGENT_PLUGIN_VERSION: &str = "1.0.0";
+ 
+ use codex_core_plugin_common::installed::RemotePluginInstallMetadata;
+ 
++const FLOX_PLUGIN_VERSION: &str = "flox";
++
++// flox-ai: CODEX_FLOX_PLUGIN_ROOT names a folder laid out as
++// <marketplace>/<plugin>/. A plugin with a folder there loads from it
++// instead of the cache, so `agent-stacks launch codex` can hand Codex
++// plugins for one process without writing $CODEX_HOME. Added by the flox
++// downstream patch.
++fn flox_plugin_root(plugin_id: &PluginId) -> Option<AbsolutePathBuf> {
++    let raw = std::env::var_os("CODEX_FLOX_PLUGIN_ROOT")?;
++    let root = AbsolutePathBuf::from_absolute_path_checked(PathBuf::from(raw)).ok()?;
++    let root = root
++        .join(&plugin_id.marketplace_name)
++        .join(&plugin_id.plugin_name);
++    root.as_path().is_dir().then_some(root)
++}
++
+ #[derive(Debug, Clone, PartialEq, Eq)]
+ pub struct PluginInstallResult {
+     pub plugin_id: PluginId,
+@@ -148,12 +164,18 @@ impl PluginStore {
      }
  
-+    // flox-ai: extra project instructions injected via the
-+    // CODEX_FLOX_INSTRUCTIONS_FILE env var pointing at a file. Added by the
-+    // flox downstream patch so `flox-ai launch codex` can inject
-+    // environment-managed rules without writing AGENTS.md into the user's
-+    // repo or ~/.codex.
-+    if let Ok(path) = std::env::var("CODEX_FLOX_INSTRUCTIONS_FILE")
-+        && let Ok(contents) = tokio::fs::read_to_string(&path).await
-+        && !contents.trim().is_empty()
-+    {
-+        loaded.entries.push(InstructionEntry {
-+            contents,
-+            provenance: InstructionProvenance::Internal,
-+        });
-+    }
-+
-     Ok(loaded)
- }
+     pub fn active_plugin_version(&self, plugin_id: &PluginId) -> Option<String> {
++        if flox_plugin_root(plugin_id).is_some() {
++            return Some(FLOX_PLUGIN_VERSION.to_string());
++        }
+         codex_core_plugin_common::installed::active_plugin_version(
+             &self.plugin_base_root(plugin_id),
+         )
+     }
  
+     pub fn active_plugin_root(&self, plugin_id: &PluginId) -> Option<AbsolutePathBuf> {
++        if let Some(root) = flox_plugin_root(plugin_id) {
++            return Some(root);
++        }
+         self.active_plugin_version(plugin_id)
+             .map(|plugin_version| self.plugin_root(plugin_id, &plugin_version))
+     }
 diff --git a/ext/skills/src/host_roots.rs b/ext/skills/src/host_roots.rs
 index 940b263..6b5ff22 100644
 --- a/ext/skills/src/host_roots.rs
