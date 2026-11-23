@@ -134,8 +134,9 @@ Claude manifest, `manifest.extensions["com.openai"]` holds what that
 manifest chooses for Codex, in Codex's own field names and shapes,
 with paths pointing into the package: a field it leaves out means
 Codex's default, and one it records, an empty one included, is
-Codex's choice (`"hooks": {}` is no hooks). The Codex fields of
-servers Codex reads from the same file sit there under
+Codex's choice (`"hooks": {}` is no hooks). A path the block records
+in the namespace always names a file the package ships. The Codex
+fields of servers Codex reads from the same file sit there under
 `mcpServerFields` (agent-stacks ADR 0043). A file
 from an earlier importer is still built: such a file omits `manifest` when
 the plugin's own `plugin.json` sits at the root and never carries
@@ -219,8 +220,10 @@ runs a plugin file with a bare interpreter is pointed at the package's
 and reported. Destinations are one path segment, never `skills`, or two
 inside a client-extension namespace, `com.anthropic.claude-code/` or
 `com.openai/`. Inside `com.openai/` a name the builder writes at the
-root, such as `.mcp.json`, may ship, since it clashes with nothing
-there; a login file or a pruned name may not. A `com.openai/`
+root, such as `.mcp.json`, may ship, and so may a link to one, since
+it clashes with nothing there; a login file or a pruned name may not,
+nor `skills` or `bin`, which a Codex plugin staged from the namespace
+would stand over the package's own. A `com.openai/`
 destination is allowed from the agent-stacks release carrying its
 ADR 0043; a binary pinned before it refuses the entry. `bin` is
 allowed from the agent-stacks release carrying its ADR 0052; the
