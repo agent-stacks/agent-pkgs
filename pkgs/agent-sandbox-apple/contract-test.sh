@@ -17,7 +17,11 @@ unset CLAUDE_CODE_OAUTH_TOKEN ANTHROPIC_API_KEY CLAUDE_CODE_PLUGIN_DIRS FLOX_FLO
 
 # A stub container: --version and system status answer as 1.7.1 does
 # (STUB_VERSION and STUB_NOT_RUNNING change them); anything else is
-# logged, one line of argv, to $STUB_LOG.
+# logged, one line of argv, to $STUB_LOG. The image and the volume exist
+# with STUB_IMAGE and STUB_VOLUME, and the volume is filled unless
+# STUB_UNFILLED. The agent's run checks the stub proxy is up, runs
+# STUB_RUN_HOOK, prints STUB_RUN_ERR on stderr, sleeps STUB_RUN_SLEEP
+# seconds and exits STUB_RUN_RC.
 { echo "#!$(command -v bash)"; cat <<'EOF'
 case "$*" in
   --version) echo "container CLI version ${STUB_VERSION:-1.7.1} (build: release, commit: a15b460)" ;;
@@ -27,10 +31,57 @@ case "$*" in
       exit 1
     fi
     printf 'FIELD               VALUE\nstatus              running\nclient.version      1.7.1\n' ;;
-  *) echo "$*" >>"${STUB_LOG:-/dev/null}" ;;
+  *)
+    echo "$*" >>"${STUB_LOG:-/dev/null}"
+    case "$1 $2" in
+      "image inspect") [ -n "${STUB_IMAGE:-}" ] ;;
+      "volume inspect") [ -n "${STUB_VOLUME:-}" ] ;;
+      run\ *)
+        case "$*" in
+          *"test -f /nix-cache/.agent-sandbox-apple-filled") [ -z "${STUB_UNFILLED:-}" ] ;;
+          *guest.sh*)
+            echo $$ >"$STUB_DIR/run.pid"
+            if kill -0 "$(cat "$STUB_DIR/proxy.pid" 2>/dev/null)" 2>/dev/null; then
+              echo "proxy up" >>"$STUB_LOG"
+            fi
+            [ -z "${STUB_RUN_HOOK:-}" ] || bash -c "$STUB_RUN_HOOK"
+            [ -z "${STUB_RUN_ERR:-}" ] || echo "$STUB_RUN_ERR" >&2
+            [ -z "${STUB_RUN_SLEEP:-}" ] || exec sleep "$STUB_RUN_SLEEP"
+            exit "${STUB_RUN_RC:-0}"
+            ;;
+        esac
+        ;;
+    esac
+    ;;
 esac
 EOF
 } >"$root/bin/container"
+# A stub proxy: logs its argv and its lists to $STUB_DIR, says ready,
+# and logs TERM when it gets one. STUB_PROXY_DENY_FLOX writes a deny of
+# api.flox.dev into its log.
+{ echo "#!$(command -v bash)"; cat <<'EOF'
+echo "$*" >"$STUB_DIR/proxy.argv"
+while [ $# -gt 0 ]; do
+  case $1 in
+    --allow) cp "$2" "$STUB_DIR/proxy.allow" ;;
+    --startup) cp "$2" "$STUB_DIR/proxy.startup" ;;
+    --log)
+      echo "allow api.anthropic.com:443 -> 160.79.104.10" >>"$2"
+      [ -z "${STUB_PROXY_DENY_FLOX:-}" ] || echo "deny api.flox.dev:443 (resolve: failed)" >>"$2"
+      echo "latch closed" >>"$2"
+      ;;
+  esac
+  shift 2
+done
+echo $$ >"$STUB_DIR/proxy.pid"
+trap 'echo TERM >>"$STUB_DIR/proxy.signals"; kill "$s" 2>/dev/null; exit 0' TERM
+echo ready
+sleep 300 &
+s=$!
+wait "$s"
+EOF
+} >"$root/bin/proxy"
+chmod +x "$root/bin/proxy"
 # A stub flox: `flox auth token` prints tok.
 { echo "#!$(command -v bash)"; cat <<'EOF'
 case "$1 $2" in
@@ -242,5 +293,144 @@ STUB_NOT_RUNNING=1 refuse "system not running" "container system start" dry -- c
 AGENT_SANDBOX_APPLE_CONTAINER=$root/missing refuse "no container" 1.6.0 dry -- claude
 refuse "nothing after --" "no command" dry --
 refuse "no --" "" dry claude
+
+# --- A real launch, against the stubs ----------------------------------
+
+export STUB_DIR=$root/stub STUB_LOG=$root/stub/container.log AGENT_SANDBOX_APPLE_PROXY=$root/bin/proxy
+# <stub env...> -- <sandbox args...>: runs in $dir with fresh stub logs;
+# its exit code is in $rc, its stdout and stderr in out and err.
+launch() {
+  local envs=()
+  while [ "$1" != -- ]; do envs+=("$1"); shift; done
+  shift
+  rm -rf "$STUB_DIR" && mkdir -p "$STUB_DIR" && : >"$STUB_LOG"
+  rc=0
+  (cd "$dir" && env "${envs[@]}" "$apple" "$@") >out 2>err || rc=$?
+}
+# The stub's log holds lines matching each pattern, in this order.
+in_order() {
+  local pat line
+  exec 3<"$STUB_LOG"
+  for pat in "$@"; do
+    while IFS= read -r line <&3; do [[ $line =~ $pat ]] && continue 2; done
+    exec 3<&-
+    fail "no '$pat' in order in: $(cat "$STUB_LOG")"
+  done
+  exec 3<&-
+}
+dir=$p
+dry -- claude >out 2>err || fail "dry run: $(cat err)"
+image=$(jq -r .image out) volume=$(jq -r .volume out)
+dry --options '{"allowedDomains":["github.com"]}' -- claude >out 2>err || fail "dry run: $(cat err)"
+want_allow=$(jq -r '.allow[]' out) want_startup=$(jq -r '.startup[]' out)
+q() { printf '%s' "$1" | sed 's/[][\.*^$()+?{}|]/\\&/g'; }
+
+# A first launch: it builds the image, creates and fills the volume,
+# then runs the agent with the proxy up.
+launch -- --options '{"allowedDomains":["github.com"]}' -- claude --version
+[ "$rc" = 0 ] || fail "first launch: exit $rc: $(cat err)"
+in_order "^image inspect $(q "$image")\$" "^build -t $(q "$image") /" \
+  "^volume inspect $(q "$volume")\$" "^volume create $(q "$volume")\$" \
+  "^run --rm .*-v $(q "$volume"):/nix-cache .*cp -a /nix/\. /nix-cache/.*touch /nix-cache/\.agent-sandbox-apple-filled\$" \
+  "^run --rm .*--network none .* $(q "$image") /opt/agent-sandbox-apple/guest\.sh claude --version\$" \
+  "^proxy up\$"
+ctx=$(sed -n "s|^build -t $(q "$image") ||p" "$STUB_LOG")
+[ -f "$ctx/Containerfile" ] && [ -f "$ctx/guest.sh" ] || fail "build context $ctx is not the share dir"
+[ "${image#*:}" = "$(cat "$ctx/Containerfile" "$ctx/guest.sh" | sha256sum | cut -c1-12)" ] ||
+  fail "tag ${image#*:} is not the hash of the Containerfile and guest.sh"
+for s in image volume fill; do
+  grep -qi "^agent-sandbox-apple: .*$s" err || fail "no line before the $s step: $(cat err)"
+done
+[ "$(cat "$STUB_DIR/proxy.allow")" = "$want_allow" ] || fail "proxy --allow: $(cat "$STUB_DIR/proxy.allow")"
+[ "$(cat "$STUB_DIR/proxy.startup")" = "$want_startup" ] || fail "proxy --startup: $(cat "$STUB_DIR/proxy.startup")"
+grep -q TERM "$STUB_DIR/proxy.signals" || fail "the proxy got no SIGTERM"
+sock=$(sed -n 's/.*--socket \([^ ]*\).*/\1/p' "$STUB_DIR/proxy.argv")
+case $sock in /tmp/asa.??????/proxy.sock) ;; *) fail "proxy socket: $sock" ;; esac
+[ ! -e "$(dirname "$sock")" ] || fail "$(dirname "$sock") left behind"
+name=$(sed -n 's/.*--name \([^ ]*\).*/\1/p' "$STUB_LOG")
+plog=$TMPDIR/$name.log
+grep -qx 'latch closed' "$plog" || fail "proxy log not kept at $plog"
+grep -qF "$plog" err || fail "proxy log path not printed: $(cat err)"
+grep -qi floxhub err && fail "FloxHub hint on a clean run: $(cat err)"
+
+# The image and a filled volume exist: straight to the run.
+launch STUB_IMAGE=1 STUB_VOLUME=1 -- -- claude --version
+[ "$rc" = 0 ] || fail "warm launch: exit $rc: $(cat err)"
+grep -qE '^(build|volume create)|cp -a' "$STUB_LOG" && fail "warm launch built or filled: $(cat "$STUB_LOG")"
+in_order "^image inspect " "^volume inspect " "test -f /nix-cache/\.agent-sandbox-apple-filled\$" \
+  "guest\.sh claude --version\$"
+grep -qE '^agent-sandbox-apple: .*(image|volume|fill)' err && fail "warm launch announced slow work: $(cat err)"
+
+# A volume whose fill never finished is filled again.
+launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_UNFILLED=1 -- -- claude
+[ "$rc" = 0 ] || fail "unfilled launch: exit $rc: $(cat err)"
+grep -q '^volume create' "$STUB_LOG" && fail "an existing volume created again"
+in_order "test -f /nix-cache/\.agent-sandbox-apple-filled\$" "cp -a /nix/\. /nix-cache/" "guest\.sh claude\$"
+
+# The agent's exit code is the sandbox's, and the clean-up still runs.
+launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_RUN_RC=3 -- -- claude
+[ "$rc" = 3 ] || fail "agent exit 3 gave $rc: $(cat err)"
+grep -q TERM "$STUB_DIR/proxy.signals" || fail "the proxy got no SIGTERM after exit 3"
+sock=$(sed -n 's/.*--socket \([^ ]*\).*/\1/p' "$STUB_DIR/proxy.argv")
+[ ! -e "$(dirname "$sock")" ] || fail "$(dirname "$sock") left behind after exit 3"
+
+# A signal mid-run: the same clean-up.
+rm -rf "$STUB_DIR" && mkdir -p "$STUB_DIR" && : >"$STUB_LOG"
+(cd "$dir" && STUB_IMAGE=1 STUB_VOLUME=1 STUB_RUN_SLEEP=30 exec "$apple" -- claude) >out 2>err &
+bg=$!
+for _ in $(seq 100); do grep -q '^proxy up' "$STUB_LOG" && break; sleep 0.1; done
+grep -q '^proxy up' "$STUB_LOG" || fail "the run never started: $(cat err)"
+kill -TERM "$bg"
+rc=0
+wait "$bg" || rc=$?
+[ "$rc" = 143 ] || fail "SIGTERM gave exit $rc: $(cat err)"
+name=$(sed -n 's/.*--name \([^ ]*\).*/\1/p' "$STUB_LOG")
+in_order "guest\.sh claude\$" "^stop $name\$"
+! kill -0 "$(cat "$STUB_DIR/run.pid")" 2>/dev/null || fail "container run still running after a signal"
+grep -q TERM "$STUB_DIR/proxy.signals" || fail "the proxy got no SIGTERM after a signal"
+sock=$(sed -n 's/.*--socket \([^ ]*\).*/\1/p' "$STUB_DIR/proxy.argv")
+[ ! -e "$(dirname "$sock")" ] || fail "$(dirname "$sock") left behind after a signal"
+
+# --- writableGit: hooks and config are checked at exit -----------------
+
+git -c init.defaultBranch=main init -q "$p"
+echo 'echo hi' >"$p/.git/hooks/pre-commit"
+launch STUB_IMAGE=1 STUB_VOLUME=1 -- --options '{"writableGit":true}' -- claude
+[ "$rc" = 0 ] || fail "writableGit, nothing changed: exit $rc: $(cat err)"
+grep -q 'changed during the session' err && fail "writableGit warned with nothing changed: $(cat err)"
+hook=$p/.git/hooks/pre-commit
+launch STUB_IMAGE=1 STUB_VOLUME=1 "STUB_RUN_HOOK=echo evil >>$(printf %q "$hook")" -- --options '{"writableGit":true}' -- claude
+[ "$rc" = 3 ] || fail "a changed hook gave exit $rc: $(cat err)"
+grep -qF "$hook" err || fail "the changed hook not named: $(cat err)"
+grep -q 'git hooks or config changed during the session; review them before running git here' err ||
+  fail "no warning for a changed hook: $(cat err)"
+echo 'echo hi' >"$hook"
+new=$p/.git/hooks/post-checkout
+launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_RUN_RC=5 "STUB_RUN_HOOK=echo evil >$(printf %q "$new")" \
+  -- --options '{"writableGit":true}' -- claude
+[ "$rc" = 5 ] || fail "a new hook after exit 5 gave exit $rc: $(cat err)"
+grep -qF "$new" err || fail "the new hook not named: $(cat err)"
+rm -f "$new"
+launch STUB_IMAGE=1 STUB_VOLUME=1 "STUB_RUN_HOOK=git -C $(printf %q "$p") config core.hooksPath /tmp/h" \
+  -- --options '{"writableGit":true}' -- claude
+[ "$rc" = 3 ] || fail "a changed core.hooksPath gave exit $rc: $(cat err)"
+grep -qF "$p/.git/config" err || fail "the changed config not named: $(cat err)"
+git -C "$p" config --unset core.hooksPath
+
+# --- The FloxHub hint --------------------------------------------------
+
+hint='forwardFloxhubToken'
+launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_RUN_RC=1 STUB_PROXY_DENY_FLOX=1 -- -- claude
+[ "$rc" = 1 ] || fail "exit $rc"
+grep -q "$hint" err || fail "no hint after a deny of api.flox.dev: $(cat err)"
+# What flox 1.x prints for a private package without the token.
+auth_err="You may not be authenticated or package may have been deleted."
+launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_RUN_RC=1 "STUB_RUN_ERR=$auth_err" -- -- claude
+grep -q "$hint" err || fail "no hint after a FloxHub auth error: $(cat err)"
+launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_RUN_RC=1 "STUB_RUN_ERR=$auth_err" \
+  -- --options '{"forwardFloxhubToken":true}' -- claude
+grep -q "set $hint" err && fail "hint with the token already forwarded: $(cat err)"
+launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_RUN_RC=1 -- -- claude
+grep -q "$hint" err && fail "hint for an unrelated failure: $(cat err)"
 
 echo "agent-sandbox-apple contract: OK"

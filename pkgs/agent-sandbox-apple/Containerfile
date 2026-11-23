@@ -1,0 +1,30 @@
+# The guest image of agent-sandbox-apple, built on the Mac with
+# `container build` on first use. Its tag is the hash of this file and
+# guest.sh, so a change to either makes a new image.
+#
+# ghcr.io/flox/flox:latest as of 2026-11-23.
+FROM ghcr.io/flox/flox@sha256:b0e4164127f5cd93fa66d2e54423d02995d1de2f1b02d11e2cb53c1082273db7
+
+# The base image has no package manager, and `nix profile install` fails
+# its pure evaluation, so the tools are out-links. /usr/local/bin is not
+# on the image's PATH; guest.sh adds it. curl and util-linux name their
+# bin output, whose out-link nix suffixes with -bin.
+RUN for p in socat curl.bin git util-linux.bin; do \
+      nix --extra-experimental-features 'nix-command flakes' build "nixpkgs#$p" --out-link "/opt/${p%.bin}" || exit 1; \
+    done && \
+    mkdir -p /usr/local/bin && \
+    ln -s /opt/socat/bin/socat /opt/curl-bin/bin/curl /opt/git/bin/git /opt/util-linux-bin/bin/setpriv /usr/local/bin/ && \
+    /usr/local/bin/socat -V >/dev/null && /usr/local/bin/curl --version >/dev/null && \
+    /usr/local/bin/git --version >/dev/null && /usr/local/bin/setpriv --version >/dev/null
+
+# The agent's user. /etc/passwd and /etc/group link into the store and
+# there is no useradd, so they become files of their own.
+RUN for f in passwd group; do \
+      t=$(cat "/etc/$f") && rm "/etc/$f" && printf '%s\n' "$t" >"/etc/$f" || exit 1; \
+    done && \
+    echo 'agent:x:1000:1000::/home/agent:/bin/sh' >>/etc/passwd && \
+    echo 'agent:x:1000:' >>/etc/group && \
+    mkdir -p /home/agent && chown 1000:1000 /home/agent
+
+COPY guest.sh /opt/agent-sandbox-apple/guest.sh
+RUN chmod 0755 /opt/agent-sandbox-apple/guest.sh
