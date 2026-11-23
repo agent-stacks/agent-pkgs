@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "nvidia-skill-library",
-      "dir": "/nix/store/y8r3knd43f8kwnn9h3fmg3izn04zdwfa-agent-plugin-nvidia-skill-library-0.0.0-unstable.2026-11-23.gc62f4da/share/agent-plugins/nvidia-skill-library",
+      "dir": "/nix/store/1bwy1d7bzky6lqachrm67p57a8b4ll0k-agent-plugin-nvidia-skill-library-0.0.0-unstable.2026-11-23.g89b3e59/share/agent-plugins/nvidia-skill-library",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -33,6 +33,11 @@
           "skills/bionemo-cuequivariance",
           "skills/bionemo-cuequivariance-jax",
           "skills/bionemo-cuequivariance-torch",
+          "skills/bionemo-cupotential-benchmark",
+          "skills/bionemo-cupotential-custom-potentials",
+          "skills/bionemo-cupotential-install",
+          "skills/bionemo-cupotential-openmm",
+          "skills/bionemo-cupotential-validate",
           "skills/bionemo-diffdock-nim",
           "skills/bionemo-drug-discovery-pipeline",
           "skills/bionemo-evo2-nim",
@@ -83,12 +88,7 @@
           "skills/cudnn-compile-and-serialize",
           "skills/cudnn-install",
           "skills/cuml",
-          "skills/cuopt-install",
           "skills/cuopt-multi-objective-exploration",
-          "skills/cuopt-numerical-optimization-api",
-          "skills/cuopt-numerical-optimization-formulation",
-          "skills/cuopt-routing-api-python",
-          "skills/cuopt-server-api-python",
           "skills/dali-dynamic-mode",
           "skills/data-designer",
           "skills/deepstream-dev",
@@ -273,6 +273,8 @@
           "skills/mcore-split-pr",
           "skills/mcore-testing",
           "skills/medtech-model-evidence-export",
+          "skills/modelopt-day0-release",
+          "skills/modelopt-quant-recipe-search",
           "skills/nemo-automodel-distributed-training",
           "skills/nemo-automodel-launcher-config",
           "skills/nemo-automodel-model-onboarding",
@@ -483,6 +485,7 @@
           "skills/tilegym-monkey-patch-kernels-to-transformers",
           "skills/triton-onnx-model-repository",
           "skills/triton-pytorch-model-repository",
+          "skills/trtllm-serve-config-guide",
           "skills/vss-ask-video",
           "skills/vss-build-vision-ai",
           "skills/vss-generate-video-report",
@@ -4889,6 +4892,276 @@
           ],
           "findings": [],
           "suppressed": []
+        },
+        {
+          "path": "skills/bionemo-cupotential-benchmark",
+          "score": 86,
+          "risk": 14,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/bionemo-cupotential-benchmark/SKILL.md",
+              "line": 9
+            }
+          ],
+          "findings": [
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/bionemo-cupotential-benchmark/BENCHMARK.md",
+              "line": 107
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/bionemo-cupotential-benchmark/BENCHMARK.md",
+              "line": 108
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/bionemo-cupotential-benchmark/BENCHMARK.md",
+              "line": 109
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/bionemo-cupotential-benchmark/BENCHMARK.md",
+              "line": 110
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/bionemo-cupotential-custom-potentials",
+          "score": 86,
+          "risk": 14,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 88.9,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/bionemo-cupotential-custom-potentials/SKILL.md",
+              "line": 9
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/bionemo-cupotential-custom-potentials/references/potentials.md",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/bionemo-cupotential-custom-potentials/BENCHMARK.md",
+              "line": 107
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/bionemo-cupotential-custom-potentials/BENCHMARK.md",
+              "line": 108
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/bionemo-cupotential-custom-potentials/BENCHMARK.md",
+              "line": 109
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/bionemo-cupotential-custom-potentials/BENCHMARK.md",
+              "line": 110
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/bionemo-cupotential-custom-potentials/SKILL.md",
+              "line": 73,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/bionemo-cupotential-custom-potentials/SKILL.md",
+              "line": 135,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
+          ]
+        },
+        {
+          "path": "skills/bionemo-cupotential-install",
+          "score": 79,
+          "risk": 21,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/bionemo-cupotential-install/SKILL.md",
+              "line": 9
+            }
+          ],
+          "findings": [
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/bionemo-cupotential-install/BENCHMARK.md",
+              "line": 104
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/bionemo-cupotential-install/BENCHMARK.md",
+              "line": 109
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/bionemo-cupotential-install/scripts/inspect_environment.py",
+              "line": 55
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/bionemo-cupotential-install/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
+          ]
+        },
+        {
+          "path": "skills/bionemo-cupotential-openmm",
+          "score": 76,
+          "risk": 24,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/bionemo-cupotential-openmm/SKILL.md",
+              "line": 9
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/bionemo-cupotential-openmm/SKILL.md",
+              "line": 72
+            }
+          ],
+          "findings": [
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/bionemo-cupotential-openmm/BENCHMARK.md",
+              "line": 106
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/bionemo-cupotential-openmm/BENCHMARK.md",
+              "line": 107
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/bionemo-cupotential-openmm/scripts/run_cpu_reference.py",
+              "line": 160
+            },
+            {
+              "id": "AST7",
+              "severity": "LOW",
+              "message": "Dynamic attribute access via getattr()",
+              "file": "skills/bionemo-cupotential-openmm/scripts/run_cpu_reference.py",
+              "line": 46
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/bionemo-cupotential-openmm/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
+          ]
+        },
+        {
+          "path": "skills/bionemo-cupotential-validate",
+          "score": 86,
+          "risk": 14,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/bionemo-cupotential-validate/SKILL.md",
+              "line": 9
+            }
+          ],
+          "findings": [
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/bionemo-cupotential-validate/BENCHMARK.md",
+              "line": 106
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/bionemo-cupotential-validate/BENCHMARK.md",
+              "line": 109
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "skills/bionemo-cupotential-validate/BENCHMARK.md",
+              "line": 110
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/bionemo-cupotential-validate/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
+          ]
         },
         {
           "path": "skills/bionemo-diffdock-nim",
@@ -13068,8 +13341,8 @@
         },
         {
           "path": "skills/cudaq-guide",
-          "score": 100,
-          "risk": 0,
+          "score": 92,
+          "risk": 8,
           "status": "incomplete",
           "partial": true,
           "coverage": 87.5,
@@ -13090,7 +13363,15 @@
               "line": 0
             }
           ],
-          "findings": [],
+          "findings": [
+            {
+              "id": "AE4",
+              "severity": "MEDIUM",
+              "message": "analysis-evasion",
+              "file": "skills/cudaq-guide/references/onboarding.md",
+              "line": 1
+            }
+          ],
           "suppressed": [
             {
               "id": "AE1",
@@ -13337,127 +13618,6 @@
           ]
         },
         {
-          "path": "skills/cuopt-install",
-          "score": 37,
-          "risk": 63,
-          "status": "do not install",
-          "partial": true,
-          "coverage": 100,
-          "exceptions": [
-            {
-              "reason": "reference_missing",
-              "path": "skills/cuopt-install/SKILL.md",
-              "line": 3
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/cuopt-install/SKILL.md",
-              "line": 127
-            }
-          ],
-          "findings": [
-            {
-              "id": "SC10",
-              "severity": "HIGH",
-              "message": "Dependency Source Redirection",
-              "file": "skills/cuopt-install/SKILL.md",
-              "line": 46
-            },
-            {
-              "id": "SC10",
-              "severity": "HIGH",
-              "message": "Dependency Source Redirection",
-              "file": "skills/cuopt-install/SKILL.md",
-              "line": 50
-            },
-            {
-              "id": "SC10",
-              "severity": "HIGH",
-              "message": "Dependency Source Redirection",
-              "file": "skills/cuopt-install/SKILL.md",
-              "line": 76
-            },
-            {
-              "id": "SC10",
-              "severity": "HIGH",
-              "message": "Dependency Source Redirection",
-              "file": "skills/cuopt-install/SKILL.md",
-              "line": 80
-            },
-            {
-              "id": "SC10",
-              "severity": "HIGH",
-              "message": "Dependency Source Redirection",
-              "file": "skills/cuopt-install/SKILL.md",
-              "line": 99
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/cuopt-install/SKILL.md",
-              "line": 111
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/cuopt-install/SKILL.md",
-              "line": 112
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/cuopt-install/benchmark/evals.json",
-              "line": 104
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/cuopt-install/references/verification_examples.md",
-              "line": 154
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/cuopt-install/benchmark/evals.json",
-              "line": 104
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/cuopt-install/evals/evals.json",
-              "line": 7
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/cuopt-install/evals/evals.json",
-              "line": 10
-            },
-            {
-              "id": "E1",
-              "severity": "MEDIUM",
-              "message": "External Transmission",
-              "file": "skills/cuopt-install/references/verification_examples.md",
-              "line": 58
-            },
-            {
-              "id": "TM1",
-              "severity": "LOW",
-              "message": "Tool Parameter Abuse",
-              "file": "skills/cuopt-install/references/verification_examples.md",
-              "line": 154
-            }
-          ],
-          "suppressed": []
-        },
-        {
           "path": "skills/cuopt-multi-objective-exploration",
           "score": 88,
           "risk": 12,
@@ -13488,257 +13648,6 @@
             }
           ],
           "suppressed": []
-        },
-        {
-          "path": "skills/cuopt-numerical-optimization-api",
-          "score": 100,
-          "risk": 0,
-          "status": "safe",
-          "partial": true,
-          "coverage": 100,
-          "exceptions": [
-            {
-              "reason": "reference_missing",
-              "path": "skills/cuopt-numerical-optimization-api/SKILL.md",
-              "line": 3
-            }
-          ],
-          "findings": [],
-          "suppressed": [
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "MCP Least Privilege",
-              "file": "skills/cuopt-numerical-optimization-api/SKILL.md",
-              "line": 1,
-              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
-            }
-          ]
-        },
-        {
-          "path": "skills/cuopt-numerical-optimization-formulation",
-          "score": 100,
-          "risk": 0,
-          "status": "safe",
-          "partial": true,
-          "coverage": 100,
-          "exceptions": [
-            {
-              "reason": "reference_missing",
-              "path": "skills/cuopt-numerical-optimization-formulation/SKILL.md",
-              "line": 3
-            }
-          ],
-          "findings": [],
-          "suppressed": []
-        },
-        {
-          "path": "skills/cuopt-routing-api-python",
-          "score": 89,
-          "risk": 11,
-          "status": "safe",
-          "partial": true,
-          "coverage": 100,
-          "exceptions": [
-            {
-              "reason": "reference_missing",
-              "path": "skills/cuopt-routing-api-python/SKILL.md",
-              "line": 3
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/cuopt-routing-api-python/SKILL.md",
-              "line": 118
-            }
-          ],
-          "findings": [
-            {
-              "id": "E1",
-              "severity": "MEDIUM",
-              "message": "External Transmission",
-              "file": "skills/cuopt-routing-api-python/references/server_examples.md",
-              "line": 11
-            },
-            {
-              "id": "E1",
-              "severity": "MEDIUM",
-              "message": "External Transmission",
-              "file": "skills/cuopt-routing-api-python/references/server_examples.md",
-              "line": 101
-            },
-            {
-              "id": "E1",
-              "severity": "MEDIUM",
-              "message": "External Transmission",
-              "file": "skills/cuopt-routing-api-python/references/server_examples.md",
-              "line": 130
-            }
-          ],
-          "suppressed": []
-        },
-        {
-          "path": "skills/cuopt-server-api-python",
-          "score": 59,
-          "risk": 41,
-          "status": "caution",
-          "partial": true,
-          "coverage": 100,
-          "exceptions": [
-            {
-              "reason": "reference_missing",
-              "path": "skills/cuopt-server-api-python/SKILL.md",
-              "line": 3
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/cuopt-server-api-python/SKILL.md",
-              "line": 126
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/cuopt-server-api-python/SKILL.md",
-              "line": 127
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/cuopt-server-api-python/SKILL.md",
-              "line": 128
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/cuopt-server-api-python/SKILL.md",
-              "line": 129
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/cuopt-server-api-python/SKILL.md",
-              "line": 130
-            }
-          ],
-          "findings": [
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/cuopt-server-api-python/BENCHMARK.md",
-              "line": 92
-            },
-            {
-              "id": "E1",
-              "severity": "MEDIUM",
-              "message": "External Transmission",
-              "file": "skills/cuopt-server-api-python/BENCHMARK.md",
-              "line": 93
-            },
-            {
-              "id": "E1",
-              "severity": "MEDIUM",
-              "message": "External Transmission",
-              "file": "skills/cuopt-server-api-python/SKILL.md",
-              "line": 88
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/cuopt-server-api-python/SKILL.md",
-              "line": 55
-            },
-            {
-              "id": "E1",
-              "severity": "MEDIUM",
-              "message": "External Transmission",
-              "file": "skills/cuopt-server-api-python/assets/lp_basic/client.py",
-              "line": 74
-            },
-            {
-              "id": "E1",
-              "severity": "MEDIUM",
-              "message": "External Transmission",
-              "file": "skills/cuopt-server-api-python/assets/milp_basic/client.py",
-              "line": 72
-            },
-            {
-              "id": "E1",
-              "severity": "MEDIUM",
-              "message": "External Transmission",
-              "file": "skills/cuopt-server-api-python/assets/pdp_basic/client.py",
-              "line": 81
-            },
-            {
-              "id": "E1",
-              "severity": "MEDIUM",
-              "message": "External Transmission",
-              "file": "skills/cuopt-server-api-python/assets/vrp_basic/client.py",
-              "line": 88
-            },
-            {
-              "id": "E1",
-              "severity": "MEDIUM",
-              "message": "External Transmission",
-              "file": "skills/cuopt-server-api-python/assets/vrp_simple/client.py",
-              "line": 82
-            },
-            {
-              "id": "TT2",
-              "severity": "MEDIUM",
-              "message": "Tainted flow: 'req_id' from requests.post (line 81, network input) → requests.get (network output)",
-              "file": "skills/cuopt-server-api-python/assets/lp_basic/client.py",
-              "line": 88
-            },
-            {
-              "id": "TT2",
-              "severity": "MEDIUM",
-              "message": "Tainted flow: 'req_id' from requests.post (line 79, network input) → requests.get (network output)",
-              "file": "skills/cuopt-server-api-python/assets/milp_basic/client.py",
-              "line": 86
-            },
-            {
-              "id": "TT2",
-              "severity": "MEDIUM",
-              "message": "Tainted flow: 'req_id' from requests.post (line 88, network input) → requests.get (network output)",
-              "file": "skills/cuopt-server-api-python/assets/pdp_basic/client.py",
-              "line": 95
-            },
-            {
-              "id": "TT2",
-              "severity": "MEDIUM",
-              "message": "Tainted flow: 'req_id' from requests.post (line 95, network input) → requests.get (network output)",
-              "file": "skills/cuopt-server-api-python/assets/vrp_basic/client.py",
-              "line": 102
-            },
-            {
-              "id": "TT2",
-              "severity": "MEDIUM",
-              "message": "Tainted flow: 'req_id' from requests.post (line 89, network input) → requests.get (network output)",
-              "file": "skills/cuopt-server-api-python/assets/vrp_simple/client.py",
-              "line": 96
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/cuopt-server-api-python/evals/evals.json",
-              "line": 68
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/cuopt-server-api-python/evals/evals.json",
-              "line": 70
-            }
-          ],
-          "suppressed": [
-            {
-              "id": "LP3",
-              "severity": "MEDIUM",
-              "message": "MCP Least Privilege",
-              "file": "skills/cuopt-server-api-python/SKILL.md",
-              "line": 1,
-              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
-            }
-          ]
         },
         {
           "path": "skills/dali-dynamic-mode",
@@ -37160,6 +37069,120 @@
           ]
         },
         {
+          "path": "skills/modelopt-day0-release",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 87.5,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/modelopt-day0-release/SKILL.md",
+              "line": 30
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/modelopt-day0-release/SKILL.md",
+              "line": 31
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/modelopt-day0-release/SKILL.md",
+              "line": 34
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/modelopt-day0-release/SKILL.md",
+              "line": 73
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/modelopt-day0-release/SKILL.md",
+              "line": 84
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/modelopt-day0-release/SKILL.md",
+              "line": 85
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/modelopt-day0-release/SKILL.md",
+              "line": 96
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/modelopt-day0-release/SKILL.md",
+              "line": 97
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/modelopt-day0-release/SKILL.md",
+              "line": 139
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/modelopt-day0-release/SKILL.md",
+              "line": 145
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/modelopt-day0-release/SKILL.md",
+              "line": 166
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/modelopt-day0-release/SKILL.md",
+              "line": 198
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/modelopt-day0-release/SKILL.md",
+              "line": 233
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/modelopt-day0-release/SKILL.md",
+              "line": 243
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/modelopt-day0-release/SKILL.md",
+              "line": 246
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/modelopt-day0-release/SKILL.md",
+              "line": 296
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/modelopt-day0-release/scripts/gate_verbosity.py",
+              "line": 0
+            }
+          ],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "skills/modelopt-quant-recipe-search",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/modelopt-quant-recipe-search/SKILL.md",
+              "line": 187
+            }
+          ],
+          "findings": [],
+          "suppressed": []
+        },
+        {
           "path": "skills/nemo-automodel-distributed-training",
           "score": 100,
           "risk": 0,
@@ -44915,6 +44938,11 @@
               "line": 0
             },
             {
+              "reason": "runtime_limit",
+              "path": "skills/omniverse-realtime-viewer/references/physics-simulation",
+              "line": 0
+            },
+            {
               "reason": "obfuscated_instruction_text",
               "path": "skills/omniverse-realtime-viewer/references/routing.md",
               "line": 0
@@ -44922,11 +44950,6 @@
             {
               "reason": "static_parse_limit",
               "path": "skills/omniverse-realtime-viewer/references/stage-hierarchy/README.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/omniverse-realtime-viewer/references/streaming-messages",
               "line": 0
             },
             {
@@ -66276,6 +66299,51 @@
           "suppressed": []
         },
         {
+          "path": "skills/trtllm-serve-config-guide",
+          "score": 92,
+          "risk": 8,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/trtllm-serve-config-guide/SKILL.md",
+              "line": 25
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/trtllm-serve-config-guide/SKILL.md",
+              "line": 41
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/trtllm-serve-config-guide/SKILL.md",
+              "line": 49
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/trtllm-serve-config-guide/SKILL.md",
+              "line": 63
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/trtllm-serve-config-guide/SKILL.md",
+              "line": 69
+            }
+          ],
+          "findings": [
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "skills/trtllm-serve-config-guide/evals/files/trtllm-mini/docs/source/deployment-guide/deployment-guide-for-llama3.3-70b-on-trtllm.md",
+              "line": 50
+            }
+          ],
+          "suppressed": []
+        },
+        {
           "path": "skills/vss-ask-video",
           "score": 73,
           "risk": 27,
@@ -69371,7 +69439,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-23T19:01:30Z"
+      "checkedAt": "2026-11-23T21:11:50Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
