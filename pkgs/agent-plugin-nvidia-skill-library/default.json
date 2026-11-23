@@ -1,11 +1,11 @@
 {
   "name": "nvidia-skill-library",
-  "version": "0.0.0-unstable.2026-11-23.gc62f4da",
+  "version": "0.0.0-unstable.2026-11-23.g89b3e59",
   "src": {
     "owner": "NVIDIA",
     "repo": "skills",
-    "rev": "c62f4daeceaedf2caa65654b2091a5bb283dcda7",
-    "hash": "sha256-UpoaCjaJf/73KVF0Efzc5GuBptzRGD6UB34hp8hg5KA="
+    "rev": "89b3e59a5300e7a5747733dc9bf91182b9ec0bc9",
+    "hash": "sha256-CTgA4WpY9IJZ06lxxBy2U3N/ylpLfEtvGpZBnchtj1Q="
   },
   "sourceUrl": "https://github.com/NVIDIA/skills",
   "manifest": {
@@ -33,6 +33,11 @@
     "bionemo-cuequivariance": "skills/bionemo-cuequivariance",
     "bionemo-cuequivariance-jax": "skills/bionemo-cuequivariance-jax",
     "bionemo-cuequivariance-torch": "skills/bionemo-cuequivariance-torch",
+    "bionemo-cupotential-benchmark": "skills/bionemo-cupotential-benchmark",
+    "bionemo-cupotential-custom-potentials": "skills/bionemo-cupotential-custom-potentials",
+    "bionemo-cupotential-install": "skills/bionemo-cupotential-install",
+    "bionemo-cupotential-openmm": "skills/bionemo-cupotential-openmm",
+    "bionemo-cupotential-validate": "skills/bionemo-cupotential-validate",
     "bionemo-diffdock-nim": "skills/bionemo-diffdock-nim",
     "bionemo-drug-discovery-pipeline": "skills/bionemo-drug-discovery-pipeline",
     "bionemo-evo2-nim": "skills/bionemo-evo2-nim",
@@ -83,12 +88,7 @@
     "cudnn-compile-and-serialize": "skills/cudnn-compile-and-serialize",
     "cudnn-install": "skills/cudnn-install",
     "cuml": "skills/cuml",
-    "cuopt-install": "skills/cuopt-install",
     "cuopt-multi-objective-exploration": "skills/cuopt-multi-objective-exploration",
-    "cuopt-numerical-optimization-api": "skills/cuopt-numerical-optimization-api",
-    "cuopt-numerical-optimization-formulation": "skills/cuopt-numerical-optimization-formulation",
-    "cuopt-routing-api-python": "skills/cuopt-routing-api-python",
-    "cuopt-server-api-python": "skills/cuopt-server-api-python",
     "dali-dynamic-mode": "skills/dali-dynamic-mode",
     "data-designer": "skills/data-designer",
     "deepstream-dev": "skills/deepstream-dev",
@@ -273,6 +273,8 @@
     "mcore-split-pr": "skills/mcore-split-pr",
     "mcore-testing": "skills/mcore-testing",
     "medtech-model-evidence-export": "skills/medtech-model-evidence-export",
+    "modelopt-day0-release": "skills/modelopt-day0-release",
+    "modelopt-quant-recipe-search": "skills/modelopt-quant-recipe-search",
     "nemo-automodel-distributed-training": "skills/nemo-automodel-distributed-training",
     "nemo-automodel-launcher-config": "skills/nemo-automodel-launcher-config",
     "nemo-automodel-model-onboarding": "skills/nemo-automodel-model-onboarding",
@@ -483,6 +485,7 @@
     "tilegym-monkey-patch-kernels-to-transformers": "skills/tilegym-monkey-patch-kernels-to-transformers",
     "triton-onnx-model-repository": "skills/triton-onnx-model-repository",
     "triton-pytorch-model-repository": "skills/triton-pytorch-model-repository",
+    "trtllm-serve-config-guide": "skills/trtllm-serve-config-guide",
     "vss-ask-video": "skills/vss-ask-video",
     "vss-build-vision-ai": "skills/vss-build-vision-ai",
     "vss-generate-video-report": "skills/vss-generate-video-report",
@@ -622,6 +625,46 @@
       {
         "path": "skills/bionemo-cuequivariance/SKILL.md/name",
         "message": "skill name \"cuequivariance\" must match directory name \"bionemo-cuequivariance\""
+      },
+      {
+        "path": "skills/bionemo-cupotential-benchmark/SKILL.md/metadata/tags",
+        "message": "must be a string value"
+      },
+      {
+        "path": "skills/bionemo-cupotential-benchmark/SKILL.md/name",
+        "message": "skill name \"cupotential-benchmark\" must match directory name \"bionemo-cupotential-benchmark\""
+      },
+      {
+        "path": "skills/bionemo-cupotential-custom-potentials/SKILL.md/metadata/tags",
+        "message": "must be a string value"
+      },
+      {
+        "path": "skills/bionemo-cupotential-custom-potentials/SKILL.md/name",
+        "message": "skill name \"cupotential-custom-potentials\" must match directory name \"bionemo-cupotential-custom-potentials\""
+      },
+      {
+        "path": "skills/bionemo-cupotential-install/SKILL.md/metadata/tags",
+        "message": "must be a string value"
+      },
+      {
+        "path": "skills/bionemo-cupotential-install/SKILL.md/name",
+        "message": "skill name \"cupotential-install\" must match directory name \"bionemo-cupotential-install\""
+      },
+      {
+        "path": "skills/bionemo-cupotential-openmm/SKILL.md/metadata/tags",
+        "message": "must be a string value"
+      },
+      {
+        "path": "skills/bionemo-cupotential-openmm/SKILL.md/name",
+        "message": "skill name \"cupotential-openmm\" must match directory name \"bionemo-cupotential-openmm\""
+      },
+      {
+        "path": "skills/bionemo-cupotential-validate/SKILL.md/metadata/tags",
+        "message": "must be a string value"
+      },
+      {
+        "path": "skills/bionemo-cupotential-validate/SKILL.md/name",
+        "message": "skill name \"cupotential-validate\" must match directory name \"bionemo-cupotential-validate\""
       },
       {
         "path": "skills/bionemo-diffdock-nim/SKILL.md/name",
@@ -912,51 +955,11 @@
         "message": "must be a string value"
       },
       {
-        "path": "skills/cuopt-install/SKILL.md",
-        "message": "unknown frontmatter fields: version"
-      },
-      {
-        "path": "skills/cuopt-install/SKILL.md/metadata/tags",
-        "message": "must be a string value"
-      },
-      {
         "path": "skills/cuopt-multi-objective-exploration/SKILL.md",
         "message": "unknown frontmatter fields: origin, version"
       },
       {
         "path": "skills/cuopt-multi-objective-exploration/SKILL.md/metadata/tags",
-        "message": "must be a string value"
-      },
-      {
-        "path": "skills/cuopt-numerical-optimization-api/SKILL.md",
-        "message": "unknown frontmatter fields: version"
-      },
-      {
-        "path": "skills/cuopt-numerical-optimization-api/SKILL.md/metadata/tags",
-        "message": "must be a string value"
-      },
-      {
-        "path": "skills/cuopt-numerical-optimization-formulation/SKILL.md",
-        "message": "unknown frontmatter fields: version"
-      },
-      {
-        "path": "skills/cuopt-numerical-optimization-formulation/SKILL.md/metadata/tags",
-        "message": "must be a string value"
-      },
-      {
-        "path": "skills/cuopt-routing-api-python/SKILL.md",
-        "message": "unknown frontmatter fields: version"
-      },
-      {
-        "path": "skills/cuopt-routing-api-python/SKILL.md/metadata/tags",
-        "message": "must be a string value"
-      },
-      {
-        "path": "skills/cuopt-server-api-python/SKILL.md",
-        "message": "unknown frontmatter fields: version"
-      },
-      {
-        "path": "skills/cuopt-server-api-python/SKILL.md/metadata/tags",
         "message": "must be a string value"
       },
       {
@@ -3345,6 +3348,22 @@
       },
       {
         "path": "skills/kumo-model-persistence/scripts/retain_artifacts.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/modelopt-day0-release/scripts/gate_compare.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/modelopt-day0-release/scripts/gate_ptq.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/modelopt-day0-release/scripts/gate_run.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/modelopt-day0-release/scripts/gate_verbosity.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
