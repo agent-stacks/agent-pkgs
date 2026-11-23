@@ -15,9 +15,11 @@
 #     Mac, so the agent may not change them. The VM's root is read-only,
 #     with /tmp and /home/agent on tmpfs;
 #   - activates the Flox environment the caller is in (FLOX_ENV_PROJECT,
-#     a local one locked for aarch64-linux) as root, then runs the agent
-#     through `flox-agent launch` as uid 1000, with no capabilities and
-#     no new privileges. /nix is not writable by the agent;
+#     a local one locked for aarch64-linux) as root, in a folder of its
+#     own rather than the project the agent writes, then runs the agent
+#     in the project through `flox-agent launch` as uid 1000, with no
+#     capabilities and no new privileges. /nix is not writable by the
+#     agent;
 #   - allows through the proxy (HTTPS CONNECT to host names only, no
 #     private addresses): Claude's hosts, every host an MCP server of
 #     the staged plugins names (CLAUDE_CODE_PLUGIN_DIRS), and

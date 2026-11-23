@@ -10,20 +10,23 @@ set -euo pipefail
 
 proxy=http://127.0.0.1:3128
 
-# Inside the activated environment: close the start-up hosts, then drop.
+# Inside the activated environment: close the start-up hosts, go back
+# to the project, then drop.
 if [ "${1:-}" = --activated ]; then
-  shift
-  agent=$1
-  shift
+  project=$2 agent=$3
+  shift 3
+  # -t 10: wait up to 10 s for the reply after sending, not socat's
+  # default half a second.
   reply=$(printf 'CONNECT agent-sandbox-apple.start-done:0 HTTP/1.1\r\nHost: agent-sandbox-apple.start-done:0\r\n\r\n' |
-    socat - TCP:127.0.0.1:3128) || reply=""
+    socat -t 10 - TCP:127.0.0.1:3128) || reply=""
   if [[ $reply != "HTTP/1.1 200"* ]]; then
     echo "agent-sandbox-apple: the proxy did not close its start-up hosts" >&2
     exit 1
   fi
+  cd "$project"
   exec setpriv --reuid=1000 --regid=1000 --clear-groups \
     --inh-caps=-all --bounding-set=-all --no-new-privs \
-    env HOME=/home/agent flox-agent --config-dir /tmp/agent-stacks \
+    env HOME=/home/agent USER=agent LOGNAME=agent flox-agent --config-dir /tmp/agent-stacks \
     launch "$agent" -- "$@"
 fi
 
@@ -50,8 +53,16 @@ export HTTPS_PROXY=$proxy HTTP_PROXY=$proxy https_proxy=$proxy http_proxy=$proxy
 # gets its home, and activation a home of its own on /tmp.
 chown 1000:1000 /home/agent
 mkdir -p /tmp/root-home /tmp/env/.flox/env
-# Flox writes logs under .flox, so it cannot be the read-only mount.
+# Flox writes logs under .flox, so it cannot be the read-only mount. The
+# copies are readable by the agent, for `flox list` and the like.
 cp /host-env/manifest.toml /host-env/manifest.lock /tmp/env/.flox/env/
+chmod 0644 /tmp/env/.flox/env/manifest.toml /tmp/env/.flox/env/manifest.lock
 echo '{"name":"agent-sandbox-apple","version":1}' >/tmp/env/.flox/env.json
 
-HOME=/tmp/root-home exec flox activate -d /tmp/env -- "$0" --activated "$@"
+# The project, where `container run -w` starts this. Activation runs the
+# environment's hooks as root, with the start-up hosts open, so it runs
+# in /tmp/env: in the project, which the agent can write, a hook's
+# relative path would run what the last session left there.
+project=$PWD
+cd /tmp/env
+HOME=/tmp/root-home exec flox activate -d /tmp/env -- "$0" --activated "$project" "$@"
