@@ -565,6 +565,15 @@
                 touch $out
               '';
 
+          agent-sandbox-apple-contract =
+            let apple = "${(mkPackages pkgs).agent-sandbox-apple}/bin/agent-sandbox-apple"; in
+            pkgs.runCommand "agent-sandbox-apple-contract"
+              { nativeBuildInputs = [ pkgs.bash pkgs.coreutils pkgs.gnugrep pkgs.jq pkgs.git ]; }
+              ''
+                bash ${./pkgs/agent-sandbox-apple/contract-test.sh} ${apple}
+                touch $out
+              '';
+
           # A plugin built the way a generated source.json calls the
           # builder: src as a pin rather than a derivation, an import
           # record that only reaches passthru, and skills as plain
