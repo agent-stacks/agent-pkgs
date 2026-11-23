@@ -1,20 +1,82 @@
 # agent-sandbox-apple — runs the agent in a throwaway Linux VM on the
-# Mac, through Apple's `container` CLI. The VM has no network of its own:
-# its one way out is an allow-list proxy on the Mac, reached through a
-# Unix socket.
+# Mac, through Apple's `container` CLI (`container run --rm`, one VM per
+# launch). The VM has no network of its own (--network none): its one
+# way out is an allow-list proxy on the Mac, reached through a Unix
+# socket mounted into the VM.
 #
 #   agent-sandbox-apple [--options '<json>'] -- <command> [args]
 #
 # The contract agent-stacks launch hands an agent to (agent-stacks-cli
-# ADR 0056). Options, all optional:
+# ADR 0056). On each launch it:
+#
+#   - mounts the project read-write at its own path, and inside it
+#     .git and .flox read-only, each as one mount (a worktree's .git
+#     file and its common git folder too). Git and Flox run hooks on the
+#     Mac, so the agent may not change them. The VM's root is read-only,
+#     with /tmp and /home/agent on tmpfs;
+#   - activates the Flox environment the caller is in (FLOX_ENV_PROJECT,
+#     a local one locked for aarch64-linux) as root, then runs the agent
+#     through `flox-agent launch` as uid 1000, with no capabilities and
+#     no new privileges. /nix is not writable by the agent;
+#   - allows through the proxy (HTTPS CONNECT to host names only, no
+#     private addresses): Claude's hosts, every host an MCP server of
+#     the staged plugins names (CLAUDE_CODE_PLUGIN_DIRS), and
+#     allowedDomains. api.flox.dev, s3.us-east-1.amazonaws.com and
+#     cache.nixos.org are open only until activation ends;
+#   - on exit, however it ends, stops and deletes the VM, stops the
+#     proxy and keeps its log at $TMPDIR/<VM name>.log;
+#   - refuses to start at /, at ~ or above it, from a FloxHub-managed
+#     environment, or from one not locked for aarch64-linux.
+#
+# The guest image is built with `container build` on first use (a few
+# minutes), tagged with the hash of its Containerfile and guest.sh. Its
+# /nix is copied to a volume, agent-sandbox-apple-nix-<tag>, that keeps
+# the environment's packages between launches. Only one VM can attach
+# that volume, so one launch runs at a time per image.
+#
+# Options, all optional. A switch weakens the sandbox, so each one that
+# is on is named on stderr at every launch, as are allowedDomains and
+# the allowRead and allowWrite paths:
 #
 #   - allowedDomains: hosts added to the allow-list;
 #   - allowRead, allowWrite: more host paths, mounted read-only or
-#     read-write at the same path;
-#   - writableGit (false): mount .git read-write rather than read-only;
-#   - forwardLogin, forwardFloxhubToken (false): pass the Claude login,
-#     or the FloxHub token, into the VM;
+#     read-write at the same path. Absolute and existing, not holding ~,
+#     and not inside or holding the project;
+#   - writableGit (false): .git read-write rather than read-only. Its
+#     hooks, config, commondir and gitdir files, core.hooksPath and
+#     .git itself are fingerprinted before the run; any that changed are
+#     named at exit, which is then 3 (or the agent's own failure);
+#   - forwardLogin (false): for claude, passes CLAUDE_CODE_OAUTH_TOKEN
+#     or ANTHROPIC_API_KEY, whichever is set (make the first with
+#     `claude setup-token`);
+#   - forwardFloxhubToken (false): passes `flox auth token` as
+#     FLOX_FLOXHUB_TOKEN, for environments with private packages;
 #   - cpus (4), memory ("4G"): the VM's size.
+#
+# A secret goes in by name (`container run -e NAME`), never on a command
+# line, and the agent can read it.
+#
+# Needs macOS 26 or later on Apple silicon, and Apple's container 1.6.0
+# or later (<https://github.com/apple/container/releases>): 1.6.0 fixes
+# its 2026 security advisories, and older ones are refused. Run
+# `container system start` once first; its first run downloads a kernel
+# and asks questions, so this does not run it for you. Never use
+# `container machine` for agents: it mounts your home folder read-write.
+#
+# The paranoid setup. The sandbox keeps the agent away from your files,
+# but a VM escape would land as you. To make that land on an account
+# with nothing to steal, run the launches as a dedicated macOS user that
+# holds no secrets (no SSH keys, cloud logins or browser profiles):
+#
+#   1. add a Standard (not admin) user, say agentbox, in System
+#      Settings > Users & Groups;
+#   2. log in as agentbox once (the login window, or
+#      `ssh agentbox@localhost` with Remote Login on), and there run
+#      `container system start`: the service is per user;
+#   3. keep the projects that user works on in its own home, or in a
+#      folder it shares with you, and launch from a shell of that user.
+#      Give it only the tokens a launch needs, through forwardLogin and
+#      forwardFloxhubToken.
 #
 # AGENT_SANDBOX_APPLE_DRY_RUN=1 prints what would run instead of running
 # it. AGENT_SANDBOX_APPLE_CONTAINER and AGENT_SANDBOX_APPLE_PROXY name
@@ -182,6 +244,11 @@ in
     # Signals are ignored from here, so a second Ctrl-C cannot cut it
     # short.
     run_pid="" proxy_pid="" git_before="" git_changed="" cleaned=""
+    # The VMs of this launch whose `container run` has not returned. --rm
+    # is done by that process, so a run cut short leaves its VM behind,
+    # stopped and holding the cache volume, which no later launch can
+    # then attach.
+    leftover=()
     stop() { # <pid>: SIGTERM, then up to 10 s for it to go
       kill "$1" 2>/dev/null || return 0
       for _ in $(seq 100); do
@@ -200,6 +267,9 @@ in
         container_cmd stop "$vm_name" >/dev/null 2>&1 || true
         stop "$run_pid"
       fi
+      for c in "''${leftover[@]}"; do
+        container_cmd delete -f "$c" >/dev/null 2>&1 || true
+      done
       if [ -n "$proxy_pid" ]; then
         stop "$proxy_pid"
         if [ -f "$sock_dir/proxy.log" ]; then
@@ -418,6 +488,15 @@ in
     # The image and the cache volume, made on first use. These, and the
     # VM's start, are the only waits, so each says what it is doing.
     say() { echo "agent-sandbox-apple: $*" >&2; }
+    # <name> <container run args...>: a VM that runs one command, named so
+    # clean-up can delete it if the run is cut short.
+    helper_run() {
+      local rc=0
+      leftover+=("$1")
+      container_cmd run --rm --name "$1" "''${@:2}" || rc=$?
+      unset 'leftover[-1]'
+      return "$rc"
+    }
     ensure_image() {
       container_cmd image inspect "$image" >/dev/null 2>&1 && return 0
       say "building the guest image $image, once per version of this sandbox (about a minute and a half)"
@@ -430,8 +509,8 @@ in
     # goes in last, so a fill cut short is done again.
     fill_volume() {
       say "filling the Nix cache volume $volume from the image (about 15 seconds)"
-      container_cmd run --rm --network none -l agent-sandbox-apple=1 -v "$volume:/nix-cache" "$image" \
-        sh -c "cp -a /nix/. /nix-cache/ && touch $marker" >&2 ||
+      helper_run "agent-sandbox-apple-fill-$suffix" --network none -l agent-sandbox-apple=1 \
+        -v "$volume:/nix-cache" "$image" sh -c "cp -a /nix/. /nix-cache/ && touch $marker" >&2 ||
         die "could not fill the Nix cache volume $volume"
     }
     ensure_volume() {
@@ -439,10 +518,25 @@ in
         say "creating the Nix cache volume $volume, shared by every launch of this image"
         container_cmd volume create "$volume" >/dev/null || die "could not create the volume $volume"
         fill_volume
-      elif ! container_cmd run --rm --network none -l agent-sandbox-apple=1 -v "$volume:/nix-cache" "$image" \
-        test -f "$marker" >/dev/null 2>&1; then
-        fill_volume
+        return 0
       fi
+      # Filled again only when the check says so: a fill over a used
+      # volume puts back the image's Nix database, which then no longer
+      # knows the environment's packages. The check fails outright when
+      # the volume is in use: only one VM can attach it.
+      # Not through helper_run: $(...) is a subshell, whose leftover the
+      # clean-up would not see.
+      local check=agent-sandbox-apple-check-$suffix state
+      leftover+=("$check")
+      state=$(container_cmd run --rm --name "$check" --network none -l agent-sandbox-apple=1 \
+        -v "$volume:/nix-cache" "$image" sh -c "if test -f $marker; then echo filled; else echo empty; fi" \
+        2>/dev/null) || state=""
+      unset 'leftover[-1]'
+      case ''${state##*$'\n'} in
+        filled) ;;
+        empty) fill_volume ;;
+        *) die "could not read the Nix cache volume $volume. Only one launch can use it at a time: is another running? ('container list')" ;;
+      esac
     }
     ensure_image
     ensure_volume
@@ -469,11 +563,13 @@ in
     tee "$sock_dir/run.err" <"$sock_dir/stderr" >&2 &
     tee_pid=$!
     # The program itself, not the function, so $! is its pid.
+    leftover+=("$vm_name")
     "$container" run "''${run_args[@]}" "$image" "''${command[@]}" <&0 2>"$sock_dir/stderr" &
     run_pid=$!
     status=0
     wait "$run_pid" || status=$?
     run_pid=""
+    leftover=()
     wait "$tee_pid" || true
 
     if [ "$status" != 0 ] && ! on forwardFloxhubToken; then

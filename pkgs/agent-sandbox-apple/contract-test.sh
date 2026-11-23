@@ -19,7 +19,9 @@ unset CLAUDE_CODE_OAUTH_TOKEN ANTHROPIC_API_KEY CLAUDE_CODE_PLUGIN_DIRS FLOX_FLO
 # (STUB_VERSION and STUB_NOT_RUNNING change them); anything else is
 # logged, one line of argv, to $STUB_LOG. The image and the volume exist
 # with STUB_IMAGE and STUB_VOLUME, and the volume is filled unless
-# STUB_UNFILLED. The agent's run checks the stub proxy is up, runs
+# STUB_UNFILLED, and its check fails outright with STUB_CHECK_FAIL; the
+# check sleeps STUB_CHECK_SLEEP seconds instead, its pid in
+# $STUB_DIR/check.pid. The agent's run checks the stub proxy is up, runs
 # STUB_RUN_HOOK, prints STUB_RUN_ERR on stderr, sleeps STUB_RUN_SLEEP
 # seconds and exits STUB_RUN_RC.
 { echo "#!$(command -v bash)"; cat <<'EOF'
@@ -38,7 +40,11 @@ case "$*" in
       "volume inspect") [ -n "${STUB_VOLUME:-}" ] ;;
       run\ *)
         case "$*" in
-          *"test -f /nix-cache/.agent-sandbox-apple-filled") [ -z "${STUB_UNFILLED:-}" ] ;;
+          *"test -f /nix-cache/.agent-sandbox-apple-filled;"*)
+            echo $$ >"$STUB_DIR/check.pid"
+            [ -z "${STUB_CHECK_SLEEP:-}" ] || exec sleep "$STUB_CHECK_SLEEP"
+            [ -z "${STUB_CHECK_FAIL:-}" ] || exit 1
+            if [ -z "${STUB_UNFILLED:-}" ]; then echo filled; else echo empty; fi ;;
           *guest.sh*)
             echo $$ >"$STUB_DIR/run.pid"
             if kill -0 "$(cat "$STUB_DIR/proxy.pid" 2>/dev/null)" 2>/dev/null; then
@@ -356,7 +362,7 @@ grep -q TERM "$STUB_DIR/proxy.signals" || fail "the proxy got no SIGTERM"
 sock=$(sed -n 's/.*--socket \([^ ]*\).*/\1/p' "$STUB_DIR/proxy.argv")
 case $sock in /tmp/asa.??????/proxy.sock) ;; *) fail "proxy socket: $sock" ;; esac
 [ ! -e "$(dirname "$sock")" ] || fail "$(dirname "$sock") left behind"
-name=$(sed -n 's/.*--name \([^ ]*\).*/\1/p' "$STUB_LOG")
+name=$(sed -n '/guest\.sh/s/.*--name \([^ ]*\).*/\1/p' "$STUB_LOG")
 plog=$TMPDIR/$name.log
 grep -qx 'latch closed' "$plog" || fail "proxy log not kept at $plog"
 grep -qF "$plog" err || fail "proxy log path not printed: $(cat err)"
@@ -366,15 +372,27 @@ grep -qi floxhub err && fail "FloxHub hint on a clean run: $(cat err)"
 launch STUB_IMAGE=1 STUB_VOLUME=1 -- -- claude --version
 [ "$rc" = 0 ] || fail "warm launch: exit $rc: $(cat err)"
 grep -qE '^(build|volume create)|cp -a' "$STUB_LOG" && fail "warm launch built or filled: $(cat "$STUB_LOG")"
-in_order "^image inspect " "^volume inspect " "test -f /nix-cache/\.agent-sandbox-apple-filled\$" \
+in_order "^image inspect " "^volume inspect " "test -f /nix-cache/\.agent-sandbox-apple-filled;" \
   "guest\.sh claude --version\$"
 grep -qE '^agent-sandbox-apple: .*(image|volume|fill)' err && fail "warm launch announced slow work: $(cat err)"
+# Each finished run removed its own VM (--rm): nothing to delete.
+grep -q '^delete' "$STUB_LOG" && fail "a clean launch deleted VMs: $(cat "$STUB_LOG")"
+# The check and fill VMs are named, so clean-up can find them.
+grep -qE '^run --rm --name agent-sandbox-apple-check-[a-z0-9]{5} .*test -f ' "$STUB_LOG" ||
+  fail "the check run has no name: $(cat "$STUB_LOG")"
 
 # A volume whose fill never finished is filled again.
 launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_UNFILLED=1 -- -- claude
 [ "$rc" = 0 ] || fail "unfilled launch: exit $rc: $(cat err)"
 grep -q '^volume create' "$STUB_LOG" && fail "an existing volume created again"
-in_order "test -f /nix-cache/\.agent-sandbox-apple-filled\$" "cp -a /nix/\. /nix-cache/" "guest\.sh claude\$"
+in_order "test -f /nix-cache/\.agent-sandbox-apple-filled;" "cp -a /nix/\. /nix-cache/" "guest\.sh claude\$"
+
+# A check that fails outright (the volume in use by another launch)
+# does not fill: a fill over a used volume undoes its Nix database.
+launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_CHECK_FAIL=1 -- -- claude
+[ "$rc" = 2 ] || fail "a failed check gave exit $rc: $(cat err)"
+grep -q 'another running' err || fail "no reason for a failed check: $(cat err)"
+grep -qE 'cp -a|guest\.sh' "$STUB_LOG" && fail "a failed check filled or ran: $(cat "$STUB_LOG")"
 
 # The agent's exit code is the sandbox's, and the clean-up still runs.
 launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_RUN_RC=3 -- -- claude
@@ -393,12 +411,30 @@ kill -TERM "$bg"
 rc=0
 wait "$bg" || rc=$?
 [ "$rc" = 143 ] || fail "SIGTERM gave exit $rc: $(cat err)"
-name=$(sed -n 's/.*--name \([^ ]*\).*/\1/p' "$STUB_LOG")
-in_order "guest\.sh claude\$" "^stop $name\$"
+name=$(sed -n '/guest\.sh/s/.*--name \([^ ]*\).*/\1/p' "$STUB_LOG")
+in_order "guest\.sh claude\$" "^stop $name\$" "^delete -f $name\$"
 ! kill -0 "$(cat "$STUB_DIR/run.pid")" 2>/dev/null || fail "container run still running after a signal"
 grep -q TERM "$STUB_DIR/proxy.signals" || fail "the proxy got no SIGTERM after a signal"
 sock=$(sed -n 's/.*--socket \([^ ]*\).*/\1/p' "$STUB_DIR/proxy.argv")
 [ ! -e "$(dirname "$sock")" ] || fail "$(dirname "$sock") left behind after a signal"
+
+# A signal while the check of the fill runs: its VM is deleted, as its
+# `container run`, cut short, never removes it, and a VM left holding
+# the volume stops every later launch.
+rm -rf "$STUB_DIR" && mkdir -p "$STUB_DIR" && : >"$STUB_LOG"
+(cd "$dir" && STUB_IMAGE=1 STUB_VOLUME=1 STUB_CHECK_SLEEP=30 exec "$apple" -- claude) >out 2>err &
+bg=$!
+for _ in $(seq 100); do [ -s "$STUB_DIR/check.pid" ] && break; sleep 0.1; done
+[ -s "$STUB_DIR/check.pid" ] || fail "the check never started: $(cat err)"
+kill -TERM "$bg"
+kill -TERM "$(cat "$STUB_DIR/check.pid")"
+rc=0
+wait "$bg" || rc=$?
+[ "$rc" = 143 ] || fail "SIGTERM during the check gave exit $rc: $(cat err)"
+check=$(sed -n '/test -f/s/.*--name \([^ ]*\).*/\1/p' "$STUB_LOG")
+[ -n "$check" ] || fail "no named check run: $(cat "$STUB_LOG")"
+in_order "test -f /nix-cache/" "^delete -f $check\$"
+grep -q 'guest\.sh' "$STUB_LOG" && fail "the agent ran after a signal: $(cat "$STUB_LOG")"
 
 # --- writableGit: hooks and config are checked at exit -----------------
 
