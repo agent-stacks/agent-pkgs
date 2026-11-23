@@ -82,7 +82,7 @@ has --arg e "$p/.flox/env" '[.mounts[] | select(.target == "/host-env")] == [{so
 has --arg h "$HOME" 'all(.mounts[]; .source != $h and (.source | contains(".ssh") | not))'
 sock=$(jq -r '.mounts[] | select(.target == "/run/agent-proxy.sock") | .source' out)
 case $sock in
-  "$TMPDIR"/agent-sandbox-apple.*/*) ;;
+  /tmp/asa.??????/proxy.sock) ;;
   *) fail "socket not in a private temp folder: $sock" ;;
 esac
 [ ! -e "$(dirname "$sock")" ] || fail "the dry run left $(dirname "$sock") behind"

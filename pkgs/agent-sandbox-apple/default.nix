@@ -155,9 +155,9 @@
     guest=/opt/agent-sandbox-apple/guest.sh
 
     # The proxy's socket, in a folder of its own (mode 0700), so a second
-    # launch from the same folder has its own.
-    tmp=''${TMPDIR:-/tmp}
-    sock_dir=$(mktemp -d "''${tmp%/}/agent-sandbox-apple.XXXXXX")
+    # launch from the same folder has its own. Under /tmp, not macOS's
+    # long $TMPDIR, to stay well inside the 104-byte socket path limit.
+    sock_dir=$(mktemp -d /tmp/asa.XXXXXX)
     trap 'rm -rf "$sock_dir"' EXIT
 
     # The VM's environment holds only what is named here, and every value
