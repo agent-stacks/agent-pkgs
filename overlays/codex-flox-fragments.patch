@@ -1,8 +1,36 @@
+diff --git a/core-plugins/src/loader.rs b/core-plugins/src/loader.rs
+index 1e76918..4174ceb 100644
+--- a/core-plugins/src/loader.rs
++++ b/core-plugins/src/loader.rs
+@@ -451,6 +451,11 @@ pub fn refresh_curated_plugin_cache(
+ 
+     let mut cache_refreshed = false;
+     for plugin_id in configured_curated_plugin_ids {
++        // flox-ai: a plugin CODEX_FLOX_PLUGIN_ROOT serves never reads the
++        // cache, so don't write it.
++        if crate::store::flox_plugin_root(plugin_id).is_some() {
++            continue;
++        }
+         let plugin_key = plugin_id.as_key();
+         if !marketplace_plugin_keys.contains(&plugin_key) {
+             if !loaded_marketplace_names.contains(&plugin_id.marketplace_name) {
+@@ -638,6 +643,11 @@ pub(crate) fn refresh_non_curated_plugin_cache_with_mode<'a>(
+     let mut cache_refreshed = false;
+     let mut refresh_errors = Vec::new();
+     for plugin_id in configured_non_curated_plugin_ids {
++        // flox-ai: a plugin CODEX_FLOX_PLUGIN_ROOT serves never reads the
++        // cache, so don't write it.
++        if crate::store::flox_plugin_root(&plugin_id).is_some() {
++            continue;
++        }
+         let plugin_key = plugin_id.as_key();
+         let Some((source, manifest_fallback_contents)) = plugin_sources.get(&plugin_key).cloned()
+         else {
 diff --git a/core-plugins/src/store.rs b/core-plugins/src/store.rs
-index 087eae6..5b17a01 100644
+index 087eae6..15bc532 100644
 --- a/core-plugins/src/store.rs
 +++ b/core-plugins/src/store.rs
-@@ -32,6 +32,22 @@ const DEFAULT_AGENT_PLUGIN_VERSION: &str = "1.0.0";
+@@ -32,6 +32,27 @@ const DEFAULT_AGENT_PLUGIN_VERSION: &str = "1.0.0";
  
  use codex_core_plugin_common::installed::RemotePluginInstallMetadata;
  
@@ -13,19 +41,24 @@ index 087eae6..5b17a01 100644
 +// instead of the cache, so `agent-stacks launch codex` can hand Codex
 +// plugins for one process without writing the plugin cache. Added by the
 +// flox downstream patch.
-+fn flox_plugin_root(plugin_id: &PluginId) -> Option<AbsolutePathBuf> {
++//
++// The folder is canonicalized because hook fingerprinting refuses a
++// plugin root that is a link.
++pub(crate) fn flox_plugin_root(plugin_id: &PluginId) -> Option<AbsolutePathBuf> {
 +    let raw = std::env::var_os("CODEX_FLOX_PLUGIN_ROOT")?;
 +    let root = AbsolutePathBuf::from_absolute_path_checked(PathBuf::from(raw)).ok()?;
 +    let root = root
 +        .join(&plugin_id.marketplace_name)
-+        .join(&plugin_id.plugin_name);
++        .join(&plugin_id.plugin_name)
++        .canonicalize()
++        .ok()?;
 +    root.as_path().is_dir().then_some(root)
 +}
 +
  #[derive(Debug, Clone, PartialEq, Eq)]
  pub struct PluginInstallResult {
      pub plugin_id: PluginId,
-@@ -148,12 +164,18 @@ impl PluginStore {
+@@ -148,12 +169,18 @@ impl PluginStore {
      }
  
      pub fn active_plugin_version(&self, plugin_id: &PluginId) -> Option<String> {
@@ -45,7 +78,7 @@ index 087eae6..5b17a01 100644
              .map(|plugin_version| self.plugin_root(plugin_id, &plugin_version))
      }
 diff --git a/ext/skills/src/host_roots.rs b/ext/skills/src/host_roots.rs
-index 940b263..6b5ff22 100644
+index 940b263..d832c46 100644
 --- a/ext/skills/src/host_roots.rs
 +++ b/ext/skills/src/host_roots.rs
 @@ -105,6 +105,19 @@ async fn resolve_skill_roots_with_home_dir<'a>(
@@ -54,7 +87,7 @@ index 940b263..6b5ff22 100644
      );
 +    // flox-ai: extra skill roots injected via the CODEX_FLOX_SKILL_ROOTS env
 +    // var (colon-separated absolute paths). Added by the flox downstream
-+    // patch so `flox-ai launch codex` can surface environment-managed skills
++    // patch so `agent-stacks launch codex` can surface environment-managed skills
 +    // without mutating ~/.codex or the working tree.
 +    if let Ok(raw) = std::env::var("CODEX_FLOX_SKILL_ROOTS") {
 +        for entry in raw.split(':').filter(|s| !s.is_empty()) {
