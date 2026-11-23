@@ -86,7 +86,8 @@ and warns. The re-exported packages are not in `checks`, only in
 
 An overlay, `overlays/llm-agents.nix`, patches the llm-agents set
 before it is re-exported. Today that is only codex, so
-`agent-stacks launch` can pass it skills and plugins
+`agent-stacks launch` can pass it skills, and plugins once launch
+uses `CODEX_FLOX_PLUGIN_ROOT`
 ([decisions/0024](../decisions/0024-a-re-exported-package-can-carry-a-patch.md)).
 
 Spec conformance is not a separate check. `buildAgentPlugin` runs
