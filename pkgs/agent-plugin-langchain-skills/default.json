@@ -1,11 +1,11 @@
 {
   "name": "langchain-skills",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "src": {
     "owner": "langchain-ai",
     "repo": "langchain-skills",
-    "rev": "90e4816bebb86f1d9bb34734998276316031f6e4",
-    "hash": "sha256-FGv0C50TsXJTZ3SlQ5EZe6p/weGhN7rnkS8k/Lo0RlI="
+    "rev": "7a385cd544c7d024f0e410b2281f6d56a621d442",
+    "hash": "sha256-pRKI9kMSguU/QXApwuMMA9ZT7WJE+sVlqV9GsetZHbo="
   },
   "sourceUrl": "https://github.com/langchain-ai/langchain-skills",
   "manifest": {
@@ -26,14 +26,17 @@
     "license": "MIT",
     "name": "langchain-skills",
     "repository": "https://github.com/langchain-ai/langchain-skills",
-    "version": "0.3.1"
+    "version": "0.4.0"
   },
   "skills": {
+    "eval-engineering": "config/skills/eval-engineering",
     "langchain-agent-experiments": "skills/langchain-agent-experiments",
     "langchain-agent-monitoring": "skills/langchain-agent-monitoring",
     "langchain-agent-tracing": "skills/langchain-agent-tracing",
     "langchain-build-agent": "skills/langchain-build-agent",
-    "langchain-eval-engineering": "skills/langchain-eval-engineering"
+    "langchain-eval-engineering": "skills/langchain-eval-engineering",
+    "langchain-managed-deep-agents": "skills/langchain-managed-deep-agents",
+    "managed-deep-agents": "config/skills/managed-deep-agents"
   },
   "requiredRuntimes": [
     "python3"
@@ -63,6 +66,18 @@
       "--pkgs-dir=pkgs"
     ],
     "warnings": [
+      {
+        "path": "config/skills/eval-engineering/SKILL.md",
+        "message": "missing YAML frontmatter (file must open with --- and close with ---)"
+      },
+      {
+        "path": "config/skills/managed-deep-agents/SKILL.md",
+        "message": "missing YAML frontmatter (file must open with --- and close with ---)"
+      },
+      {
+        "path": "skills/.legacy",
+        "message": "22 SKILL.md in a dot directory the search does not enter, not imported"
+      },
       {
         "path": "skills/langchain-eval-engineering/references/multi-turn-simulation/harbor_example.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
