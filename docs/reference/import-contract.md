@@ -128,21 +128,30 @@ importer to the transports the schema names, and the builder writes
 it as `mcp.json` with the manifest's `$schema` version. The server
 fields Claude reads and the schema does not define, `timeout` and
 `oauth`, are not in it: for a plugin Claude installs they travel in
-`manifest.extensions`, by server name (agent-stacks ADR 0068). For
-a plugin whose directory has a `.codex-plugin/plugin.json` beside its
-Claude manifest, `manifest.extensions["com.openai"]` holds what that
-manifest chooses for Codex, in Codex's own field names and shapes,
-with paths pointing into the package: a field it leaves out means
-Codex's default, and one it records, an empty one included, is
-Codex's choice (`"hooks": {}` is no hooks). A path the block records
-in the namespace always names a file the package ships. The Codex
-fields of servers Codex reads from the same file sit there under
-`mcpServerFields` (agent-stacks ADR 0043). A file
+`manifest.extensions`, by server name (agent-stacks ADR 0068). A file
 from an earlier importer is still built: such a file omits `manifest` when
 the plugin's own `plugin.json` sits at the root and never carries
 `mcpServers`, and the builder then takes a root `plugin.json` that
 declares an `agent-plugins.org` `$schema`, and a root `mcp.json` that
 does the same. Any other root file is not read.
+
+`manifest.extensions["com.openai"]` is the importer's record of a
+Codex manifest. It is present for a plugin Claude Code installs (as
+`pluginRootPaths` below defines it) whose directory also has
+`.codex-plugin/plugin.json`, and never otherwise: without such a
+manifest the importer drops a block an upstream manifest carries,
+and with one it replaces it, warning either way. The builder copies
+the block into `plugin.json` and reads none of it. It keeps Codex's
+field names and shapes. Each path it records starts with `./`, and
+one under `./com.openai/` names a file the package ships, which the
+importer checks when it writes the block. What each field means,
+which ones are left out, and how `mcpServerFields` maps a server
+name to its Codex fields, is in agent-stacks-cli's
+`docs/reference/import-command.md`, "Codex manifests", under
+agent-stacks ADR 0043 (*Import records a Codex manifest beside
+a Claude one*, proposed). That number is in the series agent-stacks
+restarted on 2026-11-17; the page's other agent-stacks citations
+predate it.
 
 `hooks` is present when the plugin has Claude Code hooks: the event
 map Claude reads, merged by the importer from `hooks/hooks.json` and
@@ -174,8 +183,10 @@ element each), and `warnings` (the `{ path, message }` entries
 `agent-stacks check-plugin` raised at import time, plus what import
 found itself: scripts with no shebang, dependency manifests the build
 does not resolve, plugin-root references that are missing or withheld,
-and Claude components that are not packaged). `warnings` is omitted
-when empty.
+Claude components that are not packaged, and, for a Codex manifest,
+each handler its hooks run, the Codex fields kept for each server and
+each Codex path that ships nothing). `warnings` is omitted when
+empty.
 
 `input` and `flags` are replayed by `agent-stacks import <input>
 --replay --pkgs-dir pkgs`: the importer finds every package under `pkgs/`
@@ -188,7 +199,7 @@ reads back, not a contract for a shell reader. Without
 `--replay`, import never applies recorded flags.
 
 `pluginRootPaths` maps a plugin-root entry's destination inside the
-plugin tree to its path inside `src`. It holds three kinds of entry:
+plugin tree to its path inside `src`. It holds four kinds of entry:
 
 - what the skills reference through `${PLUGIN_ROOT}` (Claude spells it
   `${CLAUDE_PLUGIN_ROOT}`), such as a launcher kept beside `skills/`
@@ -203,33 +214,44 @@ plugin tree to its path inside `src`. It holds three kinds of entry:
   `hooks/` also ships for hooks declared outside `hooks.json`, with
   what they run (agent-stacks ADR 0051). Paths the manifest's
   component fields name ship the same way, and the fields travel in
-  `manifest.extensions` (agent-stacks ADR 0065).
-- for a plugin with a Codex manifest beside its Claude one, the files
-  that manifest names, under `com.openai/`, each at its plugin-root
-  entry name, and what those files reference that the plugin root
-  does not ship (agent-stacks ADR 0043). Launch never stages
-  `com.openai/` for Claude, so a hooks file there reaches Codex alone.
+  `manifest.extensions` (agent-stacks ADR 0065);
+- for a plugin with a Codex manifest beside its Claude one, the
+  plugin-root entries holding the files that manifest names, under
+  `com.openai/` at their own names, and what those files reference
+  that the plugin root does not ship (agent-stacks ADR 0043). Launch,
+  from the agent-stacks release carrying that record, never stages
+  `com.openai/` for Claude, so a hooks file there reaches Codex
+  alone. A Codex launch is to stage each entry at its plugin's root,
+  where the paths inside the files resolve; no launcher reads the
+  namespace yet, and the installed tree is not itself a Codex
+  plugin.
 
 References are followed one level: an entry that ships is not read
 for further references. The builder copies these entries before the
-runtime pass, so their contents are rewritten, pinned and guarded like
-a skill's. A directory is pruned as a skill copy is, and login files
-(`.npmrc`, `*.pem`, …) are dropped. In the hooks file, a hook that
-runs a plugin file with a bare interpreter is pointed at the package's
-`bin/`; one no package the build searches ships is left for `PATH`
-and reported. Destinations are one path segment, never `skills`, or two
-inside a client-extension namespace, `com.anthropic.claude-code/` or
-`com.openai/`. Inside `com.openai/` a name the builder writes at the
-root, such as `.mcp.json`, may ship, and so may a link to one, since
-it clashes with nothing there; a login file or a pruned name may not,
-nor `skills` or `bin`, which a Codex plugin staged from the namespace
-would stand over the package's own. A `com.openai/`
-destination is allowed from the agent-stacks release carrying its
-ADR 0043; a binary pinned before it refuses the entry. `bin` is
-allowed from the agent-stacks release carrying its ADR 0052; the
-binary pinned before it refuses the entry. An upstream `bin/` ships beside the interpreter
-links, and an entry in it with a linked interpreter's name fails the
-build naming both
+runtime pass, so their contents are rewritten, pinned and guarded
+like a skill's. A directory is pruned as a skill copy is, and login
+files (`.npmrc`, `*.pem`, …) are dropped. In Claude's hooks file, a
+hook that runs a plugin file with a bare interpreter is pointed at
+the package's `bin/`; one no package the build searches ships is
+left for `PATH` and reported. The hooks and servers files under
+`com.openai/` ship as written: no command in them is pointed at
+`bin/` or reported, and they add nothing to `requiredRuntimes`.
+
+Destinations are one path segment, never `skills`, or two inside a
+client-extension namespace, `com.anthropic.claude-code/` or
+`com.openai/`. Inside `com.openai/`, `.mcp.json` and `mcp.json` may
+ship, and so may a link to either, since they clash with nothing
+there. A login file or a pruned name may not, nor `skills`, `bin`,
+`plugin.json`, `.codex-plugin`, `.claude-plugin` or either namespace:
+a Codex launch staging the namespace at its root would set them over
+what it writes or takes from the package. A `com.openai/` destination
+is allowed from the agent-stacks release carrying agent-stacks
+ADR 0043; a binary pinned before it refuses the entry, and a package
+whose block names no file in `com.openai/` builds with any binary.
+`bin` is allowed from the agent-stacks release carrying its ADR 0052;
+the binary pinned before it refuses the entry. An upstream `bin/`
+ships beside the interpreter links, and an entry in it with a linked
+interpreter's name fails the build naming both
 ([ADR 0019](../decisions/0019-an-upstream-bin-ships-beside-the-interpreter-links.md)).
 The field is absent when nothing outside the skills ships.
 
@@ -244,7 +266,8 @@ the tree, which means an agent-stacks older than the field
 
 `requiredRuntimes` is a flat array of the interpreter tokens the
 scanner found in the package's files: shebangs, bare `mcp.json`
-commands, and hook interpreters. It is required for a generated package: a
+commands, and the interpreters of Claude's hooks; a Codex hooks or
+servers file adds none. It is required for a generated package: a
 `default.json` carrying `import` must also carry `requiredRuntimes`,
 and `buildAgentPlugin` throws, naming the fix, if it does not. A
 hand-written `buildAgentPlugin` call omits both `import` and
@@ -275,7 +298,8 @@ build with, whole, each starting with a `# Generated by agent-stacks
 <version> (<commit>)` line:
 
 - `lib/build-agent-plugin.nix`, the builder. Its source is
-  `internal/importer/nixlib/` in agent-stacks-cli; edit it there.
+  `crates/agent-stacks/src/importer/nixlib/` in agent-stacks-cli; edit
+  it there.
 - `pkgs/agent-stacks/`, the binary that ran the import:
   `default.json` is that build's `hashes.json` from
   downloads.agent-stacks.org, and `default.nix` fetches it.
@@ -348,9 +372,11 @@ Two further consequences bind the builder:
 $out/share/agent-plugins/<name>/
 ├── plugin.json
 ├── skills/<skill-name>/SKILL.md ...
-├── mcp.json        # only when configured
-├── com.anthropic.claude-code/  # Claude's components, when it has any
-└── com.openai/     # what a Codex manifest names, when it has one
+├── mcp.json                    # only when configured
+├── bin/                        # pinned interpreters, beside upstream's
+├── com.anthropic.claude-code/  # Claude's components
+├── com.openai/                 # a Codex manifest's files, and their refs
+└── ...                         # other pluginRootPaths entries: scripts/
 ```
 
 ## Passthru schema
