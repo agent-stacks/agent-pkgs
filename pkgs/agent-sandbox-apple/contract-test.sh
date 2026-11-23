@@ -563,6 +563,37 @@ launch STUB_IMAGE=1 STUB_VOLUME=1 "STUB_RUN_HOOK=mkdir -p $(printf %q "${esc%/*}
 grep -q $'[\e\a]' err && fail "control characters printed: $(cat -v err)"
 grep -qF "changed: $p/sub3/.git/hooks/x?]0;pwned?y" err || fail "the hook with escapes not named: $(cat -v err)"
 rm -r "$p/sub3"
+# Names in any case: on the Mac's case-insensitive disk git finds .GIT,
+# HEAD as head, CONFIG and HOOKS. Made literally, so the case also holds
+# on a case-sensitive disk.
+planted() { # <path named at exit> <hook>
+  launch STUB_IMAGE=1 STUB_VOLUME=1 "STUB_RUN_HOOK=$2" -- -- claude
+  [ "$rc" = 3 ] || fail "$1: exit $rc: $(cat err)"
+  grep -qF "changed: $1" err || fail "$1 not named: $(cat err)"
+}
+fsm="printf '[core]\\n\\tfsmonitor = evil\\n'"
+f=$p/sub4/.GIT/config
+planted "$f" "mkdir -p $(printf %q "${f%/*}") && $fsm >$(printf %q "$f")"
+rm -r "$p/sub4"
+f=$p/vendor/lib/.git/modules/m/CONFIG
+planted "$f" "mkdir -p $(printf %q "${f%/*}") && $fsm >$(printf %q "$f")"
+f=$p/vendor/lib/.git/modules/n/HOOKS/post-checkout
+planted "$f" "mkdir -p $(printf %q "${f%/*}") && echo evil >$(printf %q "$f")"
+# A folder named objects is pruned only as the git dir's own.
+f=$p/vendor/lib/.git/modules/objects/config
+planted "$f" "mkdir -p $(printf %q "${f%/*}") && $fsm >$(printf %q "$f")"
+rm -r "$p/vendor/lib/.git/modules"
+# A bare repository whose HEAD is a symlink.
+d=$p/sym
+planted "$d/config" "mkdir -p $(printf %q "$d/objects") $(printf %q "$d/refs/heads") &&
+  ln -s refs/heads/main $(printf %q "$d/HEAD") && $fsm >$(printf %q "$d/config")"
+rm -r "$d"
+# A git dir with only HEAD and a commondir: the folder commondir names
+# holds the config, and has no HEAD of its own.
+planted "$p/b/config" "mkdir -p $(printf %q "$p/wtd") $(printf %q "$p/b/objects") $(printf %q "$p/b/refs") &&
+  echo 'ref: refs/heads/main' >$(printf %q "$p/wtd/HEAD") && echo ../b >$(printf %q "$p/wtd/commondir") &&
+  $fsm >$(printf %q "$p/b/config")"
+rm -r "$p/wtd" "$p/b"
 # A folder the scan cannot read hides nothing: it counts as a change.
 f=$p/hid/.git/config
 launch STUB_IMAGE=1 STUB_VOLUME=1 \

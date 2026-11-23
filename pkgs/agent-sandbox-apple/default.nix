@@ -437,20 +437,39 @@ in
         echo missing
       fi
     }
+    # A path as a find -path/-ipath pattern that matches only itself.
+    glob_quote() { printf '%s' "$1" | sed 's/[][*?\\]/\\&/g'; }
     # A git dir: itself and every config, config.worktree, commondir and
     # gitdir file and hook in it, at any depth (a submodule's under
-    # modules/, a worktree's under worktrees/). Not objects: large, and
-    # git runs nothing from it.
+    # modules/, a worktree's under worktrees/). Names match in any case:
+    # the Mac's disk is case-insensitive, so git there reads CONFIG and
+    # HOOKS too. Not its own objects folder: large, and git runs nothing
+    # from it.
     git_meta() { # <git dir>
       local f
       echo "$(fingerprint "$1") $1"
       # A folder find cannot read shows as a line of its own, rather than
       # failing the scan, or hiding what is in it.
       {
-        find "$1" -mindepth 1 -name objects -type d -prune -o \( -name config -o -name config.worktree \
-          -o -name commondir -o -name gitdir -o -name hooks -o -path '*/hooks/*' \) -print0 2>/dev/null ||
+        find "$1" -mindepth 1 -ipath "$(glob_quote "$1")/objects" -prune -o \( -iname config \
+          -o -iname config.worktree -o -iname commondir -o -iname gitdir -o -iname hooks \
+          -o -ipath '*/hooks/*' \) -print0 2>/dev/null ||
           printf '%s\0' "$1/<unreadable>"
       } | sort -z | while IFS= read -r -d "" f; do echo "$(fingerprint "$f") $f"; done
+    }
+    # A git dir found in the project, and the common dir its commondir
+    # file names, when that is in the project too: it holds the config
+    # and hooks git uses, and need not have a HEAD of its own.
+    git_dir_state() { # <git dir>
+      local c
+      git_meta "$1"
+      [ -f "$1/commondir" ] || return 0
+      c=$(head -n 1 "$1/commondir")
+      [ -n "$c" ] || return 0
+      [[ $c = /* ]] || c=$1/$c
+      if [ -d "$c" ] && c=$(cd "$c" && pwd -P) && within "$c" "$here" && ! within "$c" "$here/.git"; then
+        git_meta "$c"
+      fi
     }
     # Under writableGit, the project's own git dirs, core.hooksPath, .git
     # itself and the git dirs git resolves, as each can point git at other
@@ -469,38 +488,42 @@ in
     # submodule's), and git on the Mac runs its hooks and core.fsmonitor
     # wherever it lands, a shell prompt's `git status` included. Every
     # .git, file or folder, the git dir a .git file names when it is in
-    # the project, and every bare repository (HEAD, objects and refs).
-    # Not node_modules, nor the top-level .git when it is mounted on its
-    # own (read-only, or checked by git_state).
+    # the project, and every folder git would take as a git dir: a HEAD
+    # (file or symlink) with objects and refs, or with a commondir. Names
+    # match in any case (.GIT, head), as on the Mac's disk. Not
+    # node_modules, nor the top-level .git when it is mounted on its own
+    # (read-only, or checked by git_state).
     planted_state() {
       local skip=() f d g
       if [ ''${#git_dirs[@]} -gt 0 ]; then
-        skip=(-path "$(printf '%s' "$here/.git" | sed 's/[][*?\\]/\\&/g')" -prune -o)
+        skip=(-path "$(glob_quote "$here/.git")" -prune -o)
       fi
       {
         find "$here" "''${skip[@]}" -name node_modules -type d -prune -o \
-          -name .git -print0 -prune -o -name HEAD -type f -print0 2>/dev/null ||
+          -iname .git -print0 -prune -o -iname HEAD -print0 2>/dev/null ||
           printf '%s\0' "$here/<unreadable>"
       } | sort -z |
         while IFS= read -r -d "" f; do
-          case $f in
-            */.git)
+          case ''${f##*/} in
+            [.][gG][iI][tT])
               if [ -d "$f" ] && [ ! -L "$f" ]; then
-                git_meta "$f"
+                git_dir_state "$f"
                 continue
               fi
               echo "$(fingerprint "$f") $f"
               [ -f "$f" ] && [ ! -L "$f" ] || continue
               g=$(sed -n '1s/^gitdir: //p' "$f")
               [ -n "$g" ] || continue
-              [[ $g = /* ]] || g=''${f%/.git}/$g
+              [[ $g = /* ]] || g=''${f%/*}/$g
               if [ -d "$g" ] && g=$(cd "$g" && pwd -P) && within "$g" "$here" && ! within "$g" "$here/.git"; then
-                git_meta "$g"
+                git_dir_state "$g"
               fi
               ;;
-            */HEAD)
-              d=''${f%/HEAD}
-              if [ -d "$d/objects" ] && [ -d "$d/refs" ]; then git_meta "$d"; fi
+            [hH][eE][aA][dD])
+              d=''${f%/*}
+              if { [ -d "$d/objects" ] && [ -d "$d/refs" ]; } || [ -f "$d/commondir" ]; then
+                git_dir_state "$d"
+              fi
               ;;
             *) echo "$(fingerprint "$f") $f" ;;
           esac
