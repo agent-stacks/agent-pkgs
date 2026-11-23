@@ -392,6 +392,10 @@ in_order "test -f /nix-cache/\.agent-sandbox-apple-filled;" "cp -a /nix/\. /nix-
 launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_CHECK_FAIL=1 -- -- claude
 [ "$rc" = 2 ] || fail "a failed check gave exit $rc: $(cat err)"
 grep -q 'another running' err || fail "no reason for a failed check: $(cat err)"
+# A VM left stopped (the launcher killed before its clean-up) holds the
+# volume too, and only `container list -a` shows it.
+grep -qF "'container list -a'" err || fail "the refusal does not point at container list -a: $(cat err)"
+grep -qF 'container delete' err || fail "the refusal does not say how to delete a stopped VM: $(cat err)"
 grep -qE 'cp -a|guest\.sh' "$STUB_LOG" && fail "a failed check filled or ran: $(cat "$STUB_LOG")"
 
 # The agent's exit code is the sandbox's, and the clean-up still runs.

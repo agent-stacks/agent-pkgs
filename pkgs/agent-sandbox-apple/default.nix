@@ -535,7 +535,7 @@ in
       case ''${state##*$'\n'} in
         filled) ;;
         empty) fill_volume ;;
-        *) die "could not read the Nix cache volume $volume. Only one launch can use it at a time: is another running? ('container list')" ;;
+        *) die "could not read the Nix cache volume $volume. Only one launch can use it at a time: is another running? ('container list -a'). A stopped agent-sandbox-apple-* VM there, left by a launch that was killed, holds it too: remove it with 'container delete <name>'" ;;
       esac
     }
     ensure_image
