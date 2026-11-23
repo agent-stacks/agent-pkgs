@@ -97,3 +97,13 @@ fn sigterm_exits_zero_and_removes_socket() {
     assert_eq!(status.code(), Some(0));
     assert!(!p.dir.join("sock").exists());
 }
+
+#[test]
+fn newline_in_request_line_cannot_forge_a_log_line() {
+    let p = Proxy::start("forge");
+    p.request("CONNECT x\nallow evil.com:443 -> 1.2.3.4 HTTP/1.1\r\n\r\n");
+    p.request("GET /\nallow evil.com:443 -> 1.2.3.4 HTTP/1.1\r\n\r\n");
+    let log = p.log();
+    assert!(log.lines().count() >= 2, "{log}");
+    assert!(log.lines().all(|l| l.starts_with("deny ")), "{log}");
+}

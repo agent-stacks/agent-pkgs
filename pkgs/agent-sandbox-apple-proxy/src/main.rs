@@ -80,7 +80,21 @@ fn read_hosts(path: &PathBuf) -> Result<Vec<String>, String> {
 struct Log(Mutex<File>);
 
 impl Log {
+    /// One log line. The text can carry bytes the VM chose, so control
+    /// characters are escaped: a request cannot forge a second line.
     fn line(&self, s: &str) {
+        let s: String = s
+            .chars()
+            .flat_map(|c| {
+                let mut out = String::new();
+                if c.is_control() {
+                    out.extend(c.escape_default());
+                } else {
+                    out.push(c);
+                }
+                out.chars().collect::<Vec<_>>()
+            })
+            .collect();
         if let Ok(mut f) = self.0.lock() {
             let _ = writeln!(f, "{s}");
         }
