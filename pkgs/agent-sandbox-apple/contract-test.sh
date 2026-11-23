@@ -19,7 +19,8 @@ unset CLAUDE_CODE_OAUTH_TOKEN ANTHROPIC_API_KEY CLAUDE_CODE_PLUGIN_DIRS FLOX_FLO
 # (STUB_VERSION and STUB_NOT_RUNNING change them); anything else is
 # logged, one line of argv, to $STUB_LOG. The image and the volume exist
 # with STUB_IMAGE and STUB_VOLUME, and the volume is filled unless
-# STUB_UNFILLED, and its check fails outright with STUB_CHECK_FAIL; the
+# STUB_UNFILLED, and its check fails outright, with an error on stderr,
+# with STUB_CHECK_FAIL; the
 # check sleeps STUB_CHECK_SLEEP seconds instead, its pid in
 # $STUB_DIR/check.pid. The agent's run checks the stub proxy is up, runs
 # STUB_RUN_HOOK, prints STUB_RUN_ERR on stderr, sleeps STUB_RUN_SLEEP
@@ -43,7 +44,10 @@ case "$*" in
           *"test -f /nix-cache/.agent-sandbox-apple-filled;"*)
             echo $$ >"$STUB_DIR/check.pid"
             [ -z "${STUB_CHECK_SLEEP:-}" ] || exec sleep "$STUB_CHECK_SLEEP"
-            [ -z "${STUB_CHECK_FAIL:-}" ] || exit 1
+            if [ -n "${STUB_CHECK_FAIL:-}" ]; then
+              echo "Error: stub: volume is in use by agent-sandbox-apple-x" >&2
+              exit 1
+            fi
             if [ -z "${STUB_UNFILLED:-}" ]; then echo filled; else echo empty; fi ;;
           *guest.sh*)
             echo $$ >"$STUB_DIR/run.pid"
@@ -154,9 +158,10 @@ has '.image | test("^agent-sandbox-apple:[0-9a-f]{12}$")'
 has '.volume == "agent-sandbox-apple-nix-" + (.image | split(":")[1])'
 has '.startup == ["api.flox.dev", "s3.us-east-1.amazonaws.com", "cache.nixos.org"]'
 has '(.allow | sort) == (["api.anthropic.com", "platform.claude.com", "claude.ai", "console.anthropic.com"] | sort)'
-has '.env == ["AGENT_SANDBOX_APPLE_UID"]'
+has '.env == []'
+grep -q AGENT_SANDBOX_APPLE_UID out err && fail "AGENT_SANDBOX_APPLE_UID still passed: $(cat err)"
 for a in --rm --read-only "--network none" "--tmpfs /tmp" "--tmpfs /home/agent" \
-  "-l agent-sandbox-apple=1" "-c 4" "-m 4G" "-e AGENT_SANDBOX_APPLE_UID"; do
+  "-l agent-sandbox-apple=1" "-c 4" "-m 4G"; do
   grep -qF -- " $a " err || fail "no $a: $(cat err)"
 done
 
@@ -267,6 +272,10 @@ refuse() { # <what> <message pattern> <command...>
 refuse "unknown key" nope dry --options '{"nope":1}' -- claude
 refuse "the old writableGitHooks" writableGitHooks dry --options '{"writableGitHooks":true}' -- claude
 refuse "cpus as a string" cpus dry --options '{"cpus":"4"}' -- claude
+for v in false null; do
+  refuse "cpus $v" cpus dry --options "{\"cpus\":$v}" -- claude
+  refuse "memory $v" memory dry --options "{\"memory\":$v}" -- claude
+done
 refuse "not an object" "" dry --options '[1]' -- claude
 refuse "allowRead ~" "" dry --options '{"allowRead":["~"]}' -- claude
 refuse "allowRead of home" "" dry --options "$(jq -nc --arg h "$HOME" '{allowRead: [$h]}')" -- claude
@@ -396,6 +405,8 @@ grep -q 'another running' err || fail "no reason for a failed check: $(cat err)"
 # volume too, and only `container list -a` shows it.
 grep -qF "'container list -a'" err || fail "the refusal does not point at container list -a: $(cat err)"
 grep -qF 'container delete' err || fail "the refusal does not say how to delete a stopped VM: $(cat err)"
+grep -qF 'stub: volume is in use by agent-sandbox-apple-x' err ||
+  fail "the refusal does not show container's error: $(cat err)"
 grep -qE 'cp -a|guest\.sh' "$STUB_LOG" && fail "a failed check filled or ran: $(cat "$STUB_LOG")"
 
 # The agent's exit code is the sandbox's, and the clean-up still runs.
@@ -579,5 +590,9 @@ launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_RUN_RC=1 "STUB_RUN_ERR=$auth_err" \
 grep -q "set $hint" err && fail "hint with the token already forwarded: $(cat err)"
 launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_RUN_RC=1 -- -- claude
 grep -q "$hint" err && fail "hint for an unrelated failure: $(cat err)"
+# flox suggests signing in on many failures that have nothing to do
+# with FloxHub.
+launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_RUN_RC=1 "STUB_RUN_ERR=Run 'flox auth login' and try again." -- -- claude
+grep -q "$hint" err && fail "hint for flox's generic sign-in line: $(cat err)"
 
 echo "agent-sandbox-apple contract: OK"

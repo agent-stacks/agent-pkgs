@@ -22,8 +22,10 @@
 #     private addresses): Claude's hosts, every host an MCP server of
 #     the staged plugins names (CLAUDE_CODE_PLUGIN_DIRS), and
 #     allowedDomains. api.flox.dev, s3.us-east-1.amazonaws.com and
-#     cache.nixos.org are open only until activation ends;
-#   - on exit, however it ends, stops and deletes the VM, stops the
+#     cache.nixos.org are open while the environment activates: once
+#     activation ends the proxy refuses new connections to them, though
+#     a tunnel already open to one stays up;
+#   - on any exit but SIGKILL, stops and deletes the VM, stops the
 #     proxy and keeps its log at $TMPDIR/<VM name>.log;
 #   - checks at exit every other git repository in the project, as git
 #     on the Mac runs the hooks and core.fsmonitor of whichever one it
@@ -33,11 +35,12 @@
 #   - refuses to start at /, at ~ or above it, from a FloxHub-managed
 #     environment, or from one not locked for aarch64-linux.
 #
-# The guest image is built with `container build` on first use (a few
-# minutes), tagged with the hash of its Containerfile and guest.sh. Its
-# /nix is copied to a volume, agent-sandbox-apple-nix-<tag>, that keeps
-# the environment's packages between launches. Only one VM can attach
-# that volume, so one launch runs at a time per image.
+# The guest image is built with `container build` on first use (about
+# 6 minutes, measured), tagged with the hash of its Containerfile and
+# guest.sh. Its /nix is copied to a volume, agent-sandbox-apple-nix-<tag>,
+# that keeps the environment's packages between launches. Only one VM
+# can attach that volume, so one launch runs at a time per image; a
+# second is refused with the reason.
 #
 # Options, all optional. A switch weakens the sandbox, so each one that
 # is on is named on stderr at every launch, as are allowedDomains and
@@ -203,9 +206,10 @@ in
     bad=$(jq -r --argjson s "$switches" '[to_entries[] | select(.key | IN($s[]))
       | select((.value | type) != "boolean") | .key] | join(", ")' <<<"$opts")
     [ -z "$bad" ] || die "option $bad must be true or false"
-    jq -e '.cpus // 4 | type == "number" and . == floor and . >= 1' >/dev/null <<<"$opts" ||
+    # has(), not //: false and null are given values, and wrong ones.
+    jq -e 'if has("cpus") then .cpus else 4 end | type == "number" and . == floor and . >= 1' >/dev/null <<<"$opts" ||
       die "option cpus must be a whole number of CPUs, such as 4"
-    jq -e '.memory // "4G" | type == "string" and test("^[0-9]+[KMGTPkmgtp]?$")' >/dev/null <<<"$opts" ||
+    jq -e 'if has("memory") then .memory else "4G" end | type == "string" and test("^[0-9]+[KMGTPkmgtp]?$")' >/dev/null <<<"$opts" ||
       die "option memory must be a size, such as 4G or 8192M"
     opts=$(jq -c '{allowedDomains: [], allowRead: [], allowWrite: [], writableGit: false,
       forwardLogin: false, forwardFloxhubToken: false, cpus: 4, memory: "4G"} + .' <<<"$opts")
@@ -320,8 +324,7 @@ in
 
     # The VM's environment holds only what is named here, and every value
     # goes in by name (-e NAME), never on the command line.
-    export AGENT_SANDBOX_APPLE_UID=1000
-    env_names=(AGENT_SANDBOX_APPLE_UID)
+    env_names=()
     if [ "$agent" = claude ] && on forwardLogin; then
       login=()
       for v in CLAUDE_CODE_OAUTH_TOKEN ANTHROPIC_API_KEY; do
@@ -531,7 +534,10 @@ in
     command=("$guest" "$agent" "''${@:2}")
 
     if [ -n "$dry_run" ]; then
-      json_list() { printf '%s\0' "$@" | jq -Rsc 'split("\u0000")[:-1]'; }
+      json_list() {
+        if [ $# -eq 0 ]; then echo '[]'; return; fi
+        printf '%s\0' "$@" | jq -Rsc 'split("\u0000")[:-1]'
+      }
       jq -n --arg image "$image" --arg volume "$volume" --arg name "$vm_name" \
         --argjson mounts "$mounts" --argjson allow "$allow" --argjson startup "$startup" \
         --argjson env "$(json_list "''${env_names[@]}")" \
@@ -560,14 +566,16 @@ in
     }
     ensure_image() {
       container_cmd image inspect "$image" >/dev/null 2>&1 && return 0
-      say "building the guest image $image, once per version of this sandbox (about a minute and a half)"
+      say "building the guest image $image, once per version of this sandbox (about 6 minutes)"
       container_cmd build -t "$image" "$share" >"$sock_dir/build.log" 2>&1 || {
         cat "$sock_dir/build.log" >&2
         die "could not build the guest image $image"
       }
     }
     # A new volume is empty, not a copy of the image's /nix. The marker
-    # goes in last, so a fill cut short is done again.
+    # goes in last, so a fill cut short is done again. Never call this on
+    # a volume a launch has used: it overwrites var/nix/db with the
+    # image's, which then no longer knows the environment's packages.
     fill_volume() {
       say "filling the Nix cache volume $volume from the image (about 15 seconds)"
       helper_run "agent-sandbox-apple-fill-$suffix" --network none -l agent-sandbox-apple=1 \
@@ -587,16 +595,19 @@ in
       # the volume is in use: only one VM can attach it.
       # Not through helper_run: $(...) is a subshell, whose leftover the
       # clean-up would not see.
-      local check=agent-sandbox-apple-check-$suffix state
+      local check=agent-sandbox-apple-check-$suffix state why
       leftover+=("$check")
       state=$(container_cmd run --rm --name "$check" --network none -l agent-sandbox-apple=1 \
         -v "$volume:/nix-cache" "$image" sh -c "if test -f $marker; then echo filled; else echo empty; fi" \
-        2>/dev/null) || state=""
+        2>"$sock_dir/check.err") || state=""
       unset 'leftover[-1]'
       case ''${state##*$'\n'} in
         filled) ;;
         empty) fill_volume ;;
-        *) die "could not read the Nix cache volume $volume. Only one launch can use it at a time: is another running? ('container list -a'). A stopped agent-sandbox-apple-* VM there, left by a launch that was killed, holds it too: remove it with 'container delete <name>'" ;;
+        *)
+          why=$(grep -v '^[[:space:]]*$' "$sock_dir/check.err" | tail -n 1 | inert) || why=""
+          die "could not read the Nix cache volume $volume''${why:+ (container: $why)}. Only one launch can use it at a time: is another running? ('container list -a'). A stopped agent-sandbox-apple-* VM there, left by a launch that was killed, holds it too: remove it with 'container delete <name>'"
+          ;;
       esac
     }
     ensure_image
@@ -636,7 +647,7 @@ in
 
     if [ "$status" != 0 ] && ! on forwardFloxhubToken; then
       if sed '/^latch closed$/q' "$sock_dir/proxy.log" 2>/dev/null | grep -Eq '^deny api\.flox\.dev(:[0-9]+)? ' ||
-        grep -Eqi 'not be authenticated|flox auth login|floxhub.*(auth|log ?in|token)' "$sock_dir/run.err" 2>/dev/null; then
+        grep -Eqi 'not be authenticated|floxhub.*(auth|log ?in|token)' "$sock_dir/run.err" 2>/dev/null; then
         say "the Flox environment may need your FloxHub sign-in: set forwardFloxhubToken to true in the sandbox's options"
       fi
     fi
