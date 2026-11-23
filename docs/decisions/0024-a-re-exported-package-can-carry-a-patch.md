@@ -67,6 +67,31 @@ A change every user of the package would want goes upstream instead.
   returned the newest, so no version suffix is needed. A suffix would
   also fail upstream's `versionCheckHook`.
 
+## Amended 2026-11-23
+
+The patch now carries two env vars:
+
+- `CODEX_FLOX_PLUGIN_ROOT` names a folder laid out as
+  `<marketplace>/<plugin>/`. When codex looks up a plugin that has a
+  folder there, it loads it from that folder instead of
+  `$CODEX_HOME/plugins/cache/`. Plugins are still turned on with
+  `-c plugins.<id>.enabled=true`. So `agent-stacks launch` can hand
+  codex its plugins for one process without writing the user's cache.
+  Such a plugin reports the version `flox`.
+- `CODEX_FLOX_SKILL_ROOTS` stays until agent-stacks stops setting it.
+
+`CODEX_FLOX_INSTRUCTIONS_FILE` is dropped: nothing set it.
+
+The patch changes only how codex finds a plugin's folder. Skills, MCP
+servers and hooks load from it as from the cache. Hook approvals carry
+over between folders, because codex hashes a plugin's files relative
+to its root. Executor capability discovery, a codex feature that is
+off by default, still reads only the cache.
+
+agent-stacks finds the patch by looking for a variable's name in the
+binary; `CODEX_FLOX_PLUGIN_ROOT` is the one that marks plugin support.
+The consequences above still hold.
+
 ---
 
 Extends [0008](0008-re-export-llm-agents-nix.md).
