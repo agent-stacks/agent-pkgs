@@ -563,6 +563,14 @@ launch STUB_IMAGE=1 STUB_VOLUME=1 "STUB_RUN_HOOK=mkdir -p $(printf %q "${esc%/*}
 grep -q $'[\e\a]' err && fail "control characters printed: $(cat -v err)"
 grep -qF "changed: $p/sub3/.git/hooks/x?]0;pwned?y" err || fail "the hook with escapes not named: $(cat -v err)"
 rm -r "$p/sub3"
+# A folder the scan cannot read hides nothing: it counts as a change.
+f=$p/hid/.git/config
+launch STUB_IMAGE=1 STUB_VOLUME=1 \
+  "STUB_RUN_HOOK=mkdir -p $(printf %q "${f%/*}") && echo evil >$(printf %q "$f") && chmod 000 $(printf %q "$p/hid")" \
+  -- -- claude
+[ "$rc" = 3 ] || fail "a planted .git in an unreadable folder gave exit $rc: $(cat err)"
+grep -qF "changed: $p/<unreadable>" err || fail "the unreadable folder not reported: $(cat err)"
+chmod 755 "$p/hid" && rm -r "$p/hid"
 # A .git in a project that had none.
 mkdir -p "$root/nogit"
 dir=$root/nogit

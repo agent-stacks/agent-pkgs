@@ -128,7 +128,10 @@ in
     }
     # Text the agent or container chose, made safe to print: each control
     # character but newline becomes '?', so none can drive the terminal.
-    inert() { LC_ALL=C tr '\000-\011\013-\037\177' '?'; }
+    # GNU tr works on bytes whatever the locale. No LC_ALL=C here: set in
+    # a function run as a pipeline stage, it crashed bash (SIGSEGV, about
+    # one run in six) in the nix build sandbox on macOS.
+    inert() { tr '\000-\011\013-\037\177' '?'; }
     container=''${AGENT_SANDBOX_APPLE_CONTAINER:-container}
     container_cmd() { "$container" "$@"; }
     dry_run=''${AGENT_SANDBOX_APPLE_DRY_RUN:-}
@@ -297,16 +300,19 @@ in
       fi
       if [ -n "$scanned" ]; then
         # The paths are the agent's to name, so they are printed inert.
-        local diff_rc=0 changed
-        diff "$sock_dir/scan.before" <(scan_state) >"$sock_dir/scan.diff" || diff_rc=$?
-        changed=$(sed -n 's/^[<>] [^ ]* //p' "$sock_dir/scan.diff" | sort -u | inert)
+        # Through files: a scan that cannot be read counts as a change.
+        local diff_rc=0
+        scan_state >"$sock_dir/scan.after" || diff_rc=2
+        [ "$diff_rc" -gt 1 ] || diff "$sock_dir/scan.before" "$sock_dir/scan.after" >"$sock_dir/scan.diff" || diff_rc=$?
+        [ "$diff_rc" -le 1 ] || : >"$sock_dir/scan.diff"
+        sed -n 's/^[<>] [^ ]* //p' "$sock_dir/scan.diff" | sort -u | inert >"$sock_dir/changed"
         if [ "$diff_rc" -gt 1 ]; then
           git_changed=1
           echo "agent-sandbox-apple: could not check the project's git hooks and config; review them before running git here" >&2
-        elif [ -n "$changed" ]; then
+        elif [ -s "$sock_dir/changed" ]; then
           git_changed=1
           {
-            while IFS= read -r path; do echo "agent-sandbox-apple: changed: $path"; done <<<"$changed"
+            while IFS= read -r path; do echo "agent-sandbox-apple: changed: $path"; done <"$sock_dir/changed"
             echo "agent-sandbox-apple: git hooks or config changed during the session; review them before running git here"
           } >&2
         fi
@@ -438,9 +444,13 @@ in
     git_meta() { # <git dir>
       local f
       echo "$(fingerprint "$1") $1"
-      find "$1" -mindepth 1 -name objects -type d -prune -o \( -name config -o -name config.worktree \
-        -o -name commondir -o -name gitdir -o -name hooks -o -path '*/hooks/*' \) -print0 2>/dev/null |
-        sort -z | while IFS= read -r -d "" f; do echo "$(fingerprint "$f") $f"; done
+      # A folder find cannot read shows as a line of its own, rather than
+      # failing the scan, or hiding what is in it.
+      {
+        find "$1" -mindepth 1 -name objects -type d -prune -o \( -name config -o -name config.worktree \
+          -o -name commondir -o -name gitdir -o -name hooks -o -path '*/hooks/*' \) -print0 2>/dev/null ||
+          printf '%s\0' "$1/<unreadable>"
+      } | sort -z | while IFS= read -r -d "" f; do echo "$(fingerprint "$f") $f"; done
     }
     # Under writableGit, the project's own git dirs, core.hooksPath, .git
     # itself and the git dirs git resolves, as each can point git at other
@@ -467,8 +477,11 @@ in
       if [ ''${#git_dirs[@]} -gt 0 ]; then
         skip=(-path "$(printf '%s' "$here/.git" | sed 's/[][*?\\]/\\&/g')" -prune -o)
       fi
-      find "$here" "''${skip[@]}" -name node_modules -type d -prune -o \
-        -name .git -print0 -prune -o -name HEAD -type f -print0 2>/dev/null | sort -z |
+      {
+        find "$here" "''${skip[@]}" -name node_modules -type d -prune -o \
+          -name .git -print0 -prune -o -name HEAD -type f -print0 2>/dev/null ||
+          printf '%s\0' "$here/<unreadable>"
+      } | sort -z |
         while IFS= read -r -d "" f; do
           case $f in
             */.git)
@@ -489,6 +502,7 @@ in
               d=''${f%/HEAD}
               if [ -d "$d/objects" ] && [ -d "$d/refs" ]; then git_meta "$d"; fi
               ;;
+            *) echo "$(fingerprint "$f") $f" ;;
           esac
         done
     }
@@ -627,7 +641,7 @@ in
     read -r -t 10 line <"$sock_dir/ready" || true
     [ "$line" = ready ] || die "the proxy did not start"
 
-    scan_state >"$sock_dir/scan.before"
+    scan_state >"$sock_dir/scan.before" || die "could not read the project's git repositories before the run"
     scanned=1
 
     # Not exec'd: this stays to stop the proxy and clean up. In the
