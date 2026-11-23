@@ -614,6 +614,50 @@ launch STUB_IMAGE=1 STUB_VOLUME=1 -- -- claude
 [ ! -e "$root/nogit/.git" ] || fail "the launch left a .git in a project that had none"
 dir=$p
 
+# --- Hooks and config a repository's config points into the project ---
+
+# core.hooksPath (husky's .husky, lefthook) and include.path /
+# includeIf.*.path can name files in the writable project: the Mac runs
+# those hooks and reads that config at the next git command. Checked on
+# every launch, mode included.
+mkdir -p "$p/.husky" "$p/hooks-v"
+echo 'npx lint-staged' >"$p/.husky/pre-commit"
+echo 'echo checkout' >"$p/.husky/post-checkout"
+chmod 644 "$p/.husky/post-checkout"
+git -C "$p" config core.hooksPath .husky
+git -C "$p" config include.path ../shared.gitconfig
+printf '[include]\n\tpath = deep.gitconfig\n' >"$p/shared.gitconfig"
+echo '[user]' >"$p/deep.gitconfig"
+git -C "$p" config 'includeIf.gitdir:**.path' ../cond.gitconfig
+echo '[user]' >"$p/cond.gitconfig"
+git -C "$p/vendor/lib" config core.hooksPath ../../hooks-v
+echo 'echo hi' >"$p/hooks-v/pre-commit"
+launch STUB_IMAGE=1 STUB_VOLUME=1 -- -- claude
+[ "$rc" = 0 ] || fail "hooksPath and includes, nothing changed: exit $rc: $(cat err)"
+warned && fail "hooksPath and includes: warned with nothing changed: $(cat err)"
+f=$p/.husky/pre-commit
+planted "$f" "echo evil >>$(printf %q "$f")"
+echo 'npx lint-staged' >"$f"
+f=$p/.husky/post-checkout
+planted "$f" "chmod +x $(printf %q "$f")"
+chmod 644 "$f"
+for f in "$p/shared.gitconfig" "$p/deep.gitconfig" "$p/cond.gitconfig"; do
+  cp "$f" "$f.keep"
+  planted "$f" "$fsm >>$(printf %q "$f")"
+  mv "$f.keep" "$f"
+done
+f=$p/hooks-v/pre-commit
+planted "$f" "echo evil >>$(printf %q "$f")"
+echo 'echo hi' >"$f"
+f=$p/.husky/pre-push
+planted "$f" "echo evil >$(printf %q "$f")"
+rm "$f"
+git -C "$p" config --unset core.hooksPath
+git -C "$p" config --unset include.path
+git -C "$p" config --unset 'includeIf.gitdir:**.path'
+git -C "$p/vendor/lib" config --unset core.hooksPath
+rm -r "$p/.husky" "$p/hooks-v" "$p/shared.gitconfig" "$p/deep.gitconfig" "$p/cond.gitconfig"
+
 # --- The FloxHub hint --------------------------------------------------
 
 hint='forwardFloxhubToken'

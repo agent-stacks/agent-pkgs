@@ -428,7 +428,8 @@ in
       if [ -L "$1" ]; then
         printf 'link-%s\n' "$(readlink "$1" | sha256sum | cut -c1-64)"
       elif [ -f "$1" ]; then
-        sha256sum <"$1" | cut -c1-64
+        # The mode too: a hook made executable is a change.
+        printf '%s-%s\n' "$(stat -c %a "$1")" "$(sha256sum <"$1" | cut -c1-64)"
       elif [ -d "$1" ]; then
         echo dir
       elif [ -e "$1" ]; then
@@ -457,19 +458,77 @@ in
           printf '%s\0' "$1/<unreadable>"
       } | sort -z | while IFS= read -r -d "" f; do echo "$(fingerprint "$f") $f"; done
     }
+    # A path a git config names, made absolute against <base>: printed
+    # when it is in the project, both as written and with symlinks
+    # resolved, as the agent can change either. ~ paths are the Mac
+    # home's, outside the project.
+    in_project() { # <path> <base>
+      local t=$1 r
+      case $t in "~"*) return 0 ;; esac
+      [[ $t = /* ]] || t=$2/$t
+      t=$(realpath -m -s -- "$t") || return 0
+      r=$(realpath -m -- "$t") || r=$t
+      if within "$t" "$here"; then printf '%s\0' "$t"; fi
+      if [ "$r" != "$t" ] && within "$r" "$here"; then printf '%s\0' "$r"; fi
+      return 0
+    }
+    # A path and, for a real folder, everything in it at any depth.
+    tree_state() { # <path>
+      local f
+      echo "$(fingerprint "$1") $1"
+      [ -d "$1" ] && [ ! -L "$1" ] || return 0
+      {
+        find "$1" -mindepth 1 -print0 2>/dev/null || printf '%s\0' "$1/<unreadable>"
+      } | sort -z | while IFS= read -r -d "" f; do echo "$(fingerprint "$f") $f"; done
+    }
+    # What a config file points into the project: its core.hooksPath
+    # (husky's .husky, lefthook), relative to <hooks base> as git takes
+    # it, and its include.path and includeIf.*.path files, relative to
+    # the file's folder, followed <depth> levels. Read with `git config
+    # --file`, which runs nothing and follows no include by itself.
+    config_file_state() { # <config file> <hooks base> <depth>
+      local rec t
+      {
+        git -C / config -z --file "$1" --get-all core.hooksPath 2>/dev/null || true
+      } | while IFS= read -r -d "" rec; do
+        in_project "$rec" "$2" | while IFS= read -r -d "" t; do tree_state "$t"; done
+      done
+      [ "$3" -gt 0 ] || return 0
+      {
+        git -C / config -z --file "$1" --get-regexp '^(include\.path|includeif\..*\.path)$' 2>/dev/null || true
+      } | while IFS= read -r -d "" rec; do
+        in_project "''${rec#*$'\n'}" "''${1%/*}" | while IFS= read -r -d "" t; do
+          tree_state "$t"
+          if [ -f "$t" ]; then config_file_state "$t" "$2" $(($3 - 1)); fi
+        done
+      done
+      return 0
+    }
+    # A git dir's own config files.
+    config_refs() { # <git dir> <hooks base>
+      local f
+      for f in "$1/config" "$1/config.worktree"; do
+        if [ -f "$f" ]; then config_file_state "$f" "$2" 2; fi
+      done
+      return 0
+    }
     # A git dir found in the project, and the common dir its commondir
     # file names, when that is in the project too: it holds the config
-    # and hooks git uses, and need not have a HEAD of its own.
-    git_dir_state() { # <git dir>
+    # and hooks git uses, and need not have a HEAD of its own. With what
+    # their config points into the project.
+    git_dir_state() { # <git dir> <work tree, or the git dir when bare>
       local c
       git_meta "$1"
+      config_refs "$1" "$2"
       [ -f "$1/commondir" ] || return 0
       c=$(head -n 1 "$1/commondir")
       [ -n "$c" ] || return 0
       [[ $c = /* ]] || c=$1/$c
       if [ -d "$c" ] && c=$(cd "$c" && pwd -P) && within "$c" "$here" && ! within "$c" "$here/.git"; then
         git_meta "$c"
+        config_refs "$c" "$2"
       fi
+      return 0
     }
     # Under writableGit, the project's own git dirs, core.hooksPath, .git
     # itself and the git dirs git resolves, as each can point git at other
@@ -507,7 +566,7 @@ in
           case ''${f##*/} in
             [.][gG][iI][tT])
               if [ -d "$f" ] && [ ! -L "$f" ]; then
-                git_dir_state "$f"
+                git_dir_state "$f" "''${f%/*}"
                 continue
               fi
               echo "$(fingerprint "$f") $f"
@@ -516,13 +575,13 @@ in
               [ -n "$g" ] || continue
               [[ $g = /* ]] || g=''${f%/*}/$g
               if [ -d "$g" ] && g=$(cd "$g" && pwd -P) && within "$g" "$here" && ! within "$g" "$here/.git"; then
-                git_dir_state "$g"
+                git_dir_state "$g" "''${f%/*}"
               fi
               ;;
             [hH][eE][aA][dD])
               d=''${f%/*}
               if { [ -d "$d/objects" ] && [ -d "$d/refs" ]; } || [ -f "$d/commondir" ]; then
-                git_dir_state "$d"
+                git_dir_state "$d" "$d"
               fi
               ;;
             *) echo "$(fingerprint "$f") $f" ;;
@@ -530,7 +589,11 @@ in
         done
     }
     scan_state() {
+      local d
       planted_state
+      # The project's own repository: its .git is mounted on its own, but
+      # what its config points into the project is not.
+      for d in "''${git_dirs[@]}"; do config_refs "$d" "$here"; done
       [ ''${#git_dirs[@]} -eq 0 ] || ! on writableGit || git_state
     }
     # Activation runs the environment's hooks as root: an agent that
