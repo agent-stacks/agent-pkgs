@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "huggingface-skills",
-      "dir": "/nix/store/khl4gb2gi9j1x08ki3i99mj1ccnps2kf-agent-plugin-huggingface-skills-1.0.38/share/agent-plugins/huggingface-skills",
+      "dir": "/nix/store/lsqsqkii0rq4vpfn4nbqwaj53ma0cxad-agent-plugin-huggingface-skills-1.0.39/share/agent-plugins/huggingface-skills",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -849,28 +849,73 @@
           "path": "skills/huggingface-gradio",
           "score": 100,
           "risk": 0,
-          "status": "safe",
+          "status": "incomplete",
           "partial": true,
-          "coverage": 100,
+          "coverage": 75,
           "exceptions": [
             {
               "reason": "reference_missing",
               "path": "skills/huggingface-gradio/SKILL.md",
-              "line": 112
+              "line": 74
             },
             {
               "reason": "reference_missing",
               "path": "skills/huggingface-gradio/SKILL.md",
-              "line": 270
+              "line": 75
             },
             {
               "reason": "reference_missing",
               "path": "skills/huggingface-gradio/SKILL.md",
-              "line": 290
+              "line": 92
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/huggingface-gradio/SKILL.md",
+              "line": 110
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/huggingface-gradio/SKILL.md",
+              "line": 116
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/huggingface-gradio/SKILL.md",
+              "line": 122
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/huggingface-gradio/references/examples.md",
+              "line": 0
             }
           ],
           "findings": [],
-          "suppressed": []
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/huggingface-gradio/SKILL.md",
+              "line": 11,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/huggingface-gradio/SKILL.md",
+              "line": 112,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/huggingface-gradio/SKILL.md",
+              "line": 120,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
+          ]
         },
         {
           "path": "skills/huggingface-llm-trainer",
@@ -2837,7 +2882,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-20T17:55:42Z"
+      "checkedAt": "2026-11-23T15:39:22Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
