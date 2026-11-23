@@ -11,8 +11,7 @@
 #   - allowedDomains: hosts added to the allow-list;
 #   - allowRead, allowWrite: more host paths, mounted read-only or
 #     read-write at the same path;
-#   - writableGitHooks (false): leave .git/hooks and .git/config
-#     writable;
+#   - writableGit (false): mount .git read-write rather than read-only;
 #   - forwardLogin, forwardFloxhubToken (false): pass the Claude login,
 #     or the FloxHub token, into the VM;
 #   - cpus (4), memory ("4G"): the VM's size.
@@ -44,7 +43,7 @@
     dry_run=''${AGENT_SANDBOX_APPLE_DRY_RUN:-}
     floor=1.6.0
     lists='["allowedDomains", "allowRead", "allowWrite"]'
-    switches='["writableGitHooks", "forwardLogin", "forwardFloxhubToken"]'
+    switches='["writableGit", "forwardLogin", "forwardFloxhubToken"]'
 
     opts="{}"
     while [ $# -gt 0 ]; do
@@ -119,7 +118,7 @@
       die "option cpus must be a whole number of CPUs, such as 4"
     jq -e '.memory // "4G" | type == "string" and test("^[0-9]+[KMGTPkmgtp]?$")' >/dev/null <<<"$opts" ||
       die "option memory must be a size, such as 4G or 8192M"
-    opts=$(jq -c '{allowedDomains: [], allowRead: [], allowWrite: [], writableGitHooks: false,
+    opts=$(jq -c '{allowedDomains: [], allowRead: [], allowWrite: [], writableGit: false,
       forwardLogin: false, forwardFloxhubToken: false, cpus: 4, memory: "4G"} + .' <<<"$opts")
     on() { jq -e ".$1" >/dev/null <<<"$opts"; }
 
@@ -230,23 +229,22 @@
     done
 
     # Git runs hooks and config on the Mac, so the agent may not change
-    # them. A worktree's git folder is outside the project: it is mounted
-    # at its own path.
-    gitdir=""
-    if [ -d "$here/.git" ]; then
-      gitdir=$here/.git
-    elif [ -f "$here/.git" ]; then
-      gitdir=$(git -C "$here" rev-parse --path-format=absolute --git-common-dir 2>/dev/null) ||
-        die "cannot find the git folder of the worktree in $here"
-      add_mount "$gitdir" "$gitdir" false
+    # .git. It is one mount, with nothing inside it: container drops a
+    # mount that holds another, and only a mount point cannot be renamed
+    # away and replaced. A worktree's .git file and its common git folder
+    # (outside the project, at its own path) are one mount each.
+    git_ro=true
+    if on writableGit; then
+      git_ro=false
+      echo "agent-sandbox-apple: writableGit is on: the agent can change git hooks and config; they are checked at exit" >&2
     fi
-    if [ -n "$gitdir" ] && on writableGitHooks; then
-      echo "agent-sandbox-apple: writableGitHooks is on: the agent can change $gitdir/hooks and $gitdir/config, which git runs on this Mac" >&2
-    elif [ -n "$gitdir" ]; then
-      # Made empty when missing, so the agent cannot make it.
-      [ -n "$dry_run" ] || mkdir -p "$gitdir/hooks"
-      add_mount "$gitdir/hooks" "$gitdir/hooks" true
-      [ ! -f "$gitdir/config" ] || add_mount "$gitdir/config" "$gitdir/config" true
+    if [ -d "$here/.git" ]; then
+      add_mount "$here/.git" "$here/.git" "$git_ro"
+    elif [ -f "$here/.git" ]; then
+      common=$(git -C "$here" rev-parse --path-format=absolute --git-common-dir 2>/dev/null) ||
+        die "cannot find the git folder of the worktree in $here"
+      add_mount "$here/.git" "$here/.git" "$git_ro"
+      add_mount "$common" "$common" "$git_ro"
     fi
     # Activation runs the environment's hooks as root: an agent that
     # could edit them would run as root in the next session.

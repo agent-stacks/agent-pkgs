@@ -74,7 +74,13 @@ has --arg p "$p" '[.mounts[] | select(.target == $p)] == [{source: $p, target: $
 grep -qF -- "--mount $(printf %q "type=bind,source=$p,target=$p") " err ||
   fail "project mount not one argument: $(cat err)"
 grep -q '^would run: container run ' err || fail "no would run: $(cat err)"
-for t in "$p/.git/hooks" "$p/.git/config" "$p/.flox"; do
+# .git is one read-only mount, with nothing inside it: container drops
+# a mount that holds another, and only a mount point cannot be renamed.
+nothing_inside() { has --arg g "$1" 'all(.mounts[]; .target | startswith($g + "/") | not)'; }
+nothing_inside "$p/.git"
+grep -qF -- "--mount $(printf %q "type=bind,source=$p/.git,target=$p/.git,readonly") " err ||
+  fail ".git not mounted read-only: $(cat err)"
+for t in "$p/.git" "$p/.flox"; do
   [ "$(mount_of "$t")" = "$(jq -nc --arg t "$t" '[{source: $t, target: $t, readonly: true}]')" ] ||
     fail "$t not read-only: $(mount_of "$t")"
 done
@@ -104,12 +110,13 @@ jq -c '[.name, (.mounts[] | select(.target == "/run/agent-proxy.sock") | .source
 jq -e -s '.[0][0] != .[1][0] and .[0][1] != .[1][1]' first second >/dev/null ||
   fail "two launches share a name or socket: $(cat first second)"
 
-dry --options '{"writableGitHooks":true,"cpus":2,"memory":"8G"}' -- claude >out 2>err ||
+dry --options '{"writableGit":true,"cpus":2,"memory":"8G"}' -- claude >out 2>err ||
   fail "dry run: $(cat err)"
-[ "$(mount_of "$p/.git/hooks")$(mount_of "$p/.git/config")" = "[][]" ] ||
-  fail "git protected with writableGitHooks: $(cat out)"
-[ "$(mount_of "$p/.flox" | jq length)" = 1 ] || fail ".flox not kept read-only: $(cat out)"
-grep -q writableGitHooks err || fail "writableGitHooks not named: $(cat err)"
+[ "$(mount_of "$p/.git")" = "$(jq -nc --arg t "$p/.git" '[{source: $t, target: $t, readonly: false}]')" ] ||
+  fail ".git not read-write with writableGit: $(mount_of "$p/.git")"
+nothing_inside "$p/.git"
+[ "$(mount_of "$p/.flox" | jq -c 'map(.readonly)')" = "[true]" ] || fail ".flox not kept read-only: $(cat out)"
+grep -q 'writableGit is on' err || fail "writableGit not named: $(cat err)"
 grep -qF -- " -c 2 -m 8G " err || fail "cpus and memory not passed: $(cat err)"
 
 # --- The allow-list ----------------------------------------------------
@@ -165,9 +172,16 @@ echo "$root/w/.git" >"$wt/gitdir"
 echo 'gitdir: ../main/.git/worktrees/w' >"$root/w/.git"
 dir=$root/w dry -- claude >out 2>err || fail "dry run in a worktree: $(cat err)"
 g=$root/main/.git
-has --arg g "$g" '.mounts | index({source: $g, target: $g, readonly: false})'
-has --arg g "$g" '.mounts | index({source: ($g + "/hooks"), target: ($g + "/hooks"), readonly: true})'
-has --arg g "$g" '.mounts | index({source: ($g + "/config"), target: ($g + "/config"), readonly: true})'
+for ro in true false; do
+  has --arg w "$root/w/.git" --argjson ro "$ro" '.mounts | index({source: $w, target: $w, readonly: $ro})'
+  has --arg g "$g" --argjson ro "$ro" '.mounts | index({source: $g, target: $g, readonly: $ro})'
+  nothing_inside "$g"
+  # The .git file, by -v as container takes a file.
+  want=$(printf %q "$root/w/.git:$root/w/.git")
+  [ "$ro" = false ] || want=$want:ro
+  grep -qF -- " -v $want " err || fail ".git file not mounted: $(cat err)"
+  dir=$root/w dry --options '{"writableGit":true}' -- claude >out 2>err || fail "dry run in a worktree: $(cat err)"
+done
 
 # --- Refusals ----------------------------------------------------------
 
@@ -181,6 +195,7 @@ refuse() { # <what> <message pattern> <command...>
 }
 
 refuse "unknown key" nope dry --options '{"nope":1}' -- claude
+refuse "the old writableGitHooks" writableGitHooks dry --options '{"writableGitHooks":true}' -- claude
 refuse "cpus as a string" cpus dry --options '{"cpus":"4"}' -- claude
 refuse "not an object" "" dry --options '[1]' -- claude
 refuse "allowRead ~" "" dry --options '{"allowRead":["~"]}' -- claude
