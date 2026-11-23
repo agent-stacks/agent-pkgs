@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "mengto-skills",
-      "dir": "/nix/store/2b2h10p5bdy572kj644m5w99sxagbxbj-agent-plugin-mengto-skills-0.0.0-unstable.2026-11-23.g821d22a/share/agent-plugins/mengto-skills",
+      "dir": "/nix/store/756gl9274v7d9agzpfirjkvhklbpkp4l-agent-plugin-mengto-skills-0.0.0-unstable.2026-11-23.gbce51fa/share/agent-plugins/mengto-skills",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -156,6 +156,7 @@
           "skills/light-mode-paper-technical",
           "skills/lightning-energy-skill-vfx",
           "skills/liquid-metal-border",
+          "skills/long-video-to-short",
           "skills/making-of-film",
           "skills/marquee-loop",
           "skills/masked-reveal",
@@ -7781,6 +7782,158 @@
           "suppressed": []
         },
         {
+          "path": "skills/long-video-to-short",
+          "score": 76,
+          "risk": 24,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/long-video-to-short/SKILL.md",
+              "line": 41
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/long-video-to-short/SKILL.md",
+              "line": 75
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/long-video-to-short/SKILL.md",
+              "line": 81
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/long-video-to-short/SKILL.md",
+              "line": 87
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/long-video-to-short/SKILL.md",
+              "line": 92
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/long-video-to-short/SKILL.md",
+              "line": 96
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/long-video-to-short/SKILL.md",
+              "line": 112
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/long-video-to-short/SKILL.md",
+              "line": 125
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/long-video-to-short/SKILL.md",
+              "line": 129
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/long-video-to-short/SKILL.md",
+              "line": 135
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/long-video-to-short/SKILL.md",
+              "line": 180
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/long-video-to-short/SKILL.md",
+              "line": 200
+            }
+          ],
+          "findings": [
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/long-video-to-short/scripts/align_phrases.py",
+              "line": 14
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/long-video-to-short/scripts/build_voice.py",
+              "line": 10
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/long-video-to-short/scripts/align_phrases.py",
+              "line": 18
+            },
+            {
+              "id": "TT2",
+              "severity": "MEDIUM",
+              "message": "Tainted flow: 'M' from os.environ.get (line 8, credential/environment) → subprocess.run (code execution)",
+              "file": "skills/long-video-to-short/scripts/align_phrases.py",
+              "line": 18
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/long-video-to-short/scripts/export.py",
+              "line": 19
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/long-video-to-short/scripts/export.py",
+              "line": 26
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/long-video-to-short/scripts/export.py",
+              "line": 37
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/long-video-to-short/scripts/export.py",
+              "line": 43
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/long-video-to-short/scripts/scenes.py",
+              "line": 52
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/long-video-to-short/scripts/sync_check.py",
+              "line": 6
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/long-video-to-short/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
+          ]
+        },
+        {
           "path": "skills/making-of-film",
           "score": 0,
           "risk": 100,
@@ -10631,7 +10784,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-22T16:30:46Z"
+      "checkedAt": "2026-11-23T07:33:22Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
