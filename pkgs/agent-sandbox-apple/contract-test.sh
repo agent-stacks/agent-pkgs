@@ -652,6 +652,46 @@ echo 'echo hi' >"$f"
 f=$p/.husky/pre-push
 planted "$f" "echo evil >$(printf %q "$f")"
 rm "$f"
+# husky v9: core.hooksPath is .husky/_, whose stubs source .husky/_/h,
+# which runs the user's hook one folder up.
+mkdir -p "$p/.husky/_"
+printf '#!/usr/bin/env sh\nsh -e "$(dirname "$(dirname "$0")")/$(basename "$0")"\n' >"$p/.husky/_/h"
+printf '#!/usr/bin/env sh\n. "$(dirname "$0")/h"\n' >"$p/.husky/_/pre-commit"
+git -C "$p" config core.hooksPath .husky/_
+f=$p/.husky/pre-commit
+planted "$f" "echo evil >>$(printf %q "$f")"
+echo 'npx lint-staged' >"$f"
+f=$p/.husky/pre-push
+planted "$f" "echo evil >$(printf %q "$f")"
+rm "$f"
+# A submodule's config under the top-level .git, its hooks in its work
+# tree; and a linked worktree's config.worktree.
+mkdir -p "$p/.git/modules/sub5" "$p/sub5/.husky/_" "$p/.git/worktrees/w3" "$p/wt3/hk"
+printf '[core]\n\thooksPath = .husky/_\n' >"$p/.git/modules/sub5/config"
+echo 'gitdir: ../.git/modules/sub5' >"$p/sub5/.git"
+cp "$p/.husky/_/h" "$p/sub5/.husky/_/h"
+echo 'echo sub' >"$p/sub5/.husky/pre-commit"
+echo "$p/wt3/.git" >"$p/.git/worktrees/w3/gitdir"
+printf '[core]\n\thooksPath = hk\n' >"$p/.git/worktrees/w3/config.worktree"
+echo 'gitdir: ../.git/worktrees/w3' >"$p/wt3/.git"
+echo 'echo wt' >"$p/wt3/hk/pre-commit"
+launch STUB_IMAGE=1 STUB_VOLUME=1 -- -- claude
+[ "$rc" = 0 ] || fail "submodule and worktree hooks, nothing changed: exit $rc: $(cat err)"
+f=$p/sub5/.husky/pre-commit
+planted "$f" "echo evil >>$(printf %q "$f")"
+echo 'echo sub' >"$f"
+f=$p/wt3/hk/pre-commit
+planted "$f" "echo evil >>$(printf %q "$f")"
+echo 'echo wt' >"$f"
+rm -r "$p/.git/modules" "$p/.git/worktrees" "$p/sub5" "$p/wt3"
+# An include given from ~, which here holds the project's folder too.
+echo '[user]' >"$p/x.gitconfig"
+git -C "$p" config --add include.path "~/../${p##*/}/x.gitconfig"
+f=$p/x.gitconfig
+planted "$f" "$fsm >>$(printf %q "$f")"
+git -C "$p" config --unset-all include.path
+rm "$f"
+git -C "$p" config include.path ../shared.gitconfig
 git -C "$p" config --unset core.hooksPath
 git -C "$p" config --unset include.path
 git -C "$p" config --unset 'includeIf.gitdir:**.path'

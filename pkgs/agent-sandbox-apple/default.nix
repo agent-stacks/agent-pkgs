@@ -460,11 +460,15 @@ in
     }
     # A path a git config names, made absolute against <base>: printed
     # when it is in the project, both as written and with symlinks
-    # resolved, as the agent can change either. ~ paths are the Mac
-    # home's, outside the project.
+    # resolved, as the agent can change either. A leading ~/ is $HOME,
+    # as git takes it, and projects usually live there; ~user paths are
+    # left alone.
     in_project() { # <path> <base>
       local t=$1 r
-      case $t in "~"*) return 0 ;; esac
+      case $t in
+        \~/*) t=$HOME/''${t:2} ;;
+        \~*) return 0 ;;
+      esac
       [[ $t = /* ]] || t=$2/$t
       t=$(realpath -m -s -- "$t") || return 0
       r=$(realpath -m -- "$t") || r=$t
@@ -491,7 +495,14 @@ in
       {
         git -C / config -z --file "$1" --get-all core.hooksPath 2>/dev/null || true
       } | while IFS= read -r -d "" rec; do
-        in_project "$rec" "$2" | while IFS= read -r -d "" t; do tree_state "$t"; done
+        in_project "$rec" "$2" | while IFS= read -r -d "" t; do
+          tree_state "$t"
+          # husky v9: hooksPath is .husky/_, whose stubs run, through
+          # _/h, the user's hooks one folder up.
+          if [ "''${t##*/}" = _ ] || [ -f "$t/h" ] || [ -f "$t/husky.sh" ]; then
+            if [ "''${t%/*}" != "$here" ] && within "''${t%/*}" "$here"; then tree_state "''${t%/*}"; fi
+          fi
+        done
       done
       [ "$3" -gt 0 ] || return 0
       {
@@ -504,11 +515,40 @@ in
       done
       return 0
     }
-    # A git dir's own config files.
+    # A git dir's own config files, and those of its submodules (under
+    # modules/, hooks relative to the submodule's work tree: its
+    # core.worktree, else its module path under the work tree) and of
+    # its linked worktrees (worktrees/*/config.worktree, hooks relative
+    # to the folder its gitdir file names).
     config_refs() { # <git dir> <hooks base>
-      local f
+      local f m wt rel w g
       for f in "$1/config" "$1/config.worktree"; do
         if [ -f "$f" ]; then config_file_state "$f" "$2" 2; fi
+      done
+      if [ -d "$1/modules" ]; then
+        {
+          find "$1/modules" -iname objects -type d -prune -o \( -iname config -o -iname config.worktree \) \
+            -type f -print0 2>/dev/null || true
+        } | sort -z | while IFS= read -r -d "" f; do
+          m=''${f%/*}
+          wt=$(git -C / config --file "$m/config" --get core.worktree 2>/dev/null) || wt=""
+          if [ -n "$wt" ]; then
+            [[ $wt = /* ]] || wt=$m/$wt
+          else
+            rel=''${m#"$1/modules/"}
+            wt=$2/''${rel//\/modules\//\/}
+          fi
+          config_file_state "$f" "$wt" 2
+        done
+      fi
+      for w in "$1"/worktrees/*/; do
+        w=''${w%/}
+        [ -f "$w/gitdir" ] || continue
+        g=$(head -n 1 "$w/gitdir")
+        [ -n "$g" ] || continue
+        for f in "$w/config" "$w/config.worktree"; do
+          if [ -f "$f" ]; then config_file_state "$f" "''${g%/*}" 2; fi
+        done
       done
       return 0
     }
