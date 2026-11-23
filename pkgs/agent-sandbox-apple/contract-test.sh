@@ -489,6 +489,80 @@ launch STUB_IMAGE=1 STUB_VOLUME=1 "STUB_RUN_HOOK=echo ../../evil >$(printf %q "$
 grep -qF "$wt/commondir" err || fail "the worktree commondir not named: $(cat err)"
 echo ../.. >"$wt/commondir"
 dir=$p
+# Deeper config and hooks: a submodule's, a linked worktree's.
+for f in "$p/.git/modules/m/hooks/post-checkout" "$p/.git/modules/m/config" \
+  "$p/.git/worktrees/x/config.worktree"; do
+  launch STUB_IMAGE=1 STUB_VOLUME=1 "STUB_RUN_HOOK=mkdir -p $(printf %q "${f%/*}") && echo evil >$(printf %q "$f")" \
+    -- --options '{"writableGit":true}' -- claude
+  [ "$rc" = 3 ] || fail "a new $f gave exit $rc: $(cat err)"
+  grep -qF "changed: $f" err || fail "$f not named: $(cat err)"
+done
+rm -r "$p/.git/modules" "$p/.git/worktrees"
+# The paths are the agent's to name: printed inert.
+f=$p/.git/hooks/$'y\e[2Jz'
+launch STUB_IMAGE=1 STUB_VOLUME=1 "STUB_RUN_HOOK=echo evil >$(printf %q "$f")" -- --options '{"writableGit":true}' -- claude
+[ "$rc" = 3 ] || fail "a hook with an escape in its name gave exit $rc: $(cat -v err)"
+grep -q $'\e' err && fail "an escape printed: $(cat -v err)"
+grep -qF "changed: $p/.git/hooks/y?[2Jz" err || fail "the hook with an escape not named: $(cat -v err)"
+rm "$f"
+
+# --- A .git planted anywhere in the project is named at exit -----------
+
+# Git on the Mac runs the hooks and core.fsmonitor of any repository it
+# lands in, so every .git and bare repository in the project is checked,
+# on every launch, writableGit or not.
+warned() { grep -q 'changed during the session' err; }
+git -c init.defaultBranch=main init -q "$p/vendor/lib"
+echo 'echo hi' >"$p/vendor/lib/.git/hooks/pre-commit"
+mkdir -p "$p/wt2" "$p/gd"
+echo 'gitdir: ../gd' >"$p/wt2/.git"
+echo '[core]' >"$p/gd/config"
+launch STUB_IMAGE=1 STUB_VOLUME=1 -- -- claude
+[ "$rc" = 0 ] || fail "nested repos, nothing changed: exit $rc: $(cat err)"
+warned && fail "warned with nothing changed: $(cat err)"
+# A new .git with an fsmonitor, in a sub-folder.
+f=$p/sub2/.git/config
+launch STUB_IMAGE=1 STUB_VOLUME=1 "STUB_RUN_HOOK=mkdir -p $(printf %q "${f%/*}") && printf '[core]\\n\\tfsmonitor = evil\\n' >$(printf %q "$f")" \
+  -- -- claude
+[ "$rc" = 3 ] || fail "a new sub2/.git/config gave exit $rc: $(cat err)"
+grep -qF "changed: $f" err || fail "the new sub2/.git/config not named: $(cat err)"
+warned || fail "no warning for a planted .git: $(cat err)"
+rm -r "$p/sub2"
+# A hook changed in an existing nested repository; the agent's own
+# failure is kept.
+f=$p/vendor/lib/.git/hooks/pre-commit
+launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_RUN_RC=5 "STUB_RUN_HOOK=echo evil >>$(printf %q "$f")" -- -- claude
+[ "$rc" = 5 ] || fail "a changed nested hook after exit 5 gave exit $rc: $(cat err)"
+grep -qF "changed: $f" err || fail "the changed nested hook not named: $(cat err)"
+echo 'echo hi' >"$f"
+# A bare repository.
+launch STUB_IMAGE=1 STUB_VOLUME=1 "STUB_RUN_HOOK=git init -q --bare $(printf %q "$p/bare")" -- -- claude
+[ "$rc" = 3 ] || fail "a new bare repository gave exit $rc: $(cat err)"
+grep -qF "changed: $p/bare/config" err || fail "the bare repository not named: $(cat err)"
+rm -r "$p/bare"
+# The git dir a .git file points at, inside the project.
+launch STUB_IMAGE=1 STUB_VOLUME=1 "STUB_RUN_HOOK=echo evil >>$(printf %q "$p/gd/config")" -- -- claude
+[ "$rc" = 3 ] || fail "a changed gitdir config gave exit $rc: $(cat err)"
+grep -qF "changed: $p/gd/config" err || fail "the gitdir's config not named: $(cat err)"
+echo '[core]' >"$p/gd/config"
+# A file name that would drive the terminal is printed inert.
+esc=$p/sub3/.git/hooks/$'x\e]0;pwned\ay'
+launch STUB_IMAGE=1 STUB_VOLUME=1 "STUB_RUN_HOOK=mkdir -p $(printf %q "${esc%/*}") && echo evil >$(printf %q "$esc")" -- -- claude
+[ "$rc" = 3 ] || fail "a hook with escapes in its name gave exit $rc: $(cat err)"
+grep -q $'[\e\a]' err && fail "control characters printed: $(cat -v err)"
+grep -qF "changed: $p/sub3/.git/hooks/x?]0;pwned?y" err || fail "the hook with escapes not named: $(cat -v err)"
+rm -r "$p/sub3"
+# A .git in a project that had none.
+mkdir -p "$root/nogit"
+dir=$root/nogit
+launch STUB_IMAGE=1 STUB_VOLUME=1 "STUB_RUN_HOOK=git init -q $(printf %q "$root/nogit")" -- -- claude
+[ "$rc" = 3 ] || fail "a new top-level .git gave exit $rc: $(cat err)"
+grep -qF "changed: $root/nogit/.git/config" err || fail "the new top-level .git not named: $(cat err)"
+[ ! -e "$root/nogit/.git" ] || rm -r "$root/nogit/.git"
+launch STUB_IMAGE=1 STUB_VOLUME=1 -- -- claude
+[ "$rc" = 0 ] || fail "a project with no .git, nothing changed: exit $rc: $(cat err)"
+[ ! -e "$root/nogit/.git" ] || fail "the launch left a .git in a project that had none"
+dir=$p
 
 # --- The FloxHub hint --------------------------------------------------
 

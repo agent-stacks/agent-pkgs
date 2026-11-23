@@ -25,6 +25,11 @@
 #     cache.nixos.org are open only until activation ends;
 #   - on exit, however it ends, stops and deletes the VM, stops the
 #     proxy and keeps its log at $TMPDIR/<VM name>.log;
+#   - checks at exit every other git repository in the project, as git
+#     on the Mac runs the hooks and core.fsmonitor of whichever one it
+#     lands in: each .git or bare repository that is new, or whose hooks
+#     or config changed, is named, and the exit is then 3 (or the
+#     agent's own failure);
 #   - refuses to start at /, at ~ or above it, from a FloxHub-managed
 #     environment, or from one not locked for aarch64-linux.
 #
@@ -43,9 +48,10 @@
 #     read-write at the same path. Absolute and existing, not holding ~,
 #     and not inside or holding the project;
 #   - writableGit (false): .git read-write rather than read-only. Its
-#     hooks, config, commondir and gitdir files, core.hooksPath and
-#     .git itself are fingerprinted before the run; any that changed are
-#     named at exit, which is then 3 (or the agent's own failure);
+#     hooks and its config, config.worktree, commondir and gitdir files
+#     at any depth, core.hooksPath and .git itself are fingerprinted
+#     before the run; any that changed are named at exit, which is then 3
+#     (or the agent's own failure);
 #   - forwardLogin (false): for claude, passes CLAUDE_CODE_OAUTH_TOKEN
 #     or ANTHROPIC_API_KEY, whichever is set (make the first with
 #     `claude setup-token`);
@@ -88,6 +94,7 @@
   writeShellApplication,
   jq,
   coreutils,
+  diffutils,
   findutils,
   gnugrep,
   gnused,
@@ -105,7 +112,7 @@ let
 in
 (writeShellApplication {
   name = "agent-sandbox-apple";
-  runtimeInputs = [ jq coreutils findutils gnugrep gnused git ];
+  runtimeInputs = [ jq coreutils diffutils findutils gnugrep gnused git ];
   # The clean-up functions are called only from the EXIT trap, which
   # ShellCheck does not follow.
   excludeShellChecks = [ "SC2329" ];
@@ -114,6 +121,9 @@ in
       echo "agent-sandbox-apple: $*" >&2
       exit 2
     }
+    # Text the agent or container chose, made safe to print: each control
+    # character but newline becomes '?', so none can drive the terminal.
+    inert() { LC_ALL=C tr '\000-\011\013-\037\177' '?'; }
     container=''${AGENT_SANDBOX_APPLE_CONTAINER:-container}
     container_cmd() { "$container" "$@"; }
     dry_run=''${AGENT_SANDBOX_APPLE_DRY_RUN:-}
@@ -239,11 +249,11 @@ in
     # long $TMPDIR, to stay well inside the 104-byte socket path limit.
     sock_dir=$(mktemp -d /tmp/asa.XXXXXX)
 
-    # Runs once, on any exit: stops the VM and the proxy, keeps the
-    # proxy's log, removes $sock_dir, and checks .git under writableGit.
-    # Signals are ignored from here, so a second Ctrl-C cannot cut it
-    # short.
-    run_pid="" proxy_pid="" git_before="" git_changed="" cleaned=""
+    # Runs once, on any exit but SIGKILL: stops the VM and the proxy,
+    # keeps the proxy's log, checks the project's git repositories, and
+    # removes $sock_dir. Signals are ignored from here, so a second Ctrl-C
+    # cannot cut it short.
+    run_pid="" proxy_pid="" scanned="" git_changed="" cleaned=""
     # The VMs of this launch whose `container run` has not returned. --rm
     # is done by that process, so a run cut short leaves its VM behind,
     # stopped and holding the cache volume, which no later launch can
@@ -279,10 +289,15 @@ in
             echo "agent-sandbox-apple: the proxy's log of this session is $kept" >&2
         fi
       fi
-      if [ -n "$git_before" ]; then
-        changed=$(diff <(printf '%s\n' "$git_before") <(git_state) | sed -n 's/^[<>] [^ ]* //p' | sort -u) ||
-          true
-        if [ -n "$changed" ]; then
+      if [ -n "$scanned" ]; then
+        # The paths are the agent's to name, so they are printed inert.
+        local diff_rc=0 changed
+        diff "$sock_dir/scan.before" <(scan_state) >"$sock_dir/scan.diff" || diff_rc=$?
+        changed=$(sed -n 's/^[<>] [^ ]* //p' "$sock_dir/scan.diff" | sort -u | inert)
+        if [ "$diff_rc" -gt 1 ]; then
+          git_changed=1
+          echo "agent-sandbox-apple: could not check the project's git hooks and config; review them before running git here" >&2
+        elif [ -n "$changed" ]; then
           git_changed=1
           {
             while IFS= read -r path; do echo "agent-sandbox-apple: changed: $path"; done <<<"$changed"
@@ -396,10 +411,8 @@ in
       git_dirs=("$own")
       [ "$own" = "$common" ] || git_dirs+=("$common")
     fi
-    # What git on the Mac would run: one line per hook, config file,
-    # core.hooksPath and .git itself, "<fingerprint> <what>". commondir
-    # and gitdir, the .git file's gitdir: line, and the git dirs git
-    # resolves too, as each can point git at other hooks and config.
+    # "<fingerprint> <path>" lines of what git on the Mac would run, so
+    # that a change made in the VM shows as a changed or new line.
     fingerprint() {
       if [ -L "$1" ]; then
         printf 'link-%s\n' "$(readlink "$1" | sha256sum | cut -c1-64)"
@@ -413,22 +426,70 @@ in
         echo missing
       fi
     }
+    # A git dir: itself and every config, config.worktree, commondir and
+    # gitdir file and hook in it, at any depth (a submodule's under
+    # modules/, a worktree's under worktrees/). Not objects: large, and
+    # git runs nothing from it.
+    git_meta() { # <git dir>
+      local f
+      echo "$(fingerprint "$1") $1"
+      find "$1" -mindepth 1 -name objects -type d -prune -o \( -name config -o -name config.worktree \
+        -o -name commondir -o -name gitdir -o -name hooks -o -path '*/hooks/*' \) -print0 2>/dev/null |
+        sort -z | while IFS= read -r -d "" f; do echo "$(fingerprint "$f") $f"; done
+    }
+    # Under writableGit, the project's own git dirs, core.hooksPath, .git
+    # itself and the git dirs git resolves, as each can point git at other
+    # hooks and config.
     git_state() {
-      local d f hooks_path resolved
-      for d in "''${git_dirs[@]}"; do
-        for f in "$d/config" "$d/config.worktree" "$d/commondir" "$d/gitdir" "$d/hooks"; do
-          echo "$(fingerprint "$f") $f"
-        done
-        if [ -d "$d/hooks" ] && [ ! -L "$d/hooks" ]; then
-          find "$d/hooks" -mindepth 1 -print0 2>/dev/null | sort -z |
-            while IFS= read -r -d "" f; do echo "$(fingerprint "$f") $f"; done
-        fi
-      done
+      local d hooks_path resolved
+      for d in "''${git_dirs[@]}"; do git_meta "$d"; done
       hooks_path=$(git -C "$here" config --get core.hooksPath 2>/dev/null) || hooks_path=""
       echo "$(printf '%s' "$hooks_path" | sha256sum | cut -c1-64) core.hooksPath"
       echo "$(stat -c %d:%i "$here/.git" 2>/dev/null || echo missing)-$(fingerprint "$here/.git") $here/.git"
       resolved=$(git -C "$here" rev-parse --absolute-git-dir --path-format=absolute --git-common-dir 2>&1) || true
       echo "$(printf '%s' "$resolved" | sha256sum | cut -c1-64) the git dirs git resolves: $(tr '\n' ' ' <<<"$resolved")"
+    }
+    # Every other git repository in the project, on every launch: the
+    # agent can make one or change one it holds (a vendored repo, a
+    # submodule's), and git on the Mac runs its hooks and core.fsmonitor
+    # wherever it lands, a shell prompt's `git status` included. Every
+    # .git, file or folder, the git dir a .git file names when it is in
+    # the project, and every bare repository (HEAD, objects and refs).
+    # Not node_modules, nor the top-level .git when it is mounted on its
+    # own (read-only, or checked by git_state).
+    planted_state() {
+      local skip=() f d g
+      if [ ''${#git_dirs[@]} -gt 0 ]; then
+        skip=(-path "$(printf '%s' "$here/.git" | sed 's/[][*?\\]/\\&/g')" -prune -o)
+      fi
+      find "$here" "''${skip[@]}" -name node_modules -type d -prune -o \
+        -name .git -print0 -prune -o -name HEAD -type f -print0 2>/dev/null | sort -z |
+        while IFS= read -r -d "" f; do
+          case $f in
+            */.git)
+              if [ -d "$f" ] && [ ! -L "$f" ]; then
+                git_meta "$f"
+                continue
+              fi
+              echo "$(fingerprint "$f") $f"
+              [ -f "$f" ] && [ ! -L "$f" ] || continue
+              g=$(sed -n '1s/^gitdir: //p' "$f")
+              [ -n "$g" ] || continue
+              [[ $g = /* ]] || g=''${f%/.git}/$g
+              if [ -d "$g" ] && g=$(cd "$g" && pwd -P) && within "$g" "$here" && ! within "$g" "$here/.git"; then
+                git_meta "$g"
+              fi
+              ;;
+            */HEAD)
+              d=''${f%/HEAD}
+              if [ -d "$d/objects" ] && [ -d "$d/refs" ]; then git_meta "$d"; fi
+              ;;
+          esac
+        done
+    }
+    scan_state() {
+      planted_state
+      [ ''${#git_dirs[@]} -eq 0 ] || ! on writableGit || git_state
     }
     # Activation runs the environment's hooks as root: an agent that
     # could edit them would run as root in the next session.
@@ -553,7 +614,8 @@ in
     read -r -t 10 line <"$sock_dir/ready" || true
     [ "$line" = ready ] || die "the proxy did not start"
 
-    [ ''${#git_dirs[@]} -eq 0 ] || ! on writableGit || git_before=$(git_state)
+    scan_state >"$sock_dir/scan.before"
+    scanned=1
 
     # Not exec'd: this stays to stop the proxy and clean up. In the
     # background so a signal reaches the trap at once; stdin given
