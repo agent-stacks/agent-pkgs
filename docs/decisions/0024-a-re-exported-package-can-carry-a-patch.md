@@ -83,10 +83,12 @@ The patch now carries two env vars:
 `CODEX_FLOX_INSTRUCTIONS_FILE` is dropped: nothing set it.
 
 The patch changes only how codex finds a plugin's folder. Skills, MCP
-servers and hooks load from it as from the cache. Hook approvals carry
-over between folders, because codex hashes a plugin's files relative
-to its root. Executor capability discovery, a codex feature that is
-off by default, still reads only the cache.
+servers and hooks load from it as from the cache. Plugin data stays in
+`$CODEX_HOME/plugins/data`, and codex's own install and uninstall still
+act only on the cache. A hook approval carries over between folders
+when the plugin's files are the same, because codex hashes them
+relative to the plugin's root. Executor capability discovery, a codex
+feature that is off by default, still reads only the cache.
 
 agent-stacks finds the patch by looking for a variable's name in the
 binary; `CODEX_FLOX_PLUGIN_ROOT` is the one that marks plugin support.
