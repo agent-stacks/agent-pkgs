@@ -7,8 +7,20 @@
 let
   source = builtins.fromJSON (builtins.readFile ./default.json);
   # BEGIN custom — kept as it is when this file is regenerated
+  # why: launch stages com.anthropic.claude-code/hooks as one link, so
+  # session-start's "$0/.." lands in the package's namespace folder,
+  # which has no skills/, and Claude gets "Error reading
+  # using-superpowers skill" (agent-pkgs#198). Prefer the root Claude
+  # passes. Drop once launch stages hooks/ as a real folder.
   args = { };
-  hooks = old: { };
+  hooks = old: {
+    postAssemble = old.postAssemble + ''
+      substituteInPlace "$dest/com.anthropic.claude-code/hooks/session-start" \
+        --replace-fail \
+          'PLUGIN_ROOT="''${SCRIPT_DIR}/.."' \
+          'PLUGIN_ROOT="''${CLAUDE_PLUGIN_ROOT:-''${SCRIPT_DIR}/..}"'
+    '';
+  };
   # END custom — anything outside these markers is overwritten
 in
 (buildAgentPlugin (source // args)).overrideAttrs hooks
