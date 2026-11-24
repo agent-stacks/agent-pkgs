@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "postman",
-      "dir": "/nix/store/ahnw1qpaa2xkiif5xsyfa7h0g96b1hhh-agent-plugin-postman-2.6.0/share/agent-plugins/postman",
+      "dir": "/nix/store/pg8qlhpvqphzn7f1bv5jihf2xjjm089x-agent-plugin-postman-2.6.0/share/agent-plugins/postman",
       "spec": "1.1.0",
       "score": 49,
       "status": "do not install",
@@ -444,9 +444,9 @@
           "path": "skills/collection-schema-v3",
           "score": 86,
           "risk": 14,
-          "status": "safe",
+          "status": "incomplete",
           "partial": true,
-          "coverage": 100,
+          "coverage": 80,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -462,6 +462,11 @@
               "reason": "reference_missing",
               "path": "skills/collection-schema-v3/SKILL.md",
               "line": 55
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/collection-schema-v3/reference/other_protocols.md",
+              "line": 0
             }
           ],
           "findings": [
@@ -484,10 +489,19 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/collection-schema-v3/reference/other_protocols.md",
-              "line": 144
+              "line": 156
             }
           ],
-          "suppressed": []
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/collection-schema-v3/SKILL.md",
+              "line": 25,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
+          ]
         },
         {
           "path": "skills/datasets",
@@ -709,7 +723,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-20T19:06:10Z"
+      "checkedAt": "2026-11-24T09:41:46Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
