@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "nvidia-skill-library",
-      "dir": "/nix/store/2733a241bb9ic56njpasqpj4p548y3fy-agent-plugin-nvidia-skill-library-0.0.0-unstable.2026-11-23.g252ba53/share/agent-plugins/nvidia-skill-library",
+      "dir": "/nix/store/j3j12gizsmpwkp2rpll0hcqp8bcb13wb-agent-plugin-nvidia-skill-library-0.0.0-unstable.2026-11-24.g23c0762/share/agent-plugins/nvidia-skill-library",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -281,6 +281,7 @@
           "skills/nemo-automodel-recipe-development",
           "skills/nemo-fabric-build-adapter",
           "skills/nemo-fabric-integrate",
+          "skills/nemo-gym-reward-profiling",
           "skills/nemo-mbridge-mlm-bridge-training",
           "skills/nemo-mbridge-multi-node-slurm",
           "skills/nemo-mbridge-perf-activation-recompute",
@@ -37832,6 +37833,112 @@
           ]
         },
         {
+          "path": "skills/nemo-gym-reward-profiling",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/nemo-gym-reward-profiling/SKILL.md",
+              "line": 13
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nemo-gym-reward-profiling/SKILL.md",
+              "line": 54
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nemo-gym-reward-profiling/SKILL.md",
+              "line": 73
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nemo-gym-reward-profiling/SKILL.md",
+              "line": 77
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nemo-gym-reward-profiling/SKILL.md",
+              "line": 94
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nemo-gym-reward-profiling/SKILL.md",
+              "line": 95
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nemo-gym-reward-profiling/SKILL.md",
+              "line": 98
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nemo-gym-reward-profiling/SKILL.md",
+              "line": 110
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nemo-gym-reward-profiling/SKILL.md",
+              "line": 115
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nemo-gym-reward-profiling/SKILL.md",
+              "line": 116
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nemo-gym-reward-profiling/SKILL.md",
+              "line": 117
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nemo-gym-reward-profiling/SKILL.md",
+              "line": 118
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nemo-gym-reward-profiling/SKILL.md",
+              "line": 119
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nemo-gym-reward-profiling/SKILL.md",
+              "line": 135
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nemo-gym-reward-profiling/SKILL.md",
+              "line": 183
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nemo-gym-reward-profiling/SKILL.md",
+              "line": 198
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nemo-gym-reward-profiling/SKILL.md",
+              "line": 199
+            }
+          ],
+          "findings": [],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/nemo-gym-reward-profiling/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
+          ]
+        },
+        {
           "path": "skills/nemo-mbridge-mlm-bridge-training",
           "score": 100,
           "risk": 0,
@@ -44933,13 +45040,13 @@
               "line": 0
             },
             {
-              "reason": "static_parse_limit",
-              "path": "skills/omniverse-realtime-viewer/references/ovxr-composition-ui/README.md",
+              "reason": "runtime_limit",
+              "path": "skills/omniverse-realtime-viewer/references/ovxr-composition-ui-validation",
               "line": 0
             },
             {
-              "reason": "runtime_limit",
-              "path": "skills/omniverse-realtime-viewer/references/ovxr-python-interactions",
+              "reason": "static_parse_limit",
+              "path": "skills/omniverse-realtime-viewer/references/ovxr-composition-ui/README.md",
               "line": 0
             },
             {
@@ -50167,9 +50274,9 @@
         },
         {
           "path": "skills/tao-analyze-changenet-rca",
-          "score": 24,
-          "risk": 76,
-          "status": "do not install",
+          "score": 68,
+          "risk": 32,
+          "status": "caution",
           "partial": true,
           "coverage": 86.7,
           "exceptions": [
@@ -50200,20 +50307,6 @@
             }
           ],
           "findings": [
-            {
-              "id": "AS1",
-              "severity": "HIGH",
-              "message": "Agent Config Directory Access",
-              "file": "skills/tao-analyze-changenet-rca/hooks/rca-package.sh",
-              "line": 52
-            },
-            {
-              "id": "AS1",
-              "severity": "HIGH",
-              "message": "Agent Config Directory Access",
-              "file": "skills/tao-analyze-changenet-rca/hooks/rca-package.sh",
-              "line": 52
-            },
             {
               "id": "LP1",
               "severity": "HIGH",
@@ -50554,8 +50647,8 @@
         },
         {
           "path": "skills/tao-analyze-gaps-visual-changenet",
-          "score": 0,
-          "risk": 100,
+          "score": 3,
+          "risk": 97,
           "status": "do not install",
           "partial": true,
           "coverage": 86.7,
@@ -50780,20 +50873,6 @@
               "message": "Credential Access",
               "file": "skills/tao-analyze-gaps-visual-changenet/config/skillspector-baseline.yaml",
               "line": 24
-            },
-            {
-              "id": "AS1",
-              "severity": "HIGH",
-              "message": "Agent Config Directory Access",
-              "file": "skills/tao-analyze-gaps-visual-changenet/hooks/rca-package.sh",
-              "line": 52
-            },
-            {
-              "id": "AS1",
-              "severity": "HIGH",
-              "message": "Agent Config Directory Access",
-              "file": "skills/tao-analyze-gaps-visual-changenet/hooks/rca-package.sh",
-              "line": 52
             },
             {
               "id": "LP1",
@@ -54549,20 +54628,6 @@
               "message": "Credential Access",
               "file": "skills/tao-mine-aoi-images/config/skillspector-baseline.yaml",
               "line": 21
-            },
-            {
-              "id": "AS1",
-              "severity": "HIGH",
-              "message": "Agent Config Directory Access",
-              "file": "skills/tao-mine-aoi-images/hooks/mining-package.sh",
-              "line": 44
-            },
-            {
-              "id": "AS1",
-              "severity": "HIGH",
-              "message": "Agent Config Directory Access",
-              "file": "skills/tao-mine-aoi-images/hooks/mining-package.sh",
-              "line": 44
             },
             {
               "id": "LP1",
@@ -69508,7 +69573,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-24T04:35:34Z"
+      "checkedAt": "2026-11-24T18:57:33Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"

@@ -7,13 +7,14 @@
   "plugins": [
     {
       "name": "cloudflare",
-      "dir": "/nix/store/9149hmphk239p3zilbxw0n8qcmq33z41-agent-plugin-cloudflare-1.0.4/share/agent-plugins/cloudflare",
+      "dir": "/nix/store/k81viilfw3rr0i70pjk86bvavq5wj12a-agent-plugin-cloudflare-1.0.4/share/agent-plugins/cloudflare",
       "spec": "1.1.0",
       "score": 13,
       "status": "do not install",
       "coverage": {
         "scanned": [
           "skills/agents-sdk",
+          "skills/artifacts",
           "skills/basin",
           "skills/cf-cli",
           "skills/cloudflare",
@@ -22,6 +23,7 @@
           "skills/cloudflare-one",
           "skills/cloudflare-one-migrations",
           "skills/durable-objects",
+          "skills/flagship",
           "skills/frameworks-on-cloudflare",
           "skills/gateway-workers",
           "skills/k2",
@@ -121,6 +123,36 @@
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
+        },
+        {
+          "path": "skills/artifacts",
+          "score": 93,
+          "risk": 7,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/artifacts/SKILL.md",
+              "line": 28
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/artifacts/SKILL.md",
+              "line": 38
+            }
+          ],
+          "findings": [
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/artifacts/SKILL.md",
+              "line": 28
+            }
+          ],
+          "suppressed": []
         },
         {
           "path": "skills/basin",
@@ -796,6 +828,38 @@
             }
           ],
           "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "skills/flagship",
+          "score": 90,
+          "risk": 10,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/flagship/SKILL.md",
+              "line": 25
+            }
+          ],
+          "findings": [
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/flagship/SKILL.md",
+              "line": 25
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/flagship/SKILL.md",
+              "line": 33
+            }
+          ],
           "suppressed": []
         },
         {
@@ -1658,7 +1722,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-20T17:35:01Z"
+      "checkedAt": "2026-11-24T17:53:25Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
