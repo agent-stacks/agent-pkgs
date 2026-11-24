@@ -12,13 +12,15 @@ FROM ghcr.io/flox/flox@sha256:b0e4164127f5cd93fa66d2e54423d02995d1de2f1b02d11e2c
 # the rev in agent-pkgs' flake.lock as of 2026-11-23, so a rebuild gets
 # the same tools.
 ARG NIXPKGS=github:NixOS/nixpkgs/93a9ed0a866099a230ed5146a5bb7d16fd5c9b14
-RUN for p in socat curl.bin git util-linux.bin; do \
+RUN for p in socat curl.bin git util-linux.bin jq.bin; do \
       nix --extra-experimental-features 'nix-command flakes' build "$NIXPKGS#$p" --out-link "/opt/${p%.bin}" || exit 1; \
     done && \
     mkdir -p /usr/local/bin && \
-    ln -s /opt/socat/bin/socat /opt/curl-bin/bin/curl /opt/git/bin/git /opt/util-linux-bin/bin/setpriv /usr/local/bin/ && \
+    ln -s /opt/socat/bin/socat /opt/curl-bin/bin/curl /opt/git/bin/git /opt/util-linux-bin/bin/setpriv \
+      /opt/jq-bin/bin/jq /usr/local/bin/ && \
     /usr/local/bin/socat -V >/dev/null && /usr/local/bin/curl --version >/dev/null && \
-    /usr/local/bin/git --version >/dev/null && /usr/local/bin/setpriv --version >/dev/null
+    /usr/local/bin/git --version >/dev/null && /usr/local/bin/setpriv --version >/dev/null && \
+    /usr/local/bin/jq --version >/dev/null
 
 # The agent's user. /etc/passwd and /etc/group link into the store and
 # there is no useradd, so they become files of their own.

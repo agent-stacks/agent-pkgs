@@ -8,8 +8,10 @@ const LATCH_HOST: &str = "agent-sandbox-apple.start-done";
 
 #[derive(Debug)]
 pub enum Decision {
-    /// The startup-only hosts are closed from now on.
-    Latch,
+    /// The startup-only hosts are closed from now on. On the first latch
+    /// only, the hosts the request offered join the agent's list:
+    /// `added` are those taken, `refused` those that are not host names.
+    Latch { added: Vec<String>, refused: Vec<String> },
     Connect { host: String, port: u16 },
     Deny(&'static str),
 }
@@ -25,7 +27,10 @@ impl Policy {
         Policy { agent, startup, latched: false }
     }
 
-    pub fn decide(&mut self, target: &str) -> Decision {
+    /// `offered` are the hosts a latch request names (the VM's plugins'
+    /// MCP servers, read as root before the agent starts). They count
+    /// only on the first latch: once it is closed, nothing joins.
+    pub fn decide(&mut self, target: &str, offered: &[&str]) -> Decision {
         let Some((host, port)) = target.rsplit_once(':') else {
             return Decision::Deny("bad target");
         };
@@ -33,8 +38,19 @@ impl Policy {
             return Decision::Deny("bad port");
         };
         if host.eq_ignore_ascii_case(LATCH_HOST) && port == 0 {
+            let (mut added, mut refused) = (Vec::new(), Vec::new());
+            if !self.latched {
+                for h in offered {
+                    if is_host_name(h) {
+                        added.push(h.to_ascii_lowercase());
+                    } else {
+                        refused.push(h.to_string());
+                    }
+                }
+                self.agent.extend(added.iter().cloned());
+            }
             self.latched = true;
-            return Decision::Latch;
+            return Decision::Latch { added, refused };
         }
         // The allow-list holds names only: no IP literals, bracketed or not.
         if host.is_empty()
@@ -52,6 +68,18 @@ impl Policy {
             Decision::Deny("allow-list")
         }
     }
+}
+
+/// A DNS name the allow-list may hold: letters, digits, '-' and '.',
+/// at least one dot, and never an IP literal.
+pub fn is_host_name(h: &str) -> bool {
+    let h = h.trim_end_matches('.');
+    !h.is_empty()
+        && h.len() <= 253
+        && h.contains('.')
+        && h.bytes().all(|b| b.is_ascii_alphanumeric() || b == b'-' || b == b'.')
+        && h.split('.').all(|l| !l.is_empty() && !l.starts_with('-') && !l.ends_with('-'))
+        && h.parse::<IpAddr>().is_err()
 }
 
 /// An exact or subdomain match, ignoring case and a trailing dot.
@@ -137,17 +165,31 @@ mod tests {
     }
     #[test] fn latch_closes_startup_hosts_for_good() {
         let mut p = Policy::new(vec!["api.anthropic.com".into()], vec!["cache.nixos.org".into()]);
-        assert!(matches!(p.decide("cache.nixos.org:443"), Decision::Connect{..}));
-        assert!(matches!(p.decide("agent-sandbox-apple.start-done:0"), Decision::Latch));
-        assert!(matches!(p.decide("cache.nixos.org:443"), Decision::Deny(_)));
-        assert!(matches!(p.decide("agent-sandbox-apple.start-done:0"), Decision::Latch));
-        assert!(matches!(p.decide("cache.nixos.org:443"), Decision::Deny(_)));
-        assert!(matches!(p.decide("api.anthropic.com:443"), Decision::Connect{..}));
+        assert!(matches!(p.decide("cache.nixos.org:443", &[]), Decision::Connect{..}));
+        assert!(matches!(p.decide("agent-sandbox-apple.start-done:0", &[]), Decision::Latch{..}));
+        assert!(matches!(p.decide("cache.nixos.org:443", &[]), Decision::Deny(_)));
+        assert!(matches!(p.decide("agent-sandbox-apple.start-done:0", &[]), Decision::Latch{..}));
+        assert!(matches!(p.decide("cache.nixos.org:443", &[]), Decision::Deny(_)));
+        assert!(matches!(p.decide("api.anthropic.com:443", &[]), Decision::Connect{..}));
+    }
+    #[test] fn first_latch_adds_offered_names_and_later_ones_do_not() {
+        let mut p = Policy::new(vec![], vec![]);
+        assert!(matches!(p.decide("mcp.example.com:443", &[]), Decision::Deny(_)));
+        let d = p.decide("agent-sandbox-apple.start-done:0",
+                         &["MCP.example.com", "1.2.3.4", "[::1]", "a b.com", "localhost", "-x.com"]);
+        let Decision::Latch { added, refused } = d else { panic!("{d:?}") };
+        assert_eq!(added, vec!["mcp.example.com"]);
+        assert_eq!(refused, vec!["1.2.3.4", "[::1]", "a b.com", "localhost", "-x.com"]);
+        assert!(matches!(p.decide("mcp.example.com:443", &[]), Decision::Connect{..}));
+        assert!(matches!(p.decide("sub.mcp.example.com:443", &[]), Decision::Connect{..}));
+        let d = p.decide("agent-sandbox-apple.start-done:0", &["evil.com"]);
+        assert!(matches!(&d, Decision::Latch { added, .. } if added.is_empty()), "{d:?}");
+        assert!(matches!(p.decide("evil.com:443", &[]), Decision::Deny(_)));
     }
     #[test] fn bad_targets_are_denied() {
         let mut p = Policy::new(vec!["a.com".into()], vec![]);
         for t in ["a.com", "a.com:x", "a.com:70000", "[::1]:443", "1.1.1.1:443"] {
-            assert!(matches!(p.decide(t), Decision::Deny(_)), "{t}");
+            assert!(matches!(p.decide(t, &[]), Decision::Deny(_)), "{t}");
         }
     }
 }

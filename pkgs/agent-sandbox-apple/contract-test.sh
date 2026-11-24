@@ -188,8 +188,10 @@ echo '{"mcpServers":{"x":{"type":"http","url":"https://user@mcp.example.com:8443
   >"$root/plugin/.mcp.json"
 CLAUDE_CODE_PLUGIN_DIRS=$root/plugin dry --options '{"allowedDomains":["github.com"]}' -- claude >out 2>err ||
   fail "dry run: $(cat err)"
+# The plugins' MCP hosts come from the VM's environment, at the latch:
+# the plugins this shell staged add nothing.
 has '(.allow | sort) == (["api.anthropic.com", "platform.claude.com", "claude.ai", "console.anthropic.com",
-  "mcp.example.com", "github.com"] | sort)'
+  "github.com"] | sort)'
 has '.startup == ["api.flox.dev", "s3.us-east-1.amazonaws.com", "cache.nixos.org"]'
 grep -q 'github.com' err || fail "allowedDomains not named: $(cat err)"
 

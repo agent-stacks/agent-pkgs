@@ -107,3 +107,20 @@ fn newline_in_request_line_cannot_forge_a_log_line() {
     assert!(log.lines().count() >= 2, "{log}");
     assert!(log.lines().all(|l| l.starts_with("deny ")), "{log}");
 }
+
+#[test]
+fn first_latch_adds_its_hosts_and_a_later_one_cannot() {
+    let p = Proxy::start("latch");
+    let r = p.request("CONNECT agent-sandbox-apple.start-done:0 HTTP/1.1\r\n\
+                       X-Allow-Hosts: mcp.example.com 10.0.0.1\r\n\r\n");
+    assert!(r.starts_with("HTTP/1.1 200"), "{r}");
+    let r = p.request("CONNECT agent-sandbox-apple.start-done:0 HTTP/1.1\r\n\
+                       X-Allow-Hosts: example.org\r\n\r\n");
+    assert!(r.starts_with("HTTP/1.1 200"), "{r}");
+    let r = p.request("CONNECT example.org:443 HTTP/1.1\r\n\r\n");
+    assert!(r.starts_with("HTTP/1.1 403"), "{r}");
+    let log = p.log();
+    assert!(log.contains("allow-list adds mcp.example.com\n"), "{log}");
+    assert!(log.contains("allow-list refuses 10.0.0.1 (not host names)"), "{log}");
+    assert!(!log.contains("adds example.org"), "{log}");
+}

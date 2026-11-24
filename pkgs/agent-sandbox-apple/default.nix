@@ -22,8 +22,8 @@
 #     agent;
 #   - allows through the proxy (HTTPS CONNECT to host names only, no
 #     private addresses): Claude's hosts, every host an MCP server of
-#     the staged plugins names (CLAUDE_CODE_PLUGIN_DIRS), and
-#     allowedDomains. api.flox.dev, s3.us-east-1.amazonaws.com and
+#     the environment's plugins names (read in the VM, as root, before
+#     the agent starts), and allowedDomains. api.flox.dev, s3.us-east-1.amazonaws.com and
 #     cache.nixos.org are open while the environment activates: once
 #     activation ends the proxy refuses new connections to them, though
 #     a tunnel already open to one stays up;
@@ -647,19 +647,12 @@ in
     add_mount "$proj/.flox/env" /host-env true
     add_mount "$sock_dir/proxy.sock" /run/agent-proxy.sock false
 
-    # Every host the staged plugins' MCP servers reach.
-    mcp_hosts="[]"
-    IFS=: read -r -a dirs <<<"''${CLAUDE_CODE_PLUGIN_DIRS:-}"
-    for d in "''${dirs[@]}"; do
-      [ -f "$d/.mcp.json" ] || continue
-      mcp_hosts=$(jq -c --argjson acc "$mcp_hosts" '
-        $acc + [ (.mcpServers // {})[] | .url? // empty
-                 | sub("^[a-zA-Z][a-zA-Z0-9+.-]*://"; "") | split("/")[0]
-                 | split("@")[-1] | split(":")[0] | select(length > 0) ]' "$d/.mcp.json") ||
-        die "cannot read MCP servers in $d/.mcp.json"
-    done
-    allow=$(jq -c --argjson mcp "$mcp_hosts" '["api.anthropic.com", "platform.claude.com", "claude.ai",
-      "console.anthropic.com"] + $mcp + .allowedDomains | unique' <<<"$opts")
+    # The plugins' MCP hosts are not read here: the agent runs the
+    # plugins of the environment it activates in the VM, not the ones
+    # this shell may have staged, so guest.sh reads them there and hands
+    # them to the proxy with the latch.
+    allow=$(jq -c '["api.anthropic.com", "platform.claude.com", "claude.ai",
+      "console.anthropic.com"] + .allowedDomains | unique' <<<"$opts")
     # Open only until the agent starts: S3 is every bucket in the region.
     startup='["api.flox.dev", "s3.us-east-1.amazonaws.com", "cache.nixos.org"]'
     domains=$(jq -r '.allowedDomains | join(", ")' <<<"$opts")

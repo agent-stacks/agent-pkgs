@@ -15,9 +15,26 @@ proxy=http://127.0.0.1:3128
 if [ "${1:-}" = --activated ]; then
   project=$2 agent=$3
   shift 3
+  # The hosts the MCP servers of the environment's plugins name: the
+  # plugins the inner launch stages. Read here, as root and before the
+  # agent runs, and handed to the proxy with the latch, which takes them
+  # only on the first latch. Only plain host names pass the filter, so
+  # nothing can break the request's header.
+  hosts=""
+  for f in "${FLOX_ENV:-/nonexistent}"/share/agent-plugins/*/mcp.json \
+    "${FLOX_ENV:-/nonexistent}"/share/agent-plugins/*/.mcp.json; do
+    [ -f "$f" ] || continue
+    h=$(jq -r '(.mcpServers // {})[] | .url? // empty | strings
+        | sub("^[a-zA-Z][a-zA-Z0-9+.-]*://"; "") | split("/")[0]
+        | split("@")[-1] | split(":")[0] | select(test("^[A-Za-z0-9.-]+$"))' "$f") || {
+      echo "agent-sandbox-apple: cannot read MCP servers in $f" >&2
+      continue
+    }
+    hosts+=" ${h//$'\n'/ }"
+  done
   # -t 10: wait up to 10 s for the reply after sending, not socat's
   # default half a second.
-  reply=$(printf 'CONNECT agent-sandbox-apple.start-done:0 HTTP/1.1\r\nHost: agent-sandbox-apple.start-done:0\r\n\r\n' |
+  reply=$(printf 'CONNECT agent-sandbox-apple.start-done:0 HTTP/1.1\r\nHost: agent-sandbox-apple.start-done:0\r\nX-Allow-Hosts: %s\r\n\r\n' "$hosts" |
     socat -t 10 - TCP:127.0.0.1:3128) || reply=""
   if [[ $reply != "HTTP/1.1 200"* ]]; then
     echo "agent-sandbox-apple: the proxy did not close its start-up hosts" >&2
@@ -37,8 +54,10 @@ fi
 
 export PATH=/usr/local/bin:$PATH FLOX_DISABLE_METRICS=true
 
-# The bridge to the proxy, the VM's only way out.
-socat TCP-LISTEN:3128,bind=127.0.0.1,fork,reuseaddr UNIX-CONNECT:/run/agent-proxy.sock &
+# The bridge to the proxy, the VM's only way out. Its errors (a reset
+# for every refused connection) would land on the agent's terminal; the
+# proxy's log on the Mac already names each refusal.
+socat TCP-LISTEN:3128,bind=127.0.0.1,fork,reuseaddr UNIX-CONNECT:/run/agent-proxy.sock 2>/dev/null &
 for _ in $(seq 50); do
   if (: </dev/tcp/127.0.0.1/3128) 2>/dev/null; then break; fi
   sleep 0.1

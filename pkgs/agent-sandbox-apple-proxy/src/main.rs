@@ -26,6 +26,8 @@ const HEAD_TIMEOUT: Duration = Duration::from_secs(30);
 const ACCEPT_BACKOFF: Duration = Duration::from_millis(100);
 /// The open-file limit asked for, macOS's OPEN_MAX.
 const NOFILE_WANT: u64 = 10240;
+/// The latch request's header naming the VM's MCP hosts.
+const ALLOW_HEADER: &str = "X-Allow-Hosts";
 
 /// struct rlimit: rlim_t is 64 bits on macOS and on 64-bit Linux.
 #[repr(C)]
@@ -223,6 +225,18 @@ fn tunnel(c: &UnixStream, u: &TcpStream) {
     });
 }
 
+/// The hosts an `X-Allow-Hosts:` header of the request head names,
+/// separated by spaces or commas. Only a latch request's count.
+fn offered_hosts(head: &str) -> Vec<&str> {
+    head.split("\r\n")
+        .skip(1)
+        .filter_map(|l| l.split_once(':'))
+        .filter(|(k, _)| k.trim().eq_ignore_ascii_case(ALLOW_HEADER))
+        .flat_map(|(_, v)| v.split([' ', ',']))
+        .filter(|h| !h.is_empty())
+        .collect()
+}
+
 fn handle(mut c: UnixStream, policy: &Mutex<Policy>, log: &Log) -> io::Result<()> {
     let Some((head, end)) = read_head(&mut c, HEAD_TIMEOUT)? else {
         return Ok(());
@@ -235,10 +249,18 @@ fn handle(mut c: UnixStream, policy: &Mutex<Policy>, log: &Log) -> io::Result<()
         log.line(&format!("deny {first} (not CONNECT)"));
         return c.write_all(b"HTTP/1.1 405 CONNECT only\r\n\r\n");
     }
-    let decision = policy.lock().unwrap_or_else(|e| e.into_inner()).decide(target);
+    let text = String::from_utf8_lossy(&head[..end]);
+    let offered = offered_hosts(&text);
+    let decision = policy.lock().unwrap_or_else(|e| e.into_inner()).decide(target, &offered);
     let (host, port) = match decision {
-        Decision::Latch => {
+        Decision::Latch { added, refused } => {
             log.line("latch closed");
+            if !added.is_empty() {
+                log.line(&format!("allow-list adds {}", added.join(" ")));
+            }
+            if !refused.is_empty() {
+                log.line(&format!("allow-list refuses {} (not host names)", refused.join(" ")));
+            }
             return c.write_all(b"HTTP/1.1 200 Latched\r\n\r\n");
         }
         Decision::Deny(reason) => {
@@ -419,6 +441,14 @@ mod tests {
         assert_eq!(used, live.local_addr().unwrap());
         assert!(connect_any(&[dead], CONNECT_TIMEOUT).is_err());
         assert!(connect_any(&[], CONNECT_TIMEOUT).is_err());
+    }
+
+    #[test]
+    fn offered_hosts_come_from_the_header_only() {
+        let h = "CONNECT agent-sandbox-apple.start-done:0 HTTP/1.1\r\nHost: x.com\r\n\
+                 x-allow-hosts: a.com, b.org  c.net\r\n\r\n";
+        assert_eq!(offered_hosts(h), vec!["a.com", "b.org", "c.net"]);
+        assert!(offered_hosts("CONNECT a.com:443 HTTP/1.1\r\nHost: a.com\r\n\r\n").is_empty());
     }
 
     #[test]
