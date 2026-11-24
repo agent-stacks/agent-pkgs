@@ -7,7 +7,14 @@
 let
   source = builtins.fromJSON (builtins.readFile ./default.json);
   # BEGIN custom — kept as it is when this file is regenerated
-  args = { };
+  args = {
+    # Its hooks load ../scripts from beside hooks/, so hooks/ ships at
+    # the plugin root with scripts/.
+    pluginRootPaths = builtins.removeAttrs source.pluginRootPaths [ "com.anthropic.claude-code/hooks" ] // {
+      hooks = "plugins/power-automate/hooks";
+      scripts = "plugins/power-automate/scripts";
+    };
+  };
   hooks = old: { };
   # END custom — anything outside these markers is overwritten
 in

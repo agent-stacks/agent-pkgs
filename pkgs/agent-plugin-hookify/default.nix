@@ -7,7 +7,10 @@
 let
   source = builtins.fromJSON (builtins.readFile ./default.json);
   # BEGIN custom — kept as it is when this file is regenerated
-  args = { };
+  args = {
+    # Its hooks put the plugin root on sys.path and import core/ from it.
+    pluginRootPaths = source.pluginRootPaths // { core = "plugins/hookify/core"; };
+  };
   hooks = old: { };
   # END custom — anything outside these markers is overwritten
 in

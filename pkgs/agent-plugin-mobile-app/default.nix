@@ -7,7 +7,13 @@
 let
   source = builtins.fromJSON (builtins.readFile ./default.json);
   # BEGIN custom — kept as it is when this file is regenerated
-  args = { };
+  args = {
+    # Its scripts read template/ and assets/ from the plugin root.
+    pluginRootPaths = source.pluginRootPaths // {
+      template = "plugins/mobile-apps/template";
+      assets = "plugins/mobile-apps/assets";
+    };
+  };
   hooks = old: { };
   # END custom — anything outside these markers is overwritten
 in

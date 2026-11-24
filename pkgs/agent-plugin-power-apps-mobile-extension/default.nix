@@ -7,7 +7,18 @@
 let
   source = builtins.fromJSON (builtins.readFile ./default.json);
   # BEGIN custom — kept as it is when this file is regenerated
-  args = { };
+  args = {
+    # Its hooks load ../scripts and ../.plugin from beside hooks/, so
+    # hooks/ ships at the plugin root with what they load.
+    pluginRootPaths = builtins.removeAttrs source.pluginRootPaths [ "com.anthropic.claude-code/hooks" ] // {
+      hooks = "plugins/power-apps-mobile-extension/hooks";
+      scripts = "plugins/power-apps-mobile-extension/scripts";
+      ".plugin" = "plugins/power-apps-mobile-extension/.plugin";
+    };
+    # scripts/ holds Node scripts, which import recorded no runtime for;
+    # unique, so a replay that records node too lists it once.
+    requiredRuntimes = pkgs.lib.unique (source.requiredRuntimes ++ [ "node" ]);
+  };
   hooks = old: { };
   # END custom — anything outside these markers is overwritten
 in

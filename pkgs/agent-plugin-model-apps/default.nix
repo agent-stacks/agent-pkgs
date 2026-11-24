@@ -7,7 +7,14 @@
 let
   source = builtins.fromJSON (builtins.readFile ./default.json);
   # BEGIN custom — kept as it is when this file is regenerated
-  args = { };
+  args = {
+    # Its hooks load ../scripts and ../feature-flags.json from beside
+    # hooks/, so hooks/ ships at the plugin root with what they load.
+    pluginRootPaths = builtins.removeAttrs source.pluginRootPaths [ "com.anthropic.claude-code/hooks" ] // {
+      hooks = "plugins/model-apps/hooks";
+      "feature-flags.json" = "plugins/model-apps/feature-flags.json";
+    };
+  };
   hooks = old: { };
   # END custom — anything outside these markers is overwritten
 in
