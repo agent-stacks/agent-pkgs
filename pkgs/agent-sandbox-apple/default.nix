@@ -29,7 +29,8 @@
 #     a tunnel already open to one stays up;
 #   - on any exit but SIGKILL, stops and deletes the VM, stops the
 #     proxy and keeps its log at $TMPDIR/<VM name>.log;
-#   - checks at exit every other git repository in the project, as git
+#   - checks at exit every other git repository in the project and the
+#     allowWrite paths, as git
 #     on the Mac runs the hooks and core.fsmonitor of whichever one it
 #     lands in: each .git or bare repository that is new, or whose hooks
 #     or config changed, is named, and the exit is then 3 (or the
@@ -396,6 +397,10 @@ in
     }
     add_mount "$here" "$here" false
 
+    # Every host folder the agent can write: the project, and the
+    # allowWrite paths. Git repositories in any of them are checked at
+    # exit, as git on the Mac runs what the agent leaves there.
+    write_roots=("$here")
     for kind in allowRead allowWrite; do
       n=$(jq -r ".$kind | length" <<<"$opts")
       for ((i = 0; i < n; i++)); do
@@ -421,6 +426,7 @@ in
           echo "agent-sandbox-apple: allowRead: the agent can read $path" >&2
         else
           add_mount "$path" "$path" false
+          write_roots+=("$path")
           echo "agent-sandbox-apple: allowWrite: the agent can change $path" >&2
         fi
       done
@@ -468,6 +474,21 @@ in
     }
     # A path as a find -path/-ipath pattern that matches only itself.
     glob_quote() { printf '%s' "$1" | sed 's/[][*?\\]/\\&/g'; }
+    # A path the agent can write: in the project or an allowWrite path.
+    writable() { # <path>
+      local r
+      for r in "''${write_roots[@]}"; do
+        if within "$1" "$r"; then return 0; fi
+      done
+      return 1
+    }
+    is_root() { # <path>
+      local r
+      for r in "''${write_roots[@]}"; do
+        if [ "$1" = "$r" ]; then return 0; fi
+      done
+      return 1
+    }
     # A git dir: itself and every config, config.worktree, commondir and
     # gitdir file and hook in it, at any depth (a submodule's under
     # modules/, a worktree's under worktrees/). Names match in any case:
@@ -487,7 +508,7 @@ in
       } | sort -z | while IFS= read -r -d "" f; do echo "$(fingerprint "$f") $f"; done
     }
     # A path a git config names, made absolute against <base>: printed
-    # when it is in the project, both as written and with symlinks
+    # when the agent can write it (writable), both as written and with symlinks
     # resolved, as the agent can change either. A leading ~/ is $HOME,
     # as git takes it, and projects usually live there; ~user paths are
     # left alone.
@@ -500,8 +521,8 @@ in
       [[ $t = /* ]] || t=$2/$t
       t=$(realpath -m -s -- "$t") || return 0
       r=$(realpath -m -- "$t") || r=$t
-      if within "$t" "$here"; then printf '%s\0' "$t"; fi
-      if [ "$r" != "$t" ] && within "$r" "$here"; then printf '%s\0' "$r"; fi
+      if writable "$t"; then printf '%s\0' "$t"; fi
+      if [ "$r" != "$t" ] && writable "$r"; then printf '%s\0' "$r"; fi
       return 0
     }
     # A path and, for a real folder, everything in it at any depth.
@@ -528,7 +549,7 @@ in
           # husky v9: hooksPath is .husky/_, whose stubs run, through
           # _/h, the user's hooks one folder up.
           if [ "''${t##*/}" = _ ] || [ -f "$t/h" ] || [ -f "$t/husky.sh" ]; then
-            if [ "''${t%/*}" != "$here" ] && within "''${t%/*}" "$here"; then tree_state "''${t%/*}"; fi
+            if ! is_root "''${t%/*}" && writable "''${t%/*}"; then tree_state "''${t%/*}"; fi
           fi
         done
       done
@@ -592,7 +613,7 @@ in
       c=$(head -n 1 "$1/commondir")
       [ -n "$c" ] || return 0
       [[ $c = /* ]] || c=$1/$c
-      if [ -d "$c" ] && c=$(cd "$c" && pwd -P) && within "$c" "$here" && ! within "$c" "$here/.git"; then
+      if [ -d "$c" ] && c=$(cd "$c" && pwd -P) && writable "$c" && ! within "$c" "$here/.git"; then
         git_meta "$c"
         config_refs "$c" "$2"
       fi
@@ -610,7 +631,8 @@ in
       resolved=$(git -C "$here" rev-parse --absolute-git-dir --path-format=absolute --git-common-dir 2>&1) || true
       echo "$(printf '%s' "$resolved" | sha256sum | cut -c1-64) the git dirs git resolves: $(tr '\n' ' ' <<<"$resolved")"
     }
-    # Every other git repository in the project, on every launch: the
+    # Every other git repository in the project and the allowWrite
+    # paths, on every launch: the
     # agent can make one or change one it holds (a vendored repo, a
     # submodule's), and git on the Mac runs its hooks and core.fsmonitor
     # wherever it lands, a shell prompt's `git status` included. Every
@@ -621,14 +643,16 @@ in
     # node_modules, nor the top-level .git when it is mounted on its own
     # (read-only, or checked by git_state).
     planted_state() {
-      local skip=() f d g
+      local skip=() f d g r
       if [ ''${#git_dirs[@]} -gt 0 ]; then
         skip=(-path "$(glob_quote "$here/.git")" -prune -o)
       fi
       {
-        find "$here" "''${skip[@]}" -name node_modules -type d -prune -o \
-          -iname .git -print0 -prune -o -iname HEAD -print0 2>/dev/null ||
-          printf '%s\0' "$here/<unreadable>"
+        for r in "''${write_roots[@]}"; do
+          find "$r" "''${skip[@]}" -name node_modules -type d -prune -o \
+            -iname .git -print0 -prune -o -iname HEAD -print0 2>/dev/null ||
+            printf '%s\0' "$r/<unreadable>"
+        done
       } | sort -z |
         while IFS= read -r -d "" f; do
           case ''${f##*/} in
@@ -642,7 +666,7 @@ in
               g=$(sed -n '1s/^gitdir: //p' "$f")
               [ -n "$g" ] || continue
               [[ $g = /* ]] || g=''${f%/*}/$g
-              if [ -d "$g" ] && g=$(cd "$g" && pwd -P) && within "$g" "$here" && ! within "$g" "$here/.git"; then
+              if [ -d "$g" ] && g=$(cd "$g" && pwd -P) && writable "$g" && ! within "$g" "$here/.git"; then
                 git_dir_state "$g" "''${f%/*}"
               fi
               ;;

@@ -772,6 +772,37 @@ git -C "$p" config --unset 'includeIf.gitdir:**.path'
 git -C "$p/vendor/lib" config --unset core.hooksPath
 rm -r "$p/.husky" "$p/hooks-v" "$p/shared.gitconfig" "$p/deep.gitconfig" "$p/cond.gitconfig"
 
+# --- allowWrite paths are checked like the project ----------------------
+
+# The agent can write an allowWrite path, so a repository there, or one
+# it makes there, is checked at exit as one in the project is.
+aw=$root/aw
+git -c init.defaultBranch=main init -q "$aw/repo"
+awopts=$(jq -nc --arg a "$aw" '{allowWrite: [$a]}')
+launch STUB_IMAGE=1 STUB_VOLUME=1 -- --options "$awopts" -- claude
+[ "$rc" = 0 ] || fail "allowWrite, nothing changed: exit $rc: $(cat err)"
+grep -q 'changed:' err && fail "allowWrite, nothing changed, but named: $(cat err)"
+f=$aw/repo/.git/hooks/pre-commit
+launch STUB_IMAGE=1 STUB_VOLUME=1 "STUB_RUN_HOOK=echo evil >$(printf %q "$f")" -- --options "$awopts" -- claude
+[ "$rc" = 3 ] || fail "a hook added in an allowWrite repo: exit $rc: $(cat err)"
+grep -qF "changed: $f" err || fail "$f not named: $(cat err)"
+rm -f "$f"
+f=$aw/new/.git/config
+launch STUB_IMAGE=1 STUB_VOLUME=1 "STUB_RUN_HOOK=mkdir -p $(printf %q "${f%/*}") && $fsm >$(printf %q "$f")" \
+  -- --options "$awopts" -- claude
+[ "$rc" = 3 ] || fail "a .git planted in an allowWrite path: exit $rc: $(cat err)"
+grep -qF "changed: $f" err || fail "$f not named: $(cat err)"
+rm -r "$aw/new"
+# A hooksPath of the project's repo that names an allowWrite folder.
+git -C "$p" config core.hooksPath "$aw/hooks"
+mkdir -p "$aw/hooks"
+f=$aw/hooks/pre-commit
+launch STUB_IMAGE=1 STUB_VOLUME=1 "STUB_RUN_HOOK=echo evil >$(printf %q "$f")" -- --options "$awopts" -- claude
+[ "$rc" = 3 ] || fail "a hook in an allowWrite hooksPath: exit $rc: $(cat err)"
+grep -qF "changed: $f" err || fail "$f not named: $(cat err)"
+git -C "$p" config --unset core.hooksPath
+rm -r "$aw"
+
 # --- The FloxHub hint --------------------------------------------------
 
 hint='forwardFloxhubToken'
