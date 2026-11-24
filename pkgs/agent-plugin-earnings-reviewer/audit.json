@@ -1,0 +1,175 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "earnings-reviewer",
+      "dir": "/nix/store/j7wp67wjwcpnq70v5z05rgiqz6ygg97p-agent-plugin-earnings-reviewer-0.1.1/share/agent-plugins/earnings-reviewer",
+      "spec": "1.1.0",
+      "score": 85,
+      "status": "safe",
+      "coverage": {
+        "scanned": [
+          "com.anthropic.claude-code/agents",
+          "skills/audit-xls",
+          "skills/earnings-analysis",
+          "skills/earnings-preview",
+          "skills/model-update",
+          "skills/morning-note",
+          "skills/xlsx-author"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": []
+      },
+      "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "skills/audit-xls",
+          "score": 85,
+          "risk": 15,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/audit-xls/SKILL.md",
+              "line": 30
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE4",
+              "severity": "MEDIUM",
+              "message": "analysis-evasion",
+              "file": "skills/audit-xls/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/audit-xls/SKILL.md",
+              "line": 147
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/earnings-analysis",
+          "score": 89,
+          "risk": 11,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/earnings-analysis/SKILL.md",
+              "line": 181
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/earnings-analysis/references/workflow.md",
+              "line": 53
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/earnings-analysis/references/workflow.md",
+              "line": 163
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/earnings-preview",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "skills/model-update",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "skills/morning-note",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "skills/xlsx-author",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/xlsx-author/SKILL.md",
+              "line": 29
+            }
+          ],
+          "findings": [],
+          "suppressed": []
+        }
+      ]
+    }
+  ],
+  "score": 85,
+  "status": "safe",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-11-24T08:44:15Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
+    }
+  },
+  "agentStacks": {
+    "version": "0.10.0"
+  }
+}

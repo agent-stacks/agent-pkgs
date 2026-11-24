@@ -1,0 +1,124 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "statement-auditor",
+      "dir": "/nix/store/806bbvmcsh330w47bw9zbbpjcsdrgnc5-agent-plugin-statement-auditor-0.1.0/share/agent-plugins/statement-auditor",
+      "spec": "1.1.0",
+      "score": 85,
+      "status": "safe",
+      "coverage": {
+        "scanned": [
+          "com.anthropic.claude-code/agents",
+          "skills/audit-xls",
+          "skills/nav-tieout",
+          "skills/xlsx-author"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": []
+      },
+      "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "skills/audit-xls",
+          "score": 85,
+          "risk": 15,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/audit-xls/SKILL.md",
+              "line": 30
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE4",
+              "severity": "MEDIUM",
+              "message": "analysis-evasion",
+              "file": "skills/audit-xls/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/audit-xls/SKILL.md",
+              "line": 147
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/nav-tieout",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/nav-tieout/SKILL.md",
+              "line": 28
+            }
+          ],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "skills/xlsx-author",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/xlsx-author/SKILL.md",
+              "line": 29
+            }
+          ],
+          "findings": [],
+          "suppressed": []
+        }
+      ]
+    }
+  ],
+  "score": 85,
+  "status": "safe",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-11-24T08:45:11Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
+    }
+  },
+  "agentStacks": {
+    "version": "0.10.0"
+  }
+}

@@ -1,0 +1,315 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "model-builder",
+      "dir": "/nix/store/mbmzv1r2y0zbb0dyxj1l2cbd8vb7pjb9-agent-plugin-model-builder-0.1.0/share/agent-plugins/model-builder",
+      "spec": "1.1.0",
+      "score": 79,
+      "status": "caution",
+      "coverage": {
+        "scanned": [
+          "com.anthropic.claude-code/agents",
+          "skills/3-statement-model",
+          "skills/audit-xls",
+          "skills/comps-analysis",
+          "skills/dcf-model",
+          "skills/lbo-model",
+          "skills/xlsx-author"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "skills/3-statement-model",
+          "score": 79,
+          "risk": 21,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/3-statement-model/SKILL.md",
+              "line": 13
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/3-statement-model/SKILL.md",
+              "line": 14
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE4",
+              "severity": "MEDIUM",
+              "message": "analysis-evasion",
+              "file": "skills/3-statement-model/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/3-statement-model/SKILL.md",
+              "line": 214
+            },
+            {
+              "id": "AE4",
+              "severity": "MEDIUM",
+              "message": "analysis-evasion",
+              "file": "skills/3-statement-model/references/formulas.md",
+              "line": 1
+            },
+            {
+              "id": "AE4",
+              "severity": "MEDIUM",
+              "message": "analysis-evasion",
+              "file": "skills/3-statement-model/references/sec-filings.md",
+              "line": 1
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/audit-xls",
+          "score": 85,
+          "risk": 15,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/audit-xls/SKILL.md",
+              "line": 30
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE4",
+              "severity": "MEDIUM",
+              "message": "analysis-evasion",
+              "file": "skills/audit-xls/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/audit-xls/SKILL.md",
+              "line": 147
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/comps-analysis",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/comps-analysis/SKILL.md",
+              "line": 42
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/comps-analysis/SKILL.md",
+              "line": 80
+            }
+          ],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "skills/dcf-model",
+          "score": 86,
+          "risk": 14,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/dcf-model/SKILL.md",
+              "line": 22
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/dcf-model/SKILL.md",
+              "line": 763
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE4",
+              "severity": "MEDIUM",
+              "message": "analysis-evasion",
+              "file": "skills/dcf-model/SKILL.md",
+              "line": 1
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/dcf-model/requirements.txt",
+              "line": 4
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: openpyxl has 2 known advisory(ies) (CVE-2017-5992 (Improper Restriction of XML External Entity Reference in Openpyxl); CVE-2017-5992 (Openpyxl 2.4.1 resolves external entities by default, which allows remote attack)), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/dcf-model/requirements.txt",
+              "line": 4
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "skills/dcf-model/requirements.txt",
+              "line": 7
+            },
+            {
+              "id": "SC4",
+              "severity": "LOW",
+              "message": "Unverifiable Dependency: requests has 16 known advisory(ies) (CVE-2014-1830 (Exposure of Sensitive Information to an Unauthorized Actor in Requests); CVE-2024-47081 (Requests vulnerable to .netrc credentials leak via malicious URLs); CVE-2024-35195 (Requests `Session` object does not verify requests after making first request wi) +13 more), but the manifest does not pin a version, so it is unknown whether the installed release is affected",
+              "file": "skills/dcf-model/requirements.txt",
+              "line": 7
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/dcf-model/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
+          ]
+        },
+        {
+          "path": "skills/lbo-model",
+          "score": 92,
+          "risk": 8,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/lbo-model/SKILL.md",
+              "line": 15
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/lbo-model/SKILL.md",
+              "line": 17
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/lbo-model/SKILL.md",
+              "line": 28
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/lbo-model/SKILL.md",
+              "line": 29
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/lbo-model/SKILL.md",
+              "line": 35
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/lbo-model/SKILL.md",
+              "line": 41
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/lbo-model/SKILL.md",
+              "line": 66
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/lbo-model/SKILL.md",
+              "line": 67
+            }
+          ],
+          "findings": [
+            {
+              "id": "AE4",
+              "severity": "MEDIUM",
+              "message": "analysis-evasion",
+              "file": "skills/lbo-model/SKILL.md",
+              "line": 1
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/xlsx-author",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/xlsx-author/SKILL.md",
+              "line": 29
+            }
+          ],
+          "findings": [],
+          "suppressed": []
+        }
+      ]
+    }
+  ],
+  "score": 79,
+  "status": "caution",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-11-24T08:44:53Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
+    }
+  },
+  "agentStacks": {
+    "version": "0.10.0"
+  }
+}
