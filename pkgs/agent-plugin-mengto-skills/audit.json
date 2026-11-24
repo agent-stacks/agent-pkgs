@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "mengto-skills",
-      "dir": "/nix/store/310x011zax5gvwa11fkrbf9sfjrb4la9-agent-plugin-mengto-skills-0.0.0-unstable.2026-11-23.g409b4d0/share/agent-plugins/mengto-skills",
+      "dir": "/nix/store/qwcx5s7lz0p1mp1ljxhlvw40dggfbfh2-agent-plugin-mengto-skills-0.0.0-unstable.2026-11-24.ge7df6eb/share/agent-plugins/mengto-skills",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -16,6 +16,7 @@
           "skills/3d-cloth-material",
           "skills/3d-construction-sequence",
           "skills/3d-falling-leaves",
+          "skills/3d-feature-objects",
           "skills/3d-four-seasons",
           "skills/3d-harbour-water",
           "skills/3d-high-poly-models",
@@ -125,10 +126,12 @@
           "skills/globe-gl",
           "skills/globe-particles",
           "skills/gooey-blob-system",
+          "skills/gradient-border-flashlight",
           "skills/gsap",
           "skills/gsap-scrolltrigger-storytelling",
           "skills/high-contrast-skeuomorphic-clean",
           "skills/horizontal-scroll-scenes",
+          "skills/hover-particle-dissolve",
           "skills/html-demo",
           "skills/html-explainer-video",
           "skills/html-reel",
@@ -150,6 +153,7 @@
           "skills/illustration-vintage-emblem",
           "skills/image-first-grid-layout",
           "skills/implement-fog-of-war",
+          "skills/interactive-topography",
           "skills/iterate-until-verified",
           "skills/landing-page",
           "skills/light-a-threejs-workspace",
@@ -354,6 +358,40 @@
           "exceptions": [],
           "findings": [],
           "suppressed": []
+        },
+        {
+          "path": "skills/3d-feature-objects",
+          "score": 97,
+          "risk": 3,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 80,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/3d-feature-objects/demo/assets/three.min.js",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/3d-feature-objects/demo/assets/Three-LICENSE.txt",
+              "line": 16
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/3d-feature-objects/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
+          ]
         },
         {
           "path": "skills/3d-four-seasons",
@@ -4894,6 +4932,17 @@
           "suppressed": []
         },
         {
+          "path": "skills/gradient-border-flashlight",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
           "path": "skills/gsap",
           "score": 88,
           "risk": 12,
@@ -5031,6 +5080,40 @@
           ],
           "findings": [],
           "suppressed": []
+        },
+        {
+          "path": "skills/hover-particle-dissolve",
+          "score": 97,
+          "risk": 3,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 80,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/hover-particle-dissolve/demo/assets/three.min.js",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/hover-particle-dissolve/demo/assets/Three-LICENSE.txt",
+              "line": 16
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/hover-particle-dissolve/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            }
+          ]
         },
         {
           "path": "skills/html-demo",
@@ -7550,6 +7633,17 @@
         },
         {
           "path": "skills/implement-fog-of-war",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "skills/interactive-topography",
           "score": 100,
           "risk": 0,
           "status": "safe",
@@ -10802,7 +10896,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-23T12:41:12Z"
+      "checkedAt": "2026-11-24T07:31:32Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"

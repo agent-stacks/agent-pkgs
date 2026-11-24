@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "addyosmani-agent-skills",
-      "dir": "/nix/store/j2ha0wbqc5zbd76mbadcc67rydq6s1cw-agent-plugin-addyosmani-agent-skills-0.6.17/share/agent-plugins/addyosmani-agent-skills",
+      "dir": "/nix/store/a70sln61sxxl98b75mizflfmc72m4ygg-agent-plugin-addyosmani-agent-skills-0.6.18/share/agent-plugins/addyosmani-agent-skills",
       "spec": "1.1.0",
       "score": 4,
       "status": "do not install",
@@ -145,15 +145,19 @@
               "reason": "reference_missing",
               "path": "skills/accessibility-engineering/SKILL.md",
               "line": 37
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/accessibility-engineering/SKILL.md",
-              "line": 43
             }
           ],
           "findings": [],
-          "suppressed": []
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/accessibility-engineering/SKILL.md",
+              "line": 43,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
+          ]
         },
         {
           "path": "skills/api-and-interface-design",
@@ -307,11 +311,11 @@
         },
         {
           "path": "skills/code-review-and-quality",
-          "score": 100,
-          "risk": 0,
+          "score": 80,
+          "risk": 20,
           "status": "incomplete",
           "partial": true,
-          "coverage": 0,
+          "coverage": 33.3,
           "exceptions": [
             {
               "reason": "obfuscated_instruction_text",
@@ -332,10 +336,53 @@
               "reason": "reference_missing",
               "path": "skills/code-review-and-quality/SKILL.md",
               "line": 303
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/code-review-and-quality/references/shared/security-checklist.md",
+              "line": 0
             }
           ],
-          "findings": [],
-          "suppressed": []
+          "findings": [
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/code-review-and-quality/references/shared/performance-checklist.md",
+              "line": 198
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/code-review-and-quality/references/shared/performance-checklist.md",
+              "line": 200
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/code-review-and-quality/references/shared/performance-checklist.md",
+              "line": 203
+            },
+            {
+              "id": "EA4",
+              "severity": "MEDIUM",
+              "message": "Unbounded Resource Access",
+              "file": "skills/code-review-and-quality/references/shared/performance-checklist.md",
+              "line": 227
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/code-review-and-quality/SKILL.md",
+              "line": 357,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
+          ]
         },
         {
           "path": "skills/code-simplification",
@@ -623,8 +670,8 @@
         },
         {
           "path": "skills/doubt-driven-development",
-          "score": 78,
-          "risk": 22,
+          "score": 55,
+          "risk": 45,
           "status": "caution",
           "partial": false,
           "coverage": 100,
@@ -636,6 +683,13 @@
               "message": "External Model or Provider Selection",
               "file": "skills/doubt-driven-development/SKILL.md",
               "line": 146
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/doubt-driven-development/references/shared/orchestration-patterns.md",
+              "line": 205
             }
           ],
           "suppressed": []
@@ -795,7 +849,7 @@
           "risk": 0,
           "status": "incomplete",
           "partial": true,
-          "coverage": 0,
+          "coverage": 50,
           "exceptions": [
             {
               "reason": "static_parse_limit",
@@ -808,11 +862,11 @@
         },
         {
           "path": "skills/performance-optimization",
-          "score": 93,
-          "risk": 7,
+          "score": 80,
+          "risk": 20,
           "status": "incomplete",
           "partial": true,
-          "coverage": 50,
+          "coverage": 66.7,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -842,6 +896,34 @@
               "message": "MCP Rug Pull",
               "file": "skills/performance-optimization/SKILL.md",
               "line": 206
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/performance-optimization/references/shared/performance-checklist.md",
+              "line": 203
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/performance-optimization/references/shared/performance-checklist.md",
+              "line": 198
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/performance-optimization/references/shared/performance-checklist.md",
+              "line": 200
+            },
+            {
+              "id": "EA4",
+              "severity": "MEDIUM",
+              "message": "Unbounded Resource Access",
+              "file": "skills/performance-optimization/references/shared/performance-checklist.md",
+              "line": 227
             }
           ],
           "suppressed": [
@@ -1012,7 +1094,7 @@
           "risk": 96,
           "status": "do not install",
           "partial": true,
-          "coverage": 50,
+          "coverage": 33.3,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -1027,6 +1109,11 @@
             {
               "reason": "static_parse_limit",
               "path": "skills/security-and-hardening/references/hardening-patterns.md",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/security-and-hardening/references/shared/security-checklist.md",
               "line": 0
             }
           ],
@@ -1050,28 +1137,7 @@
               "severity": "HIGH",
               "message": "Cloud Metadata Access",
               "file": "skills/security-and-hardening/references/hardening-patterns.md",
-              "line": 157
-            },
-            {
-              "id": "PE3",
-              "severity": "HIGH",
-              "message": "Credential Access",
-              "file": "skills/security-and-hardening/references/hardening-patterns.md",
-              "line": 283
-            },
-            {
-              "id": "PE3",
-              "severity": "HIGH",
-              "message": "Credential Access",
-              "file": "skills/security-and-hardening/references/hardening-patterns.md",
-              "line": 285
-            },
-            {
-              "id": "PE3",
-              "severity": "HIGH",
-              "message": "Credential Access",
-              "file": "skills/security-and-hardening/references/hardening-patterns.md",
-              "line": 289
+              "line": 160
             },
             {
               "id": "PE3",
@@ -1085,7 +1151,28 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/security-and-hardening/references/hardening-patterns.md",
-              "line": 290
+              "line": 288
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/security-and-hardening/references/hardening-patterns.md",
+              "line": 292
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/security-and-hardening/references/hardening-patterns.md",
+              "line": 289
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/security-and-hardening/references/hardening-patterns.md",
+              "line": 293
             },
             {
               "id": "EA2",
@@ -1157,6 +1244,14 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/security-and-hardening/SKILL.md",
+              "line": 119,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/security-and-hardening/SKILL.md",
               "line": 125,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
@@ -1166,6 +1261,14 @@
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/security-and-hardening/SKILL.md",
               "line": 131,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/security-and-hardening/SKILL.md",
+              "line": 140,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             },
             {
@@ -1191,21 +1294,34 @@
               "file": "skills/security-and-hardening/SKILL.md",
               "line": 162,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/security-and-hardening/SKILL.md",
+              "line": 166,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
         },
         {
           "path": "skills/shipping-and-launch",
-          "score": 80,
-          "risk": 20,
-          "status": "safe",
+          "score": 60,
+          "risk": 40,
+          "status": "caution",
           "partial": true,
-          "coverage": 100,
+          "coverage": 80,
           "exceptions": [
             {
               "reason": "reference_missing",
               "path": "skills/shipping-and-launch/SKILL.md",
               "line": 29
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/shipping-and-launch/references/shared/security-checklist.md",
+              "line": 0
             }
           ],
           "findings": [
@@ -1215,9 +1331,46 @@
               "message": "Anti-Refusal Statement",
               "file": "skills/shipping-and-launch/SKILL.md",
               "line": 25
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/shipping-and-launch/references/shared/performance-checklist.md",
+              "line": 198
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/shipping-and-launch/references/shared/performance-checklist.md",
+              "line": 200
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/shipping-and-launch/references/shared/performance-checklist.md",
+              "line": 203
+            },
+            {
+              "id": "EA4",
+              "severity": "MEDIUM",
+              "message": "Unbounded Resource Access",
+              "file": "skills/shipping-and-launch/references/shared/performance-checklist.md",
+              "line": 227
             }
           ],
-          "suppressed": []
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/shipping-and-launch/SKILL.md",
+              "line": 288,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
+          ]
         },
         {
           "path": "skills/source-driven-development",
@@ -1328,9 +1481,9 @@
           "path": "skills/test-driven-development",
           "score": 93,
           "risk": 7,
-          "status": "safe",
+          "status": "incomplete",
           "partial": true,
-          "coverage": 100,
+          "coverage": 50,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -1351,6 +1504,11 @@
               "reason": "reference_missing",
               "path": "skills/test-driven-development/SKILL.md",
               "line": 394
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/test-driven-development/references/shared/testing-patterns.md",
+              "line": 0
             }
           ],
           "findings": [
@@ -1362,7 +1520,16 @@
               "line": 380
             }
           ],
-          "suppressed": []
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/test-driven-development/SKILL.md",
+              "line": 363,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
+          ]
         },
         {
           "path": "skills/using-agent-skills",
@@ -1401,7 +1568,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-20T17:28:12Z"
+      "checkedAt": "2026-11-24T07:31:20Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
