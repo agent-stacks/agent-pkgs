@@ -1,0 +1,47 @@
+{
+  "name": "earnings-reviewer",
+  "version": "0.1.1",
+  "src": {
+    "owner": "anthropics",
+    "repo": "financial-services",
+    "rev": "3e32c2287dcb637c184c01cc0ad82d6af7e9bb0f",
+    "hash": "sha256-EK8JcxjQFXjDqN83RqugsH5f/SQN5flzXaWykGvFmcI="
+  },
+  "sourceUrl": "https://github.com/anthropics/financial-services",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Anthropic FSI"
+    },
+    "description": "Earnings call and filings to model update to note draft",
+    "name": "earnings-reviewer",
+    "version": "0.1.1"
+  },
+  "skills": {
+    "audit-xls": "plugins/agent-plugins/earnings-reviewer/skills/audit-xls",
+    "earnings-analysis": "plugins/agent-plugins/earnings-reviewer/skills/earnings-analysis",
+    "earnings-preview": "plugins/agent-plugins/earnings-reviewer/skills/earnings-preview",
+    "model-update": "plugins/agent-plugins/earnings-reviewer/skills/model-update",
+    "morning-note": "plugins/agent-plugins/earnings-reviewer/skills/morning-note",
+    "xlsx-author": "plugins/agent-plugins/earnings-reviewer/skills/xlsx-author"
+  },
+  "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/agents": "plugins/agent-plugins/earnings-reviewer/agents"
+  },
+  "meta": {
+    "description": "Earnings call and filings to model update to note draft",
+    "homepage": "https://github.com/anthropics/financial-services"
+  },
+  "import": {
+    "input": "anthropics/financial-services",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ]
+  }
+}

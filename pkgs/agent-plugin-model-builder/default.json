@@ -1,0 +1,55 @@
+{
+  "name": "model-builder",
+  "version": "0.1.0",
+  "src": {
+    "owner": "anthropics",
+    "repo": "financial-services",
+    "rev": "3e32c2287dcb637c184c01cc0ad82d6af7e9bb0f",
+    "hash": "sha256-EK8JcxjQFXjDqN83RqugsH5f/SQN5flzXaWykGvFmcI="
+  },
+  "sourceUrl": "https://github.com/anthropics/financial-services",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Anthropic FSI"
+    },
+    "description": "DCF, LBO, 3-statement, comps - live in Excel",
+    "name": "model-builder",
+    "version": "0.1.0"
+  },
+  "skills": {
+    "3-statement-model": "plugins/agent-plugins/model-builder/skills/3-statement-model",
+    "audit-xls": "plugins/agent-plugins/model-builder/skills/audit-xls",
+    "comps-analysis": "plugins/agent-plugins/model-builder/skills/comps-analysis",
+    "dcf-model": "plugins/agent-plugins/model-builder/skills/dcf-model",
+    "lbo-model": "plugins/agent-plugins/model-builder/skills/lbo-model",
+    "xlsx-author": "plugins/agent-plugins/model-builder/skills/xlsx-author"
+  },
+  "requiredRuntimes": [
+    "python3"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/agents": "plugins/agent-plugins/model-builder/agents"
+  },
+  "meta": {
+    "description": "DCF, LBO, 3-statement, comps - live in Excel",
+    "homepage": "https://github.com/anthropics/financial-services"
+  },
+  "import": {
+    "input": "anthropics/financial-services",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "skills/dcf-model/requirements.txt",
+        "message": "declares dependencies import does not package; package them in this package's custom block, using python3.withPackages"
+      }
+    ]
+  }
+}

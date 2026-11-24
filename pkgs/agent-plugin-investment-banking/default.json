@@ -1,0 +1,57 @@
+{
+  "name": "investment-banking",
+  "version": "0.2.1",
+  "src": {
+    "owner": "anthropics",
+    "repo": "financial-services",
+    "rev": "3e32c2287dcb637c184c01cc0ad82d6af7e9bb0f",
+    "hash": "sha256-EK8JcxjQFXjDqN83RqugsH5f/SQN5flzXaWykGvFmcI="
+  },
+  "sourceUrl": "https://github.com/anthropics/financial-services",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Anthropic"
+    },
+    "description": "Investment banking productivity tools - client and market insights, deck creation, financial analysis, and transaction management",
+    "name": "investment-banking",
+    "version": "0.2.1"
+  },
+  "skills": {
+    "buyer-list": "plugins/vertical-plugins/investment-banking/skills/buyer-list",
+    "cim-builder": "plugins/vertical-plugins/investment-banking/skills/cim-builder",
+    "datapack-builder": "plugins/vertical-plugins/investment-banking/skills/datapack-builder",
+    "deal-tracker": "plugins/vertical-plugins/investment-banking/skills/deal-tracker",
+    "merger-model": "plugins/vertical-plugins/investment-banking/skills/merger-model",
+    "pitch-deck": "plugins/vertical-plugins/investment-banking/skills/pitch-deck",
+    "process-letter": "plugins/vertical-plugins/investment-banking/skills/process-letter",
+    "strip-profile": "plugins/vertical-plugins/investment-banking/skills/strip-profile",
+    "teaser": "plugins/vertical-plugins/investment-banking/skills/teaser"
+  },
+  "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/commands": "plugins/vertical-plugins/investment-banking/commands",
+    "com.anthropic.claude-code/hooks": "plugins/vertical-plugins/investment-banking/hooks"
+  },
+  "meta": {
+    "description": "Investment banking productivity tools",
+    "homepage": "https://github.com/anthropics/financial-services"
+  },
+  "import": {
+    "input": "anthropics/financial-services",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "plugins/vertical-plugins/investment-banking/skills/strip-profile/SKILL.md/name",
+        "message": "skill name \"fsi-strip-profile\" must match directory name \"strip-profile\""
+      }
+    ]
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "name": "financial-analysis",
+  "version": "0.1.2",
+  "src": {
+    "owner": "anthropics",
+    "repo": "financial-services",
+    "rev": "3e32c2287dcb637c184c01cc0ad82d6af7e9bb0f",
+    "hash": "sha256-EK8JcxjQFXjDqN83RqugsH5f/SQN5flzXaWykGvFmcI="
+  },
+  "sourceUrl": "https://github.com/anthropics/financial-services",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Anthropic FSI"
+    },
+    "description": "Core financial modeling and analysis tools: DCF, comps, LBO, 3-statement models, competitive analysis, and deck QC",
+    "name": "financial-analysis",
+    "version": "0.1.2"
+  },
+  "skills": {
+    "3-statement-model": "plugins/vertical-plugins/financial-analysis/skills/3-statement-model",
+    "audit-xls": "plugins/vertical-plugins/financial-analysis/skills/audit-xls",
+    "clean-data-xls": "plugins/vertical-plugins/financial-analysis/skills/clean-data-xls",
+    "competitive-analysis": "plugins/vertical-plugins/financial-analysis/skills/competitive-analysis",
+    "comps-analysis": "plugins/vertical-plugins/financial-analysis/skills/comps-analysis",
+    "dcf-model": "plugins/vertical-plugins/financial-analysis/skills/dcf-model",
+    "deck-refresh": "plugins/vertical-plugins/financial-analysis/skills/deck-refresh",
+    "ib-check-deck": "plugins/vertical-plugins/financial-analysis/skills/ib-check-deck",
+    "lbo-model": "plugins/vertical-plugins/financial-analysis/skills/lbo-model",
+    "ppt-template-creator": "plugins/vertical-plugins/financial-analysis/skills/ppt-template-creator",
+    "pptx-author": "plugins/vertical-plugins/financial-analysis/skills/pptx-author",
+    "skill-creator": "plugins/vertical-plugins/financial-analysis/skills/skill-creator",
+    "xlsx-author": "plugins/vertical-plugins/financial-analysis/skills/xlsx-author"
+  },
+  "requiredRuntimes": [
+    "python3"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/commands": "plugins/vertical-plugins/financial-analysis/commands",
+    "com.anthropic.claude-code/hooks": "plugins/vertical-plugins/financial-analysis/hooks"
+  },
+  "mcpServers": {
+    "aiera": {
+      "type": "streamable-http",
+      "url": "https://mcp-pub.aiera.com"
+    },
+    "box": {
+      "type": "streamable-http",
+      "url": "https://mcp.box.com"
+    },
+    "chronograph": {
+      "type": "streamable-http",
+      "url": "https://ai.chronograph.pe/mcp"
+    },
+    "daloopa": {
+      "type": "streamable-http",
+      "url": "https://mcp.daloopa.com/server/mcp"
+    },
+    "egnyte": {
+      "type": "streamable-http",
+      "url": "https://mcp-server.egnyte.com/mcp"
+    },
+    "factset": {
+      "type": "streamable-http",
+      "url": "https://mcp.factset.com/mcp"
+    },
+    "lseg": {
+      "type": "streamable-http",
+      "url": "https://api.analytics.lseg.com/lfa/mcp"
+    },
+    "moodys": {
+      "type": "streamable-http",
+      "url": "https://api.moodys.com/genai-ready-data/m1/mcp"
+    },
+    "morningstar": {
+      "type": "streamable-http",
+      "url": "https://mcp.morningstar.com/mcp"
+    },
+    "mtnewswire": {
+      "type": "streamable-http",
+      "url": "https://vast-mcp.blueskyapi.com/mtnewswires"
+    },
+    "pitchbook": {
+      "type": "streamable-http",
+      "url": "https://premium.mcp.pitchbook.com/mcp"
+    },
+    "sp-global": {
+      "type": "streamable-http",
+      "url": "https://kfinance.kensho.com/integrations/mcp"
+    }
+  },
+  "meta": {
+    "description": "Core financial modeling and analysis tools",
+    "homepage": "https://github.com/anthropics/financial-services"
+  },
+  "import": {
+    "input": "anthropics/financial-services",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "skills/dcf-model/requirements.txt",
+        "message": "declares dependencies import does not package; package them in this package's custom block, using python3.withPackages"
+      }
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "name": "kyc-screener",
+  "version": "0.1.0",
+  "src": {
+    "owner": "anthropics",
+    "repo": "financial-services",
+    "rev": "3e32c2287dcb637c184c01cc0ad82d6af7e9bb0f",
+    "hash": "sha256-EK8JcxjQFXjDqN83RqugsH5f/SQN5flzXaWykGvFmcI="
+  },
+  "sourceUrl": "https://github.com/anthropics/financial-services",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Anthropic FSI"
+    },
+    "description": "Parses onboarding docs, runs the rules engine, flags gaps",
+    "name": "kyc-screener",
+    "version": "0.1.0"
+  },
+  "skills": {
+    "kyc-doc-parse": "plugins/agent-plugins/kyc-screener/skills/kyc-doc-parse",
+    "kyc-rules": "plugins/agent-plugins/kyc-screener/skills/kyc-rules",
+    "xlsx-author": "plugins/agent-plugins/kyc-screener/skills/xlsx-author"
+  },
+  "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/agents": "plugins/agent-plugins/kyc-screener/agents"
+  },
+  "meta": {
+    "description": "Parses onboarding docs, runs the rules engine, flags gaps",
+    "homepage": "https://github.com/anthropics/financial-services"
+  },
+  "import": {
+    "input": "anthropics/financial-services",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ]
+  }
+}
