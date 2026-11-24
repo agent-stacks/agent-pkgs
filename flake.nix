@@ -431,6 +431,19 @@
               else
                 jq -e '.network | has("allowMachLookup") | not' s.json
               fi
+              # macOS: Claude saves its login in the login keychain. That
+              # needs the file writable and the srt that runs to allow the
+              # sysctl a keychain change reads. Linux keeps it in ~/.claude.
+              if [ "$(uname -s)" = Darwin ]; then
+                jq -e '.filesystem.allowWrite | index("~/Library/Keychains/login.keychain-db*")' s.json
+                jq -e '[.filesystem.allowWrite[] | select(contains("Keychains"))] | length == 1' s.json
+                runs=$(sed -n 's/^would run: \([^ ]*\) .*/\1/p' cmd)
+                grep -q 'security.mac.sandbox.sentinel' \
+                  "$(dirname "$(dirname "$runs")")/lib/node_modules/@anthropic-ai/sandbox-runtime/dist/sandbox/macos-sandbox-utils.js" ||
+                  { echo "the srt it runs does not allow the keychain's sysctl: $runs"; exit 1; }
+              else
+                jq -e 'all(.filesystem.allowWrite[]; contains("Keychains") | not)' s.json
+              fi
               # srt points TMPDIR here but does not create it on macOS.
               ${srt} -- true >/dev/null 2>&1
               [ -d agent-tmp ] || { echo "agent TMPDIR not created"; exit 1; }
