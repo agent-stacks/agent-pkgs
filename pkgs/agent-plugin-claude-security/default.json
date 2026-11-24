@@ -1,11 +1,11 @@
 {
   "name": "claude-security",
-  "version": "0.12.0",
+  "version": "0.13.0",
   "src": {
     "owner": "anthropics",
     "repo": "claude-plugins-official",
-    "rev": "3de591b90821c4739a5ce0971986ecd1ca0347a6",
-    "hash": "sha256-9CTFppkscZYfCO9sFgwr0i42HnA00duIHs68KeAd9bQ="
+    "rev": "6985b2d88dc08b4a0d202f5f0301f02e360b9cb1",
+    "hash": "sha256-4o4BbW198W0HFRLfD22Cld6h2xP2jJj/8kwoql/XH+Y="
   },
   "sourceUrl": "https://github.com/anthropics/claude-plugins-official",
   "manifest": {
@@ -14,7 +14,7 @@
       "email": "support@anthropic.com",
       "name": "Anthropic"
     },
-    "description": "Deep vulnerability scanning of your own code, run entirely inside your Claude Code session at a chosen effort tier, with every finding challenged before it is reported and the verification tally computed in code. Turns surviving findings into targeted patches, each verified by a panel of agents, that you apply when you choose.",
+    "description": "Find and fix vulnerabilities before attackers exploit them. A team of agents maps your code, hunts for exploitable flaws and challenges every finding, so you spend your time on real bugs. Get patches analyzed by a panel of agents, and apply them when you choose. Triage other scanners' results, build a threat model, review pull requests with a GitHub Action, and see your hosted Claude Security findings.",
     "homepage": "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/claude-security",
     "keywords": [
       "security",
@@ -28,10 +28,15 @@
     ],
     "license": "SEE LICENSE IN LICENSE",
     "name": "claude-security",
-    "version": "0.12.0"
+    "version": "0.13.0"
   },
   "skills": {
-    "claude-security": "plugins/claude-security/skills/claude-security"
+    "attack-surface-analysis": "plugins/claude-security/skills/attack-surface-analysis",
+    "ci-review": "plugins/claude-security/skills/ci-review",
+    "claude-security": "plugins/claude-security/skills/claude-security",
+    "hosted": "plugins/claude-security/skills/hosted",
+    "install-cli": "plugins/claude-security/skills/install-cli",
+    "threat-model": "plugins/claude-security/skills/threat-model"
   },
   "requiredRuntimes": [
     "bash",
@@ -50,8 +55,8 @@
   ],
   "pluginRootPaths": {
     "com.anthropic.claude-code/agents": "plugins/claude-security/agents",
-    "com.anthropic.claude-code/hooks": "plugins/claude-security/hooks",
     "com.anthropic.claude-code/workflows": "plugins/claude-security/workflows",
+    "hooks": "plugins/claude-security/hooks",
     "scripts": "plugins/claude-security/scripts"
   },
   "hooks": {
@@ -60,6 +65,7 @@
         "hooks": [
           {
             "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/hooks.sh\" unanswered || true",
+            "onFailure": "continue",
             "timeout": 90,
             "type": "command"
           }
@@ -74,7 +80,7 @@
             "async": true,
             "asyncRewake": true,
             "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/hooks.sh\" metrics || true",
-            "if": "Bash(py* *claude-security*scripts/*.py *)",
+            "if": "Bash(*py* *plugin*scripts/*.py *)",
             "timeout": 10,
             "type": "command"
           },
@@ -101,8 +107,20 @@
             "async": true,
             "asyncRewake": true,
             "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/hooks.sh\" metrics || true",
-            "if": "Bash(py* *claude-security*scripts/*.py *)",
+            "if": "Bash(*py* *plugin*scripts/*.py *)",
             "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "Bash"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/hooks.sh\" guard || true",
+            "timeout": 30,
             "type": "command"
           }
         ],
@@ -114,15 +132,26 @@
         "hooks": [
           {
             "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/hooks.sh\" banner",
+            "timeout": 30,
             "type": "command"
           }
         ],
         "matcher": "^claude-security:claude-security$"
+      },
+      {
+        "hooks": [
+          {
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/hooks.sh\" turn || true",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "^claude-security:threat-model$"
       }
     ]
   },
   "meta": {
-    "description": "Deep vulnerability scanning of your own code, run entirely inside your Claude Code session at a chosen effort tier",
+    "description": "Find and fix vulnerabilities before attackers exploit them",
     "homepage": "https://github.com/anthropics/claude-plugins-official"
   },
   "import": {
@@ -136,8 +165,48 @@
     ],
     "warnings": [
       {
+        "path": "plugins/claude-security/skills/attack-surface-analysis/SKILL.md",
+        "message": "unknown frontmatter fields: disallowed-tools"
+      },
+      {
+        "path": "plugins/claude-security/skills/attack-surface-analysis/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Read AskUserQuestion)"
+      },
+      {
+        "path": "plugins/claude-security/skills/ci-review/SKILL.md",
+        "message": "unknown frontmatter fields: disable-model-invocation"
+      },
+      {
+        "path": "plugins/claude-security/skills/ci-review/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Read Glob Grep)"
+      },
+      {
+        "path": "plugins/claude-security/skills/claude-security/SKILL.md",
+        "message": "unknown frontmatter fields: disallowed-tools"
+      },
+      {
         "path": "plugins/claude-security/skills/claude-security/SKILL.md/allowed-tools",
-        "message": "must be a space-separated string, not a list of 23 tools"
+        "message": "must be a space-separated string, not a list (Read Glob Grep AskUserQuestion)"
+      },
+      {
+        "path": "plugins/claude-security/skills/hosted/SKILL.md",
+        "message": "unknown frontmatter fields: disallowed-tools"
+      },
+      {
+        "path": "plugins/claude-security/skills/hosted/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (AskUserQuestion)"
+      },
+      {
+        "path": "plugins/claude-security/skills/install-cli/SKILL.md",
+        "message": "unknown frontmatter fields: disable-model-invocation"
+      },
+      {
+        "path": "plugins/claude-security/skills/threat-model/SKILL.md",
+        "message": "unknown frontmatter fields: disable-model-invocation, disallowed-tools, hooks"
+      },
+      {
+        "path": "plugins/claude-security/skills/threat-model/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (AskUserQuestion)"
       },
       {
         "path": "plugins/claude-security/hooks/hooks.json",
@@ -161,15 +230,35 @@
       },
       {
         "path": "plugins/claude-security/hooks/hooks.json",
+        "message": "Claude Code runs this on PreToolUse: sh \"${CLAUDE_PLUGIN_ROOT}/hooks/hooks.sh\" guard || true"
+      },
+      {
+        "path": "plugins/claude-security/hooks/hooks.json",
         "message": "Claude Code runs this on UserPromptExpansion: sh \"${CLAUDE_PLUGIN_ROOT}/hooks/hooks.sh\" banner"
       },
       {
+        "path": "plugins/claude-security/hooks/hooks.json",
+        "message": "Claude Code runs this on UserPromptExpansion: sh \"${CLAUDE_PLUGIN_ROOT}/hooks/hooks.sh\" turn || true"
+      },
+      {
+        "path": "plugins/claude-security/hooks/hooks.json",
+        "message": "Claude Code loads this module into its own process whenever the plugin is enabled: ./live/register.js"
+      },
+      {
         "path": "plugins/claude-security/workflows",
-        "message": "Claude Code can run these as workflows: scan.js"
+        "message": "Claude Code can run these as workflows: scan.js, triage.js"
       },
       {
         "path": ".claude-plugin/marketplace.json",
         "message": "license \"SEE LICENSE IN LICENSE\" is not one SPDX identifier or a spelling import recognises, so the package carries no meta.license"
+      },
+      {
+        "path": "hooks",
+        "message": "a Claude Code component location that a skill or an MCP server also names through ${PLUGIN_ROOT}, so it stays at the plugin root rather than moving into com.anthropic.claude-code/; Claude reads it there too"
+      },
+      {
+        "path": "hooks/python_check.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
         "path": "scripts/lib/__init__.py",
@@ -180,7 +269,27 @@
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
+        "path": "scripts/lib/actions.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/agent_calls.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/atomic.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/candidates.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
         "path": "scripts/lib/chain.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/change_base.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
@@ -192,7 +301,35 @@
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
+        "path": "scripts/lib/display.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/duration.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/effort.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/exhaustiveness.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/explanation.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
         "path": "scripts/lib/finding.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/gfm.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/gh.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
@@ -200,7 +337,83 @@
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
+        "path": "scripts/lib/history.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/last_report.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
         "path": "scripts/lib/link.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/live/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/live/atlas.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/live/command.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/live/login.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/live/plain.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/live/report.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/live/sandbox.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/live/scan.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/live/session.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/live/stream.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/live/terminal.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/live/words.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/markdown.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/marker.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/packs.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/place.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/plain.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
@@ -208,7 +421,95 @@
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
+        "path": "scripts/lib/products.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/receipt.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/remote.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/removal.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/report.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/review.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
         "path": "scripts/lib/revision.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/sandbox/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/sandbox/keeper.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/sandbox/kernel.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/sandbox/landlock.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/sandbox/machine.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/sandbox/plan.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/sandbox/provider.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/sandbox/relay.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/sandbox/request.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/sandbox/results.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/sandbox/root.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/sandbox/seccomp.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/sandbox/sigv4.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/sandbox/streams.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/sandbox/tunnel.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/sandbox_hosts.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       },
       {
@@ -225,6 +526,58 @@
       },
       {
         "path": "scripts/lib/strictjson.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/surface.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/surface_dir.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/surface_patch.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/unidiff.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/unreadable.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/verdict.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/views/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/views/outline.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/views/renderer.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/views/screen.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/views/show.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/views/tui.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/lib/views/wire.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       }
     ]
