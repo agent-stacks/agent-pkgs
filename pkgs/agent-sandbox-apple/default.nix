@@ -41,8 +41,12 @@
 # 6 minutes, measured), tagged with the hash of its Containerfile and
 # guest.sh. Its /nix is copied to a volume, agent-sandbox-apple-nix-<tag>,
 # that keeps the environment's packages between launches. Only one VM
-# can attach that volume, so one launch runs at a time per image; a
-# second is refused with the reason.
+# can attach that volume, so a launch that finds it in use runs on an
+# APFS clone of agent-sandbox-apple-nix-<tag>-seed, a snapshot of the
+# cache taken while no VM held it, and deletes the clone at exit: it
+# starts warm, but what it downloads is not kept. A launch killed with
+# SIGKILL leaves its clone, agent-sandbox-apple-nix-<tag>-<suffix>, for
+# `container volume delete`.
 #
 # Options, all optional. A switch weakens the sandbox, so each one that
 # is on is named on stderr at every launch, as are allowedDomains and
@@ -267,7 +271,7 @@ in
     # keeps the proxy's log, checks the project's git repositories, and
     # removes $sock_dir. Signals are ignored from here, so a second Ctrl-C
     # cannot cut it short.
-    run_pid="" proxy_pid="" scanned="" git_changed="" cleaned=""
+    run_pid="" proxy_pid="" scanned="" git_changed="" cleaned="" copy="" ran=""
     # The VMs of this launch whose `container run` has not returned. --rm
     # is done by that process, so a run cut short leaves its VM behind,
     # stopped and holding the cache volume, which no later launch can
@@ -294,6 +298,14 @@ in
       for c in "''${leftover[@]}"; do
         container_cmd delete -f "$c" >/dev/null 2>&1 || true
       done
+      # A copy of the cache goes; a launch that used the cache itself
+      # refreshes the seed copies start from.
+      if [ -n "$copy" ]; then
+        container_cmd volume delete "$copy" >/dev/null 2>&1 ||
+          echo "agent-sandbox-apple: could not delete the volume $copy: remove it with 'container volume delete $copy'" >&2
+      elif [ -n "$ran" ]; then
+        refresh_seed
+      fi
       if [ -n "$proxy_pid" ]; then
         stop "$proxy_pid"
         if [ -f "$sock_dir/proxy.log" ]; then
@@ -682,7 +694,8 @@ in
       --read-only --tmpfs /tmp --tmpfs /home/agent
       -c "$(jq -r .cpus <<<"$opts")" -m "$(jq -r .memory <<<"$opts")" -w "$here")
     for v in "''${env_names[@]}"; do run_args+=(-e "$v"); done
-    run_args+=("''${mount_args[@]}" -v "$volume:/nix")
+    # The cache volume goes on last, at the run: it can be a copy.
+    run_args+=("''${mount_args[@]}")
     command=("$guest" "$agent" "''${@:2}")
 
     if [ -n "$dry_run" ]; then
@@ -698,7 +711,7 @@ in
           env: $env, allow: $allow, startup: $startup, command: $command}'
       {
         printf 'would run: container run'
-        printf ' %q' "''${run_args[@]}" "$image" "''${command[@]}"
+        printf ' %q' "''${run_args[@]}" -v "$volume:/nix" "$image" "''${command[@]}"
         echo
       } >&2
       exit 0
@@ -734,11 +747,72 @@ in
         -v "$volume:/nix-cache" "$image" sh -c "cp -a /nix/. /nix-cache/ && touch $marker" >&2 ||
         die "could not fill the Nix cache volume $volume"
     }
+    # Only one VM can attach a volume. A launch that finds the cache held
+    # by another runs on a copy: an APFS clone (instant, and on disk only
+    # what it changes) of $seed, deleted at exit, so what it downloads is
+    # not kept. $seed is never attached: it is a clone of the cache made
+    # while no VM holds it, after a fill and at the exit of a launch that
+    # used the cache, as a clone of a volume a VM is writing can hold
+    # half-written files. A volume's file comes from `container volume
+    # inspect`, and putting a clone in its place is not something
+    # container documents: if that fails, the launch is refused, as when
+    # there was one launch at a time.
+    seed=$volume-seed
+    vol_file() { # <volume>: the file that holds it
+      local f
+      f=$(container_cmd volume inspect "$1" 2>/dev/null | jq -r '.[0].configuration.source // empty') || return 1
+      [ -n "$f" ] && [ -f "$f" ] && printf '%s\n' "$f"
+    }
+    holders() { # <volume>: the VMs, running or stopped, that attach it
+      container_cmd list -a --format json 2>/dev/null |
+        jq -r --arg v "$1" '.[] | select(any(.configuration.mounts[]?; .type.volume.name? == $v)) | .id'
+    }
+    clone_file() { # <from> <to>: APFS clone, macOS's cp
+      "''${AGENT_SANDBOX_APPLE_CLONE:-/bin/cp}" -c "$1" "$2"
+    }
+    # Best effort: a seed not refreshed is only older.
+    refresh_seed() {
+      local from to
+      [ -z "$(holders "$volume")" ] || return 0
+      from=$(vol_file "$volume") || return 0
+      container_cmd volume inspect "$seed" >/dev/null 2>&1 ||
+        container_cmd volume create "$seed" >/dev/null 2>&1 || return 0
+      to=$(vol_file "$seed") || return 0
+      # Into place by rename, so a launch cloning the seed gets the old
+      # one or the new one whole.
+      if clone_file "$from" "$to.new" 2>/dev/null; then
+        mv -f "$to.new" "$to" || rm -f "$to.new"
+      else
+        rm -f "$to.new"
+      fi
+    }
+    use_copy() { # <why>
+      local from to
+      from=$(vol_file "$seed") ||
+        die "the Nix cache volume $volume is in use ($1), and there is no copy of it to start from yet: try again once that launch ends"
+      copy=$volume-$suffix
+      container_cmd volume create "$copy" >/dev/null 2>&1 || {
+        copy=""
+        die "the Nix cache volume $volume is in use ($1), and a volume for a copy could not be made"
+      }
+      if ! { to=$(vol_file "$copy") && rm -f "$to" && clone_file "$from" "$to"; }; then
+        die "the Nix cache volume $volume is in use ($1), and could not be copied (an APFS clone, which needs the home folder on APFS)"
+      fi
+      say "the Nix cache is in use by another launch ($1): this one runs on a copy, and what it downloads is not kept"
+      volume=$copy
+    }
     ensure_volume() {
       if ! container_cmd volume inspect "$volume" >/dev/null 2>&1; then
         say "creating the Nix cache volume $volume, shared by every launch of this image"
         container_cmd volume create "$volume" >/dev/null || die "could not create the volume $volume"
         fill_volume
+        refresh_seed
+        return 0
+      fi
+      local held
+      held=$(holders "$volume" | head -n 1 | inert)
+      if [ -n "$held" ]; then
+        use_copy "$held"
         return 0
       fi
       # Filled again only when the check says so: a fill over a used
@@ -755,8 +829,17 @@ in
       unset 'leftover[-1]'
       case ''${state##*$'\n'} in
         filled) ;;
-        empty) fill_volume ;;
+        empty)
+          fill_volume
+          refresh_seed
+          ;;
         *)
+          # Taken between the look and the check.
+          held=$(holders "$volume" | head -n 1 | inert)
+          if [ -n "$held" ]; then
+            use_copy "$held"
+            return 0
+          fi
           why=$(grep -v '^[[:space:]]*$' "$sock_dir/check.err" | tail -n 1 | inert) || why=""
           die "could not read the Nix cache volume $volume''${why:+ (container: $why)}. Only one launch can use it at a time: is another running? ('container list -a'). A stopped agent-sandbox-apple-* VM there, left by a launch that was killed, holds it too: remove it with 'container delete <name>'"
           ;;
@@ -789,7 +872,8 @@ in
     tee_pid=$!
     # The program itself, not the function, so $! is its pid.
     leftover+=("$vm_name")
-    "$container" run "''${run_args[@]}" "$image" "''${command[@]}" <&0 2>"$sock_dir/stderr" &
+    ran=1
+    "$container" run "''${run_args[@]}" -v "$volume:/nix" "$image" "''${command[@]}" <&0 2>"$sock_dir/stderr" &
     run_pid=$!
     status=0
     wait "$run_pid" || status=$?

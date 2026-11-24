@@ -18,7 +18,9 @@ unset CLAUDE_CODE_OAUTH_TOKEN ANTHROPIC_API_KEY CLAUDE_CODE_PLUGIN_DIRS FLOX_FLO
 # A stub container: --version and system status answer as 1.7.1 does
 # (STUB_VERSION and STUB_NOT_RUNNING change them); anything else is
 # logged, one line of argv, to $STUB_LOG. The image and the volume exist
-# with STUB_IMAGE and STUB_VOLUME, and the volume is filled unless
+# with STUB_IMAGE and STUB_VOLUME (and its seed with STUB_SEED), each
+# volume a file under $STUB_DIR/vols that `volume inspect` names; another
+# VM holds the volume STUB_HELD names. The volume is filled unless
 # STUB_UNFILLED, and its check fails outright, with an error on stderr,
 # with STUB_CHECK_FAIL; the
 # check sleeps STUB_CHECK_SLEEP seconds instead, its pid in
@@ -38,7 +40,27 @@ case "$*" in
     echo "$*" >>"${STUB_LOG:-/dev/null}"
     case "$1 $2" in
       "image inspect") [ -n "${STUB_IMAGE:-}" ] ;;
-      "volume inspect") [ -n "${STUB_VOLUME:-}" ] ;;
+      "volume inspect")
+        d=$STUB_DIR/vols/$3
+        if [ ! -d "$d" ]; then
+          case $3 in
+            agent-sandbox-apple-nix-????????????) [ -n "${STUB_VOLUME:-}" ] || exit 1 ;;
+            *-seed) [ -n "${STUB_SEED:-}" ] || exit 1 ;;
+            *) exit 1 ;;
+          esac
+          mkdir -p "$d" && echo "$3" >"$d/volume.img"
+        fi
+        printf '[{"configuration":{"name":"%s","source":"%s"}}]\n' "$3" "$d/volume.img" ;;
+      "volume create")
+        [ -z "${STUB_CREATE_FAIL:-}" ] || exit 1
+        mkdir -p "$STUB_DIR/vols/$3" && : >"$STUB_DIR/vols/$3/volume.img" ;;
+      "volume delete") rm -rf "${STUB_DIR:?}/vols/$3" ;;
+      "list -a")
+        if [ -n "${STUB_HELD:-}" ]; then
+          printf '[{"id":"agent-sandbox-apple-other-abcde","configuration":{"mounts":[{"destination":"/nix","type":{"volume":{"name":"%s"}}}]}}]\n' "$STUB_HELD"
+        else
+          echo '[]'
+        fi ;;
       run\ *)
         case "$*" in
           *"test -f /nix-cache/.agent-sandbox-apple-filled;"*)
@@ -334,6 +356,10 @@ fi
 export AGENT_SANDBOX_APPLE_SKIP_PLATFORM=1
 
 export STUB_DIR=$root/stub STUB_LOG=$root/stub/container.log AGENT_SANDBOX_APPLE_PROXY=$root/bin/proxy
+# A stand-in for macOS's cp -c: a plain copy.
+printf '#!%s\n[ "$1" = -c ] && shift\nexec cp "$@"\n' "$(command -v bash)" >"$root/bin/clone"
+chmod +x "$root/bin/clone"
+export AGENT_SANDBOX_APPLE_CLONE=$root/bin/clone
 # <stub env...> -- <sandbox args...>: runs in $dir with fresh stub logs;
 # its exit code is in $rc, its stdout and stderr in out and err.
 launch() {
@@ -369,7 +395,8 @@ launch -- --options '{"allowedDomains":["github.com"]}' -- claude --version
 in_order "^image inspect $(q "$image")\$" "^build -t $(q "$image") /" \
   "^volume inspect $(q "$volume")\$" "^volume create $(q "$volume")\$" \
   "^run --rm .*-v $(q "$volume"):/nix-cache .*cp -a /nix/\. /nix-cache/.*touch /nix-cache/\.agent-sandbox-apple-filled\$" \
-  "^run --rm .*--network none .* $(q "$image") /opt/agent-sandbox-apple/guest\.sh claude --version\$" \
+  "^volume create $(q "$volume")-seed\$" \
+  "^run --rm .*--network none .*-v $(q "$volume"):/nix $(q "$image") /opt/agent-sandbox-apple/guest\.sh claude --version\$" \
   "^proxy up\$"
 ctx=$(sed -n "s|^build -t $(q "$image") ||p" "$STUB_LOG")
 [ -f "$ctx/Containerfile" ] && [ -f "$ctx/guest.sh" ] || fail "build context $ctx is not the share dir"
@@ -393,7 +420,10 @@ grep -qi floxhub err && fail "FloxHub hint on a clean run: $(cat err)"
 # The image and a filled volume exist: straight to the run.
 launch STUB_IMAGE=1 STUB_VOLUME=1 -- -- claude --version
 [ "$rc" = 0 ] || fail "warm launch: exit $rc: $(cat err)"
-grep -qE '^(build|volume create)|cp -a' "$STUB_LOG" && fail "warm launch built or filled: $(cat "$STUB_LOG")"
+grep -qE "^(build|volume create $(q "$volume")\$)|cp -a" "$STUB_LOG" && fail "warm launch built or filled: $(cat "$STUB_LOG")"
+# It used the cache itself, so at exit it refreshed the seed from it.
+in_order "guest\.sh claude --version\$" "^volume create $(q "$volume")-seed\$"
+[ "$(cat "$STUB_DIR/vols/$volume-seed/volume.img")" = "$volume" ] || fail "the seed is not a clone of the cache"
 in_order "^image inspect " "^volume inspect " "test -f /nix-cache/\.agent-sandbox-apple-filled;" \
   "guest\.sh claude --version\$"
 grep -qE '^agent-sandbox-apple: .*(image|volume|fill)' err && fail "warm launch announced slow work: $(cat err)"
@@ -406,7 +436,9 @@ grep -qE '^run --rm --name agent-sandbox-apple-check-[a-z0-9]{5} .*test -f ' "$S
 # A volume whose fill never finished is filled again.
 launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_UNFILLED=1 -- -- claude
 [ "$rc" = 0 ] || fail "unfilled launch: exit $rc: $(cat err)"
-grep -q '^volume create' "$STUB_LOG" && fail "an existing volume created again"
+grep -q "^volume create $(q "$volume")\$" "$STUB_LOG" && fail "an existing volume created again"
+# Filled again, so its seed is taken again before the run.
+in_order "cp -a /nix/\. /nix-cache/" "^volume create $(q "$volume")-seed\$" "guest\.sh claude\$"
 in_order "test -f /nix-cache/\.agent-sandbox-apple-filled;" "cp -a /nix/\. /nix-cache/" "guest\.sh claude\$"
 
 # A check that fails outright (the volume in use by another launch)
@@ -421,6 +453,35 @@ grep -qF 'container delete' err || fail "the refusal does not say how to delete 
 grep -qF 'stub: volume is in use by agent-sandbox-apple-x' err ||
   fail "the refusal does not show container's error: $(cat err)"
 grep -qE 'cp -a|guest\.sh' "$STUB_LOG" && fail "a failed check filled or ran: $(cat "$STUB_LOG")"
+
+# The cache held by another launch: this one runs on a clone of the
+# seed, never checks or fills the cache, deletes the clone at exit and
+# leaves the seed alone.
+launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_SEED=1 STUB_HELD="$volume" -- -- claude
+[ "$rc" = 0 ] || fail "launch on a copy: exit $rc: $(cat err)"
+copy=$(sed -n "s/^volume create \($(q "$volume")-[a-z0-9]\{5\}\)\$/\1/p" "$STUB_LOG")
+[ -n "$copy" ] || fail "no copy volume made: $(cat "$STUB_LOG")"
+in_order "^volume create $(q "$copy")\$" "-v $(q "$copy"):/nix $(q "$image") .*guest\.sh claude\$" \
+  "^volume delete $(q "$copy")\$"
+grep -qE 'test -f|cp -a' "$STUB_LOG" && fail "a launch on a copy checked or filled the cache: $(cat "$STUB_LOG")"
+grep -q -- "-v $(q "$volume"):/nix " "$STUB_LOG" && fail "a launch on a copy attached the cache: $(cat "$STUB_LOG")"
+[ ! -e "$STUB_DIR/vols/$copy" ] || fail "the copy $copy was left"
+[ "$(cat "$STUB_DIR/vols/$volume-seed/volume.img")" = "$volume-seed" ] || fail "a launch on a copy refreshed the seed"
+grep -q 'runs on a copy' err || fail "the copy not announced: $(cat err)"
+grep -qF agent-sandbox-apple-other-abcde err || fail "the holder not named: $(cat err)"
+
+# Held, and no seed yet (the first launch still running): refused.
+launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_HELD="$volume" -- -- claude
+[ "$rc" = 2 ] || fail "held without a seed gave exit $rc: $(cat err)"
+grep -q 'no copy of it to start from yet' err || fail "no reason when held without a seed: $(cat err)"
+grep -q 'guest\.sh' "$STUB_LOG" && fail "ran with the cache held and no seed: $(cat "$STUB_LOG")"
+
+# A copy that cannot be made: refused, nothing left.
+launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_SEED=1 STUB_HELD="$volume" AGENT_SANDBOX_APPLE_CLONE=false -- -- claude
+[ "$rc" = 2 ] || fail "a failed clone gave exit $rc: $(cat err)"
+grep -q 'could not be copied' err || fail "no reason for a failed clone: $(cat err)"
+grep -q 'guest\.sh' "$STUB_LOG" && fail "ran after a failed clone: $(cat "$STUB_LOG")"
+in_order "^volume create $(q "$volume")-" "^volume delete $(q "$volume")-"
 
 # The agent's exit code is the sandbox's, and the clean-up still runs.
 launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_RUN_RC=3 -- -- claude
