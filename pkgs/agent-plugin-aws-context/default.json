@@ -1,0 +1,72 @@
+{
+  "name": "aws-context",
+  "version": "0.1.0",
+  "src": {
+    "owner": "aws",
+    "repo": "agent-toolkit-for-aws",
+    "rev": "8a7ae9b5e0ad1f9c190bc8f28fedf07e97de4fe3",
+    "hash": "sha256-DbnGHhfXOvqpDs0bHwZ0eaW2NdIqb77Lx3YOxVsfJ7Y="
+  },
+  "sourceUrl": "https://github.com/aws/agent-toolkit-for-aws",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Amazon Web Services"
+    },
+    "description": "Ground coding agents in your organization's knowledge with AWS Context: retrieve from your agent context graph, correct or extend it, and record sessions.",
+    "homepage": "https://aws.amazon.com/products/developer-tools/agent-toolkit-for-aws/",
+    "keywords": [
+      "aws",
+      "aws-context",
+      "knowledge-graph",
+      "agent-context",
+      "retrieval",
+      "agentic-retrieval",
+      "data-catalog",
+      "glue",
+      "bedrock-knowledge-bases"
+    ],
+    "license": "Apache-2.0",
+    "name": "aws-context",
+    "repository": "https://github.com/aws/agent-toolkit-for-aws/tree/main/plugins/aws-context",
+    "version": "0.1.0"
+  },
+  "skills": {
+    "aws-context": "plugins/aws-context/skills/aws-context"
+  },
+  "requiredRuntimes": [],
+  "dependencies": [
+    "uv"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/commands": "plugins/aws-context/commands"
+  },
+  "mcpServers": {
+    "aws-context": {
+      "type": "streamable-http",
+      "url": "https://context-mcp.us-east-1.api.aws/mcp"
+    }
+  },
+  "meta": {
+    "description": "Ground coding agents in your organization's knowledge with AWS Context",
+    "homepage": "https://github.com/aws/agent-toolkit-for-aws"
+  },
+  "import": {
+    "input": "aws/agent-toolkit-for-aws",
+    "flags": [
+      "--dependency=uv",
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "skills",
+        "message": "133 SKILL.md outside every imported plugin, not imported"
+      }
+    ]
+  }
+}
