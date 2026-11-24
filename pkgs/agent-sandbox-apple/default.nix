@@ -62,6 +62,10 @@
 #     `claude setup-token`);
 #   - forwardFloxhubToken (false): passes `flox auth token` as
 #     FLOX_FLOXHUB_TOKEN, for environments with private packages;
+#   - claudeConnectors (false): lets claude use the claude.ai
+#     connectors of the account logged in (mail, Drive and the like) by
+#     allowing mcp-proxy.anthropic.com. Off, claude is started with
+#     ENABLE_CLAUDEAI_MCP_SERVERS=false;
 #   - cpus (4), memory ("4G"): the VM's size.
 #
 # A secret goes in by name (`container run -e NAME`), never on a command
@@ -137,7 +141,7 @@ in
     dry_run=''${AGENT_SANDBOX_APPLE_DRY_RUN:-}
     floor=1.6.0
     lists='["allowedDomains", "allowRead", "allowWrite"]'
-    switches='["writableGit", "forwardLogin", "forwardFloxhubToken"]'
+    switches='["writableGit", "forwardLogin", "forwardFloxhubToken", "claudeConnectors"]'
 
     opts="{}"
     while [ $# -gt 0 ]; do
@@ -217,7 +221,8 @@ in
     jq -e 'if has("memory") then .memory else "4G" end | type == "string" and test("^[0-9]+[KMGTPkmgtp]?$")' >/dev/null <<<"$opts" ||
       die "option memory must be a size, such as 4G or 8192M"
     opts=$(jq -c '{allowedDomains: [], allowRead: [], allowWrite: [], writableGit: false,
-      forwardLogin: false, forwardFloxhubToken: false, cpus: 4, memory: "4G"} + .' <<<"$opts")
+      forwardLogin: false, forwardFloxhubToken: false, claudeConnectors: false,
+      cpus: 4, memory: "4G"} + .' <<<"$opts")
     on() { jq -e ".$1" >/dev/null <<<"$opts"; }
 
     # The Flox environment, which the VM activates. Only a local one,
@@ -350,6 +355,17 @@ in
       unset token
       env_names+=(FLOX_FLOXHUB_TOKEN)
       echo "agent-sandbox-apple: forwardFloxhubToken is on: your FloxHub token goes into the VM, where the agent can read it" >&2
+    fi
+    # The claude.ai connectors of the account logged in (mail, Drive and
+    # the like): unless asked for, Claude is told not to load them, and
+    # their host stays off the allow-list.
+    if [ "$agent" = claude ]; then
+      if on claudeConnectors; then
+        echo "agent-sandbox-apple: claudeConnectors is on: the agent can use your claude.ai connectors" >&2
+      else
+        export ENABLE_CLAUDEAI_MCP_SERVERS=false
+        env_names+=(ENABLE_CLAUDEAI_MCP_SERVERS)
+      fi
     fi
 
     # The mounts, each at the same path unless named. container mounts a
@@ -652,7 +668,8 @@ in
     # this shell may have staged, so guest.sh reads them there and hands
     # them to the proxy with the latch.
     allow=$(jq -c '["api.anthropic.com", "platform.claude.com", "claude.ai",
-      "console.anthropic.com"] + .allowedDomains | unique' <<<"$opts")
+      "console.anthropic.com"] + (if .claudeConnectors then ["mcp-proxy.anthropic.com"] else [] end)
+      + .allowedDomains | unique' <<<"$opts")
     # Open only until the agent starts: S3 is every bucket in the region.
     startup='["api.flox.dev", "s3.us-east-1.amazonaws.com", "cache.nixos.org"]'
     domains=$(jq -r '.allowedDomains | join(", ")' <<<"$opts")

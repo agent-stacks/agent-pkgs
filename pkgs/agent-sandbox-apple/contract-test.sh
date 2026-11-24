@@ -158,7 +158,9 @@ has '.image | test("^agent-sandbox-apple:[0-9a-f]{12}$")'
 has '.volume == "agent-sandbox-apple-nix-" + (.image | split(":")[1])'
 has '.startup == ["api.flox.dev", "s3.us-east-1.amazonaws.com", "cache.nixos.org"]'
 has '(.allow | sort) == (["api.anthropic.com", "platform.claude.com", "claude.ai", "console.anthropic.com"] | sort)'
-has '.env == []'
+# Nothing secret by default: only the switch that keeps claude.ai
+# connectors off.
+has '.env == ["ENABLE_CLAUDEAI_MCP_SERVERS"]'
 grep -q AGENT_SANDBOX_APPLE_UID out err && fail "AGENT_SANDBOX_APPLE_UID still passed: $(cat err)"
 for a in --rm --read-only "--network none" "--tmpfs /tmp" "--tmpfs /home/agent" \
   "-l agent-sandbox-apple=1" "-c 4" "-m 4G"; do
@@ -194,6 +196,14 @@ has '(.allow | sort) == (["api.anthropic.com", "platform.claude.com", "claude.ai
   "github.com"] | sort)'
 has '.startup == ["api.flox.dev", "s3.us-east-1.amazonaws.com", "cache.nixos.org"]'
 grep -q 'github.com' err || fail "allowedDomains not named: $(cat err)"
+
+# claude.ai connectors: off by default, and then Claude is told so.
+has '.env | index("ENABLE_CLAUDEAI_MCP_SERVERS")'
+has '.allow | index("mcp-proxy.anthropic.com") | not'
+dry --options '{"claudeConnectors":true}' -- claude >out 2>err || fail "dry run with connectors: $(cat err)"
+has '.allow | index("mcp-proxy.anthropic.com")'
+has '.env | index("ENABLE_CLAUDEAI_MCP_SERVERS") | not'
+grep -q 'claudeConnectors is on' err || fail "claudeConnectors not named: $(cat err)"
 
 # --- Secrets -----------------------------------------------------------
 
@@ -273,6 +283,7 @@ refuse() { # <what> <message pattern> <command...>
 
 refuse "unknown key" nope dry --options '{"nope":1}' -- claude
 refuse "the old writableGitHooks" writableGitHooks dry --options '{"writableGitHooks":true}' -- claude
+refuse "a non-boolean claudeConnectors" claudeConnectors dry --options '{"claudeConnectors":"yes"}' -- claude
 refuse "cpus as a string" cpus dry --options '{"cpus":"4"}' -- claude
 for v in false null; do
   refuse "cpus $v" cpus dry --options "{\"cpus\":$v}" -- claude
