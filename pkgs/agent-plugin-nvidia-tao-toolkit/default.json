@@ -1,0 +1,703 @@
+{
+  "name": "nvidia-tao-toolkit",
+  "version": "0.1.19",
+  "src": {
+    "owner": "NVIDIA",
+    "repo": "skills",
+    "rev": "d85b6272b2c45bf3d7967acb444b4aa91250d237",
+    "hash": "sha256-6mH0C3+ILLZbJw3xECW5fcAnHiNf63q7+NhcrVX+MB0="
+  },
+  "sourceUrl": "https://github.com/NVIDIA/skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "NVIDIA",
+      "url": "https://github.com/NVIDIA-TAO/tao-skill-bank"
+    },
+    "description": "NVIDIA TAO skill bank with generated capability discovery for model training, data processing, application workflows, AutoML, and platform execution.",
+    "keywords": [
+      "nvidia",
+      "tao",
+      "computer-vision",
+      "fine-tuning",
+      "training",
+      "inference",
+      "object-detection",
+      "segmentation",
+      "vlm",
+      "automl"
+    ],
+    "license": "Apache-2.0",
+    "name": "nvidia-tao-toolkit",
+    "repository": "https://github.com/NVIDIA-TAO/tao-skill-bank",
+    "version": "0.1.19"
+  },
+  "skills": {
+    "paidf-cosmos-predict": "plugins/nvidia-tao-toolkit/skills/paidf-cosmos-predict",
+    "tao-analyze-changenet-rca": "plugins/nvidia-tao-toolkit/skills/tao-analyze-changenet-rca",
+    "tao-analyze-detection-kpi": "plugins/nvidia-tao-toolkit/skills/tao-analyze-detection-kpi",
+    "tao-analyze-gaps-od-map": "plugins/nvidia-tao-toolkit/skills/tao-analyze-gaps-od-map",
+    "tao-analyze-gaps-visual-changenet": "plugins/nvidia-tao-toolkit/skills/tao-analyze-gaps-visual-changenet",
+    "tao-analyze-gaps-vlm-bcq": "plugins/nvidia-tao-toolkit/skills/tao-analyze-gaps-vlm-bcq",
+    "tao-artifacts": "plugins/nvidia-tao-toolkit/skills/tao-artifacts",
+    "tao-convert-dataset-format": "plugins/nvidia-tao-toolkit/skills/tao-convert-dataset-format",
+    "tao-data-io": "plugins/nvidia-tao-toolkit/skills/tao-data-io",
+    "tao-finetune-anomalygennext": "plugins/nvidia-tao-toolkit/skills/tao-finetune-anomalygennext",
+    "tao-finetune-clip": "plugins/nvidia-tao-toolkit/skills/tao-finetune-clip",
+    "tao-finetune-cosmos-embed": "plugins/nvidia-tao-toolkit/skills/tao-finetune-cosmos-embed",
+    "tao-finetune-cosmos-reason": "plugins/nvidia-tao-toolkit/skills/tao-finetune-cosmos-reason",
+    "tao-finetune-huggingface-model": "plugins/nvidia-tao-toolkit/skills/tao-finetune-huggingface-model",
+    "tao-finetune-kumo-anomaly": "plugins/nvidia-tao-toolkit/skills/tao-finetune-kumo-anomaly",
+    "tao-finetune-kumo-forecast": "plugins/nvidia-tao-toolkit/skills/tao-finetune-kumo-forecast",
+    "tao-finetune-video-clip": "plugins/nvidia-tao-toolkit/skills/tao-finetune-video-clip",
+    "tao-generate-anomalies": "plugins/nvidia-tao-toolkit/skills/tao-generate-anomalies",
+    "tao-generate-image-embeddings": "plugins/nvidia-tao-toolkit/skills/tao-generate-image-embeddings",
+    "tao-generate-image-grounding": "plugins/nvidia-tao-toolkit/skills/tao-generate-image-grounding",
+    "tao-generate-od-defects": "plugins/nvidia-tao-toolkit/skills/tao-generate-od-defects",
+    "tao-generate-referring-expressions": "plugins/nvidia-tao-toolkit/skills/tao-generate-referring-expressions",
+    "tao-generate-video-reasoning-annotations": "plugins/nvidia-tao-toolkit/skills/tao-generate-video-reasoning-annotations",
+    "tao-launch-workflow": "plugins/nvidia-tao-toolkit/skills/tao-launch-workflow",
+    "tao-list-capabilities": "plugins/nvidia-tao-toolkit/skills/tao-list-capabilities",
+    "tao-mine-aoi-images": "plugins/nvidia-tao-toolkit/skills/tao-mine-aoi-images",
+    "tao-mine-nearest-neighbors": "plugins/nvidia-tao-toolkit/skills/tao-mine-nearest-neighbors",
+    "tao-mine-od-images": "plugins/nvidia-tao-toolkit/skills/tao-mine-od-images",
+    "tao-port-huggingface-model": "plugins/nvidia-tao-toolkit/skills/tao-port-huggingface-model",
+    "tao-prepare-anomalygennext-inputs": "plugins/nvidia-tao-toolkit/skills/tao-prepare-anomalygennext-inputs",
+    "tao-route-visual-changenet-samples": "plugins/nvidia-tao-toolkit/skills/tao-route-visual-changenet-samples",
+    "tao-run-automl": "plugins/nvidia-tao-toolkit/skills/tao-run-automl",
+    "tao-run-automl-deft-pipeline": "plugins/nvidia-tao-toolkit/skills/tao-run-automl-deft-pipeline",
+    "tao-run-deft-aoi": "plugins/nvidia-tao-toolkit/skills/tao-run-deft-aoi",
+    "tao-run-deft-aoi-cosmos3": "plugins/nvidia-tao-toolkit/skills/tao-run-deft-aoi-cosmos3",
+    "tao-run-deft-cr-its-mining": "plugins/nvidia-tao-toolkit/skills/tao-run-deft-cr-its-mining",
+    "tao-run-deft-object-detection": "plugins/nvidia-tao-toolkit/skills/tao-run-deft-object-detection",
+    "tao-run-deft-od-aoi": "plugins/nvidia-tao-toolkit/skills/tao-run-deft-od-aoi",
+    "tao-run-deft-pas": "plugins/nvidia-tao-toolkit/skills/tao-run-deft-pas",
+    "tao-run-dinov3-ssl-deft": "plugins/nvidia-tao-toolkit/skills/tao-run-dinov3-ssl-deft",
+    "tao-run-inference-service": "plugins/nvidia-tao-toolkit/skills/tao-run-inference-service",
+    "tao-run-on-brev": "plugins/nvidia-tao-toolkit/skills/tao-run-on-brev",
+    "tao-run-on-docker": "plugins/nvidia-tao-toolkit/skills/tao-run-on-docker",
+    "tao-run-on-kubernetes": "plugins/nvidia-tao-toolkit/skills/tao-run-on-kubernetes",
+    "tao-run-on-slurm": "plugins/nvidia-tao-toolkit/skills/tao-run-on-slurm",
+    "tao-run-on-virtualenv": "plugins/nvidia-tao-toolkit/skills/tao-run-on-virtualenv",
+    "tao-setup": "plugins/nvidia-tao-toolkit/skills/tao-setup",
+    "tao-setup-nvidia-gpu-host": "plugins/nvidia-tao-toolkit/skills/tao-setup-nvidia-gpu-host",
+    "tao-token-efficient-execution": "plugins/nvidia-tao-toolkit/skills/tao-token-efficient-execution",
+    "tao-train-action-recognition": "plugins/nvidia-tao-toolkit/skills/tao-train-action-recognition",
+    "tao-train-bevfusion": "plugins/nvidia-tao-toolkit/skills/tao-train-bevfusion",
+    "tao-train-centerpose": "plugins/nvidia-tao-toolkit/skills/tao-train-centerpose",
+    "tao-train-codetr": "plugins/nvidia-tao-toolkit/skills/tao-train-codetr",
+    "tao-train-deformable-detr": "plugins/nvidia-tao-toolkit/skills/tao-train-deformable-detr",
+    "tao-train-depth-anything-v2": "plugins/nvidia-tao-toolkit/skills/tao-train-depth-anything-v2",
+    "tao-train-dino": "plugins/nvidia-tao-toolkit/skills/tao-train-dino",
+    "tao-train-dinov3": "plugins/nvidia-tao-toolkit/skills/tao-train-dinov3",
+    "tao-train-fast-foundation-stereo": "plugins/nvidia-tao-toolkit/skills/tao-train-fast-foundation-stereo",
+    "tao-train-foundation-stereo": "plugins/nvidia-tao-toolkit/skills/tao-train-foundation-stereo",
+    "tao-train-grounding-dino": "plugins/nvidia-tao-toolkit/skills/tao-train-grounding-dino",
+    "tao-train-image-classification": "plugins/nvidia-tao-toolkit/skills/tao-train-image-classification",
+    "tao-train-mask-auto-encoder": "plugins/nvidia-tao-toolkit/skills/tao-train-mask-auto-encoder",
+    "tao-train-mask-auto-label": "plugins/nvidia-tao-toolkit/skills/tao-train-mask-auto-label",
+    "tao-train-mask-grounding-dino": "plugins/nvidia-tao-toolkit/skills/tao-train-mask-grounding-dino",
+    "tao-train-mask2former": "plugins/nvidia-tao-toolkit/skills/tao-train-mask2former",
+    "tao-train-metric-learning-recognition": "plugins/nvidia-tao-toolkit/skills/tao-train-metric-learning-recognition",
+    "tao-train-nvdinov2": "plugins/nvidia-tao-toolkit/skills/tao-train-nvdinov2",
+    "tao-train-nvpanoptix3d": "plugins/nvidia-tao-toolkit/skills/tao-train-nvpanoptix3d",
+    "tao-train-ocdnet": "plugins/nvidia-tao-toolkit/skills/tao-train-ocdnet",
+    "tao-train-ocrnet": "plugins/nvidia-tao-toolkit/skills/tao-train-ocrnet",
+    "tao-train-oneformer": "plugins/nvidia-tao-toolkit/skills/tao-train-oneformer",
+    "tao-train-optical-inspection": "plugins/nvidia-tao-toolkit/skills/tao-train-optical-inspection",
+    "tao-train-pointpillars": "plugins/nvidia-tao-toolkit/skills/tao-train-pointpillars",
+    "tao-train-pose-classification": "plugins/nvidia-tao-toolkit/skills/tao-train-pose-classification",
+    "tao-train-reid": "plugins/nvidia-tao-toolkit/skills/tao-train-reid",
+    "tao-train-rtdetr": "plugins/nvidia-tao-toolkit/skills/tao-train-rtdetr",
+    "tao-train-segformer": "plugins/nvidia-tao-toolkit/skills/tao-train-segformer",
+    "tao-train-single-step": "plugins/nvidia-tao-toolkit/skills/tao-train-single-step",
+    "tao-train-sparse4d": "plugins/nvidia-tao-toolkit/skills/tao-train-sparse4d",
+    "tao-train-visual-changenet": "plugins/nvidia-tao-toolkit/skills/tao-train-visual-changenet",
+    "tao-validate-dataset-format": "plugins/nvidia-tao-toolkit/skills/tao-validate-dataset-format",
+    "tao-validate-recipe-transfer": "plugins/nvidia-tao-toolkit/skills/tao-validate-recipe-transfer"
+  },
+  "requiredRuntimes": [
+    "bash",
+    "python3"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "AGENTS.md": "plugins/nvidia-tao-toolkit/AGENTS.md",
+    "README.md": "plugins/nvidia-tao-toolkit/README.md",
+    "com.anthropic.claude-code/hooks": "plugins/nvidia-tao-toolkit/hooks",
+    "scripts": "plugins/nvidia-tao-toolkit/scripts"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/session_start.sh\" identity",
+            "type": "command"
+          },
+          {
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/session_start.sh\" context",
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "description": "NVIDIA TAO skill bank with generated capability discovery for model training, data processing, application workflows, AutoML, and platform execution",
+    "homepage": "https://github.com/NVIDIA/skills"
+  },
+  "import": {
+    "input": "NVIDIA/skills",
+    "flags": [
+      "--pkgs-dir=pkgs",
+      "--plugin=skills=nvidia-skill-library"
+    ],
+    "warnings": [
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/paidf-cosmos-predict/SKILL.md/metadata/tags",
+        "message": "must be a string value"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-analyze-changenet-rca/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-analyze-detection-kpi/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-analyze-gaps-od-map/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-analyze-gaps-visual-changenet/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-analyze-gaps-vlm-bcq/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-artifacts/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-convert-dataset-format/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-data-io/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-finetune-anomalygennext/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-finetune-clip/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-finetune-cosmos-embed/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-finetune-cosmos-reason/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-finetune-huggingface-model/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-finetune-kumo-anomaly/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-finetune-kumo-forecast/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-finetune-video-clip/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-generate-anomalies/SKILL.md/metadata/tags",
+        "message": "must be a string value"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-generate-image-embeddings/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-generate-image-grounding/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-generate-od-defects/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-generate-referring-expressions/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-generate-video-reasoning-annotations/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-launch-workflow/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-list-capabilities/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-mine-aoi-images/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-mine-nearest-neighbors/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-mine-od-images/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-port-huggingface-model/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-prepare-anomalygennext-inputs/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-route-visual-changenet-samples/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-run-automl-deft-pipeline/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-run-automl/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-run-deft-aoi-cosmos3/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-run-deft-aoi/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-run-deft-cr-its-mining/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-run-deft-object-detection/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-run-deft-od-aoi/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-run-deft-pas/SKILL.md/metadata/tags",
+        "message": "must be a string value"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-run-dinov3-ssl-deft/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-run-inference-service/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-run-on-brev/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-run-on-docker/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-run-on-kubernetes/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-run-on-slurm/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-run-on-virtualenv/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-setup-nvidia-gpu-host/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-setup/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-token-efficient-execution/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-action-recognition/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-bevfusion/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-centerpose/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-codetr/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-deformable-detr/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-depth-anything-v2/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-dino/SKILL.md/metadata/tags",
+        "message": "must be a string value"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-dinov3/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-fast-foundation-stereo/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-foundation-stereo/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-grounding-dino/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-image-classification/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-mask-auto-encoder/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-mask-auto-label/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-mask-grounding-dino/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-mask2former/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-metric-learning-recognition/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-nvdinov2/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-nvpanoptix3d/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-ocdnet/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-ocrnet/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-oneformer/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-optical-inspection/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-pointpillars/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-pose-classification/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-reid/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-rtdetr/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-segformer/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-single-step/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-sparse4d/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-train-visual-changenet/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-validate-dataset-format/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/skills/tao-validate-recipe-transfer/SKILL.md",
+        "message": "unknown frontmatter fields: tags"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/hooks/hooks.json",
+        "message": "Claude Code runs this on SessionStart: \"${CLAUDE_PLUGIN_ROOT}/hooks/session_start.sh\" identity"
+      },
+      {
+        "path": "plugins/nvidia-tao-toolkit/hooks/hooks.json",
+        "message": "Claude Code runs this on SessionStart: \"${CLAUDE_PLUGIN_ROOT}/hooks/session_start.sh\" context"
+      },
+      {
+        "path": "scripts/skill_layers.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "scripts/tao_slurm_ssh.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-generate-video-reasoning-annotations/references/prompts_traffic.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-generate-video-reasoning-annotations/references/prompts_warehouse.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-mine-aoi-images/scripts/filter_mined_history.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-aoi-cosmos3/scripts/align_token_usage.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-aoi-cosmos3/scripts/metric_contract.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-aoi-cosmos3/scripts/record_metric_result.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-aoi/scripts/align_token_usage.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-aoi/scripts/changenet_data_pair_prepare.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-aoi/scripts/commit_stage.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-aoi/scripts/init_deft_state.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-aoi/scripts/metric_contract.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-aoi/scripts/prepare_card_mining.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-aoi/scripts/prepare_card_rca.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-aoi/scripts/prepare_inference_spec.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-aoi/scripts/record_metric_result.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-aoi/scripts/stage_backbone.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-aoi/scripts/validate_training_csv.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-pas/patches/sitecustomize.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-pas/scripts/audit_deft_run.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-pas/scripts/checkpoint_contract.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-pas/scripts/command_contract.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-pas/scripts/commit_stage.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-pas/scripts/deft_action_contract.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-pas/scripts/finetuning_contract.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-pas/scripts/init_deft_state.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-pas/scripts/log_stage.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-pas/scripts/metric_contract.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-pas/scripts/parse_pas_metrics.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-pas/scripts/pas_deft/__init__.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-pas/scripts/pas_deft/analyze_gaps.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-pas/scripts/pas_deft/config.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-pas/scripts/pas_deft/config_fields.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-pas/scripts/pas_deft/data_mining.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-pas/scripts/pas_deft/dataset_layout.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-pas/scripts/pas_deft/history_aware_mining.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-pas/scripts/pas_deft/pairs_io.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-pas/scripts/pas_deft/pas_artifacts.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-pas/scripts/pas_deft/utils.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-pas/scripts/pas_deft/visualization.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-pas/scripts/path_contract.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-pas/scripts/prepare_deft_config.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-pas/scripts/record_metric_result.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-pas/scripts/recover_commit.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-pas/scripts/run_deft_container.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-pas/scripts/run_pas_stage.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-run-deft-pas/scripts/virtualenv_runtime.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-token-efficient-execution/scripts/model_preflight.sh",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-train-visual-changenet/scripts/stage_backbone.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/tao-train-visual-changenet/scripts/validate_vcn_dataset.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      }
+    ]
+  }
+}
