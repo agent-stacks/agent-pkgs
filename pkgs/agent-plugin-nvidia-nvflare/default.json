@@ -1,0 +1,285 @@
+{
+  "name": "nvidia-nvflare",
+  "version": "1.0.0",
+  "src": {
+    "owner": "NVIDIA",
+    "repo": "skills",
+    "rev": "85ee81d66bcdcc6961f6db1d13dfff67025b3e43",
+    "hash": "sha256-Q5YBEknX6VweRa6OeNlteiiDd5kmL+K38zktqPIbYIM="
+  },
+  "sourceUrl": "https://github.com/NVIDIA/skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "email": "federatedlearning@nvidia.com",
+      "name": "NVIDIA FLARE Team"
+    },
+    "description": "NVIDIA FLARE skills for federated learning conversion, job diagnosis, federated statistics, and Auto-FL optimization and reporting.",
+    "extensions": {
+      "com.openai": {
+        "interface": {
+          "category": "Developer Tools",
+          "developerName": "NVIDIA FLARE Team",
+          "displayName": "NVIDIA FLARE",
+          "longDescription": "Convert PyTorch, Lightning, and Hugging Face training code to NVIDIA FLARE, diagnose jobs, compute federated statistics, and optimize and report Auto-FL campaigns.",
+          "shortDescription": "Build and improve federated learning workflows."
+        },
+        "skills": "./skills/"
+      }
+    },
+    "homepage": "https://nvidia.github.io/NVFlare/",
+    "keywords": [
+      "nvidia",
+      "nvflare",
+      "federated-learning",
+      "pytorch",
+      "lightning",
+      "huggingface",
+      "autofl"
+    ],
+    "license": "Apache-2.0 AND CC-BY-4.0",
+    "name": "nvidia-nvflare",
+    "repository": "https://github.com/NVIDIA/NVFlare",
+    "version": "1.0.0"
+  },
+  "skills": {
+    "nvflare-autofl": "plugins/nvidia-nvflare/skills/nvflare-autofl",
+    "nvflare-autofl-report": "plugins/nvidia-nvflare/skills/nvflare-autofl-report",
+    "nvflare-convert-huggingface": "plugins/nvidia-nvflare/skills/nvflare-convert-huggingface",
+    "nvflare-convert-lightning": "plugins/nvidia-nvflare/skills/nvflare-convert-lightning",
+    "nvflare-convert-pytorch": "plugins/nvidia-nvflare/skills/nvflare-convert-pytorch",
+    "nvflare-diagnose-job": "plugins/nvidia-nvflare/skills/nvflare-diagnose-job",
+    "nvflare-fed-stats": "plugins/nvidia-nvflare/skills/nvflare-fed-stats",
+    "nvflare-orient": "plugins/nvidia-nvflare/skills/nvflare-orient",
+    "nvflare-shared": "plugins/nvidia-nvflare/skills/nvflare-shared"
+  },
+  "requiredRuntimes": [
+    "python3"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "meta": {
+    "description": "NVIDIA FLARE skills for federated learning conversion, job diagnosis, federated statistics, and Auto-FL optimization and reporting",
+    "homepage": "https://github.com/NVIDIA/skills"
+  },
+  "import": {
+    "input": "NVIDIA/skills",
+    "flags": [
+      "--pkgs-dir=pkgs",
+      "--plugin=skills=nvidia-skill-library"
+    ],
+    "warnings": [
+      {
+        "path": "plugins/nvidia-nvflare/plugin.json",
+        "message": "license \"Apache-2.0 AND CC-BY-4.0\" is not one SPDX identifier or a spelling import recognises, so the package carries no meta.license"
+      },
+      {
+        "path": "skills/nvflare-autofl/scripts/job_importer.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-huggingface/evals/files/external-data-hf/model.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-huggingface/evals/files/external-data-hf/train.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-huggingface/evals/files/factory-distributed/model.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-huggingface/evals/files/factory-distributed/train.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-huggingface/evals/files/factory-evaluated/model.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-huggingface/evals/files/factory-evaluated/train.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-huggingface/evals/files/factory-peft-sft/model.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-huggingface/evals/files/factory-peft-sft/train.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-huggingface/evals/files/factory-train-only/model.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-huggingface/evals/files/factory-train-only/train.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-huggingface/evals/files/injection-hf/model.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-huggingface/evals/files/injection-hf/train.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-huggingface/evals/files/peft-sft/model.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-huggingface/evals/files/peft-sft/train.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-huggingface/evals/files/relative-data-hf/model.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-huggingface/evals/files/relative-data-hf/train.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-huggingface/evals/files/trainer-basic/model.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-huggingface/evals/files/trainer-basic/train.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-lightning/evals/files/external-data-lightning/model.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-lightning/evals/files/external-data-lightning/train.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-lightning/evals/files/factory-lightning/train.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-lightning/evals/files/gpu-device-lightning/model.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-lightning/evals/files/gpu-device-lightning/train.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-lightning/evals/files/hello-lightning/model.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-lightning/evals/files/hello-lightning/train.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-lightning/evals/files/routing-dual/train_huggingface.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-lightning/evals/files/routing-dual/train_lightning.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-lightning/evals/files/vocab-lightning/model.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-lightning/evals/files/vocab-lightning/train.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-pytorch/evals/files/checkpoint-pt/model.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-pytorch/evals/files/checkpoint-pt/train.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-pytorch/evals/files/data-parallel-pt/model.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-pytorch/evals/files/data-parallel-pt/train.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-pytorch/evals/files/eval-pt/model.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-pytorch/evals/files/eval-pt/train.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-pytorch/evals/files/external-data-pt/model.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-pytorch/evals/files/external-data-pt/train.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-pytorch/evals/files/factory-optimizer/train.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-pytorch/evals/files/gpu-device-pt/model.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-pytorch/evals/files/gpu-device-pt/train.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-pytorch/evals/files/hello-pt/model.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-pytorch/evals/files/hello-pt/train.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-pytorch/evals/files/injection-pt/model.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-pytorch/evals/files/injection-pt/train.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-pytorch/evals/files/state-mismatch-pt/model.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-pytorch/evals/files/state-mismatch-pt/train.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-fed-stats/evals/files/generate_csv.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-fed-stats/evals/files/images-intensity/generate_images.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/nvflare-convert-huggingface/evals/files/injection-hf/requirements.txt",
+        "message": "declares dependencies import does not package; package them in this package's custom block, using python3.withPackages"
+      },
+      {
+        "path": "skills/nvflare-convert-pytorch/evals/files/injection-pt/requirements.txt",
+        "message": "declares dependencies import does not package; package them in this package's custom block, using python3.withPackages"
+      }
+    ]
+  }
+}
