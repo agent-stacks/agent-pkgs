@@ -8,7 +8,7 @@ Status: Proposed
 
 ADR 0008 publishes the `llm-agents.nix` packages as upstream builds
 them. agent-stacks passes skills to codex in `CODEX_FLOX_SKILL_ROOTS`,
-which upstream codex doesn't read. agent-stacks ADR 0011 adds it with
+which upstream codex doesn't read. agent-stacks ADR 0007 adds it with
 `flox-fragments.patch`, and without the patch `agent-stacks doctor`
 reports codex as degraded. floxenvs builds its own patched codex and
 can't drop it until this set publishes one.
@@ -66,6 +66,39 @@ A change every user of the package would want goes upstream instead.
   system on 2026-10-22), and resolving `agent-stacks/codex@0.163.0`
   returned the newest, so no version suffix is needed. A suffix would
   also fail upstream's `versionCheckHook`.
+
+## Amended 2026-11-23
+
+The patch now carries two env vars:
+
+- `CODEX_FLOX_PLUGIN_ROOT` names a folder laid out as
+  `<marketplace>/<plugin>/`. Codex loads a plugin with a folder there
+  from that folder, at version `flox`, instead of from
+  `$CODEX_HOME/plugins/cache/`, and never refreshes its cache copy.
+  Plugins are still turned on with `-c plugins.<id>.enabled=true`,
+  where `<id>` is `<plugin>@<marketplace>`. So `agent-stacks launch`
+  can hand codex plugins for one process without writing the cache.
+- `CODEX_FLOX_SKILL_ROOTS` stays until agent-stacks stops setting it.
+
+`CODEX_FLOX_INSTRUCTIONS_FILE` is dropped: nothing set it.
+
+Plugin data stays in `$CODEX_HOME/plugins/data`, and codex's own
+install and uninstall still act only on the cache. A plugin folder may
+be a link, but codex refuses hooks from a plugin that contains one. A
+hook approval carries over between folders when the files are the
+same. Executor capability discovery, off by default, reads only the
+cache.
+
+agent-stacks will tell a patched codex by this variable's name once
+its launch uses it; today it still looks for `CODEX_FLOX_SKILL_ROOTS`.
+
+The plugin root is also asked of codex upstream. If codex adds one,
+the patch drops this part.
+
+The codex build now runs a check that a plugin loads from the root and
+not without it. A patch that compiles but stops loading plugins fails
+Hydra's build instead of being caught by nothing. The other
+consequences above still hold.
 
 ---
 

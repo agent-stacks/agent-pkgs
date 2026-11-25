@@ -338,7 +338,8 @@ their own names, with no prefix, so `claude-code`, `codex` and
 `opencode` are attributes of `agent-pkgs.packages.<system>` directly
 ([ADR 0008](../decisions/0008-re-export-llm-agents-nix.md)). Nothing
 here packages an agent itself. Only `codex` is changed, patched so
-`agent-stacks launch` can pass it skills
+`agent-stacks launch` can pass it skills, and plugins once launch
+uses `CODEX_FLOX_PLUGIN_ROOT`
 ([ADR 0024](../decisions/0024-a-re-exported-package-can-carry-a-patch.md)).
 
 Being packaged is not enough to be a harness, though: a stack's agent
