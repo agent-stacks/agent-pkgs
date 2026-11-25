@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "nvidia-skill-library",
-      "dir": "/nix/store/j3j12gizsmpwkp2rpll0hcqp8bcb13wb-agent-plugin-nvidia-skill-library-0.0.0-unstable.2026-11-24.g23c0762/share/agent-plugins/nvidia-skill-library",
+      "dir": "/nix/store/75805j9v25nlk5cin28wc46xgfibh15i-agent-plugin-nvidia-skill-library-0.0.0-unstable.2026-11-24.ga79ed3d/share/agent-plugins/nvidia-skill-library",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -61,6 +61,7 @@
           "skills/bionemo-proteinmpnn-nim",
           "skills/bionemo-rfd4-proteina-nim",
           "skills/bionemo-rfdiffusion-nim",
+          "skills/cccl",
           "skills/cdf-anomalygen",
           "skills/cdf-augmentation",
           "skills/cdf-auto-labeling",
@@ -82,6 +83,7 @@
           "skills/compileiq-search-space",
           "skills/compileiq-validate-result",
           "skills/compute-sanitizer-diagnose-cuda-bugs",
+          "skills/cuda-python",
           "skills/cudaq-guide",
           "skills/cudaq-importing",
           "skills/cudf-query-engine-builder",
@@ -395,6 +397,7 @@
           "skills/runai-get-cluster-health-summary",
           "skills/runai-get-utilization-overview",
           "skills/runai-get-workload-health-summary",
+          "skills/sdm-tabular-prediction",
           "skills/skill-card-generator",
           "skills/tao-analyze-changenet-rca",
           "skills/tao-analyze-detection-kpi",
@@ -8747,6 +8750,62 @@
           "suppressed": []
         },
         {
+          "path": "skills/cccl",
+          "score": 88,
+          "risk": 12,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/cccl/SKILL.md",
+              "line": 97
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/cccl/SKILL.md",
+              "line": 237
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/cccl/SKILL.md",
+              "line": 238
+            }
+          ],
+          "findings": [
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/cccl/evals/files/cccl-port-2x-to-3x/code/stats.cu",
+              "line": 19
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/cccl/evals/files/cccl-port-2x-to-3x/code/stats.cu",
+              "line": 20
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/cccl/evals/files/cccl-port-2x-to-3x/code/stats.cu",
+              "line": 23
+            },
+            {
+              "id": "P9",
+              "severity": "MEDIUM",
+              "message": "Whitespace Padding",
+              "file": "skills/cccl/evals/files/cccl-port-2x-to-3x/code/stats.cu",
+              "line": 26
+            }
+          ],
+          "suppressed": []
+        },
+        {
           "path": "skills/cdf-anomalygen",
           "score": 63,
           "risk": 37,
@@ -13336,6 +13395,118 @@
               "message": "Sudo/Root Execution",
               "file": "skills/compute-sanitizer-diagnose-cuda-bugs/evals/evals.json",
               "line": 181
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/cuda-python",
+          "score": 89,
+          "risk": 11,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/cuda-python/SKILL.md",
+              "line": 23
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/cuda-python/SKILL.md",
+              "line": 24
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/cuda-python/SKILL.md",
+              "line": 25
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/cuda-python/SKILL.md",
+              "line": 37
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/cuda-python/SKILL.md",
+              "line": 40
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/cuda-python/SKILL.md",
+              "line": 46
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/cuda-python/SKILL.md",
+              "line": 48
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/cuda-python/SKILL.md",
+              "line": 53
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/cuda-python/SKILL.md",
+              "line": 99
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/cuda-python/SKILL.md",
+              "line": 100
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/cuda-python/SKILL.md",
+              "line": 101
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/cuda-python/SKILL.md",
+              "line": 109
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/cuda-python/SKILL.md",
+              "line": 134
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/cuda-python/SKILL.md",
+              "line": 147
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/cuda-python/SKILL.md",
+              "line": 148
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/cuda-python/SKILL.md",
+              "line": 149
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/cuda-python/SKILL.md",
+              "line": 153
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/cuda-python/evals/evals.json",
+              "line": 123
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/cuda-python/evals/evals.json",
+              "line": 166
             }
           ],
           "suppressed": []
@@ -36463,12 +36634,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/kumo-model-explanations/SKILL.md",
-              "line": 46
+              "line": 47
             },
             {
               "reason": "reference_missing",
               "path": "skills/kumo-model-explanations/SKILL.md",
-              "line": 71
+              "line": 58
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/kumo-model-explanations/SKILL.md",
+              "line": 75
             }
           ],
           "findings": [],
@@ -49965,6 +50141,23 @@
               "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
+        },
+        {
+          "path": "skills/sdm-tabular-prediction",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/sdm-tabular-prediction/SKILL.md",
+              "line": 9
+            }
+          ],
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/skill-card-generator",
@@ -69573,7 +69766,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-24T18:57:33Z"
+      "checkedAt": "2026-11-25T03:44:43Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
