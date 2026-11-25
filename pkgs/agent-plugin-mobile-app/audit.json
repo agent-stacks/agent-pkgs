@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "mobile-app",
-      "dir": "/nix/store/1fzzsql2bcc8dm4snb9hy4wki79x2j6r-agent-plugin-mobile-app-0.7.0/share/agent-plugins/mobile-app",
+      "dir": "/nix/store/bzrcbpgqh55xscwdihvfivr9np886xyg-agent-plugin-mobile-app-0.7.1/share/agent-plugins/mobile-app",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -107,7 +107,7 @@
               "severity": "HIGH",
               "message": "Anti-Refusal Statement",
               "file": "agents/architecture-planner.md",
-              "line": 656
+              "line": 657
             },
             {
               "id": "AR2",
@@ -121,7 +121,7 @@
               "severity": "HIGH",
               "message": "Anti-Refusal Statement",
               "file": "agents/native-app-planner.md",
-              "line": 882
+              "line": 883
             },
             {
               "id": "AR2",
@@ -142,14 +142,14 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "agents/architecture-planner.md",
-              "line": 305
+              "line": 306
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "agents/native-app-planner.md",
-              "line": 296
+              "line": 297
             },
             {
               "id": "AS3",
@@ -291,8 +291,8 @@
         },
         {
           "path": "scripts",
-          "score": 1,
-          "risk": 99,
+          "score": 0,
+          "risk": 100,
           "status": "do not install",
           "partial": true,
           "coverage": 27.5,
@@ -607,11 +607,25 @@
               "line": 334
             },
             {
+              "id": "MP3",
+              "severity": "HIGH",
+              "message": "Memory Manipulation",
+              "file": "scripts/app-docs.js",
+              "line": 343
+            },
+            {
+              "id": "MP3",
+              "severity": "HIGH",
+              "message": "Memory Manipulation",
+              "file": "scripts/app-docs.js",
+              "line": 344
+            },
+            {
               "id": "OH1",
               "severity": "HIGH",
               "message": "Unvalidated Output Injection",
               "file": "scripts/app-docs.js",
-              "line": 1570
+              "line": 1576
             },
             {
               "id": "PE3",
@@ -822,7 +836,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "shared/cli-binary.md",
-              "line": 35
+              "line": 39
             },
             {
               "id": "RP1",
@@ -836,7 +850,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "shared/cli-binary.md",
-              "line": 56
+              "line": 60
             },
             {
               "id": "RP1",
@@ -850,7 +864,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "shared/cli-binary.md",
-              "line": 56
+              "line": 60
             },
             {
               "id": "EA2",
@@ -930,6 +944,13 @@
               "line": 240
             },
             {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "shared/references/offline-profile-schema.md",
+              "line": 165
+            },
+            {
               "id": "AE4",
               "severity": "MEDIUM",
               "message": "analysis-evasion",
@@ -956,6 +977,13 @@
               "message": "Session Persistence",
               "file": "shared/shared-instructions.md",
               "line": 458
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "shared/version-check.md",
+              "line": 16
             },
             {
               "id": "RA2",
@@ -2210,10 +2238,15 @@
           "path": "skills/assign-offline-profile",
           "score": 91,
           "risk": 9,
-          "status": "safe",
+          "status": "incomplete",
           "partial": true,
-          "coverage": 100,
+          "coverage": 0,
           "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/assign-offline-profile/SKILL.md",
+              "line": 0
+            },
             {
               "reason": "reference_missing",
               "path": "skills/assign-offline-profile/SKILL.md",
@@ -2247,12 +2280,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/assign-offline-profile/SKILL.md",
-              "line": 214
+              "line": 67
             },
             {
               "reason": "reference_missing",
               "path": "skills/assign-offline-profile/SKILL.md",
-              "line": 243
+              "line": 218
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/assign-offline-profile/SKILL.md",
+              "line": 247
             }
           ],
           "findings": [
@@ -2595,7 +2633,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/create-mobile-app/references/screens-first.md",
-              "line": 513
+              "line": 518
             }
           ],
           "suppressed": [
@@ -3111,9 +3149,9 @@
         },
         {
           "path": "skills/deploy",
-          "score": 48,
-          "risk": 52,
-          "status": "do not install",
+          "score": 69,
+          "risk": 31,
+          "status": "caution",
           "partial": true,
           "coverage": 0,
           "exceptions": [
@@ -3150,27 +3188,37 @@
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 100
+              "line": 98
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 106
+              "line": 107
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 110
+              "line": 108
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 127
+              "line": 109
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 134
+              "line": 118
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/deploy/SKILL.md",
+              "line": 133
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/deploy/SKILL.md",
+              "line": 137
             },
             {
               "reason": "reference_missing",
@@ -3180,112 +3228,72 @@
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 149
+              "line": 147
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 150
+              "line": 164
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 153
+              "line": 193
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 156
+              "line": 194
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 157
+              "line": 226
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 159
+              "line": 227
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 172
+              "line": 237
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 189
+              "line": 253
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 196
+              "line": 254
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 198
+              "line": 255
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 199
+              "line": 256
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 203
+              "line": 257
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 213
+              "line": 264
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 218
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/deploy/SKILL.md",
-              "line": 219
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/deploy/SKILL.md",
-              "line": 223
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/deploy/SKILL.md",
-              "line": 232
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/deploy/SKILL.md",
-              "line": 236
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/deploy/SKILL.md",
-              "line": 243
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/deploy/SKILL.md",
-              "line": 250
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/deploy/SKILL.md",
-              "line": 278
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/deploy/SKILL.md",
-              "line": 283
+              "line": 286
             },
             {
               "reason": "reference_missing",
@@ -3295,17 +3303,22 @@
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 290
+              "line": 291
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 302
+              "line": 296
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 313
+              "line": 305
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/deploy/SKILL.md",
+              "line": 309
             },
             {
               "reason": "reference_missing",
@@ -3315,17 +3328,27 @@
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 327
+              "line": 323
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 331
+              "line": 353
             },
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 377
+              "line": 359
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/deploy/SKILL.md",
+              "line": 363
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/deploy/SKILL.md",
+              "line": 366
             },
             {
               "reason": "reference_missing",
@@ -3335,17 +3358,40 @@
             {
               "reason": "reference_missing",
               "path": "skills/deploy/SKILL.md",
-              "line": 379
+              "line": 391
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/deploy/SKILL.md",
+              "line": 394
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/deploy/SKILL.md",
+              "line": 405
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/deploy/SKILL.md",
+              "line": 409
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/deploy/SKILL.md",
+              "line": 455
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/deploy/SKILL.md",
+              "line": 456
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/deploy/SKILL.md",
+              "line": 457
             }
           ],
           "findings": [
-            {
-              "id": "TM1",
-              "severity": "HIGH",
-              "message": "Tool Parameter Abuse",
-              "file": "skills/deploy/SKILL.md",
-              "line": 149
-            },
             {
               "id": "EA5",
               "severity": "MEDIUM",
@@ -3358,28 +3404,28 @@
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
               "file": "skills/deploy/SKILL.md",
-              "line": 265
+              "line": 338
             },
             {
               "id": "AS3",
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
               "file": "skills/deploy/SKILL.md",
-              "line": 265
+              "line": 338
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/deploy/SKILL.md",
-              "line": 327
+              "line": 405
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/deploy/SKILL.md",
-              "line": 327
+              "line": 405
             }
           ],
           "suppressed": []
@@ -3909,32 +3955,27 @@
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 737
+              "line": 738
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 762
+              "line": 763
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 777
+              "line": 778
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 779
+              "line": 780
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 790
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/edit-app/SKILL.md",
-              "line": 793
+              "line": 791
             },
             {
               "reason": "reference_missing",
@@ -3944,32 +3985,32 @@
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 797
+              "line": 795
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 799
+              "line": 798
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 805
+              "line": 800
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 808
+              "line": 806
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 837
+              "line": 809
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 857
+              "line": 838
             },
             {
               "reason": "reference_missing",
@@ -3979,92 +4020,92 @@
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 869
+              "line": 859
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 871
+              "line": 870
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 939
+              "line": 872
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 964
+              "line": 940
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1010
+              "line": 965
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1020
+              "line": 1011
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1024
+              "line": 1021
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1028
+              "line": 1025
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1044
+              "line": 1029
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1050
+              "line": 1045
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1085
+              "line": 1051
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1114
+              "line": 1086
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1118
+              "line": 1115
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1144
+              "line": 1119
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1152
+              "line": 1145
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1168
+              "line": 1153
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1177
+              "line": 1169
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1186
+              "line": 1178
             },
             {
               "reason": "reference_missing",
@@ -4074,27 +4115,32 @@
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1204
+              "line": 1188
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1212
+              "line": 1205
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1222
+              "line": 1213
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1252
+              "line": 1223
             },
             {
               "reason": "reference_missing",
               "path": "skills/edit-app/SKILL.md",
-              "line": 1255
+              "line": 1253
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/edit-app/SKILL.md",
+              "line": 1256
             }
           ],
           "findings": [
@@ -4124,14 +4170,14 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/edit-app/SKILL.md",
-              "line": 945
+              "line": 946
             },
             {
               "id": "EA3",
               "severity": "LOW",
               "message": "Scope Creep",
               "file": "skills/edit-app/SKILL.md",
-              "line": 922
+              "line": 923
             }
           ],
           "suppressed": []
@@ -5114,47 +5160,27 @@
             {
               "reason": "reference_missing",
               "path": "skills/setup-offline-profile/SKILL.md",
-              "line": 674
+              "line": 683
             },
             {
               "reason": "reference_missing",
               "path": "skills/setup-offline-profile/SKILL.md",
-              "line": 679
+              "line": 690
             },
             {
               "reason": "reference_missing",
               "path": "skills/setup-offline-profile/SKILL.md",
-              "line": 680
+              "line": 695
             },
             {
               "reason": "reference_missing",
               "path": "skills/setup-offline-profile/SKILL.md",
-              "line": 682
+              "line": 717
             },
             {
               "reason": "reference_missing",
               "path": "skills/setup-offline-profile/SKILL.md",
-              "line": 711
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/setup-offline-profile/SKILL.md",
-              "line": 719
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/setup-offline-profile/SKILL.md",
-              "line": 720
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/setup-offline-profile/SKILL.md",
-              "line": 722
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/setup-offline-profile/SKILL.md",
-              "line": 724
+              "line": 725
             },
             {
               "reason": "reference_missing",
@@ -5169,22 +5195,32 @@
             {
               "reason": "reference_missing",
               "path": "skills/setup-offline-profile/SKILL.md",
-              "line": 743
+              "line": 734
             },
             {
               "reason": "reference_missing",
               "path": "skills/setup-offline-profile/SKILL.md",
-              "line": 764
+              "line": 736
             },
             {
               "reason": "reference_missing",
               "path": "skills/setup-offline-profile/SKILL.md",
-              "line": 809
+              "line": 751
             },
             {
               "reason": "reference_missing",
               "path": "skills/setup-offline-profile/SKILL.md",
-              "line": 819
+              "line": 772
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/setup-offline-profile/SKILL.md",
+              "line": 818
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/setup-offline-profile/SKILL.md",
+              "line": 828
             }
           ],
           "findings": [
@@ -5255,7 +5291,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-20T18:46:27Z"
+      "checkedAt": "2026-11-25T14:42:04Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
