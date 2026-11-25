@@ -138,22 +138,45 @@ does the same. Any other root file is not read.
 `manifest.extensions["com.openai"]` is the importer's record of a
 Codex manifest. It is present for a plugin Claude Code installs (as
 `pluginRootPaths` below defines it) whose directory also has
-`.codex-plugin/plugin.json`, and never otherwise: without such a
-manifest the importer drops a block an upstream manifest carries,
+`.codex-plugin/plugin.json`, and for a plugin written only for Codex:
+a directory with `.codex-plugin/plugin.json` and no Claude manifest,
+or an entry of the repository's `.agents/plugins/marketplace.json`,
+read from the entry's own fields when its directory has no Codex
+manifest. It is never present otherwise: without such a manifest
+the importer drops a block an upstream manifest carries,
 and with one it replaces it, warning in both cases unless the
 block it replaces is empty. The builder copies the block into
-`plugin.json` and reads none of it. It keeps Codex's field names and
-shapes. Each path the importer rewrites starts with `./`, and one
-under `./com.openai/` names a file the package ships, which the
+`plugin.json` and reads none of it.
+It keeps Codex's field names and shapes. Each path the importer
+rewrites starts with `./`, and one under `./com.openai/` names a
+file the package ships, which the
 importer checks when it writes the block; an extension key it does
 not know is copied as written. What each field means,
 which ones are left out, and how `mcpServerFields` maps a server
 name to its Codex fields, is in agent-stacks-cli's
 `docs/reference/import-command.md`, "Codex manifests", under
 agent-stacks ADR 0043 (*Import records a Codex manifest beside
-a Claude one*, proposed). That number is in the series agent-stacks
-restarted on 2026-11-17; the page's other agent-stacks citations
-predate it.
+a Claude one*, proposed) and ADR 0045 (*Import finds plugins written
+only for Codex*, proposed). Those numbers are in the series
+agent-stacks restarted on 2026-11-17; the page's other agent-stacks
+citations predate it.
+
+A plugin written only for Codex is a package of its own, named by its
+Codex manifest or listing entry. A folder both of a repository's
+listings name is one package, under the name the Claude listing
+gives it. Claude Code does not install a Codex-only plugin, so it
+carries no Claude hooks or components: its `hooks`, `commands`,
+`apps` and `interface` files reach Codex alone, through the block
+and `com.openai/`.
+
+A replay never renames a package published as the repository,
+`<owner>-<repo>`, when the upstream gains Codex forms. A Codex plugin
+at the repository root is imported under that name, its manifest's
+name kept in the block. With none at the root, the repository is
+packaged whole under it again, beside the Codex plugins as new
+packages, so `google-labs-code-stitch-skills` keeps its skills and
+`stitch-build`, `stitch-design` and `stitch-utilities` join it. A
+fresh import takes the manifest's name.
 
 `hooks` is present when the plugin has Claude Code hooks: the event
 map Claude reads, merged by the importer from `hooks/hooks.json` and
@@ -186,9 +209,9 @@ element each), and `warnings` (the `{ path, message }` entries
 found itself: scripts with no shebang, dependency manifests the build
 does not resolve, plugin-root references that are missing or withheld,
 Claude components that are not packaged, and, for a Codex manifest,
-each handler its hooks run, the Codex fields kept for each server and
-each Codex path that ships nothing). `warnings` is omitted when
-empty.
+each handler its hooks run, the Codex fields kept for each server,
+each Codex path that ships nothing, and a published name a replay
+kept). `warnings` is omitted when empty.
 
 `input` and `flags` are replayed by `agent-stacks import <input>
 --replay --pkgs-dir pkgs`: the importer finds every package under `pkgs/`
@@ -207,9 +230,9 @@ plugin tree to its path inside `src`. It holds four kinds of entry:
   `${CLAUDE_PLUGIN_ROOT}`), such as a launcher kept beside `skills/`
   ([ADR 0016](../decisions/0016-plugin-root-code-ships-when-skills-reference-it.md));
 - what the plugin's MCP servers reference (agent-stacks ADR 0035);
-- for a plugin Claude Code installs, meaning a marketplace listing
-  names it or its directory has `.claude-plugin/plugin.json`, its
-  Claude components in the namespace (`agents/`, `commands/`,
+- for a plugin Claude Code installs, meaning a Claude marketplace
+  listing names it or its directory has `.claude-plugin/plugin.json`,
+  its Claude components in the namespace (`agents/`, `commands/`,
   `hooks/`, `output-styles/`, `workflows/`, `themes/` and the file
   `settings.json`), its `bin/` at the root, and what their own files
   reference (agent-stacks ADR 0037, 0052 and 0064, proposed);
@@ -217,12 +240,15 @@ plugin tree to its path inside `src`. It holds four kinds of entry:
   what they run (agent-stacks ADR 0051). Paths the manifest's
   component fields name ship the same way, and the fields travel in
   `manifest.extensions` (agent-stacks ADR 0065);
-- for a plugin with a Codex manifest beside its Claude one, the
-  plugin-root entries holding the files that manifest names, under
-  `com.openai/` at their own names, and what those files, or the
-  servers and hooks the manifest writes inline, reference that the
-  plugin root does not ship (agent-stacks ADR 0043, *Import records
-  a Codex manifest beside a Claude one*). Launch,
+- for a plugin with a Codex manifest, beside a Claude one or alone,
+  or a Codex listing entry, the plugin-root entries holding the files
+  that manifest names, under `com.openai/` at their own names, and
+  what those files, or the servers and hooks the manifest writes
+  inline, reference that the plugin root does not ship (agent-stacks
+  ADR 0043, *Import records a Codex manifest beside a Claude one*,
+  and ADR 0045). For a plugin written only for Codex these include
+  `hooks/` and `commands/` when present, which Codex reads by
+  default. Launch,
   from the agent-stacks release carrying that record, never stages
   `com.openai/` for Claude, so a hooks file there reaches Codex
   alone. A Codex launch is to stage each entry at its plugin's root,
