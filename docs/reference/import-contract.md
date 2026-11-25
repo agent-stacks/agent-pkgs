@@ -140,11 +140,13 @@ Codex manifest. It is present for a plugin Claude Code installs (as
 `pluginRootPaths` below defines it) whose directory also has
 `.codex-plugin/plugin.json`, and never otherwise: without such a
 manifest the importer drops a block an upstream manifest carries,
-and with one it replaces it, warning either way. The builder copies
-the block into `plugin.json` and reads none of it. It keeps Codex's
-field names and shapes. Each path it records starts with `./`, and
-one under `./com.openai/` names a file the package ships, which the
-importer checks when it writes the block. What each field means,
+and with one it replaces it, warning in both cases unless the
+block it replaces is empty. The builder copies the block into
+`plugin.json` and reads none of it. It keeps Codex's field names and
+shapes. Each path the importer rewrites starts with `./`, and one
+under `./com.openai/` names a file the package ships, which the
+importer checks when it writes the block; an extension key it does
+not know is copied as written. What each field means,
 which ones are left out, and how `mcpServerFields` maps a server
 name to its Codex fields, is in agent-stacks-cli's
 `docs/reference/import-command.md`, "Codex manifests", under
@@ -217,8 +219,10 @@ plugin tree to its path inside `src`. It holds four kinds of entry:
   `manifest.extensions` (agent-stacks ADR 0065);
 - for a plugin with a Codex manifest beside its Claude one, the
   plugin-root entries holding the files that manifest names, under
-  `com.openai/` at their own names, and what those files reference
-  that the plugin root does not ship (agent-stacks ADR 0043). Launch,
+  `com.openai/` at their own names, and what those files, or the
+  servers and hooks the manifest writes inline, reference that the
+  plugin root does not ship (agent-stacks ADR 0043, *Import records
+  a Codex manifest beside a Claude one*). Launch,
   from the agent-stacks release carrying that record, never stages
   `com.openai/` for Claude, so a hooks file there reaches Codex
   alone. A Codex launch is to stage each entry at its plugin's root,
@@ -235,19 +239,23 @@ hook that runs a plugin file with a bare interpreter is pointed at
 the package's `bin/`; one no package the build searches ships is
 left for `PATH` and reported. The hooks and servers files under
 `com.openai/` ship as written: no command in them is pointed at
-`bin/` or reported, and they add nothing to `requiredRuntimes`.
+`bin/` or reported, and they add nothing to `requiredRuntimes`, so a
+bare interpreter in them is the one on `PATH` when Codex runs it.
 
 Destinations are one path segment, never `skills`, or two inside a
 client-extension namespace, `com.anthropic.claude-code/` or
 `com.openai/`. Inside `com.openai/`, `.mcp.json` and `mcp.json` may
-ship, and so may a link to either, since they clash with nothing
-there. A login file or a pruned name may not, nor `skills`, `bin`,
+ship when the Codex manifest names them, and so may a link to
+either, since they clash with nothing there. A login file or a
+pruned name may not, nor `skills`, `bin`,
 `plugin.json`, `.codex-plugin`, `.claude-plugin` or either namespace:
 a Codex launch staging the namespace at its root would set them over
 what it writes or takes from the package. A `com.openai/` destination
 is allowed from the agent-stacks release carrying agent-stacks
-ADR 0043; a binary pinned before it refuses the entry, and a package
-whose block names no file in `com.openai/` builds with any binary.
+ADR 0043 (*Import records a Codex manifest beside a Claude one*);
+a binary pinned before it refuses the entry, and a package whose
+`pluginRootPaths` has no `com.openai/` destination builds with any
+binary.
 `bin` is allowed from the agent-stacks release carrying its ADR 0052;
 the binary pinned before it refuses the entry. An upstream `bin/`
 ships beside the interpreter links, and an entry in it with a linked
