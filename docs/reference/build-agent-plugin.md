@@ -7,9 +7,9 @@ packages is defined by the
 every argument.
 
 `lib/build-agent-plugin.nix` is written by `agent-stacks import`,
-whole, from `internal/importer/nixlib/` in agent-stacks-cli; change it
-there. The file takes the binary package as `agent-stacks`, which
-`flake.nix` passes from this set.
+whole, from `crates/agent-stacks/src/importer/nixlib/` in
+agent-stacks-cli; change it there. The file takes the binary package
+as `agent-stacks`, which `flake.nix` passes from this set.
 
 ## Arguments
 
@@ -22,7 +22,7 @@ there. The file takes the binary package as `agent-stacks`, which
 | `import` | `null` | The import that produced this package, when it was generated: `{ input, flags, warnings }`. Nothing in the build reads it; it exists so a generated `default.json` can be passed whole, and it reaches `passthru` so a reader can see what produced the package. |
 | `manifest` | `null` | Attrset serialized to `plugin.json`, replacing a passed-through tree's own. Without it an assembled package takes a root `plugin.json` only when it declares an `agent-plugins.org` `$schema`, else fails (ADR 0009). |
 | `skills` | `null` | Skill name → path in src. When null, the builder falls back to `skills-lock.json`, then to a passthrough tree. |
-| `pluginRootPaths` | `null` | Plugin-root entries to ship beside `skills/`, destination → path in src: what the skills and MCP servers reference, and a Claude plugin's `agents/`, `commands/` and `hooks/` (whose `hooks.json` then comes from `hooks`). Copied before the runtime pass, pruned like a skill. See the [import contract](import-contract.md). |
+| `pluginRootPaths` | `null` | Plugin-root entries to ship beside `skills/`, destination → path in src: what the skills and MCP servers reference, a Claude plugin's `agents/`, `commands/` and `hooks/` (whose `hooks.json` then comes from `hooks`), and, under `com.openai/`, what a Codex manifest beside the Claude one names (agent-stacks ADR 0043, *Import records a Codex manifest beside a Claude one*). Copied before the runtime pass, pruned like a skill. See the [import contract](import-contract.md). |
 | `ignoredPaths` | `null` | Skill name → paths `--path-ignore` kept out of it, which `assemble-plugin` leaves out. The build fails if one is still in the tree, which means an older agent-stacks (agent-stacks ADR 0067). See the [import contract](import-contract.md). |
 | `hooks` | `null` | Claude Code's hooks, an event map, written under a `hooks` key as `com.anthropic.claude-code/hooks/hooks.json`, or as `hooks/hooks.json` when `pluginRootPaths` ships `hooks/` at the root. An agent-stacks older than the key ignores it and the build fails. Not the `hooks` a generated `default.nix` binds for `overrideAttrs` (agent-stacks ADR 0051). |
 | `mcpServers` | `null` | Attrset serialized to `mcp.json` at the `manifest`'s spec version (1.0.0 without one). Without it, a passed-through tree keeps its own `mcp.json`, rewritten to the manifest's version when `manifest` replaced its `plugin.json`; an assembled package takes a root `mcp.json` only when it declares an `agent-plugins.org` `$schema`, and reports one it skips. |

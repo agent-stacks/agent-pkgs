@@ -19,7 +19,8 @@ that audited.
 
 A component is a skill, or, with a CLI that carries
 agent-stacks-cli #212, anything else the plugin carries: an entry of
-`com.anthropic.claude-code/` (hooks, agents, commands, workflows),
+`com.anthropic.claude-code/` (hooks, agents, commands, workflows)
+or of `com.openai/` (what a Codex manifest names),
 `scripts/`, upstream's own files in `bin/`. With such a CLI the score
 also leaves out what [the baseline](#the-baseline) lists: each
 component's `suppressed` holds those findings, with the baseline's
