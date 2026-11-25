@@ -14,6 +14,38 @@
       "name": "Amazon Web Services"
     },
     "description": "AWS Startup Advisor puts an AWS Startups Solutions Architect in your coding assistant. It recommends the smallest architecture that fits your stage, credits, and team, then can scaffold it, migrate you from Azure, Google Cloud, Heroku, or Render, move your model calls to Amazon Bedrock, and investigate production incidents. It also answers your AWS Activate credits eligibility questions and finds startup offers you can use.",
+    "extensions": {
+      "com.openai": {
+        "hooks": {},
+        "interface": {
+          "brandColor": "#FF9900",
+          "capabilities": [
+            "Read",
+            "Write"
+          ],
+          "category": "Cloud",
+          "defaultPrompt": [
+            "Help me build an MVP on AWS",
+            "Find AWS Startups articles on cost optimization",
+            "Migrate my GCP infrastructure to AWS",
+            "Migrate my Heroku app to AWS",
+            "Migrate my Azure app to AWS",
+            "Migrate my Render services to AWS",
+            "Migrate my OpenAI app to Amazon Bedrock",
+            "Which runtime should I use for my AI agent on AWS?"
+          ],
+          "developerName": "Amazon Web Services",
+          "displayName": "AWS Startup Advisor",
+          "longDescription": "AWS Startup Advisor puts an AWS Startups Solutions Architect in your coding assistant. It recommends the smallest architecture that fits your stage, credits, and team, then can scaffold it, migrate you from Azure, Google Cloud, Heroku, or Render, move your model calls to Amazon Bedrock, and investigate production incidents. It also answers your AWS Activate credits eligibility questions and finds startup offers you can use.\n\nAsk it things like:\nWe're pre-seed with two engineers. What should our AWS architecture look like?\nMigrate us off Google Cloud and tell me what it costs.\nWhich runtime should this agent use?\nOur API started returning 502s after the last deploy.",
+          "privacyPolicyURL": "https://aws.amazon.com/privacy/",
+          "shortDescription": "Puts an AWS Startups Solutions Architect in your coding assistant.",
+          "termsOfServiceURL": "https://aws.amazon.com/service-terms/",
+          "websiteURL": "https://github.com/aws/agent-toolkit-for-aws"
+        },
+        "mcpServers": "./com.openai/.mcp.json",
+        "skills": "./skills/"
+      }
+    },
     "homepage": "https://aws.amazon.com/products/developer-tools/agent-toolkit-for-aws/",
     "keywords": [
       "aws",
@@ -148,6 +180,7 @@
     "com.anthropic.claude-code/agents": "plugins/aws-startup-advisor/agents",
     "com.anthropic.claude-code/commands": "plugins/aws-startup-advisor/commands",
     "com.anthropic.claude-code/hooks": "plugins/aws-startup-advisor/com.anthropic.claude-code/hooks",
+    "com.openai/.mcp.json": "plugins/aws-startup-advisor/.mcp.json",
     "scripts": "plugins/aws-startup-advisor/scripts"
   },
   "mcpServers": {
@@ -248,6 +281,10 @@
         "message": "133 SKILL.md outside every imported plugin, not imported"
       },
       {
+        "path": "plugins/aws-startup-advisor/.codex-plugin/plugin.json",
+        "message": "hooks: ./com.openai/com.anthropic.claude-code/hooks/hooks.json is not in the package (see its warning), so Codex gets nothing from it"
+      },
+      {
         "path": "plugins/aws-startup-advisor/com.anthropic.claude-code/hooks/hooks.json",
         "message": "Claude Code runs this on PostToolUse: sh -c 'python3 \"$0\" 2>/dev/null || python \"$0\" 2>/dev/null || py -3 \"$0\" 2>/dev/null || true' \"${CLAUDE_PLUGIN_ROOT}/scripts/telemetry/metric_emission/skill_invoked.py\""
       },
@@ -274,6 +311,10 @@
       {
         "path": "skills/agent-advisor/...",
         "message": "this is named through ${PLUGIN_ROOT}, or sits at a plugin root a server runs from, and is not in the source; it resolves to nothing wherever the plugin is installed"
+      },
+      {
+        "path": "com.openai/com.anthropic.claude-code",
+        "message": "com.anthropic.claude-code is a manifest location a Codex launch fills itself, which a copy in com.openai/ would stand over; not carried"
       },
       {
         "path": "scripts/telemetry/test/conftest.py",

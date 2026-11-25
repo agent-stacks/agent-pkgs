@@ -18,6 +18,30 @@
     "extensions": {
       "com.anthropic.claude-code": {
         "types": "./hooks/band/types.d.ts"
+      },
+      "com.openai": {
+        "hooks": "./com.openai/hooks/claude-codex-hooks.json",
+        "interface": {
+          "brandColor": "#111111",
+          "capabilities": [
+            "Instructions",
+            "Lifecycle hooks"
+          ],
+          "category": "Productivity",
+          "composerIcon": "./com.openai/assets/codex-icon.png",
+          "defaultPrompt": [
+            "Use Ponytail mode for this task.",
+            "Review this diff for over-engineering.",
+            "Find the smallest correct implementation."
+          ],
+          "developerName": "Dietrich Gebert",
+          "displayName": "Ponytail",
+          "logo": "./com.openai/assets/logo.png",
+          "longDescription": "Prefer YAGNI, the standard library, native platform features, and the smallest correct implementation.",
+          "shortDescription": "Lazy senior developer mode",
+          "websiteURL": "https://github.com/DietrichGebert/ponytail"
+        },
+        "skills": "./skills/"
       }
     },
     "name": "ponytail",
@@ -41,7 +65,9 @@
     "nodejs"
   ],
   "pluginRootPaths": {
-    "com.anthropic.claude-code/hooks": "hooks"
+    "com.anthropic.claude-code/hooks": "hooks",
+    "com.openai/assets": "assets",
+    "com.openai/hooks": "hooks"
   },
   "hooks": {
     "SessionStart": [
@@ -135,6 +161,22 @@
       {
         "path": "hooks/claude-codex-hooks.json",
         "message": "Claude Code runs this on UserPromptSubmit: node -e \"require(require('path').join(process.env.CLAUDE_PLUGIN_ROOT.split(String.fromCharCode(92)).join('/'), 'hooks/ponytail-mode-tracker.js'))\""
+      },
+      {
+        "path": "hooks/claude-codex-hooks.json",
+        "message": "Codex runs this on SessionStart: node -e \"require(require('path').join(process.env.CLAUDE_PLUGIN_ROOT.split(String.fromCharCode(92)).join('/'), 'hooks/ponytail-activate.js'))\""
+      },
+      {
+        "path": "hooks/claude-codex-hooks.json",
+        "message": "Codex runs this on SubagentStart: node -e \"require(require('path').join(process.env.CLAUDE_PLUGIN_ROOT.split(String.fromCharCode(92)).join('/'), 'hooks/ponytail-subagent.js'))\""
+      },
+      {
+        "path": "hooks/claude-codex-hooks.json",
+        "message": "Codex runs this on UserPromptSubmit: node -e \"require(require('path').join(process.env.CLAUDE_PLUGIN_ROOT.split(String.fromCharCode(92)).join('/'), 'hooks/ponytail-mode-tracker.js'))\""
+      },
+      {
+        "path": "assets/band/board.png",
+        "message": "larger than 1MiB, so it was not read; a ${PLUGIN_ROOT} reference inside it ships nothing, and a script only it runs is not reported"
       },
       {
         "path": "package.json",

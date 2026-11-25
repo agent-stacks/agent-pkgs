@@ -15,6 +15,34 @@
       "url": "https://developers.google.com/health"
     },
     "description": "Search and retrieve official Google Health API documentation on developers.google.com/health through the Google Health Developer MCP server.",
+    "extensions": {
+      "com.openai": {
+        "interface": {
+          "capabilities": [
+            "Google Health REST & gRPC APIs",
+            "OAuth 2.0 scopes & consent flows",
+            "Wearables & fitness data schemas",
+            "Fitbit Web API migration docs"
+          ],
+          "category": "Developer Tools",
+          "defaultPrompt": [
+            "Which OAuth scopes does the Google Health API use, and which data types map to each scope?",
+            "Show me how to fetch daily sleep stages and heart rate metrics using the Google Health REST API",
+            "How do I set up webhook subscriptions in the Google Health API to receive updates when new sleep or workout data arrives?"
+          ],
+          "developerName": "Google LLC",
+          "displayName": "Google Health Developer",
+          "longDescription": "Search and retrieve official Google Health API documentation on developers.google.com/health through the Google Health Developer MCP server.",
+          "privacyPolicyURL": "https://policies.google.com/privacy",
+          "shortDescription": "Google Health API MCP",
+          "supportURL": "https://developers.google.com/health/support",
+          "termsOfServiceURL": "https://policies.google.com/terms",
+          "websiteURL": "https://developers.google.com/health"
+        },
+        "mcpServers": "./com.openai/.mcp.json",
+        "skills": "./skills/"
+      }
+    },
     "homepage": "https://github.com/google/skills/tree/main/plugins/health/google-health-developer",
     "keywords": [
       "google-health",
@@ -39,6 +67,9 @@
     "python3",
     "nodejs"
   ],
+  "pluginRootPaths": {
+    "com.openai/.mcp.json": "plugins/health/google-health-developer/.mcp.json"
+  },
   "mcpServers": {
     "HealthDevelopers": {
       "type": "streamable-http",
@@ -58,6 +89,10 @@
       {
         "path": "skills",
         "message": "219 SKILL.md outside every imported plugin, not imported"
+      },
+      {
+        "path": "plugins/health/google-health-developer/.codex-plugin/plugin.json",
+        "message": "mcpServers: the Codex manifest names none, so Codex reads .mcp.json alone, not what the Claude manifest adds; recorded so"
       }
     ]
   }

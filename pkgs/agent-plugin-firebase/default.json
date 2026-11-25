@@ -15,6 +15,35 @@
       "url": "https://firebase.google.com/"
     },
     "description": "Official Claude plugin for Firebase. Manage projects, add backend services, develop AI features, deploy & host apps, and more",
+    "extensions": {
+      "com.openai": {
+        "interface": {
+          "brandColor": "#FF9100",
+          "capabilities": [
+            "Skills",
+            "MCP"
+          ],
+          "category": "Developer Tools",
+          "composerIcon": "./com.openai/assets/firebase_logo.svg",
+          "defaultPrompt": [
+            "Set up Firebase in this app.",
+            "Audit my Firestore security rules.",
+            "Deploy this app with Firebase Hosting."
+          ],
+          "developerName": "Firebase",
+          "displayName": "Firebase",
+          "logo": "./com.openai/assets/firebase_logo.svg",
+          "longDescription": "Use official Firebase skills and the Firebase MCP server to set up projects, configure backend services, query Firestore, manage authentication, deploy hosting, work with AI Logic, and audit security rules from Codex.",
+          "privacyPolicyURL": "https://policies.google.com/privacy",
+          "shortDescription": "Build and deploy apps faster",
+          "supportURL": "https://firebase.google.com/support",
+          "termsOfServiceURL": "https://policies.google.com/terms",
+          "websiteURL": "https://firebase.google.com"
+        },
+        "mcpServers": "./com.openai/.mcp.json",
+        "skills": "./skills/"
+      }
+    },
     "homepage": "https://github.com/firebase/firebase-tools",
     "keywords": [
       "firebase",
@@ -56,7 +85,9 @@
     "nodejs"
   ],
   "pluginRootPaths": {
-    "com.anthropic.claude-code/agents": "agents"
+    "com.anthropic.claude-code/agents": "agents",
+    "com.openai/.mcp.json": ".mcp.json",
+    "com.openai/assets": "assets"
   },
   "mcpServers": {
     "firebase": {

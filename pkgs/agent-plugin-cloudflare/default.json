@@ -16,6 +16,35 @@
       "url": "https://www.cloudflare.com/products/workers/"
     },
     "description": "Build, test, and deploy applications on Cloudflare with platform guidance Skills and the Cloudflare MCP server.",
+    "extensions": {
+      "com.openai": {
+        "interface": {
+          "brandColor": "#F6821F",
+          "capabilities": [
+            "Interactive",
+            "Write"
+          ],
+          "category": "Developer Tools",
+          "composerIcon": "./com.openai/logo.svg",
+          "defaultPrompt": [
+            "Build a Cloudflare Worker or agent with the right SDK and Wrangler setup",
+            "Review this Cloudflare project for production Workers best practices",
+            "Use Cloudflare skills and MCP to inspect or deploy this project"
+          ],
+          "developerName": "Cloudflare",
+          "displayName": "Cloudflare",
+          "logo": "./com.openai/logo.svg",
+          "longDescription": "Build, review, and operate on Cloudflare with guidance for Workers, Durable Objects, Agents SDK, Cloudflare One, Wrangler, web performance, Turnstile, and more, plus the Cloudflare Code Mode MCP server for live account, API, and documentation workflows.",
+          "privacyPolicyURL": "https://www.cloudflare.com/privacypolicy/",
+          "screenshots": [],
+          "shortDescription": "Cloudflare platform and MCP",
+          "termsOfServiceURL": "https://www.cloudflare.com/website-terms/",
+          "websiteURL": "https://developers.cloudflare.com/"
+        },
+        "mcpServers": "./com.openai/.mcp.json",
+        "skills": "./skills/"
+      }
+    },
     "homepage": "https://developers.cloudflare.com/",
     "keywords": [
       "cloudflare",
@@ -68,6 +97,10 @@
     "python3",
     "nodejs"
   ],
+  "pluginRootPaths": {
+    "com.openai/.mcp.json": ".mcp.json",
+    "com.openai/logo.svg": "logo.svg"
+  },
   "mcpServers": {
     "cloudflare": {
       "type": "streamable-http",

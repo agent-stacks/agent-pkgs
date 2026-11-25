@@ -14,6 +14,33 @@
       "name": "Amazon Web Services"
     },
     "description": "Build, deploy, and operate applications on AWS. Skills to author infrastructure-as-code (CDK, CloudFormation), use core services (Lambda, API Gateway, Step Functions, ECS/Fargate, ECR, IAM, Amazon Bedrock with Knowledge Bases and Guardrails, AWS Blocks), select and operate databases across relational, key-value, document, wide-column, graph, time-series, and in-memory engines, and complete common tasks across observability, messaging and streaming, AWS SDKs, cost optimization, and Well-Architected Framework reviews across all six pillars.",
+    "extensions": {
+      "com.openai": {
+        "hooks": {},
+        "interface": {
+          "brandColor": "#FF9900",
+          "capabilities": [
+            "Read",
+            "Write"
+          ],
+          "category": "Cloud",
+          "defaultPrompt": [
+            "Scaffold a CDK stack for this app.",
+            "Add IAM least-privilege policies for these resources.",
+            "Wire up CloudWatch logs and alarms for this service."
+          ],
+          "developerName": "Amazon Web Services",
+          "displayName": "AWS Core",
+          "longDescription": "Build, deploy, and operate applications on AWS. Skills to author infrastructure-as-code (CDK, CloudFormation), use core services (Lambda, API Gateway, Step Functions, ECS/Fargate, ECR, IAM, Amazon Bedrock with Knowledge Bases and Guardrails, AWS Blocks), and complete common tasks across observability (CloudWatch, X-Ray, CloudTrail, ADOT), messaging and streaming (SQS, SNS, EventBridge, Kinesis, MSK), AWS SDKs (boto3, JS v3, Swift), and cost optimization, including OpenSearch Serverless vector stores for Knowledge Bases.",
+          "privacyPolicyURL": "https://aws.amazon.com/privacy/",
+          "shortDescription": "AWS agent plugin with skills and MCP servers",
+          "termsOfServiceURL": "https://aws.amazon.com/service-terms/",
+          "websiteURL": "https://github.com/aws/agent-toolkit-for-aws"
+        },
+        "mcpServers": "./com.openai/.mcp.json",
+        "skills": "./skills/"
+      }
+    },
     "homepage": "https://aws.amazon.com/products/developer-tools/agent-toolkit-for-aws/",
     "keywords": [
       "aws",
@@ -117,7 +144,8 @@
     "nodejs"
   ],
   "pluginRootPaths": {
-    "com.anthropic.claude-code/hooks": "plugins/aws-core/com.anthropic.claude-code/hooks"
+    "com.anthropic.claude-code/hooks": "plugins/aws-core/com.anthropic.claude-code/hooks",
+    "com.openai/.mcp.json": "plugins/aws-core/.mcp.json"
   },
   "mcpServers": {
     "aws-mcp": {
@@ -176,12 +204,20 @@
         "message": "133 SKILL.md outside every imported plugin, not imported"
       },
       {
+        "path": "plugins/aws-core/.codex-plugin/plugin.json",
+        "message": "hooks: ./com.openai/com.anthropic.claude-code/hooks/hooks.json is not in the package (see its warning), so Codex gets nothing from it"
+      },
+      {
         "path": "plugins/aws-core/com.anthropic.claude-code/hooks/hooks.json",
         "message": "Claude Code runs this on PreToolUse: sh -c 'python3 \"${CLAUDE_PLUGIN_ROOT}/com.anthropic.claude-code/hooks/secret-safety.py\" 2>/dev/null || python \"${CLAUDE_PLUGIN_ROOT}/com.anthropic.claude-code/hooks/secret-safety.py\" 2>/dev/null || py -3 \"${CLAUDE_PLUGIN_ROOT}/com.anthropic.claude-code/hooks/secret-safety.py\"'"
       },
       {
         "path": "plugins/aws-core/com.anthropic.claude-code/hooks/hooks.json",
         "message": "Claude Code runs this on PreToolUse: sh -c 'python3 \"${CLAUDE_PLUGIN_ROOT}/com.anthropic.claude-code/hooks/secret-safety.py\" 2>/dev/null || python \"${CLAUDE_PLUGIN_ROOT}/com.anthropic.claude-code/hooks/secret-safety.py\" 2>/dev/null || py -3 \"${CLAUDE_PLUGIN_ROOT}/com.anthropic.claude-code/hooks/secret-safety.py\"'"
+      },
+      {
+        "path": "com.openai/com.anthropic.claude-code",
+        "message": "com.anthropic.claude-code is a manifest location a Codex launch fills itself, which a copy in com.openai/ would stand over; not carried"
       },
       {
         "path": "skills/aws-ai-ml/references/auto-labeling/code_templates/adopt_pick.py",

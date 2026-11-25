@@ -14,6 +14,43 @@
       "name": "Canva"
     },
     "description": "Create, edit, review, resize, and brand-check Canva designs with the Canva MCP server.",
+    "extensions": {
+      "com.openai": {
+        "interface": {
+          "capabilities": [
+            "Interactive",
+            "Read",
+            "Write"
+          ],
+          "defaultPrompt": [
+            "Resize this Canva design for Instagram and LinkedIn",
+            "Review this Canva design and suggest improvements",
+            "Check this Canva design against my brand kit",
+            "Help me pick the right Canva tool or skill for my task"
+          ],
+          "developerName": "Canva",
+          "displayName": "Canva",
+          "longDescription": "Use Canva in Codex to create, resize, review, brand-check, and edit Canva designs with the Canva MCP server.",
+          "privacyPolicyURL": "https://www.canva.com/policies/privacy-policy/",
+          "shortDescription": "Create and manage Canva designs",
+          "termsOfServiceURL": "https://www.canva.com/policies/terms-of-use/",
+          "websiteURL": "https://www.canva.com/developers/"
+        },
+        "mcpServers": "./com.openai/.mcp.json",
+        "skills": [
+          "./skills/canva-agent-guide",
+          "./skills/canva-autofill",
+          "./skills/canva-brand-check",
+          "./skills/canva-bulk-create",
+          "./skills/canva-cli",
+          "./skills/canva-design-feedback",
+          "./skills/canva-edit-design",
+          "./skills/canva-implement-feedback",
+          "./skills/canva-instagram-post",
+          "./skills/canva-resize-for-social-media"
+        ]
+      }
+    },
     "homepage": "https://www.canva.com/developers/",
     "keywords": [
       "canva",
@@ -54,6 +91,9 @@
     "python3",
     "nodejs"
   ],
+  "pluginRootPaths": {
+    "com.openai/.mcp.json": "plugins/canva/.mcp.json"
+  },
   "mcpServers": {
     "canva": {
       "type": "streamable-http",

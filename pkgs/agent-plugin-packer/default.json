@@ -28,7 +28,8 @@
           "displayName": "Packer",
           "longDescription": "HashiCorp Packer skills for AWS, Azure, and Windows image building plus HCP Packer registry workflows.",
           "shortDescription": "Build and publish machine images."
-        }
+        },
+        "skills": "./skills/"
       }
     },
     "homepage": "https://developer.hashicorp.com/packer",
@@ -64,6 +65,12 @@
     "input": "hashicorp/agent-skills",
     "flags": [
       "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "plugins/packer/plugin.json",
+        "message": "extensions.com.openai replaced by what import read from plugins/packer/.codex-plugin/plugin.json, which Codex reads instead"
+      }
     ]
   }
 }

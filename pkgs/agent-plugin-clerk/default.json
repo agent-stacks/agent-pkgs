@@ -16,6 +16,35 @@
       "url": "https://clerk.com"
     },
     "description": "Add authentication and user management with Clerk. Skills for setup, framework patterns, organizations, billing, webhooks, and testing, plus the Clerk MCP server.",
+    "extensions": {
+      "com.openai": {
+        "interface": {
+          "brandColor": "#6C47FF",
+          "capabilities": [
+            "Read",
+            "Write",
+            "Interactive"
+          ],
+          "category": "Coding",
+          "composerIcon": "./com.openai/assets/clerk-logo.svg",
+          "defaultPrompt": [
+            "Add Clerk auth to my Next.js app",
+            "Set up organizations for my B2B app",
+            "Sync users to Postgres via Clerk webhooks"
+          ],
+          "developerName": "Clerk",
+          "displayName": "Clerk",
+          "logo": "./com.openai/assets/clerk-logo.svg",
+          "longDescription": "Add authentication and user management with Clerk. Skills for setup, framework patterns, organizations, billing, webhooks, and testing, plus the Clerk MCP server.",
+          "privacyPolicyURL": "https://clerk.com/legal/privacy",
+          "shortDescription": "Clerk auth, organizations, billing, and framework guidance",
+          "termsOfServiceURL": "https://clerk.com/legal/website-terms",
+          "websiteURL": "https://clerk.com"
+        },
+        "mcpServers": "./com.openai/.mcp.json",
+        "skills": "./skills/"
+      }
+    },
     "homepage": "https://clerk.com/docs",
     "keywords": [
       "android",
@@ -77,6 +106,10 @@
     "python3",
     "nodejs"
   ],
+  "pluginRootPaths": {
+    "com.openai/.mcp.json": ".mcp.json",
+    "com.openai/assets": "assets"
+  },
   "mcpServers": {
     "clerk": {
       "headers": {
@@ -120,6 +153,10 @@
       {
         "path": "skills/clerk-backend-api/scripts/extract-tags.js",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "package.json",
+        "message": "declares dependencies import does not package; package them in this package's custom block, using pnpm.fetchDeps for its pnpm-lock.yaml"
       },
       {
         "path": "skills/clerk-astro-patterns/templates/astro-basic-auth/package.json",

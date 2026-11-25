@@ -15,6 +15,42 @@
       "url": "https://langchain.com"
     },
     "description": "Skills for LangChain application development, LangSmith workflows, and Harbor evaluation, with current documentation MCP access",
+    "extensions": {
+      "com.openai": {
+        "interface": {
+          "brandColor": "#030710",
+          "brandColorDark": "#7FC8FF",
+          "capabilities": [
+            "Read"
+          ],
+          "category": "Developer Tools",
+          "composerIcon": "./com.openai/assets/icon.png",
+          "defaultPrompt": [
+            "Help me build an agent with the LangChain ecosystem.",
+            "Add LangSmith tracing to this agent.",
+            "Set up evals for this agent."
+          ],
+          "developerName": "LangChain",
+          "displayName": "LangChain Skills",
+          "logo": "./com.openai/assets/icon.png",
+          "longDescription": "Skills for building with Deep Agents, LangGraph, and LangChain; working with LangSmith traces, evaluations, and feedback; and engineering Harbor benchmarks, bundled with official documentation MCP connections.",
+          "privacyPolicyURL": "https://www.langchain.com/privacy-policy",
+          "shortDescription": "Build and evaluate agents",
+          "supportURL": "https://github.com/langchain-ai/langchain-skills/issues",
+          "termsOfServiceURL": "https://www.langchain.com/terms-of-service",
+          "websiteURL": "https://docs.langchain.com"
+        },
+        "mcpServers": "./com.openai/.mcp.json",
+        "skills": [
+          "./skills/langchain-agent-experiments",
+          "./skills/langchain-agent-monitoring",
+          "./skills/langchain-agent-tracing",
+          "./skills/langchain-build-agent",
+          "./skills/langchain-eval-engineering",
+          "./skills/langchain-managed-deep-agents"
+        ]
+      }
+    },
     "homepage": "https://github.com/langchain-ai/langchain-skills",
     "keywords": [
       "langchain",
@@ -46,6 +82,10 @@
     "python3",
     "nodejs"
   ],
+  "pluginRootPaths": {
+    "com.openai/.mcp.json": ".mcp.json",
+    "com.openai/assets": "assets"
+  },
   "mcpServers": {
     "langchain-docs": {
       "type": "streamable-http",
@@ -89,6 +129,10 @@
       {
         "path": "skills/langchain-eval-engineering/references/multi-turn-simulation/runner.py",
         "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "pyproject.toml",
+        "message": "declares dependencies import does not package; package them in this package's custom block, using python3.withPackages"
       }
     ]
   }

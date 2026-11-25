@@ -23,6 +23,31 @@
           "./commands/setup.md",
           "./commands/test-accounts.md"
         ]
+      },
+      "com.openai": {
+        "commands": [
+          "./com.openai/commands"
+        ],
+        "interface": {
+          "brandColor": "#003087",
+          "capabilities": [
+            "Read",
+            "Write"
+          ],
+          "category": "Finance",
+          "defaultPrompt": [
+            "Create a PayPal checkout with JS SDK v6",
+            "Explain INSTRUMENT_DECLINED and how to fix it",
+            "Set up sandbox credentials and test cards"
+          ],
+          "developerName": "PayPal",
+          "displayName": "PayPal",
+          "longDescription": "Get AI-assisted help with PayPal checkout, subscriptions, invoices, disputes, webhooks, and sandbox testing — plus live API operations through PayPal's MCP server.",
+          "shortDescription": "Integrate PayPal payments, subscriptions, invoices, and sandbox APIs.",
+          "websiteURL": "https://developer.paypal.com"
+        },
+        "mcpServers": "./com.openai/.mcp.json",
+        "skills": "./skills/"
       }
     },
     "homepage": "https://developer.paypal.com/docs/",
@@ -53,7 +78,9 @@
   ],
   "pluginRootPaths": {
     "com.anthropic.claude-code/commands": "commands",
-    "com.anthropic.claude-code/hooks": "hooks"
+    "com.anthropic.claude-code/hooks": "hooks",
+    "com.openai/.mcp.json": ".mcp.json",
+    "com.openai/commands": "commands"
   },
   "mcpServers": {
     "paypal-sandbox": {
@@ -102,6 +129,10 @@
       {
         "path": ".claude-plugin/marketplace.json",
         "message": "entry \"paypal\": mcpServers does not apply beside .claude-plugin/plugin.json, which Claude Code reads instead, not imported"
+      },
+      {
+        "path": ".codex-plugin/plugin.json",
+        "message": "commands: the Codex manifest names none, so Codex reads commands/ alone, not what the Claude manifest adds; recorded so"
       },
       {
         "path": "hooks/hooks.json",

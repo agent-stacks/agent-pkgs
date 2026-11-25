@@ -16,6 +16,34 @@
       "url": "https://www.mongodb.com"
     },
     "description": "Connect to any MongoDB deployment (Community, Enterprise Advanced, local dev container via Atlas CLI or Atlas clusters) through a self-managed MongoDB MCP Server using your connection string. Explore data, manage collections, optimize queries, and generate reliable code with MongoDB best practices.",
+    "extensions": {
+      "com.openai": {
+        "interface": {
+          "brandColor": "#00ED64",
+          "capabilities": [
+            "Read",
+            "Write"
+          ],
+          "category": "Databases",
+          "defaultPrompt": [
+            "Set up my MongoDB connection using the mongodb-mcp-setup skill.",
+            "Connect to my MongoDB database and explore its collections.",
+            "Write a MongoDB aggregation pipeline to analyze my data.",
+            "Optimize the slow queries in my MongoDB deployment.",
+            "Design a MongoDB schema for my use case."
+          ],
+          "developerName": "MongoDB",
+          "displayName": "MongoDB (Self-Managed MCP)",
+          "logo": "./com.openai/assets/logo.png",
+          "longDescription": "Connect to any MongoDB deployment (Community, Enterprise Advanced, local dev container via Atlas CLI or Atlas clusters) through a self-managed MongoDB MCP Server using your connection string. Explore data, manage collections, optimize queries, and generate reliable code with MongoDB best practices.",
+          "privacyPolicyURL": "https://www.mongodb.com/legal/privacy/privacy-policy",
+          "shortDescription": "Official MongoDB plugin: MCP server, skills, and best practices for database workflows.",
+          "websiteURL": "https://www.mongodb.com"
+        },
+        "mcpServers": "./com.openai/mcp.json",
+        "skills": "./skills/"
+      }
+    },
     "homepage": "https://www.mongodb.com/docs/mcp-server/get-started/",
     "keywords": [
       "mongodb",
@@ -47,6 +75,10 @@
     "python3",
     "nodejs"
   ],
+  "pluginRootPaths": {
+    "com.openai/assets": "plugins/mongodb/assets",
+    "com.openai/mcp.json": "plugins/mongodb/mcp.json"
+  },
   "mcpServers": {
     "mongodb": {
       "args": [

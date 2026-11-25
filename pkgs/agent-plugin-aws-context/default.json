@@ -14,6 +14,32 @@
       "name": "Amazon Web Services"
     },
     "description": "Ground coding agents in your organization's knowledge with AWS Context: retrieve from your agent context graph, correct or extend it, and record sessions.",
+    "extensions": {
+      "com.openai": {
+        "interface": {
+          "brandColor": "#FF9900",
+          "capabilities": [
+            "Read",
+            "Write"
+          ],
+          "category": "Cloud",
+          "defaultPrompt": [
+            "Who owns the orders table?",
+            "How do we calculate monthly active users?",
+            "That table's description is wrong; fix it in AWS Context."
+          ],
+          "developerName": "Amazon Web Services",
+          "displayName": "AWS Context",
+          "longDescription": "Ground coding agents in your organization's knowledge with AWS Context: retrieve from your agent context graph, correct or extend it, and record sessions.",
+          "privacyPolicyURL": "https://aws.amazon.com/privacy/",
+          "shortDescription": "Ground your agent in your organization's knowledge with AWS Context",
+          "termsOfServiceURL": "https://aws.amazon.com/service-terms/",
+          "websiteURL": "https://github.com/aws/agent-toolkit-for-aws"
+        },
+        "mcpServers": "./com.openai/.mcp.json",
+        "skills": "./skills/"
+      }
+    },
     "homepage": "https://aws.amazon.com/products/developer-tools/agent-toolkit-for-aws/",
     "keywords": [
       "aws",
@@ -44,7 +70,8 @@
     "nodejs"
   ],
   "pluginRootPaths": {
-    "com.anthropic.claude-code/commands": "plugins/aws-context/commands"
+    "com.anthropic.claude-code/commands": "plugins/aws-context/commands",
+    "com.openai/.mcp.json": "plugins/aws-context/.mcp.json"
   },
   "mcpServers": {
     "aws-context": {

@@ -15,6 +15,35 @@
       "url": "https://www.airtable.com"
     },
     "description": "Airtable is the database and operations layer for your agents — whether running product, marketing, sales, ops, HR, or a custom business app. It combines structured data with multiplayer visual surfaces (grid, kanban, calendar, gallery, timeline) humans and agents share — plus sync integrations to Jira, Salesforce, Zendesk, Google Drive, and Databricks. Makes Claude fluent in Airtable: bases and schema, records, and collaboration UI. Bundles the official Airtable MCP server.",
+    "extensions": {
+      "com.openai": {
+        "interface": {
+          "brandColor": "#18BFFF",
+          "capabilities": [
+            "Read",
+            "Write"
+          ],
+          "category": "Productivity",
+          "composerIcon": "./com.openai/assets/icon.svg",
+          "defaultPrompt": [
+            "Set up a system to manage my team's operations.",
+            "Track my product roadmap, feedback, and releases.",
+            "I need a simple database for my project."
+          ],
+          "developerName": "Airtable",
+          "displayName": "Airtable",
+          "logo": "./com.openai/assets/logo.png",
+          "longDescription": "Airtable is the database and operations layer for your agents — whether running product, marketing, sales, ops, HR, or a custom business app. It combines structured data with multiplayer visual surfaces (grid, kanban, calendar, gallery, timeline) humans and agents share — plus sync integrations to Jira, Salesforce, Zendesk, Google Drive, and Databricks. Makes Codex fluent in your Airtable bases: schema, records, and collaboration UI. Bundles the official Airtable MCP server.",
+          "privacyPolicyUrl": "https://www.airtable.com/privacy",
+          "screenshots": [],
+          "shortDescription": "Database and operations layer for your agents.",
+          "termsOfServiceUrl": "https://www.airtable.com/company/tos",
+          "websiteUrl": "https://www.airtable.com"
+        },
+        "mcpServers": "./com.openai/.mcp.json",
+        "skills": "./skills/"
+      }
+    },
     "homepage": "https://www.airtable.com",
     "keywords": [
       "airtable",
@@ -68,6 +97,10 @@
     "python3",
     "nodejs"
   ],
+  "pluginRootPaths": {
+    "com.openai/.mcp.json": "plugins/airtable/.mcp.json",
+    "com.openai/assets": "plugins/airtable/assets"
+  },
   "meta": {
     "description": "Airtable is the database and operations layer for your agents",
     "homepage": "https://github.com/Airtable/skills"

@@ -21,6 +21,30 @@
             "timeout": 120000
           }
         }
+      },
+      "com.openai": {
+        "interface": {
+          "brandColor": "#FF9900",
+          "capabilities": [
+            "Read",
+            "Write"
+          ],
+          "category": "Cloud",
+          "defaultPrompt": [
+            "investigate why my service is returning 500 errors.",
+            "scan this directory for security vulnerabilities.",
+            "run a pentest against my staging endpoint."
+          ],
+          "developerName": "Amazon Web Services",
+          "displayName": "AWS Agents for DevSecOps",
+          "longDescription": "Bring your AWS DevOps Agent and AWS Security Agent capabilities into your coding agent. Investigate production incidents by querying logs, metrics, and traces across your connected observability tools. Scan source code for vulnerabilities, run penetration tests against live endpoints, and apply auto-generated fixes — all through conversational prompts without leaving your editor.\n\nTwo agents power the experience: AWS DevOps Agent for release readiness review of code changes, automated release testing of web and API based applications, and operational incident response, topology exploration, and telemetry queries across Grafana, Datadog, Splunk, New Relic, and CloudWatch; and AWS Security Agent for automated code security scanning, penetration testing, and vulnerability remediation. The plugin connects to your existing Agent Spaces and respects all configured IAM policies, tool allowlists, and integration settings.\n\nHow to use: After installing, configure your AWS credentials. Then use natural language prompts such as investigate why my service is returning 500 errors, scan this directory for security vulnerabilities, run a pentest against my staging endpoint, or what's alarming in my Grafana dashboards.",
+          "privacyPolicyURL": "https://aws.amazon.com/privacy/",
+          "shortDescription": "Investigate incidents, scan code for vulnerabilities, and run penetration tests with AWS DevOps Agent and AWS Security Agent.",
+          "termsOfServiceURL": "https://aws.amazon.com/service-terms/",
+          "websiteURL": "https://github.com/aws/agent-toolkit-for-aws"
+        },
+        "mcpServers": "./com.openai/.mcp.json",
+        "skills": "./skills/"
       }
     },
     "homepage": "https://aws.amazon.com/products/developer-tools/agent-toolkit-for-aws/",
@@ -76,7 +100,8 @@
   ],
   "pluginRootPaths": {
     "README.md": "plugins/aws-agents-for-devsecops/README.md",
-    "com.anthropic.claude-code/commands": "plugins/aws-agents-for-devsecops/commands"
+    "com.anthropic.claude-code/commands": "plugins/aws-agents-for-devsecops/commands",
+    "com.openai/.mcp.json": "plugins/aws-agents-for-devsecops/.mcp.json"
   },
   "mcpServers": {
     "aws-devops-agent": {

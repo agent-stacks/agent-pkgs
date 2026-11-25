@@ -15,6 +15,65 @@
       "url": "https://flutter.dev"
     },
     "description": "The official Claude plugin for Dart and Flutter that installs Flutter/Dart Skills and Dart MCP server for building natively compiled, visually stunning applications for mobile, web, desktop, and embedded devices from a single codebase",
+    "extensions": {
+      "com.openai": {
+        "interface": {
+          "capabilities": [
+            "Skills",
+            "MCP"
+          ],
+          "category": "Developer Tools",
+          "composerIcon": "./com.openai/assets/flutter-icon.svg",
+          "developerName": "Google LLC",
+          "displayName": "Dart and Flutter",
+          "logo": "./com.openai/assets/flutter-icon.svg",
+          "longDescription": "Use official Dart and Flutter skills and the MCP server to develop apps, run workflows, and manage code from Codex.",
+          "privacyPolicyURL": "https://policies.google.com/privacy",
+          "shortDescription": "Build Dart and Flutter apps",
+          "supportURL": "https://github.com/flutter/agent-plugins/issues",
+          "termsOfServiceURL": "https://policies.google.com/terms",
+          "websiteURL": "https://flutter.dev"
+        },
+        "mcpServers": {
+          "dart-mcp-server": {
+            "args": [
+              "mcp-server"
+            ],
+            "command": "dart",
+            "env": {
+              "AGENT_PLUGIN": "codex"
+            }
+          }
+        },
+        "skills": [
+          "./skills/dart-add-unit-test",
+          "./skills/dart-build-cli-app",
+          "./skills/dart-collect-coverage",
+          "./skills/dart-fix-runtime-errors",
+          "./skills/dart-generate-test-mocks",
+          "./skills/dart-migrate-to-checks-package",
+          "./skills/dart-resolve-package-conflicts",
+          "./skills/dart-run-static-analysis",
+          "./skills/dart-setup-ffi-assets",
+          "./skills/dart-use-doc-examples",
+          "./skills/dart-use-ffigen",
+          "./skills/dart-use-path-package",
+          "./skills/dart-use-pattern-matching",
+          "./skills/dart-use-primary-constructors",
+          "./skills/dart-write-documentation",
+          "./skills/flutter-add-integration-test",
+          "./skills/flutter-add-widget-preview",
+          "./skills/flutter-add-widget-test",
+          "./skills/flutter-apply-architecture-best-practices",
+          "./skills/flutter-build-responsive-layout",
+          "./skills/flutter-fix-layout-issues",
+          "./skills/flutter-implement-json-serialization",
+          "./skills/flutter-setup-declarative-routing",
+          "./skills/flutter-setup-localization",
+          "./skills/flutter-use-http-package"
+        ]
+      }
+    },
     "homepage": "https://github.com/flutter/agent-plugins",
     "keywords": [
       "flutter",
@@ -68,6 +127,9 @@
     "python3",
     "nodejs"
   ],
+  "pluginRootPaths": {
+    "com.openai/assets": "assets"
+  },
   "mcpServers": {
     "dart-mcp-server": {
       "args": [

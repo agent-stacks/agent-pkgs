@@ -14,6 +14,40 @@
       "name": "Amazon Web Services"
     },
     "description": "Data lake, analytics, search, streaming, ETL, and orchestration workflows with S3 Tables, AWS Glue, Athena, Amazon Redshift, Amazon OpenSearch Service, Amazon MSK, Amazon Managed Service for Apache Flink, Amazon MWAA, Amazon SageMaker Catalog, and Amazon EMR. Covers managed Iceberg tables on S3 Tables, ingestion from JDBC databases (Oracle, SQL Server, PostgreSQL, MySQL, RDS), Amazon Redshift, Snowflake, BigQuery, and DynamoDB, AWS Glue Data Catalog inventory and asset discovery, federated Athena queries, vector storage and semantic search on Amazon S3 Vectors, Amazon OpenSearch Service and Serverless (migration from Solr/Elasticsearch, provisioning, vector/semantic/hybrid search, log analytics, trace analytics), Amazon MSK Provisioned with Standard and Express brokers (cluster sizing, performance and consumer lag troubleshooting, topic management, MSK Replicator for disaster recovery and active-active replication, and Streaming Tables delivery to S3 Tables), migrating self-managed Apache Kafka to MSK Express, Apache Flink application development on Amazon Managed Service for Apache Flink, and Amazon MWAA Provisioned and MWAA Serverless (authoring, testing, and debugging DAGs and workflows, and Airflow version upgrades for provisioned environments), and Amazon SageMaker Catalog and AWS Glue Data Catalog curation (business descriptions, glossaries, metadata forms, publishing, and safe asset retirement) with subscription-based access requests, approvals, audits, and revocations, and AWS Glue auto upgrade for Spark ETL jobs (assessment, turning on auto upgrade, email notifications, and per-job upgrade approval), and troubleshooting of failed or slow Apache Spark workloads on AWS Glue, Amazon EMR on EC2, EMR Serverless, and EMR on EKS.",
+    "extensions": {
+      "com.openai": {
+        "interface": {
+          "brandColor": "#FF9900",
+          "capabilities": [
+            "Read",
+            "Write"
+          ],
+          "category": "Cloud",
+          "defaultPrompt": [
+            "Create a data lake table backed by S3 Tables.",
+            "Query the data lake with Athena.",
+            "Plan a migration from self-managed Elasticsearch to Amazon OpenSearch Service.",
+            "Write a Redshift COPY command to load data from S3 and find any rejected rows.",
+            "Write an Airflow DAG for my Amazon MWAA environment that runs an AWS Glue job daily.",
+            "Size an Amazon MSK Express cluster for my Kafka workload and estimate the monthly cost.",
+            "Set up MSK Replicator for active-active replication between two MSK clusters.",
+            "Plan a migration from my self-managed Apache Kafka cluster to Amazon MSK Express.",
+            "Add a business description and README to an asset in my SageMaker Catalog project without losing its existing glossary terms.",
+            "Revoke another project's access to one of my catalog listings and confirm the grants have fully settled.",
+            "Find the root cause of my failed AWS Glue Spark job run and suggest a fix."
+          ],
+          "developerName": "Amazon Web Services",
+          "displayName": "AWS Data Analytics",
+          "longDescription": "Skills for building and operating data lakes, analytics, search, streaming, and workflow orchestration on AWS. Covers managed Iceberg table creation on S3 Tables, ingestion from JDBC databases (Oracle, SQL Server, PostgreSQL, MySQL, RDS), Amazon Redshift, Snowflake, BigQuery, and DynamoDB, AWS Glue Data Catalog inventory and asset discovery, federated Athena queries, vector storage and semantic search on Amazon S3 Vectors, Amazon OpenSearch Service and Serverless (migration from Solr and Elasticsearch, provisioning, vector/semantic/hybrid search, log analytics, trace analytics), Amazon MSK Provisioned with Standard and Express brokers (cluster sizing, performance troubleshooting, consumer lag, topic management, MSK Replicator, and Streaming Tables delivery to S3 Tables), migrating self-managed Apache Kafka to MSK Express, Apache Flink application development on Amazon Managed Service for Apache Flink, and Amazon MWAA Provisioned and MWAA Serverless (authoring, testing, and debugging DAGs and workflows, and Airflow version upgrades for provisioned environments), and Amazon SageMaker Catalog and AWS Glue Data Catalog curation (business descriptions, glossaries, metadata forms, publishing, and safe asset retirement) with subscription-based access requests, approvals, audits, and revocations, and AWS Glue auto upgrade for Spark ETL jobs (assessment, turning on auto upgrade, email notifications, and per-job upgrade approval), and troubleshooting of failed or slow Apache Spark workloads on AWS Glue, Amazon EMR on EC2, EMR Serverless, and EMR on EKS.",
+          "privacyPolicyURL": "https://aws.amazon.com/privacy/",
+          "shortDescription": "Data lake, analytics, search, streaming, ETL, and orchestration with S3 Tables, AWS Glue, Athena, Redshift, OpenSearch, MSK, Managed Flink, MWAA, SageMaker Catalog, and EMR",
+          "termsOfServiceURL": "https://aws.amazon.com/service-terms/",
+          "websiteURL": "https://github.com/aws/agent-toolkit-for-aws"
+        },
+        "mcpServers": "./com.openai/.mcp.json",
+        "skills": "./skills/"
+      }
+    },
     "homepage": "https://aws.amazon.com/products/developer-tools/agent-toolkit-for-aws/",
     "keywords": [
       "aws",
@@ -105,6 +139,9 @@
     "python3",
     "nodejs"
   ],
+  "pluginRootPaths": {
+    "com.openai/.mcp.json": "plugins/aws-data-analytics/.mcp.json"
+  },
   "mcpServers": {
     "aws-mcp": {
       "args": [

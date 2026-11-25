@@ -15,6 +15,36 @@
       "url": "https://cloud.google.com"
     },
     "description": "Google Cloud guidance for coding agents: first-project onboarding, authentication and credential selection, and safety-critical validation for gcloud CLI commands. Includes the Google Developer Knowledge MCP server for grounded, up-to-date Google Cloud documentation.",
+    "extensions": {
+      "com.openai": {
+        "interface": {
+          "capabilities": [
+            "Google Cloud onboarding",
+            "Authentication guidance",
+            "gcloud command safety",
+            "Google developer documentation"
+          ],
+          "category": "Developer Tools",
+          "composerIcon": "./com.openai/assets/logo.svg",
+          "defaultPrompt": [
+            "Help me set up a new Google Cloud project, link billing, and configure local authentication.",
+            "Configure Application Default Credentials (ADC) and IAM permissions for my local development environment.",
+            "Search official Google Cloud documentation using Developer Knowledge and validate my gcloud CLI commands."
+          ],
+          "developerName": "Google LLC",
+          "displayName": "Google Cloud Developer",
+          "logo": "./com.openai/assets/logo.svg",
+          "longDescription": "Google Cloud guidance for coding agents: first-project onboarding, authentication and credential selection, and safety-critical validation for gcloud CLI commands.",
+          "privacyPolicyURL": "https://policies.google.com/privacy",
+          "shortDescription": "Google Cloud guidance & tools",
+          "supportURL": "https://cloud.google.com/support",
+          "termsOfServiceURL": "https://policies.google.com/terms",
+          "websiteURL": "https://cloud.google.com"
+        },
+        "mcpServers": "./com.openai/.mcp.json",
+        "skills": "./skills/"
+      }
+    },
     "homepage": "https://github.com/google/skills/tree/main/plugins/cloud/google-cloud-developer",
     "keywords": [
       "google-cloud",
@@ -40,6 +70,10 @@
     "python3",
     "nodejs"
   ],
+  "pluginRootPaths": {
+    "com.openai/.mcp.json": "plugins/cloud/google-cloud-developer/.mcp.json",
+    "com.openai/assets": "plugins/cloud/google-cloud-developer/assets"
+  },
   "mcpServers": {
     "developer-knowledge": {
       "type": "streamable-http",
@@ -59,6 +93,14 @@
       {
         "path": "skills",
         "message": "219 SKILL.md outside every imported plugin, not imported"
+      },
+      {
+        "path": "plugins/cloud/google-cloud-developer/.codex-plugin/plugin.json",
+        "message": "mcpServers: the Codex manifest names none, so Codex reads .mcp.json alone, not what the Claude manifest adds; recorded so"
+      },
+      {
+        "path": "plugins/cloud/google-cloud-developer/assets/logo.svg",
+        "message": "larger than 1MiB, so it was not read; a ${PLUGIN_ROOT} reference inside it ships nothing, and a script only it runs is not reported"
       }
     ]
   }

@@ -15,6 +15,36 @@
       "url": "https://higgsfield.ai"
     },
     "description": "Image/video generation, complete brand systems, narrated explainers, YouTube thumbnails, browser games, Marketing Studio, video engagement analysis, and Soul Character training via the Higgsfield CLI.",
+    "extensions": {
+      "com.openai": {
+        "interface": {
+          "brandColor": "#D1FE17",
+          "capabilities": [
+            "Read",
+            "Write"
+          ],
+          "category": "Design",
+          "composerIcon": "./com.openai/assets/icon.svg",
+          "defaultPrompt": [
+            "Train a Soul Character from these photos",
+            "Generate a cinematic product image with Higgsfield",
+            "Analyze this ad video for engagement and hook strength",
+            "Create marketplace-ready product cards for this item",
+            "Create a complete visual identity and brandbook for this business",
+            "Turn this document into a narrated explainer",
+            "Create a YouTube thumbnail for this video",
+            "Build and deploy a small browser game"
+          ],
+          "developerName": "Higgsfield AI",
+          "displayName": "Higgsfield AI",
+          "logo": "./com.openai/assets/logo.png",
+          "longDescription": "Higgsfield AI Skills turn Codex into a creative production agent. Train reusable Soul Characters, generate images and videos, build complete visual identities and brandbooks, create narrated explainers and YouTube thumbnails, build playable browser games, produce product and marketplace visuals, create branded Marketing Studio ads, and score finished videos. The plugin uses the Higgsfield CLI for authenticated workflows and returns ready-to-use assets, URLs, or reports.",
+          "shortDescription": "Train Soul Characters and generate powerful AI visuals",
+          "websiteURL": "https://higgsfield.ai"
+        },
+        "skills": []
+      }
+    },
     "homepage": "https://higgsfield.ai",
     "keywords": [
       "higgsfield",
@@ -59,6 +89,9 @@
     "python3",
     "nodejs"
   ],
+  "pluginRootPaths": {
+    "com.openai/assets": "assets"
+  },
   "meta": {
     "description": "Image/video generation, complete brand systems, narrated explainers, YouTube thumbnails, browser games, Marketing Studio, video engagement analysis, and Soul Character training via the Higgsfield CLI",
     "homepage": "https://github.com/higgsfield-ai/skills"
@@ -104,6 +137,14 @@
       {
         "path": "higgsfield-youtube-thumbnail/SKILL.md",
         "message": "unknown frontmatter fields: argument-hint, version"
+      },
+      {
+        "path": ".codex-plugin/plugin.json",
+        "message": "skills: \"./\" is the plugin directory itself, so Codex ignores it"
+      },
+      {
+        "path": ".codex-plugin/plugin.json",
+        "message": "skills: the Codex manifest names none, so Codex reads skills/ alone, not what the Claude manifest adds; recorded so"
       },
       {
         "path": "skills/higgsfield-websites/scripts/fbx2glb.py",

@@ -15,6 +15,29 @@
       "name": "LaunchDarkly"
     },
     "description": "LaunchDarkly agent skills and MCP servers for feature flag management, AgentControl, and metrics",
+    "extensions": {
+      "com.openai": {
+        "interface": {
+          "brandColor": "#3DD6F5",
+          "capabilities": [
+            "Read",
+            "Write"
+          ],
+          "category": "Developer tools",
+          "defaultPrompt": [
+            "List my LaunchDarkly feature flags for this project.",
+            "Show config targeting for the config I care about."
+          ],
+          "developerName": "LaunchDarkly",
+          "displayName": "LaunchDarkly",
+          "longDescription": "Use LaunchDarkly’s hosted MCP servers for configs and FM. Authenticate with your LaunchDarkly API access token when prompted.",
+          "shortDescription": "Feature flags, configs, and environments via MCP.",
+          "websiteURL": "https://launchdarkly.com"
+        },
+        "mcpServers": "./com.openai/.mcp.json",
+        "skills": "./skills/"
+      }
+    },
     "homepage": "https://launchdarkly.com",
     "keywords": [
       "launchdarkly",
@@ -67,6 +90,9 @@
     "python3",
     "nodejs"
   ],
+  "pluginRootPaths": {
+    "com.openai/.mcp.json": ".mcp.json"
+  },
   "mcpServers": {
     "LaunchDarkly": {
       "headers": {},
@@ -179,6 +205,10 @@
       {
         "path": "skills/onboarding",
         "message": "6 SKILL.md not listed by .claude-plugin/plugin.json skills, not imported"
+      },
+      {
+        "path": "package.json",
+        "message": "declares dependencies import does not package; package them in this package's custom block; with no lockfile beside it, nothing pins the versions"
       }
     ]
   }

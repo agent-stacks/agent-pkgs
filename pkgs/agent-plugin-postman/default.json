@@ -16,6 +16,34 @@
       "url": "https://github.com/postmanlabs"
     },
     "description": "Work with Postman from your agent: bootstrap a repo's Postman setup, mock an API before it's implemented, run collection and governance checks in CI, monitor a live endpoint, deploy and debug Postman Flows, and publish generated API documentation.",
+    "extensions": {
+      "com.openai": {
+        "apps": "./com.openai/.app.json",
+        "hooks": {},
+        "interface": {
+          "brandColor": "#FF6C37",
+          "capabilities": [
+            "Read",
+            "Write"
+          ],
+          "category": "Developer Tools",
+          "defaultPrompt": [
+            "Create a collection for the API in this repo, add tests, and run them",
+            "Turn this OpenAPI spec into a working mock server",
+            "Is this API Agent ready?"
+          ],
+          "developerName": "Postman",
+          "displayName": "Postman",
+          "longDescription": "Equip Codex with specialized Postman skills for the complete API lifecycle. Discover, design, test, document, mock, monitor, and improve APIs through agent-friendly, filesystem-first workflows",
+          "privacyPolicyURL": "https://privacy.postman.com/policies/",
+          "shortDescription": "The AI-native API Platform",
+          "termsOfServiceURL": "https://www.postman.com/legal/terms/",
+          "websiteURL": "https://www.postman.com/"
+        },
+        "mcpServers": "./com.openai/mcp.codex.json",
+        "skills": "./skills/"
+      }
+    },
     "homepage": "https://github.com/postmanlabs/postman-plugin",
     "keywords": [
       "postman",
@@ -63,7 +91,9 @@
     "nodejs"
   ],
   "pluginRootPaths": {
-    "com.anthropic.claude-code/hooks": "hooks"
+    "com.anthropic.claude-code/hooks": "hooks",
+    "com.openai/.app.json": ".app.json",
+    "com.openai/mcp.codex.json": "mcp.codex.json"
   },
   "mcpServers": {
     "postman": {

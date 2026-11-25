@@ -15,6 +15,38 @@
       "url": "https://openseo.so"
     },
     "description": "Without good data, your agent gives generic advice. Keyword research, competitor research, backlinks, and site audits. All for $10/month.",
+    "extensions": {
+      "com.openai": {
+        "interface": {
+          "capabilities": [
+            "Keyword research",
+            "Competitor analysis",
+            "Site audits",
+            "Search Console"
+          ],
+          "category": "Productivity",
+          "composerIcon": "./com.openai/assets/icon.png",
+          "defaultPrompt": [
+            "Research keywords for my site and shortlist the best opportunities.",
+            "Audit my site and give me a one-page report with a single next action.",
+            "Track my rankings for these keywords and summarize what changed.",
+            "Suggest prompts to track in AI answers for my business and show me the cost.",
+            "Which sources and competitors appear in my saved AI answers?"
+          ],
+          "developerName": "OpenSEO",
+          "displayName": "OpenSEO",
+          "logo": "./com.openai/assets/icon.png",
+          "longDescription": "Get found on Google and recommended by AI.\n\nWith the OpenSEO plugin, ChatGPT can use SEO data and your saved project context to give advice tailored to your business.\n\nResearch keywords, analyze competitors and backlinks, run technical site audits, and track AI visibility directly in ChatGPT.",
+          "privacyPolicyURL": "https://openseo.so/privacy",
+          "shortDescription": "SEO made simple.",
+          "supportURL": "https://openseo.so/support",
+          "termsOfServiceURL": "https://openseo.so/terms-and-conditions",
+          "websiteURL": "https://openseo.so"
+        },
+        "mcpServers": "./com.openai/.mcp.json",
+        "skills": "./skills/"
+      }
+    },
     "homepage": "https://openseo.so",
     "keywords": [
       "seo",
@@ -52,6 +84,10 @@
     "python3",
     "nodejs"
   ],
+  "pluginRootPaths": {
+    "com.openai/.mcp.json": "plugins/openseo/.mcp.json",
+    "com.openai/assets": "plugins/openseo/assets"
+  },
   "mcpServers": {
     "openseo": {
       "type": "streamable-http",

@@ -14,6 +14,29 @@
       "name": "Meta Platforms, Inc."
     },
     "description": "Agent skills for Meta VR and Horizon OS development. Helps your coding agent with Meta VR app debugging, performance analysis, project setup, Unity and WebXR workflows, Spatial SDK and Platform SDK integration, store submission checks, and metavr device workflows.",
+    "extensions": {
+      "com.openai": {
+        "interface": {
+          "capabilities": [
+            "Skills",
+            "MCP"
+          ],
+          "category": "Developer Tools",
+          "defaultPrompt": [
+            "Set up a new Meta VR project.",
+            "Debug why my Meta VR app is dropping frames.",
+            "Check my app against the Meta Horizon Store requirements."
+          ],
+          "developerName": "Meta Platforms, Inc.",
+          "displayName": "Meta VR Agentic Tools",
+          "longDescription": "Official Meta skills and the metavr MCP server for Meta VR and Horizon OS development — debug apps, analyze performance, scaffold projects, build Unity, WebXR, Spatial SDK and Platform SDK integrations, validate store submissions, and drive Meta VR devices.",
+          "shortDescription": "Build and debug Meta VR & Horizon OS apps from your agent.",
+          "websiteURL": "https://developers.meta.com/horizon/discover/ai-tools/"
+        },
+        "mcpServers": "./com.openai/.mcp.json",
+        "skills": "./skills/"
+      }
+    },
     "homepage": "https://developers.meta.com/horizon/discover/ai-tools/",
     "keywords": [
       "meta-quest",
@@ -84,6 +107,9 @@
     "python3",
     "nodejs"
   ],
+  "pluginRootPaths": {
+    "com.openai/.mcp.json": ".mcp.json"
+  },
   "mcpServers": {
     "metavr": {
       "args": [

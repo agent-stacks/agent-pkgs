@@ -4,8 +4,8 @@
   "src": {
     "owner": "NVIDIA",
     "repo": "skills",
-    "rev": "a79ed3dca393fd894ddfb907f4b5e70a4098ec80",
-    "hash": "sha256-JaOvk/TpKhW5Pr4C/zkcKz/lAPToEUq5aaXhuAqwJGs="
+    "rev": "71f531de9c0d0eeee4caf5017987e0560601f9bf",
+    "hash": "sha256-II/d9uaunbBdXiJgHiL/8O1dMaQRSKdZZhIFPpzRx0w="
   },
   "sourceUrl": "https://github.com/NVIDIA/skills",
   "manifest": {
@@ -15,6 +15,29 @@
       "url": "https://github.com/NVIDIA-TAO/tao-skill-bank"
     },
     "description": "NVIDIA TAO skill bank with generated capability discovery for model training, data processing, application workflows, AutoML, and platform execution.",
+    "extensions": {
+      "com.openai": {
+        "interface": {
+          "brandColor": "#76B900",
+          "capabilities": [
+            "Read",
+            "Write",
+            "Interactive"
+          ],
+          "category": "Developer Tools",
+          "defaultPrompt": [
+            "What can NVIDIA TAO do?",
+            "Choose and run a TAO workflow for my dataset.",
+            "List TAO models, actions, AutoML, and platforms."
+          ],
+          "developerName": "NVIDIA",
+          "displayName": "NVIDIA TAO Toolkit",
+          "longDescription": "Agent skills for NVIDIA TAO: fine-tune, evaluate, export, and deploy vision and multimodal models; prepare and generate training data; run AutoML and application workflows; and launch jobs on Docker, Kubernetes, SLURM, or Brev. The plugin exposes every skill under ./skills/. Capability answers are generated from the packaged skills by scripts/list_tao_capabilities.py rather than hard-coded in plugin metadata.",
+          "shortDescription": "TAO workflows, models, AutoML"
+        },
+        "skills": "./skills/"
+      }
+    },
     "keywords": [
       "nvidia",
       "tao",

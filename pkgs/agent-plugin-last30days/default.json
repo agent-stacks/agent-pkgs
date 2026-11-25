@@ -15,6 +15,31 @@
       "url": "https://github.com/mvanhorn"
     },
     "description": "Research any topic across Reddit, X, YouTube, TikTok, Instagram, Hacker News, Polymarket, GitHub, and 5+ more sources. AI agent scores by upvotes, likes, and real money - not editors.",
+    "extensions": {
+      "com.openai": {
+        "hooks": {},
+        "interface": {
+          "brandColor": "#6F42C1",
+          "capabilities": [
+            "Interactive",
+            "Read",
+            "Write"
+          ],
+          "category": "Research",
+          "defaultPrompt": [
+            "TikTok shop trends",
+            "Codex vs Cursor",
+            "best travel credit cards"
+          ],
+          "developerName": "Matt Van Horn",
+          "displayName": "last30days",
+          "longDescription": "last30days adds a Codex skill for researching any topic based on recent discussion and engagement signals across Reddit, X, YouTube, TikTok, Instagram, Hacker News, Polymarket, GitHub, and the web.",
+          "shortDescription": "Research what people are saying about a topic now.",
+          "websiteURL": "https://github.com/mvanhorn/last30days-skill"
+        },
+        "skills": "./skills/"
+      }
+    },
     "homepage": "https://github.com/mvanhorn/last30days-skill",
     "keywords": [
       "competitor research",
@@ -81,6 +106,18 @@
       {
         "path": "skills/last30days/SKILL.md/metadata/openclaw",
         "message": "must be a string value"
+      },
+      {
+        "path": ".codex-plugin/plugin.json",
+        "message": "interface.composerIcon: ./assets/icon.svg does not exist, so Codex gets nothing from it"
+      },
+      {
+        "path": ".codex-plugin/plugin.json",
+        "message": "interface.logo: ./assets/icon.svg does not exist, so Codex gets nothing from it"
+      },
+      {
+        "path": ".codex-plugin/plugin.json",
+        "message": "hooks: the Codex manifest names none, so Codex reads hooks/hooks.json alone, not what the Claude manifest adds; recorded so"
       },
       {
         "path": ".claude-plugin/hooks.json",

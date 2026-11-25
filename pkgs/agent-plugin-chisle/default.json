@@ -15,6 +15,11 @@
       "url": "https://github.com/JayPokale"
     },
     "description": "Maximum signal. Minimum noise. Write less. Ship less. Mean more.",
+    "extensions": {
+      "com.openai": {
+        "hooks": {}
+      }
+    },
     "homepage": "https://chisle.jaypokale.me",
     "license": "MIT",
     "name": "chisle",
@@ -105,6 +110,10 @@
       "--pkgs-dir=pkgs"
     ],
     "warnings": [
+      {
+        "path": ".codex-plugin/plugin.json",
+        "message": "hooks: the Codex manifest names none, so Codex reads hooks/hooks.json alone, not what the Claude manifest adds; recorded so"
+      },
       {
         "path": ".claude-plugin/plugin.json",
         "message": "Claude Code runs this on PostToolUse: node \"${CLAUDE_PLUGIN_ROOT}/hooks/chisle-compress-output.js\"; exit 0"

@@ -25,6 +25,33 @@
             }
           }
         }
+      },
+      "com.openai": {
+        "apps": "./com.openai/.app.json",
+        "interface": {
+          "brandColor": "#00ED64",
+          "capabilities": [
+            "Read",
+            "Write"
+          ],
+          "category": "Databases",
+          "defaultPrompt": [
+            "Connect to my MongoDB Atlas deployment and explore its collections.",
+            "Write a MongoDB aggregation pipeline to analyze my data.",
+            "Optimize the slow queries in my Atlas cluster.",
+            "Design a MongoDB schema for my use case.",
+            "Use Atlas Search to add full-text search to my collection."
+          ],
+          "developerName": "MongoDB",
+          "displayName": "MongoDB Atlas",
+          "logo": "./com.openai/assets/logo.png",
+          "longDescription": "Connect to MongoDB Atlas clusters only through the Atlas Managed MCP Server. Sign in with your Atlas account to explore data, manage collections, optimize queries, generate reliable code with MongoDB best practices, and manage Atlas resources such as clusters, projects, database users, and network access.",
+          "privacyPolicyURL": "https://www.mongodb.com/legal/privacy/privacy-policy",
+          "shortDescription": "Connect to MongoDB Atlas clusters via the Atlas Managed MCP Server to explore data, manage resources, and generate best-practice code.",
+          "websiteURL": "https://www.mongodb.com"
+        },
+        "mcpServers": {},
+        "skills": "./skills/"
       }
     },
     "homepage": "https://www.mongodb.com/docs/mcp-server/get-started/",
@@ -57,6 +84,10 @@
     "python3",
     "nodejs"
   ],
+  "pluginRootPaths": {
+    "com.openai/.app.json": "plugins/mongodb-atlas/.app.json",
+    "com.openai/assets": "plugins/mongodb-atlas/assets"
+  },
   "mcpServers": {
     "mongodb-atlas": {
       "type": "streamable-http",
@@ -84,6 +115,10 @@
       {
         "path": "tools/review-skill/SKILL.md",
         "message": "outside every imported plugin, not imported; --plugin tools/review-skill=NAME imports it"
+      },
+      {
+        "path": "plugins/mongodb-atlas/.codex-plugin/plugin.json",
+        "message": "mcpServers: the Codex manifest names none, so Codex reads .mcp.json alone, not what the Claude manifest adds; recorded so"
       }
     ]
   }

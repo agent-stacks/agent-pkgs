@@ -15,6 +15,13 @@
       "url": "https://github.com/OthmanAdi"
     },
     "description": "Persistent project planning files with lifecycle hooks that inject selected plan context. Automatic recovery uses project files only. Explicit catchup modes may read same-project local session records to emit aggregate counts or bounded nonce-framed excerpts. Optional gated mode can request continuation on capable hosts and never runs commands declared in Markdown. No network upload path. Installs across 60+ agents.",
+    "extensions": {
+      "com.openai": {
+        "commands": [],
+        "hooks": "./com.openai/hooks/codex-hooks.json",
+        "skills": []
+      }
+    },
     "keywords": [
       "planning",
       "manus",
@@ -78,6 +85,7 @@
     ".codex": ".codex",
     "com.anthropic.claude-code/commands": "commands",
     "com.anthropic.claude-code/hooks": "hooks",
+    "com.openai/hooks": "hooks",
     "scripts": "scripts",
     "templates": "templates"
   },
@@ -262,6 +270,10 @@
         "message": "unknown frontmatter fields: hooks, user-invocable"
       },
       {
+        "path": ".codex-plugin/plugin.json",
+        "message": "skills: Codex loads skills from .agents/skills, and the package ships none of them; recorded as [], no skills"
+      },
+      {
         "path": "hooks/hooks.json",
         "message": "Claude Code runs this on PostToolUse: sh ${CLAUDE_PLUGIN_ROOT}/hooks/claude-hook.sh post-tool-use"
       },
@@ -284,6 +296,34 @@
       {
         "path": "hooks/hooks.json",
         "message": "Claude Code runs this on UserPromptSubmit: sh ${CLAUDE_PLUGIN_ROOT}/hooks/claude-hook.sh user-prompt-submit"
+      },
+      {
+        "path": "hooks/codex-hooks.json",
+        "message": "Codex runs this on PermissionRequest: python3 \"${PLUGIN_ROOT}/.codex/hooks/permission_request.py\""
+      },
+      {
+        "path": "hooks/codex-hooks.json",
+        "message": "Codex runs this on PostToolUse: python3 \"${PLUGIN_ROOT}/.codex/hooks/post_tool_use.py\""
+      },
+      {
+        "path": "hooks/codex-hooks.json",
+        "message": "Codex runs this on PreCompact: python3 \"${PLUGIN_ROOT}/.codex/hooks/run_sh.py\" pre-compact.sh"
+      },
+      {
+        "path": "hooks/codex-hooks.json",
+        "message": "Codex runs this on PreToolUse: python3 \"${PLUGIN_ROOT}/.codex/hooks/pre_tool_use.py\""
+      },
+      {
+        "path": "hooks/codex-hooks.json",
+        "message": "Codex runs this on SessionStart: python3 \"${PLUGIN_ROOT}/.codex/hooks/run_sh.py\" session-start.sh"
+      },
+      {
+        "path": "hooks/codex-hooks.json",
+        "message": "Codex runs this on Stop: python3 \"${PLUGIN_ROOT}/.codex/hooks/stop.py\""
+      },
+      {
+        "path": "hooks/codex-hooks.json",
+        "message": "Codex runs this on UserPromptSubmit: python3 \"${PLUGIN_ROOT}/.codex/hooks/run_sh.py\" user-prompt-submit.sh"
       },
       {
         "path": "skills/i18n/planning-with-files-ar/SKILL.md",
