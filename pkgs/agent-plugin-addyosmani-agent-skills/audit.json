@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "addyosmani-agent-skills",
-      "dir": "/nix/store/a70sln61sxxl98b75mizflfmc72m4ygg-agent-plugin-addyosmani-agent-skills-0.6.18/share/agent-plugins/addyosmani-agent-skills",
+      "dir": "/nix/store/p3ylqcwyxr8bjwmd6y7p6k5ywdyyk28a-agent-plugin-addyosmani-agent-skills-0.6.18/share/agent-plugins/addyosmani-agent-skills",
       "spec": "1.1.0",
       "score": 4,
       "status": "do not install",
@@ -15,6 +15,7 @@
         "scanned": [
           "com.anthropic.claude-code/.claude",
           "com.anthropic.claude-code/agents",
+          "com.openai/commands",
           "skills/accessibility-engineering",
           "skills/api-and-interface-design",
           "skills/browser-testing-with-devtools",
@@ -129,6 +130,39 @@
               "message": "Skill Enumeration",
               "file": "com.anthropic.claude-code/agents/web-performance-auditor.md",
               "line": 176
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "com.openai/commands",
+          "score": 88,
+          "risk": 12,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "com.openai/commands/webperf.toml",
+              "line": 9
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "com.openai/commands/webperf.toml",
+              "line": 14
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "com.openai/commands/webperf.toml",
+              "line": 9
             }
           ],
           "suppressed": []
@@ -1568,7 +1602,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-24T07:31:20Z"
+      "checkedAt": "2026-11-25T16:01:04Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"

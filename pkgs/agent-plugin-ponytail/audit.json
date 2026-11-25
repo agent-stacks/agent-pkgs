@@ -7,13 +7,15 @@
   "plugins": [
     {
       "name": "ponytail",
-      "dir": "/nix/store/5wyqbrkk45jixw4sd4j4q4bqbah3pvr3-agent-plugin-ponytail-5.3.3/share/agent-plugins/ponytail",
+      "dir": "/nix/store/k0ipm6wgb1bn87kmiqr6h4gvn10n8ni2-agent-plugin-ponytail-5.3.3/share/agent-plugins/ponytail",
       "spec": "1.1.0",
       "score": 71,
       "status": "caution",
       "coverage": {
         "scanned": [
           "com.anthropic.claude-code/hooks",
+          "com.openai/assets",
+          "com.openai/hooks",
           "skills/ponytail",
           "skills/ponytail-audit",
           "skills/ponytail-debt",
@@ -77,6 +79,106 @@
               "severity": "HIGH",
               "message": "Unvalidated Output Injection",
               "file": "com.anthropic.claude-code/hooks/band/metrics.ts",
+              "line": 93
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "com.openai/assets",
+          "score": 91,
+          "risk": 9,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 45.5,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.openai/assets/braids-logo-dark.svg",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.openai/assets/braids-logo-light.svg",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.openai/assets/photoreunion-logo-dark.svg",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.openai/assets/photoreunion-logo-light.svg",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.openai/assets/retriever-logo-dark.svg",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.openai/assets/retriever-logo-light.svg",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "com.openai/assets/benchmark-3model.svg",
+              "line": 20
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "com.openai/hooks",
+          "score": 71,
+          "risk": 29,
+          "status": "caution",
+          "partial": true,
+          "coverage": 70,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.openai/hooks/band/board.ts",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.openai/hooks/band/metrics.ts",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.openai/hooks/band/register.tsx",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.openai/hooks/ponytail-activate.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.openai/hooks/ponytail-band-import.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "com.openai/hooks/ponytail-statusline.sh",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "OH1",
+              "severity": "HIGH",
+              "message": "Unvalidated Output Injection",
+              "file": "com.openai/hooks/band/metrics.ts",
               "line": 93
             }
           ],
@@ -183,7 +285,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-20T18:12:41Z"
+      "checkedAt": "2026-11-25T16:43:35Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
