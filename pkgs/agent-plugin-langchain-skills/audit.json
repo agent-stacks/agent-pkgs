@@ -7,9 +7,9 @@
   "plugins": [
     {
       "name": "langchain-skills",
-      "dir": "/nix/store/61rafajbangj07va13dmj26v82whzri1-agent-plugin-langchain-skills-0.4.0/share/agent-plugins/langchain-skills",
+      "dir": "/nix/store/5cmbnp7v6s23dfkh9c0zl2sls1n8wvw8-agent-plugin-langchain-skills-0.4.4/share/agent-plugins/langchain-skills",
       "spec": "1.1.0",
-      "score": 40,
+      "score": 29,
       "status": "do not install",
       "coverage": {
         "scanned": [
@@ -65,9 +65,9 @@
         },
         {
           "path": "skills/langchain-agent-experiments",
-          "score": 100,
-          "risk": 0,
-          "status": "safe",
+          "score": 78,
+          "risk": 22,
+          "status": "caution",
           "partial": true,
           "coverage": 100,
           "exceptions": [
@@ -82,29 +82,60 @@
               "line": 179
             }
           ],
-          "findings": [],
+          "findings": [
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/langchain-agent-experiments/SKILL.md",
+              "line": 315
+            }
+          ],
           "suppressed": []
         },
         {
           "path": "skills/langchain-agent-monitoring",
-          "score": 100,
-          "risk": 0,
-          "status": "safe",
+          "score": 67,
+          "risk": 33,
+          "status": "caution",
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": [],
+          "findings": [
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/langchain-agent-monitoring/SKILL.md",
+              "line": 161
+            },
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/langchain-agent-monitoring/references/chained-eval-cli-setup.md",
+              "line": 28
+            }
+          ],
           "suppressed": []
         },
         {
           "path": "skills/langchain-agent-tracing",
-          "score": 100,
-          "risk": 0,
-          "status": "safe",
+          "score": 78,
+          "risk": 22,
+          "status": "caution",
           "partial": false,
           "coverage": 100,
           "exceptions": [],
-          "findings": [],
+          "findings": [
+            {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/langchain-agent-tracing/SKILL.md",
+              "line": 219
+            }
+          ],
           "suppressed": []
         },
         {
@@ -120,8 +151,8 @@
         },
         {
           "path": "skills/langchain-eval-engineering",
-          "score": 40,
-          "risk": 60,
+          "score": 29,
+          "risk": 71,
           "status": "do not install",
           "partial": true,
           "coverage": 95.2,
@@ -201,6 +232,13 @@
               "line": 74
             },
             {
+              "id": "RA1",
+              "severity": "HIGH",
+              "message": "Self-Modification",
+              "file": "skills/langchain-eval-engineering/references/discovery.md",
+              "line": 111
+            },
+            {
               "id": "MP3",
               "severity": "HIGH",
               "message": "Memory Manipulation",
@@ -258,105 +296,19 @@
         },
         {
           "path": "skills/langchain-managed-deep-agents",
-          "score": 60,
-          "risk": 40,
-          "status": "caution",
-          "partial": true,
+          "score": 92,
+          "risk": 8,
+          "status": "safe",
+          "partial": false,
           "coverage": 100,
-          "exceptions": [
-            {
-              "reason": "reference_missing",
-              "path": "skills/langchain-managed-deep-agents/SKILL.md",
-              "line": 74
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/langchain-managed-deep-agents/SKILL.md",
-              "line": 90
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/langchain-managed-deep-agents/SKILL.md",
-              "line": 141
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/langchain-managed-deep-agents/SKILL.md",
-              "line": 175
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/langchain-managed-deep-agents/SKILL.md",
-              "line": 177
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/langchain-managed-deep-agents/SKILL.md",
-              "line": 188
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/langchain-managed-deep-agents/SKILL.md",
-              "line": 189
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/langchain-managed-deep-agents/SKILL.md",
-              "line": 190
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/langchain-managed-deep-agents/SKILL.md",
-              "line": 192
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/langchain-managed-deep-agents/SKILL.md",
-              "line": 222
-            }
-          ],
+          "exceptions": [],
           "findings": [
             {
-              "id": "PE3",
-              "severity": "HIGH",
-              "message": "Credential Access",
-              "file": "skills/langchain-managed-deep-agents/SKILL.md",
-              "line": 96
-            },
-            {
-              "id": "PE3",
-              "severity": "HIGH",
-              "message": "Credential Access",
-              "file": "skills/langchain-managed-deep-agents/SKILL.md",
-              "line": 143
-            },
-            {
-              "id": "PE3",
-              "severity": "HIGH",
-              "message": "Credential Access",
-              "file": "skills/langchain-managed-deep-agents/SKILL.md",
-              "line": 217
-            },
-            {
-              "id": "RP1",
+              "id": "EA2",
               "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
+              "message": "Autonomous Decision Making",
               "file": "skills/langchain-managed-deep-agents/SKILL.md",
-              "line": 84
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/langchain-managed-deep-agents/SKILL.md",
-              "line": 88
-            },
-            {
-              "id": "RP1",
-              "severity": "MEDIUM",
-              "message": "MCP Rug Pull",
-              "file": "skills/langchain-managed-deep-agents/SKILL.md",
-              "line": 88
+              "line": 95
             }
           ],
           "suppressed": []
@@ -390,7 +342,7 @@
       ]
     }
   ],
-  "score": 40,
+  "score": 29,
   "status": "do not install",
   "tool": {
     "name": "skillspector",
@@ -398,7 +350,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-23T00:55:09Z"
+      "checkedAt": "2026-11-24T23:58:14Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
