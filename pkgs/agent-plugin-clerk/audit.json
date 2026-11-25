@@ -7,12 +7,14 @@
   "plugins": [
     {
       "name": "clerk",
-      "dir": "/nix/store/q8f81p89z0hq90ha9jmczdxs8msik01f-agent-plugin-clerk-1.0.0/share/agent-plugins/clerk",
+      "dir": "/nix/store/pc1bjw2xjqcn4ymxcn93pnjvbvbab678-agent-plugin-clerk-1.0.0/share/agent-plugins/clerk",
       "spec": "1.1.0",
       "score": 16,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.openai/.mcp.json",
+          "com.openai/assets",
           "skills/clerk",
           "skills/clerk-android",
           "skills/clerk-astro-patterns",
@@ -50,6 +52,28 @@
         ]
       },
       "components": [
+        {
+          "path": "com.openai/.mcp.json",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "com.openai/assets",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/clerk",
           "score": 100,
@@ -1054,9 +1078,9 @@
         },
         {
           "path": "skills/clerk-expo",
-          "score": 44,
-          "risk": 56,
-          "status": "do not install",
+          "score": 52,
+          "risk": 48,
+          "status": "caution",
           "partial": true,
           "coverage": 87.5,
           "exceptions": [
@@ -1088,7 +1112,7 @@
             {
               "reason": "reference_missing",
               "path": "skills/clerk-expo/SKILL.md",
-              "line": 95
+              "line": 107
             },
             {
               "reason": "static_parse_limit",
@@ -1102,7 +1126,7 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/clerk-expo/references/setup.md",
-              "line": 81
+              "line": 92
             },
             {
               "id": "AS3",
@@ -1165,7 +1189,7 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/clerk-expo/references/prebuilt-components.md",
-              "line": 90
+              "line": 109
             },
             {
               "id": "RP1",
@@ -1173,6 +1197,13 @@
               "message": "MCP Rug Pull",
               "file": "skills/clerk-expo/references/recipes.md",
               "line": 96
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/clerk-expo/references/recipes.md",
+              "line": 143
             },
             {
               "id": "RP1",
@@ -1235,21 +1266,35 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/clerk-expo/references/setup.md",
-              "line": 54
+              "line": 30
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/clerk-expo/references/setup.md",
-              "line": 64
+              "line": 31
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/clerk-expo/references/setup.md",
-              "line": 110
+              "line": 56
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/clerk-expo/references/setup.md",
+              "line": 75
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/clerk-expo/references/setup.md",
+              "line": 121
             },
             {
               "id": "RP1",
@@ -1263,14 +1308,14 @@
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/clerk-expo/references/sso-and-native-auth.md",
-              "line": 64
+              "line": 66
             },
             {
               "id": "RP1",
               "severity": "MEDIUM",
               "message": "MCP Rug Pull",
               "file": "skills/clerk-expo/references/sso-and-native-auth.md",
-              "line": 102
+              "line": 108
             },
             {
               "id": "RP1",
@@ -1284,14 +1329,7 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/clerk-expo/SKILL.md",
-              "line": 97
-            },
-            {
-              "id": "RA2",
-              "severity": "MEDIUM",
-              "message": "Session Persistence",
-              "file": "skills/clerk-expo/references/recipes.md",
-              "line": 96
+              "line": 109
             }
           ],
           "suppressed": [
@@ -2866,7 +2904,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-23T20:48:15Z"
+      "checkedAt": "2026-11-25T20:00:34Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"

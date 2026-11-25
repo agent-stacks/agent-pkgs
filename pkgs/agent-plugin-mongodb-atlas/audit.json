@@ -7,12 +7,14 @@
   "plugins": [
     {
       "name": "mongodb-atlas",
-      "dir": "/nix/store/873b7km4phv2rql4gnz6hz6dh30xiagv-agent-plugin-mongodb-atlas-1.2.1/share/agent-plugins/mongodb-atlas",
+      "dir": "/nix/store/4bmvbmbjanin31kzvmnz9dxkranimqrf-agent-plugin-mongodb-atlas-1.2.1/share/agent-plugins/mongodb-atlas",
       "spec": "1.1.0",
-      "score": 81,
-      "status": "incomplete",
+      "score": 79,
+      "status": "caution",
       "coverage": {
         "scanned": [
+          "com.openai/.app.json",
+          "com.openai/assets",
           "skills/mongodb-atlas-stream-processing",
           "skills/mongodb-connection",
           "skills/mongodb-natural-language-querying",
@@ -37,10 +39,32 @@
       },
       "components": [
         {
+          "path": "com.openai/.app.json",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "com.openai/assets",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
           "path": "skills/mongodb-atlas-stream-processing",
-          "score": 81,
-          "risk": 19,
-          "status": "incomplete",
+          "score": 79,
+          "risk": 21,
+          "status": "caution",
           "partial": true,
           "coverage": 85.7,
           "exceptions": [
@@ -92,12 +116,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/mongodb-atlas-stream-processing/SKILL.md",
-              "line": 179
+              "line": 146
             },
             {
               "reason": "reference_missing",
               "path": "skills/mongodb-atlas-stream-processing/SKILL.md",
-              "line": 190
+              "line": 182
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/mongodb-atlas-stream-processing/SKILL.md",
+              "line": 193
             }
           ],
           "findings": [
@@ -106,28 +135,35 @@
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/mongodb-atlas-stream-processing/SKILL.md",
-              "line": 158
+              "line": 161
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/mongodb-atlas-stream-processing/references/connection-configs.md",
-              "line": 190
+              "line": 206
             },
             {
               "id": "EA2",
               "severity": "MEDIUM",
               "message": "Autonomous Decision Making",
               "file": "skills/mongodb-atlas-stream-processing/references/connection-configs.md",
-              "line": 261
+              "line": 277
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/mongodb-atlas-stream-processing/references/connection-configs.md",
+              "line": 313
             },
             {
               "id": "E1",
               "severity": "MEDIUM",
               "message": "External Transmission",
               "file": "skills/mongodb-atlas-stream-processing/references/development-workflow.md",
-              "line": 100
+              "line": 102
             }
           ],
           "suppressed": []
@@ -441,15 +477,15 @@
       ]
     }
   ],
-  "score": 81,
-  "status": "incomplete",
+  "score": 79,
+  "status": "caution",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-20T15:04:57Z"
+      "checkedAt": "2026-11-25T20:02:32Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"

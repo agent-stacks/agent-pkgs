@@ -7,12 +7,14 @@
   "plugins": [
     {
       "name": "google-cloud-developer",
-      "dir": "/nix/store/jx38v3rib09kzfwh2yswhqnpralf6k8p-agent-plugin-google-cloud-developer-1.1.20/share/agent-plugins/google-cloud-developer",
+      "dir": "/nix/store/3mb4bbgijn3i183fmkygwkhb6qr11hj5-agent-plugin-google-cloud-developer-1.1.20/share/agent-plugins/google-cloud-developer",
       "spec": "1.1.0",
       "score": 44,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.openai/.mcp.json",
+          "com.openai/assets",
           "skills/finding-google-skills",
           "skills/gcloud",
           "skills/google-cloud-recipe-auth",
@@ -30,6 +32,43 @@
         ]
       },
       "components": [
+        {
+          "path": "com.openai/.mcp.json",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "com.openai/assets",
+          "score": 85,
+          "risk": 15,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "com.openai/assets/logo.svg",
+              "line": 2
+            },
+            {
+              "id": "MP2",
+              "severity": "MEDIUM",
+              "message": "Context Window Stuffing",
+              "file": "com.openai/assets/logo.svg",
+              "line": 2
+            }
+          ],
+          "suppressed": []
+        },
         {
           "path": "skills/finding-google-skills",
           "score": 79,
@@ -278,7 +317,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-20T20:12:57Z"
+      "checkedAt": "2026-11-25T20:01:50Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
