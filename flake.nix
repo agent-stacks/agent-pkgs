@@ -40,10 +40,10 @@
       flake = false;
     };
 
-    # What pkgs/skillspector is built with: uv2nix turns that uv.lock
-    # into a Python package set, pyproject-nix builds that set, and
-    # pyproject-build-systems supplies the build backends the sdists
-    # in it need. Libraries evaluated, not packages built, so all three
+    # What pkgs/skillspector and pkgs/omlx are built with: uv2nix
+    # turns a uv.lock into a Python package set, pyproject-nix builds
+    # that set, and pyproject-build-systems supplies the build
+    # backends the sdists in it need. Libraries evaluated, not packages built, so all three
     # follow our nixpkgs as their READMEs recommend. The hourly
     # flake.lock update leaves them alone: they shape the SkillSpector
     # build the audit's score depends on, so they move only in a
@@ -223,8 +223,9 @@
         let
           lib' = mkLib pkgs;
           # SkillSpector's source and the uv2nix inputs are in scope for
-          # pkgs/skillspector, which takes them as arguments; nothing
-          # else in pkgs/ names them. llmAgentsPkgsFor is in scope for
+          # pkgs/skillspector, which takes them as arguments, and the
+          # uv2nix inputs for pkgs/omlx; nothing else in pkgs/ names
+          # them. llmAgentsPkgsFor is in scope for
           # pkgs/agent-sandbox-nono, which runs llm-agents.nix's nono.
           scope = {
             inherit (lib') buildAgentPlugin mkAgentStack;

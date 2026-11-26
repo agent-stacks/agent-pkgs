@@ -76,8 +76,12 @@ skill never downloads one
 ([ADR 0025](../decisions/0025-a-skills-own-engine-is-built-from-the-skills-source.md)).
 `omlx` is the oMLX inference server, headless, which serves a local
 MLX model to an agent over the OpenAI and Anthropic APIs. MLX runs
-on Metal, so it is built for aarch64-darwin only, on the prebuilt
-mlx wheels nixpkgs packages as `mlx-bin`.
+on Metal, so it is built for aarch64-darwin only. It is built with
+the same uv2nix inputs as `skillspector`, from a `uv.lock` kept next
+to it that locks oMLX at a release tag with its `mcp`, `grammar` and
+`audio` extras, on the prebuilt mlx wheels from PyPI. Its
+`upgrade.sh` moves the tag and regenerates the lock, by hand and in a
+reviewed pull request.
 
 A package in `pkgs/` whose `meta.platforms` excludes a system is left
 out of that system's `packages` and `hydraJobs.packages`, as the
