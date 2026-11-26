@@ -10,9 +10,14 @@ let
   args = {
     # Its hooks load ../scripts from beside hooks/, so hooks/ ships at
     # the plugin root with scripts/.
-    pluginRootPaths = builtins.removeAttrs source.pluginRootPaths [ "com.anthropic.claude-code/hooks" ] // {
-      hooks = "plugins/pcf/hooks";
-    };
+    # A replay that stops recording the namespaced hooks would ship them
+    # twice; fail the build instead.
+    pluginRootPaths =
+      assert pkgs.lib.assertMsg (source.pluginRootPaths ? "com.anthropic.claude-code/hooks")
+        "agent-plugin-pcf: pluginRootPaths no longer records com.anthropic.claude-code/hooks; revisit the custom block";
+      builtins.removeAttrs source.pluginRootPaths [ "com.anthropic.claude-code/hooks" ] // {
+        hooks = "plugins/pcf/hooks";
+      };
   };
   hooks = old: {
     # Its telemetry sends org, tenant and user IDs to Microsoft unless

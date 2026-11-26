@@ -10,13 +10,20 @@ let
   args = {
     # Its hooks load ../scripts and ../.plugin from beside hooks/, so
     # hooks/ ships at the plugin root with what they load.
-    pluginRootPaths = builtins.removeAttrs source.pluginRootPaths [ "com.anthropic.claude-code/hooks" ] // {
-      hooks = "plugins/power-apps-mobile-extension/hooks";
-      scripts = "plugins/power-apps-mobile-extension/scripts";
-      ".plugin" = "plugins/power-apps-mobile-extension/.plugin";
-    };
-    # scripts/ holds Node scripts, which import recorded no runtime for;
-    # unique, so a replay that records node too lists it once.
+    # A replay that stops recording the namespaced hooks would ship them
+    # twice; fail the build instead.
+    pluginRootPaths =
+      assert pkgs.lib.assertMsg (source.pluginRootPaths ? "com.anthropic.claude-code/hooks")
+        "agent-plugin-power-apps-mobile-extension: pluginRootPaths no longer records com.anthropic.claude-code/hooks; revisit the custom block";
+      builtins.removeAttrs source.pluginRootPaths [ "com.anthropic.claude-code/hooks" ] // {
+        hooks = "plugins/power-apps-mobile-extension/hooks";
+        scripts = "plugins/power-apps-mobile-extension/scripts";
+        ".plugin" = "plugins/power-apps-mobile-extension/.plugin";
+      };
+    # scripts/ holds Node scripts whose shebangs need bin/node, which
+    # import recorded no runtime for. The hooks themselves still run
+    # node from PATH. unique, so a replay that records node too lists
+    # it once.
     requiredRuntimes = pkgs.lib.unique (source.requiredRuntimes ++ [ "node" ]);
   };
   hooks = old: {

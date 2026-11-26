@@ -10,10 +10,15 @@ let
   args = {
     # Its hooks load ../scripts and ../feature-flags.json from beside
     # hooks/, so hooks/ ships at the plugin root with what they load.
-    pluginRootPaths = builtins.removeAttrs source.pluginRootPaths [ "com.anthropic.claude-code/hooks" ] // {
-      hooks = "plugins/model-apps/hooks";
-      "feature-flags.json" = "plugins/model-apps/feature-flags.json";
-    };
+    # A replay that stops recording the namespaced hooks would ship them
+    # twice; fail the build instead.
+    pluginRootPaths =
+      assert pkgs.lib.assertMsg (source.pluginRootPaths ? "com.anthropic.claude-code/hooks")
+        "agent-plugin-model-apps: pluginRootPaths no longer records com.anthropic.claude-code/hooks; revisit the custom block";
+      builtins.removeAttrs source.pluginRootPaths [ "com.anthropic.claude-code/hooks" ] // {
+        hooks = "plugins/model-apps/hooks";
+        "feature-flags.json" = "plugins/model-apps/feature-flags.json";
+      };
   };
   hooks = old: {
     # Its telemetry sends org, tenant and user IDs to Microsoft unless
