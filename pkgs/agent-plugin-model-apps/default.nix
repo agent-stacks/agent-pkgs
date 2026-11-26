@@ -7,8 +7,30 @@
 let
   source = builtins.fromJSON (builtins.readFile ./default.json);
   # BEGIN custom — kept as it is when this file is regenerated
-  args = { };
-  hooks = old: { };
+  args = {
+    # Its hooks load ../scripts and ../feature-flags.json from beside
+    # hooks/, so hooks/ ships at the plugin root with what they load.
+    # A replay that stops recording the namespaced hooks would ship them
+    # twice; fail the build instead.
+    pluginRootPaths =
+      assert pkgs.lib.assertMsg (source.pluginRootPaths ? "com.anthropic.claude-code/hooks")
+        "agent-plugin-model-apps: pluginRootPaths no longer records com.anthropic.claude-code/hooks; revisit the custom block";
+      builtins.removeAttrs source.pluginRootPaths [ "com.anthropic.claude-code/hooks" ] // {
+        hooks = "plugins/model-apps/hooks";
+        "feature-flags.json" = "plugins/model-apps/feature-flags.json";
+      };
+  };
+  hooks = old: {
+    # Its telemetry sends org, tenant and user IDs to Microsoft unless
+    # the user opts out. No stored choice means off here, so
+    # /model-apps:telemetry on opts in.
+    postAssemble = old.postAssemble + ''
+      substituteInPlace "$dest/scripts/lib/telemetry/lib/user-config.js" \
+        --replace-fail \
+          'return readTelemetryChoice(configDir, pluginName) ?? null;' \
+          'return readTelemetryChoice(configDir, pluginName) ?? "off";'
+    '';
+  };
   # END custom — anything outside these markers is overwritten
 in
 (buildAgentPlugin (source // args)).overrideAttrs hooks
