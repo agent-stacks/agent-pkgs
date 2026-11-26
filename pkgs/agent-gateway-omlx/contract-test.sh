@@ -81,23 +81,47 @@ echo '{"weight_map":{"a":"model-00001-of-00002.safetensors","b":"model-00002-of-
   >"$m/shard/files/model.safetensors.index.json"
 mk bad-id '{"schemaVersion":1,"id":"a/b","layout":"plain","format":"mlx","entry":"files/"}'
 mkdir -p "$m/broken" && echo '{nope' >"$m/broken/model.json"
+mkdir -p "$m/empty"
+mk both '{"schemaVersion":1,"id":"both","layout":"plain","format":"mlx","entry":"files/","endpoint":{"url":"https://models.example.com/v1","model":"x"}}'
+mk hidden '{"schemaVersion":1,"id":".tiny","layout":"plain","format":"mlx","entry":"files/"}'
+# Named by its id, which any character but '/' and ':' may make up.
+wide='Tiny (Q8) #1 é'
+mk wide '{"schemaVersion":1,"id":"'"$wide"'","layout":"plain","format":"mlx","entry":"files/"}'
+snapshot "$m/wide/files"
+# No id: named by its directory.
+mk noid '{"schemaVersion":1,"layout":"plain","format":"mlx","entry":"files/"}'
+snapshot "$m/noid/files"
+# A second models dir: its tiny loses to the first dir's, its own model
+# is served.
+m2=$root/env2/share/agent-models
+mkdir -p "$m2/tiny-again" "$m2/second"
+printf '%s\n' '{"schemaVersion":1,"id":"tiny","layout":"plain","format":"mlx","entry":"files/"}' >"$m2/tiny-again/model.json"
+printf '%s\n' '{"schemaVersion":1,"id":"second","layout":"plain","format":"mlx","entry":"files/"}' >"$m2/second/model.json"
+snapshot "$m2/tiny-again/files"
+snapshot "$m2/second/files"
 
 # --- check -----------------------------------------------------------
 line() { # <model> -> the one line check prints for it
   grep "^$1 " check.out || fail "check printed nothing for $1: $(cat check.out)"
 }
-"$gw" check "$m"/* >check.out 2>check.err
+# Exit 0: a skip is an answer, not a failure.
+"$gw" check "$m"/* >check.out 2>check.err || fail "check exited non-zero when it skipped models"
 [ "$(wc -l <check.out)" -eq "$(ls "$m" | wc -l)" ] || fail "check: one line per model: $(cat check.out)"
 [ "$(line tiny)" = "tiny ok" ] || fail "tiny: $(line tiny)"
 [ "$(line tiny-hf)" = "tiny-hf ok" ] || fail "tiny-hf: $(line tiny-hf)"
 line gguf | grep -q '^gguf skip format ' || fail "gguf: $(line gguf)"
 line remote | grep -q '^remote skip endpoint ' || fail "remote: $(line remote)"
 line legacy-remote | grep -q '^legacy-remote skip endpoint ' || fail "legacy-remote: $(line legacy-remote)"
-for w in gone short odd noconfig noweights quant shard; do
+for w in gone short noconfig noweights quant shard; do
   line $w | grep -q "^$w skip weights " || fail "$w: $(line $w)"
 done
-line bad-id | grep -q '^bad-id skip other ' || fail "bad-id: $(line bad-id)"
-line broken | grep -q '^broken skip other ' || fail "broken: $(line broken)"
+line odd | grep -q '^odd skip layout ' || fail "odd: $(line odd)"
+for w in bad-id broken empty both hidden; do
+  line $w | grep -q "^$w skip model-json " || fail "$w: $(line $w)"
+done
+grep -qxF "$wide ok" check.out || fail "wide: $(cat check.out)"
+[ "$(line noid)" = "noid ok" ] || fail "noid: $(line noid)"
+[ "$("$gw" check "$m2/tiny-again")" = "tiny ok" ] || fail "check names a model by its id"
 # A model.json path is the same as its directory.
 [ "$("$gw" check "$m/tiny/model.json")" = "tiny ok" ] || fail "check by model.json"
 # Too big for this host, a host it does not run on, a macOS too old.
@@ -110,7 +134,7 @@ if "$gw" check 2>/dev/null; then fail "check with no model accepted"; fi
 port=$(python3 -c 'import socket; s=socket.socket(); s.bind(("127.0.0.1",0)); print(s.getsockname()[1])')
 url=http://127.0.0.1:$port
 # The models dir from the environment; a server argument passed through.
-AGENT_STACKS_MODELS_DIR=$m "$gw" serve --listen "127.0.0.1:$port" -- --no-cache >serve.out 2>serve.err &
+AGENT_STACKS_MODELS_DIR=$m:$m2 "$gw" serve --listen "127.0.0.1:$port" -- --no-cache >serve.out 2>serve.err &
 pid=$!
 stop() { kill "$pid" 2>/dev/null || true; }
 trap stop EXIT
@@ -121,10 +145,11 @@ for _ in $(seq 1500); do
 done
 [ "$(cat serve.out)" = ready ] || fail "serve did not print ready: $(cat serve.out) $(tail -20 serve.err)"
 grep -q 'gguf skip format' serve.err || fail "serve did not warn about the skipped gguf model"
+grep -q "tiny in $m2/tiny-again is already served" serve.err || fail "serve did not warn about the duplicate id"
 
 curl -fsS "$url/v1/models" >models.json
 jq -e '.object == "list"' models.json >/dev/null || fail "/v1/models is not a list"
-[ "$(jq -c '[.data[].id] | sort' models.json)" = '["tiny","tiny-hf"]' ] || fail "served $(jq -c '[.data[].id]' models.json)"
+[ "$(jq -c '[.data[].id] | sort' models.json)" = "$(jq -cn --arg w "$wide" '["noid","second","tiny","tiny-hf",$w] | sort')" ] || fail "served $(jq -c '[.data[].id]' models.json)"
 
 # Every protocol describe names, at its path, loading the model on the
 # first request.
@@ -143,15 +168,15 @@ jq -e '.object == "response"' resp.json >/dev/null || fail "responses: $(cat res
 
 # --- status ----------------------------------------------------------
 "$gw" status --url "$url/v1" >status.json
-jq -e '.models | length == 2' status.json >/dev/null || fail "status: $(cat status.json)"
+jq -e '.models | length == 5' status.json >/dev/null || fail "status: $(cat status.json)"
 jq -e '.models[] | select(.id == "tiny") | .loaded == true and .contextLength == 40960' status.json >/dev/null ||
   fail "status of the loaded model: $(cat status.json)"
-jq -e '.models[] | select(.id == "tiny-hf") | .loaded == false' status.json >/dev/null ||
+jq -e '.models[] | select(.id == "tiny-hf") | .loaded == false and .contextLength == 40960' status.json >/dev/null ||
   fail "status of the unloaded model: $(cat status.json)"
 jq -e '[.models[] | keys] | all(. == ["contextLength", "id", "loaded"])' status.json >/dev/null ||
   fail "status shape: $(cat status.json)"
 # Without /v1 too.
-"$gw" status --url "$url" | jq -e '.models | length == 2' >/dev/null || fail "status without /v1"
+"$gw" status --url "$url" | jq -e '.models | length == 5' >/dev/null || fail "status without /v1"
 
 # --- SIGHUP re-reads the models dirs ---------------------------------
 mk late '{"schemaVersion":1,"id":"late","layout":"plain","format":"mlx","entry":"files/"}'
@@ -161,7 +186,7 @@ for _ in $(seq 100); do
   curl -fsS "$url/v1/models" | jq -e '[.data[].id] | index("late")' >/dev/null 2>&1 && break
   sleep 0.1
 done
-[ "$(curl -fsS "$url/v1/models" | jq -c '[.data[].id] | sort')" = '["late","tiny","tiny-hf"]' ] ||
+[ "$(curl -fsS "$url/v1/models" | jq -c '[.data[].id] | sort')" = "$(jq -cn --arg w "$wide" '["late","noid","second","tiny","tiny-hf",$w] | sort')" ] ||
   fail "after SIGHUP: $(curl -fsS "$url/v1/models") $(tail -5 serve.err)"
 
 # --- a taken address -------------------------------------------------

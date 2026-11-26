@@ -39,6 +39,16 @@ HEALTH_PATH = "/health"
 LAYOUTS = ["plain", "hf-cache"]
 
 
+def id_problem(mid):
+    """oMLX names a model by its directory, the ID's link: it passes over
+    a name starting with '.', and a name is one file name long."""
+    if mid.startswith("."):
+        return "starts with '.', which oMLX skips as a hidden directory"
+    if len(mid.encode()) > 255:
+        return "is longer than a file name can be (255 bytes)"
+    return None
+
+
 def macos_version():
     if os.environ.get("AGENT_GATEWAY_MACOS_VERSION"):
         return os.environ["AGENT_GATEWAY_MACOS_VERSION"]
@@ -82,10 +92,8 @@ def check_files(d, m, mid):
         raise Skip("host", f"oMLX needs macOS {MINIMUM_MACOS} or later, this is {mv}")
     layout = m.get("layout", "plain")
     if layout not in LAYOUTS:
-        raise Skip("weights", f"layout {layout!r} cannot be handed to oMLX ({', '.join(LAYOUTS)})")
-    entry = m.get("entry")
-    if not isinstance(entry, str) or not entry:
-        raise Skip("weights", "model.json names no entry")
+        raise Skip("layout", f"layout {layout!r} cannot be handed to oMLX ({', '.join(LAYOUTS)})")
+    entry = ag.check_entry(m)
     ep = d / entry
     if not ep.exists():  # follows every link, so a dangling one is caught
         raise Skip("weights", f"entry {entry} is missing")
@@ -198,7 +206,8 @@ def status(base):
         out.append({
             "id": e["id"],
             "loaded": bool(s.get("loaded")),
-            # The window oMLX enforces: a per-model or policy limit, else
+            # The window oMLX enforces, loaded or not, which is the one a
+            # loaded model runs with: a per-model or policy limit, else
             # what the model's config.json says.
             "contextLength": s.get("max_context_window") or s.get("model_context_length"),
         })
