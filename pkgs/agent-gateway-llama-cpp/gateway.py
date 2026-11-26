@@ -10,6 +10,7 @@ Results go to standard output, everything else (llama-server's log
 included) to standard error. Standard library only.
 """
 
+import glob
 import json
 import os
 import re
@@ -40,8 +41,13 @@ LAYOUTS = ["plain", "hf-cache"]
 # Metal wires about three quarters of unified memory by default, and a
 # model bigger than that does not load or swaps.
 MEMORY_FRACTION = 0.75
-# The model ID is a preset section and a file name: no '/', ':' or space.
-ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
+# What the spec keeps out of a model ID (proposal 0002, section 2).
+ID_FORBIDDEN = "/:"
+# The ID is a preset section name, "[<id>]": llama.cpp's ini reader ends
+# it at ']', trims no inner blanks, and keeps '*' and 'default' for its
+# own sections. The links are named apart from the ID, so a file name
+# puts no limit on it.
+PRESET_RESERVED = ("*", "default")
 SPLIT_RE = re.compile(r"-(\d{5})-of-(\d{5})\.gguf$")
 READY_TIMEOUT = 120
 
@@ -86,16 +92,29 @@ class Skip(Exception):
 def check_model(arg):
     """One model directory (or its model.json) against this gateway.
 
-    Returns (name, model) where model holds id and entry, or raises Skip
-    with the name in .name."""
+    Returns the model, which holds id and entry, or raises Skip with the
+    name check prints in .name: the model's id, or its directory's name
+    when model.json cannot be read or its id is unusable."""
     p = Path(arg)
     d = p.parent if p.name == "model.json" else p
-    name = d.name
     try:
-        return name, _check(d)
+        return _check(d)
     except Skip as e:
-        e.name = getattr(e, "name", None) or name
+        e.name = getattr(e, "name", None) or d.name
         raise
+
+
+def id_problem(mid):
+    """Why mid cannot be a model ID here, or None."""
+    if not isinstance(mid, str) or not mid:
+        return "is not a non-empty string"
+    if any(c in mid for c in ID_FORBIDDEN):
+        return "contains '/' or ':'"
+    if any(ord(c) < 0x20 or ord(c) == 0x7F for c in mid):
+        return "contains a control character"
+    if "]" in mid or mid != mid.strip(" \t") or mid in PRESET_RESERVED:
+        return "cannot name a llama-server preset section (']', blanks at either end, '*' or 'default')"
+    return None
 
 
 def _check(d):
@@ -103,16 +122,18 @@ def _check(d):
     if not mj.is_file():
         if (d / "endpoint.json").is_file():
             raise Skip("endpoint", "the model has an endpoint (endpoint.json); launch talks to it directly")
-        raise Skip("other", f"no model.json in {d}")
+        raise Skip("model-json", f"no model.json in {d}")
     try:
-        m = json.loads(mj.read_text())
+        m = json.loads(mj.read_text(encoding="utf-8"))
     except (OSError, ValueError) as e:
-        raise Skip("other", f"cannot read {mj}: {e}")
+        raise Skip("model-json", f"cannot read {mj}: {e}")
     if not isinstance(m, dict):
-        raise Skip("other", f"{mj} is not a JSON object")
+        raise Skip("model-json", f"{mj} is not a JSON object")
+    # A model.json with no id is named by its directory.
     mid = m.get("id", d.name)
-    if not isinstance(mid, str) or not ID_RE.match(mid):
-        raise Skip("other", f"id {mid!r} cannot be a model ID: use letters, digits, '.', '_' and '-'")
+    problem = id_problem(mid)
+    if problem:
+        raise Skip("model-json", f"id {mid!r} {problem}")
     try:
         return _check_files(d, m, mid)
     except Skip as e:
@@ -120,10 +141,15 @@ def _check(d):
         raise
 
 
+# The fields of a model with files; one with an endpoint has none of them.
+FILE_FIELDS = ("layout", "format", "entry", "files")
+
+
 def _check_files(d, m, mid):
     if "endpoint" in m:
-        if "files" in m:
-            raise Skip("other", "model.json has both files and an endpoint")
+        both = [k for k in FILE_FIELDS if k in m]
+        if both:
+            raise Skip("model-json", f"model.json has both an endpoint and {', '.join(both)}")
         raise Skip("endpoint", f"the model has an endpoint ({(m['endpoint'] or {}).get('url')}); launch talks to it directly")
     fmt = m.get("format")
     if fmt not in FORMATS:
@@ -133,10 +159,10 @@ def _check_files(d, m, mid):
         raise Skip("platform", f"llama-server is not built for {plat} ({', '.join(PLATFORMS)})")
     layout = m.get("layout", "plain")
     if layout not in LAYOUTS:
-        raise Skip("weights", f"layout {layout!r} cannot be handed to llama-server ({', '.join(LAYOUTS)})")
+        raise Skip("layout", f"layout {layout!r} cannot be handed to llama-server ({', '.join(LAYOUTS)})")
     entry = m.get("entry")
     if not isinstance(entry, str) or not entry:
-        raise Skip("weights", "model.json names no entry")
+        raise Skip("model-json", "model.json names no entry")
     ep = d / entry
     if not ep.exists():  # follows every link, so a dangling one is caught
         raise Skip("weights", f"entry {entry} is missing")
@@ -147,6 +173,8 @@ def _check_files(d, m, mid):
         raise Skip("weights", f"entry {entry} is not the first shard of a split GGUF")
     weights = 0
     files = m.get("files") or []
+    if not isinstance(files, list) or not all(isinstance(f, dict) for f in files):
+        raise Skip("model-json", "files is not a list of objects")
     for f in files:
         fp = ep.parent / f.get("path", "")
         if not fp.is_file():
@@ -179,10 +207,12 @@ def cmd_describe(args):
 def cmd_check(args):
     if not args:
         die_usage("check needs a model directory or model.json")
+    # A skip is an answer, not a failure: exit 0 once every model has a
+    # line. Only a check that cannot run at all exits non-zero.
     for a in args:
         try:
-            name, _ = check_model(a)
-            print(f"{name} ok", flush=True)
+            model = check_model(a)
+            print(f"{model['id']} ok", flush=True)
         except Skip as e:
             print(f"{e.name} skip {e.code} {e.message}", flush=True)
 
@@ -199,7 +229,7 @@ def scan(dirs):
             if not d.is_dir():
                 continue
             try:
-                _, model = check_model(d)
+                model = check_model(d)
             except Skip as e:
                 log(f"warning: {e.name} skip {e.code} {e.message}")
                 continue
@@ -213,35 +243,38 @@ def scan(dirs):
 
 def write_preset(state, models):
     """Links to every entry under state/models, and the preset naming
-    them by ID. Links only: llama-server reads through them."""
+    them by ID. Links only: llama-server reads through them. Each model's
+    links are in a directory of their own, numbered, under names of the
+    gateway's choosing, so that neither the ID nor the model's file names
+    reach a path the preset holds."""
     links = state / "models"
     if links.exists():
         shutil.rmtree(links)
     links.mkdir()
     ini = ["version = 1", ""]
-    for mid, m in models.items():
+    for n, (mid, m) in enumerate(models.items(), 1):
         entry = m["entry"]
-        if SPLIT_RE.search(entry.name) or list(entry.parent.glob("mmproj*.gguf")):
-            # Shards and a projector go together in one directory.
-            sub = links / mid
-            sub.mkdir()
-            stem = SPLIT_RE.sub("", entry.name)
-            for f in sorted(entry.parent.glob(f"{stem}-*-of-*.gguf")) or [entry]:
-                (sub / f.name).symlink_to(f.absolute())
-            mmproj = sorted(entry.parent.glob("mmproj*.gguf"))
-            for f in mmproj:
-                (sub / f.name).symlink_to(f.absolute())
-            ini += [f"[{mid}]", f"model = {sub / entry.name}"]
-            if mmproj:
-                ini.append(f"mmproj = {sub / mmproj[0].name}")
+        sub = links / f"{n:04d}"
+        sub.mkdir()
+        sm = SPLIT_RE.search(entry.name)
+        if sm:
+            # llama.cpp finds the other shards by the first one's name.
+            stem = entry.name[:sm.start()]
+            for f in sorted(entry.parent.glob(f"{glob.escape(stem)}-*-of-{sm.group(2)}.gguf")):
+                (sub / f"model{SPLIT_RE.search(f.name).group(0)}").symlink_to(f.absolute())
+            model = sub / f"model-00001-of-{sm.group(2)}.gguf"
         else:
-            link = links / f"{mid}.gguf"
-            link.symlink_to(entry.absolute())
-            ini += [f"[{mid}]", f"model = {link}"]
+            model = sub / "model.gguf"
+            model.symlink_to(entry.absolute())
+        ini += [f"[{mid}]", f"model = {model}"]
+        mmproj = sorted(entry.parent.glob("mmproj*.gguf"))
+        if mmproj:
+            (sub / "mmproj.gguf").symlink_to(mmproj[0].absolute())
+            ini.append(f"mmproj = {sub / 'mmproj.gguf'}")
         ini.append("")
     preset = state / "models.ini"
     tmp = state / "models.ini.new"
-    tmp.write_text("\n".join(ini))
+    tmp.write_text("\n".join(ini), encoding="utf-8")
     tmp.replace(preset)
     return preset
 
