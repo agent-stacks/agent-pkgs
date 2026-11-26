@@ -19,6 +19,8 @@ module with:
   DESCRIBE_EXTRA          more describe fields ({} for none)
   HEALTH_PATH             answers 200 once the server takes requests
   check_files(d, m, mid)  -> {"id": mid, ...}, or raise Skip
+  id_problem(mid)         why the server cannot take an ID the spec
+                          allows, or None (optional)
   prepare(state, models, host, server_args)
                           writes what the server reads into state
   command(state, host, port, server_args) -> (argv, env or None)
@@ -41,8 +43,10 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
-# The model ID is a file name or a section name: no '/', ':' or space.
-ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
+# What the spec keeps out of a model ID (proposal 0002, section 2).
+ID_FORBIDDEN = "/:"
+# The fields of a model with files; one with an endpoint has none of them.
+FILE_FIELDS = ("layout", "format", "entry", "files")
 READY_TIMEOUT = 120
 # Where nothing better is known, Metal wires about three quarters of
 # unified memory by default, and a model bigger than that does not
@@ -101,7 +105,10 @@ def check_listed_files(base, m):
     size. Returns the bytes of the weights files, or None when files[]
     names none."""
     weights = None
-    for f in m.get("files") or []:
+    files = m.get("files") or []
+    if not isinstance(files, list) or not all(isinstance(f, dict) for f in files):
+        raise Skip("model-json", "files is not a list of objects")
+    for f in files:
         fp = base / f.get("path", "")
         if not fp.is_file():
             raise Skip("weights", f"{f.get('path')} is missing")
@@ -127,18 +134,39 @@ def check_format_and_platform(m):
         raise Skip("platform", f"{B.SERVER} is not built for {plat} ({', '.join(B.PLATFORMS)})")
 
 
+def check_entry(m):
+    """model.json's entry, or Skip model-json when it names none."""
+    entry = m.get("entry")
+    if not isinstance(entry, str) or not entry:
+        raise Skip("model-json", "model.json names no entry")
+    return entry
+
+
 def check_model(arg):
     """One model directory (or its model.json) against this gateway.
 
-    Returns (name, model) where model is what the backend's check_files
-    returned, or raises Skip with the name in .name."""
+    Returns what the backend's check_files returned, which holds the id,
+    or raises Skip with the name check prints in .name: the model's id,
+    or its directory's name when model.json cannot be read or its id is
+    unusable."""
     p = Path(arg)
     d = p.parent if p.name == "model.json" else p
     try:
-        return d.name, _check(d)
+        return _check(d)
     except Skip as e:
         e.name = e.name or d.name
         raise
+
+
+def id_problem(mid):
+    """Why mid cannot be a model ID here, or None."""
+    if not isinstance(mid, str) or not mid:
+        return "is not a non-empty string"
+    if any(c in mid for c in ID_FORBIDDEN):
+        return "contains '/' or ':'"
+    if any(ord(c) < 0x20 or ord(c) == 0x7F for c in mid):
+        return "contains a control character"
+    return getattr(B, "id_problem", lambda _: None)(mid)
 
 
 def _check(d):
@@ -146,20 +174,23 @@ def _check(d):
     if not mj.is_file():
         if (d / "endpoint.json").is_file():
             raise Skip("endpoint", "the model has an endpoint (endpoint.json); launch talks to it directly")
-        raise Skip("other", f"no model.json in {d}")
+        raise Skip("model-json", f"no model.json in {d}")
     try:
-        m = json.loads(mj.read_text())
+        m = json.loads(mj.read_text(encoding="utf-8"))
     except (OSError, ValueError) as e:
-        raise Skip("other", f"cannot read {mj}: {e}")
+        raise Skip("model-json", f"cannot read {mj}: {e}")
     if not isinstance(m, dict):
-        raise Skip("other", f"{mj} is not a JSON object")
+        raise Skip("model-json", f"{mj} is not a JSON object")
+    # A model.json with no id is named by its directory.
     mid = m.get("id", d.name)
-    if not isinstance(mid, str) or not ID_RE.match(mid):
-        raise Skip("other", f"id {mid!r} cannot be a model ID: use letters, digits, '.', '_' and '-'")
+    problem = id_problem(mid)
+    if problem:
+        raise Skip("model-json", f"id {mid!r} {problem}")
     try:
         if "endpoint" in m:
-            if "files" in m:
-                raise Skip("other", "model.json has both files and an endpoint")
+            both = [k for k in FILE_FIELDS if k in m]
+            if both:
+                raise Skip("model-json", f"model.json has both an endpoint and {', '.join(both)}")
             raise Skip("endpoint", f"the model has an endpoint ({(m['endpoint'] or {}).get('url')}); launch talks to it directly")
         return B.check_files(d, m, mid)
     except Skip as e:
@@ -183,10 +214,12 @@ def cmd_describe(args):
 def cmd_check(args):
     if not args:
         die_usage("check needs a model directory or model.json")
+    # A skip is an answer, not a failure: exit 0 once every model has a
+    # line. Only a check that cannot run at all exits non-zero.
     for a in args:
         try:
-            name, _ = check_model(a)
-            print(f"{name} ok", flush=True)
+            model = check_model(a)
+            print(f"{model['id']} ok", flush=True)
         except Skip as e:
             print(f"{e.name} skip {e.code} {e.message}", flush=True)
 
@@ -203,7 +236,7 @@ def scan(dirs):
             if not d.is_dir():
                 continue
             try:
-                _, model = check_model(d)
+                model = check_model(d)
             except Skip as e:
                 log(f"warning: {e.name} skip {e.code} {e.message}")
                 continue

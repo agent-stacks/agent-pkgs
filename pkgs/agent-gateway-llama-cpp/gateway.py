@@ -5,6 +5,7 @@ The contract itself is agent_gateway.py, shared with the other
 agent-gateway-* packages; this is what is particular to llama-server.
 """
 
+import glob
 import json
 import os
 import re
@@ -34,16 +35,25 @@ HEALTH_PATH = "/health"
 # The layouts whose entry can be handed to llama-server as one file.
 LAYOUTS = ["plain", "hf-cache"]
 SPLIT_RE = re.compile(r"-(\d{5})-of-(\d{5})\.gguf$")
+# The ID is a preset section name, "[<id>]": llama.cpp's ini reader ends
+# it at ']', trims no inner blanks, and keeps '*' and 'default' for its
+# own sections. The links are named apart from the ID, so a file name
+# puts no limit on it.
+PRESET_RESERVED = ("*", "default")
+
+
+def id_problem(mid):
+    if "]" in mid or mid != mid.strip(" \t") or mid in PRESET_RESERVED:
+        return "cannot name a llama-server preset section (']', blanks at either end, '*' or 'default')"
+    return None
 
 
 def check_files(d, m, mid):
     ag.check_format_and_platform(m)
     layout = m.get("layout", "plain")
     if layout not in LAYOUTS:
-        raise Skip("weights", f"layout {layout!r} cannot be handed to llama-server ({', '.join(LAYOUTS)})")
-    entry = m.get("entry")
-    if not isinstance(entry, str) or not entry:
-        raise Skip("weights", "model.json names no entry")
+        raise Skip("layout", f"layout {layout!r} cannot be handed to llama-server ({', '.join(LAYOUTS)})")
+    entry = ag.check_entry(m)
     ep = d / entry
     if not ep.exists():  # follows every link, so a dangling one is caught
         raise Skip("weights", f"entry {entry} is missing")
@@ -61,34 +71,37 @@ def check_files(d, m, mid):
 
 def prepare(state, models, host, server_args):
     """Links to every entry under state/models, and the preset naming
-    them by ID. Links only: llama-server reads through them."""
+    them by ID. Links only: llama-server reads through them. Each model's
+    links are in a directory of their own, numbered, under names of the
+    gateway's choosing, so that neither the ID nor the model's file names
+    reach a path the preset holds."""
     links = state / "models"
     if links.exists():
         shutil.rmtree(links)
     links.mkdir()
     ini = ["version = 1", ""]
-    for mid, m in models.items():
+    for n, (mid, m) in enumerate(models.items(), 1):
         entry = m["entry"]
-        if SPLIT_RE.search(entry.name) or list(entry.parent.glob("mmproj*.gguf")):
-            # Shards and a projector go together in one directory.
-            sub = links / mid
-            sub.mkdir()
-            stem = SPLIT_RE.sub("", entry.name)
-            for f in sorted(entry.parent.glob(f"{stem}-*-of-*.gguf")) or [entry]:
-                (sub / f.name).symlink_to(f.absolute())
-            mmproj = sorted(entry.parent.glob("mmproj*.gguf"))
-            for f in mmproj:
-                (sub / f.name).symlink_to(f.absolute())
-            ini += [f"[{mid}]", f"model = {sub / entry.name}"]
-            if mmproj:
-                ini.append(f"mmproj = {sub / mmproj[0].name}")
+        sub = links / f"{n:04d}"
+        sub.mkdir()
+        sm = SPLIT_RE.search(entry.name)
+        if sm:
+            # llama.cpp finds the other shards by the first one's name.
+            stem = entry.name[:sm.start()]
+            for f in sorted(entry.parent.glob(f"{glob.escape(stem)}-*-of-{sm.group(2)}.gguf")):
+                (sub / f"model{SPLIT_RE.search(f.name).group(0)}").symlink_to(f.absolute())
+            model = sub / f"model-00001-of-{sm.group(2)}.gguf"
         else:
-            link = links / f"{mid}.gguf"
-            link.symlink_to(entry.absolute())
-            ini += [f"[{mid}]", f"model = {link}"]
+            model = sub / "model.gguf"
+            model.symlink_to(entry.absolute())
+        ini += [f"[{mid}]", f"model = {model}"]
+        mmproj = sorted(entry.parent.glob("mmproj*.gguf"))
+        if mmproj:
+            (sub / "mmproj.gguf").symlink_to(mmproj[0].absolute())
+            ini.append(f"mmproj = {sub / 'mmproj.gguf'}")
         ini.append("")
     tmp = state / "models.ini.new"
-    tmp.write_text("\n".join(ini))
+    tmp.write_text("\n".join(ini), encoding="utf-8")
     tmp.replace(state / "models.ini")
 
 
