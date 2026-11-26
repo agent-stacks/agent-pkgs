@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "code-modernization",
-      "dir": "/nix/store/7ympq4rv3kf07cfsk36j7m8r3nxbp170-agent-plugin-code-modernization-1.1.0/share/agent-plugins/code-modernization",
+      "dir": "/nix/store/2qpf8qmnga0jhaqrrrasah8vvrx488d1-agent-plugin-code-modernization-1.1.0/share/agent-plugins/code-modernization",
       "spec": "1.1.0",
       "score": 9,
       "status": "do not install",
@@ -34,8 +34,8 @@
       "components": [
         {
           "path": "assets",
-          "score": 55,
-          "risk": 45,
+          "score": 65,
+          "risk": 35,
           "status": "caution",
           "partial": true,
           "coverage": 50,
@@ -52,6 +52,11 @@
             },
             {
               "reason": "obfuscated_instruction_text",
+              "path": "assets/vendor/mermaid.min.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
               "path": "assets/vendor/mermaid.min.js",
               "line": 0
             },
@@ -187,13 +192,6 @@
               "message": "Unsafe Defaults",
               "file": "assets/vendor/mermaid.min.js",
               "line": 1354
-            },
-            {
-              "id": "MP2",
-              "severity": "MEDIUM",
-              "message": "Context Window Stuffing",
-              "file": "assets/vendor/mermaid.min.js",
-              "line": 1895
             }
           ],
           "suppressed": []
@@ -601,7 +599,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-26T09:00:53Z"
+      "checkedAt": "2026-11-26T16:52:35Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"

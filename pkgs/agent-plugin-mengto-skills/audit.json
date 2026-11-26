@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "mengto-skills",
-      "dir": "/nix/store/vkg6yp4v9pfbvnarki306zyiybhrpvgx-agent-plugin-mengto-skills-0.0.0-unstable.2026-11-25.ga5b1d3d/share/agent-plugins/mengto-skills",
+      "dir": "/nix/store/7n1xzwl1dykjyf86wsq0rg7990iadkqq-agent-plugin-mengto-skills-0.0.0-unstable.2026-11-27.g3a8517e/share/agent-plugins/mengto-skills",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -108,6 +108,7 @@
           "skills/editorial-service-booking",
           "skills/editorial-tech",
           "skills/elevenlabs-tts",
+          "skills/endless-riding-parallax",
           "skills/falling-leaves",
           "skills/fire-paper-loader",
           "skills/fire-smoke-skill-vfx",
@@ -192,7 +193,9 @@
           "skills/release-threeui-demo",
           "skills/relight-painted-surfaces",
           "skills/reveal-hover-effect",
+          "skills/ride-particles-and-clouds",
           "skills/room-short-9x16",
+          "skills/scroll-fisheye-dolly-zoom",
           "skills/scroll-mesh-survey",
           "skills/scroll-progress-timeline",
           "skills/scroll-scrubbed-object-handoff",
@@ -4080,6 +4083,17 @@
           ]
         },
         {
+          "path": "skills/endless-riding-parallax",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
           "path": "skills/falling-leaves",
           "score": 100,
           "risk": 0,
@@ -4358,17 +4372,22 @@
             {
               "reason": "reference_missing",
               "path": "skills/game-dev-character-model/SKILL.md",
-              "line": 94
+              "line": 85
             },
             {
               "reason": "reference_missing",
               "path": "skills/game-dev-character-model/SKILL.md",
-              "line": 95
+              "line": 109
             },
             {
               "reason": "reference_missing",
               "path": "skills/game-dev-character-model/SKILL.md",
-              "line": 96
+              "line": 110
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/game-dev-character-model/SKILL.md",
+              "line": 111
             },
             {
               "reason": "static_parse_limit",
@@ -4378,6 +4397,14 @@
           ],
           "findings": [],
           "suppressed": [
+            {
+              "id": "LP3",
+              "severity": "MEDIUM",
+              "message": "MCP Least Privilege",
+              "file": "skills/game-dev-character-model/SKILL.md",
+              "line": 1,
+              "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
+            },
             {
               "id": "AE1",
               "severity": "HIGH",
@@ -9352,6 +9379,17 @@
           "suppressed": []
         },
         {
+          "path": "skills/ride-particles-and-clouds",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
           "path": "skills/room-short-9x16",
           "score": 91,
           "risk": 9,
@@ -9435,6 +9473,17 @@
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
+        },
+        {
+          "path": "skills/scroll-fisheye-dolly-zoom",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/scroll-mesh-survey",
@@ -11040,7 +11089,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-25T08:37:37Z"
+      "checkedAt": "2026-11-26T17:15:47Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
