@@ -186,8 +186,14 @@ at the root when `pluginRootPaths` ships `hooks/` there, replacing any
 hooks file that directory brought. An agent-stacks older than the key
 ignores it, and the build fails rather than ship a plugin without its
 hooks. A `default.json` from an earlier importer has no key and keeps
-the copied file. The `hooks` a generated `default.nix` binds is the
-`overrideAttrs` function, not this argument.
+the copied file. `hooks` is the empty object `{}` for one kind of
+plugin only: a plugin written only for Codex whose root `hooks/`
+ships because a skill references a file there. The builder then
+writes that root `hooks/hooks.json` with no events, replacing the
+Codex hooks file the directory brought, so Claude runs none of
+Codex's hooks; Codex's own copy ships under `com.openai/hooks`
+(agent-stacks ADR 0046). The `hooks` a generated `default.nix` binds
+is the `overrideAttrs` function, not this argument.
 
 `meta` carries `description` and `homepage`, and `license` only
 when the manifest spells its licence in a way the builder cannot
