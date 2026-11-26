@@ -74,6 +74,14 @@ stacks run the bare binary, its `passthru.unwrapped`.
 from the commit `agent-plugin-impeccable` pins, which ships it so the
 skill never downloads one
 ([ADR 0025](../decisions/0025-a-skills-own-engine-is-built-from-the-skills-source.md)).
+`omlx` is the oMLX inference server, headless, which serves a local
+MLX model to an agent over the OpenAI and Anthropic APIs. MLX runs
+on Metal, so it is built for aarch64-darwin only, on the prebuilt
+mlx wheels nixpkgs packages as `mlx-bin`.
+
+A package in `pkgs/` whose `meta.platforms` excludes a system is left
+out of that system's `packages` and `hydraJobs.packages`, as the
+re-export below is filtered.
 
 `packages` is wider than `pkgs/`. Every agent CLI packaged by
 `numtide/llm-agents.nix` is re-exported into it, rebuilt against the
