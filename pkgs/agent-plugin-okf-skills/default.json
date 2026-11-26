@@ -1,0 +1,108 @@
+{
+  "name": "okf-skills",
+  "version": "0.13.0",
+  "src": {
+    "owner": "scaccogatto",
+    "repo": "okf-skills",
+    "rev": "3a0f679355b6f08dc6acbfb9ce528aa143bdee88",
+    "hash": "sha256-HtoNLN3b4wbD2aX2btJQMknRW9DqSs/+s99GF3z8hps="
+  },
+  "sourceUrl": "https://github.com/scaccogatto/okf-skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "email": "chat@ekar.is",
+      "name": "ekar.is",
+      "url": "https://github.com/ekar-is"
+    },
+    "description": "Independent community toolkit to author, maintain, validate and visualize Open Knowledge Format (OKF) bundles. Not the official OKF plugin.",
+    "homepage": "https://ekar-is.github.io/okf-skills/",
+    "keywords": [
+      "okf",
+      "knowledge",
+      "markdown",
+      "agents"
+    ],
+    "license": "MIT",
+    "name": "okf-skills",
+    "repository": "https://github.com/ekar-is/okf-skills",
+    "version": "0.13.0"
+  },
+  "skills": {
+    "backfill": "skills/backfill",
+    "okf": "skills/okf",
+    "validate": "skills/validate",
+    "visualize": "skills/visualize"
+  },
+  "requiredRuntimes": [
+    "bash",
+    "python3",
+    "uv"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "com.anthropic.claude-code/agents": "agents",
+    "com.anthropic.claude-code/hooks": "hooks",
+    "servers": "servers"
+  },
+  "mcpServers": {
+    "bundle": {
+      "args": [
+        "run",
+        "${PLUGIN_ROOT}/servers/okf_mcp.py"
+      ],
+      "command": "uv",
+      "type": "stdio"
+    }
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/okf-stop-check.sh\"",
+            "statusMessage": "Checking OKF bundle...",
+            "timeout": 15,
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "description": "Independent community toolkit to author, maintain, validate and visualize Open Knowledge Format (OKF) bundles",
+    "homepage": "https://github.com/scaccogatto/okf-skills"
+  },
+  "import": {
+    "input": "scaccogatto/okf-skills",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "skills/backfill/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, user-invocable"
+      },
+      {
+        "path": "skills/okf/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, user-invocable"
+      },
+      {
+        "path": "skills/validate/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, user-invocable"
+      },
+      {
+        "path": "skills/visualize/SKILL.md",
+        "message": "unknown frontmatter fields: argument-hint, user-invocable"
+      },
+      {
+        "path": "hooks/hooks.json",
+        "message": "Claude Code runs this on Stop: bash \"${CLAUDE_PLUGIN_ROOT}/hooks/okf-stop-check.sh\""
+      }
+    ]
+  }
+}
