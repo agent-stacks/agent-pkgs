@@ -242,7 +242,12 @@
       # on every plugin build.
       mkAllPackages = pkgs:
         let
-          built = mkPackages pkgs;
+          # A package of pkgs/ that cannot run on this system is left out
+          # of it, as the re-export below drops its foreign-platform
+          # packages: omlx needs MLX and Metal, so is aarch64-darwin only.
+          built = nixpkgs.lib.filterAttrs
+            (_: p: nixpkgs.lib.meta.availableOn pkgs.stdenv.hostPlatform p)
+            (mkPackages pkgs);
           llmAgents = llmAgentsFor pkgs.stdenv.hostPlatform.system;
           # This set owns the name: a package written here is what the
           # catalog serves, and the re-export is shadowed. Warned about
