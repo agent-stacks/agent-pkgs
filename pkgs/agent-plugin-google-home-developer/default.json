@@ -1,0 +1,103 @@
+{
+  "name": "google-home-developer",
+  "version": "1.0.0",
+  "src": {
+    "owner": "google",
+    "repo": "skills",
+    "rev": "c413c1fdc1714f2e4ae44a449b9744348197119c",
+    "hash": "sha256-tYQa1TxByXDpad+vOTFtTXdmSQNYf++H2a5oQu0nL28="
+  },
+  "sourceUrl": "https://github.com/google/skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "Google LLC",
+      "url": "https://developers.home.google.com"
+    },
+    "description": "Search official Google Home, Matter, and OpenThread documentation and query smart home user feedback integration diagnostics through the Google Home Developer MCP server.",
+    "extensions": {
+      "com.openai": {
+        "interface": {
+          "capabilities": [
+            "Google Home APIs guidance",
+            "Smart home fulfillment",
+            "Matter & OpenThread documentation",
+            "Smart home feedback diagnostics"
+          ],
+          "category": "Developer Tools",
+          "composerIcon": "./com.openai/assets/logo.svg",
+          "defaultPrompt": [
+            "How do I commission a Matter device and read its OnOff trait using the Google Home APIs on Android?",
+            "Show me how to implement action.devices.SYNC and action.devices.EXECUTE for a smart home light device",
+            "How do I configure an OpenThread Border Router and form a Thread network?"
+          ],
+          "developerName": "Google LLC",
+          "displayName": "Google Home Developer",
+          "logo": "./com.openai/assets/logo.svg",
+          "longDescription": "Search official Google Home, Matter, and OpenThread documentation and query smart home user feedback integration diagnostics through the Google Home Developer MCP server.",
+          "privacyPolicyURL": "https://policies.google.com/privacy",
+          "shortDescription": "Google Home, Matter & OpenThread MCP",
+          "supportURL": "https://developers.home.google.com/mcp/developer",
+          "termsOfServiceURL": "https://policies.google.com/terms",
+          "websiteURL": "https://developers.home.google.com"
+        },
+        "mcpServers": "./com.openai/.mcp.json",
+        "skills": "./skills/"
+      }
+    },
+    "homepage": "https://github.com/google/skills/tree/main/plugins/home/google-home-developer",
+    "keywords": [
+      "google-home",
+      "smart-home",
+      "matter",
+      "openthread",
+      "thread",
+      "smart-home-integration",
+      "mcp",
+      "documentation"
+    ],
+    "license": "Apache-2.0",
+    "name": "google-home-developer",
+    "repository": "https://github.com/google/skills",
+    "version": "1.0.0"
+  },
+  "skills": {
+    "finding-google-skills": "plugins/home/google-home-developer/skills/finding-google-skills"
+  },
+  "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "pluginRootPaths": {
+    "com.openai/.mcp.json": "plugins/home/google-home-developer/.mcp.json",
+    "com.openai/assets": "plugins/home/google-home-developer/assets"
+  },
+  "mcpServers": {
+    "HomeDevelopers": {
+      "type": "streamable-http",
+      "url": "https://homedevelopers.googleapis.com/mcp"
+    }
+  },
+  "meta": {
+    "description": "Search official Google Home, Matter, and OpenThread documentation and query smart home user feedback integration diagnostics through the Google Home Developer MCP server",
+    "homepage": "https://github.com/google/skills"
+  },
+  "import": {
+    "input": "https://github.com/google/skills",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "skills",
+        "message": "219 SKILL.md outside every imported plugin, not imported"
+      },
+      {
+        "path": "plugins/home/google-home-developer/.codex-plugin/plugin.json",
+        "message": "mcpServers: the Codex manifest names none, so Codex reads .mcp.json alone, not what the Claude manifest adds; recorded so"
+      }
+    ]
+  }
+}
