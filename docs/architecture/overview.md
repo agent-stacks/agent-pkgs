@@ -59,8 +59,9 @@ exposes `lib.buildAgentPlugin` and `lib.mkAgentStack` per system, and
 builder itself, such as `runtime-candidates`.
 
 Not everything in `pkgs/` is a plugin. `agent-stacks`, the
-`agent-sandbox-*` launchers and `skillspector`, the scanner
-`agent-stacks audit` runs, are discovered the same way. `skillspector`
+`agent-sandbox-*` launchers, the `agent-gateway-*` model gateways
+and `skillspector`, the scanner `agent-stacks audit` runs, are
+discovered the same way. `skillspector`
 is built with uv2nix from the `uv.lock` upstream ships at the release
 tag the `skillspector-src` input names. The uv2nix libraries are
 flake inputs (`pyproject-nix`, `uv2nix`, `pyproject-build-systems`)
