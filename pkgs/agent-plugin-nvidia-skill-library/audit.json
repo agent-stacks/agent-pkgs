@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "nvidia-skill-library",
-      "dir": "/nix/store/a17316b5gf11pzamzvwd5d8fhxd02d8v-agent-plugin-nvidia-skill-library-0.0.0-unstable.2026-11-25.gc0a4127/share/agent-plugins/nvidia-skill-library",
+      "dir": "/nix/store/k4smlhlq59i1p797shn4sdp3v7crdz8p-agent-plugin-nvidia-skill-library-0.0.0-unstable.2026-11-26.gd90390a/share/agent-plugins/nvidia-skill-library",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
@@ -346,10 +346,14 @@
           "skills/nv-generate-vae-finetune",
           "skills/nv-reason-ct",
           "skills/nv-reason-cxr",
+          "skills/nv-reason-pathwsi",
           "skills/nv-segment-ct",
           "skills/nv-segment-ct-finetune",
           "skills/nv-segment-ctmr",
           "skills/nvalchemi-toolkit",
+          "skills/nvat-corim-attestation",
+          "skills/nvat-install-and-guide",
+          "skills/nvat-troubleshooting",
           "skills/nvflare-autofl",
           "skills/nvflare-autofl-report",
           "skills/nvflare-convert-huggingface",
@@ -45110,6 +45114,164 @@
           "suppressed": []
         },
         {
+          "path": "skills/nv-reason-pathwsi",
+          "score": 70,
+          "risk": 30,
+          "status": "caution",
+          "partial": true,
+          "coverage": 88.9,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-pathwsi/SKILL.md",
+              "line": 18
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-pathwsi/SKILL.md",
+              "line": 33
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-pathwsi/SKILL.md",
+              "line": 35
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-pathwsi/SKILL.md",
+              "line": 42
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-pathwsi/SKILL.md",
+              "line": 46
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-pathwsi/SKILL.md",
+              "line": 47
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-pathwsi/SKILL.md",
+              "line": 51
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-pathwsi/SKILL.md",
+              "line": 79
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-pathwsi/SKILL.md",
+              "line": 103
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-pathwsi/SKILL.md",
+              "line": 104
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-pathwsi/SKILL.md",
+              "line": 137
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-pathwsi/SKILL.md",
+              "line": 138
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-pathwsi/SKILL.md",
+              "line": 156
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-pathwsi/SKILL.md",
+              "line": 172
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/nv-reason-pathwsi/SKILL.md",
+              "line": 174
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/nv-reason-pathwsi/scripts/run_nv_reason_pathwsi.py",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/nv-reason-pathwsi/scripts/run_nv_reason_pathwsi.py",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "OH3",
+              "severity": "MEDIUM",
+              "message": "Unbounded Output",
+              "file": "skills/nv-reason-pathwsi/evals/evals.json",
+              "line": 29
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/nv-reason-pathwsi/scripts/run_nv_reason_pathwsi.py",
+              "line": 244
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/nv-reason-pathwsi/scripts/run_nv_reason_pathwsi.py",
+              "line": 334
+            },
+            {
+              "id": "TT2",
+              "severity": "MEDIUM",
+              "message": "Tainted flow: 'env' from os.environ.get (line 266, credential/environment) → subprocess.run (code execution)",
+              "file": "skills/nv-reason-pathwsi/scripts/run_nv_reason_pathwsi.py",
+              "line": 334
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/nv-reason-pathwsi/scripts/run_nv_reason_pathwsi.py",
+              "line": 371
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/nv-reason-pathwsi/SKILL.md",
+              "line": 29,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/nv-reason-pathwsi/SKILL.md",
+              "line": 31,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            },
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/nv-reason-pathwsi/SKILL.md",
+              "line": 74,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
+          ]
+        },
+        {
           "path": "skills/nv-segment-ct",
           "score": 94,
           "risk": 6,
@@ -45603,6 +45765,111 @@
               "reason": "A SKILL.md with no allowed-tools, on line 1 of nearly every upstream skill. It says the author did not declare tools, which this set cannot change, not that a tool is misused."
             }
           ]
+        },
+        {
+          "path": "skills/nvat-corim-attestation",
+          "score": 83,
+          "risk": 17,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/nvat-corim-attestation/evals/evals.json",
+              "line": 189
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/nvat-install-and-guide",
+          "score": 58,
+          "risk": 42,
+          "status": "caution",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/nvat-install-and-guide/config/skillspector-baseline.yaml",
+              "line": 9
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/nvat-install-and-guide/config/skillspector-baseline.yaml",
+              "line": 10
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/nvat-install-and-guide/evals/evals.json",
+              "line": 20
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/nvat-install-and-guide/evals/evals.json",
+              "line": 23
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/nvat-install-and-guide/references/install-and-docs.md",
+              "line": 26
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/nvat-install-and-guide/references/install-and-docs.md",
+              "line": 27
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/nvat-install-and-guide/references/install-and-docs.md",
+              "line": 27
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/nvat-install-and-guide/references/install-and-docs.md",
+              "line": 28
+            },
+            {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/nvat-install-and-guide/references/install-and-docs.md",
+              "line": 29
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/nvat-troubleshooting",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
         },
         {
           "path": "skills/nvflare-autofl",
@@ -47682,6 +47949,11 @@
               "line": 0
             },
             {
+              "reason": "runtime_limit",
+              "path": "skills/omniverse-realtime-viewer/references/ovxr-foveation-and-display",
+              "line": 0
+            },
+            {
               "reason": "obfuscated_instruction_text",
               "path": "skills/omniverse-realtime-viewer/references/routing.md",
               "line": 0
@@ -47699,11 +47971,6 @@
             {
               "reason": "static_parse_limit",
               "path": "skills/omniverse-realtime-viewer/references/tauri-shm-transform-gizmo/README.md",
-              "line": 0
-            },
-            {
-              "reason": "runtime_limit",
-              "path": "skills/omniverse-realtime-viewer/references/viewer-input-routing",
               "line": 0
             },
             {
@@ -72227,7 +72494,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-26T09:22:45Z"
+      "checkedAt": "2026-11-26T15:12:03Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
