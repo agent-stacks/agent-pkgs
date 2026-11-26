@@ -7,9 +7,9 @@
   "plugins": [
     {
       "name": "chisle",
-      "dir": "/nix/store/pnn32lrgj4lnzfch6syk10m1v09z8xch-agent-plugin-chisle-3.14.2/share/agent-plugins/chisle",
+      "dir": "/nix/store/nbcq3yp0wnydbv4x1qs1mdq0hkf397d4-agent-plugin-chisle-3.14.2/share/agent-plugins/chisle",
       "spec": "1.1.0",
-      "score": 8,
+      "score": 0,
       "status": "do not install",
       "coverage": {
         "scanned": [
@@ -28,9 +28,9 @@
       "components": [
         {
           "path": "bin",
-          "score": 71,
-          "risk": 29,
-          "status": "caution",
+          "score": 12,
+          "risk": 88,
+          "status": "do not install",
           "partial": true,
           "coverage": 0,
           "exceptions": [
@@ -61,6 +61,13 @@
             }
           ],
           "findings": [
+            {
+              "id": "YR2",
+              "severity": "CRITICAL",
+              "message": "YARA rule 'php_webshell_known': Known PHP webshell families (c99, r57, b374k, WSO, etc.) [webshells]",
+              "file": "bin/install.js",
+              "line": 1
+            },
             {
               "id": "RP1",
               "severity": "MEDIUM",
@@ -346,8 +353,8 @@
         },
         {
           "path": "com.anthropic.claude-code/hooks",
-          "score": 8,
-          "risk": 92,
+          "score": 0,
+          "risk": 100,
           "status": "do not install",
           "partial": true,
           "coverage": 50,
@@ -384,6 +391,62 @@
             }
           ],
           "findings": [
+            {
+              "id": "YR2",
+              "severity": "CRITICAL",
+              "message": "YARA rule 'php_webshell_known': Known PHP webshell families (c99, r57, b374k, WSO, etc.) [webshells]",
+              "file": "com.anthropic.claude-code/hooks/chisle-activate.js",
+              "line": 1
+            },
+            {
+              "id": "YR2",
+              "severity": "CRITICAL",
+              "message": "YARA rule 'php_webshell_known': Known PHP webshell families (c99, r57, b374k, WSO, etc.) [webshells]",
+              "file": "com.anthropic.claude-code/hooks/chisle-compress-output.js",
+              "line": 1
+            },
+            {
+              "id": "YR2",
+              "severity": "CRITICAL",
+              "message": "YARA rule 'php_webshell_known': Known PHP webshell families (c99, r57, b374k, WSO, etc.) [webshells]",
+              "file": "com.anthropic.claude-code/hooks/chisle-config.js",
+              "line": 1
+            },
+            {
+              "id": "YR2",
+              "severity": "CRITICAL",
+              "message": "YARA rule 'php_webshell_known': Known PHP webshell families (c99, r57, b374k, WSO, etc.) [webshells]",
+              "file": "com.anthropic.claude-code/hooks/chisle-mcp-proxy.js",
+              "line": 1
+            },
+            {
+              "id": "YR2",
+              "severity": "CRITICAL",
+              "message": "YARA rule 'php_webshell_known': Known PHP webshell families (c99, r57, b374k, WSO, etc.) [webshells]",
+              "file": "com.anthropic.claude-code/hooks/chisle-mode-tracker.js",
+              "line": 1
+            },
+            {
+              "id": "YR2",
+              "severity": "CRITICAL",
+              "message": "YARA rule 'php_webshell_known': Known PHP webshell families (c99, r57, b374k, WSO, etc.) [webshells]",
+              "file": "com.anthropic.claude-code/hooks/chisle-run.js",
+              "line": 1
+            },
+            {
+              "id": "YR2",
+              "severity": "CRITICAL",
+              "message": "YARA rule 'php_webshell_known': Known PHP webshell families (c99, r57, b374k, WSO, etc.) [webshells]",
+              "file": "com.anthropic.claude-code/hooks/chisle-statusline.sh",
+              "line": 1
+            },
+            {
+              "id": "YR2",
+              "severity": "CRITICAL",
+              "message": "YARA rule 'php_webshell_known': Known PHP webshell families (c99, r57, b374k, WSO, etc.) [webshells]",
+              "file": "com.anthropic.claude-code/hooks/hooks.json",
+              "line": 7
+            },
             {
               "id": "AS1",
               "severity": "HIGH",
@@ -496,7 +559,7 @@
       ]
     }
   ],
-  "score": 8,
+  "score": 0,
   "status": "do not install",
   "tool": {
     "name": "skillspector",
@@ -504,7 +567,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-20T17:42:19Z"
+      "checkedAt": "2026-11-26T09:16:05Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
