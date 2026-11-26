@@ -7,13 +7,14 @@
   "plugins": [
     {
       "name": "power-automate",
-      "dir": "/nix/store/kl083mpv8jkqzfn941s4mqknshpmrm8j-agent-plugin-power-automate-3.2.10/share/agent-plugins/power-automate",
+      "dir": "/nix/store/2w5jqfhbaa2zq9cq4q0nvhsflhrsqzs2-agent-plugin-power-automate-3.2.10/share/agent-plugins/power-automate",
       "spec": "1.1.0",
       "score": 91,
       "status": "incomplete",
       "coverage": {
         "scanned": [
-          "com.anthropic.claude-code/hooks",
+          "hooks",
+          "scripts",
           "skills/browse-flows",
           "skills/build-flow",
           "skills/create-flow",
@@ -46,13 +47,45 @@
       },
       "components": [
         {
-          "path": "com.anthropic.claude-code/hooks",
+          "path": "hooks",
           "score": 100,
           "risk": 0,
           "status": "safe",
           "partial": false,
           "coverage": 100,
           "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "scripts",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 82.6,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/telemetry/lib/agent-info.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/telemetry/lib/local-log.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/telemetry/lib/native-exec.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/telemetry/region/region-cache.js",
+              "line": 0
+            }
+          ],
           "findings": [],
           "suppressed": []
         },
@@ -352,7 +385,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-20T18:04:12Z"
+      "checkedAt": "2026-11-26T22:14:35Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"

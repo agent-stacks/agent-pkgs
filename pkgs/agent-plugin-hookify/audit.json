@@ -7,15 +7,16 @@
   "plugins": [
     {
       "name": "hookify",
-      "dir": "/nix/store/y4vzhdpnpc163kzgjqy82gzndj698rns-agent-plugin-hookify-0.1.1/share/agent-plugins/hookify",
+      "dir": "/nix/store/azah3h93g6gj3kgpm7nf8d1spggpm1f3-agent-plugin-hookify-0.1.1/share/agent-plugins/hookify",
       "spec": "1.1.0",
-      "score": 24,
+      "score": 0,
       "status": "do not install",
       "coverage": {
         "scanned": [
           "com.anthropic.claude-code/agents",
           "com.anthropic.claude-code/commands",
           "com.anthropic.claude-code/hooks",
+          "core",
           "examples",
           "skills/writing-rules"
         ],
@@ -162,6 +163,66 @@
           "suppressed": []
         },
         {
+          "path": "core",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 66.7,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "core/rule_engine.py",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "core/config_loader.py",
+              "line": 210
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "core/config_loader.py",
+              "line": 241
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "core/config_loader.py",
+              "line": 261
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "core/rule_engine.py",
+              "line": 288
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "core/rule_engine.py",
+              "line": 297
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "core/rule_engine.py",
+              "line": 297
+            }
+          ],
+          "suppressed": []
+        },
+        {
           "path": "examples",
           "score": 100,
           "risk": 0,
@@ -302,7 +363,7 @@
       ]
     }
   ],
-  "score": 24,
+  "score": 0,
   "status": "do not install",
   "tool": {
     "name": "skillspector",
@@ -310,7 +371,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-20T15:09:29Z"
+      "checkedAt": "2026-11-26T19:50:49Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"

@@ -7,13 +7,14 @@
   "plugins": [
     {
       "name": "mobile-app",
-      "dir": "/nix/store/mjxy7wv4n2pqvi8plx857cpxdc577ihh-agent-plugin-mobile-app-0.7.2/share/agent-plugins/mobile-app",
+      "dir": "/nix/store/wnni8l74iywsbzvs1rq3ggwbcpjlhcpl-agent-plugin-mobile-app-0.7.2/share/agent-plugins/mobile-app",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
       "coverage": {
         "scanned": [
           "agents",
+          "assets",
           "hooks",
           "scripts",
           "shared",
@@ -42,7 +43,8 @@
           "skills/setup-app-insights",
           "skills/setup-datamodel",
           "skills/setup-offline-profile",
-          "skills/telemetry"
+          "skills/telemetry",
+          "template"
         ],
         "validated": [
           "plugin.json"
@@ -206,6 +208,38 @@
               "message": "Skill Enumeration",
               "file": "agents/screen-builder.md",
               "line": 1362
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "assets",
+          "score": 78,
+          "risk": 22,
+          "status": "caution",
+          "partial": true,
+          "coverage": 66.7,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "assets/run-plan.html",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "P2",
+              "severity": "HIGH",
+              "message": "Hidden Instructions",
+              "file": "assets/run-plan.html",
+              "line": 6
+            },
+            {
+              "id": "E1",
+              "severity": "MEDIUM",
+              "message": "External Transmission",
+              "file": "assets/run-plan.html",
+              "line": 47
             }
           ],
           "suppressed": []
@@ -5279,6 +5313,123 @@
             }
           ],
           "suppressed": []
+        },
+        {
+          "path": "template",
+          "score": 18,
+          "risk": 82,
+          "status": "do not install",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "MP3",
+              "severity": "HIGH",
+              "message": "Memory Manipulation",
+              "file": "template/AGENTS.md",
+              "line": 104
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "template/AGENTS.md",
+              "line": 265
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "template/gitignore",
+              "line": 20
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "template/AGENTS.md",
+              "line": 83
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "template/AGENTS.md",
+              "line": 129
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "template/AGENTS.md",
+              "line": 279
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "template/CUSTOMIZATION.md",
+              "line": 76
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "template/README.md",
+              "line": 188
+            },
+            {
+              "id": "AS3",
+              "severity": "MEDIUM",
+              "message": "Skill Enumeration",
+              "file": "template/README.md",
+              "line": 219
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "template/gitignore",
+              "line": 30
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "template/package.json",
+              "line": 21
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "template/package.json",
+              "line": 22
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "template/package.json",
+              "line": 23
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "template/package.json",
+              "line": 75
+            },
+            {
+              "id": "SC1",
+              "severity": "LOW",
+              "message": "Unpinned Dependencies",
+              "file": "template/package.json",
+              "line": 79
+            }
+          ],
+          "suppressed": []
         }
       ]
     }
@@ -5291,7 +5442,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-26T03:32:52Z"
+      "checkedAt": "2026-11-26T20:06:24Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"

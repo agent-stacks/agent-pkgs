@@ -7,14 +7,14 @@
   "plugins": [
     {
       "name": "model-apps",
-      "dir": "/nix/store/dkm2d15y3zwhdklkgs0diqhd4p0smwj5-agent-plugin-model-apps-2.28.0/share/agent-plugins/model-apps",
+      "dir": "/nix/store/lb6v2nf7r2kqm070wx2rpi64fjyrdvky-agent-plugin-model-apps-2.28.0/share/agent-plugins/model-apps",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
       "coverage": {
         "scanned": [
           "com.anthropic.claude-code/agents",
-          "com.anthropic.claude-code/hooks",
+          "hooks",
           "references",
           "samples",
           "scripts",
@@ -34,6 +34,10 @@
           {
             "path": "bin/",
             "reason": "interpreter links into /nix/store"
+          },
+          {
+            "path": "feature-flags.json",
+            "reason": "outside the spec"
           },
           {
             "path": "mcp.json",
@@ -70,7 +74,7 @@
           "suppressed": []
         },
         {
-          "path": "com.anthropic.claude-code/hooks",
+          "path": "hooks",
           "score": 46,
           "risk": 54,
           "status": "do not install",
@@ -79,12 +83,12 @@
           "exceptions": [
             {
               "reason": "static_parse_limit",
-              "path": "com.anthropic.claude-code/hooks/validate-icon-imports.js",
+              "path": "hooks/validate-icon-imports.js",
               "line": 0
             },
             {
               "reason": "static_parse_limit",
-              "path": "com.anthropic.claude-code/hooks/validate-write-safety.js",
+              "path": "hooks/validate-write-safety.js",
               "line": 0
             }
           ],
@@ -93,35 +97,35 @@
               "id": "AR2",
               "severity": "HIGH",
               "message": "Anti-Refusal Statement",
-              "file": "com.anthropic.claude-code/hooks/validate-write-safety.js",
+              "file": "hooks/validate-write-safety.js",
               "line": 108
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
-              "file": "com.anthropic.claude-code/hooks/validate-write-safety.js",
+              "file": "hooks/validate-write-safety.js",
               "line": 4
             },
             {
               "id": "RA2",
               "severity": "MEDIUM",
               "message": "Session Persistence",
-              "file": "com.anthropic.claude-code/hooks/validate-write-safety.js",
+              "file": "hooks/validate-write-safety.js",
               "line": 57
             },
             {
               "id": "AS3",
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
-              "file": "com.anthropic.claude-code/hooks/validate-write-safety.js",
+              "file": "hooks/validate-write-safety.js",
               "line": 102
             },
             {
               "id": "AS3",
               "severity": "MEDIUM",
               "message": "Skill Enumeration",
-              "file": "com.anthropic.claude-code/hooks/validate-write-safety.js",
+              "file": "hooks/validate-write-safety.js",
               "line": 103
             }
           ],
@@ -1492,7 +1496,17 @@
             },
             {
               "reason": "runtime_limit",
+              "path": "scripts/lib/role-privileges.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
               "path": "scripts/lib/rule-settlement.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/safe-fs.js",
               "line": 0
             },
             {
@@ -1553,6 +1567,11 @@
             {
               "reason": "runtime_limit",
               "path": "scripts/lib/sdk-http-client.js",
+              "line": 0
+            },
+            {
+              "reason": "runtime_limit",
+              "path": "scripts/lib/sdk-teardown.js",
               "line": 0
             },
             {
@@ -2167,6 +2186,13 @@
               "line": 57
             },
             {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/role-privileges.js",
+              "line": 27
+            },
+            {
               "id": "AR2",
               "severity": "HIGH",
               "message": "Anti-Refusal Statement",
@@ -2202,6 +2228,20 @@
               "line": 32
             },
             {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/safe-fs.js",
+              "line": 29
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/safe-fs.js",
+              "line": 55
+            },
+            {
               "id": "MP3",
               "severity": "HIGH",
               "message": "Memory Manipulation",
@@ -2221,6 +2261,13 @@
               "message": "Unvalidated Output Injection",
               "file": "scripts/lib/retry-policy.js",
               "line": 295
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "scripts/lib/role-privileges.js",
+              "line": 141
             },
             {
               "id": "MP3",
@@ -2396,6 +2443,13 @@
               "message": "Autonomous Decision Making",
               "file": "scripts/lib/push-preview.js",
               "line": 378
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "scripts/lib/sdk-teardown.js",
+              "line": 415
             },
             {
               "id": "EA2",
@@ -3510,7 +3564,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-26T11:07:27Z"
+      "checkedAt": "2026-11-26T21:32:08Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"

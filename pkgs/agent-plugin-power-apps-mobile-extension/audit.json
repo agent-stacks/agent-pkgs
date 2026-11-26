@@ -7,13 +7,14 @@
   "plugins": [
     {
       "name": "power-apps-mobile-extension",
-      "dir": "/nix/store/0y3h2yjz4wwjdi019by151gapljfi5vh-agent-plugin-power-apps-mobile-extension-0.2.0/share/agent-plugins/power-apps-mobile-extension",
+      "dir": "/nix/store/iv97xhadc92ja1wgsb98yaqs5xypv235-agent-plugin-power-apps-mobile-extension-0.2.0/share/agent-plugins/power-apps-mobile-extension",
       "spec": "1.1.0",
       "score": 20,
       "status": "do not install",
       "coverage": {
         "scanned": [
-          "com.anthropic.claude-code/hooks",
+          "hooks",
+          "scripts",
           "skills/assemble-ppmplugin",
           "skills/audit-ppmplugin",
           "skills/build-android-binary",
@@ -31,17 +32,58 @@
         "validated": [
           "plugin.json"
         ],
-        "notChecked": []
+        "notChecked": [
+          {
+            "path": ".plugin/",
+            "reason": "outside the spec"
+          },
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          }
+        ]
       },
       "components": [
         {
-          "path": "com.anthropic.claude-code/hooks",
+          "path": "hooks",
           "score": 100,
           "risk": 0,
           "status": "safe",
           "partial": false,
           "coverage": 100,
           "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "scripts",
+          "score": 100,
+          "risk": 0,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 80,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/telemetry/lib/agent-info.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/telemetry/lib/local-log.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/telemetry/lib/native-exec.js",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "scripts/lib/telemetry/routing.js",
+              "line": 0
+            }
+          ],
           "findings": [],
           "suppressed": []
         },
@@ -3106,7 +3148,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-20T19:29:20Z"
+      "checkedAt": "2026-11-26T20:12:29Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
