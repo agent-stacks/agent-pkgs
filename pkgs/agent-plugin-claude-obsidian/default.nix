@@ -8,8 +8,13 @@ let
   source = builtins.fromJSON (builtins.readFile ./default.json);
   # BEGIN custom — kept as it is when this file is regenerated
   args = {
-    # Its hooks put the plugin root on sys.path and import claude_obsidian/.
-    pluginRootPaths = source.pluginRootPaths // { claude_obsidian = "claude_obsidian"; };
+    # Its hooks put the plugin root on sys.path and import claude_obsidian/,
+    # which reads templates/vault and config/adapters.json from the root.
+    pluginRootPaths = source.pluginRootPaths // {
+      claude_obsidian = "claude_obsidian";
+      templates = "templates";
+      config = "config";
+    };
   };
   hooks = old: { };
   # END custom — anything outside these markers is overwritten
