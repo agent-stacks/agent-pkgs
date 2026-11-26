@@ -14,7 +14,17 @@ let
       assets = "plugins/mobile-apps/assets";
     };
   };
-  hooks = old: { };
+  hooks = old: {
+    # Its telemetry sends org, tenant and user IDs to Microsoft unless
+    # the user opts out. No stored choice means off here, so
+    # /mobile-app:telemetry on opts in.
+    postAssemble = old.postAssemble + ''
+      substituteInPlace "$dest/scripts/lib/telemetry/lib/user-config.js" \
+        --replace-fail \
+          'return readTelemetryChoice(configDir, pluginName) ?? null;' \
+          'return readTelemetryChoice(configDir, pluginName) ?? "off";'
+    '';
+  };
   # END custom — anything outside these markers is overwritten
 in
 (buildAgentPlugin (source // args)).overrideAttrs hooks
