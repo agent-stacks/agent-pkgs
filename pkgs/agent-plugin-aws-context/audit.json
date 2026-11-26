@@ -7,13 +7,14 @@
   "plugins": [
     {
       "name": "aws-context",
-      "dir": "/nix/store/mbwj6vwarcc6lnyqazcxi53jmpb142qq-agent-plugin-aws-context-0.1.0/share/agent-plugins/aws-context",
+      "dir": "/nix/store/yzss8s7a2l8j5pxwpl8lw7pkyxq69hq7-agent-plugin-aws-context-0.1.0/share/agent-plugins/aws-context",
       "spec": "1.1.0",
-      "score": 78,
-      "status": "caution",
+      "score": 12,
+      "status": "do not install",
       "coverage": {
         "scanned": [
           "com.anthropic.claude-code/commands",
+          "com.anthropic.claude-code/hooks",
           "com.openai/.mcp.json",
           "skills/aws-context"
         ],
@@ -21,6 +22,10 @@
           "plugin.json"
         ],
         "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          },
           {
             "path": "mcp.json",
             "reason": "SkillSpector does not analyse this layout as an MCP manifest"
@@ -43,6 +48,53 @@
               "message": "Agent Config Directory Access",
               "file": "com.anthropic.claude-code/commands/setup.md",
               "line": 21
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 12,
+          "risk": 88,
+          "status": "do not install",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "com.anthropic.claude-code/hooks/context_steering.py",
+              "line": 89
+            },
+            {
+              "id": "E4",
+              "severity": "HIGH",
+              "message": "Context Leakage",
+              "file": "com.anthropic.claude-code/hooks/session_feedback.py",
+              "line": 2
+            },
+            {
+              "id": "E2",
+              "severity": "HIGH",
+              "message": "Env Variable Harvesting",
+              "file": "com.anthropic.claude-code/hooks/session_feedback.py",
+              "line": 386
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/hook_config.py",
+              "line": 177
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "com.anthropic.claude-code/hooks/session_feedback.py",
+              "line": 384
             }
           ],
           "suppressed": []
@@ -80,15 +132,15 @@
       ]
     }
   ],
-  "score": 78,
-  "status": "caution",
+  "score": 12,
+  "status": "do not install",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-25T21:53:30Z"
+      "checkedAt": "2026-11-26T06:39:38Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"

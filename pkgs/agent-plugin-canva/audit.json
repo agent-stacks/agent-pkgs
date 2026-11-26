@@ -7,10 +7,10 @@
   "plugins": [
     {
       "name": "canva",
-      "dir": "/nix/store/q9jhlxr4b49kcvhjjcqgn98487k8pv1j-agent-plugin-canva-1.1.0/share/agent-plugins/canva",
+      "dir": "/nix/store/xkcn5mzl4qrd12y65fsa3glp9v3hm03s-agent-plugin-canva-1.1.0/share/agent-plugins/canva",
       "spec": "1.1.0",
-      "score": 83,
-      "status": "safe",
+      "score": 73,
+      "status": "caution",
       "coverage": {
         "scanned": [
           "com.openai/.mcp.json",
@@ -25,6 +25,7 @@
           "skills/canva-edit-design",
           "skills/canva-implement-feedback",
           "skills/canva-instagram-post",
+          "skills/canva-product-ad",
           "skills/canva-resize-for-social-media",
           "skills/classroom-helper",
           "skills/design-translation",
@@ -246,6 +247,43 @@
           "suppressed": []
         },
         {
+          "path": "skills/canva-product-ad",
+          "score": 73,
+          "risk": 27,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/canva-product-ad/SKILL.md",
+              "line": 7
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/canva-product-ad/SKILL.md",
+              "line": 62
+            }
+          ],
+          "findings": [
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "skills/canva-product-ad/SKILL.md",
+              "line": 225
+            },
+            {
+              "id": "OH3",
+              "severity": "MEDIUM",
+              "message": "Unbounded Output",
+              "file": "skills/canva-product-ad/SKILL.md",
+              "line": 194
+            }
+          ],
+          "suppressed": []
+        },
+        {
           "path": "skills/canva-resize-for-social-media",
           "score": 100,
           "risk": 0,
@@ -343,15 +381,15 @@
       ]
     }
   ],
-  "score": 83,
-  "status": "safe",
+  "score": 73,
+  "status": "caution",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-26T05:36:02Z"
+      "checkedAt": "2026-11-26T06:39:38Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
