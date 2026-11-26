@@ -4,8 +4,8 @@
   "src": {
     "owner": "aws",
     "repo": "agent-toolkit-for-aws",
-    "rev": "00c9f0adaa5b0bcabccf1e436863f5e43b6727d9",
-    "hash": "sha256-RQJBwMKf+Xq8PEjd0b9YFUE4v/oQsC6/MUU5pNleagE="
+    "rev": "e62ada690e3adf340a4cccb3b20204721e4b54d2",
+    "hash": "sha256-dqlQvZ/zKJX+Qb0q6wbHMDZZ96aBCNBJDXhQh/72cUM="
   },
   "sourceUrl": "https://github.com/aws/agent-toolkit-for-aws",
   "manifest": {
@@ -16,6 +16,7 @@
     "description": "Ground coding agents in your organization's knowledge with AWS Context: retrieve from your agent context graph, correct or extend it, and record sessions.",
     "extensions": {
       "com.openai": {
+        "hooks": {},
         "interface": {
           "brandColor": "#FF9900",
           "capabilities": [
@@ -60,7 +61,9 @@
   "skills": {
     "aws-context": "plugins/aws-context/skills/aws-context"
   },
-  "requiredRuntimes": [],
+  "requiredRuntimes": [
+    "python3"
+  ],
   "dependencies": [
     "uv"
   ],
@@ -71,6 +74,7 @@
   ],
   "pluginRootPaths": {
     "com.anthropic.claude-code/commands": "plugins/aws-context/commands",
+    "com.anthropic.claude-code/hooks": "plugins/aws-context/com.anthropic.claude-code/hooks",
     "com.openai/.mcp.json": "plugins/aws-context/.mcp.json"
   },
   "mcpServers": {
@@ -78,6 +82,30 @@
       "type": "streamable-http",
       "url": "https://context-mcp.us-east-1.api.aws/mcp"
     }
+  },
+  "hooks": {
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "command": "sh -c 'python3 \"$0\" 2>/dev/null || python \"$0\" 2>/dev/null || py -3 \"$0\" 2>/dev/null || true' \"${CLAUDE_PLUGIN_ROOT}/com.anthropic.claude-code/hooks/session_feedback.py\"",
+            "timeout": 30,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "command": "sh -c 'python3 \"$0\" 2>/dev/null || python \"$0\" 2>/dev/null || py -3 \"$0\" 2>/dev/null || true' \"${CLAUDE_PLUGIN_ROOT}/com.anthropic.claude-code/hooks/context_steering.py\"",
+            "timeout": 5,
+            "type": "command"
+          }
+        ]
+      }
+    ]
   },
   "meta": {
     "description": "Ground coding agents in your organization's knowledge with AWS Context",
@@ -91,8 +119,28 @@
     ],
     "warnings": [
       {
+        "path": "plugins/aws-context/plugin.json",
+        "message": "extensions.com.anthropic.claude-code held hooks; replaced by what import read for Claude Code, since Claude Code reads its own files and launch reads this block"
+      },
+      {
         "path": "skills",
         "message": "133 SKILL.md outside every imported plugin, not imported"
+      },
+      {
+        "path": "plugins/aws-context/.codex-plugin/plugin.json",
+        "message": "hooks: the Codex manifest names none, so Codex reads hooks/hooks.json alone, not what the Claude manifest adds; recorded so"
+      },
+      {
+        "path": "plugins/aws-context/com.anthropic.claude-code/hooks/hooks.json",
+        "message": "Claude Code runs this on SessionEnd: sh -c 'python3 \"$0\" 2>/dev/null || python \"$0\" 2>/dev/null || py -3 \"$0\" 2>/dev/null || true' \"${CLAUDE_PLUGIN_ROOT}/com.anthropic.claude-code/hooks/session_feedback.py\""
+      },
+      {
+        "path": "plugins/aws-context/com.anthropic.claude-code/hooks/hooks.json",
+        "message": "Claude Code runs this on UserPromptSubmit: sh -c 'python3 \"$0\" 2>/dev/null || python \"$0\" 2>/dev/null || py -3 \"$0\" 2>/dev/null || true' \"${CLAUDE_PLUGIN_ROOT}/com.anthropic.claude-code/hooks/context_steering.py\""
+      },
+      {
+        "path": "com.anthropic.claude-code/hooks/hook_config.py",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
       }
     ]
   }
