@@ -7,12 +7,13 @@
   "plugins": [
     {
       "name": "hyperframes",
-      "dir": "/nix/store/rwaih85yrpc7hc69l8nrgyc2gd4pj409-agent-plugin-hyperframes-0.9.93/share/agent-plugins/hyperframes",
+      "dir": "/nix/store/l28swi17z859swbk5jc1vp2q1ikwn345-agent-plugin-hyperframes-0.9.97/share/agent-plugins/hyperframes",
       "spec": "1.1.0",
       "score": 0,
       "status": "do not install",
       "coverage": {
         "scanned": [
+          "com.openai/assets",
           "skills/canopy-part-title",
           "skills/captions-overlay",
           "skills/changelog-video",
@@ -47,6 +48,17 @@
         ]
       },
       "components": [
+        {
+          "path": "com.openai/assets",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
         {
           "path": "skills/canopy-part-title",
           "score": 88,
@@ -1016,7 +1028,7 @@
           "risk": 29,
           "status": "caution",
           "partial": true,
-          "coverage": 75,
+          "coverage": 50,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -1027,6 +1039,11 @@
               "reason": "reference_missing",
               "path": "skills/figma/SKILL.md",
               "line": 50
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/figma/scripts/lib/literal-media-input.mjs",
+              "line": 0
             },
             {
               "reason": "static_parse_limit",
@@ -2542,7 +2559,7 @@
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 88.9,
+          "coverage": 86.4,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -2581,7 +2598,17 @@
             },
             {
               "reason": "static_parse_limit",
+              "path": "skills/hyperframes/scripts/lib/literal-media-input.mjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
               "path": "skills/hyperframes/scripts/lib/windows-exe-search.test.mjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/hyperframes/scripts/literal-media-paths.test.mjs",
               "line": 0
             },
             {
@@ -3003,7 +3030,7 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/hyperframes/scripts/literal-media-paths.test.mjs",
-              "line": 51
+              "line": 62
             },
             {
               "id": "PE3",
@@ -6328,7 +6355,7 @@
           "risk": 100,
           "status": "do not install",
           "partial": true,
-          "coverage": 56.4,
+          "coverage": 55.5,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -6353,6 +6380,11 @@
             {
               "reason": "static_parse_limit",
               "path": "skills/media-use/audio/scripts/carve.mjs",
+              "line": 0
+            },
+            {
+              "reason": "obfuscated_instruction_text",
+              "path": "skills/media-use/audio/scripts/carve.test.mjs",
               "line": 0
             },
             {
@@ -6383,6 +6415,11 @@
             {
               "reason": "static_parse_limit",
               "path": "skills/media-use/audio/scripts/heygen-voice.test.mjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/media-use/audio/scripts/lib/bgm.launch.test.mjs",
               "line": 0
             },
             {
@@ -6533,6 +6570,11 @@
             {
               "reason": "static_parse_limit",
               "path": "skills/media-use/scripts/lib/link-safe-write.mjs",
+              "line": 0
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/media-use/scripts/lib/literal-media-input.mjs",
               "line": 0
             },
             {
@@ -6899,15 +6941,22 @@
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
-              "file": "skills/media-use/audio/scripts/carve.test.mjs",
-              "line": 328
+              "file": "skills/media-use/audio/scripts/wait-bgm.test.mjs",
+              "line": 379
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/media-use/audio/scripts/carve.test.mjs",
-              "line": 331
+              "line": 337
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/media-use/audio/scripts/carve.test.mjs",
+              "line": 340
             },
             {
               "id": "PE3",
@@ -6921,7 +6970,7 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/media-use/audio/scripts/lib/bgm.test.mjs",
-              "line": 90
+              "line": 99
             },
             {
               "id": "PE3",
@@ -7201,14 +7250,14 @@
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/media-use/audio/scripts/lib/bgm.test.mjs",
-              "line": 81
+              "line": 90
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/media-use/audio/scripts/lib/bgm.test.mjs",
-              "line": 83
+              "line": 92
             },
             {
               "id": "PE3",
@@ -7267,32 +7316,46 @@
               "line": 779
             },
             {
-              "id": "PE3",
+              "id": "TM1",
               "severity": "HIGH",
-              "message": "Credential Access",
-              "file": "skills/media-use/audio/scripts/wait-bgm.test.mjs",
-              "line": 124
+              "message": "Tool Parameter Abuse",
+              "file": "skills/media-use/audio/scripts/lib/bgm.test.mjs",
+              "line": 265
+            },
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/media-use/audio/scripts/lyria-recipe.test.mjs",
+              "line": 119
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/media-use/audio/scripts/wait-bgm.test.mjs",
-              "line": 158
+              "line": 156
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/media-use/audio/scripts/wait-bgm.test.mjs",
-              "line": 159
+              "line": 190
             },
             {
               "id": "PE3",
               "severity": "HIGH",
               "message": "Credential Access",
               "file": "skills/media-use/audio/scripts/wait-bgm.test.mjs",
-              "line": 163
+              "line": 191
+            },
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/media-use/audio/scripts/wait-bgm.test.mjs",
+              "line": 195
             },
             {
               "id": "P2",
@@ -8139,7 +8202,7 @@
               "severity": "MEDIUM",
               "message": "subprocess module call",
               "file": "skills/media-use/audio/scripts/extract-audio-data.py",
-              "line": 64
+              "line": 86
             },
             {
               "id": "E1",
@@ -8175,6 +8238,13 @@
               "message": "External Transmission",
               "file": "skills/media-use/audio/scripts/lib/heygen.test.mjs",
               "line": 537
+            },
+            {
+              "id": "TM3",
+              "severity": "MEDIUM",
+              "message": "Unsafe Defaults",
+              "file": "skills/media-use/audio/scripts/lib/bgm.mjs",
+              "line": 239
             },
             {
               "id": "EA2",
@@ -8296,6 +8366,13 @@
               "line": 134
             },
             {
+              "id": "PE2",
+              "severity": "MEDIUM",
+              "message": "Sudo/Root Execution",
+              "file": "skills/media-use/audio/scripts/lyria-recipe.test.mjs",
+              "line": 123
+            },
+            {
               "id": "E5",
               "severity": "MEDIUM",
               "message": "Cloud Storage Exfiltration",
@@ -8384,7 +8461,7 @@
               "severity": "LOW",
               "message": "Dynamic attribute access via getattr()",
               "file": "skills/media-use/audio/scripts/lyria-recipe.py",
-              "line": 78
+              "line": 145
             }
           ],
           "suppressed": [
@@ -10331,7 +10408,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-25T06:41:53Z"
+      "checkedAt": "2026-11-26T05:36:24Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
