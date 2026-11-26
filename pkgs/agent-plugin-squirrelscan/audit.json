@@ -7,14 +7,25 @@
   "plugins": [
     {
       "name": "squirrelscan",
-      "dir": "/nix/store/ycgwq315r9395pk0764ds5cl401kds7n-agent-plugin-squirrelscan-2.3.0/share/agent-plugins/squirrelscan",
+      "dir": "/nix/store/1cq2hkrrlan6ywxqkqxf8qfja0iigz62-agent-plugin-squirrelscan-2.5.2/share/agent-plugins/squirrelscan",
       "spec": "1.1.0",
-      "score": 69,
-      "status": "caution",
+      "score": 0,
+      "status": "do not install",
       "coverage": {
         "scanned": [
+          "skills/accessibility-audit",
+          "skills/agent-experience-audit",
           "skills/audit-website",
-          "skills/squirrelscan"
+          "skills/broken-link-checker",
+          "skills/launch-checklist",
+          "skills/performance-audit",
+          "skills/security-audit",
+          "skills/security-headers",
+          "skills/seo-audit",
+          "skills/squirrelscan",
+          "skills/structured-data-audit",
+          "skills/supabase-security-audit",
+          "skills/website-ci-gate"
         ],
         "validated": [
           "plugin.json"
@@ -28,10 +39,187 @@
       },
       "components": [
         {
+          "path": "skills/accessibility-audit",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/accessibility-audit/SKILL.md",
+              "line": 8
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/accessibility-audit/SKILL.md",
+              "line": 20
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/accessibility-audit/SKILL.md",
+              "line": 63
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/accessibility-audit/SKILL.md",
+              "line": 64
+            }
+          ],
+          "findings": [
+            {
+              "id": "P5",
+              "severity": "CRITICAL",
+              "message": "Harmful Content Injection",
+              "file": "skills/accessibility-audit/README.md",
+              "line": 3
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/accessibility-audit/README.md",
+              "line": 46
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/accessibility-audit/README.md",
+              "line": 55
+            },
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "skills/accessibility-audit/README.md",
+              "line": 55
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/accessibility-audit/README.md",
+              "line": 33
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/accessibility-audit/README.md",
+              "line": 46
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/accessibility-audit/README.md",
+              "line": 48
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/agent-experience-audit",
+          "score": 26,
+          "risk": 74,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/agent-experience-audit/SKILL.md",
+              "line": 8
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/agent-experience-audit/SKILL.md",
+              "line": 14
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/agent-experience-audit/SKILL.md",
+              "line": 20
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/agent-experience-audit/SKILL.md",
+              "line": 37
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/agent-experience-audit/SKILL.md",
+              "line": 42
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/agent-experience-audit/SKILL.md",
+              "line": 58
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/agent-experience-audit/SKILL.md",
+              "line": 59
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/agent-experience-audit/SKILL.md",
+              "line": 60
+            }
+          ],
+          "findings": [
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/agent-experience-audit/README.md",
+              "line": 44
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/agent-experience-audit/README.md",
+              "line": 53
+            },
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "skills/agent-experience-audit/README.md",
+              "line": 53
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/agent-experience-audit/README.md",
+              "line": 31
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/agent-experience-audit/README.md",
+              "line": 44
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/agent-experience-audit/README.md",
+              "line": 46
+            }
+          ],
+          "suppressed": []
+        },
+        {
           "path": "skills/audit-website",
-          "score": 100,
-          "risk": 0,
-          "status": "safe",
+          "score": 26,
+          "risk": 74,
+          "status": "do not install",
           "partial": true,
           "coverage": 100,
           "exceptions": [
@@ -43,22 +231,17 @@
             {
               "reason": "reference_missing",
               "path": "skills/audit-website/SKILL.md",
-              "line": 43
+              "line": 45
             },
             {
               "reason": "reference_missing",
               "path": "skills/audit-website/SKILL.md",
-              "line": 83
+              "line": 85
             },
             {
               "reason": "reference_missing",
               "path": "skills/audit-website/SKILL.md",
-              "line": 88
-            },
-            {
-              "reason": "reference_missing",
-              "path": "skills/audit-website/SKILL.md",
-              "line": 98
+              "line": 90
             },
             {
               "reason": "reference_missing",
@@ -68,19 +251,525 @@
             {
               "reason": "reference_missing",
               "path": "skills/audit-website/SKILL.md",
-              "line": 128
+              "line": 102
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/audit-website/SKILL.md",
+              "line": 130
             }
           ],
-          "findings": [],
+          "findings": [
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/audit-website/README.md",
+              "line": 46
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/audit-website/README.md",
+              "line": 55
+            },
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "skills/audit-website/README.md",
+              "line": 55
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/audit-website/README.md",
+              "line": 33
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/audit-website/README.md",
+              "line": 46
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/audit-website/README.md",
+              "line": 48
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/audit-website/SKILL.md",
+              "line": 18
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/broken-link-checker",
+          "score": 26,
+          "risk": 74,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/broken-link-checker/SKILL.md",
+              "line": 8
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/broken-link-checker/SKILL.md",
+              "line": 20
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/broken-link-checker/SKILL.md",
+              "line": 64
+            }
+          ],
+          "findings": [
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/broken-link-checker/README.md",
+              "line": 45
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/broken-link-checker/README.md",
+              "line": 54
+            },
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "skills/broken-link-checker/README.md",
+              "line": 54
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/broken-link-checker/README.md",
+              "line": 32
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/broken-link-checker/README.md",
+              "line": 45
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/broken-link-checker/README.md",
+              "line": 47
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/launch-checklist",
+          "score": 26,
+          "risk": 74,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/launch-checklist/SKILL.md",
+              "line": 8
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/launch-checklist/SKILL.md",
+              "line": 20
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/launch-checklist/SKILL.md",
+              "line": 54
+            }
+          ],
+          "findings": [
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/launch-checklist/README.md",
+              "line": 44
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/launch-checklist/README.md",
+              "line": 53
+            },
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "skills/launch-checklist/README.md",
+              "line": 53
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/launch-checklist/README.md",
+              "line": 31
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/launch-checklist/README.md",
+              "line": 44
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/launch-checklist/README.md",
+              "line": 46
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/performance-audit",
+          "score": 26,
+          "risk": 74,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/performance-audit/SKILL.md",
+              "line": 8
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/performance-audit/SKILL.md",
+              "line": 20
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/performance-audit/SKILL.md",
+              "line": 54
+            }
+          ],
+          "findings": [
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/performance-audit/README.md",
+              "line": 45
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/performance-audit/README.md",
+              "line": 54
+            },
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "skills/performance-audit/README.md",
+              "line": 54
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/performance-audit/README.md",
+              "line": 32
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/performance-audit/README.md",
+              "line": 45
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/performance-audit/README.md",
+              "line": 47
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/security-audit",
+          "score": 26,
+          "risk": 74,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/security-audit/SKILL.md",
+              "line": 8
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/security-audit/SKILL.md",
+              "line": 20
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/security-audit/SKILL.md",
+              "line": 37
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/security-audit/SKILL.md",
+              "line": 44
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/security-audit/SKILL.md",
+              "line": 62
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/security-audit/SKILL.md",
+              "line": 63
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/security-audit/SKILL.md",
+              "line": 64
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/security-audit/SKILL.md",
+              "line": 67
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/security-audit/SKILL.md",
+              "line": 68
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/security-audit/SKILL.md",
+              "line": 73
+            }
+          ],
+          "findings": [
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/security-audit/README.md",
+              "line": 45
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/security-audit/README.md",
+              "line": 54
+            },
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "skills/security-audit/README.md",
+              "line": 54
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/security-audit/README.md",
+              "line": 32
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/security-audit/README.md",
+              "line": 45
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/security-audit/README.md",
+              "line": 47
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/security-headers",
+          "score": 66,
+          "risk": 34,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/security-headers/SKILL.md",
+              "line": 8
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/security-headers/SKILL.md",
+              "line": 52
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/security-headers/SKILL.md",
+              "line": 65
+            }
+          ],
+          "findings": [
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/security-headers/README.md",
+              "line": 45
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/security-headers/README.md",
+              "line": 32
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/security-headers/README.md",
+              "line": 45
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/security-headers/README.md",
+              "line": 47
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/seo-audit",
+          "score": 26,
+          "risk": 74,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-audit/SKILL.md",
+              "line": 8
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-audit/SKILL.md",
+              "line": 20
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-audit/SKILL.md",
+              "line": 41
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-audit/SKILL.md",
+              "line": 58
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/seo-audit/SKILL.md",
+              "line": 60
+            }
+          ],
+          "findings": [
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/seo-audit/README.md",
+              "line": 45
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/seo-audit/README.md",
+              "line": 54
+            },
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "skills/seo-audit/README.md",
+              "line": 54
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/seo-audit/README.md",
+              "line": 32
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/seo-audit/README.md",
+              "line": 45
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/seo-audit/README.md",
+              "line": 47
+            }
+          ],
           "suppressed": []
         },
         {
           "path": "skills/squirrelscan",
-          "score": 69,
-          "risk": 31,
-          "status": "caution",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
           "partial": true,
-          "coverage": 90.9,
+          "coverage": 91.7,
           "exceptions": [
             {
               "reason": "reference_missing",
@@ -130,7 +819,12 @@
             {
               "reason": "reference_missing",
               "path": "skills/squirrelscan/SKILL.md",
-              "line": 184
+              "line": 185
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/squirrelscan/SKILL.md",
+              "line": 202
             },
             {
               "reason": "static_parse_limit",
@@ -140,11 +834,67 @@
           ],
           "findings": [
             {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/squirrelscan/README.md",
+              "line": 50
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/squirrelscan/README.md",
+              "line": 59
+            },
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "skills/squirrelscan/README.md",
+              "line": 59
+            },
+            {
               "id": "OH1",
               "severity": "HIGH",
               "message": "Unvalidated Output Injection",
               "file": "skills/squirrelscan/references/entity-map-fixes.md",
               "line": 120
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/squirrelscan/README.md",
+              "line": 25
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/squirrelscan/README.md",
+              "line": 37
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/squirrelscan/README.md",
+              "line": 50
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/squirrelscan/README.md",
+              "line": 52
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/squirrelscan/SKILL.md",
+              "line": 174
             },
             {
               "id": "RP1",
@@ -167,23 +917,261 @@
               "severity": "HIGH",
               "message": "Incomplete referenced artifact analysis",
               "file": "skills/squirrelscan/SKILL.md",
-              "line": 183,
+              "line": 201,
               "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
             }
           ]
+        },
+        {
+          "path": "skills/structured-data-audit",
+          "score": 26,
+          "risk": 74,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/structured-data-audit/SKILL.md",
+              "line": 8
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/structured-data-audit/SKILL.md",
+              "line": 20
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/structured-data-audit/SKILL.md",
+              "line": 36
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/structured-data-audit/SKILL.md",
+              "line": 53
+            }
+          ],
+          "findings": [
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/structured-data-audit/README.md",
+              "line": 45
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/structured-data-audit/README.md",
+              "line": 54
+            },
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "skills/structured-data-audit/README.md",
+              "line": 54
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/structured-data-audit/README.md",
+              "line": 32
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/structured-data-audit/README.md",
+              "line": 45
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/structured-data-audit/README.md",
+              "line": 47
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/supabase-security-audit",
+          "score": 20,
+          "risk": 80,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/supabase-security-audit/SKILL.md",
+              "line": 8
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/supabase-security-audit/SKILL.md",
+              "line": 20
+            }
+          ],
+          "findings": [
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/supabase-security-audit/README.md",
+              "line": 45
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/supabase-security-audit/README.md",
+              "line": 54
+            },
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "skills/supabase-security-audit/README.md",
+              "line": 54
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/supabase-security-audit/README.md",
+              "line": 12
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/supabase-security-audit/README.md",
+              "line": 32
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/supabase-security-audit/README.md",
+              "line": 45
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/supabase-security-audit/README.md",
+              "line": 47
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/website-ci-gate",
+          "score": 0,
+          "risk": 100,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/website-ci-gate/SKILL.md",
+              "line": 8
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/website-ci-gate/SKILL.md",
+              "line": 20
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/website-ci-gate/SKILL.md",
+              "line": 57
+            }
+          ],
+          "findings": [
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "skills/website-ci-gate/README.md",
+              "line": 45
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/website-ci-gate/README.md",
+              "line": 54
+            },
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "skills/website-ci-gate/README.md",
+              "line": 54
+            },
+            {
+              "id": "TM2",
+              "severity": "HIGH",
+              "message": "Chaining Abuse",
+              "file": "skills/website-ci-gate/SKILL.md",
+              "line": 94
+            },
+            {
+              "id": "SC2",
+              "severity": "HIGH",
+              "message": "External Script Fetching",
+              "file": "skills/website-ci-gate/SKILL.md",
+              "line": 94
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/website-ci-gate/README.md",
+              "line": 13
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/website-ci-gate/README.md",
+              "line": 32
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/website-ci-gate/README.md",
+              "line": 45
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/website-ci-gate/README.md",
+              "line": 47
+            }
+          ],
+          "suppressed": []
         }
       ]
     }
   ],
-  "score": 69,
-  "status": "caution",
+  "score": 0,
+  "status": "do not install",
   "tool": {
     "name": "skillspector",
     "version": "2.12.0",
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-20T18:27:07Z"
+      "checkedAt": "2026-11-25T23:57:02Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
