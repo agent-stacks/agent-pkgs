@@ -397,7 +397,10 @@
           # every system; the sandbox itself is checked by hand (macOS)
           # until a runner can host it.
           agent-sandbox-srt-contract =
-            let srt = "${(mkPackages pkgs).agent-sandbox-srt}/bin/agent-sandbox-srt"; in
+            let
+              srt = "${(mkPackages pkgs).agent-sandbox-srt}/bin/agent-sandbox-srt";
+              patchedSrt = (mkPackages pkgs).agent-sandbox-srt.srt;
+            in
             pkgs.runCommand "agent-sandbox-srt-contract" { nativeBuildInputs = [ pkgs.jq ]; } ''
               set -u
               export HOME=$PWD/home TMPDIR=$PWD/tmp AGENT_SANDBOX_SRT_DRY_RUN=1
@@ -430,6 +433,21 @@
                 jq -e '.network.allowMachLookup == ["com.apple.pasteboard.1"]' s.json
               else
                 jq -e '.network | has("allowMachLookup") | not' s.json
+              fi
+              # macOS: Claude saves its login in the login keychain. That
+              # needs the file writable and the srt that runs to allow the
+              # sysctl a keychain change reads. Linux keeps it in ~/.claude.
+              if [ "$(uname -s)" = Darwin ]; then
+                jq -e '.filesystem.allowWrite | index("~/Library/Keychains/login.keychain-db*")' s.json
+                jq -e '[.filesystem.allowWrite[] | select(contains("Keychains"))] | length == 1' s.json
+                runs=$(sed -n 's/^would run: \([^ ]*\) .*/\1/p' cmd)
+                [ "$runs" = ${patchedSrt}/bin/srt ] ||
+                  { echo "it runs $runs, not the patched srt ${patchedSrt}"; cat cmd; exit 1; }
+                grep -qF '(sysctl-name "security.mac.sandbox.sentinel")' \
+                  ${patchedSrt}/lib/node_modules/@anthropic-ai/sandbox-runtime/dist/sandbox/macos-sandbox-utils.js ||
+                  { echo "the patched srt does not allow the keychain's sysctl"; exit 1; }
+              else
+                jq -e 'all(.filesystem.allowWrite[]; contains("Keychains") | not)' s.json
               fi
               # srt points TMPDIR here but does not create it on macOS.
               ${srt} -- true >/dev/null 2>&1

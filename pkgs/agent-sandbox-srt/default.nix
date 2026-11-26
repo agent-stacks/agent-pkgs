@@ -14,6 +14,8 @@
 #   - ~/.ssh denied; the project, /tmp and Claude's state writable;
 #   - on macOS, allowPty, /private/tmp (srt does not follow /tmp) and
 #     the pasteboard service, so copying out of the agent works;
+#   - on macOS, the login keychain writable, with a patch to srt that
+#     lets a program change a keychain, so Claude can save its login;
 #   - the agent's temp folder made, which srt names but does not create;
 #   - on macOS, SSL_CERT_FILE set unless the caller has, so gh can check
 #     a certificate without the trust service the sandbox blocks;
@@ -36,6 +38,27 @@
   sandbox-runtime,
 }:
 
+let
+  # macOS: no program in srt's sandbox can change a keychain, even one
+  # it may write. With each change the Security framework issues a
+  # sandbox extension for the keychain file to securityd, and issuing
+  # one reads the sysctl security.mac.sandbox.sentinel, which srt's
+  # profile does not allow, so the change fails with "Operation not
+  # permitted". srt has no setting for sysctls, so add it to the list
+  # its profile allows. Its value is a token for sandbox extensions
+  # (sysctl -d: "Sandbox extension sentinel").
+  srt =
+    if stdenv.hostPlatform.isDarwin then
+      sandbox-runtime.overrideAttrs (old: {
+        postInstall = (old.postInstall or "") + ''
+          substituteInPlace $out/lib/node_modules/@anthropic-ai/sandbox-runtime/dist/sandbox/macos-sandbox-utils.js \
+            --replace-fail "'  (sysctl-name \"security.mac.lockdown_mode_state\")'," \
+              "'  (sysctl-name \"security.mac.lockdown_mode_state\")', '  (sysctl-name \"security.mac.sandbox.sentinel\")',"
+        '';
+      })
+    else
+      sandbox-runtime;
+in
 (writeShellApplication {
   name = "agent-sandbox-srt";
   runtimeInputs = [ jq coreutils ];
@@ -44,7 +67,7 @@
       echo "agent-sandbox-srt: $*" >&2
       exit 2
     }
-    srt=${lib.getExe' sandbox-runtime "srt"}
+    srt=${lib.getExe' srt "srt"}
     # Linux: the bwrap srt runs, named so the AppArmor fix below can name
     # it too. The same one nixpkgs' srt puts first on its PATH.
     bwrap=${lib.optionalString stdenv.hostPlatform.isLinux (lib.getExe' bubblewrap "bwrap")}
@@ -132,6 +155,12 @@
       [ -r "$cert_file" ] || cert_file=${cacert}/etc/ssl/certs/ca-bundle.crt
     fi
 
+    # macOS: Claude keeps its login in the login keychain (on Linux, in
+    # ~/.claude), so /login writes it there; a token refresh should too,
+    # though that has not been watched. The
+    # keychain saves a change to a new file named after it, beside it,
+    # then moves that into place: hence the file and the names that
+    # start with it. The rest of ~/Library/Keychains stays read-only.
     settings=$(mktemp "''${TMPDIR:-/tmp}/agent-sandbox-srt.XXXXXX")
     jq -n --argjson o "$opts" --argjson mcp "$mcp_hosts" --argjson darwin "$darwin" --arg bwrap "$bwrap" '{
       network: ({
@@ -141,7 +170,8 @@
       filesystem: {
         denyRead: (["~/.ssh"] + ($o.denyRead // []) | unique),
         allowWrite: ([".", "/tmp", "~/.claude", "~/.claude.json", "~/.claude.json.lock"]
-                     + (if $darwin then ["/private/tmp"] else [] end) + ($o.allowWrite // []) | unique),
+                     + (if $darwin then ["/private/tmp", "~/Library/Keychains/login.keychain-db*"] else [] end)
+                     + ($o.allowWrite // []) | unique),
         denyWrite: []
       }
     } + (if $darwin then {allowPty: true} else {} end)
@@ -209,6 +239,8 @@ Fix it once, as root, with either:
     exec "$srt" --settings "$settings" -- "$@"
   '';
 }).overrideAttrs (old: {
+  # The srt the wrapper runs, patched on macOS, for the contract check.
+  passthru = (old.passthru or { }) // { inherit srt; };
   meta = (old.meta or { }) // {
     description = "Sandbox that runs the agent inside Anthropic's sandbox-runtime (srt)";
     license = lib.licenses.mit;
