@@ -54,6 +54,8 @@ stdenvNoCC.mkDerivation {
       --replace-fail '@llamaServer@' '${lib.getExe' llama-cpp "llama-server"}' \
       --replace-fail '@version@' '${llama-cpp.version}' \
       --replace-fail '@platforms@' '${builtins.toJSON platforms}'
+    # The contract, shared with the other agent-gateway-* packages.
+    cp ${../../lib/agent-gateway/agent_gateway.py} $out/libexec/agent-gateway-llama-cpp/agent_gateway.py
     cat >$out/bin/agent-gateway-llama-cpp <<EOF
     #!${stdenvNoCC.shell}
     exec ${lib.getExe python3} -I $out/libexec/agent-gateway-llama-cpp/gateway.py "\$@"
