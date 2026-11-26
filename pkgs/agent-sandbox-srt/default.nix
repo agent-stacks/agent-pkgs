@@ -156,7 +156,8 @@ in
     fi
 
     # macOS: Claude keeps its login in the login keychain (on Linux, in
-    # ~/.claude), so /login and each token refresh write it there. The
+    # ~/.claude), so /login writes it there; a token refresh should too,
+    # though that has not been watched. The
     # keychain saves a change to a new file named after it, beside it,
     # then moves that into place: hence the file and the names that
     # start with it. The rest of ~/Library/Keychains stays read-only.
@@ -238,6 +239,8 @@ Fix it once, as root, with either:
     exec "$srt" --settings "$settings" -- "$@"
   '';
 }).overrideAttrs (old: {
+  # The srt the wrapper runs, patched on macOS, for the contract check.
+  passthru = (old.passthru or { }) // { inherit srt; };
   meta = (old.meta or { }) // {
     description = "Sandbox that runs the agent inside Anthropic's sandbox-runtime (srt)";
     license = lib.licenses.mit;
