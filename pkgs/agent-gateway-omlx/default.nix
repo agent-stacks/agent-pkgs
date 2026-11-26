@@ -63,8 +63,9 @@ let
       (file "added_tokens.json" "sha256-wChLWC4UmH+9PVossr0TkIQ3HtmsuuSIgpockAgzxoA=")
     ];
 
-  # oMLX's own MLX, to ask Metal how much memory a model may use.
-  mlxPython = omlx.passthru.python.withPackages (ps: [ ps.mlx ]);
+  # oMLX's own MLX, built with Metal, to ask Metal how much memory a
+  # model may use: the virtualenv oMLX runs in.
+  mlxPython = omlx.venv;
 
   inherit (omlx.meta) platforms;
 in

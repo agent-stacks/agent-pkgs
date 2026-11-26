@@ -172,9 +172,13 @@ def prepare(state, models, host, server_args):
 
 def command(state, host, port, server_args):
     env = dict(os.environ)
-    # The Hugging Face cache stays the user's, wherever HOME points.
+    # The Hugging Face cache stays the user's, wherever HOME points:
+    # oMLX looks in HF_HUB_CACHE, else HF_HOME/hub, else under HOME.
+    if not env.get("HF_HUB_CACHE") and env.get("HUGGINGFACE_HUB_CACHE"):
+        env["HF_HUB_CACHE"] = env["HUGGINGFACE_HUB_CACHE"]
     if not env.get("HF_HOME"):
-        env["HF_HOME"] = str(Path.home() / ".cache" / "huggingface")
+        cache = env.get("XDG_CACHE_HOME") or str(Path.home() / ".cache")
+        env["HF_HOME"] = str(Path(cache) / "huggingface")
     env["HOME"] = str(state / "home")
     # The gateway decides these; oMLX would let them override it.
     for k in ("OMLX_BASE_PATH", "OMLX_MODEL_DIR", "OMLX_HOST", "OMLX_PORT"):

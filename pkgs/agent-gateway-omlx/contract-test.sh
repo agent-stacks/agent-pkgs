@@ -125,6 +125,16 @@ grep -qxF "$wide ok" check.out || fail "wide: $(cat check.out)"
 # A model.json path is the same as its directory.
 [ "$("$gw" check "$m/tiny/model.json")" = "tiny ok" ] || fail "check by model.json"
 # Too big for this host, a host it does not run on, a macOS too old.
+# The memory limit is Metal's recommended working set, asked of
+# oMLX's own MLX, not the flat fallback.
+lib=$(dirname "$(readlink -f "$gw")")/../libexec/agent-gateway-omlx
+mlxpy=$(sed -n 's/^MLX_PYTHON = "\(.*\)"$/\1/p' "$lib/gateway.py")
+ws=$("$mlxpy" -I -c 'import mlx.core as mx; print(mx.device_info()["max_recommended_working_set_size"])') ||
+  fail "oMLX's MLX cannot ask Metal"
+[ "$ws" -gt 0 ] 2>/dev/null || fail "recommended working set: $ws"
+limit=$(python3 -I -c 'import sys; sys.path.insert(0, sys.argv[1]); import gateway; print(gateway.memory_limit())' "$lib")
+[ "$limit" = "$ws" ] || fail "memory limit $limit is not Metal's $ws"
+echo "agent-gateway-omlx: memory limit $limit (Metal recommended working set)"
 AGENT_GATEWAY_MEMORY_BYTES=1000 "$gw" check "$m/tiny" | grep -q '^tiny skip memory ' || fail "memory"
 AGENT_GATEWAY_PLATFORM=x86_64-linux "$gw" check "$m/tiny" | grep -q '^tiny skip platform ' || fail "platform"
 AGENT_GATEWAY_MACOS_VERSION=14.6 "$gw" check "$m/tiny" | grep -q '^tiny skip host ' || fail "host"
@@ -204,5 +214,7 @@ if curl -fsS "$url/health" >/dev/null 2>&1; then fail "oMLX still answering afte
 # The state it wrote (links, settings, logs) is gone, and the home it
 # ran under was never written.
 if ls "$TMPDIR" | grep -q '^agent-gateway-omlx'; then fail "state left in $TMPDIR: $(ls "$TMPDIR")"; fi
+# oMLX writes ~/.omlx/bin/omlx-cluster-python whatever its base path.
+[ ! -e "$HOME/.omlx" ] || fail "wrote to ~/.omlx: $(find "$HOME/.omlx")"
 [ -z "$(ls -A "$HOME")" ] || fail "wrote to HOME: $(ls -A "$HOME")"
 echo "agent-gateway-omlx: contract OK"
