@@ -1,0 +1,41 @@
+# What pkgs/omlx locks: oMLX at a release tag with the mcp, grammar and
+# audio extras. Not a Python project of its own; uv.lock is generated
+# from this file by upgrade.sh, and default.nix builds that lock with
+# uv2nix.
+[project]
+name = "omlx-agent-pkgs"
+version = "0.0.0"
+description = "Locks oMLX and its extras for pkgs/omlx"
+# The interpreter default.nix builds with, and the one oMLX supports
+# (<3.14). Narrowing it here keeps the lock to one Python.
+requires-python = ">=3.13,<3.14"
+dependencies = [
+  "omlx[mcp,grammar,audio]",
+]
+
+[tool.uv]
+# MLX runs on Metal: the package is aarch64-darwin only, so is the lock.
+environments = [
+  "sys_platform == 'darwin' and platform_machine == 'arm64'",
+]
+override-dependencies = [
+  # BEGIN upstream overrides
+  # Copied from [tool.uv] override-dependencies in oMLX's own
+  # pyproject.toml at the tag below, by upgrade.sh. uv applies a
+  # project's overrides only when that project is the one being
+  # locked, so oMLX's git pins of mlx and mlx-lm are lost unless they
+  # are repeated here.
+  "mlx==0.32.5",
+  "mlx-lm @ git+https://github.com/ml-explore/mlx-lm@0d4d3d04f8ab7ce4a51e7209e8615755a48ba94d",
+  # END upstream overrides
+  # mlx-audio's `server`/`sts` extras pin setuptools<81, which would
+  # hold the lock on a setuptools vulnerable to GHSA-h35f-9h28-mq5c
+  # (fixed in 83.0.0). The cap is there because setuptools 82 drops
+  # the bundled pkg_resources, which webrtcvad imports; default.nix
+  # patches that import out of webrtcvad, so the cap buys nothing.
+  # Drop this once mlx-audio lifts it.
+  "setuptools>=83.0.0",
+]
+
+[tool.uv.sources]
+omlx = { git = "https://github.com/jundot/omlx.git", tag = "v0.8.4" }
