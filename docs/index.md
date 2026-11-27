@@ -6,7 +6,7 @@ Nix packages.
 
 | Tree | Start here | What it answers |
 | ------------ | ---------------------------------------------- | --------------- |
-| Guides | [guides/index.md](guides/index.md) | How to do a thing (adding a plugin to `pkgs/`) |
+| Guides | [guides/index.md](guides/index.md) | How to do a thing (adding a plugin to `pkgs/`, making a stack with Nix or Flox) |
 | Architecture | [architecture/index.md](architecture/index.md) | How the package set is built (builders, discovery, CI) |
 | Reference | [reference/index.md](reference/index.md) | Precise contracts (the import→builder contract, builder arguments) |
 | Decisions | [decisions/README.md](decisions/README.md) | Why things are the way they are (ADRs) |
