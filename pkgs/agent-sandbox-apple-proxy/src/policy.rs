@@ -1,0 +1,195 @@
+//! The decisions: which targets may be reached, and which addresses count
+//! as public. Pure, so it is unit-tested without sockets.
+
+use std::net::{IpAddr, Ipv4Addr, Ipv6Addr};
+
+/// The target a client sends to say the VM has finished starting.
+const LATCH_HOST: &str = "agent-sandbox-apple.start-done";
+
+#[derive(Debug)]
+pub enum Decision {
+    /// The startup-only hosts are closed from now on. On the first latch
+    /// only, the hosts the request offered join the agent's list:
+    /// `added` are those taken, `refused` those that are not host names.
+    Latch { added: Vec<String>, refused: Vec<String> },
+    Connect { host: String, port: u16 },
+    Deny(&'static str),
+}
+
+pub struct Policy {
+    agent: Vec<String>,
+    startup: Vec<String>,
+    latched: bool,
+}
+
+impl Policy {
+    pub fn new(agent: Vec<String>, startup: Vec<String>) -> Policy {
+        Policy { agent, startup, latched: false }
+    }
+
+    /// `offered` are the hosts a latch request names (the VM's plugins'
+    /// MCP servers, read as root before the agent starts). They count
+    /// only on the first latch: once it is closed, nothing joins.
+    pub fn decide(&mut self, target: &str, offered: &[&str]) -> Decision {
+        let Some((host, port)) = target.rsplit_once(':') else {
+            return Decision::Deny("bad target");
+        };
+        let Ok(port) = port.parse::<u16>() else {
+            return Decision::Deny("bad port");
+        };
+        if host.eq_ignore_ascii_case(LATCH_HOST) && port == 0 {
+            let (mut added, mut refused) = (Vec::new(), Vec::new());
+            if !self.latched {
+                for h in offered {
+                    if is_host_name(h) {
+                        added.push(h.to_ascii_lowercase());
+                    } else {
+                        refused.push(h.to_string());
+                    }
+                }
+                self.agent.extend(added.iter().cloned());
+            }
+            self.latched = true;
+            return Decision::Latch { added, refused };
+        }
+        // The allow-list holds names only: no IP literals, bracketed or not.
+        if host.is_empty()
+            || port == 0
+            || host.contains([':', '[', ']'])
+            || host.trim_end_matches('.').parse::<IpAddr>().is_ok()
+        {
+            return Decision::Deny("bad target");
+        }
+        let ok = host_allowed(host, &self.agent)
+            || (!self.latched && host_allowed(host, &self.startup));
+        if ok {
+            Decision::Connect { host: host.to_string(), port }
+        } else {
+            Decision::Deny("allow-list")
+        }
+    }
+}
+
+/// A DNS name the allow-list may hold: letters, digits, '-' and '.',
+/// at least one dot, and never an IP literal.
+pub fn is_host_name(h: &str) -> bool {
+    let h = h.trim_end_matches('.');
+    !h.is_empty()
+        && h.len() <= 253
+        && h.contains('.')
+        && h.bytes().all(|b| b.is_ascii_alphanumeric() || b == b'-' || b == b'.')
+        && h.split('.').all(|l| !l.is_empty() && !l.starts_with('-') && !l.ends_with('-'))
+        && h.parse::<IpAddr>().is_err()
+}
+
+/// An exact or subdomain match, ignoring case and a trailing dot.
+pub fn host_allowed(host: &str, list: &[String]) -> bool {
+    let h = host.trim_end_matches('.').to_ascii_lowercase();
+    list.iter().any(|d| {
+        let d = d.trim().trim_start_matches('.').trim_end_matches('.').to_ascii_lowercase();
+        !d.is_empty() && (h == d || h.ends_with(&format!(".{d}")))
+    })
+}
+
+/// True only for addresses on the public internet.
+pub fn is_global(ip: IpAddr) -> bool {
+    match ip {
+        IpAddr::V4(a) => is_global_v4(a),
+        IpAddr::V6(a) => match a.to_ipv4_mapped() {
+            Some(v4) => is_global_v4(v4),
+            None => is_global_v6(a),
+        },
+    }
+}
+
+fn is_global_v4(a: Ipv4Addr) -> bool {
+    let o = a.octets();
+    !(a.is_unspecified()
+        || a.is_loopback()
+        || a.is_private()
+        || a.is_link_local()
+        || a.is_broadcast()
+        || a.is_documentation()
+        || a.is_multicast()
+        || o[0] == 0 // 0.0.0.0/8
+        || (o[0] == 100 && o[1] & 0xc0 == 64) // CGNAT 100.64/10
+        || (o[0] == 192 && o[1] == 0 && o[2] == 0) // IETF protocol 192.0.0/24
+        || (o[0] == 198 && o[1] & 0xfe == 18) // benchmarking 198.18/15
+        || o[0] >= 240) // reserved
+}
+
+fn is_global_v6(a: Ipv6Addr) -> bool {
+    let s = a.segments();
+    !(a.is_unspecified()
+        || a.is_loopback()
+        || a.is_multicast()
+        || s[0] & 0xfe00 == 0xfc00 // ULA fc00::/7
+        || s[0] & 0xffc0 == 0xfe80 // link-local fe80::/10
+        || s[0] & 0xffc0 == 0xfec0 // site-local fec0::/10
+        || s[0..6] == [0, 0, 0, 0, 0, 0] // IPv4-compatible ::/96
+        || (s[0] == 0x2001 && s[1] == 0x0db8) // documentation
+        || (s[0] == 0x64 && s[1] == 0xff9b && s[2..6] == [0, 0, 0, 0]) // NAT64
+        || (s[0] == 0x64 && s[1] == 0xff9b && s[2] == 1)) // local-use NAT64 64:ff9b:1::/48
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test] fn exact_and_subdomain_match() {
+        let l = vec!["anthropic.com".into()];
+        assert!(host_allowed("anthropic.com", &l));
+        assert!(host_allowed("API.anthropic.com.", &l));
+        assert!(!host_allowed("evilanthropic.com", &l));
+        assert!(!host_allowed("api.anthropic.com.attacker.net", &l));
+    }
+    #[test] fn non_global_addresses() {
+        for a in ["127.0.0.1","10.0.0.1","172.16.0.1","192.168.64.1",
+                  "169.254.169.254","100.64.0.1","0.0.0.0","::1","fe80::1",
+                  "fc00::1","::ffff:192.168.1.1","::ffff:127.0.0.1"] {
+            assert!(!is_global(a.parse().unwrap()), "{a}");
+        }
+        for a in ["1.1.1.1","2606:4700::1111"] { assert!(is_global(a.parse().unwrap())); }
+    }
+    #[test] fn non_global_v6_gaps() {
+        // Site-local fec0::/10, IPv4-compatible ::/96 (the Mac's own
+        // ::192.168.64.1, say) and local-use NAT64 64:ff9b:1::/48.
+        for a in ["fec0::1", "feff::1", "::192.168.64.1", "::1.1.1.1", "::a00:1",
+                  "64:ff9b:1::c0a8:4001", "64:ff9b:1:ffff::1"] {
+            assert!(!is_global(a.parse().unwrap()), "{a}");
+        }
+        // Just outside them.
+        for a in ["fe00::1", "::1:0:0:1", "64:ff9b:2::1", "2001:4860:4860::8888"] {
+            assert!(is_global(a.parse().unwrap()), "{a}");
+        }
+    }
+    #[test] fn latch_closes_startup_hosts_for_good() {
+        let mut p = Policy::new(vec!["api.anthropic.com".into()], vec!["cache.nixos.org".into()]);
+        assert!(matches!(p.decide("cache.nixos.org:443", &[]), Decision::Connect{..}));
+        assert!(matches!(p.decide("agent-sandbox-apple.start-done:0", &[]), Decision::Latch{..}));
+        assert!(matches!(p.decide("cache.nixos.org:443", &[]), Decision::Deny(_)));
+        assert!(matches!(p.decide("agent-sandbox-apple.start-done:0", &[]), Decision::Latch{..}));
+        assert!(matches!(p.decide("cache.nixos.org:443", &[]), Decision::Deny(_)));
+        assert!(matches!(p.decide("api.anthropic.com:443", &[]), Decision::Connect{..}));
+    }
+    #[test] fn first_latch_adds_offered_names_and_later_ones_do_not() {
+        let mut p = Policy::new(vec![], vec![]);
+        assert!(matches!(p.decide("mcp.example.com:443", &[]), Decision::Deny(_)));
+        let d = p.decide("agent-sandbox-apple.start-done:0",
+                         &["MCP.example.com", "1.2.3.4", "[::1]", "a b.com", "localhost", "-x.com"]);
+        let Decision::Latch { added, refused } = d else { panic!("{d:?}") };
+        assert_eq!(added, vec!["mcp.example.com"]);
+        assert_eq!(refused, vec!["1.2.3.4", "[::1]", "a b.com", "localhost", "-x.com"]);
+        assert!(matches!(p.decide("mcp.example.com:443", &[]), Decision::Connect{..}));
+        assert!(matches!(p.decide("sub.mcp.example.com:443", &[]), Decision::Connect{..}));
+        let d = p.decide("agent-sandbox-apple.start-done:0", &["evil.com"]);
+        assert!(matches!(&d, Decision::Latch { added, .. } if added.is_empty()), "{d:?}");
+        assert!(matches!(p.decide("evil.com:443", &[]), Decision::Deny(_)));
+    }
+    #[test] fn bad_targets_are_denied() {
+        let mut p = Policy::new(vec!["a.com".into()], vec![]);
+        for t in ["a.com", "a.com:x", "a.com:70000", "[::1]:443", "1.1.1.1:443"] {
+            assert!(matches!(p.decide(t, &[]), Decision::Deny(_)), "{t}");
+        }
+    }
+}
