@@ -144,10 +144,14 @@ or an entry of the repository's `.agents/plugins/marketplace.json`.
 For such an entry whose directory has no Codex manifest, the block
 is read from the entry's own fields, and may be the empty object
 `{}`: Codex's defaults, from the package. A Codex listing entry
-whose directory has `.claude-plugin/plugin.json` is read as that
-Claude plugin, and carries the block only when the directory also
-has `.codex-plugin/plugin.json`. It is
-never present otherwise: without such a manifest the importer drops
+naming a directory another plugin holds, such as one the Claude
+listing also names, is that plugin. Its block is read from the
+directory's `.codex-plugin/plugin.json`, or, when the directory holds
+no manifest Codex finds, from the entry's own fields, under the
+entry's name. A directory with `.claude-plugin/plugin.json` is read
+as that Claude plugin, as Codex reads it, and carries the block only
+when it also has `.codex-plugin/plugin.json`. It is never present
+otherwise: without such a manifest the importer drops
 a block an upstream manifest carries, and with one it replaces it,
 warning in both cases unless the block it replaces is empty. The
 builder copies the block into `plugin.json` and reads none of it.
@@ -168,7 +172,10 @@ agent-stacks citations predate it.
 A plugin written only for Codex carries no Claude hooks or
 components: Claude Code does not install it, and its hooks,
 commands, apps and interface reach Codex alone, through the block
-and `com.openai/`. Which plugins import finds, the name each package
+and `com.openai/`. A skill that references one of Claude's root
+components, such as `commands/` or `agents/`, does not have it
+shipped at the plugin root, where Claude would load it; `hooks/`
+(see `hooks` below) and `bin/` are the exceptions. Which plugins import finds, the name each package
 takes, and the names a replay keeps are import's rules, in that
 reference page under "Finding plugins" and "Replaying a recorded
 import", and in agent-stacks ADR 0046. One of them is a consumer's
@@ -189,8 +196,9 @@ hooks. A `default.json` from an earlier importer has no key and keeps
 the copied file. `hooks` is the empty object `{}` for one kind of
 plugin only: a plugin written only for Codex whose root `hooks/`
 ships because a skill references a file there. The builder then
-writes that root `hooks/hooks.json` with no events, replacing the
-Codex hooks file the directory brought, so Claude runs none of
+writes that root `hooks/hooks.json` as `{"hooks": {}}` alone, with
+no events or modules, replacing the Codex hooks file the directory
+brought, so Claude runs none of
 Codex's hooks; Codex's own copy ships under `com.openai/hooks`
 (agent-stacks ADR 0046). The `hooks` a generated `default.nix` binds
 is the `overrideAttrs` function, not this argument.
