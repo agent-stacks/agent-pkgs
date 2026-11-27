@@ -1,0 +1,680 @@
+{
+  "target": "./result",
+  "resolved": {
+    "kind": "path",
+    "storePath": null
+  },
+  "plugins": [
+    {
+      "name": "okf-skills",
+      "dir": "/nix/store/8lywrq694fzpy08pw6wqqr1h1mh28hm8-agent-plugin-okf-skills-0.13.0/share/agent-plugins/okf-skills",
+      "spec": "1.1.0",
+      "score": 3,
+      "status": "do not install",
+      "coverage": {
+        "scanned": [
+          "com.anthropic.claude-code/agents",
+          "com.anthropic.claude-code/hooks",
+          "servers",
+          "skills/backfill",
+          "skills/okf",
+          "skills/validate",
+          "skills/visualize"
+        ],
+        "validated": [
+          "plugin.json"
+        ],
+        "notChecked": [
+          {
+            "path": "bin/",
+            "reason": "interpreter links into /nix/store"
+          },
+          {
+            "path": "mcp.json",
+            "reason": "SkillSpector does not analyse this layout as an MCP manifest"
+          }
+        ]
+      },
+      "components": [
+        {
+          "path": "com.anthropic.claude-code/agents",
+          "score": 100,
+          "risk": 0,
+          "status": "safe",
+          "partial": false,
+          "coverage": 100,
+          "exceptions": [],
+          "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "com.anthropic.claude-code/hooks",
+          "score": 59,
+          "risk": 41,
+          "status": "caution",
+          "partial": true,
+          "coverage": 50,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "com.anthropic.claude-code/hooks/okf-stop-check.sh",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "com.anthropic.claude-code/hooks/okf-stop-check.sh",
+              "line": 36
+            },
+            {
+              "id": "AS1",
+              "severity": "HIGH",
+              "message": "Agent Config Directory Access",
+              "file": "com.anthropic.claude-code/hooks/okf-stop-check.sh",
+              "line": 100
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "servers",
+          "score": 82,
+          "risk": 18,
+          "status": "incomplete",
+          "partial": true,
+          "coverage": 0,
+          "exceptions": [
+            {
+              "reason": "static_parse_limit",
+              "path": "servers/okf_mcp.py",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "AST10",
+              "severity": "MEDIUM",
+              "message": "Insecure deserialization: yaml.load() with an unsafe Loader",
+              "file": "servers/okf_mcp.py",
+              "line": 99
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "servers/okf_mcp.py",
+              "line": 205
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/backfill",
+          "score": 16,
+          "risk": 84,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/backfill/SKILL.md",
+              "line": 54
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/backfill/SKILL.md",
+              "line": 65
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/backfill/SKILL.md",
+              "line": 74
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/backfill/SKILL.md",
+              "line": 78
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/backfill/SKILL.md",
+              "line": 92
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/backfill/SKILL.md",
+              "line": 102
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/backfill/SKILL.md",
+              "line": 105
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/backfill/SKILL.md",
+              "line": 114
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/backfill/SKILL.md",
+              "line": 122
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/backfill/SKILL.md",
+              "line": 124
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/backfill/SKILL.md",
+              "line": 156
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/backfill/SKILL.md",
+              "line": 158
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/backfill/SKILL.md",
+              "line": 159
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/backfill/SKILL.md",
+              "line": 160
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/backfill/SKILL.md",
+              "line": 167
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/backfill/SKILL.md",
+              "line": 172
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/backfill/SKILL.md",
+              "line": 184
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/backfill/SKILL.md",
+              "line": 240
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/backfill/SKILL.md",
+              "line": 244
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/backfill/SKILL.md",
+              "line": 246
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/backfill/SKILL.md",
+              "line": 256
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/backfill/SKILL.md",
+              "line": 293
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/backfill/SKILL.md",
+              "line": 300
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/backfill/SKILL.md",
+              "line": 334
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/backfill/SKILL.md",
+              "line": 337
+            }
+          ],
+          "findings": [
+            {
+              "id": "TM1",
+              "severity": "HIGH",
+              "message": "Tool Parameter Abuse",
+              "file": "skills/backfill/SKILL.md",
+              "line": 172
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "skills/backfill/scripts/okf_backfill_events.py",
+              "line": 432
+            },
+            {
+              "id": "P6",
+              "severity": "HIGH",
+              "message": "Direct Prompt Extraction",
+              "file": "skills/backfill/scripts/okf_backfill_events.py",
+              "line": 435
+            },
+            {
+              "id": "RA2",
+              "severity": "MEDIUM",
+              "message": "Session Persistence",
+              "file": "skills/backfill/SKILL.md",
+              "line": 11
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/backfill/scripts/okf_backfill_events.py",
+              "line": 157
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/backfill/scripts/okf_backfill_events.py",
+              "line": 171
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/backfill/scripts/okf_backfill_events.py",
+              "line": 190
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/backfill/scripts/okf_backfill_events.py",
+              "line": 197
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/backfill/scripts/okf_backfill_events.py",
+              "line": 788
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/backfill/scripts/okf_backfill_events.py",
+              "line": 798
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/backfill/scripts/okf_backfill_events.py",
+              "line": 806
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/backfill/scripts/okf_backfill_events.py",
+              "line": 810
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/backfill/scripts/okf_backfill_events.py",
+              "line": 816
+            },
+            {
+              "id": "AST4",
+              "severity": "MEDIUM",
+              "message": "subprocess module call",
+              "file": "skills/backfill/scripts/okf_backfill_events.py",
+              "line": 820
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/okf",
+          "score": 94,
+          "risk": 6,
+          "status": "safe",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/okf/SKILL.md",
+              "line": 34
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/okf/SKILL.md",
+              "line": 51
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/okf/SKILL.md",
+              "line": 86
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/okf/SKILL.md",
+              "line": 87
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/okf/SKILL.md",
+              "line": 97
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/okf/SKILL.md",
+              "line": 101
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/okf/SKILL.md",
+              "line": 124
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/okf/SKILL.md",
+              "line": 145
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/okf/SKILL.md",
+              "line": 166
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/okf/SKILL.md",
+              "line": 176
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/okf/SKILL.md",
+              "line": 193
+            }
+          ],
+          "findings": [
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/okf/reference/APACHE-2.0.txt",
+              "line": 28
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/okf/reference/APACHE-2.0.txt",
+              "line": 33
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/okf/reference/APACHE-2.0.txt",
+              "line": 56
+            },
+            {
+              "id": "EA3",
+              "severity": "LOW",
+              "message": "Scope Creep",
+              "file": "skills/okf/reference/APACHE-2.0.txt",
+              "line": 161
+            }
+          ],
+          "suppressed": [
+            {
+              "id": "AE1",
+              "severity": "HIGH",
+              "message": "Incomplete referenced artifact analysis",
+              "file": "skills/okf/SKILL.md",
+              "line": 34,
+              "reason": "One finding per reference_missing exception. Sampled across the recorded audits, those are version strings (version: \"1.0.0\"), dotted ids, example and runtime paths, and sibling skills named as other-skill/SKILL.md; the rare real broken link is not a security finding. The exceptions stay listed."
+            }
+          ]
+        },
+        {
+          "path": "skills/validate",
+          "score": 3,
+          "risk": 97,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 50,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/validate/SKILL.md",
+              "line": 41
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/validate/SKILL.md",
+              "line": 46
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/validate/SKILL.md",
+              "line": 47
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/validate/SKILL.md",
+              "line": 54
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/validate/SKILL.md",
+              "line": 60
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/validate/SKILL.md",
+              "line": 71
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/validate/SKILL.md",
+              "line": 76
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/validate/SKILL.md",
+              "line": 82
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/validate/SKILL.md",
+              "line": 83
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/validate/SKILL.md",
+              "line": 85
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/validate/SKILL.md",
+              "line": 87
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/validate/SKILL.md",
+              "line": 104
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/validate/SKILL.md",
+              "line": 135
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/validate/SKILL.md",
+              "line": 139
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/validate/SKILL.md",
+              "line": 154
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/validate/scripts/okf_validate.py",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "LP1",
+              "severity": "HIGH",
+              "message": "MCP Least Privilege",
+              "file": "skills/validate/scripts/okf_validate.py",
+              "line": 1
+            },
+            {
+              "id": "LP1",
+              "severity": "HIGH",
+              "message": "MCP Least Privilege",
+              "file": "skills/validate/scripts/okf_validate.py",
+              "line": 1
+            },
+            {
+              "id": "LP1",
+              "severity": "HIGH",
+              "message": "MCP Least Privilege",
+              "file": "skills/validate/scripts/okf_validate.py",
+              "line": 1
+            },
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "skills/validate/scripts/okf_validate.py",
+              "line": 379
+            },
+            {
+              "id": "AR2",
+              "severity": "HIGH",
+              "message": "Anti-Refusal Statement",
+              "file": "skills/validate/scripts/okf_validate.py",
+              "line": 1469
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/validate/SKILL.md",
+              "line": 31
+            },
+            {
+              "id": "AST10",
+              "severity": "MEDIUM",
+              "message": "Insecure deserialization: yaml.load() with an unsafe Loader",
+              "file": "skills/validate/scripts/okf_validate.py",
+              "line": 229
+            }
+          ],
+          "suppressed": []
+        },
+        {
+          "path": "skills/visualize",
+          "score": 39,
+          "risk": 61,
+          "status": "do not install",
+          "partial": true,
+          "coverage": 50,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/visualize/SKILL.md",
+              "line": 38
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/visualize/SKILL.md",
+              "line": 44
+            },
+            {
+              "reason": "static_parse_limit",
+              "path": "skills/visualize/scripts/okf_visualize.py",
+              "line": 0
+            }
+          ],
+          "findings": [
+            {
+              "id": "LP1",
+              "severity": "HIGH",
+              "message": "MCP Least Privilege",
+              "file": "skills/visualize/scripts/okf_visualize.py",
+              "line": 1
+            },
+            {
+              "id": "LP1",
+              "severity": "HIGH",
+              "message": "MCP Least Privilege",
+              "file": "skills/visualize/scripts/okf_visualize.py",
+              "line": 1
+            },
+            {
+              "id": "LP1",
+              "severity": "HIGH",
+              "message": "MCP Least Privilege",
+              "file": "skills/visualize/scripts/okf_visualize.py",
+              "line": 1
+            },
+            {
+              "id": "AST10",
+              "severity": "MEDIUM",
+              "message": "Insecure deserialization: yaml.load() with an unsafe Loader",
+              "file": "skills/visualize/scripts/okf_visualize.py",
+              "line": 118
+            },
+            {
+              "id": "EA2",
+              "severity": "MEDIUM",
+              "message": "Autonomous Decision Making",
+              "file": "skills/visualize/scripts/okf_visualize.py",
+              "line": 224
+            }
+          ],
+          "suppressed": []
+        }
+      ]
+    }
+  ],
+  "score": 3,
+  "status": "do not install",
+  "tool": {
+    "name": "skillspector",
+    "version": "2.12.0",
+    "mode": "static",
+    "osv": {
+      "live": true,
+      "checkedAt": "2026-11-26T23:22:27Z"
+    },
+    "baseline": {
+      "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
+    }
+  },
+  "agentStacks": {
+    "version": "0.10.0"
+  }
+}
