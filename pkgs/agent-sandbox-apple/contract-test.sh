@@ -22,6 +22,7 @@ unset CLAUDE_CODE_OAUTH_TOKEN ANTHROPIC_API_KEY CLAUDE_CODE_PLUGIN_DIRS FLOX_FLO
 # volume a file under $STUB_DIR/vols that `volume inspect` names; another
 # VM, in state STUB_HELD_STATE (running), holds the volume STUB_HELD or
 # $STUB_DIR/held names, and `list -a` fails with STUB_LIST_FAIL. The
+# first `volume list` makes the volumes STUB_LEFTOVER names. The
 # volume is filled unless STUB_UNFILLED, and its check fails outright,
 # with an error on stderr, with STUB_CHECK_FAIL, or with
 # STUB_HELD_AFTER_CHECK, which then holds that volume; the check sleeps
@@ -57,6 +58,13 @@ case "$*" in
         [ -z "${STUB_CREATE_FAIL:-}" ] || exit 1
         mkdir -p "$STUB_DIR/vols/$3" && : >"$STUB_DIR/vols/$3/volume.img" ;;
       "volume delete") rm -rf "${STUB_DIR:?}/vols/$3" ;;
+      "volume list")
+        if [ ! -e "$STUB_DIR/leftover.made" ]; then
+          for n in ${STUB_LEFTOVER:-}; do mkdir -p "$STUB_DIR/vols/$n" && echo "$n" >"$STUB_DIR/vols/$n/volume.img"; done
+          touch "$STUB_DIR/leftover.made"
+        fi
+        for d in "$STUB_DIR"/vols/*/; do [ ! -d "$d" ] || basename "$d"; done |
+          jq -Rsc 'split("\n")[:-1] | map({id: ., configuration: {name: .}})' ;;
       "list -a")
         [ -z "${STUB_LIST_FAIL:-}" ] || exit 1
         held=${STUB_HELD:-}
@@ -574,6 +582,17 @@ launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_SEED=1 "STUB_RUN_HOOK=echo $(printf %q "$
 s=$STUB_DIR/vols/$volume-seed/volume.img
 [ ! -e "$s" ] || [ "$(cat "$s")" = "$volume-seed" ] || fail "the seed refreshed from a cache in use"
 
+# Copies of the cache left by a killed launch are removed by the next
+# one; a copy a VM attaches, and other volumes, are left alone.
+launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_HELD="$volume-held1" \
+  "STUB_LEFTOVER=$volume-abcde $volume-held1 other-nix-zzzzz" -- -- claude
+[ "$rc" = 0 ] || fail "leftover copies: exit $rc: $(cat err)"
+grep -q "^volume delete $(q "$volume")-abcde\$" "$STUB_LOG" || fail "the leftover copy not removed: $(cat "$STUB_LOG")"
+grep -qE "^volume delete ($(q "$volume")-held1|other-nix-zzzzz)\$" "$STUB_LOG" &&
+  fail "an attached copy or another volume removed: $(cat "$STUB_LOG")"
+grep -qF "removed $volume-abcde" err || fail "the removal not named: $(cat err)"
+in_order "^volume delete $(q "$volume")-abcde\$" "test -f /nix-cache/"
+
 # Launches take turns: one waits while another checks the cache.
 rm -rf "$STUB_DIR" && mkdir -p "$STUB_DIR" && : >"$STUB_LOG"
 (cd "$dir" && STUB_IMAGE=1 STUB_VOLUME=1 STUB_CHECK_SLEEP=3 exec "$apple" -- claude) >out.a 2>err.a &
@@ -967,5 +986,9 @@ grep -q "$hint" err && fail "hint for an unrelated failure: $(cat err)"
 # with FloxHub.
 launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_RUN_RC=1 "STUB_RUN_ERR=Run 'flox auth login' and try again." -- -- claude
 grep -q "$hint" err && fail "hint for flox's generic sign-in line: $(cat err)"
+# Every activation signed out prints this notice, whatever then fails.
+launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_RUN_RC=127 \
+  "STUB_RUN_ERR=! You are not logged in to FloxHub. Run 'flox auth login' to log in." -- -- claude
+grep -q "$hint" err && fail "hint for flox's signed-out notice: $(cat err)"
 
 echo "agent-sandbox-apple contract: OK"

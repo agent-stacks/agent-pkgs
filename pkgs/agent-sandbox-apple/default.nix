@@ -49,8 +49,8 @@
 # starts warm, but what it downloads is not kept. Launches take turns,
 # through a lock in ~/Library/Caches/agent-sandbox-apple, from their
 # look at the cache until their VM runs. A launch killed with SIGKILL
-# leaves its clone, agent-sandbox-apple-nix-<tag>-<suffix>, for
-# `container volume delete`.
+# leaves its clone, agent-sandbox-apple-nix-<tag>-<suffix>, which the
+# next launch removes once no VM attaches it.
 #
 # Options, all optional. A switch weakens the sandbox, so each one that
 # is on is named on stderr at every launch, as are allowedDomains and
@@ -942,6 +942,24 @@ in
       fi
       volume=$copy
     }
+    # In a turn: the copies of the cache no VM attaches, left by a launch
+    # killed with SIGKILL. A launch makes its copy and starts its VM on
+    # it in one turn, so no other launch's copy is caught between.
+    # Best effort: a copy not removed now is removed next time.
+    sweep_copies() {
+      local vols attached v
+      vols=$(container_cmd volume list --format json 2>/dev/null | jq -r '.[].configuration.name? // empty') ||
+        return 0
+      attached=$(container_cmd list -a --format json 2>/dev/null |
+        jq -r '.[].configuration.mounts[]?.type.volume.name? // empty') || return 0
+      while IFS= read -r v; do
+        [[ $v =~ ^$volume-[a-z0-9]{5}$ ]] || continue
+        ! grep -qxF -- "$v" <<<"$attached" || continue
+        if container_cmd volume delete "$v" >/dev/null 2>&1; then
+          say "removed $v, a copy of the Nix cache left by a launch that was killed"
+        fi
+      done <<<"$vols"
+    }
     ensure_volume() {
       if ! container_cmd volume inspect "$volume" >/dev/null 2>&1; then
         say "creating the Nix cache volume $volume, shared by every launch of this image"
@@ -1009,6 +1027,7 @@ in
     # until its VM runs.
     take_turn 120 "another launch of this sandbox is starting its VM: waiting for it" ||
       die "another launch of this sandbox has been starting its VM for 2 minutes: try again, and if it keeps waiting, look at 'container list -a'"
+    sweep_copies
     ensure_volume
 
     # Not exec'd: this stays to stop the proxy and clean up. In the
@@ -1038,9 +1057,13 @@ in
     leftover=()
     wait "$tee_pid" || true
 
+    # Only on a sign of a private package: api.flox.dev refused during
+    # activation, or flox's error for a package it cannot fetch. Not on
+    # flox's "not logged in to FloxHub" notice, which every activation
+    # signed out prints, whatever then fails.
     if [ "$status" != 0 ] && ! on forwardFloxhubToken; then
       if sed '/^latch closed$/q' "$sock_dir/proxy.log" 2>/dev/null | grep -Eq '^deny api\.flox\.dev(:[0-9]+)? ' ||
-        grep -Eqi 'not be authenticated|floxhub.*(auth|log ?in|token)' "$sock_dir/run.err" 2>/dev/null; then
+        grep -Eqi 'not be authenticated' "$sock_dir/run.err" 2>/dev/null; then
         say "the Flox environment may need your FloxHub sign-in: set forwardFloxhubToken to true in the sandbox's options"
       fi
     fi
