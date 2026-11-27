@@ -170,12 +170,15 @@ the series agent-stacks restarted on 2026-11-17; the page's other
 agent-stacks citations predate it.
 
 A plugin written only for Codex carries no Claude hooks or
-components: Claude Code does not install it, and its hooks,
-commands, apps and interface reach Codex alone, through the block
-and `com.openai/`. A skill that references one of Claude's root
-components, such as `commands/` or `agents/`, does not have it
-shipped at the plugin root, where Claude would load it; `hooks/`
-(see `hooks` below) and `bin/` are the exceptions. Which plugins import finds, the name each package
+components but a `bin/` its skills reference: Claude Code does not
+install it, and its hooks, commands, apps and interface reach Codex
+alone, through the block and `com.openai/`. A skill that references
+one of Claude's root components, such as `commands/` or `agents/`,
+does not have it shipped at the plugin root, where Claude would load
+it. `bin/` ships there, since a skill's own scripts run from it, and
+its commands are listed in `import.warnings`, as for any package; a
+referenced `hooks/` ships with its hooks file blanked (see `hooks`
+below). Which plugins import finds, the name each package
 takes, and the names a replay keeps are import's rules, in that
 reference page under "Finding plugins" and "Replaying a recorded
 import", and in agent-stacks ADR 0046. One of them is a consumer's
