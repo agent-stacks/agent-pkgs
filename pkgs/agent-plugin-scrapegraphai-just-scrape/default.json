@@ -1,6 +1,6 @@
 {
   "name": "scrapegraphai-just-scrape",
-  "version": "0.0.0-unstable.2026-06-24.ga3d179f",
+  "version": "1.1.0",
   "src": {
     "owner": "ScrapeGraphAI",
     "repo": "just-scrape",
@@ -10,7 +10,57 @@
   "sourceUrl": "https://github.com/ScrapeGraphAI/just-scrape",
   "manifest": {
     "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
-    "name": "scrapegraphai-just-scrape"
+    "author": {
+      "name": "ScrapeGraph AI",
+      "url": "https://scrapegraphai.com"
+    },
+    "description": "AI-powered web scraping CLI — search, scrape, extract structured JSON, crawl, and monitor web pages via the ScrapeGraph AI API.",
+    "extensions": {
+      "com.openai": {
+        "interface": {
+          "brandColor": "#AC6DFF",
+          "capabilities": [
+            "Read"
+          ],
+          "category": "Developer Tools",
+          "composerIcon": "./com.openai/assets/icon.svg",
+          "defaultPrompt": [
+            "Scrape https://example.com to clean markdown using just-scrape.",
+            "Extract product names and prices from this store page as structured JSON with just-scrape.",
+            "Search the web for 'EU AI regulation' from the past week and extract the key points.",
+            "Crawl the docs site up to 50 pages and collect the content with just-scrape.",
+            "Set up a just-scrape monitor on this pricing page every hour with a webhook.",
+            "Check my ScrapeGraph AI credits and validate the API setup with just-scrape."
+          ],
+          "developerName": "ScrapeGraph AI",
+          "displayName": "ScrapeGraph AI",
+          "logo": "./com.openai/assets/icon.svg",
+          "longDescription": "Install the just-scrape skill to drive ScrapeGraph AI from Codex through the official CLI. Search the web and run extraction over results, convert any URL to markdown / HTML / screenshots / links / images / summaries / branding, extract structured JSON with a natural-language prompt and optional schema, crawl bounded site sections in bulk, and schedule recurring page-change monitors with webhook notifications. Handles JavaScript-rendered pages, proxies, and anti-bot bypass automatically. Requires the just-scrape CLI (npm install -g just-scrape) and an SGAI_API_KEY.",
+          "shortDescription": "Search, scrape, extract, crawl, and monitor the web with ScrapeGraph AI.",
+          "websiteURL": "https://scrapegraphai.com"
+        },
+        "name": "just-scrape",
+        "skills": "./skills/"
+      }
+    },
+    "homepage": "https://scrapegraphai.com",
+    "keywords": [
+      "scraping",
+      "web-scraping",
+      "ai",
+      "scrapegraph",
+      "extract",
+      "crawl",
+      "search",
+      "monitor",
+      "cli",
+      "codex",
+      "agent-skill"
+    ],
+    "license": "MIT",
+    "name": "scrapegraphai-just-scrape",
+    "repository": "https://github.com/ScrapeGraphAI/just-scrape",
+    "version": "1.1.0"
   },
   "skills": {
     "just-scrape": "skills/just-scrape"
@@ -21,8 +71,11 @@
     "python3",
     "nodejs"
   ],
+  "pluginRootPaths": {
+    "com.openai/assets": "assets"
+  },
   "meta": {
-    "description": "Agent plugin imported from https://github.com/ScrapeGraphAI/just-scrape",
+    "description": "AI-powered web scraping CLI",
     "homepage": "https://github.com/ScrapeGraphAI/just-scrape"
   },
   "import": {
@@ -34,6 +87,22 @@
       {
         "path": "skills/just-scrape/SKILL.md/metadata/openclaw",
         "message": "must be a string value"
+      },
+      {
+        "path": ".codex-plugin/plugin.json",
+        "message": "plugin \"just-scrape\" is imported as \"scrapegraphai-just-scrape\", the name its package is published under"
+      },
+      {
+        "path": "assets/demo.gif",
+        "message": "larger than 1MiB, so it was not read; a ${PLUGIN_ROOT} reference inside it ships nothing, and a script only it runs is not reported"
+      },
+      {
+        "path": "assets/demo.mp4",
+        "message": "larger than 1MiB, so it was not read; a ${PLUGIN_ROOT} reference inside it ships nothing, and a script only it runs is not reported"
+      },
+      {
+        "path": "package.json",
+        "message": "declares dependencies import does not package; package them in this package's custom block, using bun2nix for its bun.lock"
       }
     ]
   }

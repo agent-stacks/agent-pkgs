@@ -1,6 +1,6 @@
 {
   "name": "zeropointrepo-youtube-skills",
-  "version": "0.0.0-unstable.2026-09-21.g4f7994b",
+  "version": "1.0.0",
   "src": {
     "owner": "ZeroPointRepo",
     "repo": "youtube-skills",
@@ -10,21 +10,73 @@
   "sourceUrl": "https://github.com/ZeroPointRepo/youtube-skills",
   "manifest": {
     "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
-    "name": "zeropointrepo-youtube-skills"
+    "author": {
+      "email": "hello@transcriptapi.com",
+      "name": "Zero Point Studio",
+      "url": "https://transcriptapi.com"
+    },
+    "description": "Twelve drop-in agent skills for YouTube transcripts, captions, subtitles, video and channel search, playlists and channel browsing, powered by the TranscriptAPI service.",
+    "extensions": {
+      "com.openai": {
+        "interface": {
+          "brandColor": "#CC2F02",
+          "capabilities": [
+            "Read",
+            "Interactive"
+          ],
+          "category": "Productivity",
+          "composerIcon": "./com.openai/assets/icon.svg",
+          "defaultPrompt": [
+            "Summarize this YouTube video for me.",
+            "Get the transcript of this YouTube link.",
+            "Find recent videos about a topic and pull their transcripts."
+          ],
+          "developerName": "Zero Point Studio",
+          "displayName": "YouTube Skills by TranscriptAPI",
+          "logo": "./com.openai/assets/icon.svg",
+          "longDescription": "A set of twelve agent skills that give any skills-compatible agent reliable access to YouTube video transcripts, timestamped captions and subtitles, video and channel search, playlist contents and within-channel search through the TranscriptAPI service. Each skill ships with trigger vocabulary, exact API usage and error handling, so agents call the right endpoint on the first try. Sign up at transcriptapi.com for an API key (100 free credits, no card, one-time). TranscriptAPI is a third-party, independent service. It is not affiliated with, endorsed by, or sponsored by YouTube or Google.",
+          "privacyPolicyURL": "https://transcriptapi.com/privacy",
+          "screenshots": [
+            "./com.openai/assets/screenshot-transcriptapi.png"
+          ],
+          "shortDescription": "YouTube transcripts, captions, search and channel data as agent skills.",
+          "termsOfServiceURL": "https://transcriptapi.com/terms",
+          "websiteURL": "https://transcriptapi.com"
+        },
+        "name": "youtube-skills",
+        "skills": "./skills/"
+      }
+    },
+    "homepage": "https://transcriptapi.com",
+    "keywords": [
+      "youtube",
+      "transcript",
+      "captions",
+      "subtitles",
+      "video-search",
+      "channel-search",
+      "playlists",
+      "transcriptapi",
+      "agent-skills"
+    ],
+    "license": "MIT",
+    "name": "zeropointrepo-youtube-skills",
+    "repository": "https://github.com/ZeroPointRepo/youtube-skills",
+    "version": "1.0.0"
   },
   "skills": {
-    "captions": "clawhub/captions",
-    "subtitles": "clawhub/subtitles",
-    "transcript": "clawhub/transcript",
-    "transcriptapi": "clawhub/transcriptapi",
-    "video-transcript": "clawhub/video-transcript",
-    "youtube-api": "clawhub/youtube-api",
-    "youtube-channels": "clawhub/youtube-channels",
-    "youtube-data": "clawhub/youtube-data",
-    "youtube-full": "clawhub/youtube-full",
-    "youtube-playlist": "clawhub/youtube-playlist",
-    "youtube-search": "clawhub/youtube-search",
-    "yt": "clawhub/yt"
+    "captions": "skills/captions",
+    "subtitles": "skills/subtitles",
+    "transcript": "skills/transcript",
+    "transcriptapi": "skills/transcriptapi",
+    "video-transcript": "skills/video-transcript",
+    "youtube-api": "skills/youtube-api",
+    "youtube-channels": "skills/youtube-channels",
+    "youtube-data": "skills/youtube-data",
+    "youtube-full": "skills/youtube-full",
+    "youtube-playlist": "skills/youtube-playlist",
+    "youtube-search": "skills/youtube-search",
+    "yt": "skills/yt"
   },
   "requiredRuntimes": [],
   "defaultDependencies": [
@@ -32,8 +84,11 @@
     "python3",
     "nodejs"
   ],
+  "pluginRootPaths": {
+    "com.openai/assets": "assets"
+  },
   "meta": {
-    "description": "Agent plugin imported from https://github.com/ZeroPointRepo/youtube-skills",
+    "description": "Twelve drop-in agent skills for YouTube transcripts, captions, subtitles, video and channel search, playlists and channel browsing, powered by the TranscriptAPI service",
     "homepage": "https://github.com/ZeroPointRepo/youtube-skills"
   },
   "import": {
@@ -43,196 +98,156 @@
     ],
     "warnings": [
       {
-        "path": "clawhub/captions/SKILL.md",
+        "path": "clawhub",
+        "message": "12 SKILL.md not listed by .codex-plugin/plugin.json skills, not imported"
+      },
+      {
+        "path": "skills/captions/SKILL.md",
         "message": "unknown frontmatter fields: required_environment_variables, user-invocable, version"
       },
       {
-        "path": "clawhub/captions/SKILL.md/metadata/hermes",
+        "path": "skills/captions/SKILL.md/metadata/hermes",
         "message": "must be a string value"
       },
       {
-        "path": "clawhub/captions/SKILL.md/metadata/openclaw",
+        "path": "skills/captions/SKILL.md/metadata/openclaw",
         "message": "must be a string value"
       },
       {
-        "path": "clawhub/subtitles/SKILL.md",
+        "path": "skills/subtitles/SKILL.md",
         "message": "unknown frontmatter fields: required_environment_variables, user-invocable, version"
       },
       {
-        "path": "clawhub/subtitles/SKILL.md/metadata/hermes",
+        "path": "skills/subtitles/SKILL.md/metadata/hermes",
         "message": "must be a string value"
       },
       {
-        "path": "clawhub/subtitles/SKILL.md/metadata/openclaw",
+        "path": "skills/subtitles/SKILL.md/metadata/openclaw",
         "message": "must be a string value"
       },
       {
-        "path": "clawhub/transcript/SKILL.md",
+        "path": "skills/transcript/SKILL.md",
         "message": "unknown frontmatter fields: required_environment_variables, user-invocable, version"
       },
       {
-        "path": "clawhub/transcript/SKILL.md/metadata/hermes",
+        "path": "skills/transcript/SKILL.md/metadata/hermes",
         "message": "must be a string value"
       },
       {
-        "path": "clawhub/transcript/SKILL.md/metadata/openclaw",
+        "path": "skills/transcript/SKILL.md/metadata/openclaw",
         "message": "must be a string value"
       },
       {
-        "path": "clawhub/transcriptapi/SKILL.md",
+        "path": "skills/transcriptapi/SKILL.md",
         "message": "unknown frontmatter fields: required_environment_variables, user-invocable, version"
       },
       {
-        "path": "clawhub/transcriptapi/SKILL.md/metadata/hermes",
+        "path": "skills/transcriptapi/SKILL.md/metadata/hermes",
         "message": "must be a string value"
       },
       {
-        "path": "clawhub/transcriptapi/SKILL.md/metadata/openclaw",
+        "path": "skills/transcriptapi/SKILL.md/metadata/openclaw",
         "message": "must be a string value"
       },
       {
-        "path": "clawhub/video-transcript/SKILL.md",
+        "path": "skills/video-transcript/SKILL.md",
         "message": "unknown frontmatter fields: required_environment_variables, user-invocable, version"
       },
       {
-        "path": "clawhub/video-transcript/SKILL.md/metadata/hermes",
+        "path": "skills/video-transcript/SKILL.md/metadata/hermes",
         "message": "must be a string value"
       },
       {
-        "path": "clawhub/video-transcript/SKILL.md/metadata/openclaw",
+        "path": "skills/video-transcript/SKILL.md/metadata/openclaw",
         "message": "must be a string value"
       },
       {
-        "path": "clawhub/youtube-api/SKILL.md",
+        "path": "skills/youtube-api/SKILL.md",
         "message": "unknown frontmatter fields: required_environment_variables, user-invocable, version"
       },
       {
-        "path": "clawhub/youtube-api/SKILL.md/metadata/hermes",
+        "path": "skills/youtube-api/SKILL.md/metadata/hermes",
         "message": "must be a string value"
       },
       {
-        "path": "clawhub/youtube-api/SKILL.md/metadata/openclaw",
+        "path": "skills/youtube-api/SKILL.md/metadata/openclaw",
         "message": "must be a string value"
       },
       {
-        "path": "clawhub/youtube-channels/SKILL.md",
+        "path": "skills/youtube-channels/SKILL.md",
         "message": "unknown frontmatter fields: required_environment_variables, user-invocable, version"
       },
       {
-        "path": "clawhub/youtube-channels/SKILL.md/metadata/hermes",
+        "path": "skills/youtube-channels/SKILL.md/metadata/hermes",
         "message": "must be a string value"
       },
       {
-        "path": "clawhub/youtube-channels/SKILL.md/metadata/openclaw",
+        "path": "skills/youtube-channels/SKILL.md/metadata/openclaw",
         "message": "must be a string value"
       },
       {
-        "path": "clawhub/youtube-data/SKILL.md",
+        "path": "skills/youtube-data/SKILL.md",
         "message": "unknown frontmatter fields: required_environment_variables, user-invocable, version"
       },
       {
-        "path": "clawhub/youtube-data/SKILL.md/metadata/hermes",
+        "path": "skills/youtube-data/SKILL.md/metadata/hermes",
         "message": "must be a string value"
       },
       {
-        "path": "clawhub/youtube-data/SKILL.md/metadata/openclaw",
+        "path": "skills/youtube-data/SKILL.md/metadata/openclaw",
         "message": "must be a string value"
       },
       {
-        "path": "clawhub/youtube-full/SKILL.md",
+        "path": "skills/youtube-full/SKILL.md",
         "message": "unknown frontmatter fields: required_environment_variables, user-invocable, version"
       },
       {
-        "path": "clawhub/youtube-full/SKILL.md/metadata/hermes",
+        "path": "skills/youtube-full/SKILL.md/metadata/hermes",
         "message": "must be a string value"
       },
       {
-        "path": "clawhub/youtube-full/SKILL.md/metadata/openclaw",
+        "path": "skills/youtube-full/SKILL.md/metadata/openclaw",
         "message": "must be a string value"
       },
       {
-        "path": "clawhub/youtube-playlist/SKILL.md",
+        "path": "skills/youtube-playlist/SKILL.md",
         "message": "unknown frontmatter fields: required_environment_variables, user-invocable, version"
       },
       {
-        "path": "clawhub/youtube-playlist/SKILL.md/metadata/hermes",
+        "path": "skills/youtube-playlist/SKILL.md/metadata/hermes",
         "message": "must be a string value"
       },
       {
-        "path": "clawhub/youtube-playlist/SKILL.md/metadata/openclaw",
+        "path": "skills/youtube-playlist/SKILL.md/metadata/openclaw",
         "message": "must be a string value"
       },
       {
-        "path": "clawhub/youtube-search/SKILL.md",
+        "path": "skills/youtube-search/SKILL.md",
         "message": "unknown frontmatter fields: required_environment_variables, user-invocable, version"
       },
       {
-        "path": "clawhub/youtube-search/SKILL.md/metadata/hermes",
+        "path": "skills/youtube-search/SKILL.md/metadata/hermes",
         "message": "must be a string value"
       },
       {
-        "path": "clawhub/youtube-search/SKILL.md/metadata/openclaw",
+        "path": "skills/youtube-search/SKILL.md/metadata/openclaw",
         "message": "must be a string value"
       },
       {
-        "path": "clawhub/yt/SKILL.md",
+        "path": "skills/yt/SKILL.md",
         "message": "unknown frontmatter fields: required_environment_variables, user-invocable, version"
       },
       {
-        "path": "clawhub/yt/SKILL.md/metadata/hermes",
+        "path": "skills/yt/SKILL.md/metadata/hermes",
         "message": "must be a string value"
       },
       {
-        "path": "clawhub/yt/SKILL.md/metadata/openclaw",
+        "path": "skills/yt/SKILL.md/metadata/openclaw",
         "message": "must be a string value"
       },
       {
-        "path": "skills/captions",
-        "message": "skill \"captions\" already found at clawhub/captions, not imported"
-      },
-      {
-        "path": "skills/subtitles",
-        "message": "skill \"subtitles\" already found at clawhub/subtitles, not imported"
-      },
-      {
-        "path": "skills/transcript",
-        "message": "skill \"transcript\" already found at clawhub/transcript, not imported"
-      },
-      {
-        "path": "skills/transcriptapi",
-        "message": "skill \"transcriptapi\" already found at clawhub/transcriptapi, not imported"
-      },
-      {
-        "path": "skills/video-transcript",
-        "message": "skill \"video-transcript\" already found at clawhub/video-transcript, not imported"
-      },
-      {
-        "path": "skills/youtube-api",
-        "message": "skill \"youtube-api\" already found at clawhub/youtube-api, not imported"
-      },
-      {
-        "path": "skills/youtube-channels",
-        "message": "skill \"youtube-channels\" already found at clawhub/youtube-channels, not imported"
-      },
-      {
-        "path": "skills/youtube-data",
-        "message": "skill \"youtube-data\" already found at clawhub/youtube-data, not imported"
-      },
-      {
-        "path": "skills/youtube-full",
-        "message": "skill \"youtube-full\" already found at clawhub/youtube-full, not imported"
-      },
-      {
-        "path": "skills/youtube-playlist",
-        "message": "skill \"youtube-playlist\" already found at clawhub/youtube-playlist, not imported"
-      },
-      {
-        "path": "skills/youtube-search",
-        "message": "skill \"youtube-search\" already found at clawhub/youtube-search, not imported"
-      },
-      {
-        "path": "skills/yt",
-        "message": "skill \"yt\" already found at clawhub/yt, not imported"
+        "path": ".codex-plugin/plugin.json",
+        "message": "plugin \"youtube-skills\" is imported as \"zeropointrepo-youtube-skills\", the name its package is published under"
       }
     ]
   }

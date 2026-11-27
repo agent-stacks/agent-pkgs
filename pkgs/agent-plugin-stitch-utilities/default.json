@@ -1,0 +1,102 @@
+{
+  "name": "stitch-utilities",
+  "version": "1.0.0",
+  "src": {
+    "owner": "google-labs-code",
+    "repo": "stitch-skills",
+    "rev": "75f4696f162000fb69fca6a31489b5b21d47a506",
+    "hash": "sha256-23r3TQtTfVi5rfLf1XDUoEVIw9Tddxn3usrZgZ9/zyw="
+  },
+  "sourceUrl": "https://github.com/google-labs-code/stitch-skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "google-labs-code"
+    },
+    "description": "Design utilities for Google Stitch: generate DESIGN.md specs, create SITE.md constitutions, enhance prompts, and run stitch-loop workflows.",
+    "extensions": {
+      "com.openai": {
+        "interface": {
+          "brandColor": "#F9AB00",
+          "capabilities": [
+            "Interactive",
+            "Write"
+          ],
+          "category": "Productivity",
+          "defaultPrompt": [
+            "Generate a DESIGN.md for this Stitch project",
+            "Generate a SITE.md for my website requirements",
+            "Enhance this rough UI prompt for Stitch",
+            "Build a multi-page website with stitch-loop"
+          ],
+          "developerName": "google-labs-code",
+          "displayName": "Stitch Utilities",
+          "longDescription": "Use supporting Google Stitch utilities to generate DESIGN.md specs, create SITE.md project constitutions, enhance UI prompts, and run multi-page stitch-loop workflows.",
+          "screenshots": [],
+          "shortDescription": "Utilities for Stitch design work",
+          "websiteURL": "https://github.com/google-labs-code/stitch-skills"
+        },
+        "skills": "./skills/"
+      }
+    },
+    "homepage": "https://github.com/google-labs-code/stitch-skills",
+    "keywords": [
+      "stitch",
+      "design-system",
+      "prompt-engineering",
+      "design-md",
+      "site-md",
+      "website-generation",
+      "ui-standards"
+    ],
+    "license": "Apache-2.0",
+    "name": "stitch-utilities",
+    "repository": "https://github.com/google-labs-code/stitch-skills",
+    "version": "1.0.0"
+  },
+  "skills": {
+    "design-md": "plugins/stitch-utilities/skills/design-md",
+    "enhance-prompt": "plugins/stitch-utilities/skills/enhance-prompt",
+    "site-md": "plugins/stitch-utilities/skills/site-md",
+    "stitch-loop": "plugins/stitch-utilities/skills/stitch-loop",
+    "taste-design": "plugins/stitch-utilities/skills/taste-design"
+  },
+  "requiredRuntimes": [],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "meta": {
+    "description": "Design utilities for Google Stitch",
+    "homepage": "https://github.com/google-labs-code/stitch-skills"
+  },
+  "import": {
+    "input": "google-labs-code/stitch-skills",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "plugins/stitch-utilities/skills/design-md/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (stitch*:* Read Write web_fetch)"
+      },
+      {
+        "path": "plugins/stitch-utilities/skills/enhance-prompt/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Read Write)"
+      },
+      {
+        "path": "plugins/stitch-utilities/skills/site-md/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (Read Write web_fetch)"
+      },
+      {
+        "path": "plugins/stitch-utilities/skills/stitch-loop/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (stitch*:* chrome*:* Read Write Bash)"
+      },
+      {
+        "path": "plugins/stitch-utilities/skills/taste-design/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (StitchMCP Read Write)"
+      }
+    ]
+  }
+}

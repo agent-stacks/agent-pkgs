@@ -1,0 +1,158 @@
+{
+  "name": "stitch-design",
+  "version": "1.0.0",
+  "src": {
+    "owner": "google-labs-code",
+    "repo": "stitch-skills",
+    "rev": "75f4696f162000fb69fca6a31489b5b21d47a506",
+    "hash": "sha256-23r3TQtTfVi5rfLf1XDUoEVIw9Tddxn3usrZgZ9/zyw="
+  },
+  "sourceUrl": "https://github.com/google-labs-code/stitch-skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "google-labs-code"
+    },
+    "description": "Design workflows for Google Stitch: convert code to designs, generate screens, manage design systems, extract HTML, and upload assets.",
+    "extensions": {
+      "com.openai": {
+        "interface": {
+          "brandColor": "#1A73E8",
+          "capabilities": [
+            "Interactive",
+            "Write"
+          ],
+          "category": "Design",
+          "defaultPrompt": [
+            "Upload this frontend code into a Stitch project",
+            "Generate a mobile app screen in Stitch",
+            "Apply this DESIGN.md to my Stitch screens"
+          ],
+          "developerName": "google-labs-code",
+          "displayName": "Stitch Design",
+          "longDescription": "Use Google Stitch design workflows to convert frontend code into Stitch designs, generate and edit screens, manage design systems, extract static HTML, extract DESIGN.md files, and upload local assets to Stitch projects.",
+          "screenshots": [],
+          "shortDescription": "Design workflows for Google Stitch",
+          "websiteURL": "https://github.com/google-labs-code/stitch-skills"
+        },
+        "skills": "./skills/"
+      }
+    },
+    "homepage": "https://github.com/google-labs-code/stitch-skills",
+    "keywords": [
+      "stitch",
+      "design",
+      "code-to-design",
+      "design-system",
+      "html-extraction",
+      "mcp",
+      "ui-generation"
+    ],
+    "license": "Apache-2.0",
+    "name": "stitch-design",
+    "repository": "https://github.com/google-labs-code/stitch-skills",
+    "version": "1.0.0"
+  },
+  "skills": {
+    "code-to-design": "plugins/stitch-design/skills/code-to-design",
+    "extract-design-md": "plugins/stitch-design/skills/extract-design-md",
+    "extract-static-html": "plugins/stitch-design/skills/extract-static-html",
+    "generate-design": "plugins/stitch-design/skills/generate-design",
+    "manage-design-system": "plugins/stitch-design/skills/manage-design-system",
+    "upload-to-stitch": "plugins/stitch-design/skills/upload-to-stitch"
+  },
+  "requiredRuntimes": [
+    "node",
+    "npx",
+    "python3"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "meta": {
+    "description": "Design workflows for Google Stitch",
+    "homepage": "https://github.com/google-labs-code/stitch-skills"
+  },
+  "import": {
+    "input": "google-labs-code/stitch-skills",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "plugins/stitch-design/skills/code-to-design/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (stitch*:* Bash Read Write web_fetch)"
+      },
+      {
+        "path": "plugins/stitch-design/skills/code-to-design/SKILL.md/name",
+        "message": "\"stitch::code-to-design\" contains invalid character ':'; only letters, digits, and hyphens are allowed"
+      },
+      {
+        "path": "plugins/stitch-design/skills/code-to-design/SKILL.md/name",
+        "message": "skill name \"stitch::code-to-design\" must match directory name \"code-to-design\""
+      },
+      {
+        "path": "plugins/stitch-design/skills/extract-design-md/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (stitch*:* Bash Read Write web_fetch)"
+      },
+      {
+        "path": "plugins/stitch-design/skills/extract-design-md/SKILL.md/name",
+        "message": "\"stitch::extract-design-md\" contains invalid character ':'; only letters, digits, and hyphens are allowed"
+      },
+      {
+        "path": "plugins/stitch-design/skills/extract-design-md/SKILL.md/name",
+        "message": "skill name \"stitch::extract-design-md\" must match directory name \"extract-design-md\""
+      },
+      {
+        "path": "plugins/stitch-design/skills/extract-static-html/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (stitch*:* Bash Read Write web_fetch)"
+      },
+      {
+        "path": "plugins/stitch-design/skills/extract-static-html/SKILL.md/name",
+        "message": "\"stitch::extract-static-html\" contains invalid character ':'; only letters, digits, and hyphens are allowed"
+      },
+      {
+        "path": "plugins/stitch-design/skills/extract-static-html/SKILL.md/name",
+        "message": "skill name \"stitch::extract-static-html\" must match directory name \"extract-static-html\""
+      },
+      {
+        "path": "plugins/stitch-design/skills/generate-design/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (stitch*:* Bash Read Write web_fetch)"
+      },
+      {
+        "path": "plugins/stitch-design/skills/generate-design/SKILL.md/name",
+        "message": "\"stitch::generate-design\" contains invalid character ':'; only letters, digits, and hyphens are allowed"
+      },
+      {
+        "path": "plugins/stitch-design/skills/generate-design/SKILL.md/name",
+        "message": "skill name \"stitch::generate-design\" must match directory name \"generate-design\""
+      },
+      {
+        "path": "plugins/stitch-design/skills/manage-design-system/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (stitch*:* Bash Read Write web_fetch)"
+      },
+      {
+        "path": "plugins/stitch-design/skills/manage-design-system/SKILL.md/name",
+        "message": "\"stitch::manage-design-system\" contains invalid character ':'; only letters, digits, and hyphens are allowed"
+      },
+      {
+        "path": "plugins/stitch-design/skills/manage-design-system/SKILL.md/name",
+        "message": "skill name \"stitch::manage-design-system\" must match directory name \"manage-design-system\""
+      },
+      {
+        "path": "plugins/stitch-design/skills/upload-to-stitch/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (stitch*:* Bash Read Write web_fetch)"
+      },
+      {
+        "path": "plugins/stitch-design/skills/upload-to-stitch/SKILL.md/name",
+        "message": "\"stitch::upload-to-stitch\" contains invalid character ':'; only letters, digits, and hyphens are allowed"
+      },
+      {
+        "path": "plugins/stitch-design/skills/upload-to-stitch/SKILL.md/name",
+        "message": "skill name \"stitch::upload-to-stitch\" must match directory name \"upload-to-stitch\""
+      }
+    ]
+  }
+}

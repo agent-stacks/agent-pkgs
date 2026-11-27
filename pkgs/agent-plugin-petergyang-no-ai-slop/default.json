@@ -1,6 +1,6 @@
 {
   "name": "petergyang-no-ai-slop",
-  "version": "0.0.0-unstable.2026-09-01.g000650b",
+  "version": "1.0.6",
   "src": {
     "owner": "petergyang",
     "repo": "no-ai-slop",
@@ -10,7 +10,50 @@
   "sourceUrl": "https://github.com/petergyang/no-ai-slop",
   "manifest": {
     "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
-    "name": "petergyang-no-ai-slop"
+    "author": {
+      "name": "Peter Yang",
+      "url": "https://creatoreconomy.so"
+    },
+    "description": "Removes 20+ patterns of AI slop from any piece of writing.",
+    "extensions": {
+      "com.openai": {
+        "interface": {
+          "brandColor": "#D30800",
+          "capabilities": [
+            "Edit",
+            "Detect",
+            "Preserve voice"
+          ],
+          "category": "Productivity",
+          "composerIcon": "./com.openai/assets/no-ai-slop.png",
+          "defaultPrompt": [
+            "(text)",
+            "is this slop? (text)"
+          ],
+          "developerName": "Peter Yang",
+          "displayName": "No AI Slop",
+          "logo": "./com.openai/assets/no-ai-slop.png",
+          "longDescription": "This plugin removes 20+ patterns of AI slop from your writing without flattening your personal voice. Slop patterns that it removes include:\n\nBinary contrasts: “It’s not X. It’s Y.”\n\nThroat-clearing openers: “Here’s the thing,” “Let me be clear”\n\nFaux-insight setups: “What nobody tells you,” “The part everyone misses”\n\nColon reveals: “The best part: it learns.”\n\nFake-profound endings: “The future isn’t coming. It’s already here.”\n\n...and more.\n\nUse it to remove AI slop from your writing or detect named slop patterns in a piece of writing. If you like this plugin, please star it on GitHub: https://github.com/petergyang/no-ai-slop",
+          "privacyPolicyURL": "https://github.com/petergyang/no-ai-slop/blob/main/PRIVACY.md",
+          "shortDescription": "Remove 20+ AI slop patterns",
+          "termsOfServiceURL": "https://github.com/petergyang/no-ai-slop/blob/main/TERMS.md",
+          "websiteURL": "https://creatoreconomy.so/p/use-my-no-ai-slop-skill-to-remove-20-ai-slop-patterns"
+        },
+        "name": "no-ai-slop",
+        "skills": "./skills/"
+      }
+    },
+    "homepage": "https://creatoreconomy.so/p/use-my-no-ai-slop-skill-to-remove-20-ai-slop-patterns",
+    "keywords": [
+      "writing",
+      "editing",
+      "voice",
+      "AI slop"
+    ],
+    "license": "MIT",
+    "name": "petergyang-no-ai-slop",
+    "repository": "https://github.com/petergyang/no-ai-slop",
+    "version": "1.0.6"
   },
   "skills": {
     "no-ai-slop": "skills/no-ai-slop"
@@ -21,14 +64,23 @@
     "python3",
     "nodejs"
   ],
+  "pluginRootPaths": {
+    "com.openai/assets": "assets"
+  },
   "meta": {
-    "description": "Agent plugin imported from https://github.com/petergyang/no-ai-slop",
+    "description": "Removes 20+ patterns of AI slop from any piece of writing",
     "homepage": "https://github.com/petergyang/no-ai-slop"
   },
   "import": {
     "input": "petergyang/no-ai-slop",
     "flags": [
       "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": ".codex-plugin/plugin.json",
+        "message": "plugin \"no-ai-slop\" is imported as \"petergyang-no-ai-slop\", the name its package is published under"
+      }
     ]
   }
 }

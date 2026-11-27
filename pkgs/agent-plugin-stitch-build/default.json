@@ -1,0 +1,135 @@
+{
+  "name": "stitch-build",
+  "version": "1.0.0",
+  "src": {
+    "owner": "google-labs-code",
+    "repo": "stitch-skills",
+    "rev": "75f4696f162000fb69fca6a31489b5b21d47a506",
+    "hash": "sha256-23r3TQtTfVi5rfLf1XDUoEVIw9Tddxn3usrZgZ9/zyw="
+  },
+  "sourceUrl": "https://github.com/google-labs-code/stitch-skills",
+  "manifest": {
+    "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+    "author": {
+      "name": "google-labs-code"
+    },
+    "description": "Code generation and build tools for Google Stitch: convert designs to React components, create Remotion walkthroughs, and integrate shadcn/ui.",
+    "extensions": {
+      "com.openai": {
+        "interface": {
+          "brandColor": "#34A853",
+          "capabilities": [
+            "Interactive",
+            "Write"
+          ],
+          "category": "Coding",
+          "defaultPrompt": [
+            "Convert these Stitch screens to React components",
+            "Generate a walkthrough video for this Stitch project",
+            "Set up shadcn/ui for this design"
+          ],
+          "developerName": "google-labs-code",
+          "displayName": "Stitch Build",
+          "longDescription": "Use Google Stitch build tools to convert Stitch screens into React component systems, generate walkthrough videos with Remotion, and work with shadcn/ui integration patterns.",
+          "screenshots": [],
+          "shortDescription": "Build from Google Stitch designs",
+          "websiteURL": "https://github.com/google-labs-code/stitch-skills"
+        },
+        "skills": "./skills/"
+      }
+    },
+    "homepage": "https://github.com/google-labs-code/stitch-skills",
+    "keywords": [
+      "stitch",
+      "react",
+      "components",
+      "remotion",
+      "shadcn-ui",
+      "code-generation",
+      "video"
+    ],
+    "license": "Apache-2.0",
+    "name": "stitch-build",
+    "repository": "https://github.com/google-labs-code/stitch-skills",
+    "version": "1.0.0"
+  },
+  "skills": {
+    "react-components": "plugins/stitch-build/skills/react-components",
+    "react-native": "plugins/stitch-build/skills/react-native",
+    "react-vite-dashboard": "plugins/stitch-build/skills/react-vite-dashboard",
+    "remotion": "plugins/stitch-build/skills/remotion",
+    "shadcn-ui": "plugins/stitch-build/skills/shadcn-ui"
+  },
+  "requiredRuntimes": [
+    "bash"
+  ],
+  "defaultDependencies": [
+    "bash",
+    "python3",
+    "nodejs"
+  ],
+  "meta": {
+    "description": "Code generation and build tools for Google Stitch",
+    "homepage": "https://github.com/google-labs-code/stitch-skills"
+  },
+  "import": {
+    "input": "google-labs-code/stitch-skills",
+    "flags": [
+      "--pkgs-dir=pkgs"
+    ],
+    "warnings": [
+      {
+        "path": "plugins/stitch-build/skills/react-components/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (stitch*:* Bash Read Write web_fetch)"
+      },
+      {
+        "path": "plugins/stitch-build/skills/react-components/SKILL.md/name",
+        "message": "\"stitch::react-components\" contains invalid character ':'; only letters, digits, and hyphens are allowed"
+      },
+      {
+        "path": "plugins/stitch-build/skills/react-components/SKILL.md/name",
+        "message": "skill name \"stitch::react-components\" must match directory name \"react-components\""
+      },
+      {
+        "path": "plugins/stitch-build/skills/react-native/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (stitch*:* Bash Read Write web_fetch)"
+      },
+      {
+        "path": "plugins/stitch-build/skills/react-native/SKILL.md/name",
+        "message": "\"stitch::react-native\" contains invalid character ':'; only letters, digits, and hyphens are allowed"
+      },
+      {
+        "path": "plugins/stitch-build/skills/react-native/SKILL.md/name",
+        "message": "skill name \"stitch::react-native\" must match directory name \"react-native\""
+      },
+      {
+        "path": "plugins/stitch-build/skills/react-vite-dashboard/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (stitch*:* Read Write Bash web_fetch)"
+      },
+      {
+        "path": "plugins/stitch-build/skills/remotion/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (stitch*:* remotion*:* Bash Read Write web_fetch)"
+      },
+      {
+        "path": "plugins/stitch-build/skills/shadcn-ui/SKILL.md/allowed-tools",
+        "message": "must be a space-separated string, not a list (shadcn*:* mcp_shadcn* Read Write Bash web_fetch)"
+      },
+      {
+        "path": "skills/react-components/scripts/validate.js",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/react-native/scripts/validate.js",
+        "message": "script has no shebang; the build links no interpreter for it and this package is not self-contained"
+      },
+      {
+        "path": "skills/react-components/package.json",
+        "message": "declares dependencies import does not package; package them in this package's custom block, using importNpmLock for its package-lock.json"
+      },
+      {
+        "path": "skills/react-native/package.json",
+        "message": "declares dependencies import does not package; package them in this package's custom block, using importNpmLock for its package-lock.json"
+      }
+    ]
+  }
+}
