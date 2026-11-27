@@ -205,6 +205,12 @@
         buildAgentPlugin = pkgs.callPackage ./lib/build-agent-plugin.nix {
           agent-stacks = (mkPackages pkgs).agent-stacks;
         };
+        # lib/build-agent-model.nix is written by import beside it, and
+        # takes the same package: its bare binary writes each model's
+        # model.json and checks it (agent-stacks ADR 0051).
+        buildAgentModel = pkgs.callPackage ./lib/build-agent-model.nix {
+          agent-stacks = (mkPackages pkgs).agent-stacks;
+        };
         mkAgentStack = pkgs.callPackage ./lib/mk-agent-stack.nix {
           # Every stack runs the agent-stacks CLI from this set. Taken from
           # mkPackages rather than callPackage'd a second time, so the
@@ -228,7 +234,7 @@
           # them. llmAgentsPkgsFor is in scope for
           # pkgs/agent-sandbox-nono, which runs llm-agents.nix's nono.
           scope = {
-            inherit (lib') buildAgentPlugin mkAgentStack;
+            inherit (lib') buildAgentPlugin buildAgentModel mkAgentStack;
             inherit skillspector-src pyproject-nix uv2nix pyproject-build-systems llmAgentsPkgsFor;
           } // built;
           built = nixpkgs.lib.genAttrs (pluginDirs pkgs) (name:
