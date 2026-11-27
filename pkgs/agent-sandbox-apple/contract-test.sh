@@ -13,20 +13,22 @@ fail() {
 root=$PWD
 export HOME=$root/home TMPDIR=$root/tmp
 mkdir -p "$HOME" "$TMPDIR" "$root/bin"
-unset CLAUDE_CODE_OAUTH_TOKEN ANTHROPIC_API_KEY CLAUDE_CODE_PLUGIN_DIRS FLOX_FLOXHUB_TOKEN
+unset CLAUDE_CODE_OAUTH_TOKEN ANTHROPIC_API_KEY CLAUDE_CODE_PLUGIN_DIRS FLOX_FLOXHUB_TOKEN XDG_CONFIG_HOME
 
 # A stub container: --version and system status answer as 1.7.1 does
 # (STUB_VERSION and STUB_NOT_RUNNING change them); anything else is
 # logged, one line of argv, to $STUB_LOG. The image and the volume exist
 # with STUB_IMAGE and STUB_VOLUME (and its seed with STUB_SEED), each
 # volume a file under $STUB_DIR/vols that `volume inspect` names; another
-# VM holds the volume STUB_HELD names. The volume is filled unless
-# STUB_UNFILLED, and its check fails outright, with an error on stderr,
-# with STUB_CHECK_FAIL; the
-# check sleeps STUB_CHECK_SLEEP seconds instead, its pid in
-# $STUB_DIR/check.pid. The agent's run checks the stub proxy is up, runs
-# STUB_RUN_HOOK, prints STUB_RUN_ERR on stderr, sleeps STUB_RUN_SLEEP
-# seconds and exits STUB_RUN_RC.
+# VM, in state STUB_HELD_STATE (running), holds the volume STUB_HELD or
+# $STUB_DIR/held names, and `list -a` fails with STUB_LIST_FAIL. The
+# volume is filled unless STUB_UNFILLED, and its check fails outright,
+# with an error on stderr, with STUB_CHECK_FAIL, or with
+# STUB_HELD_AFTER_CHECK, which then holds that volume; the check sleeps
+# STUB_CHECK_SLEEP seconds instead, its pid in $STUB_DIR/check.pid. The
+# agent's run is listed running with its volume until it ends, checks
+# the stub proxy is up, runs STUB_RUN_HOOK, prints STUB_RUN_ERR on
+# stderr, sleeps STUB_RUN_SLEEP seconds and exits STUB_RUN_RC.
 { echo "#!$(command -v bash)"; cat <<'EOF'
 case "$*" in
   --version) echo "container CLI version ${STUB_VERSION:-1.7.1} (build: release, commit: a15b460)" ;;
@@ -56,16 +58,27 @@ case "$*" in
         mkdir -p "$STUB_DIR/vols/$3" && : >"$STUB_DIR/vols/$3/volume.img" ;;
       "volume delete") rm -rf "${STUB_DIR:?}/vols/$3" ;;
       "list -a")
-        if [ -n "${STUB_HELD:-}" ]; then
-          printf '[{"id":"agent-sandbox-apple-other-abcde","configuration":{"mounts":[{"destination":"/nix","type":{"volume":{"name":"%s"}}}]}}]\n' "$STUB_HELD"
-        else
-          echo '[]'
-        fi ;;
+        [ -z "${STUB_LIST_FAIL:-}" ] || exit 1
+        held=${STUB_HELD:-}
+        [ -n "$held" ] || held=$(cat "$STUB_DIR/held" 2>/dev/null) || held=""
+        {
+          [ -z "$held" ] || echo "agent-sandbox-apple-other-abcde $held ${STUB_HELD_STATE:-running}"
+          for f in "$STUB_DIR"/vms/*; do
+            [ ! -f "$f" ] || echo "${f##*/} $(cat "$f") running"
+          done
+        } | jq -Rsc 'split("\n")[:-1] | map(split(" ") | {id: .[0], status: {state: .[2]},
+          configuration: {mounts: [{destination: "/nix", type: {volume: {name: .[1]}}}]}})' ;;
+      "stop "*|"delete -f") rm -f "$STUB_DIR/vms/${*: -1}" ;;
       run\ *)
         case "$*" in
           *"test -f /nix-cache/.agent-sandbox-apple-filled;"*)
             echo $$ >"$STUB_DIR/check.pid"
             [ -z "${STUB_CHECK_SLEEP:-}" ] || exec sleep "$STUB_CHECK_SLEEP"
+            if [ -n "${STUB_HELD_AFTER_CHECK:-}" ]; then
+              echo "$STUB_HELD_AFTER_CHECK" >"$STUB_DIR/held"
+              echo "Error: stub: volume is in use" >&2
+              exit 1
+            fi
             if [ -n "${STUB_CHECK_FAIL:-}" ]; then
               echo "Error: stub: volume is in use by agent-sandbox-apple-x" >&2
               exit 1
@@ -73,6 +86,17 @@ case "$*" in
             if [ -z "${STUB_UNFILLED:-}" ]; then echo filled; else echo empty; fi ;;
           *guest.sh*)
             echo $$ >"$STUB_DIR/run.pid"
+            # Listed running, with its volume, until it ends.
+            prev="" n="" v=""
+            for a in "$@"; do
+              case $prev in
+                --name) n=$a ;;
+                -v) case $a in *:/nix) v=${a%:/nix} ;; esac ;;
+              esac
+              prev=$a
+            done
+            mkdir -p "$STUB_DIR/vms" && echo "$v" >"$STUB_DIR/vms/$n"
+            trap 'rm -f "$STUB_DIR/vms/$n"' EXIT
             if kill -0 "$(cat "$STUB_DIR/proxy.pid" 2>/dev/null)" 2>/dev/null; then
               echo "proxy up" >>"$STUB_LOG"
             fi
@@ -90,7 +114,7 @@ EOF
 } >"$root/bin/container"
 # A stub proxy: logs its argv and its lists to $STUB_DIR, says ready,
 # and logs TERM when it gets one. STUB_PROXY_DENY_FLOX writes a deny of
-# api.flox.dev into its log.
+# api.flox.dev into its log, STUB_PROXY_ADDS the hosts a plugin added.
 { echo "#!$(command -v bash)"; cat <<'EOF'
 echo "$*" >"$STUB_DIR/proxy.argv"
 while [ $# -gt 0 ]; do
@@ -101,6 +125,7 @@ while [ $# -gt 0 ]; do
       echo "allow api.anthropic.com:443 -> 160.79.104.10" >>"$2"
       [ -z "${STUB_PROXY_DENY_FLOX:-}" ] || echo "deny api.flox.dev:443 (resolve: failed)" >>"$2"
       echo "latch closed" >>"$2"
+      [ -z "${STUB_PROXY_ADDS:-}" ] || echo "allow-list adds $STUB_PROXY_ADDS" >>"$2"
       ;;
   esac
   shift 2
@@ -226,6 +251,11 @@ dry --options '{"claudeConnectors":true}' -- claude >out 2>err || fail "dry run 
 has '.allow | index("mcp-proxy.anthropic.com")'
 has '.env | index("ENABLE_CLAUDEAI_MCP_SERVERS") | not'
 grep -q 'claudeConnectors is on' err || fail "claudeConnectors not named: $(cat err)"
+# Only claude has them: for another agent, the host stays off.
+dry --options '{"claudeConnectors":true}' -- codex >out 2>err || fail "dry run with connectors: $(cat err)"
+has '.allow | index("mcp-proxy.anthropic.com") | not'
+has '.env == []'
+grep -q 'ignored for codex' err || fail "claudeConnectors for codex not named as ignored: $(cat err)"
 
 # --- Secrets -----------------------------------------------------------
 
@@ -328,6 +358,23 @@ for inside in "$p/.git/hooks" "$p/.git" "$p/.flox/env"; do
   done
 done
 refuse "allowRead missing" "" dry --options "$(jq -nc --arg r "$root/missing" '{allowRead: [$r]}')" -- claude
+# The environment's .flox runs its hooks as root in the VM and as the
+# user on the Mac; the user's git config is read by every repository.
+mkenv "$root/envw" '{"name":"envw","version":1}' "$linux_lock"
+for w in "$root/envw" "$root/envw/.flox/env"; do
+  FLOX_ENV_PROJECT=$root/envw refuse "allowWrite of $w" "Flox environment" \
+    dry --options "$(jq -nc --arg w "$w" '{allowWrite: [$w]}')" -- claude
+done
+FLOX_ENV_PROJECT=$root/envw dry --options "$(jq -nc --arg r "$root/envw" '{allowRead: [$r]}')" -- claude >out 2>err ||
+  fail "allowRead of the environment refused: $(cat err)"
+mkdir -p "$HOME/.config/git" "$root/dots"
+touch "$HOME/.config/git/config" "$root/dots/gitconfig"
+ln -s "$root/dots/gitconfig" "$HOME/.gitconfig"
+for w in "$HOME/.config" "$HOME/.config/git" "$HOME/.gitconfig" "$root/dots"; do
+  refuse "allowWrite of $w" "git config every repository" \
+    dry --options "$(jq -nc --arg w "$w" '{allowWrite: [$w]}')" -- claude
+done
+rm -r "$HOME/.gitconfig" "$HOME/.config" "$root/dots"
 dir=$HOME refuse "run at ~" "project folder" dry -- claude
 dir=/ refuse "run at /" "project folder" dry -- claude
 dir=$(dirname "$HOME") refuse "run at a folder holding ~" "project folder" dry -- claude
@@ -402,6 +449,23 @@ ctx=$(sed -n "s|^build -t $(q "$image") ||p" "$STUB_LOG")
 [ -f "$ctx/Containerfile" ] && [ -f "$ctx/guest.sh" ] || fail "build context $ctx is not the share dir"
 [ "${image#*:}" = "$(cat "$ctx/Containerfile" "$ctx/guest.sh" | sha256sum | cut -c1-12)" ] ||
   fail "tag ${image#*:} is not the hash of the Containerfile and guest.sh"
+
+# guest.sh, once activated, hands the proxy the hosts its plugins' MCP
+# servers name, in the latch's X-Allow-Hosts: plain host names only.
+g=$root/guest
+mkdir -p "$g/bin" "$g/env/share/agent-plugins/a" "$g/env/share/agent-plugins/b" "$g/proj"
+echo '{"mcpServers":{"x":{"type":"http","url":"https://user@mcp.example.com:8443/mcp"},"l":{"command":"x"},
+  "bad":{"url":"https://evil host/x"},"hdr":{"url":"https://a.example.com\r\nX-Evil: 1/"}}}' \
+  >"$g/env/share/agent-plugins/a/mcp.json"
+echo '{"mcpServers":{"y":{"url":"http://other.example.org/"}}}' >"$g/env/share/agent-plugins/b/.mcp.json"
+printf '#!%s\ncat >"%s/request"\nprintf "HTTP/1.1 200 Latched\\r\\n\\r\\n"\n' "$(command -v bash)" "$g" >"$g/bin/socat"
+printf '#!%s\nexit 0\n' "$(command -v bash)" >"$g/bin/setpriv"
+chmod +x "$g/bin/socat" "$g/bin/setpriv"
+(PATH=$g/bin:$PATH FLOX_ENV=$g/env bash "$ctx/guest.sh" --activated "$g/proj" claude) 2>"$g/err" ||
+  fail "guest.sh --activated: $(cat "$g/err")"
+offered=$(tr -d '\r' <"$g/request" | sed -n 's/^X-Allow-Hosts: //p' | tr ' ' '\n' | sed '/^$/d' | sort | tr '\n' ' ')
+[ "$offered" = "mcp.example.com other.example.org " ] || fail "guest.sh offered: '$offered' in $(cat -v "$g/request")"
+grep -c $'\r$' "$g/request" | grep -qx 4 || fail "guest.sh's latch is not 4 header lines: $(cat -v "$g/request")"
 for s in image volume fill; do
   grep -qi "^agent-sandbox-apple: .*$s" err || fail "no line before the $s step: $(cat err)"
 done
@@ -482,6 +546,55 @@ launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_SEED=1 STUB_HELD="$volume" AGENT_SANDBOX_
 grep -q 'could not be copied' err || fail "no reason for a failed clone: $(cat err)"
 grep -q 'guest\.sh' "$STUB_LOG" && fail "ran after a failed clone: $(cat "$STUB_LOG")"
 in_order "^volume create $(q "$volume")-" "^volume delete $(q "$volume")-"
+
+# Taken between the look and the check: a copy, not a refusal.
+launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_SEED=1 STUB_HELD_AFTER_CHECK="$volume" -- -- claude
+[ "$rc" = 0 ] || fail "held after the check: exit $rc: $(cat err)"
+in_order "test -f /nix-cache/" "^volume create $(q "$volume")-[a-z0-9]{5}\$" "-v $(q "$volume")-[a-z0-9]{5}:/nix .*guest\.sh claude\$"
+grep -q 'runs on a copy' err || fail "held after the check: the copy not announced: $(cat err)"
+
+# Held by a VM that is not running, most likely left by a killed
+# launch: a copy, and how to remove it.
+launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_SEED=1 STUB_HELD="$volume" STUB_HELD_STATE=stopped -- -- claude
+[ "$rc" = 0 ] || fail "held by a stopped VM: exit $rc: $(cat err)"
+grep -qF "container delete agent-sandbox-apple-other-abcde" err || fail "no hint to delete the stopped VM: $(cat err)"
+launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_SEED=1 STUB_HELD="$volume" -- -- claude
+grep -qF "container delete" err && fail "a running holder taken for a stopped one: $(cat err)"
+
+# container cannot list its VMs: refused, not taken for none.
+launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_LIST_FAIL=1 -- -- claude
+[ "$rc" = 2 ] || fail "an unreadable VM list gave exit $rc: $(cat err)"
+grep -qF "'container list -a' failed" err || fail "no reason for an unreadable VM list: $(cat err)"
+grep -qE 'test -f|guest\.sh' "$STUB_LOG" && fail "checked or ran with an unreadable VM list: $(cat "$STUB_LOG")"
+
+# A VM that took the cache by the time this launch ends: the seed is
+# left alone, as a clone of a volume in use can be half written.
+launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_SEED=1 "STUB_RUN_HOOK=echo $(printf %q "$volume") >$(printf %q "$STUB_DIR/held")" -- -- claude
+[ "$rc" = 0 ] || fail "held at exit: exit $rc: $(cat err)"
+s=$STUB_DIR/vols/$volume-seed/volume.img
+[ ! -e "$s" ] || [ "$(cat "$s")" = "$volume-seed" ] || fail "the seed refreshed from a cache in use"
+
+# Launches take turns: one waits while another checks the cache.
+rm -rf "$STUB_DIR" && mkdir -p "$STUB_DIR" && : >"$STUB_LOG"
+(cd "$dir" && STUB_IMAGE=1 STUB_VOLUME=1 STUB_CHECK_SLEEP=3 exec "$apple" -- claude) >out.a 2>err.a &
+bg=$!
+for _ in $(seq 100); do [ -s "$STUB_DIR/check.pid" ] && break; sleep 0.1; done
+[ -s "$STUB_DIR/check.pid" ] || fail "the first launch's check never started: $(cat err.a)"
+rc=0
+(cd "$dir" && STUB_IMAGE=1 STUB_VOLUME=1 exec "$apple" -- claude) >out 2>err || rc=$?
+wait "$bg" || true
+[ "$rc" = 0 ] || fail "the second launch: exit $rc: $(cat err)"
+grep -q 'waiting for it' err || fail "the second launch did not wait its turn: $(cat err)"
+[ "$(grep -c 'test -f /nix-cache/' "$STUB_LOG")" = 2 ] || fail "not two checks: $(cat "$STUB_LOG")"
+in_order "test -f /nix-cache/" "test -f /nix-cache/" "guest\.sh claude\$"
+
+# The hosts the VM's plugins added to the allow-list are named at exit.
+launch STUB_IMAGE=1 STUB_VOLUME=1 "STUB_PROXY_ADDS=mcp.example.com other.example.org" -- -- claude
+[ "$rc" = 0 ] || fail "plugins' hosts: exit $rc: $(cat err)"
+grep -qF "MCP servers let the agent reach mcp.example.com other.example.org" err ||
+  fail "the plugins' hosts not named: $(cat err)"
+launch STUB_IMAGE=1 STUB_VOLUME=1 -- -- claude
+grep -q 'MCP servers' err && fail "plugins' hosts named with none added: $(cat err)"
 
 # The agent's exit code is the sandbox's, and the clean-up still runs.
 launch STUB_IMAGE=1 STUB_VOLUME=1 STUB_RUN_RC=3 -- -- claude
@@ -801,6 +914,38 @@ launch STUB_IMAGE=1 STUB_VOLUME=1 "STUB_RUN_HOOK=echo evil >$(printf %q "$f")" -
 [ "$rc" = 3 ] || fail "a hook in an allowWrite hooksPath: exit $rc: $(cat err)"
 grep -qF "changed: $f" err || fail "$f not named: $(cat err)"
 git -C "$p" config --unset core.hooksPath
+# An allowWrite path inside a git dir: find below it sees no .git, the
+# git dir it sits in is checked.
+f=$aw/repo/.git/hooks/pre-push
+opts=$(jq -nc --arg a "$aw/repo/.git/hooks" '{allowWrite: [$a]}')
+launch STUB_IMAGE=1 STUB_VOLUME=1 -- --options "$opts" -- claude
+[ "$rc" = 0 ] || fail "allowWrite in a git dir, nothing changed: exit $rc: $(cat err)"
+launch STUB_IMAGE=1 STUB_VOLUME=1 "STUB_RUN_HOOK=echo evil >$(printf %q "$f")" -- --options "$opts" -- claude
+[ "$rc" = 3 ] || fail "a hook in an allowWrite git dir: exit $rc: $(cat err)"
+grep -qF "changed: $f" err || fail "$f not named: $(cat err)"
+rm -f "$f"
+# An allowWrite folder inside a work tree whose config points into it.
+git -C "$aw/repo" config core.hooksPath tools/hooks
+mkdir -p "$aw/repo/tools/hooks"
+f=$aw/repo/tools/hooks/pre-commit
+opts=$(jq -nc --arg a "$aw/repo/tools" '{allowWrite: [$a]}')
+launch STUB_IMAGE=1 STUB_VOLUME=1 "STUB_RUN_HOOK=echo evil >$(printf %q "$f")" -- --options "$opts" -- claude
+[ "$rc" = 3 ] || fail "a hook the enclosing repo's hooksPath names: exit $rc: $(cat err)"
+grep -qF "changed: $f" err || fail "$f not named: $(cat err)"
+git -C "$aw/repo" config --unset core.hooksPath
+# The user's git config, read by every repository, includes a file in
+# an allowWrite folder.
+mkdir -p "$root/dots"
+echo '[user]' >"$root/dots/inc.gitconfig"
+printf '[include]\n\tpath = %s\n' "$root/dots/inc.gitconfig" >"$HOME/.gitconfig"
+f=$root/dots/inc.gitconfig
+opts=$(jq -nc --arg a "$root/dots" '{allowWrite: [$a]}')
+launch STUB_IMAGE=1 STUB_VOLUME=1 -- --options "$opts" -- claude
+[ "$rc" = 0 ] || fail "a global include, nothing changed: exit $rc: $(cat err)"
+launch STUB_IMAGE=1 STUB_VOLUME=1 "STUB_RUN_HOOK=$fsm >>$(printf %q "$f")" -- --options "$opts" -- claude
+[ "$rc" = 3 ] || fail "a changed global include: exit $rc: $(cat err)"
+grep -qF "changed: $f" err || fail "$f not named: $(cat err)"
+rm -r "$HOME/.gitconfig" "$root/dots"
 rm -r "$aw"
 
 # --- The FloxHub hint --------------------------------------------------

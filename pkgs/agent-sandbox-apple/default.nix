@@ -23,18 +23,19 @@
 #   - allows through the proxy (HTTPS CONNECT to host names only, no
 #     private addresses): Claude's hosts, every host an MCP server of
 #     the environment's plugins names (read in the VM, as root, before
-#     the agent starts), and allowedDomains. api.flox.dev, s3.us-east-1.amazonaws.com and
+#     the agent starts, and named at exit), and allowedDomains.
+#     api.flox.dev, s3.us-east-1.amazonaws.com and
 #     cache.nixos.org are open while the environment activates: once
 #     activation ends the proxy refuses new connections to them, though
 #     a tunnel already open to one stays up;
 #   - on any exit but SIGKILL, stops and deletes the VM, stops the
 #     proxy and keeps its log at $TMPDIR/<VM name>.log;
 #   - checks at exit every other git repository in the project and the
-#     allowWrite paths, as git
-#     on the Mac runs the hooks and core.fsmonitor of whichever one it
-#     lands in: each .git or bare repository that is new, or whose hooks
-#     or config changed, is named, and the exit is then 3 (or the
-#     agent's own failure);
+#     allowWrite paths, those they sit in, and what the user's and the
+#     system's git config point into them, as git on the Mac runs the
+#     hooks and core.fsmonitor of whichever one it lands in: each .git
+#     or bare repository that is new, or whose hooks or config changed,
+#     is named, and the exit is then 3 (or the agent's own failure);
 #   - refuses to start at /, at ~ or above it, from a FloxHub-managed
 #     environment, or from one not locked for aarch64-linux.
 #
@@ -45,8 +46,10 @@
 # can attach that volume, so a launch that finds it in use runs on an
 # APFS clone of agent-sandbox-apple-nix-<tag>-seed, a snapshot of the
 # cache taken while no VM held it, and deletes the clone at exit: it
-# starts warm, but what it downloads is not kept. A launch killed with
-# SIGKILL leaves its clone, agent-sandbox-apple-nix-<tag>-<suffix>, for
+# starts warm, but what it downloads is not kept. Launches take turns,
+# through a lock in ~/Library/Caches/agent-sandbox-apple, from their
+# look at the cache until their VM runs. A launch killed with SIGKILL
+# leaves its clone, agent-sandbox-apple-nix-<tag>-<suffix>, for
 # `container volume delete`.
 #
 # Options, all optional. A switch weakens the sandbox, so each one that
@@ -56,7 +59,9 @@
 #   - allowedDomains: hosts added to the allow-list;
 #   - allowRead, allowWrite: more host paths, mounted read-only or
 #     read-write at the same path. Absolute and existing, not holding ~,
-#     and not inside or holding the project;
+#     and not inside or holding the project. allowWrite also not inside
+#     or holding the environment's .flox, nor holding ~/.gitconfig,
+#     git/config under XDG_CONFIG_HOME (~/.config) or /etc/gitconfig;
 #   - writableGit (false): .git read-write rather than read-only. Its
 #     hooks and its config, config.worktree, commondir and gitdir files
 #     at any depth, core.hooksPath and .git itself are fingerprinted
@@ -69,7 +74,8 @@
 #     FLOX_FLOXHUB_TOKEN, for environments with private packages;
 #   - claudeConnectors (false): lets claude use the claude.ai
 #     connectors of the account logged in (mail, Drive and the like) by
-#     allowing mcp-proxy.anthropic.com. Off, claude is started with
+#     allowing mcp-proxy.anthropic.com; other agents ignore it. Off,
+#     claude is started with
 #     ENABLE_CLAUDEAI_MCP_SERVERS=false;
 #   - cpus (4), memory ("4G"): the VM's size.
 #
@@ -113,6 +119,8 @@
   gnugrep,
   gnused,
   git,
+  # Launches of one image take turns at the cache volume.
+  flock,
   # Runs around the VM, its only way out.
   agent-sandbox-apple-proxy,
 }:
@@ -126,7 +134,7 @@ let
 in
 (writeShellApplication {
   name = "agent-sandbox-apple";
-  runtimeInputs = [ jq coreutils diffutils findutils gnugrep gnused git ];
+  runtimeInputs = [ jq coreutils diffutils findutils gnugrep gnused git flock ];
   # The clean-up functions are called only from the EXIT trap, which
   # ShellCheck does not follow.
   excludeShellChecks = [ "SC2329" ];
@@ -272,7 +280,7 @@ in
     # keeps the proxy's log, checks the project's git repositories, and
     # removes $sock_dir. Signals are ignored from here, so a second Ctrl-C
     # cannot cut it short.
-    run_pid="" proxy_pid="" scanned="" git_changed="" cleaned="" copy="" ran=""
+    run_pid="" proxy_pid="" scanned="" git_changed="" cleaned="" copy="" ran="" turn=""
     # The VMs of this launch whose `container run` has not returned. --rm
     # is done by that process, so a run cut short leaves its VM behind,
     # stopped and holding the cache volume, which no later launch can
@@ -305,8 +313,9 @@ in
         container_cmd volume delete "$copy" >/dev/null 2>&1 ||
           echo "agent-sandbox-apple: could not delete the volume $copy: remove it with 'container volume delete $copy'" >&2
       elif [ -n "$ran" ]; then
-        refresh_seed
+        if take_turn 30; then refresh_seed; fi
       fi
+      [ -z "$turn" ] || end_turn
       if [ -n "$proxy_pid" ]; then
         stop "$proxy_pid"
         if [ -f "$sock_dir/proxy.log" ]; then
@@ -314,6 +323,12 @@ in
           kept=''${kept%/}/$vm_name.log
           cp "$sock_dir/proxy.log" "$kept" &&
             echo "agent-sandbox-apple: the proxy's log of this session is $kept" >&2
+          # What the VM's plugins put on the allow-list, and their
+          # subdomains with them, named like allowedDomains.
+          added=$(sed -n 's/^allow-list adds //p' "$sock_dir/proxy.log" | inert | tr '\n' ' ')
+          added=''${added% }
+          [ -z "$added" ] ||
+            echo "agent-sandbox-apple: the plugins' MCP servers let the agent reach $added" >&2
         fi
       fi
       if [ -n "$scanned" ]; then
@@ -379,6 +394,8 @@ in
         export ENABLE_CLAUDEAI_MCP_SERVERS=false
         env_names+=(ENABLE_CLAUDEAI_MCP_SERVERS)
       fi
+    elif on claudeConnectors; then
+      echo "agent-sandbox-apple: claudeConnectors is on, but only claude has them: ignored for $agent" >&2
     fi
 
     # The mounts, each at the same path unless named. container mounts a
@@ -396,6 +413,17 @@ in
       fi
     }
     add_mount "$here" "$here" false
+
+    # The environment's .flox: activation runs its hooks as root in the
+    # VM, and as the user on the Mac.
+    env_flox=$(cd "$proj/.flox" && pwd -P)
+    # The git config every repository on the Mac reads, as named and
+    # with symlinks resolved (a dotfiles link).
+    git_globals=()
+    for c in "$HOME/.gitconfig" "''${XDG_CONFIG_HOME:-$HOME/.config}/git/config" /etc/gitconfig; do
+      git_globals+=("$c")
+      r=$(realpath -m -- "$c") && [ "$r" = "$c" ] || git_globals+=("$r")
+    done
 
     # Every host folder the agent can write: the project, and the
     # allowWrite paths. Git repositories in any of them are checked at
@@ -420,6 +448,16 @@ in
         fi
         if [ -n "$home" ] && within "$home" "$path"; then
           die "$kind: $given holds your home folder"
+        fi
+        if [ "$kind" = allowWrite ]; then
+          if within "$env_flox" "$path" || within "$path" "$env_flox"; then
+            die "allowWrite: $given holds or is inside the Flox environment's $env_flox, whose hooks run as root in the VM and as you on the Mac"
+          fi
+          for c in "''${git_globals[@]}"; do
+            if within "$c" "$path"; then
+              die "allowWrite: $given holds $c, the git config every repository on the Mac reads"
+            fi
+          done
         fi
         if [ "$kind" = allowRead ]; then
           add_mount "$path" "$path" true
@@ -680,9 +718,53 @@ in
           esac
         done
     }
+    # The repositories a writable folder sits in, which find below it
+    # cannot see: git dirs it is inside (an allowWrite path such as
+    # other/.git/hooks), and work trees above it, whose config can point
+    # into it. Not the project's own .git, mounted on its own.
+    outer_state() {
+      local r a d g w seen=" "
+      for r in "''${write_roots[@]}"; do
+        a=$r
+        while [ -n "$a" ]; do
+          a=''${a%/*}
+          d=''${a:-/}
+          g="" w=""
+          case ''${d##*/} in
+            [.][gG][iI][tT]) if [ -d "$d" ]; then g=$d w=''${d%/*}; fi ;;
+          esac
+          if [ -z "$g" ] && [ -e "$d/HEAD" ] &&
+            { { [ -d "$d/objects" ] && [ -d "$d/refs" ]; } || [ -f "$d/commondir" ]; }; then
+            g=$d w=$d
+          elif [ -z "$g" ] && [ -d "$d/.git" ]; then
+            g=$d/.git w=$d
+          elif [ -z "$g" ] && [ -f "$d/.git" ]; then
+            g=$(sed -n '1s/^gitdir: //p' "$d/.git")
+            [ -z "$g" ] || [[ $g = /* ]] || g=$d/$g
+            [ -d "$g" ] && g=$(cd "$g" && pwd -P) || g=""
+            w=$d
+          fi
+          [ -n "$g" ] || continue
+          case $seen in *" $g "*) continue ;; esac
+          seen+="$g "
+          git_dir_state "$g" "''${w:-/}"
+        done
+      done
+    }
+    # The user's and the system's git config, read by every repository
+    # on the Mac: what they point into a writable folder. allowWrite
+    # cannot hold the files themselves.
+    global_state() {
+      local c
+      for c in "''${git_globals[@]}"; do
+        if [ -f "$c" ]; then config_file_state "$c" "$HOME" 2; fi
+      done
+    }
     scan_state() {
       local d
       planted_state
+      outer_state
+      global_state
       # The project's own repository: its .git is mounted on its own, but
       # what its config points into the project is not.
       for d in "''${git_dirs[@]}"; do config_refs "$d" "$here"; done
@@ -692,7 +774,6 @@ in
     # could edit them would run as root in the next session.
     # That is the environment's too when it is a folder of the project.
     [ ! -d "$here/.flox" ] || add_mount "$here/.flox" "$here/.flox" true
-    env_flox=$(cd "$proj/.flox" && pwd -P)
     if [ "$env_flox" != "$here/.flox" ] && within "$env_flox" "$here"; then
       add_mount "$env_flox" "$env_flox" true
     fi
@@ -703,8 +784,9 @@ in
     # plugins of the environment it activates in the VM, not the ones
     # this shell may have staged, so guest.sh reads them there and hands
     # them to the proxy with the latch.
-    allow=$(jq -c '["api.anthropic.com", "platform.claude.com", "claude.ai",
-      "console.anthropic.com"] + (if .claudeConnectors then ["mcp-proxy.anthropic.com"] else [] end)
+    allow=$(jq -c --arg agent "$agent" '["api.anthropic.com", "platform.claude.com", "claude.ai",
+      "console.anthropic.com"]
+      + (if .claudeConnectors and $agent == "claude" then ["mcp-proxy.anthropic.com"] else [] end)
       + .allowedDomains | unique' <<<"$opts")
     # Open only until the agent starts: S3 is every bucket in the region.
     startup='["api.flox.dev", "s3.us-east-1.amazonaws.com", "cache.nixos.org"]'
@@ -787,42 +869,77 @@ in
       f=$(container_cmd volume inspect "$1" 2>/dev/null | jq -r '.[0].configuration.source // empty') || return 1
       [ -n "$f" ] && [ -f "$f" ] && printf '%s\n' "$f"
     }
-    holders() { # <volume>: the VMs, running or stopped, that attach it
-      container_cmd list -a --format json 2>/dev/null |
-        jq -r --arg v "$1" '.[] | select(any(.configuration.mounts[]?; .type.volume.name? == $v)) | .id'
+    # "<VM> <state>" lines of the VMs, running or stopped, that attach
+    # a volume. Fails when container cannot list them, so that nothing
+    # takes an unread list for an empty one.
+    holders() { # <volume>
+      local out
+      out=$(container_cmd list -a --format json 2>/dev/null) || return 1
+      jq -r --arg v "$1" '.[] | select(any(.configuration.mounts[]?; .type.volume.name? == $v))
+        | "\(.id) \(.status.state? // "unknown")"' <<<"$out"
     }
     clone_file() { # <from> <to>: APFS clone, macOS's cp
       "''${AGENT_SANDBOX_APPLE_CLONE:-/bin/cp}" -c "$1" "$2"
     }
-    # Best effort: a seed not refreshed is only older.
+    # Launches of one image take turns from their look at the cache
+    # until their VM runs on what they chose, and a seed refresh takes a
+    # turn too: none can then find the cache free while another launch
+    # is about to attach it. A flock lock, on fd 9, which no long-lived
+    # child keeps open: the kernel drops it with this process, SIGKILL
+    # included.
+    turn_file=$HOME/Library/Caches/agent-sandbox-apple/$volume.lock
+    take_turn() { # <seconds to wait> [<what to say while waiting>]
+      [ -z "$turn" ] || return 0
+      mkdir -p "''${turn_file%/*}" && exec 9>>"$turn_file" || return 1
+      if ! flock -n 9; then
+        [ -z "''${2:-}" ] || say "$2"
+        flock -w "$1" 9 || return 1
+      fi
+      turn=1
+    }
+    end_turn() {
+      [ -n "$turn" ] || return 0
+      flock -u 9 || true
+      exec 9>&-
+      turn=""
+    }
+    # Best effort, in a turn: a seed not refreshed is only older.
     refresh_seed() {
-      local from to
-      [ -z "$(holders "$volume")" ] || return 0
+      local held from to
+      held=$(holders "$volume") && [ -z "$held" ] || return 0
       from=$(vol_file "$volume") || return 0
       container_cmd volume inspect "$seed" >/dev/null 2>&1 ||
         container_cmd volume create "$seed" >/dev/null 2>&1 || return 0
       to=$(vol_file "$seed") || return 0
       # Into place by rename, so a launch cloning the seed gets the old
       # one or the new one whole.
-      if clone_file "$from" "$to.new" 2>/dev/null; then
-        mv -f "$to.new" "$to" || rm -f "$to.new"
+      if clone_file "$from" "$to.new.$suffix" 2>/dev/null; then
+        mv -f "$to.new.$suffix" "$to" || rm -f "$to.new.$suffix"
       else
-        rm -f "$to.new"
+        rm -f "$to.new.$suffix"
       fi
     }
-    use_copy() { # <why>
-      local from to
+    use_copy() { # <holders lines>
+      local from to who stale
+      who=$(head -n 1 <<<"$1" | cut -d ' ' -f 1 | inert)
       from=$(vol_file "$seed") ||
-        die "the Nix cache volume $volume is in use ($1), and there is no copy of it to start from yet: try again once that launch ends"
+        die "the Nix cache volume $volume is in use ($who), and there is no copy of it to start from yet: try again once that launch ends"
       copy=$volume-$suffix
       container_cmd volume create "$copy" >/dev/null 2>&1 || {
         copy=""
-        die "the Nix cache volume $volume is in use ($1), and a volume for a copy could not be made"
+        die "the Nix cache volume $volume is in use ($who), and a volume for a copy could not be made"
       }
       if ! { to=$(vol_file "$copy") && rm -f "$to" && clone_file "$from" "$to"; }; then
-        die "the Nix cache volume $volume is in use ($1), and could not be copied (an APFS clone, which needs the home folder on APFS)"
+        die "the Nix cache volume $volume is in use ($who), and could not be copied (an APFS clone, which needs the home folder on APFS)"
       fi
-      say "the Nix cache is in use by another launch ($1): this one runs on a copy, and what it downloads is not kept"
+      say "the Nix cache is in use by another launch ($who): this one runs on a copy, and what it downloads is not kept"
+      # A VM there that is not running was most likely left by a launch
+      # that was killed: until it goes, every launch runs on a copy.
+      stale=$({ grep -v ' running$' <<<"$1" || true; } | cut -d ' ' -f 1 | inert | tr '\n' ' ')
+      stale=''${stale% }
+      if [ -n "$stale" ]; then
+        say "$stale holds the Nix cache but is not running, likely left by a launch that was killed: until you remove it with 'container delete $stale', launches run on copies and keep nothing they download"
+      fi
       volume=$copy
     }
     ensure_volume() {
@@ -834,7 +951,8 @@ in
         return 0
       fi
       local held
-      held=$(holders "$volume" | head -n 1 | inert)
+      held=$(holders "$volume") ||
+        die "could not list container's VMs, to see whether another launch uses the Nix cache ('container list -a' failed)"
       if [ -n "$held" ]; then
         use_copy "$held"
         return 0
@@ -858,8 +976,9 @@ in
           refresh_seed
           ;;
         *)
-          # Taken between the look and the check.
-          held=$(holders "$volume" | head -n 1 | inert)
+          # Taken between the look and the check, by a VM that is not a
+          # launch's of this image, which take turns.
+          held=$(holders "$volume") || held=""
           if [ -n "$held" ]; then
             use_copy "$held"
             return 0
@@ -870,7 +989,6 @@ in
       esac
     }
     ensure_image
-    ensure_volume
 
     # The proxy, the VM's one way out, on the socket the VM mounts.
     jq -r '.[]' <<<"$allow" >"$sock_dir/allow"
@@ -887,18 +1005,33 @@ in
     scan_state >"$sock_dir/scan.before" || die "could not read the project's git repositories before the run"
     scanned=1
 
+    # The cache, or a copy of it, in this launch's turn, which lasts
+    # until its VM runs.
+    take_turn 120 "another launch of this sandbox is starting its VM: waiting for it" ||
+      die "another launch of this sandbox has been starting its VM for 2 minutes: try again, and if it keeps waiting, look at 'container list -a'"
+    ensure_volume
+
     # Not exec'd: this stays to stop the proxy and clean up. In the
     # background so a signal reaches the trap at once; stdin given
     # explicitly, as a background job would get /dev/null. Its stderr is
-    # kept too, to spot a FloxHub sign-in failure.
+    # kept too, to spot a FloxHub sign-in failure. Neither keeps the
+    # turn's fd.
     mkfifo "$sock_dir/stderr"
-    tee "$sock_dir/run.err" <"$sock_dir/stderr" >&2 &
+    tee "$sock_dir/run.err" <"$sock_dir/stderr" >&2 9>&- &
     tee_pid=$!
     # The program itself, not the function, so $! is its pid.
     leftover+=("$vm_name")
     ran=1
-    "$container" run "''${run_args[@]}" -v "$volume:/nix" "$image" "''${command[@]}" <&0 2>"$sock_dir/stderr" &
+    "$container" run "''${run_args[@]}" -v "$volume:/nix" "$image" "''${command[@]}" <&0 2>"$sock_dir/stderr" 9>&- &
     run_pid=$!
+    # The turn ends once container lists the VM running, with the
+    # volume, or after 30 seconds, or when the run ends first.
+    for _ in $(seq 150); do
+      if held=$(holders "$volume") && grep -qxF "$vm_name running" <<<"$held"; then break; fi
+      kill -0 "$run_pid" 2>/dev/null || break
+      sleep 0.2
+    done
+    end_turn
     status=0
     wait "$run_pid" || status=$?
     run_pid=""
