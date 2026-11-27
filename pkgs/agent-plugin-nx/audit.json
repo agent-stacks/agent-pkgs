@@ -7,13 +7,14 @@
   "plugins": [
     {
       "name": "nx",
-      "dir": "/nix/store/11pzkacf6jj41m949afd624s6mjijwvh-agent-plugin-nx-0.2.36/share/agent-plugins/nx",
+      "dir": "/nix/store/z11s57xwvimaj8lkyidnx29drkijfrl8-agent-plugin-nx-0.2.36/share/agent-plugins/nx",
       "spec": "1.1.0",
       "score": 44,
       "status": "do not install",
       "coverage": {
         "scanned": [
           "com.anthropic.claude-code/agents",
+          "skills/ci-optimization",
           "skills/link-workspace-packages",
           "skills/monitor-ci",
           "skills/nx-cloud-api",
@@ -45,6 +46,97 @@
           "coverage": 100,
           "exceptions": [],
           "findings": [],
+          "suppressed": []
+        },
+        {
+          "path": "skills/ci-optimization",
+          "score": 71,
+          "risk": 29,
+          "status": "caution",
+          "partial": true,
+          "coverage": 100,
+          "exceptions": [
+            {
+              "reason": "reference_missing",
+              "path": "skills/ci-optimization/SKILL.md",
+              "line": 50
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/ci-optimization/SKILL.md",
+              "line": 51
+            },
+            {
+              "reason": "reference_missing",
+              "path": "skills/ci-optimization/SKILL.md",
+              "line": 59
+            }
+          ],
+          "findings": [
+            {
+              "id": "PE3",
+              "severity": "HIGH",
+              "message": "Credential Access",
+              "file": "skills/ci-optimization/references/cache-misses.md",
+              "line": 36
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/ci-optimization/SKILL.md",
+              "line": 20
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/ci-optimization/SKILL.md",
+              "line": 27
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/ci-optimization/SKILL.md",
+              "line": 28
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/ci-optimization/SKILL.md",
+              "line": 29
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/ci-optimization/SKILL.md",
+              "line": 30
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/ci-optimization/references/compute.md",
+              "line": 22
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/ci-optimization/references/flaky-tasks.md",
+              "line": 48
+            },
+            {
+              "id": "RP1",
+              "severity": "MEDIUM",
+              "message": "MCP Rug Pull",
+              "file": "skills/ci-optimization/references/sharding.md",
+              "line": 28
+            }
+          ],
           "suppressed": []
         },
         {
@@ -1355,7 +1447,7 @@
     "mode": "static",
     "osv": {
       "live": true,
-      "checkedAt": "2026-11-20T18:16:22Z"
+      "checkedAt": "2026-11-27T14:31:57Z"
     },
     "baseline": {
       "sha256": "996e9cb6d86be00ebb0672c35cdbc9e88011ee84ce64ef13954679ed1d2cb36f"
