@@ -141,18 +141,26 @@ Codex manifest. It is present for a plugin Claude Code installs (as
 `.codex-plugin/plugin.json`, and for a plugin written only for Codex:
 a directory with `.codex-plugin/plugin.json` and no Claude manifest,
 or an entry of the repository's `.agents/plugins/marketplace.json`.
-For such an entry whose directory has no Codex manifest, the block
-is read from the entry's own fields, and may be the empty object
-`{}`: Codex's defaults, from the package. A Codex listing entry
-naming a directory another plugin holds, such as one the Claude
-listing also names, is that plugin. Its block is read from the
-directory's `.codex-plugin/plugin.json`, or, when the directory holds
-no manifest Codex finds, from the entry's own fields, under the
-entry's name. A directory with `.claude-plugin/plugin.json` is read
-as that Claude plugin, as Codex reads it, and carries the block only
-when it also has `.codex-plugin/plugin.json`. It is never present
-otherwise: without such a manifest the importer drops
-a block an upstream manifest carries, and with one it replaces it,
+Such an entry is read from the manifest Codex finds in its directory,
+which is then the block, and the entry's own fields are not read.
+Only where the directory holds no manifest Codex finds and the entry
+has fields that describe the plugin, or a `category`, are those
+fields the block, less `name`, `source`, `policy` and `category`; it
+may then be the empty object `{}`: Codex's defaults, from the
+package. A Codex listing entry naming a directory another plugin
+holds, such as one the Claude listing also names, is that plugin,
+and the package keeps the name it already has. Its block is read
+from the directory's `.codex-plugin/plugin.json`, or, where the
+directory holds no manifest Codex finds, from the entry's own fields
+by the same rule, the entry's name going only into the block's
+`name`. No block comes from such an entry when it has no such fields,
+when the plugin holding the directory packages nothing, or when an
+earlier entry already gave that plugin one. A directory with
+`.claude-plugin/plugin.json` is read as case 3 reads it, never
+through a Codex entry, though Codex also reads that manifest, and
+carries the block only when it also has `.codex-plugin/plugin.json`.
+It is never present otherwise: without such a manifest the importer
+drops a block an upstream manifest carries, and with one it replaces it,
 warning in both cases unless the block it replaces is empty. The
 builder copies the block into `plugin.json` and reads none of it.
 It keeps Codex's field names and shapes. Each path the importer
@@ -165,27 +173,33 @@ name to its Codex fields, is in agent-stacks-cli's
 `docs/reference/import-command.md`, "Codex manifests", under
 agent-stacks ADR 0043 (*Import records a Codex manifest beside
 a Claude one*, proposed) and agent-stacks ADR 0046 (*Import finds
-plugins written only for Codex*, proposed). Those numbers are in
-the series agent-stacks restarted on 2026-11-17; the page's other
-agent-stacks citations predate it.
+plugins written only for Codex*, proposed). Those two numbers, each
+time this page cites them, are in the series agent-stacks restarted
+on 2026-11-17; the page's other agent-stacks citations predate it.
 
 A plugin written only for Codex carries no Claude hooks or
-components but a `bin/` its skills reference: Claude Code does not
-install it, and its hooks, commands, apps and interface reach Codex
-alone, through the block and `com.openai/`. A skill that references
-one of Claude's root components, such as `commands/` or `agents/`,
-does not have it shipped at the plugin root, where Claude would load
-it. `bin/` ships there, since a skill's own scripts run from it, and
-its commands are listed in `import.warnings`, as for any package; a
-referenced `hooks/` ships with its hooks file blanked (see `hooks`
-below). Which plugins import finds, the name each package
-takes, and the names a replay keeps are import's rules, in that
-reference page under "Finding plugins" and "Replaying a recorded
-import", and in agent-stacks ADR 0046. One of them is a consumer's
-concern: a replay can keep a package that installs the whole
-repository beside the Codex-only packages made from its folders, so
-two installed packages can hold the same skills. That package has no
-Codex manifest, and its `import.warnings` names the name kept.
+components, with two exceptions its skills can reference: a `bin/`,
+and a `hooks/` that ships with its hooks file blanked (see `hooks`
+below). Claude Code does not install it, and its hooks, commands,
+apps and interface reach Codex alone, through the block and
+`com.openai/`. A skill that references one of Claude's other root
+components, such as `commands/` or `agents/`, does not have it
+shipped at the plugin root, where Claude would load it. `bin/` ships
+there, since a skill's own scripts run from it, and its commands are
+listed in `import.warnings`, as for any package. Which plugins import
+finds, including the Codex listing entries it skips with a warning
+and when a Claude listing that packages nothing leaves the Codex
+forms to run, the name each package takes, and the names a replay
+keeps are import's rules, in that reference page under "Finding
+plugins" and "Replaying a recorded import", and in agent-stacks
+ADR 0046. Two of them are a consumer's concern. A replay can give a
+Codex plugin at the repository root the name the repository was
+published under, so the package's name is not the block's `name`,
+which keeps Codex's. And a replay can keep a package that installs
+the whole repository beside the Codex-only packages made from its
+folders, so two installed packages can hold the same skills; that
+package has no Codex manifest. Each package's `import.warnings` names
+the name kept.
 
 `hooks` is present when the plugin has Claude Code hooks: the event
 map Claude reads, merged by the importer from `hooks/hooks.json` and
@@ -202,9 +216,13 @@ ships because a skill references a file there. The builder then
 writes that root `hooks/hooks.json` as `{"hooks": {}}` alone, with
 no events or modules, replacing the Codex hooks file the directory
 brought, so Claude runs none of
-Codex's hooks; Codex's own copy ships under `com.openai/hooks`
-(agent-stacks ADR 0046). The `hooks` a generated `default.nix` binds
-is the `overrideAttrs` function, not this argument.
+Codex's hooks; where Codex has a hooks file, its own copy ships under
+`com.openai/` (agent-stacks ADR 0046). The empty object is written
+alone from the agent-stacks release carrying agent-stacks ADR 0046; a
+binary pinned before it keeps the copied file's `modules` and
+`description` beside the empty event map. The `hooks` a generated
+`default.nix` binds is the `overrideAttrs` function, not this
+argument.
 
 `meta` carries `description` and `homepage`, and `license` only
 when the manifest spells its licence in a way the builder cannot
@@ -224,10 +242,10 @@ element each), and `warnings` (the `{ path, message }` entries
 `agent-stacks check-plugin` raised at import time, plus what import
 found itself: scripts with no shebang, dependency manifests the build
 does not resolve, plugin-root references that are missing or withheld,
-Claude components that are not packaged, and, for a Codex manifest,
-each handler its hooks run, the Codex fields kept for each server,
-each Codex path that ships nothing, and a published name a replay
-kept, which can sit on a package with no Codex manifest). `warnings`
+Claude components that are not packaged, a published name a replay
+kept, which can sit on a package with no Codex manifest, and, for a
+Codex manifest, each handler its hooks run, the Codex fields kept for
+each server, and each Codex path that ships nothing). `warnings`
 is omitted when empty.
 
 `input` and `flags` are replayed by `agent-stacks import <input>
@@ -263,9 +281,11 @@ plugin tree to its path inside `src`. It holds four kinds of entry:
   manifest writes inline, reference that the plugin root does not
   ship (agent-stacks ADR 0043, *Import records a Codex manifest
   beside a Claude one*, and agent-stacks ADR 0046). For a plugin
-  written only for Codex, `hooks/` and `commands/` ship there too
-  when the directory has them, though its manifest does not name
-  them: Codex reads them by default, and the block then names them.
+  written only for Codex, `hooks/` ships there too when its manifest
+  names no hooks and `hooks/hooks.json` is a file, and `commands/`
+  when the manifest names no commands and `commands/` is a
+  directory: Codex reads them by default, and the block then names
+  them.
   Launch,
   from the agent-stacks release carrying that record, never stages
   `com.openai/` for Claude, so a hooks file there reaches Codex
